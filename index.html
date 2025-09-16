@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reyes IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    /* ---------- NAVBAR ---------- */
+    header {
+      background: #1a2537;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header img {
+      height: 48px; /* aumentado de 40px a 48px (20% más) */
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #c09b5a;
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #c09b5a;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .btn-ingresar {
+      background: #c09b5a !important;
+      color: #fff !important;
+      padding: 0.5rem 1rem !important;
+      border-radius: 6px !important;
+      font-weight: 600 !important;
+      transition: background 0.3s ease !important;
+    }
+
+    .btn-ingresar:hover {
+      background: #a07b3a !important;
+      color: #fff !important;
+    }
+
+    .btn-ingresar::after {
+      display: none !important;
+    }
+
+    /* ---------- HERO (Collage) ---------- */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 90vh;
+      background: url('collage.png') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.35));
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.82);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      padding: 1.6rem 1.8rem;
+      border-radius: 16px;
+      max-width: 520px;
+    }
+
+    .hero-overlay h1 {
+      font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.8rem;
+      color: #111;
+    }
+
+    .hero-overlay p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin: 0 auto 1.6rem;
+      color: #2b2b2b;
+      max-width: 60ch;
+    }
+
+    .hero-overlay .btn {
+      background: #1a2537;
+      color: #fff;
+      padding: 0.8rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.1s ease;
+      display: inline-block;
+      box-shadow: 0 6px 16px rgba(26, 37, 55, 0.35);
+    }
+
+    .hero-overlay .btn:hover {
+      background: #24334f;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .hero-overlay .btn:focus-visible {
+      outline: 3px solid #c09b5a;
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        height: 80vh;
+      }
+      .hero-overlay {
+        padding: 1.25rem 1.25rem 1.4rem;
+        border-radius: 12px;
+      }
+      .hero-overlay p {
+        font-size: 1rem;
+      }
+    }
+
+    /* ---------- SECCIÓN SERVICIOS ---------- */
+    .services {
+      padding: 4rem 2rem;
+      background: #f9f9f9;
+    }
+
+    .services h2 {
+      margin-bottom: 3rem;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      flex: 1 1 300px;
+      max-width: 320px;
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .card h3 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.85rem; /* reducido de 0.9rem a 0.85rem */
+      color: #374151;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .services .btn-center {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .services .btn {
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      color: #fff;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .services .btn:hover {
+      background: linear-gradient(135deg, #a07b3a, #c09b5a);
+    }
+
+    /* ---------- QUIÉN SOY ---------- */
+    .about {
+      background: #0f1720;
+      color: #e6e6e6;
+      padding: 4.5rem 1rem; /* menos espacio lateral para acercar el avatar */
+    }
+
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.6fr 1.6fr 1fr; /* avatar más compacto, texto más ancho */
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about h2 {
+      text-align: left;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .about .lead {
+      font-size: 0.88rem; /* reducido de 0.92rem a 0.88rem */
+      line-height: 1.7;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+    }
+
+    .about-avatar {
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-avatar .avatar {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      border: 3px solid rgba(255,255,255,0.15);
+      background: #0f1720;
+    }
+
+    .about .bullets {
+      margin-top: 0.75rem;
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .about .bullets li {
+      font-size: 0.88rem; /* reducido de 0.92rem a 0.88rem para consistencia */
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .about .bullets li::before {
+      content: "•";
+      color: #c09b5a;
+      margin-right: 0.5rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 120px; /* altura fija uniforme */
+      width: 100%; /* ancho completo del grid */
+    }
+
+    .stat .num {
+      display: block;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #fff;
+    }
+
+    .stat .label {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+
+    .logos {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr)); /* tres columnas en desktop */
+      gap: 1rem 1.25rem;
+      align-items: center;
+      justify-items: center;
+    }
+
+    .logo-pill {
+      background: #111827;
+      color: #e5e7eb;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+
+    .logos img {
+      width: 120px;      /* mismo ancho para todos */
+      height: 28px;      /* misma altura para todos */
+      object-fit: contain;
+      filter: grayscale(100%) brightness(1.15);
+      opacity: 0.9;
+      transition: filter 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .logos img:hover { filter: none; opacity: 1; transform: translateY(-1px); }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; row-gap: 1.5rem; }
+      .about-avatar { order: -1; }
+      .stats { grid-template-columns: repeat(3, 1fr); }
+      .logos { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      .about-avatar .avatar { width: 120px; height: 120px; }
+    }
+
+    /* ---------- MI VALOR DIFERENCIAL ---------- */
+    .valor-diferencial {
+      padding: 4rem 2rem;
+      background: #fff;
+    }
+
+    .valor-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .valor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .valor-card {
+      text-align: center;
+    }
+
+    .valor-image {
+      margin-bottom: 1.5rem;
+    }
+
+    .valor-image img {
+      width: 100%;
+      height: 280px; /* más alto para evitar cortar elementos importantes */
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .valor-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .valor-card p {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #374151;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .valor-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .valor-image img {
+        height: 220px;
+      }
+    }
+
+    /* ---------- TESTIMONIOS ---------- */
+    .testimonials {
+      background: #f6f7f9;
+      padding: 4.5rem 1.5rem;
+    }
+
+    .testimonials .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonials h2 {
+      color: #27485a;
+      letter-spacing: 0.5px;
+      margin-bottom: 2.25rem;
+    }
+
+    .testimonial-slider { position: relative; }
+    .slider-viewport {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 0.5rem;
+    }
+    .slider-viewport::-webkit-scrollbar { display: none; }
+
+    .slider-track {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .testimonial-card {
+      text-align: center;
+      flex: 0 0 calc(33.333% - 1.333rem); /* 3 por vista en desktop */
+      scroll-snap-align: start;
+    }
+
+    .testimonial-avatar {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      margin: 0 auto 1.25rem;
+      background: #e5e7eb;
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+      color: #1a1a1a;
+    }
+
+    .testimonial-role { color: #475569; font-size: 0.95rem; }
+
+    .testimonial-text {
+      margin-top: 0.75rem;
+      color: #334155;
+      font-size: 0.9rem; /* reducido de 0.95rem */
+      line-height: 1.7;
+    }
+
+    .slider-nav {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .slider-btn {
+      pointer-events: all;
+      background: rgba(0,0,0,0.35);
+      color: #fff;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+    .slider-btn:hover { background: rgba(0,0,0,0.5); }
+
+    @media (max-width: 1200px) {
+      .testimonial-card { flex-basis: calc(50% - 1rem); } /* 2 por vista */
+    }
+    @media (max-width: 700px) {
+      .testimonial-card { flex-basis: 100%; } /* 1 por vista */
+      .testimonial-avatar { width: 180px; height: 180px; }
+    }
+
+    /* ---------- BLOG ---------- */
+    .blog {
+      background: #0f1720; /* oscuro para empalmar con footer */
+      padding: 4rem 1.5rem;
+      color: #e6e6e6;
+    }
+    .blog .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .blog h2 {
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+    .blog p { color: #cbd5e1; }
+    .blog .soon {
+      display: inline-block;
+      margin-top: 0.75rem;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      background: #111827;
+      color: #e5e7eb;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: #1a2537;
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    footer a {
+      color: #c09b5a;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <img src="logo reyes IA horizontal blanco.png" alt="Reyes IA Logo">
+    <nav>
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#quien-soy">Quién soy</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#intranet" class="btn-ingresar">Ingresar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="hero-overlay">
+      <h1>Enseño a ocupar Inteligencia Artificial a empresas y personas</h1>
+      <p>Capacito a empresas y personas sobre cómo sacarle provecho a la IA de manera simple y práctica.</p>
+      <a href="#servicios" class="btn">Comienza tu aprendizaje de IA</a>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="services">
+    <h2>Mis Servicios</h2>
+    <div class="card-container">
+      <div class="card">
+        <h3>💻 Talleres Prácticos de IA</h3>
+        <p>Cursos presenciales para empresas que buscan aprender a usar IA de forma aplicada. Desde talleres introductorios hasta programas específicos: Copilot, Gemini, ChatGPT, creación de contenido, ventas, legal y más áreas clave.</p>
+      </div>
+      <div class="card">
+        <h3>🚀 Adopción Profunda de IA</h3>
+        <p>Programa de transformación de cuatro meses con ocho sesiones quincenales. Se capacita a gerentes y embajadores en uso real de IA, con casos prácticos sobre problemas propios y medición de progreso mediante KPIs claros.</p>
+      </div>
+      <div class="card">
+        <h3>👥 Clases Grupales de IA</h3>
+        <p>Entrenamiento presencial en grupos reducidos de seis a diez personas. Incluye tres clases de dos horas con enfoque intensivo, práctica aplicada, feedback directo y metodología “hands-on” para ganar confianza en el uso profesional.</p>
+      </div>
+    </div>
+    <div class="btn-center">
+      <a href="#contacto" class="btn">Contáctanos</a>
+    </div>
+  </section>
+
+  <!-- QUIÉN SOY -->
+  <section id="quien-soy" class="about">
+    <div class="about-inner">
+      <div class="about-grid">
+        <div class="about-avatar">
+          <img src="icon reyes IA.png" alt="Icono Felipe Reyes" class="avatar">
+        </div>
+        <div class="about-text">
+          <h2>¿Quién soy?</h2>
+          <p class="lead">
+            Felipe Reyes es un destacado emprendedor en el ámbito de las tecnologías avanzadas e Inteligencia Artificial. Cofundador de LAP Global y Reyes IA, se desempeña también como profesor universitario de Inteligencia Artificial. Además, Felipe es mentor de startups tecnológicas que integran IA en los programas Startup Chile y UDD Ventures. En el ámbito de los medios, lidera un espacio de IA en el programa Clave Morse, transmitido en Radio La Clave (92.9).
+          </p>
+          <ul class="bullets">
+            <li>+10 años cofundando empresas tech</li>
+            <li>Profesor universitario de Inteligencia Artificial</li>
+            <li>Mentor de startups y consultor en adopción de IA</li>
+          </ul>
+        </div>
+        <div class="about-aside">
+          <div class="stats">
+            <div class="stat"><span class="num">+110</span><span class="label">Empresas capacitadas</span></div>
+            <div class="stat"><span class="num">+2.500</span><span class="label">Personas capacitadas</span></div>
+            <div class="stat"><span class="num">+7</span><span class="label">Expositor summits</span></div>
+          </div>
+          <div class="logos">
+            <img src="COPEC logo blanco.png" alt="COPEC">
+            <img src="ENEL logo blanco.png" alt="ENEL">
+            <img src="CLARO logo rojo.png" alt="CLARO">
+            <img src="SKC logo azul.png" alt="SKC">
+            <img src="SKECHERS logo blanco.png" alt="SKECHERS">
+            <img src="LARRAIN logo.png" alt="Larraín y Asociados">
+            <img src="MARINOVIC logo blanco.png" alt="Marinovic & Alcalde">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MI VALOR DIFERENCIAL -->
+  <section id="valor-diferencial" class="valor-diferencial">
+    <div class="valor-container">
+      <div class="valor-grid">
+        <div class="valor-card">
+          <div class="valor-image">
+            <img src="clases01.jpg" alt="Equipo trabajando con IA">
+          </div>
+          <h3>🍐🍎 Mi valor diferencial</h3>
+          <p>Mi estilo de enseñar IA es distinto al del común experto en esta área. Explico Inteligencia Artificial de forma simple y fácil, con un enfoque cercano y humano. He capacitado a muchas personas, por lo que conozco bien los temores y resistencias. Con eso logro motivar a la gente a aprender y aprovechar la IA.</p>
+        </div>
+        <div class="valor-card">
+          <div class="valor-image">
+            <img src="clases02.jpg" alt="Taller práctico de IA">
+          </div>
+          <h3>Metodología Hands-On</h3>
+          <p>Mi metodología se basa 100% en el aprendizaje práctico. Mis alumnos aprenden a usar IA resolviendo desafíos reales, automatizando tareas y aplicando el conocimiento en su propio contexto. La metodologia "hands-on" incentiva que cada alumno pruebe diversas herramientas y vaya resolviendo tareas con IA.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios" class="testimonials">
+    <div class="container">
+      <h2>Testimonios, cambios de mindset!</h2>
+      <div class="testimonial-slider">
+        <div class="slider-viewport">
+          <div class="slider-track">
+            <div class="testimonial-card">
+              <img src="andreaO.png" alt="Andrea Obaid" class="testimonial-avatar">
+              <div class="testimonial-name">Andrea Obaid</div>
+              <div class="testimonial-role">Periodista científica - ADN / TVN</div>
+              <p class="testimonial-text">
+                Felipe es un visionario en la educación en IA y entrega herramientas muy útiles para aplicarlas cada día. Seguir sus contenidos y tomar su curso me ayudó a mejorar mi trabajo e investigar mejor.
+              </p>
+            </div>
+            <div class="testimonial-card">
+              <img src="raulM.png" alt="Raúl Molina" class="testimonial-avatar">
+              <div class="testimonial-name">Raúl Molina</div>
+              <div class="testimonial-role">Cofundador y Gerente Comercial, Copperprotek</div>
+              <p class="testimonial-text">
+                Aprender sobre IA con Felipe fue un antes y un después. Lo complejo se volvió útil y práctico; hoy tomo decisiones más inteligentes y mejoro procesos con lo aprendido.
+              </p>
+            </div>
+            <div class="testimonial-card">
+              <img src="maidaB.png" alt="Magdalena Brzovic" class="testimonial-avatar">
+              <div class="testimonial-name">Magdalena Brzovic</div>
+              <div class="testimonial-role">Abogada PUC, columnista</div>
+              <p class="testimonial-text">
+                Felipe es un gran profe. Me ayudó a aprender cómo usar estas herramientas de IA que hoy son una economía de tiempo. Explica todo en fácil y cercano. 100% recomendado.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="slider-nav">
+          <button class="slider-btn" id="prevTest">‹</button>
+          <button class="slider-btn" id="nextTest">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" class="blog">
+    <div class="container">
+      <h2>Blog sobre Inteligencia Artificial</h2>
+      <p>Estoy preparando artículos prácticos y simples para ayudarte a aprovechar la IA en tu día a día.</p>
+      <span class="soon">Próximamente</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contacto">
+    <p>📧 <a href="mailto:felipe@reyesIA.com">felipe@reyesIA.com</a></p>
+    <p>
+      🌐 <a href="https://www.linkedin.com/in/felipereyespolanco" target="_blank">LinkedIn</a> |
+      📸 <a href="https://www.instagram.com/reyesdelaia/" target="_blank">Instagram</a>
+    </p>
+    <p>© 2024 ReyesIA. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
