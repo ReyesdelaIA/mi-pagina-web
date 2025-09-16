@@ -116,11 +116,11 @@
     .hero-overlay {
       position: relative;
       z-index: 1;
-      background: rgba(255, 255, 255, 0.82);
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      background: rgba(255, 255, 255, 0.75);
+      -webkit-backdrop-filter: blur(15px);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       padding: 1.6rem 1.8rem;
       border-radius: 16px;
       max-width: 520px;
@@ -173,9 +173,14 @@
       .hero-overlay {
         padding: 1.25rem 1.25rem 1.4rem;
         border-radius: 12px;
+        max-width: 90%;
+        margin: 0 auto;
+      }
+      .hero-overlay h1 {
+        font-size: clamp(1.4rem, 4vw, 1.8rem);
       }
       .hero-overlay p {
-        font-size: 1rem;
+        font-size: 0.95rem;
       }
     }
 
