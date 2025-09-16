@@ -42,20 +42,60 @@
       height: 48px; /* aumentado de 40px a 48px (20% más) */
     }
 
-    nav ul {
+    /* Menú desktop */
+    .nav-desktop {
       display: flex;
       gap: 2rem;
       list-style: none;
     }
+    
+    /* Menú móvil */
+    .nav-mobile {
+      display: none;
+      list-style: none;
+    }
+    
+    /* Botón hamburguesa */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 1001;
+    }
+    
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      margin: 3px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
 
-    nav ul li a {
+    .nav-desktop li a,
+    .nav-mobile li a {
       text-decoration: none;
       color: #fff;
       font-weight: 500;
       position: relative;
     }
 
-    nav ul li a::after {
+    .nav-desktop li a::after {
       content: "";
       position: absolute;
       width: 0;
@@ -66,11 +106,11 @@
       transition: width 0.3s ease;
     }
 
-    nav ul li a:hover {
+    .nav-desktop li a:hover {
       color: #c09b5a;
     }
 
-    nav ul li a:hover::after {
+    .nav-desktop li a:hover::after {
       width: 100%;
     }
 
@@ -183,17 +223,51 @@
         font-size: 0.95rem;
       }
       
-      /* Navbar responsivo - solución mejor */
-      nav ul {
-        gap: 1.5rem;
+      /* Menú hamburguesa para móvil */
+      .nav-desktop {
+        display: none;
       }
-      nav ul li a {
-        font-size: 0.95rem;
-        white-space: nowrap;
+      
+      .hamburger {
+        display: flex;
       }
+      
+      .nav-mobile {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #1a2537;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+      }
+      
+      .nav-mobile.active {
+        right: 0;
+      }
+      
+      .nav-mobile li a {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+      
+      .nav-mobile li a:hover {
+        background: rgba(192, 155, 90, 0.2);
+      }
+      
       .btn-ingresar {
-        padding: 0.5rem 1rem !important;
-        font-size: 0.9rem !important;
+        background: #c09b5a !important;
+        padding: 0.8rem 1.5rem !important;
+        border-radius: 8px !important;
+        font-size: 1rem !important;
       }
     }
 
@@ -713,8 +787,26 @@
   <!-- HEADER -->
   <header>
     <img src="logo reyes IA horizontal blanco.png" alt="Reyes IA Logo">
+    
+    <!-- Botón hamburguesa -->
+    <button class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
     <nav>
-      <ul>
+      <!-- Menú desktop -->
+      <ul class="nav-desktop">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#quien-soy">Quién soy</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#intranet" class="btn-ingresar">Ingresar</a></li>
+      </ul>
+      
+      <!-- Menú móvil -->
+      <ul class="nav-mobile" id="navMobile">
         <li><a href="#inicio">Inicio</a></li>
         <li><a href="#quien-soy">Quién soy</a></li>
         <li><a href="#servicios">Servicios</a></li>
@@ -927,6 +1019,41 @@
     if (window.location.href.includes('formspree.io/thanks')) {
       window.location.href = 'https://reyesia.com/gracias.html';
     }
+
+    // Menú hamburguesa
+    const hamburger = document.getElementById('hamburger');
+    const navMobile = document.getElementById('navMobile');
+    const body = document.body;
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMobile.classList.toggle('active');
+      
+      // Prevenir scroll cuando el menú está abierto
+      if (navMobile.classList.contains('active')) {
+        body.style.overflow = 'hidden';
+      } else {
+        body.style.overflow = '';
+      }
+    });
+
+    // Cerrar menú al hacer click en un enlace
+    navMobile.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        hamburger.classList.remove('active');
+        navMobile.classList.remove('active');
+        body.style.overflow = '';
+      }
+    });
+
+    // Cerrar menú al hacer click fuera
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !navMobile.contains(e.target)) {
+        hamburger.classList.remove('active');
+        navMobile.classList.remove('active');
+        body.style.overflow = '';
+      }
+    });
 
     // Manejar envío del formulario
     document.getElementById('contactForm').addEventListener('submit', function(e) {
