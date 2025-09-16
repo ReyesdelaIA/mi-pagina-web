@@ -853,7 +853,7 @@
       <h2>¿Listo para transformar tu empresa con IA?</h2>
       <p>Cuéntame sobre tu proyecto y cómo puedo ayudarte a implementar Inteligencia Artificial de forma práctica y efectiva.</p>
       
-      <form class="contact-form" action="https://formspree.io/f/mvgbjoyy" method="POST">
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/mvgbjoyy" method="POST">
         <input type="hidden" name="_next" value="https://reyesia.com/gracias.html">
         <input type="hidden" name="_subject" value="Nuevo mensaje desde reyesia.com">
         <div class="form-row">
@@ -903,5 +903,49 @@
     </p>
     <p>© 2024 ReyesIA. Todos los derechos reservados.</p>
   </footer>
+
+  <script>
+    // Detectar si viene de Formspree y redirigir
+    if (window.location.href.includes('formspree.io/thanks')) {
+      window.location.href = 'https://reyesia.com/gracias.html';
+    }
+
+    // Manejar envío del formulario
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const submitButton = this.querySelector('.btn-submit');
+      const originalText = submitButton.textContent;
+      
+      // Mostrar estado de carga
+      submitButton.textContent = 'Enviando...';
+      submitButton.disabled = true;
+      
+      fetch('https://formspree.io/f/mvgbjoyy', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Redirigir a página de agradecimiento
+          window.location.href = 'https://reyesia.com/gracias.html';
+        } else {
+          throw new Error('Error al enviar el formulario');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        submitButton.textContent = 'Error - Intenta de nuevo';
+        submitButton.disabled = false;
+        setTimeout(() => {
+          submitButton.textContent = originalText;
+        }, 3000);
+      });
+    });
+  </script>
 </body>
 </html>
