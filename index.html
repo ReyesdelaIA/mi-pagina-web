@@ -156,7 +156,7 @@
     .hero-overlay {
       position: relative;
       z-index: 1;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.85);
       -webkit-backdrop-filter: blur(15px);
       backdrop-filter: blur(15px);
       border: 1px solid rgba(255, 255, 255, 0.4);
@@ -184,21 +184,22 @@
     }
 
     .hero-overlay .btn {
-      background: #1a2537;
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
       color: #fff;
       padding: 0.8rem 1.6rem;
       border-radius: 8px;
       font-weight: 600;
       text-decoration: none;
-      transition: background 0.25s ease, color 0.25s ease, transform 0.1s ease;
+      transition: all 0.3s ease;
       display: inline-block;
-      box-shadow: 0 6px 16px rgba(26, 37, 55, 0.35);
+      box-shadow: 0 6px 16px rgba(192, 155, 90, 0.35);
     }
 
     .hero-overlay .btn:hover {
-      background: #24334f;
+      background: linear-gradient(135deg, #a07b3a, #c09b5a);
       color: #fff;
       transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(192, 155, 90, 0.4);
     }
 
     .hero-overlay .btn:focus-visible {
