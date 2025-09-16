@@ -573,6 +573,105 @@
       border: 1px solid rgba(255,255,255,0.08);
     }
 
+    /* ---------- CONTACTO ---------- */
+    .contacto {
+      background: #ffffff;
+      padding: 4rem 2rem;
+    }
+
+    .contacto .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .contacto h2 {
+      color: #1a1a1a;
+      margin-bottom: 1rem;
+    }
+
+    .contacto p {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-form {
+      background: #f8fafc;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #c09b5a;
+      box-shadow: 0 0 0 3px rgba(192, 155, 90, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      color: #fff;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-submit:hover {
+      background: linear-gradient(135deg, #a07b3a, #c09b5a);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .contact-form {
+        padding: 1.5rem;
+      }
+    }
+
     /* ---------- FOOTER ---------- */
     footer {
       background: #1a2537;
@@ -745,6 +844,51 @@
       <h2>Blog sobre Inteligencia Artificial</h2>
       <p>Estoy preparando artículos prácticos y simples para ayudarte a aprovechar la IA en tu día a día.</p>
       <span class="soon">Próximamente</span>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="contacto">
+    <div class="container">
+      <h2>¿Listo para transformar tu empresa con IA?</h2>
+      <p>Cuéntame sobre tu proyecto y cómo puedo ayudarte a implementar Inteligencia Artificial de forma práctica y efectiva.</p>
+      
+      <form class="contact-form" action="https://formspree.io/f/mvgbjoyy" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre completo *</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="empresa">Empresa</label>
+            <input type="text" id="empresa" name="empresa">
+          </div>
+          <div class="form-group">
+            <label for="servicio">Servicio de interés</label>
+            <select id="servicio" name="servicio">
+              <option value="">Selecciona una opción</option>
+              <option value="talleres">Talleres Prácticos de IA</option>
+              <option value="adopcion">Adopción Profunda de IA</option>
+              <option value="clases">Clases Grupales de IA</option>
+              <option value="consultoria">Consultoría personalizada</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="mensaje">Mensaje *</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Cuéntame sobre tu proyecto, objetivos y cómo puedo ayudarte..." required></textarea>
+        </div>
+        
+        <button type="submit" class="btn-submit">Enviar mensaje</button>
+      </form>
     </div>
   </section>
 
