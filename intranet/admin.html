@@ -148,6 +148,63 @@
             font-weight: 600;
         }
 
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .user-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .user-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .user-header h3 {
+            color: #1a1a1a;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .user-info {
+            margin-bottom: 1rem;
+        }
+
+        .user-info p {
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+
+        .user-info strong {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
         .btn-approve {
             background: #16a34a;
             color: white;
@@ -362,37 +419,43 @@
             }
 
             container.innerHTML = `
-                <table class="users-table">
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Estado</th>
-                            <th>Fecha de Registro</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${users.map(user => `
-                            <tr>
-                                <td>${user.email}</td>
-                                <td>
-                                    <span class="status-${user.status}">${getStatusText(user.status)}</span>
-                                </td>
-                                <td>${new Date(user.createdAt).toLocaleDateString()}</td>
-                                <td>
-                                    ${user.status === 'pending' ? `
-                                        <button class="btn-approve" onclick="updateUserStatus('${user.id}', 'approved')">
-                                            Aprobar
-                                        </button>
-                                        <button class="btn-reject" onclick="updateUserStatus('${user.id}', 'rejected')">
-                                            Rechazar
-                                        </button>
-                                    ` : ''}
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
+                <div class="users-grid">
+                    ${users.map(user => `
+                        <div class="user-card">
+                            <div class="user-header">
+                                <h3>${user.nombre}</h3>
+                                <span class="status-${user.status}">${getStatusText(user.status)}</span>
+                            </div>
+                            <div class="user-info">
+                                <p><strong>Email:</strong> ${user.email}</p>
+                                <p><strong>Empresa:</strong> ${user.empresa}</p>
+                                <p><strong>Cargo:</strong> ${user.cargo}</p>
+                                ${user.telefono ? `<p><strong>Teléfono:</strong> ${user.telefono}</p>` : ''}
+                                <p><strong>Motivo:</strong> ${user.motivo}</p>
+                                <p><strong>Registro:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
+                                ${user.approvedAt ? `<p><strong>Aprobado:</strong> ${new Date(user.approvedAt).toLocaleDateString()}</p>` : ''}
+                            </div>
+                            <div class="user-actions">
+                                ${user.status === 'pending' ? `
+                                    <button class="btn-approve" onclick="updateUserStatus('${user.id}', 'approved')">
+                                        ✓ Aprobar
+                                    </button>
+                                    <button class="btn-reject" onclick="updateUserStatus('${user.id}', 'rejected')">
+                                        ✗ Rechazar
+                                    </button>
+                                ` : user.status === 'approved' ? `
+                                    <button class="btn-reject" onclick="updateUserStatus('${user.id}', 'rejected')">
+                                        ✗ Rechazar
+                                    </button>
+                                ` : `
+                                    <button class="btn-approve" onclick="updateUserStatus('${user.id}', 'approved')">
+                                        ✓ Aprobar
+                                    </button>
+                                `}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
             `;
         }
 

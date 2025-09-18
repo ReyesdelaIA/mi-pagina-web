@@ -48,10 +48,17 @@ db.serialize(() => {
     // Tabla de usuarios
     db.run(`CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nombre TEXT NOT NULL,
         email TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL,
+        empresa TEXT NOT NULL,
+        cargo TEXT NOT NULL,
+        telefono TEXT,
+        motivo TEXT NOT NULL,
         status TEXT DEFAULT 'pending',
-        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        approvedAt DATETIME,
+        approvedBy TEXT
     )`);
 
     // Tabla de archivos
@@ -71,8 +78,8 @@ db.serialize(() => {
     db.get('SELECT * FROM users WHERE email = ?', [adminEmail], (err, row) => {
         if (!row) {
             bcrypt.hash(adminPassword, 10, (err, hash) => {
-                db.run('INSERT INTO users (email, password, status) VALUES (?, ?, ?)', 
-                    [adminEmail, hash, 'approved']);
+                db.run('INSERT INTO users (nombre, email, password, empresa, cargo, motivo, status) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+                    ['Felipe Reyes', adminEmail, hash, 'ReyesIA', 'Fundador', 'Usuario administrador', 'approved']);
                 console.log('Usuario admin creado:', adminEmail);
             });
         }
@@ -137,25 +144,44 @@ app.post('/api/auth/login', async (req, res) => {
     });
 });
 
-// Registro de usuarios (para futuras implementaciones)
+// Registro de usuarios
 app.post('/api/auth/register', async (req, res) => {
-    const { email, password } = req.body;
+    const { nombre, email, password, empresa, cargo, telefono, motivo } = req.body;
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        
-        db.run('INSERT INTO users (email, password) VALUES (?, ?)', 
-            [email, hashedPassword], function(err) {
-                if (err) {
-                    if (err.message.includes('UNIQUE constraint failed')) {
-                        return res.status(400).json({ message: 'El email ya está registrado' });
-                    }
-                    return res.status(500).json({ message: 'Error del servidor' });
-                }
+        // Verificar si el email ya existe
+        db.get('SELECT * FROM users WHERE email = ?', [email], async (err, existingUser) => {
+            if (err) {
+                return res.status(500).json({ message: 'Error del servidor' });
+            }
 
-                res.json({ message: 'Usuario registrado. Esperando aprobación del administrador.' });
-            });
+            if (existingUser) {
+                return res.status(400).json({ message: 'El correo electrónico ya está registrado' });
+            }
+
+            // Hash de la contraseña
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            // Insertar nuevo usuario
+            db.run(
+                'INSERT INTO users (nombre, email, password, empresa, cargo, telefono, motivo, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                [nombre, email, hashedPassword, empresa, cargo, telefono || null, motivo, 'pending'],
+                function(err) {
+                    if (err) {
+                        console.error('Error al crear usuario:', err);
+                        return res.status(500).json({ message: 'Error al crear la cuenta' });
+                    }
+
+                    console.log('Nuevo usuario registrado:', email);
+                    res.status(201).json({ 
+                        message: 'Solicitud de acceso enviada correctamente. Te contactaremos pronto.',
+                        userId: this.lastID 
+                    });
+                }
+            );
+        });
     } catch (error) {
+        console.error('Error en registro:', error);
         res.status(500).json({ message: 'Error del servidor' });
     }
 });
@@ -191,7 +217,7 @@ app.get('/api/files/:id/download', authenticateToken, (req, res) => {
 
 // Rutas de administración
 app.get('/api/admin/users', authenticateToken, requireAdmin, (req, res) => {
-    db.all('SELECT id, email, status, createdAt FROM users ORDER BY createdAt DESC', 
+    db.all('SELECT id, nombre, email, empresa, cargo, telefono, motivo, status, createdAt, approvedAt, approvedBy FROM users ORDER BY createdAt DESC', 
         (err, users) => {
             if (err) {
                 return res.status(500).json({ message: 'Error al cargar usuarios' });
@@ -208,7 +234,11 @@ app.put('/api/admin/users/:id/status', authenticateToken, requireAdmin, (req, re
         return res.status(400).json({ message: 'Estado inválido' });
     }
 
-    db.run('UPDATE users SET status = ? WHERE id = ?', [status, id], function(err) {
+    const approvedAt = status === 'approved' ? new Date().toISOString() : null;
+    const approvedBy = status === 'approved' ? req.user.email : null;
+
+    db.run('UPDATE users SET status = ?, approvedAt = ?, approvedBy = ? WHERE id = ?', 
+        [status, approvedAt, approvedBy, id], function(err) {
         if (err) {
             return res.status(500).json({ message: 'Error al actualizar usuario' });
         }
