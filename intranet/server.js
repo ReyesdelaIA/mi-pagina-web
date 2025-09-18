@@ -146,7 +146,7 @@ app.post('/api/auth/login', async (req, res) => {
 
 // Registro de usuarios
 app.post('/api/auth/register', async (req, res) => {
-    const { nombre, email, password, empresa, cargo, telefono, motivo } = req.body;
+    const { nombre, email, telefono, empresa, password } = req.body;
 
     try {
         // Verificar si el email ya existe
@@ -162,10 +162,10 @@ app.post('/api/auth/register', async (req, res) => {
             // Hash de la contraseña
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            // Insertar nuevo usuario
+            // Insertar nuevo usuario con campos simplificados
             db.run(
                 'INSERT INTO users (nombre, email, password, empresa, cargo, telefono, motivo, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                [nombre, email, hashedPassword, empresa, cargo, telefono || null, motivo, 'pending'],
+                [nombre, email, hashedPassword, empresa || 'No especificada', 'No especificado', telefono, 'Solicitud de acceso', 'pending'],
                 function(err) {
                     if (err) {
                         console.error('Error al crear usuario:', err);
@@ -174,7 +174,7 @@ app.post('/api/auth/register', async (req, res) => {
 
                     console.log('Nuevo usuario registrado:', email);
                     res.status(201).json({ 
-                        message: 'Solicitud de acceso enviada correctamente. Te contactaremos pronto.',
+                        message: 'Cuenta creada correctamente. Te contactaremos pronto para autorizar tu acceso.',
                         userId: this.lastID 
                     });
                 }
