@@ -239,10 +239,13 @@
                     localStorage.setItem('userEmail', email);
                     
                     // Redirigir según el tipo de usuario
+                    console.log('Email del usuario:', email);
                     if (email === 'felipe@reyesia.com') {
+                        console.log('Redirigiendo a admin...');
                         // Admin va al panel de administración
                         window.location.href = `/admin?token=${data.token}`;
                     } else {
+                        console.log('Redirigiendo a dashboard...');
                         // Clientes van al dashboard
                         window.location.href = '/dashboard.html';
                     }
