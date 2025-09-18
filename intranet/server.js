@@ -86,7 +86,34 @@ db.serialize(() => {
     });
 });
 
-// Middleware de autenticación
+// Middleware para verificar autenticación en páginas HTML
+const checkAuth = (req, res, next) => {
+    const token = req.headers['authorization']?.split(' ')[1] || 
+                  req.query.token || 
+                  req.cookies?.token;
+
+    if (!token) {
+        return res.redirect('/login');
+    }
+
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (err) {
+            return res.redirect('/login');
+        }
+        req.user = user;
+        next();
+    });
+};
+
+// Middleware para verificar admin en páginas HTML
+const checkAdmin = (req, res, next) => {
+    if (req.user.email !== 'felipe@reyesia.com') {
+        return res.status(403).send('Acceso denegado. Solo administradores.');
+    }
+    next();
+};
+
+// Middleware de autenticación para API
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -310,11 +337,11 @@ app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
-app.get('/admin', (req, res) => {
+app.get('/admin', checkAuth, checkAdmin, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 

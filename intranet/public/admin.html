@@ -374,6 +374,18 @@
     </div>
 
     <script>
+        // Verificar autenticación
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+        }
+
+        // Configurar headers para todas las peticiones
+        const apiHeaders = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+
         let currentTab = 'users';
 
         function showTab(tabName) {
@@ -401,7 +413,9 @@
         // Cargar usuarios
         async function loadUsers() {
             try {
-                const response = await fetch('/api/admin/users');
+                const response = await fetch('/api/admin/users', {
+                    headers: apiHeaders
+                });
                 const users = await response.json();
                 displayUsers(users);
             } catch (error) {
@@ -472,9 +486,7 @@
             try {
                 const response = await fetch(`/api/admin/users/${userId}/status`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: apiHeaders,
                     body: JSON.stringify({ status })
                 });
 
@@ -492,7 +504,9 @@
         // Cargar archivos
         async function loadFiles() {
             try {
-                const response = await fetch('/api/admin/files');
+                const response = await fetch('/api/admin/files', {
+                    headers: apiHeaders
+                });
                 const files = await response.json();
                 displayFiles(files);
             } catch (error) {
