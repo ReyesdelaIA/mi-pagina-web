@@ -341,8 +341,22 @@ app.get('/dashboard', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
-app.get('/admin', checkAuth, checkAdmin, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+// Ruta especial para admin que permite acceso directo con token en URL
+app.get('/admin', (req, res) => {
+    const token = req.query.token;
+    
+    if (token) {
+        // Verificar si el token es válido y es admin
+        jwt.verify(token, JWT_SECRET, (err, user) => {
+            if (err || user.email !== 'felipe@reyesia.com') {
+                return res.redirect('/login');
+            }
+            res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+        });
+    } else {
+        // Si no hay token, redirigir al login normal
+        res.redirect('/login');
+    }
 });
 
 // Manejo de errores

@@ -238,8 +238,14 @@
                     localStorage.setItem('authToken', data.token);
                     localStorage.setItem('userEmail', email);
                     
-                    // Redirigir al dashboard
-                    window.location.href = '/dashboard.html';
+                    // Redirigir según el tipo de usuario
+                    if (email === 'felipe@reyesia.com') {
+                        // Admin va al panel de administración
+                        window.location.href = `/admin?token=${data.token}`;
+                    } else {
+                        // Clientes van al dashboard
+                        window.location.href = '/dashboard.html';
+                    }
                 } else {
                     errorMessage.textContent = data.message || 'Error al iniciar sesión';
                     errorMessage.style.display = 'block';
