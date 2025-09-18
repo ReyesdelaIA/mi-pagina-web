@@ -375,7 +375,7 @@
 
     <script>
         // Verificar autenticación
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('authToken') || new URLSearchParams(window.location.search).get('token');
         if (!token) {
             window.location.href = '/login';
         }
