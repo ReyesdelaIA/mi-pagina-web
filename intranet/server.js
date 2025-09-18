@@ -297,20 +297,25 @@ app.delete('/api/admin/files/:id', authenticateToken, requireAdmin, (req, res) =
 });
 
 // Servir archivos estáticos
+// Rutas principales
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
 app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dashboard.html'));
+    res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
 app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin.html'));
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
 // Manejo de errores
