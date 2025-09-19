@@ -449,13 +449,27 @@
             window.location.href = '/login.html';
         }
 
-        // Función para descargar recursos
+        // Función para descargar recursos desde Google Drive
         function downloadResource(filename) {
-            // Por ahora, mostrar un mensaje de que el archivo no está disponible
-            alert(`El archivo "${filename}" no está disponible temporalmente. Contacta a Felipe para obtenerlo.`);
+            let downloadUrl = '';
             
-            // En el futuro, esto puede conectarse a la API real:
-            // window.open(`/api/files/download/${filename}`, '_blank');
+            switch(filename) {
+                case '3-reglas-oro-prompt.pdf':
+                    downloadUrl = 'https://drive.google.com/uc?export=download&id=1bhSd6-NLxYHAhCDXT25Vtc4FtDgnEjIm';
+                    break;
+                case '5-prompts-logo.pdf':
+                    downloadUrl = 'https://drive.google.com/uc?export=download&id=16BQB2Ns8z61WPsbIAeM1feYFx6yvvsob';
+                    break;
+                case 'paso-paso-customgpt.pdf':
+                    downloadUrl = 'https://drive.google.com/uc?export=download&id=1PUtmMG-ne9WoDxly1mAvh7VCeWvVAlvj';
+                    break;
+                default:
+                    alert('Archivo no encontrado');
+                    return;
+            }
+            
+            // Abrir enlace de descarga directa
+            window.open(downloadUrl, '_blank');
         }
 
         // Cargar archivos al iniciar (ya no necesario con contenido estático)
