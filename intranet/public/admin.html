@@ -608,13 +608,17 @@
             try {
                 const response = await fetch('/api/admin/files', {
                     method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
                     body: formData
                 });
 
                 if (response.ok) {
                     loadFiles(); // Recargar lista
                 } else {
-                    showError('Error al subir el archivo');
+                    const errorData = await response.json();
+                    showError(errorData.message || 'Error al subir el archivo');
                 }
             } catch (error) {
                 console.error('Error:', error);
