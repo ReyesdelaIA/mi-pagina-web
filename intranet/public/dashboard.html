@@ -657,12 +657,17 @@
 
         // Navegación del Dashboard
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Dashboard navigation initialized');
             const navButtons = document.querySelectorAll('.nav-btn');
             const sections = document.querySelectorAll('.dashboard-section');
+            
+            console.log('Found buttons:', navButtons.length);
+            console.log('Found sections:', sections.length);
 
             navButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const targetSection = this.getAttribute('data-section');
+                    console.log('Clicked section:', targetSection);
                     
                     // Remover clase active de todos los botones y secciones
                     navButtons.forEach(btn => btn.classList.remove('active'));
@@ -670,7 +675,13 @@
                     
                     // Agregar clase active al botón clickeado y su sección
                     this.classList.add('active');
-                    document.getElementById(targetSection).classList.add('active');
+                    const targetElement = document.getElementById(targetSection);
+                    if (targetElement) {
+                        targetElement.classList.add('active');
+                        console.log('Section activated:', targetSection);
+                    } else {
+                        console.error('Section not found:', targetSection);
+                    }
                 });
             });
         });
