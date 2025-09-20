@@ -21,33 +21,58 @@ async function translateText(text, targetLang = 'es') {
 
 // Función para extraer noticias de TechCrunch
 async function scrapeTechCrunch() {
-    const browser = await chromium.launch();
+    const browser = await chromium.launch({ 
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    });
     const page = await browser.newPage();
     
     try {
+        // Configurar user agent y headers
+        await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+        
         console.log('🔍 Navegando a TechCrunch AI...');
         await page.goto('https://techcrunch.com/category/artificial-intelligence/', { 
-            waitUntil: 'networkidle',
-            timeout: 30000 
+            waitUntil: 'domcontentloaded',
+            timeout: 60000 
         });
 
-        // Esperar a que carguen las noticias
-        await page.waitForSelector('article', { timeout: 10000 });
-
+        // Esperar un poco más y usar selectores más específicos
+        await page.waitForTimeout(3000);
+        
+        // Intentar diferentes selectores
         const news = await page.evaluate(() => {
-            const articles = document.querySelectorAll('article');
             const newsList = [];
+            
+            // Selector 1: Artículos principales
+            let articles = document.querySelectorAll('article.post-block, article[class*="post"], .post-block');
+            
+            // Selector 2: Si no encuentra, buscar por estructura
+            if (articles.length === 0) {
+                articles = document.querySelectorAll('div[class*="post"], div[class*="article"], .river-block');
+            }
+            
+            // Selector 3: Buscar por enlaces de noticias
+            if (articles.length === 0) {
+                const links = document.querySelectorAll('a[href*="/2024/"], a[href*="/2025/"]');
+                articles = Array.from(links).map(link => link.closest('div, article')).filter(Boolean);
+            }
 
-            articles.slice(0, 5).forEach((article, index) => {
-                const titleElement = article.querySelector('h2 a, h3 a, .post-block__title a');
-                const linkElement = article.querySelector('h2 a, h3 a, .post-block__title a');
-                const excerptElement = article.querySelector('.post-block__content, .excerpt, p');
-                const dateElement = article.querySelector('time, .post-block__date');
+            articles.slice(0, 5).forEach((article) => {
+                if (!article) return;
+                
+                const titleElement = article.querySelector('h2 a, h3 a, .post-block__title a, a[href*="/2024/"], a[href*="/2025/"]');
+                const linkElement = titleElement;
+                const excerptElement = article.querySelector('.post-block__content, .excerpt, p, .post-content');
+                const dateElement = article.querySelector('time, .post-block__date, .date');
 
-                if (titleElement && linkElement) {
+                if (titleElement && linkElement && titleElement.textContent.trim()) {
+                    const title = titleElement.textContent.trim();
+                    const link = linkElement.href.startsWith('http') ? linkElement.href : 'https://techcrunch.com' + linkElement.href;
+                    
                     newsList.push({
-                        title: titleElement.textContent.trim(),
-                        link: linkElement.href,
+                        title: title,
+                        link: link,
                         excerpt: excerptElement ? excerptElement.textContent.trim().substring(0, 200) : '',
                         date: dateElement ? dateElement.textContent.trim() : new Date().toLocaleDateString(),
                         source: 'TechCrunch'
