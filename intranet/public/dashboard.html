@@ -801,6 +801,11 @@
                     if (targetElement) {
                         targetElement.classList.add('active');
                         console.log('Section activated:', targetSection);
+                        
+                        // Cargar contenido específico según la sección
+                        if (targetSection === 'noticias') {
+                            loadNews();
+                        }
                     } else {
                         console.error('Section not found:', targetSection);
                     }
@@ -891,6 +896,13 @@
             const noticiasBtn = document.querySelector('[data-section="noticias"]');
             if (noticiasBtn) {
                 noticiasBtn.addEventListener('click', loadNews);
+                
+                // Si la sección de noticias ya está activa al cargar, cargar las noticias
+                const noticiasSection = document.getElementById('noticias');
+                if (noticiasSection && noticiasSection.classList.contains('active')) {
+                    console.log('Noticias ya activa, cargando contenido...');
+                    loadNews();
+                }
             }
         });
     </script>
