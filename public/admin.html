@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Intranet ReyesIA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo h1 {
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .admin-badge {
+            background: #dc2626;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .admin-welcome {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .admin-welcome h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-welcome p {
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            border-color: #c09b5a;
+            background: #fef7ed;
+        }
+
+        .tab-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .users-table th,
+        .users-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .users-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-approved {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .user-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .user-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .user-header h3 {
+            color: #1a1a1a;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .user-info {
+            margin-bottom: 1rem;
+        }
+
+        .user-info p {
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+
+        .user-info strong {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-approve {
+            background: #16a34a;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-right: 0.5rem;
+        }
+
+        .btn-reject {
+            background: #dc2626;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .file-upload {
+            border: 2px dashed #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .file-upload.dragover {
+            border-color: #c09b5a;
+            background: #fef7ed;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn-upload {
+            background: linear-gradient(135deg, #c09b5a, #e0c07c);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .files-list {
+            margin-top: 2rem;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .file-icon {
+            font-size: 1.5rem;
+        }
+
+        .btn-delete {
+            background: #dc2626;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+        }
+
+        .error {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #fecaca;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .users-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="../logo reyes IA horizontal blanco.png" alt="ReyesIA" onerror="this.style.display='none'">
+            <h1>Admin Panel</h1>
+            <span class="admin-badge">ADMIN</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="admin-welcome">
+            <h2>Panel de Administración</h2>
+            <p>Gestiona usuarios y archivos de la intranet</p>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('users')">👥 Usuarios</div>
+            <div class="tab" onclick="showTab('files')">📁 Archivos</div>
+        </div>
+
+        <div class="tab-content">
+            <!-- Tab de Usuarios -->
+            <div id="usersTab">
+                <h3>Gestión de Usuarios</h3>
+                <div id="usersContainer">
+                    <div class="loading">Cargando usuarios...</div>
+                </div>
+            </div>
+
+            <!-- Tab de Archivos -->
+            <div id="filesTab" style="display: none;">
+                <h3>Gestión de Archivos</h3>
+                
+                <div class="file-upload" id="fileUpload">
+                    <p>Arrastra archivos PDF aquí o haz clic para seleccionar</p>
+                    <input type="file" id="fileInput" class="file-input" accept=".pdf" multiple>
+                    <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+                        Seleccionar Archivos
+                    </button>
+                </div>
+
+                <div class="files-list">
+                    <h4>Archivos Actuales</h4>
+                    <div id="filesContainer">
+                        <div class="loading">Cargando archivos...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Verificar autenticación
+        const token = localStorage.getItem('authToken') || new URLSearchParams(window.location.search).get('token');
+        if (!token) {
+            window.location.href = '/login';
+        }
+
+        // Configurar headers para todas las peticiones
+        const apiHeaders = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+
+        let currentTab = 'users';
+
+        function showTab(tabName) {
+            // Ocultar todas las tabs
+            document.getElementById('usersTab').style.display = 'none';
+            document.getElementById('filesTab').style.display = 'none';
+            
+            // Remover clase active de todas las tabs
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            
+            // Mostrar tab seleccionada
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+            event.target.classList.add('active');
+            
+            currentTab = tabName;
+            
+            // Cargar datos según la tab
+            if (tabName === 'users') {
+                loadUsers();
+            } else if (tabName === 'files') {
+                loadFiles();
+            }
+        }
+
+        // Cargar usuarios
+        async function loadUsers() {
+            try {
+                const response = await fetch('/api/admin/users', {
+                    headers: apiHeaders
+                });
+                const users = await response.json();
+                displayUsers(users);
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error al cargar usuarios');
+            }
+        }
+
+        function displayUsers(users) {
+            const container = document.getElementById('usersContainer');
+            
+            if (users.length === 0) {
+                container.innerHTML = '<p>No hay usuarios registrados.</p>';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="users-grid">
+                    ${users.map(user => `
+                        <div class="user-card">
+                            <div class="user-header">
+                                <h3>${user.nombre}</h3>
+                                <span class="status-${user.status}">${getStatusText(user.status)}</span>
+                            </div>
+                            <div class="user-info">
+                                <p><strong>Email:</strong> ${user.email}</p>
+                                <p><strong>Empresa:</strong> ${user.empresa}</p>
+                                <p><strong>Cargo:</strong> ${user.cargo}</p>
+                                ${user.telefono ? `<p><strong>Teléfono:</strong> ${user.telefono}</p>` : ''}
+                                <p><strong>Motivo:</strong> ${user.motivo}</p>
+                                <p><strong>Registro:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
+                                ${user.approvedAt ? `<p><strong>Aprobado:</strong> ${new Date(user.approvedAt).toLocaleDateString()}</p>` : ''}
+                            </div>
+                            <div class="user-actions">
+                                ${user.status === 'pending' ? `
+                                    <button class="btn-approve" onclick="updateUserStatus('${user.id}', 'approved')">
+                                        ✓ Aprobar
+                                    </button>
+                                    <button class="btn-reject" onclick="updateUserStatus('${user.id}', 'rejected')">
+                                        ✗ Rechazar
+                                    </button>
+                                ` : user.status === 'approved' ? `
+                                    <button class="btn-reject" onclick="updateUserStatus('${user.id}', 'rejected')">
+                                        ✗ Rechazar
+                                    </button>
+                                ` : `
+                                    <button class="btn-approve" onclick="updateUserStatus('${user.id}', 'approved')">
+                                        ✓ Aprobar
+                                    </button>
+                                `}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'pending': 'Pendiente',
+                'approved': 'Aprobado',
+                'rejected': 'Rechazado'
+            };
+            return statusMap[status] || status;
+        }
+
+        async function updateUserStatus(userId, status) {
+            try {
+                const response = await fetch(`/api/admin/users/${userId}/status`, {
+                    method: 'PUT',
+                    headers: apiHeaders,
+                    body: JSON.stringify({ status })
+                });
+
+                if (response.ok) {
+                    loadUsers(); // Recargar lista
+                } else {
+                    showError('Error al actualizar el estado del usuario');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error de conexión');
+            }
+        }
+
+        // Cargar archivos
+        async function loadFiles() {
+            try {
+                const response = await fetch('/api/admin/files', {
+                    headers: apiHeaders
+                });
+                const files = await response.json();
+                displayFiles(files);
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error al cargar archivos');
+            }
+        }
+
+        function displayFiles(files) {
+            const container = document.getElementById('filesContainer');
+            
+            if (files.length === 0) {
+                container.innerHTML = '<p>No hay archivos subidos.</p>';
+                return;
+            }
+
+            container.innerHTML = files.map(file => `
+                <div class="file-item">
+                    <div class="file-info">
+                        <div class="file-icon">📄</div>
+                        <div>
+                            <div style="font-weight: 600;">${file.name}</div>
+                            <div style="color: #6b7280; font-size: 0.9rem;">${file.description}</div>
+                        </div>
+                    </div>
+                    <button class="btn-delete" onclick="deleteFile('${file.id}')">
+                        Eliminar
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        async function deleteFile(fileId) {
+            if (!confirm('¿Estás seguro de que quieres eliminar este archivo?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/admin/files/${fileId}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    loadFiles(); // Recargar lista
+                } else {
+                    showError('Error al eliminar el archivo');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error de conexión');
+            }
+        }
+
+        function showError(message) {
+            const container = currentTab === 'users' ? 
+                document.getElementById('usersContainer') : 
+                document.getElementById('filesContainer');
+            container.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        // Manejar subida de archivos
+        document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+        
+        document.getElementById('fileUpload').addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        });
+        
+        document.getElementById('fileUpload').addEventListener('dragleave', (e) => {
+            e.currentTarget.classList.remove('dragover');
+        });
+        
+        document.getElementById('fileUpload').addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            handleFiles(files);
+        }
+
+        async function handleFiles(files) {
+            for (let file of files) {
+                if (file.type === 'application/pdf') {
+                    await uploadFile(file);
+                }
+            }
+        }
+
+        async function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('name', file.name);
+            formData.append('description', `Manual de IA - ${file.name}`);
+
+            try {
+                const response = await fetch('/api/admin/files', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    loadFiles(); // Recargar lista
+                } else {
+                    const errorData = await response.json();
+                    showError(errorData.message || 'Error al subir el archivo');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error de conexión');
+            }
+        }
+
+        // Cargar datos iniciales
+        loadUsers();
+    </script>
+</body>
+</html>
