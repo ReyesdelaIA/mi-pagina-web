@@ -201,6 +201,128 @@
             box-shadow: 0 4px 12px rgba(192, 155, 90, 0.3);
         }
 
+        /* Navegación del Dashboard */
+        .dashboard-nav {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 0 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .nav-btn:hover {
+            border-color: #c09b5a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(192, 155, 90, 0.15);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #c09b5a, #e0c07c);
+            border-color: #c09b5a;
+            color: #1a1a1a;
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+        }
+
+        .nav-text {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Secciones del Dashboard */
+        .dashboard-section {
+            display: none;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: #f8fafc;
+            border-radius: 16px;
+            border: 2px dashed #c09b5a;
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon h4 {
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon p {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #c09b5a, #e0c07c);
+            color: #1a1a1a;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-nav {
+                padding: 0 1rem;
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                min-width: 80px;
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-icon {
+                font-size: 1.2rem;
+            }
+
+            .nav-text {
+                font-size: 0.8rem;
+            }
+
+            .coming-soon {
+                padding: 2rem 1rem;
+            }
+
+            .coming-soon-icon {
+                font-size: 3rem;
+            }
+        }
+
         .file-card {
             border: 2px solid #e5e7eb;
             border-radius: 12px;
@@ -303,8 +425,30 @@
             <p>Aquí encontrarás todos los recursos exclusivos para clientes autorizados de ReyesIA.</p>
         </div>
 
-        <div class="files-section">
-            <h3>📚 Recursos Disponibles</h3>
+        <!-- Navegación del Dashboard -->
+        <div class="dashboard-nav">
+            <button class="nav-btn active" data-section="recursos">
+                <span class="nav-icon">📚</span>
+                <span class="nav-text">Recursos</span>
+            </button>
+            <button class="nav-btn" data-section="material">
+                <span class="nav-icon">🎓</span>
+                <span class="nav-text">Material Clases</span>
+            </button>
+            <button class="nav-btn" data-section="cursos">
+                <span class="nav-icon">💻</span>
+                <span class="nav-text">Cursos Online</span>
+            </button>
+            <button class="nav-btn" data-section="noticias">
+                <span class="nav-icon">📰</span>
+                <span class="nav-text">Noticias IA</span>
+            </button>
+        </div>
+
+        <!-- Sección Recursos -->
+        <div class="dashboard-section active" id="recursos">
+            <div class="files-section">
+                <h3>📚 Recursos Disponibles</h3>
             <div class="resources-grid">
                 <div class="resource-card">
                     <div class="resource-icon">📝</div>
@@ -343,6 +487,45 @@
                     <button class="download-btn" onclick="downloadResource('paso-paso-customgpt.pdf')">
                         📥 Descargar
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Material Clases -->
+        <div class="dashboard-section" id="material">
+            <div class="files-section">
+                <h3>🎓 Material de Clases</h3>
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">🎓</div>
+                    <h4>Material de Clases</h4>
+                    <p>Aquí encontrarás todo el material complementario de los talleres presenciales: presentaciones, ejercicios prácticos, casos de estudio y recursos adicionales.</p>
+                    <div class="coming-soon-badge">Próximamente</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Cursos Online -->
+        <div class="dashboard-section" id="cursos">
+            <div class="files-section">
+                <h3>💻 Cursos Online</h3>
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">💻</div>
+                    <h4>Cursos Online</h4>
+                    <p>Accede a nuestros cursos de IA en formato online: videos interactivos, ejercicios prácticos, certificaciones y seguimiento personalizado.</p>
+                    <div class="coming-soon-badge">Próximamente</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Noticias IA -->
+        <div class="dashboard-section" id="noticias">
+            <div class="files-section">
+                <h3>📰 Noticias IA</h3>
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">📰</div>
+                    <h4>Noticias IA</h4>
+                    <p>Mantente actualizado con las últimas novedades en Inteligencia Artificial: herramientas nuevas, casos de éxito, tendencias del mercado y análisis exclusivos.</p>
+                    <div class="coming-soon-badge">Próximamente</div>
                 </div>
             </div>
         </div>
@@ -471,6 +654,26 @@
             // Abrir enlace de descarga directa
             window.open(downloadUrl, '_blank');
         }
+
+        // Navegación del Dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const sections = document.querySelectorAll('.dashboard-section');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetSection = this.getAttribute('data-section');
+                    
+                    // Remover clase active de todos los botones y secciones
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Agregar clase active al botón clickeado y su sección
+                    this.classList.add('active');
+                    document.getElementById(targetSection).classList.add('active');
+                });
+            });
+        });
 
         // Cargar archivos al iniciar (ya no necesario con contenido estático)
         // loadFiles();
