@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+.cache/
+.next/
+.vscode/
+.DS_Store
+*.log
+.env
+.env.*
+intranet.db
