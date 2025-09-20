@@ -8,11 +8,13 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
+    "@playwright/mcp": "^0.0.39",
     "@supabase/supabase-js": "^2.57.4",
     "bcrypt": "^5.1.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
+    "playwright": "^1.56.0-alpha-1758292576000",
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {

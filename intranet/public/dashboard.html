@@ -405,6 +405,126 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Estilos para noticias */
+        .section-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .loading-news {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .news-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .news-source {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #1a1a1a;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .news-date {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .news-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .news-excerpt {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .news-link {
+            display: inline-flex;
+            align-items: center;
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .news-link:hover {
+            color: #ffed4e;
+        }
+
+        .news-link::after {
+            content: '→';
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .news-link:hover::after {
+            transform: translateX(3px);
+        }
+
+        .no-news {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .no-news-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -521,11 +641,13 @@
         <div class="dashboard-section" id="noticias">
             <div class="files-section">
                 <h3>📰 Noticias IA</h3>
-                <div class="coming-soon">
-                    <div class="coming-soon-icon">📰</div>
-                    <h4>Noticias IA</h4>
-                    <p>Mantente actualizado con las últimas novedades en Inteligencia Artificial: herramientas nuevas, casos de éxito, tendencias del mercado y análisis exclusivos.</p>
-                    <div class="coming-soon-badge">Próximamente</div>
+                <p class="section-description">Mantente actualizado con las últimas novedades en Inteligencia Artificial</p>
+                
+                <div id="news-container">
+                    <div class="loading-news">
+                        <div class="loading-spinner"></div>
+                        <p>Cargando noticias...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -688,6 +810,68 @@
 
         // Cargar archivos al iniciar (ya no necesario con contenido estático)
         // loadFiles();
+
+        // Cargar noticias
+        async function loadNews() {
+            const newsContainer = document.getElementById('news-container');
+            
+            try {
+                const response = await fetch('/api/news', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error cargando noticias');
+                }
+
+                const news = await response.json();
+                
+                if (news.length === 0) {
+                    newsContainer.innerHTML = `
+                        <div class="no-news">
+                            <div class="no-news-icon">📰</div>
+                            <h4>No hay noticias disponibles</h4>
+                            <p>Las noticias se actualizan cada lunes. ¡Vuelve pronto!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const newsHTML = news.map(item => `
+                    <div class="news-card">
+                        <div class="news-header">
+                            <span class="news-source">${item.source}</span>
+                            <span class="news-date">${item.date}</span>
+                        </div>
+                        <h4 class="news-title">${item.title}</h4>
+                        <p class="news-excerpt">${item.excerpt}</p>
+                        <a href="${item.link}" target="_blank" class="news-link">Leer más</a>
+                    </div>
+                `).join('');
+
+                newsContainer.innerHTML = `<div class="news-grid">${newsHTML}</div>`;
+
+            } catch (error) {
+                console.error('Error cargando noticias:', error);
+                newsContainer.innerHTML = `
+                    <div class="no-news">
+                        <div class="no-news-icon">❌</div>
+                        <h4>Error cargando noticias</h4>
+                        <p>Intenta recargar la página en unos minutos.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Cargar noticias cuando se hace click en la sección
+        document.addEventListener('DOMContentLoaded', function() {
+            const noticiasBtn = document.querySelector('[data-section="noticias"]');
+            if (noticiasBtn) {
+                noticiasBtn.addEventListener('click', loadNews);
+            }
+        });
     </script>
 </body>
 </html>

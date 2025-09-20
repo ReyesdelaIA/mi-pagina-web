@@ -14,6 +14,27 @@ const JWT_SECRET = process.env.JWT_SECRET || 'tu-secreto-super-seguro-cambiar-en
 app.use(express.json());
 app.use(express.static('public'));
 
+// Endpoint para obtener noticias
+app.get('/api/news', checkAuth, async (req, res) => {
+    try {
+        const { data: news, error } = await supabase
+            .from('news')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(10);
+
+        if (error) {
+            console.error('Error obteniendo noticias:', error);
+            return res.status(500).json({ error: 'Error obteniendo noticias' });
+        }
+
+        res.json(news || []);
+    } catch (error) {
+        console.error('Error en endpoint de noticias:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
+
 // Configurar multer para subida de archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
