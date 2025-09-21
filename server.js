@@ -331,6 +331,79 @@ app.get('/uploads/:filename', (req, res) => {
     }
 });
 
+// Obtener noticias de IA
+app.get('/api/news', authenticateToken, async (req, res) => {
+    try {
+        // Por ahora, devolver noticias de ejemplo
+        const sampleNews = [
+            {
+                id: 1,
+                title: 'OpenAI lanza GPT-5 con capacidades revolucionarias',
+                excerpt: 'La nueva versión de GPT-5 incluye mejoras significativas en razonamiento y creatividad que superan las expectativas.',
+                link: 'https://openai.com/blog/gpt-5',
+                source: 'OpenAI',
+                date: new Date().toLocaleDateString(),
+                created_at: new Date().toISOString()
+            },
+            {
+                id: 2,
+                title: 'Google presenta nuevo modelo de IA para medicina',
+                excerpt: 'El modelo puede diagnosticar enfermedades con mayor precisión que los médicos humanos en pruebas clínicas.',
+                link: 'https://ai.googleblog.com/2024/01/medical-ai-breakthrough.html',
+                source: 'Google AI',
+                date: new Date().toLocaleDateString(),
+                created_at: new Date().toISOString()
+            },
+            {
+                id: 3,
+                title: 'Microsoft integra IA en Office 365',
+                excerpt: 'Nuevas funciones de IA automática para mejorar la productividad en el trabajo con Copilot avanzado.',
+                link: 'https://blogs.microsoft.com/office-ai-integration',
+                source: 'Microsoft',
+                date: new Date().toLocaleDateString(),
+                created_at: new Date().toISOString()
+            },
+            {
+                id: 4,
+                title: 'Tesla mejora autopilot con IA avanzada',
+                excerpt: 'El sistema de conducción autónoma ahora es más seguro y eficiente con nuevas capacidades de IA.',
+                link: 'https://www.tesla.com/autopilot-update',
+                source: 'Tesla',
+                date: new Date().toLocaleDateString(),
+                created_at: new Date().toISOString()
+            },
+            {
+                id: 5,
+                title: 'Meta lanza nuevo modelo de lenguaje abierto',
+                excerpt: 'El modelo está disponible para investigadores y desarrolladores de todo el mundo de forma gratuita.',
+                link: 'https://ai.meta.com/blog/open-language-model',
+                source: 'Meta AI',
+                date: new Date().toLocaleDateString(),
+                created_at: new Date().toISOString()
+            }
+        ];
+
+        res.json(sampleNews);
+    } catch (error) {
+        console.error('Error obteniendo noticias:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
+
+// Endpoint para ejecutar el scraper de noticias (solo admin)
+app.post('/api/admin/refresh-news', authenticateToken, checkAdmin, async (req, res) => {
+    try {
+        // Ejecutar el scraper en background
+        const { scrapeAndSaveNews } = require('./news-scraper-simple');
+        scrapeAndSaveNews();
+        
+        res.json({ message: 'Scraper de noticias iniciado' });
+    } catch (error) {
+        console.error('Error ejecutando scraper:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
+
 // Iniciar servidor
 app.listen(PORT, () => {
     console.log(`Servidor ejecutándose en puerto ${PORT}`);
