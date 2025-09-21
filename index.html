@@ -304,6 +304,8 @@
       max-width: 320px;
       text-align: left;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
     }
 
     .card:hover {
@@ -320,13 +322,10 @@
     }
 
     .card p {
-      font-size: 0.85rem; /* reducido de 0.9rem a 0.85rem */
+      font-size: 0.85rem;
       color: #374151;
       line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 6;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      flex-grow: 1;
     }
 
     .services .btn-center {
@@ -477,6 +476,47 @@
       opacity: 0.8;
       transition: all 0.3s ease;
       cursor: pointer;
+    }
+
+    /* Logo de Claro - sin filtro para que se vea */
+    .logos img[alt="CLARO"] {
+      filter: grayscale(100%) brightness(1.2) contrast(1.1); /* Solo escala de grises */
+    }
+
+    /* Logo de Clorox - filtro especial para mantener legibilidad */
+    .logos img[alt="Clorox"] {
+      filter: grayscale(100%) brightness(0.3) contrast(2) invert(1); /* Filtro especial para Clorox */
+    }
+
+    /* Logo de Copec - más pequeño */
+    .logos img[alt="COPEC"] {
+      width: 100px;      /* más pequeño que los otros */
+      height: 24px;      /* proporcionalmente más pequeño */
+    }
+
+    /* Indicador de más clientes */
+    .more-clients {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 28px;
+      background: rgba(255,255,255,0.1);
+      border: 2px dashed rgba(255,255,255,0.3);
+      border-radius: 8px;
+      color: #e5e7eb;
+      font-weight: 700;
+      font-size: 1.2rem;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .more-clients:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.5);
+      opacity: 1;
+      transform: translateY(-2px) scale(1.05);
     }
 
     .logos img:hover { 
@@ -663,7 +703,7 @@
       color: #e6e6e6;
     }
     .blog .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       text-align: center;
     }
@@ -671,16 +711,134 @@
       margin-bottom: 1rem;
       color: #ffffff;
     }
-    .blog p { color: #cbd5e1; }
-    .blog .soon {
-      display: inline-block;
-      margin-top: 0.75rem;
-      padding: 0.6rem 1rem;
-      border-radius: 999px;
+    .blog p { 
+      color: #cbd5e1; 
+      margin-bottom: 3rem;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .blog-card {
       background: #111827;
-      color: #e5e7eb;
-      font-weight: 600;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
       border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      border-color: rgba(192, 155, 90, 0.3);
+    }
+
+    .blog-image {
+      position: relative;
+      height: 200px;
+      background: #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .blog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .blog-placeholder {
+      font-size: 3rem;
+      opacity: 0.5;
+    }
+
+    .blog-category {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(192, 155, 90, 0.9);
+      color: #1a1a1a;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .blog-content {
+      padding: 1.5rem;
+    }
+
+    .blog-content h3 {
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .blog-content p {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .blog-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .blog-link {
+      color: #c09b5a;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .blog-link:hover {
+      color: #e0c07c;
+    }
+
+    .blog-card.coming-soon {
+      opacity: 0.6;
+    }
+
+    .blog-card.coming-soon:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .blog-cta {
+      text-align: center;
+    }
+
+    .blog-cta .btn {
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      color: #1a1a1a;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      box-shadow: 0 6px 16px rgba(192, 155, 90, 0.35);
+    }
+
+    .blog-cta .btn:hover {
+      background: linear-gradient(135deg, #a07b3a, #c09b5a);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(192, 155, 90, 0.4);
     }
 
     /* ---------- CONTACTO ---------- */
@@ -856,7 +1014,7 @@
       </div>
       <div class="card">
         <h3>🚀 Adopción Profunda de IA</h3>
-        <p>Programa de transformación de cuatro meses con ocho sesiones quincenales. Se capacita a gerentes y embajadores en uso real de IA, con casos prácticos sobre problemas propios y medición de progreso mediante KPIs claros.</p>
+        <p>Programa de transformación profunda de cuatro meses con ocho sesiones quincenales. Se capacita a gerentes y embajadores en uso real de IA, con casos prácticos sobre problemas propios y medición de progreso mediante KPIs claros.</p>
       </div>
       <div class="card">
         <h3>👥 Clases Grupales de IA</h3>
@@ -901,6 +1059,7 @@
             <img src="SKECHERS logo blanco.png" alt="SKECHERS">
             <img src="LARRAIN logo.png" alt="Larraín y Asociados">
             <img src="MARINOVIC logo blanco.png" alt="Marinovic & Alcalde">
+            <div class="more-clients">+90</div>
           </div>
         </div>
       </div>
@@ -974,8 +1133,59 @@
   <section id="blog" class="blog">
     <div class="container">
       <h2>Blog sobre Inteligencia Artificial</h2>
-      <p>Estoy preparando artículos prácticos y simples para ayudarte a aprovechar la IA en tu día a día.</p>
-      <span class="soon">Próximamente</span>
+      <p>Artículos prácticos y simples para ayudarte a aprovechar la IA en tu día a día.</p>
+      
+      <div class="blog-grid">
+        <div class="blog-card">
+          <div class="blog-image">
+            <img src="blog/prompt-importance-hero.jpg" alt="Importancia de un buen prompt" onerror="this.style.display='none'">
+            <div class="blog-category">Prompts</div>
+          </div>
+          <div class="blog-content">
+            <h3>La importancia de un buen prompt: por qué debe ser <span style="color: #c09b5a;">sí o sí</span> largo</h3>
+            <p>Descubre por qué los prompts largos y detallados generan resultados mucho mejores que las instrucciones cortas y con poco contexto.</p>
+            <div class="blog-meta">
+              <span class="blog-date">21 Sep 2025</span>
+              <span class="blog-read-time">5 min lectura</span>
+            </div>
+            <a href="blog/importancia-buen-prompt.html" class="blog-link">Leer más →</a>
+          </div>
+        </div>
+
+        <div class="blog-card coming-soon">
+          <div class="blog-image">
+            <div class="blog-placeholder">🚧</div>
+            <div class="blog-category">Próximamente</div>
+          </div>
+          <div class="blog-content">
+            <h3>Próximo artículo</h3>
+            <p>Más contenido sobre IA llegando pronto...</p>
+            <div class="blog-meta">
+              <span class="blog-date">Próximamente</span>
+              <span class="blog-read-time">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card coming-soon">
+          <div class="blog-image">
+            <div class="blog-placeholder">🚧</div>
+            <div class="blog-category">Próximamente</div>
+          </div>
+          <div class="blog-content">
+            <h3>Próximo artículo</h3>
+            <p>Más contenido sobre IA llegando pronto...</p>
+            <div class="blog-meta">
+              <span class="blog-date">Próximamente</span>
+              <span class="blog-read-time">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-cta">
+        <a href="blog/" class="btn">Ver todos los artículos</a>
+      </div>
     </div>
   </section>
 
@@ -1028,12 +1238,12 @@
 
   <!-- FOOTER -->
   <footer id="contacto">
-    <p>📧 <a href="mailto:felipe@reyesIA.com">felipe@reyesIA.com</a></p>
+    <p>✉️ <a href="mailto:felipe@reyesIA.com">felipe@reyesIA.com</a></p>
     <p>
-      🌐 <a href="https://www.linkedin.com/in/felipereyespolanco" target="_blank">LinkedIn</a> |
-      📸 <a href="https://www.instagram.com/reyesdelaia/" target="_blank">Instagram</a>
+      <img src="icono LINKEDIN.png" alt="LinkedIn" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"> <a href="https://www.linkedin.com/in/felipereyespolanco" target="_blank">LinkedIn</a> |
+      <img src="icono INSTAGRAM.png" alt="Instagram" style="height: 20px; width: auto; vertical-align: middle; margin-right: 5px;"> <a href="https://www.instagram.com/reyesdelaia/" target="_blank">Instagram</a>
     </p>
-    <p>© 2024 ReyesIA. Todos los derechos reservados.</p>
+    <p>© 2025 ReyesIA. Todos los derechos reservados.</p>
   </footer>
 
   <script>

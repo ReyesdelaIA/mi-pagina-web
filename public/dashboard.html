@@ -92,6 +92,126 @@
             opacity: 0.9;
         }
 
+        .dashboard-menu {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .menu-card:hover {
+            border-color: #c09b5a;
+            box-shadow: 0 8px 25px rgba(192, 155, 90, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .menu-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .menu-card h4 {
+            color: #1a1a1a;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .content-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn {
+            background: #6b7280;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #4b5563;
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #6b7280;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 2px dashed #cbd5e1;
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .coming-soon h4 {
+            color: #374151;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon p {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .coming-soon p:last-child {
+            margin-bottom: 0;
+            opacity: 0.8;
+        }
+
         .news-section {
             background: white;
             padding: 2rem;
@@ -397,9 +517,48 @@
             <p>Aquí encontrarás todos los recursos exclusivos para clientes autorizados de ReyesIA.</p>
         </div>
 
-        <!-- Sección de Noticias IA -->
-        <div class="news-section">
-            <h3>📰 Noticias de Inteligencia Artificial</h3>
+        <!-- Dashboard Principal - Menú de Navegación -->
+        <div class="dashboard-menu">
+            <h3>📋 Selecciona una Sección</h3>
+            <div class="menu-grid">
+                <div class="menu-card" onclick="showSection('news')">
+                    <div class="menu-icon">📰</div>
+                    <h4>Noticias IA</h4>
+                    <p>Las últimas noticias de inteligencia artificial</p>
+                </div>
+                
+                <div class="menu-card" onclick="showSection('resources')">
+                    <div class="menu-icon">📚</div>
+                    <h4>Recursos</h4>
+                    <p>Materiales exclusivos para clientes</p>
+                </div>
+                
+                <div class="menu-card" onclick="showSection('courses')">
+                    <div class="menu-icon">🎓</div>
+                    <h4>Material Clases</h4>
+                    <p>Contenido de las sesiones de capacitación</p>
+                </div>
+                
+                <div class="menu-card" onclick="showSection('hands-on')">
+                    <div class="menu-icon">👥</div>
+                    <h4>Clases Hands-On</h4>
+                    <p>Sesiones prácticas presenciales</p>
+                </div>
+                
+                <div class="menu-card" onclick="showSection('online')">
+                    <div class="menu-icon">💻</div>
+                    <h4>Cursos Online</h4>
+                    <p>Formación virtual disponible</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Noticias IA (oculta por defecto) -->
+        <div class="content-section" id="newsSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="showDashboard()">← Volver al menú</button>
+                <h3>📰 Noticias de Inteligencia Artificial</h3>
+            </div>
             <div class="news-grid" id="newsContainer">
                 <div class="loading">
                     <div class="spinner"></div>
@@ -408,8 +567,12 @@
             </div>
         </div>
 
-        <div class="files-section">
-            <h3>📚 Recursos Disponibles</h3>
+        <!-- Sección de Recursos (oculta por defecto) -->
+        <div class="content-section" id="resourcesSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="showDashboard()">← Volver al menú</button>
+                <h3>📚 Recursos Disponibles</h3>
+            </div>
             <div class="resources-grid">
                 <div class="resource-card">
                     <div class="resource-icon">📝</div>
@@ -451,6 +614,48 @@
                 </div>
             </div>
         </div>
+
+        <!-- Sección de Material Clases (placeholder) -->
+        <div class="content-section" id="coursesSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="showDashboard()">← Volver al menú</button>
+                <h3>🎓 Material de Clases</h3>
+            </div>
+            <div class="coming-soon">
+                <div class="coming-soon-icon">🚧</div>
+                <h4>Próximamente</h4>
+                <p>Aquí encontrarás todo el material de las sesiones de capacitación</p>
+                <p>Presentaciones, documentos y recursos de cada clase</p>
+            </div>
+        </div>
+
+        <!-- Sección de Clases Hands-On (placeholder) -->
+        <div class="content-section" id="hands-onSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="showDashboard()">← Volver al menú</button>
+                <h3>👥 Clases Hands-On</h3>
+            </div>
+            <div class="coming-soon">
+                <div class="coming-soon-icon">🚧</div>
+                <h4>Próximamente</h4>
+                <p>Información sobre las sesiones prácticas presenciales</p>
+                <p>Horarios, ubicaciones y contenido de cada clase</p>
+            </div>
+        </div>
+
+        <!-- Sección de Cursos Online (placeholder) -->
+        <div class="content-section" id="onlineSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="showDashboard()">← Volver al menú</button>
+                <h3>💻 Cursos Online</h3>
+            </div>
+            <div class="coming-soon">
+                <div class="coming-soon-icon">🚧</div>
+                <h4>Próximamente</h4>
+                <p>Aquí encontrarás todos los cursos virtuales disponibles</p>
+                <p>Acceso a plataformas de aprendizaje y contenido digital</p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -463,6 +668,35 @@
         }
 
         document.getElementById('userEmail').textContent = userEmail;
+
+        // Funciones de navegación
+        function showSection(sectionName) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.content-section, .dashboard-menu').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Mostrar la sección seleccionada
+            const targetSection = document.getElementById(sectionName + 'Section');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                
+                // Cargar contenido específico si es necesario
+                if (sectionName === 'news') {
+                    loadNews();
+                }
+            }
+        }
+
+        function showDashboard() {
+            // Ocultar todas las secciones de contenido
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Mostrar el menú principal
+            document.querySelector('.dashboard-menu').style.display = 'block';
+        }
 
         // Cargar noticias
         async function loadNews() {

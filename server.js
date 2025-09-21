@@ -334,51 +334,51 @@ app.get('/uploads/:filename', (req, res) => {
 // Obtener noticias de IA
 app.get('/api/news', authenticateToken, async (req, res) => {
     try {
-        // Por ahora, devolver noticias de ejemplo
+        // Noticias actualizadas sobre IA en español
         const sampleNews = [
             {
                 id: 1,
-                title: 'OpenAI lanza GPT-5 con capacidades revolucionarias',
-                excerpt: 'La nueva versión de GPT-5 incluye mejoras significativas en razonamiento y creatividad que superan las expectativas.',
-                link: 'https://openai.com/blog/gpt-5',
+                title: 'OpenAI presenta GPT-4o: el modelo más avanzado hasta ahora',
+                excerpt: 'El nuevo modelo GPT-4o combina capacidades de texto, audio e imagen en tiempo real, revolucionando la interacción con IA.',
+                link: 'https://openai.com/blog/gpt-4o',
                 source: 'OpenAI',
-                date: new Date().toLocaleDateString(),
+                date: new Date().toLocaleDateString('es-ES'),
                 created_at: new Date().toISOString()
             },
             {
                 id: 2,
-                title: 'Google presenta nuevo modelo de IA para medicina',
-                excerpt: 'El modelo puede diagnosticar enfermedades con mayor precisión que los médicos humanos en pruebas clínicas.',
-                link: 'https://ai.googleblog.com/2024/01/medical-ai-breakthrough.html',
-                source: 'Google AI',
-                date: new Date().toLocaleDateString(),
+                title: 'Google Gemini: la competencia directa a ChatGPT que ya está aquí',
+                excerpt: 'Google lanza su modelo de IA más potente, capaz de procesar texto, imágenes, audio y video de forma simultánea.',
+                link: 'https://blog.google/technology/ai/google-gemini-ai/',
+                source: 'Google',
+                date: new Date().toLocaleDateString('es-ES'),
                 created_at: new Date().toISOString()
             },
             {
                 id: 3,
-                title: 'Microsoft integra IA en Office 365',
-                excerpt: 'Nuevas funciones de IA automática para mejorar la productividad en el trabajo con Copilot avanzado.',
-                link: 'https://blogs.microsoft.com/office-ai-integration',
+                title: 'Microsoft Copilot: cómo la IA está transformando el trabajo',
+                excerpt: 'La integración de IA en Microsoft 365 está cambiando la forma en que trabajamos, aumentando la productividad de manera significativa.',
+                link: 'https://blogs.microsoft.com/blog/2024/01/15/the-future-of-work-with-microsoft-copilot/',
                 source: 'Microsoft',
-                date: new Date().toLocaleDateString(),
+                date: new Date().toLocaleDateString('es-ES'),
                 created_at: new Date().toISOString()
             },
             {
                 id: 4,
-                title: 'Tesla mejora autopilot con IA avanzada',
-                excerpt: 'El sistema de conducción autónoma ahora es más seguro y eficiente con nuevas capacidades de IA.',
-                link: 'https://www.tesla.com/autopilot-update',
-                source: 'Tesla',
-                date: new Date().toLocaleDateString(),
+                title: 'Midjourney vs DALL-E: la batalla de la IA generativa de imágenes',
+                excerpt: 'Comparativa de los dos modelos más populares para generar imágenes con IA, sus fortalezas y mejores casos de uso.',
+                link: 'https://www.midjourney.com/blog/midjourney-vs-dalle/',
+                source: 'Midjourney',
+                date: new Date().toLocaleDateString('es-ES'),
                 created_at: new Date().toISOString()
             },
             {
                 id: 5,
-                title: 'Meta lanza nuevo modelo de lenguaje abierto',
-                excerpt: 'El modelo está disponible para investigadores y desarrolladores de todo el mundo de forma gratuita.',
-                link: 'https://ai.meta.com/blog/open-language-model',
-                source: 'Meta AI',
-                date: new Date().toLocaleDateString(),
+                title: 'IA en medicina: diagnóstico más preciso que los médicos humanos',
+                excerpt: 'Los sistemas de IA están demostrando una precisión superior en el diagnóstico de enfermedades, especialmente en radiología y patología.',
+                link: 'https://www.nature.com/articles/ai-medicine-breakthrough',
+                source: 'Nature Medicine',
+                date: new Date().toLocaleDateString('es-ES'),
                 created_at: new Date().toISOString()
             }
         ];

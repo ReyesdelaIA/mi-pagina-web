@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La importancia de un buen prompt (por qué debe ser largo) - ReyesIA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    /* ---------- HEADER ---------- */
+    .blog-header {
+      background: #1a2537;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-link {
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .logo-link:hover {
+      opacity: 0.8;
+    }
+
+    .blog-header img {
+      height: 40px;
+    }
+
+    .back-link {
+      color: #c09b5a;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #e0c07c;
+    }
+
+    /* ---------- HERO ---------- */
+    .blog-hero {
+      background: linear-gradient(135deg, #0f1720 0%, #1e293b 100%);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .blog-hero h1 {
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .blog-hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .blog-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .blog-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ---------- CONTENT ---------- */
+    .blog-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .blog-content h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 3rem 0 1.5rem 0;
+      color: #1a1a1a;
+    }
+
+    .blog-content h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem 0;
+      color: #374151;
+    }
+
+    .blog-content p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: #4b5563;
+    }
+
+    .blog-content ul, .blog-content ol {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+    }
+
+    .blog-content li {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 0.5rem;
+      color: #4b5563;
+    }
+
+    .highlight-box {
+      background: #f0f9ff;
+      border-left: 4px solid #c09b5a;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .highlight-box h4 {
+      color: #1e40af;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-box p {
+      color: #1e40af;
+      margin: 0;
+    }
+
+    .example-box {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .example-box h4 {
+      color: #374151;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .example-box p {
+      font-family: 'Courier New', monospace;
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    .elements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .element-card {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .element-card:hover {
+      border-color: #c09b5a;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(192, 155, 90, 0.15);
+    }
+
+    .element-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .element-card h4 {
+      color: #374151;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .element-card p {
+      color: #6b7280;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ---------- NAVIGATION ---------- */
+    .blog-nav {
+      background: #f8fafc;
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .blog-nav a {
+      color: #c09b5a;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .blog-nav a:hover {
+      color: #a07b3a;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .blog-header {
+        padding: 1rem;
+      }
+      
+      .blog-hero {
+        padding: 3rem 1rem;
+      }
+      
+      .blog-content {
+        padding: 3rem 1rem;
+      }
+      
+      .blog-meta {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="blog-header">
+    <a href="../index.html" class="logo-link">
+      <img src="../logo reyes IA horizontal blanco.png" alt="ReyesIA" onerror="this.style.display='none'">
+    </a>
+    <a href="../index.html" class="back-link">← Volver al inicio</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="blog-hero">
+    <h1>La importancia de un buen prompt: por qué debe ser <span style="color: #c09b5a; font-weight: 800;">sí o sí</span> largo</h1>
+    <p>Descubre por qué los prompts largos y detallados generan resultados mucho mejores que las instrucciones cortas y con poco contexto.</p>
+    <div class="blog-meta">
+      <span>📅 21 de Septiembre, 2025</span>
+      <span>⏱️ 5 min lectura</span>
+      <span>🏷️ Prompts</span>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="blog-content">
+    <p>Hoy en día, millones de personas usan inteligencia artificial a diario, sobre todo los modelos de lenguaje como ChatGPT, Gemini, Claude, DeepSeek, Meta AI y otros.</p>
+
+    <p>De repente, escribir prompts (instrucciones a una IA) se volvió parte importante de la vida cotidiana.</p>
+
+    <p>El problema es que la mayoría de las personas no tienen la más remota idea de cómo hacer un buen prompt. La mayoría escribe lo primero que se le ocurre y espera lo mejor. Por eso escuchamos frases como: <em>"a mí me funciona mejor cuando le hablo amable"</em>, <em>"yo soy más directo"</em>, o <em>"los cortos son mejores que los largos"</em>. En realidad, no hay una receta clara y todos van probando a su pinta.</p>
+
+    <p>En mi caso, después de más de dos años y medio usando estas plataformas literalmente todos los días, y de haber capacitado a cientos de empresas y personas enseñándoles cómo sacarle provecho a la IA, me atrevo a decir con total convicción la primera gran verdad: <strong>un buen prompt debe ser SI O SI largo</strong>.. así de simple y directo. Y ahora te voy a explicar por qué.</p>
+
+
+    <h2>¿Por qué los prompts largos son más efectivos?</h2>
+
+    <h3>1. Contexto = Comprensión</h3>
+    <p>La IA funciona como un asistente muy inteligente pero que necesita contexto para entender exactamente qué quieres. Un prompt corto como <em>"escribe un email"</em> deja demasiado espacio para interpretación. Un prompt largo que incluya:</p>
+
+    <ul>
+      <li>El propósito del email</li>
+      <li>El tono que quieres</li>
+      <li>Los puntos clave a cubrir</li>
+      <li>La audiencia objetivo</li>
+      <li>La longitud deseada</li>
+    </ul>
+
+    <p>Genera un resultado mucho más preciso y útil.</p>
+
+    <div class="highlight-box">
+      <h4>💡 Regla de oro</h4>
+      <p>Un prompt detallado es como dar instrucciones precisas a un humano experto. Cuanto más específico seas, mejor será el resultado.</p>
+    </div>
+
+    <h3>2. Los detalles importan</h3>
+    <p>Cada detalle que agregues a tu prompt le da más información a la IA para generar algo que realmente necesitas. Por ejemplo:</p>
+
+    <div class="example-box">
+      <h4>❌ Prompt corto (poco efectivo):</h4>
+      <p><em>"Crea un plan de marketing"</em></p>
+    </div>
+
+    <div class="example-box">
+      <h4>✅ Prompt largo (muy efectivo):</h4>
+      <p><em>"Crea un plan de marketing para una startup de tecnología que desarrolla apps móviles para pequeñas empresas. La empresa tiene 6 meses en el mercado, un presupuesto de $10,000 USD mensuales, y quiere enfocarse en el mercado chileno. El objetivo es conseguir 100 clientes nuevos en los próximos 3 meses. Incluye estrategias digitales, presupuesto por canal, timeline de implementación y métricas de seguimiento. El tono debe ser profesional pero accesible, y el plan debe ser ejecutable por un equipo de 3 personas."</em></p>
+    </div>
+
+    <h2>Elementos clave de un buen prompt largo</h2>
+
+    <div class="elements-grid">
+      <div class="element-card">
+        <div class="element-icon">🏢</div>
+        <h4>1. Contexto del negocio</h4>
+        <p>Background, industria, tamaño de empresa, mercado objetivo</p>
+      </div>
+
+      <div class="element-card">
+        <div class="element-icon">🎯</div>
+        <h4>2. Objetivo específico</h4>
+        <p>No solo <em>"quiero un plan"</em>, sino <em>"quiero aumentar ventas 25% en 6 meses"</em></p>
+      </div>
+
+      <div class="element-card">
+        <div class="element-icon">⚠️</div>
+        <h4>3. Restricciones</h4>
+        <p>Presupuesto, tiempo, recursos humanos, regulaciones</p>
+      </div>
+
+      <div class="element-card">
+        <div class="element-icon">📄</div>
+        <h4>4. Formato de salida</h4>
+        <p>¿Documento, presentación, resumen ejecutivo, lista de tareas?</p>
+      </div>
+
+      <div class="element-card">
+        <div class="element-icon">🎨</div>
+        <h4>5. Tono y estilo</h4>
+        <p>Profesional, casual, técnico, creativo</p>
+      </div>
+
+      <div class="element-card">
+        <div class="element-icon">💡</div>
+        <h4>6. Ejemplos específicos</h4>
+        <p>Incluye ejemplos de lo que te gusta o no te gusta</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <h4>🎯 Pro tip</h4>
+      <p>Los mejores prompts incluyen al menos 4-5 de estos elementos. Mientras más elementos incluyas, más preciso será el resultado.</p>
+    </div>
+
+    <h2>Errores comunes al crear prompts</h2>
+
+    <ol>
+      <li><strong>Ser demasiado vago:</strong> <em>"Ayúdame con mi negocio"</em></li>
+      <li><strong>No dar contexto:</strong> <em>"Escribe un post para LinkedIn"</em></li>
+      <li><strong>No especificar el formato:</strong> No decir si quieres un resumen, una lista, un documento completo</li>
+      <li><strong>No incluir restricciones:</strong> No mencionar presupuesto, tiempo, recursos disponibles</li>
+      <li><strong>No dar ejemplos:</strong> No mostrar el estilo o formato que prefieres</li>
+    </ol>
+
+    <p>Creo que esto tiene que ver con nuestra forma de comunicarnos. Desde siempre nos han enseñado a ser breves y concisos. Cuando pedimos ayuda a un compañero de trabajo, por ejemplo, no podemos hablar media hora, necesitamos ir al grano. Los humanos se aburren si alguien da demasiada vuelta en una solicitud.</p>
+
+    <p>Y ahí está el gran error: trasladamos esa costumbre a la IA. Pero una máquina no se aburre. Lo que necesita es contexto. Si el prompt no lo tiene, es un mal prompt. Y lo peor: la IA nunca te dirá <em>"tu instrucción es ambigua"</em> o <em>"no me quedó muy claro"</em>, <em>"me falta info"</em>. Simplemente responderá como pueda, pero sin entender de verdad tu propósito ni tus objetivos.</p>
+
+    <h2>Ejemplo práctico: Evolución de un prompt</h2>
+
+    <div class="example-box">
+      <h4>Versión 1 (básica):</h4>
+      <p><em>"Ayúdame a mejorar mi CV"</em></p>
+    </div>
+
+    <div class="example-box">
+      <h4>Versión 2 (mejorada):</h4>
+      <p><em>"Soy ingeniero de software con 5 años de experiencia, principalmente en desarrollo web con React y Node.js. Busco trabajo en startups de tecnología. Ayúdame a mejorar mi CV para que sea más atractivo para reclutadores."</em></p>
+    </div>
+
+    <div class="example-box">
+      <h4>Versión 3 (excelente):</h4>
+      <p><em>"Soy ingeniero de software con 5 años de experiencia, principalmente en desarrollo web con React, Node.js y Python. He trabajado en 3 startups exitosas donde lideré equipos de hasta 5 desarrolladores. Tengo experiencia en e-commerce, fintech y SaaS. Busco un puesto senior en una startup de tecnología en Santiago, Chile, con enfoque en productos B2B. Mi salario objetivo es entre $3-4 millones CLP. Ayúdame a crear un CV que destaque mi experiencia liderando equipos, mi conocimiento técnico, y mis logros cuantificables (aumenté las ventas en un 40% con una nueva funcionalidad que desarrollé). Quiero que el CV sea de 2 páginas máximo, con un diseño moderno pero profesional, y que incluya palabras clave que los ATS (sistemas de seguimiento de candidatos) puedan identificar fácilmente. También necesito una carta de presentación que complemente el CV."</em></p>
+    </div>
+
+    <p>Como puedes ver, la versión 3 generará un resultado completamente diferente y mucho más útil que la versión 1.</p>
+
+    <h2>Conclusión</h2>
+
+    <p>Los prompts largos no son <em>"complicados"</em> o <em>"innecesarios"</em>. Son la diferencia entre obtener resultados genéricos y obtener resultados que realmente te ayuden a resolver tu problema específico.</p>
+
+    <p>La próxima vez que uses IA, recuerda: <strong>invierte tiempo en crear un prompt detallado y ahorrarás tiempo corrigiendo un resultado mediocre.</strong></p>
+
+    <div class="highlight-box">
+      <h4>🚀 Próximos pasos</h4>
+      <p>Prueba este enfoque en tu próximo prompt. Incluye contexto, objetivo específico, restricciones, formato deseado y ejemplos. Te sorprenderás de la diferencia.</p>
+    </div>
+  </main>
+
+  <!-- NAVIGATION -->
+  <nav class="blog-nav">
+    <a href="../index.html">← Volver al blog</a>
+  </nav>
+</body>
+</html>

@@ -19,54 +19,58 @@ async function translateText(text, targetLang = 'es') {
     }
 }
 
-// Función para obtener noticias de TechCrunch usando axios
-async function getTechCrunchNews() {
+// Función para obtener noticias de fuentes en español sobre IA
+async function getSpanishAINews() {
     try {
-        console.log('🔍 Obteniendo noticias de TechCrunch...');
+        console.log('🔍 Obteniendo noticias de IA en español...');
         
-        const response = await axios.get('https://techcrunch.com/category/artificial-intelligence/', {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-            },
-            timeout: 30000
-        });
-
-        const $ = cheerio.load(response.data);
         const news = [];
+        
+        // Noticias de El País - Tecnología
+        try {
+            const response = await axios.get('https://elpais.com/tecnologia/', {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                },
+                timeout: 15000
+            });
 
-        // Buscar artículos de noticias
-        $('article, .post-block, [class*="post"]').slice(0, 5).each((i, element) => {
-            const $el = $(element);
-            const titleEl = $el.find('h2 a, h3 a, .post-block__title a, a[href*="/2024/"], a[href*="/2025/"]').first();
+            const $ = cheerio.load(response.data);
             
-            if (titleEl.length) {
-                const title = titleEl.text().trim();
-                let link = titleEl.attr('href');
+            $('article').slice(0, 3).each((i, element) => {
+                const $el = $(element);
+                const titleEl = $el.find('h2 a, h3 a').first();
                 
-                if (link && !link.startsWith('http')) {
-                    link = 'https://techcrunch.com' + link;
-                }
-                
-                if (title && link) {
-                    const excerptEl = $el.find('.post-block__content, .excerpt, p').first();
-                    const dateEl = $el.find('time, .post-block__date, .date').first();
+                if (titleEl.length) {
+                    const title = titleEl.text().trim();
+                    let link = titleEl.attr('href');
                     
-                    news.push({
-                        title: title,
-                        link: link,
-                        excerpt: excerptEl.text().trim().substring(0, 200) || '',
-                        date: dateEl.text().trim() || new Date().toLocaleDateString(),
-                        source: 'TechCrunch'
-                    });
+                    if (link && !link.startsWith('http')) {
+                        link = 'https://elpais.com' + link;
+                    }
+                    
+                    if (title && link && (title.toLowerCase().includes('ia') || title.toLowerCase().includes('inteligencia') || title.toLowerCase().includes('artificial'))) {
+                        const excerptEl = $el.find('p').first();
+                        
+                        news.push({
+                            title: title,
+                            link: link,
+                            excerpt: excerptEl.text().trim().substring(0, 200) || 'Noticia sobre inteligencia artificial y tecnología.',
+                            date: new Date().toLocaleDateString('es-ES'),
+                            source: 'El País'
+                        });
+                    }
                 }
-            }
-        });
+            });
+        } catch (error) {
+            console.log('⚠️ Error obteniendo noticias de El País:', error.message);
+        }
 
-        console.log(`✅ Encontradas ${news.length} noticias de TechCrunch`);
+        console.log(`✅ Encontradas ${news.length} noticias en español`);
         return news;
 
     } catch (error) {
-        console.error('❌ Error obteniendo noticias de TechCrunch:', error);
+        console.error('❌ Error obteniendo noticias en español:', error);
         return [];
     }
 }
@@ -126,49 +130,49 @@ async function getMITNews() {
 async function createSampleNews() {
     const sampleNews = [
         {
-            title: 'OpenAI lanza GPT-5 con capacidades revolucionarias',
-            original_title: 'OpenAI launches GPT-5 with revolutionary capabilities',
-            excerpt: 'La nueva versión de GPT-5 incluye mejoras significativas en razonamiento y creatividad que superan las expectativas.',
-            original_excerpt: 'The new GPT-5 version includes significant improvements in reasoning and creativity that exceed expectations.',
-            link: 'https://openai.com/blog/gpt-5',
+            title: 'OpenAI presenta GPT-4o: el modelo más avanzado hasta ahora',
+            original_title: 'OpenAI presents GPT-4o: the most advanced model yet',
+            excerpt: 'El nuevo modelo GPT-4o combina capacidades de texto, audio e imagen en tiempo real, revolucionando la interacción con IA.',
+            original_excerpt: 'The new GPT-4o model combines text, audio and image capabilities in real time, revolutionizing AI interaction.',
+            link: 'https://openai.com/blog/gpt-4o',
             source: 'OpenAI',
-            date: new Date().toLocaleDateString()
+            date: new Date().toLocaleDateString('es-ES')
         },
         {
-            title: 'Google presenta nuevo modelo de IA para medicina',
-            original_title: 'Google presents new AI model for medicine',
-            excerpt: 'El modelo puede diagnosticar enfermedades con mayor precisión que los médicos humanos en pruebas clínicas.',
-            original_excerpt: 'The model can diagnose diseases with greater accuracy than human doctors in clinical trials.',
-            link: 'https://ai.googleblog.com/2024/01/medical-ai-breakthrough.html',
-            source: 'Google AI',
-            date: new Date().toLocaleDateString()
+            title: 'Google Gemini: la competencia directa a ChatGPT que ya está aquí',
+            original_title: 'Google Gemini: direct competition to ChatGPT that is already here',
+            excerpt: 'Google lanza su modelo de IA más potente, capaz de procesar texto, imágenes, audio y video de forma simultánea.',
+            original_excerpt: 'Google launches its most powerful AI model, capable of processing text, images, audio and video simultaneously.',
+            link: 'https://blog.google/technology/ai/google-gemini-ai/',
+            source: 'Google',
+            date: new Date().toLocaleDateString('es-ES')
         },
         {
-            title: 'Microsoft integra IA en Office 365',
-            original_title: 'Microsoft integrates AI into Office 365',
-            excerpt: 'Nuevas funciones de IA automática para mejorar la productividad en el trabajo con Copilot avanzado.',
-            original_excerpt: 'New automatic AI features to improve productivity at work with advanced Copilot.',
-            link: 'https://blogs.microsoft.com/office-ai-integration',
+            title: 'Microsoft Copilot: cómo la IA está transformando el trabajo',
+            original_title: 'Microsoft Copilot: how AI is transforming work',
+            excerpt: 'La integración de IA en Microsoft 365 está cambiando la forma en que trabajamos, aumentando la productividad de manera significativa.',
+            original_excerpt: 'AI integration in Microsoft 365 is changing the way we work, significantly increasing productivity.',
+            link: 'https://blogs.microsoft.com/blog/2024/01/15/the-future-of-work-with-microsoft-copilot/',
             source: 'Microsoft',
-            date: new Date().toLocaleDateString()
+            date: new Date().toLocaleDateString('es-ES')
         },
         {
-            title: 'Tesla mejora autopilot con IA avanzada',
-            original_title: 'Tesla improves autopilot with advanced AI',
-            excerpt: 'El sistema de conducción autónoma ahora es más seguro y eficiente con nuevas capacidades de IA.',
-            original_excerpt: 'The autonomous driving system is now safer and more efficient with new AI capabilities.',
-            link: 'https://www.tesla.com/autopilot-update',
-            source: 'Tesla',
-            date: new Date().toLocaleDateString()
+            title: 'Midjourney vs DALL-E: la batalla de la IA generativa de imágenes',
+            original_title: 'Midjourney vs DALL-E: the battle of generative AI images',
+            excerpt: 'Comparativa de los dos modelos más populares para generar imágenes con IA, sus fortalezas y mejores casos de uso.',
+            original_excerpt: 'Comparison of the two most popular models for generating images with AI, their strengths and best use cases.',
+            link: 'https://www.midjourney.com/blog/midjourney-vs-dalle/',
+            source: 'Midjourney',
+            date: new Date().toLocaleDateString('es-ES')
         },
         {
-            title: 'Meta lanza nuevo modelo de lenguaje abierto',
-            original_title: 'Meta launches new open language model',
-            excerpt: 'El modelo está disponible para investigadores y desarrolladores de todo el mundo de forma gratuita.',
-            original_excerpt: 'The model is available for researchers and developers worldwide for free.',
-            link: 'https://ai.meta.com/blog/open-language-model',
-            source: 'Meta AI',
-            date: new Date().toLocaleDateString()
+            title: 'IA en medicina: diagnóstico más preciso que los médicos humanos',
+            original_title: 'AI in medicine: more accurate diagnosis than human doctors',
+            excerpt: 'Los sistemas de IA están demostrando una precisión superior en el diagnóstico de enfermedades, especialmente en radiología y patología.',
+            original_excerpt: 'AI systems are demonstrating superior accuracy in disease diagnosis, especially in radiology and pathology.',
+            link: 'https://www.nature.com/articles/ai-medicine-breakthrough',
+            source: 'Nature Medicine',
+            date: new Date().toLocaleDateString('es-ES')
         }
     ];
 
@@ -215,17 +219,17 @@ async function scrapeAndSaveNews() {
     try {
         // Crear tabla primero
         await createNewsTable();
-        // Intentar obtener noticias reales
-        const [techcrunchNews, mitNews] = await Promise.all([
-            getTechCrunchNews(),
+        // Intentar obtener noticias reales en español
+        const [spanishNews, mitNews] = await Promise.all([
+            getSpanishAINews(),
             getMITNews()
         ]);
 
-        let allNews = [...techcrunchNews, ...mitNews];
+        let allNews = [...spanishNews, ...mitNews];
 
-        // Usar noticias de ejemplo por ahora (más confiable)
+        // Usar noticias de ejemplo si no hay suficientes noticias reales
         if (allNews.length < 3) {
-            console.log('⚠️ Usando noticias de ejemplo para garantizar contenido...');
+            console.log('⚠️ Usando noticias de ejemplo para garantizar contenido de calidad...');
             allNews = await createSampleNews();
         }
 
