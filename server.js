@@ -346,6 +346,14 @@ app.get('/icono INSTAGRAM.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'icono INSTAGRAM.png'));
 });
 
+app.get('/Reyes IA _ Hands-On S01.pdf', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Reyes IA _ Hands-On S01.pdf'));
+});
+
+app.get('/talleres-practicos-ia.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'talleres-practicos-ia.html'));
+});
+
 app.get('/icono LINKEDIN.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'icono LINKEDIN.png'));
 });

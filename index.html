@@ -357,10 +357,10 @@
     }
 
     .testimonial-card:hover {
-      transform: translateY(-8px) scale(1.05);
+      transform: translateY(-3px) scale(1.02);
       box-shadow: 
-        0 20px 40px rgba(0,0,0,0.12),
-        0 8px 25px rgba(192, 155, 90, 0.18);
+        0 10px 25px rgba(0,0,0,0.08),
+        0 4px 15px rgba(192, 155, 90, 0.12);
     }
 
     .testimonial-card:hover::before {
@@ -368,8 +368,8 @@
     }
 
     .testimonial-card:hover .testimonial-avatar {
-      transform: scale(1.1);
-      box-shadow: 0 8px 25px rgba(192, 155, 90, 0.3);
+      transform: scale(1.03);
+      box-shadow: 0 4px 15px rgba(192, 155, 90, 0.2);
     }
 
     .testimonial-avatar {
@@ -394,8 +394,8 @@
       filter: grayscale(100%) brightness(1.2) contrast(1.1);
     }
 
-    .logos img[alt="Clorox"]:hover {
-      filter: grayscale(100%) brightness(0.3) contrast(2) invert(1);
+    .logos img[alt="PC Factory - Cliente de Reyes IA"]:hover {
+      filter: grayscale(0%) brightness(1); /* Se ve en verde (color original) al hacer hover */
     }
 
     /* Smooth transitions for all interactive elements */
@@ -548,6 +548,7 @@
         padding: 12px;
         font-size: 1rem;
       }
+      
       
       /* Buttons mobile */
       .btn {
@@ -1128,9 +1129,11 @@
       filter: grayscale(100%) brightness(1.2) contrast(1.1); /* Solo escala de grises */
     }
 
-    /* Logo de Clorox - filtro especial para mantener legibilidad */
-    .logos img[alt="Clorox"] {
-      filter: grayscale(100%) brightness(0.3) contrast(2) invert(1); /* Filtro especial para Clorox */
+    /* Logo de PC Factory - filtro para blanco y tamaño */
+    .logos img[alt="PC Factory - Cliente de Reyes IA"] {
+      filter: grayscale(100%) brightness(0) invert(1); /* Filtro para poner en blanco */
+      width: 120px;      /* un poco más grande */
+      height: auto;      /* mantiene proporción */
     }
 
     /* Logo de Copec - más pequeño */
@@ -1499,25 +1502,19 @@
 
     .contacto h2 {
       color: #1a1a1a;
-      margin-bottom: 1rem;
-    }
-
-    .contacto p {
+      margin-bottom: 2rem;
       text-align: center;
-      color: #6b7280;
-      margin-bottom: 2.5rem;
-      font-size: 1.1rem;
     }
 
     .contact-form {
       background: #f8fafc;
-      padding: 2.5rem;
+      padding: 2rem;
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
 
     .form-group label {
@@ -1549,7 +1546,7 @@
 
     .form-group textarea {
       resize: vertical;
-      min-height: 120px;
+      min-height: 80px;
     }
 
     .form-row {
@@ -1557,6 +1554,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
+
 
     .btn-submit {
       background: linear-gradient(135deg, #c09b5a, #e0c07c);
@@ -1608,7 +1606,7 @@
     }
   </style>
 </head>
-  <body>
+<body>
   <!-- HEADER -->
   <header>
     <img src="logo reyes IA horizontal blanco.png" alt="Reyes IA - Consultoría en Inteligencia Artificial" loading="eager">
@@ -1655,10 +1653,10 @@
   <section id="servicios" class="services">
     <h2 class="fade-in">Mis Servicios</h2>
     <div class="card-container">
-      <div class="card fade-in">
+      <a href="talleres-practicos-ia.html" class="card fade-in" style="text-decoration: none; color: inherit;">
         <h3>💻 Talleres Prácticos de IA</h3>
         <p>Cursos presenciales para empresas que buscan aprender a usar IA de forma aplicada. Desde talleres introductorios hasta programas específicos: Copilot, Gemini, ChatGPT, creación de contenido, ventas, legal y más áreas clave.</p>
-      </div>
+      </a>
       <div class="card fade-in">
         <h3>🚀 Adopción Profunda de IA</h3>
         <p>Programa de transformación profunda de cuatro meses con ocho sesiones quincenales. Se capacita a gerentes y embajadores en uso real de IA, con casos prácticos sobre problemas propios y medición de progreso mediante KPIs claros.</p>
@@ -1700,7 +1698,7 @@
           <div class="logos">
             <img src="Copec ORIGINAL.png" alt="COPEC - Cliente de Reyes IA" loading="lazy">
             <img src="enel ORIGINAL.png" alt="ENEL - Cliente de Reyes IA" loading="lazy">
-            <img src="Clorox-logo-191x112px.avif" alt="Clorox - Cliente de Reyes IA" loading="lazy">
+            <img src="pcFactory Original.png" alt="PC Factory - Cliente de Reyes IA" loading="lazy">
             <img src="CLARO logo rojo.png" alt="CLARO - Cliente de Reyes IA" loading="lazy">
             <img src="SKC logo azul.png" alt="SKC - Cliente de Reyes IA" loading="lazy">
             <img src="SKECHERS logo blanco.png" alt="SKECHERS - Cliente de Reyes IA" loading="lazy">
@@ -1839,8 +1837,7 @@
   <!-- CONTACTO -->
   <section id="contacto" class="contacto">
     <div class="container">
-      <h2>¿Listo para transformar tu empresa con IA?</h2>
-      <p>Cuéntame sobre tu proyecto y cómo puedo ayudarte a implementar Inteligencia Artificial de forma práctica y efectiva.</p>
+      <h2>¿Listo para transformar tu manera de trabajar ocupando IA de manera profesional?</h2>
       
       <form class="contact-form" id="contactForm" action="https://formspree.io/f/mvgbjoyy" method="POST">
         <input type="hidden" name="_next" value="https://reyesia.com/gracias.html">
@@ -1858,12 +1855,28 @@
         
         <div class="form-row">
           <div class="form-group">
-            <label for="empresa">Empresa</label>
-            <input type="text" id="empresa" name="empresa">
+            <label for="telefono">Teléfono *</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <select id="countryCode" name="countryCode" style="width: 100px; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px;" required>
+                <option value="+56">🇨🇱 +56</option>
+                <option value="+57">🇨🇴 +57</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+54">🇦🇷 +54</option>
+                <option value="+51">🇵🇪 +51</option>
+                <option value="+55">🇧🇷 +55</option>
+                <option value="+52">🇲🇽 +52</option>
+                <option value="+34">🇪🇸 +34</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+39">🇮🇹 +39</option>
+              </select>
+              <input type="tel" id="telefono" name="telefono" placeholder="9 1234 5678" required style="flex: 1; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px;">
+            </div>
           </div>
           <div class="form-group">
-            <label for="servicio">Servicio de interés</label>
-            <select id="servicio" name="servicio">
+            <label for="servicio">Servicio de interés *</label>
+            <select id="servicio" name="servicio" required>
               <option value="">Selecciona una opción</option>
               <option value="talleres">Talleres Prácticos de IA</option>
               <option value="adopcion">Adopción Profunda de IA</option>
@@ -1873,9 +1886,20 @@
           </div>
         </div>
         
+        <div class="form-row">
         <div class="form-group">
-          <label for="mensaje">Mensaje *</label>
-          <textarea id="mensaje" name="mensaje" placeholder="Cuéntame sobre tu proyecto, objetivos y cómo puedo ayudarte..." required></textarea>
+            <label for="empresa">Empresa</label>
+            <input type="text" id="empresa" name="empresa">
+          </div>
+          <div class="form-group">
+            <label for="cargo">Cargo</label>
+            <input type="text" id="cargo" name="cargo" placeholder="Ej: Gerente, Director, CEO...">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Cuéntame sobre tu proyecto, objetivos y cómo puedo ayudarte..."></textarea>
         </div>
         
         <button type="submit" class="btn-submit">Enviar mensaje</button>
@@ -1924,6 +1948,7 @@
       window.location.href = 'https://reyesia.com/gracias.html';
     }
 
+
     // Menú hamburguesa
     const hamburger = document.getElementById('hamburger');
     const navMobile = document.getElementById('navMobile');
@@ -1949,6 +1974,32 @@
         body.style.overflow = '';
       }
     });
+
+    // Phone input simple functionality
+    const phoneInput = document.getElementById('telefono');
+    const countrySelect = document.getElementById('countryCode');
+    
+    if (countrySelect) {
+      countrySelect.addEventListener('change', function() {
+        const placeholders = {
+          '+56': '9 1234 5678',
+          '+57': '300 123 4567',
+          '+1': '(555) 123-4567',
+          '+54': '11 1234 5678',
+          '+51': '987 654 321',
+          '+55': '(11) 99999-9999',
+          '+52': '55 1234 5678',
+          '+34': '612 345 678',
+          '+49': '30 12345678',
+          '+33': '6 12 34 56 78',
+          '+44': '7700 900123',
+          '+39': '333 123 4567'
+        };
+        if (phoneInput) {
+          phoneInput.placeholder = placeholders[this.value] || 'Número de teléfono';
+        }
+      });
+    }
 
     // Cerrar menú al hacer click fuera
     document.addEventListener('click', (e) => {

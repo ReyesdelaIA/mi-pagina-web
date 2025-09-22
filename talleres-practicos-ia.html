@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Talleres Prácticos de IA - Reyes IA | Capacitación Hands-On en Inteligencia Artificial</title>
+  <meta name="description" content="Talleres prácticos de IA para empresas. 9 talleres especializados de 1.5 horas cada uno. Metodología hands-on con ejercicios prácticos. Presencial u online.">
+  <meta name="keywords" content="talleres IA, capacitación inteligencia artificial, ChatGPT, Copilot, Gemini, agentes IA, abogados IA, cargos administrativos">
+  <meta name="author" content="Felipe Reyes - Reyes IA">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://reyesia.com/talleres-practicos-ia.html">
+  <meta property="og:title" content="Talleres Prácticos de IA - Reyes IA">
+  <meta property="og:description" content="Talleres prácticos de IA para empresas. Metodología hands-on con ejercicios prácticos.">
+  <meta property="og:image" content="https://reyesia.com/logo%20reyes%20IA%20horizontal%20blanco.png">
+  <meta property="og:site_name" content="Reyes IA">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header */
+    .header {
+      background: #1a2537;
+      color: #fff;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: translateY(-2px);
+    }
+
+    .logo img {
+      height: 50px;
+      filter: none;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover img {
+      filter: brightness(1.1);
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      background: #c09b5a;
+      color: #1a1a1a;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: #e0c07c;
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #1a2537 0%, #2c3e50 100%);
+      color: #fff;
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Intro Section */
+    .intro {
+      padding: 4rem 0;
+      background: #f8fafc;
+    }
+
+    .intro-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .intro-text h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a2537;
+      margin-bottom: 1.5rem;
+    }
+
+    .intro-text p {
+      font-size: 1.1rem;
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
+
+    .features-table {
+      margin-top: 2rem;
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      color: #c09b5a;
+      font-weight: bold;
+      font-size: 1.2rem;
+      min-width: 20px;
+    }
+
+    .feature-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .feature-content strong {
+      color: #1a2537;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .feature-content span {
+      color: #6b7280;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .intro-image {
+      text-align: center;
+    }
+
+    .intro-image img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Talleres Section */
+    .talleres {
+      padding: 4rem 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a2537;
+      margin-bottom: 3rem;
+    }
+
+    .talleres-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .taller-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+
+    .taller-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .taller-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .taller-number {
+      background: #c09b5a;
+      color: #1a1a1a;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .taller-category {
+      background: #e5e7eb;
+      color: #374151;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .taller-category.exclusivo {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .taller-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1a2537;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .taller-details {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .taller-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    .taller-detail::before {
+      content: "⏱️";
+    }
+
+    .taller-description {
+      color: #374151;
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    .taller-cta {
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      color: #1a1a1a;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .taller-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(192, 155, 90, 0.3);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      color: #1a1a1a;
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .cta-content h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      background: #1a2537;
+      color: #fff;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      background: #2c3e50;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    .footer {
+      background: #1a2537;
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .footer a {
+      color: #c09b5a;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .intro-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .feature-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .talleres-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .taller-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <img src="../logo reyes IA horizontal blanco.png" alt="Reyes IA">
+        </a>
+        <a href="index.html" class="back-btn">← Volver al sitio</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Talleres Prácticos de IA</h1>
+      <p>Talleres especializados en uso de Inteligencia Artificial aplicada. Cada taller dura una 1:30 min y están diseñados para transformar la manera de trabajar de tu empresa eficientando procesos con IA. Hay diferentes temáticas de taller que te las explico a continuación:</p>
+    </div>
+  </section>
+
+  <!-- Intro Section -->
+  <section class="intro">
+    <div class="container">
+      <div class="intro-content">
+        <div class="intro-text">
+          <h2>Metodología Hands-On</h2>
+          <p>Los talleres están diseñados con una metodología práctica que combina teoría esencial con ejercicios hands-on. Cada sesión de 1.5 horas está optimizada para maximizar el aprendizaje y la aplicación inmediata.</p>
+          
+          <div class="features-table">
+            <div class="feature-row">
+              <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                  <strong>Formato presencial</strong>
+                  <span>Se fomenta presencial para mayor interacción excepto que el cliente necesite que sea online</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                  <strong>Enfoque práctico</strong>
+                  <span>Ejercicios reales con casos de uso empresariales</span>
+                </div>
+              </div>
+            </div>
+            <div class="feature-row">
+              <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                  <strong>Especialización</strong>
+                  <span>Talleres generales y especializados para abogados</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-content">
+                  <strong>Aplicación inmediata</strong>
+                  <span>Herramientas listas para usar desde el primer día. Post taller se comparte PPT a asistentes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="intro-image">
+          <img src="../clases01.jpg" alt="Talleres prácticos de IA" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Talleres Section -->
+  <section class="talleres">
+    <div class="container">
+      <h2 class="section-title">Detalle de los 9 talleres de IA especializados:</h2>
+      
+      <div class="talleres-grid">
+        <!-- Taller 1 -->
+        <div class="taller-card">
+          <div class="taller-header">
+            <div class="taller-number">1</div>
+            <div class="taller-category">Multi-industria</div>
+          </div>
+          <h3 class="taller-title">Taller Introductorio de IA para Cargos Administrativos</h3>
+          <div class="taller-details">
+            <div class="taller-detail">1.5 horas</div>
+            <div class="taller-detail">Teórico-Práctico</div>
+          </div>
+          <p class="taller-description">Introducción completa a la IA. Aprende los conceptos básicos, las herramientas esenciales, además de uso responsable, confidencialidad, riesgos, entre otros.</p>
+          <a href="#contacto" class="taller-cta">Más información</a>
+        </div>
+
+        <!-- Taller 2 -->
+        <div class="taller-card">
+          <div class="taller-header">
+            <div class="taller-number">2</div>
+            <div class="taller-category">Multi-industria</div>
+          </div>
+          <h3 class="taller-title">Uso Profundo de Modelos de Lenguaje</h3>
+          <div class="taller-details">
+            <div class="taller-detail">1.5 horas</div>
+            <div class="taller-detail">Hands-On</div>
+          </div>
+          <p class="taller-description">Domina el uso avanzado de ChatGPT, Claude y otros modelos de lenguaje. Técnicas avanzadas de prompting, análisis de datos y automatización de tareas complejas.</p>
+          <a href="#contacto" class="taller-cta">Más información</a>
+        </div>
+
+        <!-- Taller 3 -->
+        <div class="taller-card">
+          <div class="taller-header">
+            <div class="taller-number">3</div>
+            <div class="taller-category exclusivo">Exclusivo Abogados</div>
+          </div>
+          <h3 class="taller-title">Taller Introductorio de IA para Abogados</h3>
+          <div class="taller-details">
+            <div class="taller-detail">1.5 horas</div>
+            <div class="taller-detail">Teórico-Práctico</div>
+          </div>
+          <p class="taller-description">Especializado para profesionales del derecho. Aprende cómo la IA puede transformar la práctica legal: investigación, redacción de documentos y análisis de casos.</p>
+          <a href="#contacto" class="taller-cta">Más información</a>
+        </div>
+
+        <!-- Taller 4 -->
+        <div class="taller-card">
+          <div class="taller-header">
+            <div class="taller-number">4</div>
+            <div class="taller-category exclusivo">Exclusivo Abogados</div>
+          </div>
+          <h3 class="taller-title">Uso Profundo de Modelos de Lenguaje para Abogados</h3>
+          <div class="taller-details">
+            <div class="taller-detail">1.5 horas</div>
+            <div class="taller-detail">Hands-On</div>
+          </div>
+          <p class="taller-description">Técnicas avanzadas de IA aplicadas al derecho. Análisis de jurisprudencia, redacción de contratos, investigación legal automatizada y optimización de procesos legales.</p>
+          <a href="#contacto" class="taller-cta">Más información</a>
+        </div>
+
+        <!-- Taller 5 -->
+        <div class="taller-card">
+          <div class="taller-header">
+            <div class="taller-number">5</div>
+            <div class="taller-category">Multi-industria</div>
+          </div>
+          <h3 class="taller-title">Generación de Contenido Multimedia y Estrategias</h3>
+          <div class="taller-details">
+            <div class="taller-detail">1.5 horas</div>
+            <div class="taller-detail">Hands-On</div>
+          </div>
+          <p class="taller-description">Crea contenido visual impactante con IA. Aprende a generar imágenes, videos, presentaciones y estrategias de contenido usando las mejores herramientas del mercado.</p>
+          <a href="#contacto" class="taller-cta">Más información</a>
+        </div>
+
+        <!-- Taller 6 -->
+        <div class="taller-card">
+          <div class="taller-header">
+            <div class="taller-number">6</div>
+            <div class="taller-category">Multi-industria</div>
+          </div>
+          <h3 class="taller-title">Uso Profesional de Copilot – IA de Microsoft</h3>
+          <div class="taller-details">
+            <div class="taller-detail">1.5 horas</div>
+            <div class="taller-detail">Hands-On</div>
+          </div>
+          <p class="taller-description">Domina Microsoft Copilot en Office 365. Automatiza tareas en Word, Excel, PowerPoint y Outlook. Maximiza la productividad con la IA integrada en Microsoft.</p>
+          <a href="#contacto" class="taller-cta">Más información</a>
+        </div>
+
+        <!-- Taller 7 -->
+        <div class="taller-card">
+          <div class="taller-header">
+            <div class="taller-number">7</div>
+            <div class="taller-category">Multi-industria</div>
+          </div>
+          <h3 class="taller-title">Uso Profesional de Gemini – IA en Workspace Google</h3>
+          <div class="taller-details">
+            <div class="taller-detail">1.5 horas</div>
+            <div class="taller-detail">Hands-On</div>
+          </div>
+          <p class="taller-description">Aprovecha Google Gemini en Workspace. Automatiza Gmail, Docs, Sheets y Slides. Optimiza el flujo de trabajo con la inteligencia artificial de Google.</p>
+          <a href="#contacto" class="taller-cta">Más información</a>
+        </div>
+
+        <!-- Taller 8 -->
+        <div class="taller-card">
+          <div class="taller-header">
+            <div class="taller-number">8</div>
+            <div class="taller-category">Multi-industria</div>
+          </div>
+          <h3 class="taller-title">Creación de Páginas Web, Aplicaciones y Sitios</h3>
+          <div class="taller-details">
+            <div class="taller-detail">1.5 horas</div>
+            <div class="taller-detail">Hands-On</div>
+          </div>
+          <p class="taller-description">Crea sitios web y aplicaciones sin código usando IA. Herramientas como Framer, Bubble y otros generadores de código. Desarrolla prototipos funcionales en minutos.</p>
+          <a href="#contacto" class="taller-cta">Más información</a>
+        </div>
+
+        <!-- Taller 9 -->
+        <div class="taller-card">
+          <div class="taller-header">
+            <div class="taller-number">9</div>
+            <div class="taller-category">Multi-industria</div>
+          </div>
+          <h3 class="taller-title">Introducción al uso de Agentes para empresas</h3>
+          <div class="taller-details">
+            <div class="taller-detail">1.5 horas</div>
+            <div class="taller-detail">Hands-On</div>
+          </div>
+          <p class="taller-description">Descubre el futuro de la IA: agentes inteligentes. Aprende a crear y configurar agentes que automatizan procesos complejos y toman decisiones autónomas.</p>
+          <a href="#contacto" class="taller-cta">Más información</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>¿Listo para capacitar a tu equipo?</h2>
+        <p>Transforma la manera de trabajar de tu organización con nuestros talleres prácticos de IA. Cada sesión está diseñada para generar impacto inmediato.</p>
+        <div class="cta-buttons">
+          <a href="index.html#contacto" class="cta-btn">Solicitar información</a>
+          <a href="index.html" class="cta-btn">Ver todos los servicios</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>✉️ <a href="mailto:felipe@reyesIA.com">felipe@reyesIA.com</a></p>
+      <p>
+        <a href="https://www.linkedin.com/in/felipereyespolanco" target="_blank">LinkedIn</a> |
+        <a href="https://www.instagram.com/reyesdelaia/" target="_blank">Instagram</a>
+      </p>
+      <p>&copy; 2025 Reyes IA. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

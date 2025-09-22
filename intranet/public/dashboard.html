@@ -121,10 +121,11 @@
             background: #f8fafc;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.2rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            height: fit-content;
         }
 
         .resource-card:hover {
@@ -134,30 +135,30 @@
         }
 
         .resource-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
             display: block;
         }
 
         .resource-card h4 {
             color: #1a1a1a;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
-            line-height: 1.4;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
         }
 
         .resource-card p {
             color: #64748b;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 0.8rem;
         }
 
         .resource-meta {
             display: flex;
             gap: 0.75rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
         }
 
         .resource-type {
@@ -183,10 +184,10 @@
             background: linear-gradient(135deg, #c09b5a, #e0c07c);
             color: #1a1a1a;
             border: none;
-            padding: 0.75rem 1rem;
+            padding: 0.6rem 1rem;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -530,7 +531,7 @@
 <body>
     <div class="header">
         <div class="logo">
-            <img src="../logo reyes IA horizontal blanco.png" alt="ReyesIA" onerror="this.style.display='none'">
+            <img src="../logo reyes IA horizontal blanco.png" alt="ReyesIA" onerror="this.style.display='none'" style="filter: brightness(0.1);">
             <h1>Intranet ReyesIA</h1>
         </div>
         <div class="user-info">
@@ -611,15 +612,49 @@
             </div>
         </div>
 
-        <!-- Sección Material Clases -->
-        <div class="dashboard-section" id="material">
+        <!-- Sección Clases Hands-On -->
+        <div class="dashboard-section" id="clases">
             <div class="files-section">
-                <h3>🎓 Material de Clases</h3>
-                <div class="coming-soon">
-                    <div class="coming-soon-icon">🎓</div>
-                    <h4>Material de Clases</h4>
-                    <p>Aquí encontrarás todo el material complementario de los talleres presenciales: presentaciones, ejercicios prácticos, casos de estudio y recursos adicionales.</p>
-                    <div class="coming-soon-badge">Próximamente</div>
+                <h3>🎥 Clases Hands-On</h3>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">📄</div>
+                        <h4>Clase IA Hands-On 01</h4>
+                        <p>Introducción al mundo de la IA, fundamentos de prompts, uso de LLMs para tareas administrativas y legales. Incluye hands-on práctico con las 3 reglas de oro.</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">PDF</span>
+                            <span class="resource-size">Disponible</span>
+                        </div>
+                        <button class="download-btn" onclick="window.open('/Reyes IA _ Hands-On S01.pdf', '_blank')">
+                            📥 Ver Clase
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">🎥</div>
+                        <h4>Clase IA Hands-On 02</h4>
+                        <p>Profundización en LLMs, generación de PPTs, imágenes y videos con IA. Uso avanzado de herramientas de dictado y visión. Hands-on con Napkin e Ideogram.</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Próximamente</span>
+                            <span class="resource-size">En desarrollo</span>
+                        </div>
+                        <button class="download-btn" onclick="alert('Próximamente disponible')" style="opacity: 0.6; cursor: not-allowed;">
+                            📥 Ver Clase
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">🎥</div>
+                        <h4>Clase IA Hands-On 03</h4>
+                        <p>Proyecto personalizado con IA: Notebook LM, conectores (Gmail, Microsoft, Canva), Custom GPTs, automatización con Make y N8N. Hands-on final.</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Próximamente</span>
+                            <span class="resource-size">En desarrollo</span>
+                        </div>
+                        <button class="download-btn" onclick="alert('Próximamente disponible')" style="opacity: 0.6; cursor: not-allowed;">
+                            📥 Ver Clase
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
