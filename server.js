@@ -87,6 +87,25 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
+// Página principal del sitio web
+app.get('/sitio', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/index.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// SEO files
+app.get('/robots.txt', (req, res) => {
+    res.sendFile(path.join(__dirname, 'robots.txt'));
+});
+
+app.get('/sitemap.xml', (req, res) => {
+    res.setHeader('Content-Type', 'application/xml');
+    res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
+
 app.get('/login.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
@@ -319,7 +338,31 @@ app.post('/api/admin/files', authenticateToken, checkAdmin, upload.single('file'
     }
 });
 
-// Servir archivos
+// Servir archivos estáticos del directorio raíz
+app.use(express.static(__dirname));
+
+// Ruta específica para servir archivos con espacios en el nombre
+app.get('/icono INSTAGRAM.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'icono INSTAGRAM.png'));
+});
+
+app.get('/icono LINKEDIN.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'icono LINKEDIN.png'));
+});
+
+app.get('/logo reyes IA horizontal blanco.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'logo reyes IA horizontal blanco.png'));
+});
+
+app.get('/icon reyes IA.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'icon reyes IA.png'));
+});
+
+app.get('/reyesIA foto.JPG', (req, res) => {
+    res.sendFile(path.join(__dirname, 'reyesIA foto.JPG'));
+});
+
+// Servir archivos de uploads
 app.get('/uploads/:filename', (req, res) => {
     const filename = req.params.filename;
     const filePath = path.join(__dirname, 'uploads', filename);
