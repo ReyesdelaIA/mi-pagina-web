@@ -31,3 +31,8 @@
   from = "/dashboard"
   to = "/dashboard.html"
   status = 200
+
+[[redirects]]
+  from = "https://intranet.reyesia.com/*"
+  to = "/intranet-login.html"
+  status = 200
