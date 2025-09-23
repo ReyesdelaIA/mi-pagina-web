@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Intranet ReyesIA</title>
+    <!-- Deploy trigger: 2025-09-22 12:45 - Force update -->
+    <meta name="deploy-version" content="v2.1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo h1 {
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-email {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .btn-logout {
+            background: #dc2626;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #b91c1c;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .welcome {
+            background: linear-gradient(135deg, #c09b5a, #e0c07c);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .welcome h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome p {
+            opacity: 0.9;
+        }
+
+        .dashboard-menu {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .menu-card:hover {
+            border-color: #c09b5a;
+            box-shadow: 0 8px 25px rgba(192, 155, 90, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .menu-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .menu-card h4 {
+            color: #1a1a1a;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .content-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn {
+            background: #6b7280;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #4b5563;
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #6b7280;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 2px dashed #cbd5e1;
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .coming-soon h4 {
+            color: #374151;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon p {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .coming-soon p:last-child {
+            margin-bottom: 0;
+            opacity: 0.8;
+        }
+
+        .news-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card:hover {
+            border-color: #c09b5a;
+            box-shadow: 0 8px 25px rgba(192, 155, 90, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .news-source {
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
+        .news-title {
+            color: #1a1a1a;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-excerpt {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-date {
+            color: #9ca3af;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .news-link {
+            width: 100%;
+            background: linear-gradient(135deg, #c09b5a, #e0c07c);
+            color: #1a1a1a;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .news-link:hover {
+            background: linear-gradient(135deg, #a78b5a, #c9a96a);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(192, 155, 90, 0.3);
+        }
+
+        .files-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .files-section h3 {
+            color: #1a1a1a;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: fit-content;
+        }
+
+        .resource-card:hover {
+            border-color: #c09b5a;
+            box-shadow: 0 8px 25px rgba(192, 155, 90, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .resource-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .resource-card h4 {
+            color: #1a1a1a;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+        }
+
+        .resource-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 0.8rem;
+        }
+
+        .resource-meta {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .resource-type {
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .resource-size {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .download-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #c09b5a, #e0c07c);
+            color: #1a1a1a;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, #a78b5a, #c9a96a);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(192, 155, 90, 0.3);
+        }
+
+        .file-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-card:hover {
+            border-color: #c09b5a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .file-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-title {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-size {
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #c09b5a, #e0c07c);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-download:hover {
+            background: linear-gradient(135deg, #a07b3a, #c09b5a);
+            transform: translateY(-1px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+        }
+
+        .error {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #fecaca;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .files-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="../logo reyes IA horizontal blanco.png" alt="ReyesIA" onerror="this.style.display='none'" style="filter: brightness(0.1);">
+            <h1>Intranet ReyesIA</h1>
+        </div>
+        <div class="user-info">
+            <span class="user-email" id="userEmail"></span>
+            <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="welcome">
+            <h2>¡Bienvenido a la Intranet!</h2>
+            <p>Aquí encontrarás todos los recursos exclusivos para clientes autorizados de ReyesIA.</p>
+        </div>
+
+        <!-- Dashboard Principal - Menú de Navegación -->
+        <div class="dashboard-menu">
+            <h3>📋 Selecciona una Sección</h3>
+            <div class="menu-grid">
+                <div class="menu-card" onclick="showSection('news')">
+                    <div class="menu-icon">📰</div>
+                    <h4>Noticias IA</h4>
+                    <p>Las últimas noticias de inteligencia artificial</p>
+                </div>
+                
+                <div class="menu-card" onclick="showSection('resources')">
+                    <div class="menu-icon">📚</div>
+                    <h4>Recursos</h4>
+                    <p>Materiales exclusivos para clientes</p>
+                </div>
+                
+                <div class="menu-card" onclick="showSection('courses')">
+                    <div class="menu-icon">🎓</div>
+                    <h4>Material Clases</h4>
+                    <p>Contenido de las sesiones de capacitación</p>
+                </div>
+                
+                <div class="menu-card" onclick="showSection('hands-on')">
+                    <div class="menu-icon">🎥</div>
+                    <h4>Clases Hands-On</h4>
+                    <p>Sesiones prácticas presenciales</p>
+                </div>
+                
+                <div class="menu-card" onclick="showSection('online')">
+                    <div class="menu-icon">💻</div>
+                    <h4>Cursos Online</h4>
+                    <p>Formación virtual disponible</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Noticias IA (oculta por defecto) -->
+        <div class="content-section" id="newsSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="showDashboard()">← Volver al menú</button>
+                <h3>📰 Noticias de Inteligencia Artificial</h3>
+            </div>
+            <div class="news-grid" id="newsContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Cargando noticias...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Recursos (oculta por defecto) -->
+        <div class="content-section" id="resourcesSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="showDashboard()">← Volver al menú</button>
+                <h3>📚 Recursos Disponibles</h3>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">📝</div>
+                    <h4>3 Reglas de Oro para un Buen Prompt</h4>
+                    <p>3 reglas fundamentales para crear prompts efectivos que generen resultados excepcionales.</p>
+                    <div class="resource-meta">
+                        <span class="resource-type">PDF</span>
+                        <span class="resource-size">1.2 MB</span>
+                    </div>
+                    <button class="download-btn" onclick="downloadResource('3-reglas-oro-prompt.pdf')">
+                        📥 Descargar
+                    </button>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">🎨</div>
+                    <h4>5 Prompts Poderosos para Cambiar tu Logo</h4>
+                    <p>Colección de prompts especializados para rediseñar y mejorar logos usando inteligencia artificial.</p>
+                    <div class="resource-meta">
+                        <span class="resource-type">PDF</span>
+                        <span class="resource-size">856 KB</span>
+                    </div>
+                    <button class="download-btn" onclick="downloadResource('5-prompts-logo.pdf')">
+                        📥 Descargar
+                    </button>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">🤖</div>
+                    <h4>Paso a Paso para crear tu propio CustomGPT</h4>
+                    <p>Guía completa para crear tu propio GPT personalizado desde cero, con ejemplos prácticos.</p>
+                    <div class="resource-meta">
+                        <span class="resource-type">PDF</span>
+                        <span class="resource-size">1.4 MB</span>
+                    </div>
+                    <button class="download-btn" onclick="downloadResource('paso-paso-customgpt.pdf')">
+                        📥 Descargar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Material Clases (placeholder) -->
+        <div class="content-section" id="coursesSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="showDashboard()">← Volver al menú</button>
+                <h3>🎓 Material de Clases</h3>
+            </div>
+            <div class="coming-soon">
+                <div class="coming-soon-icon">🚧</div>
+                <h4>Próximamente</h4>
+                <p>Aquí encontrarás todo el material de las sesiones de capacitación</p>
+                <p>Presentaciones, documentos y recursos de cada clase</p>
+            </div>
+        </div>
+
+        <!-- Sección de Clases Hands-On -->
+        <div class="content-section" id="hands-onSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="showDashboard()">← Volver al menú</button>
+                <h3>🎥 Clases Hands-On</h3>
+            </div>
+            <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">📄</div>
+                        <h4>Clase IA Hands-On 01</h4>
+                        <p>Introducción al mundo de la IA, fundamentos de prompts, uso de LLMs para tareas administrativas y legales. Incluye hands-on práctico con las 3 reglas de oro.</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">PDF</span>
+                            <span class="resource-size">Disponible</span>
+                        </div>
+                        <button class="download-btn" onclick="window.open('/Reyes IA _ Hands-On S01.pdf', '_blank')">
+                            📥 Ver Clase
+                        </button>
+                    </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">🎥</div>
+                    <h4>Clase IA Hands-On 02</h4>
+                    <p>Profundización en LLMs, generación de PPTs, imágenes y videos con IA. Uso avanzado de herramientas de dictado y visión. Hands-on con Napkin e Ideogram.</p>
+                    <div class="resource-meta">
+                        <span class="resource-type">Próximamente</span>
+                        <span class="resource-size">En desarrollo</span>
+                    </div>
+                    <button class="download-btn" onclick="alert('Próximamente disponible')" style="opacity: 0.6; cursor: not-allowed;">
+                        📥 Ver Clase
+                    </button>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">🎥</div>
+                    <h4>Clase IA Hands-On 03</h4>
+                    <p>Proyecto personalizado con IA: Notebook LM, conectores (Gmail, Microsoft, Canva), Custom GPTs, automatización con Make y N8N. Hands-on final.</p>
+                    <div class="resource-meta">
+                        <span class="resource-type">Próximamente</span>
+                        <span class="resource-size">En desarrollo</span>
+                    </div>
+                    <button class="download-btn" onclick="alert('Próximamente disponible')" style="opacity: 0.6; cursor: not-allowed;">
+                        📥 Ver Clase
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Cursos Online (placeholder) -->
+        <div class="content-section" id="onlineSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" onclick="showDashboard()">← Volver al menú</button>
+                <h3>💻 Cursos Online</h3>
+            </div>
+            <div class="coming-soon">
+                <div class="coming-soon-icon">🚧</div>
+                <h4>Próximamente</h4>
+                <p>Aquí encontrarás todos los cursos virtuales disponibles</p>
+                <p>Acceso a plataformas de aprendizaje y contenido digital</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Verificar autenticación
+        const token = localStorage.getItem('authToken');
+        const userEmail = localStorage.getItem('userEmail');
+        
+        if (!token) {
+            window.location.href = '/login.html';
+        }
+
+        document.getElementById('userEmail').textContent = userEmail;
+
+        // Funciones de navegación
+        function showSection(sectionName) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.content-section, .dashboard-menu').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Mostrar la sección seleccionada
+            const targetSection = document.getElementById(sectionName + 'Section');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                
+                // Cargar contenido específico si es necesario
+                if (sectionName === 'news') {
+                    loadNews();
+                }
+            }
+        }
+
+        function showDashboard() {
+            // Ocultar todas las secciones de contenido
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Mostrar el menú principal
+            document.querySelector('.dashboard-menu').style.display = 'block';
+        }
+
+        // Cargar noticias
+        async function loadNews() {
+            try {
+                const response = await fetch('/api/news', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const news = await response.json();
+                    displayNews(news);
+                } else if (response.status === 401) {
+                    logout();
+                } else {
+                    showNewsError('Error al cargar las noticias');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNewsError('Error de conexión');
+            }
+        }
+
+        function displayNews(news) {
+            const container = document.getElementById('newsContainer');
+            
+            if (news.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6b7280;">No hay noticias disponibles en este momento.</p>';
+                return;
+            }
+
+            container.innerHTML = news.map(article => `
+                <div class="news-card">
+                    <div class="news-source">${article.source}</div>
+                    <div class="news-title">${article.title}</div>
+                    <div class="news-excerpt">${article.excerpt}</div>
+                    <div class="news-date">${article.date}</div>
+                    <a href="${article.link}" target="_blank" class="news-link">
+                        📖 Leer más
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        function showNewsError(message) {
+            const container = document.getElementById('newsContainer');
+            container.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        loadNews();
+
+        // Cargar archivos disponibles
+        async function loadFiles() {
+            try {
+                const response = await fetch('/api/files', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const files = await response.json();
+                    displayFiles(files);
+                } else if (response.status === 401) {
+                    logout();
+                } else {
+                    showError('Error al cargar los archivos');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error de conexión');
+            }
+        }
+
+        function displayFiles(files) {
+            const container = document.getElementById('filesContainer');
+            
+            if (files.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6b7280;">No hay archivos disponibles en este momento.</p>';
+                return;
+            }
+
+            container.innerHTML = files.map(file => `
+                <div class="file-card">
+                    <div class="file-icon">📄</div>
+                    <div class="file-title">${file.name}</div>
+                    <div class="file-description">${file.description}</div>
+                    <div class="file-size">${formatFileSize(file.size)}</div>
+                    <button class="btn-download" onclick="downloadFile('${file.id}')">
+                        Descargar PDF
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        async function downloadFile(fileId) {
+            try {
+                const response = await fetch(`/api/files/${fileId}/download`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `archivo_${fileId}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } else {
+                    showError('Error al descargar el archivo');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error de conexión');
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function showError(message) {
+            const container = document.getElementById('filesContainer');
+            container.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        function logout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userEmail');
+            window.location.href = '/login.html';
+        }
+
+        // Función para descargar recursos desde Google Drive
+        function downloadResource(filename) {
+            let downloadUrl = '';
+            
+            switch(filename) {
+                case '3-reglas-oro-prompt.pdf':
+                    downloadUrl = 'https://drive.google.com/uc?export=download&id=1bhSd6-NLxYHAhCDXT25Vtc4FtDgnEjIm';
+                    break;
+                case '5-prompts-logo.pdf':
+                    downloadUrl = 'https://drive.google.com/uc?export=download&id=16BQB2Ns8z61WPsbIAeM1feYFx6yvvsob';
+                    break;
+                case 'paso-paso-customgpt.pdf':
+                    downloadUrl = 'https://drive.google.com/uc?export=download&id=1PUtmMG-ne9WoDxly1mAvh7VCeWvVAlvj';
+                    break;
+                default:
+                    alert('Archivo no encontrado');
+                    return;
+            }
+            
+            // Abrir enlace de descarga directa
+            window.open(downloadUrl, '_blank');
+        }
+
+        // Cargar archivos al iniciar (ya no necesario con contenido estático)
+        // loadFiles();
+    </script>
+</body>
+</html>
