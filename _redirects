@@ -1,7 +1,7 @@
 # Redirecciones para Netlify
 
-# Redirigir intranet.reyesia.com al dashboard
-intranet.reyesia.com/* /dashboard.html 200!
+# Redirigir intranet.reyesia.com al login de intranet
+intranet.reyesia.com/* /intranet-login.html 200!
 
 # Mantener otras redirecciones existentes
 /admin /admin.html 200
