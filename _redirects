@@ -1,0 +1,8 @@
+# Redirecciones para Netlify
+
+# Redirigir intranet.reyesia.com al dashboard
+intranet.reyesia.com/* /dashboard.html 200!
+
+# Mantener otras redirecciones existentes
+/admin /admin.html 200
+/dashboard /dashboard.html 200
