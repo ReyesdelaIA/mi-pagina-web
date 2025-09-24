@@ -145,7 +145,7 @@
         </form>
 
         <p class="register-link">
-            ¿No tienes cuenta? <a href="/public/register.html">Regístrate aquí</a>
+            ¿No tienes cuenta? <a href="/register.html">Regístrate aquí</a>
         </p>
     </div>
 
@@ -161,29 +161,41 @@
             }
         });
 
-        // Manejar login (versión sin servidor)
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Manejar login con servidor backend
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('error-message');
 
-            // Credenciales válidas (sin servidor)
-            const validCredentials = {
-                'pepe@gmail.com': 'admin123',
-                'juan@gmail.com': 'admin123',
-                'felipe@reyesia.com': 'admin123'
-            };
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
 
-            if (validCredentials[email] && validCredentials[email] === password) {
-                // Login exitoso
-                localStorage.setItem('token', 'demo-token-' + Date.now());
-                localStorage.setItem('user', JSON.stringify({ email, name: 'Usuario Demo' }));
-                window.location.href = '/dashboard.html';
-            } else {
-                // Credenciales incorrectas
-                errorDiv.textContent = 'Credenciales incorrectas. Verifica tu email y contraseña.';
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Login exitoso
+                    localStorage.setItem('token', result.token);
+                    localStorage.setItem('user', JSON.stringify(result.user));
+                    window.location.href = '/dashboard.html?token=' + result.token;
+                } else {
+                    // Credenciales incorrectas
+                    errorDiv.textContent = result.error || 'Credenciales incorrectas. Verifica tu email y contraseña.';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorDiv.textContent = 'Error de conexión. Verifica que el servidor esté ejecutándose.';
                 errorDiv.style.display = 'block';
             }
         });

@@ -1,4 +1,4 @@
-# Configuración optimizada para Netlify
+# Configuración optimizada para Netlify con backend
 
 [build]
   publish = "."
@@ -6,6 +6,12 @@
 
 [build.environment]
   NODE_VERSION = "18"
+
+# Variables de entorno para producción
+[build.environment]
+  JWT_SECRET = "reyesia-production-jwt-secret-2024"
+  SUPABASE_URL = "https://ttmtnsyogyldmmxxjjpz.supabase.co"
+  SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bXRuc3lvZ3lsZG1teHhqanB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyOTc5ODcsImV4cCI6MjA3Mzg3Mzk4N30.imoJX22VH_8ntl5VG-IEdEKeIecC5u6ZkhgIhFLWDzg"
 
 # Optimizaciones
 [[headers]]
@@ -21,7 +27,18 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000"
 
-# Redirecciones
+# Cache para PDFs
+[[headers]]
+  for = "/*.pdf"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# Redirecciones para el backend
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/server"
+  status = 200
+
 [[redirects]]
   from = "/admin"
   to = "/admin.html"
@@ -30,6 +47,16 @@
 [[redirects]]
   from = "/dashboard"
   to = "/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/login"
+  to = "/intranet-login.html"
+  status = 200
+
+[[redirects]]
+  from = "/register"
+  to = "/register.html"
   status = 200
 
 [[redirects]]

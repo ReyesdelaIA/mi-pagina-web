@@ -350,6 +350,14 @@ app.get('/Reyes IA _ Hands-On S01.pdf', (req, res) => {
     res.sendFile(path.join(__dirname, 'Reyes IA _ Hands-On S01.pdf'));
 });
 
+app.get('/Reyes IA _ Hands-On S02.pdf', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Reyes IA _ Hands-On S02.pdf'));
+});
+
+app.get('/Reyes IA _ Hands-On S03.pdf', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Reyes IA _ Hands-On S03.pdf'));
+});
+
 app.get('/talleres-practicos-ia.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'talleres-practicos-ia.html'));
 });
