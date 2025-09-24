@@ -159,35 +159,29 @@
             }
         });
 
-        // Manejar login
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        // Manejar login (versión sin servidor)
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('error-message');
 
-            try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password })
-                });
+            // Credenciales válidas (sin servidor)
+            const validCredentials = {
+                'pepe@gmail.com': 'admin123',
+                'juan@gmail.com': 'admin123',
+                'felipe@reyesia.com': 'admin123'
+            };
 
-                const data = await response.json();
-
-                if (response.ok) {
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    window.location.href = '/dashboard.html';
-                } else {
-                    errorDiv.textContent = data.message || 'Error al iniciar sesión';
-                    errorDiv.style.display = 'block';
-                }
-            } catch (error) {
-                errorDiv.textContent = 'Error de conexión. Intenta nuevamente.';
+            if (validCredentials[email] && validCredentials[email] === password) {
+                // Login exitoso
+                localStorage.setItem('token', 'demo-token-' + Date.now());
+                localStorage.setItem('user', JSON.stringify({ email, name: 'Usuario Demo' }));
+                window.location.href = '/dashboard.html';
+            } else {
+                // Credenciales incorrectas
+                errorDiv.textContent = 'Credenciales incorrectas. Verifica tu email y contraseña.';
                 errorDiv.style.display = 'block';
             }
         });
