@@ -382,6 +382,35 @@ app.get('/uploads/:filename', (req, res) => {
     }
 });
 
+// API de login
+app.post('/api/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        
+        // Verificar credenciales (simplificado para demo)
+        if (email === 'pepe@gmail.com' && password === 'admin123') {
+            const token = 'demo-token-' + Date.now();
+            const user = { email, name: 'Usuario Demo' };
+            
+            res.json({
+                success: true,
+                token,
+                user
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: 'Credenciales incorrectas'
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error del servidor'
+        });
+    }
+});
+
 // Obtener noticias de IA
 app.get('/api/news', authenticateToken, async (req, res) => {
     try {
