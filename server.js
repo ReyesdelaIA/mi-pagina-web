@@ -354,6 +354,10 @@ app.get('/talleres-practicos-ia.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'talleres-practicos-ia.html'));
 });
 
+app.get('/login.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'));
+});
+
 app.get('/icono LINKEDIN.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'icono LINKEDIN.png'));
 });

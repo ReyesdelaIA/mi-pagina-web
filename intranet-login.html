@@ -150,11 +150,13 @@
     </div>
 
     <script>
-        // Verificar si ya está logueado
+        // Verificar si ya está logueado (solo si viene de otra página)
         window.addEventListener('load', function() {
             const token = localStorage.getItem('token');
-            if (token) {
-                // Si ya está logueado, redirigir al dashboard
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Solo redirigir si no viene del dashboard
+            if (token && !urlParams.has('from_dashboard')) {
                 window.location.href = '/dashboard.html';
             }
         });
