@@ -78,6 +78,9 @@
         </form>
         
         <div id="error" class="error"></div>
+        <div style="margin-top: 15px;">
+            <a href="/public/register.html" style="color: #c09b5a; text-decoration: none;">¿No tienes cuenta? Solicita acceso aquí</a>
+        </div>
         <a href="/index.html" class="back-link">← Volver al sitio principal</a>
     </div>
 
@@ -90,7 +93,7 @@
             const error = document.getElementById('error');
             
             // Credenciales válidas
-            if ((email === 'pepe@gmail.com' || email === 'juan@gmail.com') && password === 'admin123') {
+            if ((email === 'pepe@gmail.com' || email === 'juan@gmail.com') && password === '123456') {
                 // Login exitoso - ir directo al dashboard
                 window.location.href = '/dashboard.html';
             } else {
