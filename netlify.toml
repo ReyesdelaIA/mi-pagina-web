@@ -54,7 +54,7 @@
 
 [[redirects]]
   from = "/register"
-  to = "/register.html"
+  to = "/public/register.html"
   status = 200
 
 [[redirects]]
