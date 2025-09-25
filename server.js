@@ -84,7 +84,7 @@ const checkAuth = (req, res, next) => {
 
 // Rutas estáticas
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Página principal del sitio web
@@ -106,7 +106,19 @@ app.get('/sitemap.xml', (req, res) => {
     res.sendFile(path.join(__dirname, 'sitemap.xml'));
 });
 
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
 app.get('/login.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+app.get('/intranet-login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+app.get('/intranet-login.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
@@ -370,9 +382,6 @@ app.get('/handson01.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'handson01.png'));
 });
 
-app.get('/login.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
-});
 
 app.get('/icono LINKEDIN.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'icono LINKEDIN.png'));

@@ -171,9 +171,14 @@
 <body>
     <div class="login-container">
         <div class="logo">
-            <img src="../logo reyes IA horizontal blanco.png" alt="ReyesIA" onerror="this.style.display='none'">
-            <h1>Intranet ReyesIA</h1>
-            <p>Acceso exclusivo para clientes autorizados</p>
+            <a href="/" style="display: inline-block;">
+                <img src="../logo reyes IA horizontal blanco.png" alt="ReyesIA" 
+                     style="filter: invert(1) brightness(0.2); 
+                            cursor: pointer; 
+                            height: 70px; 
+                            width: auto;" 
+                     onerror="this.style.display='none'">
+            </a>
         </div>
 
         <div class="error-message" id="errorMessage"></div>
@@ -196,7 +201,7 @@
         </form>
 
         <div class="register-link">
-            <p>¿No tienes cuenta? <a href="register.html">Solicita acceso aquí</a></p>
+            <p>¿No tienes cuenta? <a href="/register.html">Solicita acceso aquí</a></p>
         </div>
 
         <div class="back-link">
@@ -237,17 +242,24 @@
                     // Guardar token
                     localStorage.setItem('authToken', data.token);
                     localStorage.setItem('userEmail', email);
+                    localStorage.setItem('user', JSON.stringify(data.user));
                     
                     // Redirigir según el tipo de usuario
                     console.log('Email del usuario:', email);
+                    console.log('Datos del usuario:', data.user);
+                    
                     if (email === 'felipe@reyesia.com') {
                         console.log('Redirigiendo a admin...');
-                        // Admin va al panel de administración
-                        window.location.href = `/admin?token=${data.token}`;
+                        // Admin va al panel de administración - agregamos delay para asegurar que el token se guarde
+                        setTimeout(() => {
+                            window.location.href = `/admin?token=${data.token}`;
+                        }, 100);
                     } else {
                         console.log('Redirigiendo a dashboard...');
                         // Clientes van al dashboard
-                        window.location.href = '/dashboard.html';
+                        setTimeout(() => {
+                            window.location.href = `/dashboard.html?token=${data.token}`;
+                        }, 100);
                     }
                 } else {
                     errorMessage.textContent = data.message || 'Error al iniciar sesión';
@@ -263,9 +275,24 @@
             }
         });
 
-        // Verificar si ya está logueado
-        if (localStorage.getItem('authToken')) {
-            window.location.href = '/dashboard.html';
+        // Verificar si ya está logueado (solo si no viene de logout)
+        const urlParams = new URLSearchParams(window.location.search);
+        const fromLogout = urlParams.has('logout');
+        
+        if (!fromLogout) {
+            const existingToken = localStorage.getItem('authToken');
+            const userEmail = localStorage.getItem('userEmail');
+            
+            if (existingToken && userEmail) {
+                console.log('Usuario ya logueado:', userEmail);
+                if (userEmail === 'felipe@reyesia.com') {
+                    console.log('Redirigiendo admin logueado a panel de admin');
+                    window.location.href = `/admin?token=${existingToken}`;
+                } else {
+                    console.log('Redirigiendo usuario logueado a dashboard');
+                    window.location.href = `/dashboard.html?token=${existingToken}`;
+                }
+            }
         }
     </script>
 </body>

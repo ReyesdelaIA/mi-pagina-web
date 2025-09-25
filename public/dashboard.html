@@ -151,6 +151,32 @@
             line-height: 1.4;
         }
 
+        .status-tag {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 0.6rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            z-index: 10;
+            opacity: 0.9;
+        }
+
+        .status-available {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            color: #065f46;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .status-coming-soon {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            color: #78350f;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
         .content-section {
             background: white;
             padding: 2rem;
@@ -525,30 +551,35 @@
             <h3>📋 Selecciona una Sección</h3>
             <div class="menu-grid">
                 <div class="menu-card" onclick="showSection('news')">
+                    <div class="status-tag status-available">Disponible</div>
                     <div class="menu-icon">📰</div>
                     <h4>Noticias IA</h4>
                     <p>Las últimas noticias de inteligencia artificial</p>
                 </div>
                 
                 <div class="menu-card" onclick="showSection('resources')">
+                    <div class="status-tag status-available">Disponible</div>
                     <div class="menu-icon">📚</div>
                     <h4>Recursos</h4>
                     <p>Materiales exclusivos para clientes</p>
                 </div>
                 
                 <div class="menu-card" onclick="showSection('courses')">
+                    <div class="status-tag status-coming-soon">Próximamente</div>
                     <div class="menu-icon">🎓</div>
                     <h4>Material Clases</h4>
                     <p>Contenido de las sesiones de capacitación</p>
                 </div>
                 
                 <div class="menu-card" onclick="showSection('hands-on')">
+                    <div class="status-tag status-available">Disponible</div>
                     <div class="menu-icon">🎥</div>
                     <h4>Clases Hands-On</h4>
                     <p>Sesiones prácticas presenciales</p>
                 </div>
                 
                 <div class="menu-card" onclick="showSection('online')">
+                    <div class="status-tag status-coming-soon">Próximamente</div>
                     <div class="menu-icon">💻</div>
                     <h4>Cursos Online</h4>
                     <p>Formación virtual disponible</p>
@@ -697,11 +728,11 @@
 
     <script>
         // Verificar autenticación
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('authToken');
         const userData = localStorage.getItem('user');
         
         if (!token) {
-            window.location.href = '/intranet-login.html';
+            window.location.href = '/login.html';
         }
 
         // Parsear datos del usuario
@@ -882,6 +913,7 @@
         function logout() {
             localStorage.removeItem('authToken');
             localStorage.removeItem('userEmail');
+            localStorage.removeItem('user');
             window.location.href = '/login.html';
         }
 
