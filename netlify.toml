@@ -49,20 +49,20 @@
 
 [[redirects]]
   from = "/login"
-  to = "/public/login.html"
+  to = "/login.html"
   status = 200
 
 [[redirects]]
   from = "/intranet-login"
-  to = "/public/login.html"
+  to = "/login.html"
   status = 200
 
 [[redirects]]
   from = "/register"
-  to = "/public/register.html"
+  to = "/register.html"
   status = 200
 
 [[redirects]]
   from = "https://intranet.reyesia.com/*"
-  to = "/public/login.html"
+  to = "/login.html"
   status = 200
