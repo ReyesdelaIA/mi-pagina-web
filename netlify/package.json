@@ -1,15 +1,18 @@
 {
   "name": "reyesia-netlify-functions",
   "version": "1.0.0",
-  "description": "Netlify Functions para ReyesIA Intranet",
+  "description": "Netlify Functions for ReyesIA backend",
   "main": "functions/server.js",
   "dependencies": {
-    "@supabase/supabase-js": "^2.57.4",
     "bcrypt": "^5.1.1",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "@supabase/supabase-js": "^2.38.0"
   },
-  "engines": {
-    "node": "18"
-  }
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["netlify", "functions", "backend", "supabase"],
+  "author": "ReyesIA",
+  "license": "MIT"
 }
