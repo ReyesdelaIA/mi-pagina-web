@@ -697,11 +697,20 @@
 
     <script>
         // Verificar autenticación
-        const token = localStorage.getItem('authToken');
-        const userEmail = localStorage.getItem('userEmail');
+        const token = localStorage.getItem('token');
+        const userData = localStorage.getItem('user');
         
         if (!token) {
-            window.location.href = '/login.html';
+            window.location.href = '/intranet-login.html';
+        }
+
+        // Parsear datos del usuario
+        let userEmail = '';
+        let userName = '';
+        if (userData) {
+            const user = JSON.parse(userData);
+            userEmail = user.email;
+            userName = user.nombre;
         }
 
         document.getElementById('userEmail').textContent = userEmail;
