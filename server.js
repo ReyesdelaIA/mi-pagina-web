@@ -362,6 +362,14 @@ app.get('/talleres-practicos-ia.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'talleres-practicos-ia.html'));
 });
 
+app.get('/clases-grupales-ia.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'clases-grupales-ia.html'));
+});
+
+app.get('/handson01.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'handson01.png'));
+});
+
 app.get('/login.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
 });

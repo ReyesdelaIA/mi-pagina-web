@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Clases Grupales de IA - Reyes IA | Entrenamiento Intensivo en Grupos Reducidos</title>
+  <meta name="description" content="Clases grupales de IA en grupos de 6-10 personas. Entrenamiento intensivo de 3 clases de 2 horas con metodología hands-on. Aprende IA de forma práctica y aplicada.">
+  <meta name="keywords" content="clases grupales IA, entrenamiento IA, grupos reducidos, hands-on, ChatGPT, inteligencia artificial, Felipe Reyes">
+  <meta name="author" content="Felipe Reyes - Reyes IA">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://reyesia.com/clases-grupales-ia.html">
+  <meta property="og:title" content="Clases Grupales de IA - Entrenamiento Intensivo">
+  <meta property="og:description" content="Clases grupales de IA en grupos reducidos. Metodología hands-on con práctica aplicada.">
+  <meta property="og:image" content="https://reyesia.com/logo%20reyes%20IA%20horizontal%20blanco.png">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://reyesia.com/clases-grupales-ia.html">
+  <meta property="twitter:title" content="Clases Grupales de IA - Reyes IA">
+  <meta property="twitter:description" content="Entrenamiento intensivo en grupos reducidos con metodología hands-on.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    /* ---------- HEADER ---------- */
+    .header {
+      background: linear-gradient(135deg, #1a2537 0%, #2c3e50 100%);
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-decoration: none;
+      color: white;
+    }
+
+    .logo img {
+      height: 40px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #c09b5a;
+    }
+
+    /* ---------- HERO SECTION ---------- */
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 8rem 0 6rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      color: #1a1a1a;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(192, 155, 90, 0.3);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(192, 155, 90, 0.4);
+    }
+
+    /* ---------- CONTAINER ---------- */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ---------- SECTIONS ---------- */
+    .section {
+      padding: 6rem 0;
+    }
+
+    .section h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ---------- METODOLOGÍA ---------- */
+    .metodologia {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .metodologia-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .metodologia-content h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+    }
+
+    .metodologia-content p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+
+    .metodologia-image {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .metodologia-image img {
+      max-width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+      transform: scale(1);
+    }
+
+    .metodologia-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(192, 155, 90, 0.08), rgba(102, 126, 234, 0.08));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+      border-radius: 16px;
+    }
+
+    .metodologia-image:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+    }
+
+    .metodologia-image:hover img {
+      transform: scale(1.03);
+    }
+
+    .metodologia-image:hover::before {
+      opacity: 1;
+    }
+
+    /* ---------- CLASES DETALLE ---------- */
+    .clases-detalle {
+      background: white;
+    }
+
+    .clases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .clase-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      border: 1px solid rgba(102, 126, 234, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clase-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .clase-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 45px rgba(102, 126, 234, 0.2);
+    }
+
+    .clase-numero {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .clase-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+    }
+
+    .clase-card p {
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .clase-details {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .clase-details li {
+      padding: 0.4rem 0;
+      color: #555;
+      position: relative;
+      padding-left: 1.5rem;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .clase-details li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    /* ---------- BENEFICIOS ---------- */
+    .beneficios {
+      background: linear-gradient(135deg, #1a2537 0%, #2c3e50 100%);
+      color: white;
+    }
+
+    .beneficios h2 {
+      color: white;
+      background: none;
+      -webkit-text-fill-color: white;
+    }
+
+    .beneficios-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .beneficio-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .beneficio-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .beneficio-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: #c09b5a;
+    }
+
+    .beneficio-card p {
+      opacity: 0.9;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- INFORMACIÓN PRÁCTICA ---------- */
+    .info-practica {
+      background: white;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    .info-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(102, 126, 234, 0.1);
+    }
+
+    .info-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+    }
+
+    .info-list {
+      list-style: none;
+    }
+
+    .info-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .info-list li:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .info-value {
+      color: #667eea;
+      font-weight: 500;
+    }
+
+    /* ---------- CTA FINAL ---------- */
+    .cta-final {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-align: center;
+      padding: 6rem 0;
+    }
+
+    .cta-final h2 {
+      color: white;
+      background: none;
+      -webkit-text-fill-color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-final p {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      color: #1a1a1a;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(192, 155, 90, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(192, 155, 90, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: #667eea;
+      transform: translateY(-3px);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .metodologia-grid,
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .clases-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .beneficios-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      
+      .beneficio-card {
+        padding: 1rem;
+      }
+      
+      .beneficio-icon {
+        font-size: 2rem;
+      }
+      
+      .beneficio-card h3 {
+        font-size: 1rem;
+      }
+      
+      .beneficio-card p {
+        font-size: 0.85rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .section {
+        padding: 4rem 0;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .beneficios-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .section h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      .hero {
+        padding: 6rem 0 4rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .clase-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <a href="index.html" class="logo">
+        <img src="logo reyes IA horizontal blanco.png" alt="Reyes IA" style="filter: brightness(0) invert(1);">
+      </a>
+      <nav>
+        <ul class="nav">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="index.html#servicios">Servicios</a></li>
+          <li><a href="index.html#quien-soy">Quién soy</a></li>
+          <li><a href="index.html#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">PERSONAS</div>
+      <h1>👥 Clases Grupales de IA</h1>
+      <p>Entrenamiento presencial en grupos reducidos (6 a 10 personas). Tres clases intensivas de 2 horas cada una, con metodología "hands-on", para adquirir bases sólidas y aplicar la inteligencia artificial de manera efectiva en el ámbito laboral.</p>
+      <a href="index.html#contacto" class="cta-button">¡Quiero participar!</a>
+    </div>
+  </section>
+
+  <!-- METODOLOGÍA -->
+  <section class="metodologia section">
+    <div class="container">
+      <div class="metodologia-grid">
+        <div class="metodologia-content">
+          <h3>🎯 Metodología Hands-On</h3>
+          <p>Mi enfoque se basa 100% en el aprendizaje práctico. Aprenderás a usar IA resolviendo desafíos reales, automatizando tareas y aplicando el conocimiento en tu propio contexto profesional.</p>
+          <p>La metodología "hands-on" incentiva que cada participante pruebe diversas herramientas y vaya resolviendo tareas con IA de forma guiada y supervisada.</p>
+          <ul style="list-style: none; margin-top: 1.5rem;">
+            <li style="padding: 0.5rem 0; color: #555;">✓ Grupos reducidos para atención personalizada</li>
+            <li style="padding: 0.5rem 0; color: #555;">✓ Práctica aplicada desde el primer minuto</li>
+            <li style="padding: 0.5rem 0; color: #555;">✓ Feedback directo y personalizado</li>
+            <li style="padding: 0.5rem 0; color: #555;">✓ Casos reales de tu industria</li>
+          </ul>
+        </div>
+        <div class="metodologia-image">
+          <img src="handson01.png" alt="Metodología hands-on en clases grupales de IA" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLASES DETALLE -->
+  <section class="clases-detalle section">
+    <div class="container">
+      <h2>📚 Programa de Clases</h2>
+      <div class="clases-grid">
+        <div class="clase-card">
+          <div class="clase-numero">1</div>
+          <h3>Intro al mundo IA / uso responsable</h3>
+          <p>Introducción general a la IA en 2025, fundamentos de prompts y uso de LLMs para tareas administrativas y legales.</p>
+          <ul class="clase-details">
+            <li>Introducción general Inteligencia Artificial en 2025</li>
+            <li>Introducción a los LLM y fundamentos del Prompt</li>
+            <li>Usos LLM con foco en tareas admin/legales (parte 1)</li>
+            <li>Investigación y búsquedas avanzadas</li>
+            <li>Redacción de documentos admin (contratos, mails, propuestas)</li>
+            <li>Modo deep thinking / razonamiento avanzado</li>
+            <li>Confidencialidad, uso responsable y sesgos</li>
+            <li>Redactar documento personal con IA</li>
+          </ul>
+        </div>
+
+        <div class="clase-card">
+          <div class="clase-numero">2</div>
+          <h3>Diversas herramientas de IA para muchos usos</h3>
+          <p>Revisión de avances, herramientas avanzadas de dictado, generación de contenido multimedia y uso de visión con IA.</p>
+          <ul class="clase-details">
+            <li>Revisión de avances y uso de IA de la semana 01</li>
+            <li>Recap de 3 reglas de oro para prompts</li>
+            <li>Uso aplicado de memoria y herramientas de dictado</li>
+            <li>Generación de PPT's con Gamma / Copilot / Manus</li>
+            <li>Usos LLM con foco en tareas admin (parte 2)</li>
+            <li>Revisión de LLMs: Perplexity, Claude, Deepseek, Grok</li>
+            <li>Análisis de documentos extensos con IA</li>
+            <li>Uso de visión con IA en ChatGPT</li>
+            <li>Generación de imágenes, videos, logos e infografías</li>
+            <li>Crear infografía en Napkin</li>
+            <li>Crear imagen/video/audio con IA</li>
+          </ul>
+        </div>
+
+        <div class="clase-card">
+          <div class="clase-numero">3</div>
+          <h3>Uso profundo de modelos de lenguaje</h3>
+          <p>Proyecto personalizado avanzado con Notebook LM, conectores, Custom GPTs y primeros acercamientos a la automatización.</p>
+          <ul class="clase-details">
+            <li>Revisión avances IA / Recap rápido</li>
+            <li>Uso profundo de Notebook LM (fuentes, Podcast)</li>
+            <li>Investigación interna profunda (Drive, Microsoft One)</li>
+            <li>Conectores entorno/IA (OpenAI con Gmail, Microsoft, Canva)</li>
+            <li>Revisión distintos modelos ChatGPT (4o, 5, Fast, Thinking)</li>
+            <li>Usos LLM con foco en tareas admin (parte 3)</li>
+            <li>Elaboración de Custom GPT / Gem / Agentes Copilot</li>
+            <li>Creación de proyectos/cuadernos en ChatGPT/Gemini</li>
+            <li>Primeros acercamientos a automatización (Make, N8N)</li>
+            <li>Crear un proyecto o Cuaderno</li>
+            <li>Crear un CustomGPT o Gem avanzado</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="beneficios section">
+    <div class="container">
+      <h2>✨ ¿Por qué elegir nuestras clases grupales?</h2>
+      <div class="beneficios-grid">
+        <div class="beneficio-card">
+          <div class="beneficio-icon">👥</div>
+          <h3>Grupos Reducidos</h3>
+          <p>Máximo 10 personas por clase para garantizar atención personalizada y resolver todas tus dudas de manera efectiva.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">🎯</div>
+          <h3>Enfoque Intensivo</h3>
+          <p>3 clases de 2 horas cada una, diseñadas para maximizar el aprendizaje en poco tiempo y obtener resultados inmediatos.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">🔧</div>
+          <h3>Práctica Aplicada</h3>
+          <p>Aprende haciendo. Cada concepto se aplica con ejercicios reales y casos prácticos del mundo laboral.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">💬</div>
+          <h3>Feedback Directo</h3>
+          <p>Recibe retroalimentación inmediata durante cada ejercicio para optimizar tu proceso de aprendizaje.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">🏢</div>
+          <h3>Modalidad Presencial</h3>
+          <p>Clases presenciales que mejoran la interacción y retención del conocimiento de forma efectiva.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">🤝</div>
+          <h3>Networking</h3>
+          <p>Conecta con otros profesionales interesados en IA y amplía tu red de contactos para oportunidades futuras.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">🚀</div>
+          <h3>Confianza Profesional</h3>
+          <p>Gana confianza en el uso profesional de IA para aplicarlo en tu trabajo diario y destacar en tu carrera.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">📚</div>
+          <h3>Material Incluido</h3>
+          <p>Acceso a todos los recursos, herramientas y materiales utilizados en las clases para continuar aprendiendo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFORMACIÓN PRÁCTICA -->
+  <section class="info-practica section">
+    <div class="container">
+      <h2>📋 Información Práctica</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>📅 Detalles del Programa</h3>
+          <ul class="info-list">
+            <li>
+              <span class="info-label">Duración total:</span>
+              <span class="info-value">3 clases de 2 horas</span>
+            </li>
+            <li>
+              <span class="info-label">Lugar:</span>
+              <span class="info-value">Oficina en Vitacura</span>
+            </li>
+            <li>
+              <span class="info-label">Tamaño del grupo:</span>
+              <span class="info-value">6-10 personas</span>
+            </li>
+            <li>
+              <span class="info-label">Costo total programa:</span>
+              <span class="info-value">$300.000 por persona</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>🎯 Requisitos</h3>
+          <ul class="info-list">
+            <li>
+              <span class="info-label">Experiencia previa:</span>
+              <span class="info-value">No requerida</span>
+            </li>
+            <li>
+              <span class="info-label">Equipamiento:</span>
+              <span class="info-value">Notebook</span>
+            </li>
+            <li>
+              <span class="info-label">Licencias de IA:</span>
+              <span class="info-value">No es requisito</span>
+            </li>
+            <li>
+              <span class="info-label">Idioma:</span>
+              <span class="info-value">Español</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final section">
+    <div class="container">
+      <h2>🚀 ¡Comienza tu transformación con IA!</h2>
+      <p>Únete a nuestras clases grupales y descubre cómo la IA puede revolucionar tu forma de trabajar. Grupos reducidos, metodología hands-on y resultados garantizados.</p>
+      <div class="cta-buttons">
+        <a href="index.html#contacto" class="btn-primary">¡Quiero participar!</a>
+        <a href="index.html" class="btn-secondary">Ver otros servicios</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: #1a2537; color: white; padding: 3rem 0; text-align: center;">
+    <div class="container">
+      <div style="margin-bottom: 2rem;">
+        <img src="logo reyes IA horizontal blanco.png" alt="Reyes IA" style="height: 50px; filter: brightness(0) invert(1); margin-bottom: 1rem;">
+        <p style="opacity: 0.8; margin-bottom: 1rem;">Transformando empresas con Inteligencia Artificial</p>
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+          <a href="https://www.linkedin.com/in/felipereyespolanco" style="color: #c09b5a; text-decoration: none; font-weight: 600;">LinkedIn</a>
+          <a href="https://www.instagram.com/reyesdelaia/" style="color: #c09b5a; text-decoration: none; font-weight: 600;">Instagram</a>
+          <a href="mailto:felipe@reyesia.com" style="color: #c09b5a; text-decoration: none; font-weight: 600;">Email</a>
+        </div>
+      </div>
+      <p style="opacity: 0.6; font-size: 0.9rem;">© 2024 Reyes IA. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- SMOOTH SCROLLING -->
+  <script>
+    // Smooth scrolling para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Animaciones al scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Aplicar animaciones a elementos
+    document.querySelectorAll('.clase-card, .beneficio-card, .info-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
