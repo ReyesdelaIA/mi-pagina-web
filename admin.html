@@ -208,7 +208,7 @@
 <body>
     <div class="header">
         <h1>🔧 Panel de Administración</h1>
-        <a href="/login.html" class="logout-btn">Cerrar Sesión</a>
+        <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
     </div>
 
     <div class="container">
@@ -264,7 +264,7 @@
 
         async function loadUsers() {
             try {
-                const response = await fetch('/api/admin/users', {
+                const response = await fetch('/.netlify/functions/server/api/admin/users', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${currentToken}`,
@@ -363,7 +363,7 @@
             }
 
             try {
-                const response = await fetch(`/api/admin/users/${userId}/status`, {
+                const response = await fetch(`/.netlify/functions/server/api/admin/users/${userId}/status`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `Bearer ${currentToken}`,
@@ -383,6 +383,17 @@
                 console.error('Error:', error);
                 alert('Error de conexión');
             }
+        }
+
+        function logout() {
+            // Limpiar token de localStorage
+            localStorage.removeItem('authToken');
+            
+            // Limpiar token de sessionStorage si existe
+            sessionStorage.removeItem('authToken');
+            
+            // Redirigir al login
+            window.location.href = '/login.html';
         }
     </script>
 </body>
