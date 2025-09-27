@@ -193,7 +193,7 @@ exports.handler = async (event, context) => {
             const { data: users, error } = await supabase
                 .from('users')
                 .select('*')
-                .order('created_at', { ascending: false });
+                .order('createdAt', { ascending: false });
 
             if (error) {
                 console.error('Error obteniendo usuarios:', error);
@@ -246,8 +246,8 @@ exports.handler = async (event, context) => {
 
             const updateData = { status };
             if (status === 'approved') {
-                updateData.approved_at = new Date().toISOString();
-                updateData.approved_by = 'felipe@reyesia.com';
+                updateData.approvedAt = new Date().toISOString();
+                updateData.approvedBy = 'felipe@reyesia.com';
             }
 
             const { data: updatedUser, error } = await supabase
@@ -299,7 +299,7 @@ exports.handler = async (event, context) => {
             const { data: files, error } = await supabase
                 .from('files')
                 .select('*')
-                .order('created_at', { ascending: false });
+                .order('createdAt', { ascending: false });
 
             if (error) {
                 console.error('Error obteniendo archivos:', error);
