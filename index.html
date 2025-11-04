@@ -34,6 +34,17 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://reyesia.com/">
   
+  <!-- Google Analytics (reemplaza G-XXXXXXXXXX con tu ID de seguimiento) -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  -->
+  
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png">
   <link rel="apple-touch-icon" href="/icon%20reyes%20IA.png">
@@ -111,6 +122,25 @@
     img {
       max-width: 100%;
       height: auto;
+    }
+    
+    /* Prevenir layout shift con aspect-ratio */
+    /* Nota: Hero usa altura fija (90vh), no necesita aspect-ratio */
+    
+    .about-avatar .avatar {
+      aspect-ratio: 1 / 1;
+    }
+    
+    .testimonial-avatar {
+      aspect-ratio: 1 / 1;
+    }
+    
+    .valor-image img {
+      aspect-ratio: 16 / 9;
+    }
+    
+    .blog-image {
+      aspect-ratio: 16 / 9;
     }
 
 
@@ -1176,6 +1206,14 @@
       width: 100px;      /* más pequeño que los otros */
       height: 24px;      /* proporcionalmente más pequeño */
     }
+    
+    /* Logo de Falabella - tamaño ajustado */
+    .logos img[alt="Falabella - Cliente de Reyes IA"] {
+      width: 160px;      /* tamaño más grande para destacar */
+      height: auto;      /* mantiene proporción */
+      max-height: 40px;  /* límite máximo de altura aumentado */
+      object-fit: contain;
+    }
 
     /* Indicador de más clientes */
     .more-clients {
@@ -1303,23 +1341,28 @@
 
     .testimonial-slider { position: relative; }
     .slider-viewport {
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      overflow: hidden;
+      position: relative;
       padding-bottom: 0.5rem;
     }
-    .slider-viewport::-webkit-scrollbar { display: none; }
 
     .slider-track {
       display: flex;
       gap: 2rem;
+      will-change: transform;
     }
 
     .testimonial-card {
       text-align: center;
       flex: 0 0 calc(33.333% - 1.333rem); /* 3 por vista en desktop */
+      min-width: 0;
       scroll-snap-align: start;
+    }
+    
+    @media (min-width: 1201px) {
+      .testimonial-card {
+        flex: 0 0 calc(33.333% - 1.333rem);
+      }
     }
 
     .testimonial-avatar {
@@ -1346,6 +1389,29 @@
       color: #334155;
       font-size: 0.9rem; /* reducido de 0.95rem */
       line-height: 1.7;
+      font-style: italic;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    
+    blockquote.testimonial-text {
+      quotes: """ """ "'" "'";
+    }
+    
+    blockquote.testimonial-text::before {
+      content: open-quote;
+      color: #c09b5a;
+      font-size: 1.5em;
+      line-height: 0;
+      vertical-align: -0.4em;
+    }
+    
+    blockquote.testimonial-text::after {
+      content: close-quote;
+      color: #c09b5a;
+      font-size: 1.5em;
+      line-height: 0;
+      vertical-align: -0.4em;
     }
 
     .slider-nav {
@@ -1368,14 +1434,33 @@
       place-items: center;
       cursor: pointer;
       transition: background .2s ease;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1;
     }
-    .slider-btn:hover { background: rgba(0,0,0,0.5); }
+    .slider-btn:hover:not(:disabled) { 
+      background: rgba(0,0,0,0.5); 
+    }
+    .slider-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .slider-btn:focus-visible {
+      outline: 2px solid #c09b5a;
+      outline-offset: 2px;
+    }
 
     @media (max-width: 1200px) {
-      .testimonial-card { flex-basis: calc(50% - 1rem); } /* 2 por vista */
+      .testimonial-card { 
+        flex: 0 0 calc(50% - 1rem); /* 2 por vista */
+        min-width: 0;
+      }
     }
     @media (max-width: 700px) {
-      .testimonial-card { flex-basis: 100%; } /* 1 por vista */
+      .testimonial-card { 
+        flex: 0 0 100%; /* 1 por vista */
+        min-width: 0;
+      }
       .testimonial-avatar { width: 180px; height: 180px; }
     }
 
@@ -1643,33 +1728,35 @@
 </head>
 <body>
   <!-- HEADER -->
-  <header>
-    <img src="logo reyes IA horizontal blanco.png" alt="Reyes IA - Consultoría en Inteligencia Artificial" loading="eager">
+  <header role="banner">
+    <a href="#inicio" aria-label="Reyes IA - Ir al inicio">
+      <img src="logo reyes IA horizontal blanco.png" alt="Reyes IA - Consultoría en Inteligencia Artificial" loading="eager">
+    </a>
     
     <!-- Botón hamburguesa -->
-    <button class="hamburger" id="hamburger">
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú de navegación" aria-expanded="false" type="button">
       <span></span>
       <span></span>
       <span></span>
     </button>
     
-    <nav>
+    <nav role="navigation" aria-label="Navegación principal">
       <!-- Menú desktop -->
       <ul class="nav-desktop">
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#quien-soy">Quién soy</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-        <li><a href="/login.html" class="btn-ingresar">Ingresar</a></li>
+        <li><a href="#inicio" aria-label="Ir a la sección de inicio">Inicio</a></li>
+        <li><a href="#quien-soy" aria-label="Ir a la sección quién soy">Quién soy</a></li>
+        <li><a href="#servicios" aria-label="Ir a la sección de servicios">Servicios</a></li>
+        <li><a href="#contacto" aria-label="Ir a la sección de contacto">Contacto</a></li>
+        <li><a href="/login.html" class="btn-ingresar" aria-label="Ir a la página de inicio de sesión">Ingresar</a></li>
       </ul>
       
       <!-- Menú móvil -->
-      <ul class="nav-mobile" id="navMobile">
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#quien-soy">Quién soy</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-        <li><a href="/login.html" class="btn-ingresar">Ingresar</a></li>
+      <ul class="nav-mobile" id="navMobile" aria-label="Menú de navegación móvil">
+        <li><a href="#inicio" aria-label="Ir a la sección de inicio">Inicio</a></li>
+        <li><a href="#quien-soy" aria-label="Ir a la sección quién soy">Quién soy</a></li>
+        <li><a href="#servicios" aria-label="Ir a la sección de servicios">Servicios</a></li>
+        <li><a href="#contacto" aria-label="Ir a la sección de contacto">Contacto</a></li>
+        <li><a href="/login.html" class="btn-ingresar" aria-label="Ir a la página de inicio de sesión">Ingresar</a></li>
       </ul>
     </nav>
   </header>
@@ -1736,11 +1823,11 @@
           <div class="logos">
             <img src="Copec ORIGINAL.png" alt="COPEC - Cliente de Reyes IA" loading="lazy">
             <img src="enel ORIGINAL.png" alt="ENEL - Cliente de Reyes IA" loading="lazy">
-            <img src="pcFactory Original.png" alt="PC Factory - Cliente de Reyes IA" loading="lazy">
+            <img src="logo falabella.png" alt="Falabella - Cliente de Reyes IA" loading="lazy">
             <img src="CLARO logo rojo.png" alt="CLARO - Cliente de Reyes IA" loading="lazy">
             <img src="SKC logo azul.png" alt="SKC - Cliente de Reyes IA" loading="lazy">
             <img src="SKECHERS logo blanco.png" alt="SKECHERS - Cliente de Reyes IA" loading="lazy">
-            <img src="LARRAIN logo.png" alt="Larraín y Asociados - Cliente de Reyes IA" loading="lazy">
+            <img src="pcFactory Original.png" alt="PC Factory - Cliente de Reyes IA" loading="lazy">
             <img src="MARINOVIC logo blanco.png" alt="Marinovic & Alcalde - Cliente de Reyes IA" loading="lazy">
             <div class="more-clients">+90</div>
           </div>
@@ -1772,41 +1859,49 @@
   </section>
 
   <!-- TESTIMONIOS -->
-  <section id="testimonios" class="testimonials">
+  <section id="testimonios" class="testimonials" aria-labelledby="testimonios-heading">
     <div class="container">
-      <h2 class="fade-in">Testimonios, cambios de mindset!</h2>
-      <div class="testimonial-slider">
-        <div class="slider-viewport">
-          <div class="slider-track">
-            <div class="testimonial-card scale-in">
+      <h2 id="testimonios-heading" class="fade-in">Testimonios, cambios de mindset!</h2>
+      <div class="testimonial-slider" role="region" aria-label="Testimonios de clientes">
+        <div class="slider-viewport" aria-live="polite">
+          <div class="slider-track" role="list">
+            <div class="testimonial-card scale-in" role="listitem">
               <img src="andreaO.png" alt="Andrea Obaid - Periodista científica" class="testimonial-avatar" loading="lazy">
               <div class="testimonial-name">Andrea Obaid</div>
               <div class="testimonial-role">Periodista científica - ADN / TVN</div>
-              <p class="testimonial-text">
+              <blockquote class="testimonial-text">
                 Felipe es un visionario en la educación en IA y entrega herramientas muy útiles para aplicarlas cada día. Seguir sus contenidos y tomar su curso me ayudó a mejorar mi trabajo e investigar mejor.
-              </p>
+              </blockquote>
             </div>
-            <div class="testimonial-card scale-in">
+            <div class="testimonial-card scale-in" role="listitem">
               <img src="raulM.png" alt="Raúl Molina - Cofundador Copperprotek" class="testimonial-avatar" loading="lazy">
               <div class="testimonial-name">Raúl Molina</div>
               <div class="testimonial-role">Cofundador y Gerente Comercial, Copperprotek</div>
-              <p class="testimonial-text">
+              <blockquote class="testimonial-text">
                 Aprender sobre IA con Felipe fue un antes y un después. Lo complejo se volvió útil y práctico; hoy tomo decisiones más inteligentes y mejoro procesos con lo aprendido.
-              </p>
+              </blockquote>
             </div>
-            <div class="testimonial-card scale-in">
+            <div class="testimonial-card scale-in" role="listitem">
               <img src="maidaB.png" alt="Magdalena Brzovic - Abogada PUC" class="testimonial-avatar" loading="lazy">
               <div class="testimonial-name">Magdalena Brzovic</div>
               <div class="testimonial-role">Abogada PUC, columnista</div>
-              <p class="testimonial-text">
+              <blockquote class="testimonial-text">
                 Felipe es un gran profe. Me ayudó a aprender cómo usar estas herramientas de IA que hoy son una economía de tiempo. Explica todo en fácil y cercano. 100% recomendado.
-              </p>
+              </blockquote>
+            </div>
+            <div class="testimonial-card scale-in" role="listitem">
+              <img src="cataM.png" alt="Cata Muñoz - Analista de formación Copec" class="testimonial-avatar" loading="lazy">
+              <div class="testimonial-name">Cata Muñoz</div>
+              <div class="testimonial-role">Analista de formación Copec</div>
+              <blockquote class="testimonial-text">
+                Trabajamos con Felipe en el desarrollo de rutas de aprendizaje sobre la IA de Google para Copec. Los resultados han sido excelentes: alcanzamos un 97% de satisfacción y aplicabilidad.
+              </blockquote>
             </div>
           </div>
         </div>
         <div class="slider-nav">
-          <button class="slider-btn" id="prevTest">‹</button>
-          <button class="slider-btn" id="nextTest">›</button>
+          <button class="slider-btn" id="prevTest" aria-label="Testimonio anterior" type="button">‹</button>
+          <button class="slider-btn" id="nextTest" aria-label="Testimonio siguiente" type="button">›</button>
         </div>
       </div>
     </div>
@@ -1992,26 +2087,34 @@
     const navMobile = document.getElementById('navMobile');
     const body = document.body;
 
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navMobile.classList.toggle('active');
-      
-      // Prevenir scroll cuando el menú está abierto
-      if (navMobile.classList.contains('active')) {
-        body.style.overflow = 'hidden';
-      } else {
-        body.style.overflow = '';
-      }
-    });
+    if (hamburger && navMobile) {
+      hamburger.addEventListener('click', () => {
+        const isActive = hamburger.classList.toggle('active');
+        navMobile.classList.toggle('active');
+        
+        // Actualizar aria-expanded para accesibilidad
+        hamburger.setAttribute('aria-expanded', isActive);
+        
+        // Prevenir scroll cuando el menú está abierto
+        if (isActive) {
+          body.style.overflow = 'hidden';
+        } else {
+          body.style.overflow = '';
+        }
+      });
+    }
 
     // Cerrar menú al hacer click en un enlace
-    navMobile.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') {
-        hamburger.classList.remove('active');
-        navMobile.classList.remove('active');
-        body.style.overflow = '';
-      }
-    });
+    if (navMobile) {
+      navMobile.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+          navMobile.classList.remove('active');
+          body.style.overflow = '';
+        }
+      });
+    }
 
     // Phone input simple functionality
     const phoneInput = document.getElementById('telefono');
@@ -2041,8 +2144,9 @@
 
     // Cerrar menú al hacer click fuera
     document.addEventListener('click', (e) => {
-      if (!hamburger.contains(e.target) && !navMobile.contains(e.target)) {
+      if (hamburger && navMobile && !hamburger.contains(e.target) && !navMobile.contains(e.target)) {
         hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
         navMobile.classList.remove('active');
         body.style.overflow = '';
       }
@@ -2084,6 +2188,145 @@
         }, 3000);
       });
     });
+
+    // Slider de testimonios - Funcionalidad
+    const sliderViewport = document.querySelector('.slider-viewport');
+    const sliderTrack = document.querySelector('.slider-track');
+    const prevBtn = document.getElementById('prevTest');
+    const nextBtn = document.getElementById('nextTest');
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    
+    if (sliderViewport && prevBtn && nextBtn && sliderTrack && testimonialCards.length > 0) {
+      let currentIndex = 0;
+      const gap = 32; // 2rem gap = 32px
+      
+      function getCardWidth() {
+        // Obtener el ancho real de una tarjeta incluyendo el gap
+        if (testimonialCards.length === 0) return 0;
+        const firstCard = testimonialCards[0];
+        const cardWidth = firstCard.offsetWidth;
+        return cardWidth + gap;
+      }
+      
+      function getMaxIndex() {
+        const viewportWidth = sliderViewport.offsetWidth;
+        const trackWidth = sliderTrack.scrollWidth;
+        const cardWidthWithGap = getCardWidth();
+        
+        // Si el track es más pequeño que el viewport, no hay scroll
+        if (trackWidth <= viewportWidth) return 0;
+        
+        // Calcular cuántos pasos podemos hacer
+        const maxScroll = trackWidth - viewportWidth;
+        return Math.ceil(maxScroll / cardWidthWithGap);
+      }
+      
+      function updateSlider() {
+        const cardWidthWithGap = getCardWidth();
+        const scrollAmount = currentIndex * cardWidthWithGap;
+        const maxIndex = getMaxIndex();
+        
+        sliderTrack.style.transform = `translateX(-${scrollAmount}px)`;
+        sliderTrack.style.transition = 'transform 0.4s ease';
+        
+        // Deshabilitar botones en los extremos
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= maxIndex;
+        
+        // Actualizar aria-labels para accesibilidad
+        const total = testimonialCards.length;
+        prevBtn.setAttribute('aria-label', `Testimonio anterior ${currentIndex + 1} de ${total}`);
+        nextBtn.setAttribute('aria-label', `Testimonio siguiente ${Math.min(currentIndex + 2, total)} de ${total}`);
+      }
+      
+      nextBtn.addEventListener('click', () => {
+        const maxIndex = getMaxIndex();
+        if (currentIndex < maxIndex) {
+          currentIndex++;
+          updateSlider();
+        }
+      });
+      
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateSlider();
+        }
+      });
+      
+      // Navegación por teclado
+      nextBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          nextBtn.click();
+        }
+      });
+      
+      prevBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          prevBtn.click();
+        }
+      });
+      
+      // Inicializar slider después de que la página cargue
+      setTimeout(() => {
+        updateSlider();
+      }, 100);
+      
+      // Ajustar en resize
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          // Resetear índice si es necesario
+          const maxIndex = getMaxIndex();
+          if (currentIndex > maxIndex) {
+            currentIndex = maxIndex;
+          }
+          updateSlider();
+        }, 250);
+      });
+    }
+
+    // Mejorar validación del formulario
+    const contactForm = document.getElementById('contactForm');
+    const nombreInput = document.getElementById('nombre');
+    const emailInput = document.getElementById('email');
+    const telefonoInput = document.getElementById('telefono');
+    
+    // Validación en tiempo real
+    if (nombreInput) {
+      nombreInput.addEventListener('blur', function() {
+        if (this.value.trim().length < 2) {
+          this.setCustomValidity('El nombre debe tener al menos 2 caracteres');
+        } else {
+          this.setCustomValidity('');
+        }
+      });
+    }
+    
+    if (emailInput) {
+      emailInput.addEventListener('blur', function() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(this.value)) {
+          this.setCustomValidity('Por favor ingresa un correo electrónico válido');
+        } else {
+          this.setCustomValidity('');
+        }
+      });
+    }
+    
+    if (telefonoInput) {
+      telefonoInput.addEventListener('blur', function() {
+        const phoneRegex = /^[\d\s\-\(\)]{7,}$/;
+        if (!phoneRegex.test(this.value.replace(/\s/g, ''))) {
+          this.setCustomValidity('Por favor ingresa un número de teléfono válido');
+        } else {
+          this.setCustomValidity('');
+        }
+      });
+    }
 
   </script>
 </body>
