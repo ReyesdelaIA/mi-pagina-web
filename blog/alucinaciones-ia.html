@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Las alucinaciones en IA: por qué todas las hacen (y qué hacer) - ReyesIA</title>
+  <meta name="description" content="Ninguna plataforma de IA está libre de alucinaciones. Aprende por qué ocurren, cuándo son más probables y cómo reducir su impacto con buenas prácticas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; background: #fff; }
+
+    .blog-header { background: #1a2537; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .blog-header img { height: 40px; }
+    .logo-link { text-decoration: none; transition: opacity .3s ease; }
+    .logo-link:hover { opacity: .85; }
+    .back-link { color: #c09b5a; text-decoration: none; font-weight: 600; }
+
+    .blog-hero { background: linear-gradient(135deg, #0f1720 0%, #1e293b 100%); color: #fff; padding: 4rem 2rem; text-align: center; }
+    .blog-hero h1 { font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.2; margin: 0 auto 1rem; max-width: 980px; }
+    .blog-hero p { font-size: 1.15rem; opacity: .9; max-width: 800px; margin: 0 auto 2rem; }
+    .blog-meta { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; font-size: .9rem; opacity: .85; }
+
+    .blog-content { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+    .blog-content h2 { font-size: 1.8rem; font-weight: 700; margin: 3rem 0 1.5rem; color: #1a1a1a; }
+    .blog-content h3 { font-size: 1.3rem; font-weight: 600; margin: 2rem 0 1rem; color: #374151; }
+    .blog-content p { font-size: 1.05rem; line-height: 1.85; margin-bottom: 1.25rem; color: #4b5563; }
+    .blog-content ul { margin: 1.25rem 0 1.25rem 1.25rem; }
+    .blog-content li { font-size: 1.05rem; line-height: 1.85; color: #4b5563; margin-bottom: .4rem; }
+
+    .blog-figure { margin: 1.25rem 0 1.75rem; }
+    .blog-figure img { width: 100%; display: block; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+    .blog-nav { background: #f8fafc; padding: 2rem; text-align: center; border-top: 1px solid #e5e7eb; }
+    .blog-nav a { color: #c09b5a; text-decoration: none; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .blog-hero { padding: 3rem 1rem; }
+      .blog-content { padding: 3rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="blog-header">
+    <a href="../index.html" class="logo-link"><img src="../logo reyes IA horizontal blanco.png" alt="ReyesIA" onerror="this.style.display='none'"></a>
+    <a href="../index.html" class="back-link">← Volver al inicio</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="blog-hero">
+    <h1>Las alucinaciones en IA: por qué pasan? y qué hacer al respecto</h1>
+    <p>A noviembre de 2025, no existe todavía ninguna plataforma capaz de garantizar que nunca alucinará; todas pueden distorcionar realidades.. Podemos bajar esta probabilidad a cero? no, pero si hay cosas que se pueden hacer para reducir y controlar esta capacidad de alucinación..</p>
+    <div class="blog-meta">
+      <span>📅 5 de Noviembre, 2025</span>
+      <span>⏱️ 4 min lectura</span>
+      <span>🏷️ Fundamentos</span>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="blog-content">
+    <!-- Contenido provisto por el usuario -->
+    <article>
+      <header>
+        <h2 style="display:none">Resumen</h2>
+      </header>
+      <section>
+        <p>Una de las preguntas más comunes que escucho en mis clases y consultorías es: <strong>¿existe alguna inteligencia artificial que no alucine?</strong> La respuesta corta: no. Todas lo hacen. Lo importante no es negarlo, sino entender <strong>cuándo</strong> y <strong>por qué</strong> pasa, y cómo podemos convivir con ello sin perder confianza en la herramienta.</p>
+        <p>Las <strong>alucinaciones</strong> ocurren cuando la IA entrega información incorrecta, mezcla hechos o simplemente inventa algo que suena real. No lo hace con mala intención —es parte de cómo están diseñados los modelos actuales: predicen palabras según probabilidades, no certezas.</p>
+      </section>
+
+      <section>
+        <h3>Somos early adopters de una tecnología en evolución</h3>
+        <p>La inteligencia artificial generativa lleva apenas <strong>tres años de uso masivo</strong>. Somos parte de los primeros usuarios que están explorando sus límites, aprendiendo sus sesgos y, también, sus errores. Esa condición de “early adopters” nos obliga a convivir con una etapa experimental: la tecnología madura, pero aún no es infalible.</p>
+      </section>
+
+      <section>
+        <h3>Las tres esferas donde se nota más la diferencia</h3>
+        <div class="blog-figure">
+          <img src="../esferas.png" alt="Tres esferas de aplicación: redacción, investigación en Internet y análisis de documentos" loading="lazy">
+        </div>
+        <ul>
+          <li><strong>Redacción:</strong> En esta esfera (redactar textos, mails, escritos, o lo que sea) la IA no alucina, porque se mueve dentro de patrones lingüísticos y estructuras predecibles. No inventa “hechos”, solo desarrolla tus ideas con creatividad y coherencia según las instrucciones que le das.</li>
+          <li><strong>Investigación en Internet:</strong> En esta esfera es donde está el mayor riesgo de alucinación.. literalmente la IA puede mezclar fuentes incompletas o generar datos que suenan reales pero no lo son. </li>
+          <li><strong>Análisis de documentos adjuntos:</strong> cuando la IA trabaja sobre tus propios archivos (contratos, informes, PDFs), el riesgo disminuye notablemente. Tiene evidencia concreta y no necesita rellenar vacíos con suposiciones. Aun así, puede equivocarse si el documento es muy extenso, está mal formateado o contiene imágenes no reconocibles por OCR.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Cómo reducir el riesgo de alucinaciones 🧠</h3>
+        <p>No se trata de no buscar en internet o pensar que todo lo inventa. <strong>Sigue siendo menos errónea que un humano promedio</strong>; pero un uso responsable de IA nos exige ser cuidadosos y usarla con criterio (si no, miren casos recientes en empresas como Deloitte, ver <a href="https://www.theguardian.com/australia-news/2025/oct/06/deloitte-to-pay-money-back-to-albanese-government-after-using-ai-in-440000-report?utm_source=chatgpt.com" target="_blank" rel="noopener">esta nota</a>). A continuación comparto consejos y buenas prácticas que enseño a empresas para bajar la probabilidad de alucinación..</p>
+        <ul>
+          <li><strong>Pide fuentes y fechas detalladas:</strong> no te quedes con la respuesta sin contexto. 🔎</li>
+          <li><strong>Usa RAG o tus propios documentos:</strong> mientras más información interna tenga la IA, menos inventará. 📁</li>
+          <li><strong>Exige un nivel de confianza:</strong> pide que indique su seguridad o que responda “no sé” si duda. 🤔</li>
+          <li><strong>Contrasta en dos fuentes:</strong> especialmente cuando la información sea reciente o crítica. 📚</li>
+          <li><strong>Revisión humana siempre:</strong> ningún copiloto reemplaza el criterio de una persona. 👤</li>
+          <li><strong>Prompts defensivos:</strong> agrega instrucciones como “si no estás 95% seguro, acláralo”. 🛡️</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Ejemplos rápidos</h3>
+        <ul>
+          <li><em>“¿Qué trae la nueva ley de impuestos publicada hace 10 días?”</em> → alto riesgo.</li>
+          <li><em>“¿Qué características tiene el auto lanzado este mes?”</em> → alto riesgo.</li>
+          <li><em>“¿Qué decía la ley tributaria de 1980?”</em> → bajo riesgo.</li>
+        </ul>
+        <p>La diferencia no está en la herramienta, sino en el tipo de pregunta y en cómo la verificas.</p>
+      </section>
+
+      <section>
+        <h3>Mi punto de vista</h3>
+        <p>Decir que “todas las IAs alucinan” no es pesimismo, es realismo. Reconocerlo nos obliga a usarlas con más inteligencia, a revisar lo que generan y a mantener siempre una capa humana de criterio. Si lo hacemos así, la IA no será una fuente sagrada, sino <strong>un copiloto confiable</strong> que potencia nuestra productividad sin reemplazar nuestra responsabilidad.</p>
+      </section>
+
+      <section>
+        <h3>Checklist rápido</h3>
+        <ul>
+          <li>📅 Verifica fuentes y fechas.</li>
+          <li>📁 Usa tus propios documentos cuando sea posible.</li>
+          <li>🧠 Pregunta por nivel de confianza.</li>
+          <li>🔍 Contrasta antes de publicar.</li>
+          <li>🙋‍♂️ Mantén validación humana.</li>
+          <li>🛡️ Usa prompts defensivos.</li>
+        </ul>
+      </section>
+
+      <footer>
+        <p><strong>Conclusión:</strong> la alucinación no es un defecto, es un recordatorio de que la IA sigue aprendiendo, y nosotros también. Entender eso nos permite aprovecharla al máximo, sin perder el control de nuestras decisiones.</p>
+      </footer>
+    </article>
+  </main>
+
+  <nav class="blog-nav">
+    <a href="../index.html">← Volver al blog</a>
+  </nav>
+</body>
+</html>
+

@@ -977,12 +977,33 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.3px;
-      margin-bottom: 1rem;
       position: absolute;
       top: 0.75rem;
       right: 0.75rem;
       z-index: 3;
       opacity: 0.9;
+    }
+    
+    .service-tag-container {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      z-index: 3;
+      display: flex;
+      flex-direction: row;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    
+    .service-tag-container .service-tag {
+      position: relative;
+      top: 0;
+      right: 0;
+      margin: 0;
+    }
+    
+    .service-tag-container .service-tag:last-child {
+      margin-left: -0.2rem; /* Ligeramente más a la derecha, superponiéndose un poco */
     }
 
     .service-tag.empresas {
@@ -1491,12 +1512,16 @@
       margin-bottom: 3rem;
     }
 
-    .blog-card {
+  .blog-card {
+      display: block; /* make whole card clickable when used as <a> */
       background: #111827;
       border-radius: 16px;
       overflow: hidden;
       transition: all 0.3s ease;
       border: 1px solid rgba(255,255,255,0.08);
+      text-decoration: none; /* remove underline when <a> */
+      color: inherit;        /* inherit text color */
+      cursor: pointer;
     }
 
     .blog-card:hover {
@@ -1780,13 +1805,16 @@
         <h3>💻 Talleres Prácticos de IA</h3>
         <p>Cursos presenciales para empresas que buscan aprender a usar IA de forma aplicada. Desde talleres introductorios hasta programas específicos: Copilot, Gemini, ChatGPT, creación de contenido, ventas, legal y más áreas clave.</p>
       </a>
-      <div class="card fade-in">
+      <a href="adopcion-profunda-ia.html" class="card fade-in" style="text-decoration: none; color: inherit;">
         <div class="service-tag empresas">EMPRESAS</div>
         <h3>🚀 Adopción Profunda de IA</h3>
         <p>Programa de transformación profunda de cuatro meses con ocho sesiones quincenales. Se capacita a gerentes y embajadores en uso real de IA, con casos prácticos sobre problemas propios y medición de progreso mediante KPIs claros.</p>
-      </div>
+      </a>
       <a href="clases-grupales-ia.html" class="card fade-in" style="text-decoration: none; color: inherit;">
-        <div class="service-tag personas">PERSONAS</div>
+        <div class="service-tag-container">
+          <div class="service-tag personas">PERSONAS</div>
+          <div class="service-tag empresas">EMPRESAS</div>
+        </div>
         <h3>👥 Clases Grupales de IA</h3>
         <p>Entrenamiento presencial en grupos reducidos (6 a 10 personas). Tres clases intensivas de 2 horas cada una, con metodología "hands-on", para adquirir bases sólidas y aplicar la inteligencia artificial de manera efectiva en el ámbito laboral.</p>
       </a>
@@ -1914,7 +1942,7 @@
       <p class="fade-in">Artículos prácticos y simples para ayudarte a aprovechar la IA en tu día a día.</p>
       
       <div class="blog-grid">
-        <div class="blog-card fade-in">
+        <a class="blog-card fade-in" href="blog/importancia-buen-prompt.html">
           <div class="blog-image">
             <img src="blog/prompt-importance-hero.jpg" alt="Artículo: La importancia de un buen prompt en IA" loading="lazy" onerror="this.style.display='none'">
             <div class="blog-category">Prompts</div>
@@ -1926,24 +1954,25 @@
               <span class="blog-date">21 Sep 2025</span>
               <span class="blog-read-time">5 min lectura</span>
             </div>
-            <a href="blog/importancia-buen-prompt.html" class="blog-link">Leer más →</a>
+            <span class="blog-link">Leer más →</span>
           </div>
-        </div>
+        </a>
 
-        <div class="blog-card coming-soon">
+        <a class="blog-card fade-in" href="blog/alucinaciones-ia.html">
           <div class="blog-image">
-            <div class="blog-placeholder">🚧</div>
-            <div class="blog-category">Próximamente</div>
+            <img src="alucina.png" alt="Artículo: Las alucinaciones en IA" loading="lazy" onerror="this.style.display='none'">
+            <div class="blog-category">Fundamentos</div>
           </div>
           <div class="blog-content">
-            <h3>Próximo artículo</h3>
-            <p>Más contenido sobre IA llegando pronto...</p>
+            <h3>Las alucinaciones en IA: por qué pasan? y qué hacer al respecto</h3>
+            <p>A noviembre de 2025, no existe todavía ninguna plataforma capaz de garantizar que nunca alucinará; todas pueden distorcionar realidades.. Podemos bajar esta probabilidad a cero? no, pero si hay cosas que se pueden hacer para reducir y controlar esta capacidad de alucinación..</p>
             <div class="blog-meta">
-              <span class="blog-date">Próximamente</span>
-              <span class="blog-read-time">-</span>
+              <span class="blog-date">05 Nov 2025</span>
+              <span class="blog-read-time">4 min lectura</span>
             </div>
+            <span class="blog-link">Leer más →</span>
           </div>
-        </div>
+        </a>
 
         <div class="blog-card coming-soon">
           <div class="blog-image">

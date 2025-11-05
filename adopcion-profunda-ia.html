@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Adopción Profunda de IA - Reyes IA | Transformación Empresarial con Inteligencia Artificial</title>
+  <meta name="description" content="Programa empresarial de adopción profunda de IA. 8 sesiones quincenales con grupos de 10-12 personas. Transformación completa del mindset para integrar IA en el día a día laboral.">
+  <meta name="keywords" content="adopción IA empresas, transformación digital IA, capacitación empresarial IA, programa IA empresas, Felipe Reyes, Chile">
+  <meta name="author" content="Felipe Reyes - Reyes IA">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://reyesia.com/adopcion-profunda-ia.html">
+  <meta property="og:title" content="Adopción Profunda de IA - Transformación Empresarial">
+  <meta property="og:description" content="Programa empresarial de 8 sesiones para transformar completamente el uso de IA en tu organización.">
+  <meta property="og:image" content="https://reyesia.com/handson01.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Adopción Profunda de IA - Reyes IA">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://reyesia.com/adopcion-profunda-ia.html">
+  <meta property="twitter:title" content="Adopción Profunda de IA - Reyes IA">
+  <meta property="twitter:description" content="Programa empresarial completo para transformar el uso de IA en tu organización.">
+  <meta property="twitter:image" content="https://reyesia.com/handson01.png">
+  <meta property="twitter:image:alt" content="Adopción Profunda de IA - Reyes IA">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    /* ---------- HEADER ---------- */
+    .header {
+      background: linear-gradient(135deg, #1a2537 0%, #2c3e50 100%);
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      color: white;
+    }
+
+    .logo img {
+      height: 40px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #c09b5a;
+    }
+
+    /* ---------- HERO SECTION ---------- */
+    .hero {
+      background: linear-gradient(135deg, #1a2537 0%, #2c3e50 100%);
+      color: white;
+      padding: 8rem 0 6rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(192,155,90,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(192,155,90,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(192,155,90,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3.4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(192, 155, 90, 0.2);
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(192, 155, 90, 0.3);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      color: #1a1a1a;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.0rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(192, 155, 90, 0.3);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(192, 155, 90, 0.4);
+    }
+
+    /* ---------- CONTAINER ---------- */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ---------- SECTIONS ---------- */
+    .section {
+      padding: 6rem 0;
+    }
+
+    .section h2 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ---------- METODOLOGÍA ---------- */
+    .metodologia {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .metodologia-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .metodologia-content h3 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+    }
+
+    .metodologia-content p {
+      font-size: 1.0rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+
+    .metodologia-image {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .metodologia-image img {
+      max-width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+      transform: scale(1);
+    }
+
+    .metodologia-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(192, 155, 90, 0.08), rgba(26, 37, 55, 0.08));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+      border-radius: 16px;
+    }
+
+    .metodologia-image:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+    }
+
+    .metodologia-image:hover img {
+      transform: scale(1.03);
+    }
+
+    .metodologia-image:hover::before {
+      opacity: 1;
+    }
+
+    /* ---------- PROGRAMA DETALLE ---------- */
+    .programa-detalle {
+      background: white;
+    }
+
+    .programa-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .programa-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid rgba(192, 155, 90, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .programa-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .programa-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .programa-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(192, 155, 90, 0.15);
+    }
+
+    .programa-card-number {
+      display: inline-block;
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      color: #1a1a1a;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.0rem;
+      margin-bottom: 1rem;
+    }
+
+    .programa-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #1a1a1a;
+      line-height: 1.3;
+    }
+
+    .programa-card p {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .programa-details {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .programa-details li {
+      padding: 0.45rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+      color: #555;
+      line-height: 1.5;
+      font-size: 0.85rem;
+    }
+
+    .programa-details li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #c09b5a;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    /* ---------- BENEFICIOS ---------- */
+    .beneficios {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .beneficios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .beneficio-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(192, 155, 90, 0.1);
+    }
+
+    .beneficio-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(192, 155, 90, 0.15);
+    }
+
+    .beneficio-icon {
+      font-size: 2.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .beneficio-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+    }
+
+    .beneficio-card p {
+      color: #555;
+      line-height: 1.7;
+    }
+
+    /* ---------- INFORMACIÓN PRÁCTICA ---------- */
+    .info-practica {
+      background: white;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    .info-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(192, 155, 90, 0.1);
+    }
+
+    .info-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+    }
+
+    .info-list {
+      list-style: none;
+    }
+
+    .info-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(192, 155, 90, 0.1);
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .info-list li:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .info-value {
+      color: #c09b5a;
+      font-weight: 500;
+    }
+
+    /* ---------- CTA FINAL ---------- */
+    .cta-final {
+      background: linear-gradient(135deg, #1a2537 0%, #2c3e50 100%);
+      color: white;
+      text-align: center;
+      padding: 6rem 0;
+    }
+
+    .cta-final h2 {
+      color: white;
+      background: none;
+      -webkit-text-fill-color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-final p {
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #c09b5a, #e0c07c);
+      color: #1a1a1a;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.0rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(192, 155, 90, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(192, 155, 90, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.0rem;
+      transition: all 0.3s ease;
+      border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: #1a2537;
+      transform: translateY(-3px);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      .hero p {
+        font-size: 1.0rem;
+      }
+
+      .metodologia-grid,
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .programa-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .beneficios-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      
+      .beneficio-card {
+        padding: 1rem;
+      }
+
+      .nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .beneficios-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <a href="/" class="logo">
+        <img src="logo reyes IA horizontal blanco.png" alt="Reyes IA">
+      </a>
+      <nav>
+        <ul class="nav">
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/#servicios">Servicios</a></li>
+          <li><a href="/#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">🚀 PROGRAMA EMPRESARIAL</div>
+      <h1>Adopción Profunda de IA</h1>
+      <p>Transforma completamente el uso de Inteligencia Artificial en tu organización. Programa personalizado de 8 sesiones presenciales, diseñado para cambiar el mindset y lograr que tu equipo realmente integre IA en su día a día laboral.</p>
+      <a href="#contacto" class="cta-button">Solicitar información</a>
+    </div>
+  </section>
+
+  <!-- METODOLOGÍA -->
+  <section class="metodologia section">
+    <div class="container">
+      <h2>💼 Metodología Empresarial</h2>
+      <div class="metodologia-grid">
+        <div class="metodologia-content">
+          <h3>Programa integral de 8 sesiones</h3>
+          <p>Este programa va de macro a micro: está pensado para empresas que buscan transformación real. No es un curso para especialistas, sino para personas con distintos niveles de avance; el programa se nivela y avanza para que todos puedan seguir y aplicar lo aprendido.</p>
+          <p>A lo largo de las sesiones trabajamos algunos casos reales y se enseñan diversas herramientas prácticas para resolver problemas concretos y automatizar tareas.</p>
+          <p>El resultado: más que conocimiento, un cambio de mindset —las personas de la empresa acabarán usando IA en su día a día, no solo habiendo aprendido sobre ella.</p>
+        </div>
+        <div class="metodologia-image">
+          <img src="falabella.png" alt="Metodología Hands-On en empresas">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMA DETALLE -->
+  <section class="programa-detalle section">
+    <div class="container">
+      <h2>📋 Estructura del Programa</h2>
+      <p style="font-size: 1.0rem; line-height: 1.7; color: #555; max-width: 900px; margin: 0 auto 3rem; text-align: center;">
+        Previo a comenzar, en reunión previa según declaración de la empresa, el programa se adapta al entorno y a las herramientas del cliente: si usan Copilot, Google Workspace u otra plataforma (por ejemplo ChatGPT como solución oficial), orientamos contenidos y ejercicios hacia esa herramienta. Aun con esa adaptación, la estructura general del programa se detalla a continuación:
+      </p>
+      <div class="programa-grid">
+        <div class="programa-card">
+          <div class="programa-card-number">01</div>
+          <h3>SESIÓN 01</h3>
+          <ul class="programa-details">
+            <li>INTRO A LA IA</li>
+            <li>VERDADES PARA USO RESPONSABLE</li>
+            <li>FUNDAMENTOS DEL PROMPT</li>
+            <li>DIVERSOS MODELOS DE LENGUAJE</li>
+            <li>CONFIDENCIALIDAD</li>
+            <li>REGULACIONES / DEEPFAKES</li>
+            <li>USO RESPONSABLE Y ÉTICO</li>
+          </ul>
+        </div>
+
+        <div class="programa-card">
+          <div class="programa-card-number">02</div>
+          <h3>SESIÓN 02</h3>
+          <ul class="programa-details">
+            <li>RECAP RÁPIDO</li>
+            <li>USO DE LA MEMORIA</li>
+            <li>HERRAMIENTA DICTADO</li>
+            <li>TOUR CHATGPT (U OTRO LLM)</li>
+            <li>HERRAMIENTA DEEP THINKING</li>
+            <li>MODELOS Y SU RAZONAMIENTO</li>
+          </ul>
+        </div>
+
+        <div class="programa-card">
+          <div class="programa-card-number">03</div>
+          <h3>SESIÓN 03</h3>
+          <ul class="programa-details">
+            <li>RECAP FLASH</li>
+            <li>USABILIDAD IA</li>
+            <li>USO COPILOT PARTE 1</li>
+            <li>EJERCICIOS COPILOT PARTE 1</li>
+          </ul>
+        </div>
+
+        <div class="programa-card">
+          <div class="programa-card-number">04</div>
+          <h3>SESIÓN 04</h3>
+          <ul class="programa-details">
+            <li>USO COPILOT PARTE 2</li>
+            <li>COPILOT EN OUTLOOK</li>
+            <li>COPILOT COMO APP</li>
+            <li>AGENTES COPILOT!</li>
+            <li>COPILOT PARA CREAR (DISEÑOS)</li>
+          </ul>
+        </div>
+
+        <div class="programa-card">
+          <div class="programa-card-number">05</div>
+          <h3>SESIÓN 05</h3>
+          <ul class="programa-details">
+            <li>CREAR PPTS CON IA</li>
+            <li>GENERACIÓN DE IMÁGENES CON IA</li>
+            <li>GENERACIÓN DE VIDEOS CON IA</li>
+            <li>GENERACIÓN LOGOS / INFOGRAFÍAS</li>
+          </ul>
+        </div>
+
+        <div class="programa-card">
+          <div class="programa-card-number">06</div>
+          <h3>SESIÓN 06</h3>
+          <ul class="programa-details">
+            <li>IA PARA LICITACIONES</li>
+            <li>USO PRO DE NOTEBOOKLM</li>
+            <li>USO PRO CUADERNOS</li>
+            <li>USO PRO DE AGENTES</li>
+          </ul>
+        </div>
+
+        <div class="programa-card">
+          <div class="programa-card-number">07</div>
+          <h3>SESIÓN 07</h3>
+          <ul class="programa-details">
+            <li>USO APLICADO CONECTORES</li>
+            <li>USO AGENTES DE TAREAS</li>
+            <li>USO AGENTES DE ENTORNO LOCAL</li>
+            <li>USO AGENTES FLUJOS COMPLETOS</li>
+          </ul>
+        </div>
+
+        <div class="programa-card">
+          <div class="programa-card-number">08</div>
+          <h3>SESIÓN 08</h3>
+          <ul class="programa-details">
+            <li>RECAPITULACIÓN GENERAL IA</li>
+            <li>REPASO POR LAS DIFERENTES APPS</li>
+            <li>REPASO FUNDAMENTOS</li>
+            <li>REVISIÓN TAREAS AUTOMATIZADAS</li>
+            <li>CIERRE PROGRAMA Y ENTREG</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="beneficios section">
+    <div class="container">
+      <h2>✨ ¿Por qué elegir este programa?</h2>
+      <div class="beneficios-grid">
+        <div class="beneficio-card">
+          <div class="beneficio-icon">🎯</div>
+          <h3>100% Personalizado</h3>
+          <p>Cada sesión se adapta a las necesidades específicas de tu empresa y tu equipo. Trabajamos con casos reales de tu organización.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">👥</div>
+          <h3>Grupos Óptimos</h3>
+          <p>10-12 personas por grupo para garantizar atención personalizada y permitir que cada participante resuelva sus desafíos específicos.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">⏱️</div>
+          <h3>Duración Flexible</h3>
+          <p>8 sesiones cada 2 semanas (3-4 meses) o programa intensivo semanal según las necesidades de tu empresa.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">🔧</div>
+          <h3>Muchos Ejercicios Prácticos</h3>
+          <p>En cada sesión hacemos ejercicios reales. No es teoría: es práctica aplicada desde el primer día.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">🛠️</div>
+          <h3>Múltiples Herramientas</h3>
+          <p>Exploramos diversas herramientas de IA para que encuentres las mejores soluciones para cada necesidad.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">🧠</div>
+          <h3>Cambio de Mindset</h3>
+          <p>El objetivo final es que tu equipo realmente cambie su forma de trabajar y use IA en su día a día, no solo que aprenda sobre ella.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">📊</div>
+          <h3>Medición de Progreso</h3>
+          <p>KPIs claros para medir el avance y el impacto real del programa en tu organización.</p>
+        </div>
+        <div class="beneficio-card">
+          <div class="beneficio-icon">🤝</div>
+          <h3>Seguimiento Continuo</h3>
+          <p>Durante todo el programa hay seguimiento entre sesiones para asegurar que el aprendizaje se consolide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFORMACIÓN PRÁCTICA -->
+  <section class="info-practica section" id="contacto">
+    <div class="container">
+      <h2>📋 Información del Programa</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>📅 Detalles del Programa</h3>
+          <ul class="info-list">
+            <li>
+              <span class="info-label">Total de sesiones:</span>
+              <span class="info-value">8 sesiones</span>
+            </li>
+            <li>
+              <span class="info-label">Frecuencia:</span>
+              <span class="info-value">Cada 2 semanas (quincenal)</span>
+            </li>
+            <li>
+              <span class="info-label">Duración total:</span>
+              <span class="info-value">3-4 meses</span>
+            </li>
+            <li>
+              <span class="info-label">Modalidad intensiva:</span>
+              <span class="info-value">Disponible (semanal)</span>
+            </li>
+            <li>
+              <span class="info-label">Tamaño del grupo:</span>
+              <span class="info-value">10-12 personas</span>
+            </li>
+            <li>
+              <span class="info-label">Modalidad:</span>
+              <span class="info-value">De preferencia presencial</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>🎯 Incluye</h3>
+          <ul class="info-list">
+            <li>
+              <span class="info-label">Personalización:</span>
+              <span class="info-value">Total del programa</span>
+            </li>
+            <li>
+              <span class="info-label">Materiales:</span>
+              <span class="info-value">Incluidos</span>
+            </li>
+            <li>
+              <span class="info-label">Herramientas:</span>
+              <span class="info-value">Múltiples plataformas</span>
+            </li>
+            <li>
+              <span class="info-label">Ejercicios prácticos:</span>
+              <span class="info-value">En cada sesión</span>
+            </li>
+            <li>
+              <span class="info-label">Medición de KPIs:</span>
+              <span class="info-value">Incluido</span>
+            </li>
+            <li>
+              <span class="info-label">Seguimiento:</span>
+              <span class="info-value">Entre sesiones</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="container">
+      <h2>¿Listo para transformar tu empresa con IA?</h2>
+      <p>Este programa está diseñado para empresas que buscan una transformación real, no solo capacitación. Contacta con nosotros para conocer más detalles y personalizar el programa según tus necesidades.</p>
+      <div class="cta-buttons">
+        <a href="/#contacto" class="btn-primary">Solicitar información</a>
+        <a href="/" class="btn-secondary">Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
+
