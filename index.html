@@ -428,6 +428,10 @@
       filter: grayscale(100%) brightness(1.2) contrast(1.1);
     }
 
+    .logos img[alt="Embónor - Cliente de Reyes IA"]:hover {
+      filter: grayscale(0%) brightness(1.1) contrast(1.05); /* Muestra colores: Coca-Cola en blanco, Embónor e isotipo en rojo */
+    }
+
     .logos img[alt="PC Factory - Cliente de Reyes IA"]:hover {
       filter: grayscale(0%) brightness(1); /* Se ve en verde (color original) al hacer hover */
     }
@@ -1110,7 +1114,7 @@
     }
 
     .about .lead {
-      font-size: 0.88rem; /* reducido de 0.92rem a 0.88rem */
+      font-size: 0.82rem; /* reducido 1px para texto más compacto */
       line-height: 1.7;
       color: #cbd5e1;
       margin-bottom: 1rem;
@@ -1139,7 +1143,7 @@
     }
 
     .about .bullets li {
-      font-size: 0.88rem; /* reducido de 0.92rem a 0.88rem para consistencia */
+      font-size: 0.82rem; /* reducido 1px para texto más compacto */
       line-height: 1.6;
       color: #cbd5e1;
     }
@@ -1169,6 +1173,18 @@
       align-items: center;
       height: 120px; /* altura fija uniforme */
       width: 100%; /* ancho completo del grid */
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .stat:hover {
+      transform: translateY(-4px);
+      border-color: rgba(192, 155, 90, 0.6);
+      box-shadow: 
+        0 8px 20px rgba(0,0,0,0.15),
+        0 0 0 1px rgba(192, 155, 90, 0.3),
+        inset 0 0 20px rgba(192, 155, 90, 0.1);
     }
 
     .stat .num {
@@ -1834,7 +1850,7 @@
         <div class="about-text slide-in-right">
           <h2>¿Quién soy?</h2>
           <p class="lead">
-            Felipe Reyes es un destacado emprendedor en el ámbito de las tecnologías avanzadas e Inteligencia Artificial. Cofundador de LAP Global y Reyes IA, se desempeña también como profesor universitario de Inteligencia Artificial. Además, Felipe es mentor de startups tecnológicas que integran IA en los programas Startup Chile y UDD Ventures. En el ámbito de los medios, lidera un espacio de IA en el programa Clave Morse, transmitido en Radio La Clave (92.9).
+            Felipe Reyes es emprendedor tecnológico y referente en uso de Inteligencia Artificial aplicada. Cofundador de LAP Global, Reyes IA y Linkka AI, combina su experiencia como profesor universitario de IA con su pasión por democratizar esta tecnología. Ha capacitado a más de 3.000 personas y asesorado a más de 160 empresas líderes en la implementación de soluciones de IA. Además, es mentor de startups tecnológicas y conduce espacios dedicados a IA en medios, como los programas "Lo hice con IA" (Vodcast) y "Clave Morse" en Radio La Clave (92.9).
           </p>
           <ul class="bullets">
             <li>+10 años cofundando empresas tech</li>
@@ -1844,20 +1860,20 @@
         </div>
         <div class="about-aside">
           <div class="stats">
-            <div class="stat"><span class="num">+110</span><span class="label">Empresas capacitadas</span></div>
-            <div class="stat"><span class="num">+2.500</span><span class="label">Personas capacitadas</span></div>
-            <div class="stat"><span class="num">+7</span><span class="label">Expositor summits</span></div>
+            <div class="stat"><span class="num">+160</span><span class="label">Empresas capacitadas</span></div>
+            <div class="stat"><span class="num">+3.000</span><span class="label">Personas capacitadas</span></div>
+            <div class="stat"><span class="num">+8</span><span class="label">Expositor summits</span></div>
           </div>
           <div class="logos">
             <img src="Copec ORIGINAL.png" alt="COPEC - Cliente de Reyes IA" loading="lazy">
             <img src="enel ORIGINAL.png" alt="ENEL - Cliente de Reyes IA" loading="lazy">
             <img src="logo falabella.png" alt="Falabella - Cliente de Reyes IA" loading="lazy">
-            <img src="CLARO logo rojo.png" alt="CLARO - Cliente de Reyes IA" loading="lazy">
+            <img src="logo-Coca-Cola-Embonor ia.png" alt="Embónor - Cliente de Reyes IA" loading="lazy">
             <img src="SKC logo azul.png" alt="SKC - Cliente de Reyes IA" loading="lazy">
             <img src="SKECHERS logo blanco.png" alt="SKECHERS - Cliente de Reyes IA" loading="lazy">
             <img src="pcFactory Original.png" alt="PC Factory - Cliente de Reyes IA" loading="lazy">
             <img src="MARINOVIC logo blanco.png" alt="Marinovic & Alcalde - Cliente de Reyes IA" loading="lazy">
-            <div class="more-clients">+90</div>
+            <div class="more-clients">+150</div>
           </div>
         </div>
       </div>
