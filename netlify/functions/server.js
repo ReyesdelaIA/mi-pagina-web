@@ -94,19 +94,28 @@ Este es un email automático del sistema de ReyesIA
 
         // Solo enviar email si hay API key configurada
         if (process.env.RESEND_API_KEY) {
+            console.log('RESEND_API_KEY encontrada, intentando enviar email...');
             // Usar dominio verificado o el dominio de prueba de Resend
             const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
             
-            await resend.emails.send({
-                from: `ReyesIA <${fromEmail}>`,
-                to: adminEmail,
-                subject: `🔔 Nuevo usuario registrado: ${userData.nombre}`,
-                html: emailHtml,
-                text: emailText,
-            });
-            console.log('Email de notificación enviado a', adminEmail);
+            try {
+                const result = await resend.emails.send({
+                    from: `ReyesIA <${fromEmail}>`,
+                    to: adminEmail,
+                    subject: `🔔 Nuevo usuario registrado: ${userData.nombre}`,
+                    html: emailHtml,
+                    text: emailText,
+                });
+                console.log('✅ Email de notificación enviado exitosamente a', adminEmail);
+                console.log('Resend response:', JSON.stringify(result, null, 2));
+            } catch (emailError) {
+                console.error('❌ Error al enviar email con Resend:', emailError);
+                console.error('Error details:', JSON.stringify(emailError, null, 2));
+                throw emailError; // Re-lanzar para que se capture en el catch externo
+            }
         } else {
-            console.log('RESEND_API_KEY no configurada. Email no enviado.');
+            console.warn('⚠️ RESEND_API_KEY no configurada. Email no enviado.');
+            console.warn('Configura RESEND_API_KEY en Netlify Environment Variables');
         }
     } catch (error) {
         // No fallar el registro si el email falla
@@ -191,6 +200,7 @@ exports.handler = async (event, context) => {
             }
 
             // Enviar notificación por email al administrador (no bloquea el registro si falla)
+            console.log('Intentando enviar notificación de nuevo usuario...');
             sendNewUserNotification({
                 nombre: newUser.nombre,
                 email: newUser.email,
@@ -198,6 +208,7 @@ exports.handler = async (event, context) => {
                 empresa: newUser.empresa
             }).catch(err => {
                 console.error('Error enviando notificación:', err);
+                console.error('Error details:', JSON.stringify(err, null, 2));
             });
 
             return {
