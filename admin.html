@@ -185,6 +185,74 @@
             margin: 1rem 0;
         }
 
+        .filters {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .highlight-pending {
+            background: #fff3cd !important;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .pending-badge {
+            background: #ffc107;
+            color: #000;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 0 1rem;
@@ -235,8 +303,26 @@
         <!-- Lista de Usuarios -->
         <div class="section">
             <div class="section-header">
-                <h2 class="section-title">👥 Gestión de Usuarios</h2>
+                <h2 class="section-title">
+                    👥 Gestión de Usuarios
+                    <span id="pendingCount" class="pending-badge" style="display: none;">0 pendientes</span>
+                </h2>
                 <button class="refresh-btn" onclick="loadUsers()">🔄 Actualizar</button>
+            </div>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="searchInput">🔍 Buscar:</label>
+                    <input type="text" id="searchInput" class="filter-input" placeholder="Nombre o email..." oninput="filterUsers()">
+                </div>
+                <div class="filter-group">
+                    <label for="statusFilter">📊 Estado:</label>
+                    <select id="statusFilter" class="filter-select" onchange="filterUsers()">
+                        <option value="all">Todos</option>
+                        <option value="pending">Pendientes</option>
+                        <option value="approved">Aprobados</option>
+                        <option value="rejected">Rechazados</option>
+                    </select>
+                </div>
             </div>
             <div id="usersContent">
                 <div class="loading">Cargando usuarios...</div>
@@ -247,11 +333,12 @@
     <script>
         let currentToken = null;
         let users = [];
+        let filteredUsers = [];
 
         // Verificar autenticación al cargar la página
         window.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
-            currentToken = urlParams.get('token');
+            currentToken = urlParams.get('token') || localStorage.getItem('authToken');
             
             if (!currentToken) {
                 alert('Token de acceso requerido');
@@ -274,6 +361,7 @@
 
                 if (response.ok) {
                     users = await response.json();
+                    filteredUsers = users; // Inicializar usuarios filtrados
                     displayUsers();
                     updateStats();
                 } else {
@@ -289,11 +377,20 @@
         }
 
         function displayUsers() {
-            if (users.length === 0) {
+            if (filteredUsers.length === 0) {
                 document.getElementById('usersContent').innerHTML = 
-                    '<div class="loading">No hay usuarios registrados</div>';
+                    '<div class="loading">No hay usuarios que coincidan con los filtros</div>';
                 return;
             }
+
+            // Ordenar: pendientes primero, luego por fecha
+            const sortedUsers = [...filteredUsers].sort((a, b) => {
+                if (a.status === 'pending' && b.status !== 'pending') return -1;
+                if (a.status !== 'pending' && b.status === 'pending') return 1;
+                const dateA = new Date(a.created_at || a.createdAt || 0);
+                const dateB = new Date(b.created_at || b.createdAt || 0);
+                return dateB - dateA; // Más recientes primero
+            });
 
             const tableHTML = `
                 <table class="users-table">
@@ -309,40 +406,68 @@
                         </tr>
                     </thead>
                     <tbody>
-                        ${users.map(user => `
-                            <tr>
-                                <td>${user.nombre}</td>
+                        ${sortedUsers.map(user => {
+                            const createdDate = user.created_at || user.createdAt;
+                            const dateStr = createdDate ? new Date(createdDate).toLocaleDateString('es-ES') : 'N/A';
+                            const rowClass = user.status === 'pending' ? 'highlight-pending' : '';
+                            
+                            return `
+                            <tr class="${rowClass}">
+                                <td><strong>${user.nombre || 'N/A'}</strong></td>
                                 <td>${user.email}</td>
                                 <td>${user.empresa || '-'}</td>
-                                <td>${user.telefono}</td>
+                                <td>${user.telefono || '-'}</td>
                                 <td>
                                     <span class="status-${user.status}">
-                                        ${user.status === 'pending' ? 'Pendiente' : 
-                                          user.status === 'approved' ? 'Aprobado' : 'Rechazado'}
+                                        ${user.status === 'pending' ? '⏳ Pendiente' : 
+                                          user.status === 'approved' ? '✅ Aprobado' : '❌ Rechazado'}
                                     </span>
                                 </td>
-                                <td>${new Date(user.created_at).toLocaleDateString('es-ES')}</td>
+                                <td>${dateStr}</td>
                                 <td>
                                     ${user.status === 'pending' ? `
-                                        <button class="action-btn approve-btn" onclick="updateUserStatus(${user.id}, 'approved')">
+                                        <button class="action-btn approve-btn" onclick="updateUserStatus('${user.id}', 'approved')">
                                             ✅ Aprobar
                                         </button>
-                                        <button class="action-btn reject-btn" onclick="updateUserStatus(${user.id}, 'rejected')">
+                                        <button class="action-btn reject-btn" onclick="updateUserStatus('${user.id}', 'rejected')">
                                             ❌ Rechazar
                                         </button>
+                                    ` : user.status === 'approved' ? `
+                                        <button class="action-btn reject-btn" onclick="updateUserStatus('${user.id}', 'rejected')" style="background: #6c757d;">
+                                            🔄 Rechazar
+                                        </button>
                                     ` : `
-                                        <span style="color: #666; font-size: 0.8rem;">
-                                            ${user.status === 'approved' ? 'Aprobado' : 'Rechazado'}
-                                        </span>
+                                        <button class="action-btn approve-btn" onclick="updateUserStatus('${user.id}', 'approved')">
+                                            ✅ Aprobar
+                                        </button>
                                     `}
                                 </td>
                             </tr>
-                        `).join('')}
+                            `;
+                        }).join('')}
                     </tbody>
                 </table>
             `;
 
             document.getElementById('usersContent').innerHTML = tableHTML;
+        }
+
+        function filterUsers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            filteredUsers = users.filter(user => {
+                const matchesSearch = !searchTerm || 
+                    (user.nombre && user.nombre.toLowerCase().includes(searchTerm)) ||
+                    (user.email && user.email.toLowerCase().includes(searchTerm)) ||
+                    (user.empresa && user.empresa.toLowerCase().includes(searchTerm));
+                
+                const matchesStatus = statusFilter === 'all' || user.status === statusFilter;
+                
+                return matchesSearch && matchesStatus;
+            });
+
+            displayUsers();
         }
 
         function updateStats() {
@@ -355,10 +480,20 @@
             document.getElementById('pendingUsers').textContent = pending;
             document.getElementById('approvedUsers').textContent = approved;
             document.getElementById('rejectedUsers').textContent = rejected;
+
+            // Mostrar badge de pendientes
+            const pendingBadge = document.getElementById('pendingCount');
+            if (pending > 0) {
+                pendingBadge.textContent = `${pending} pendiente${pending > 1 ? 's' : ''}`;
+                pendingBadge.style.display = 'inline-block';
+            } else {
+                pendingBadge.style.display = 'none';
+            }
         }
 
         async function updateUserStatus(userId, newStatus) {
-            if (!confirm(`¿Estás seguro de ${newStatus === 'approved' ? 'aprobar' : 'rechazar'} este usuario?`)) {
+            const action = newStatus === 'approved' ? 'aprobar' : 'rechazar';
+            if (!confirm(`¿Estás seguro de ${action} este usuario?`)) {
                 return;
             }
 
@@ -373,16 +508,35 @@
                 });
 
                 if (response.ok) {
-                    alert(`Usuario ${newStatus === 'approved' ? 'aprobado' : 'rechazado'} correctamente`);
+                    showNotification(`Usuario ${newStatus === 'approved' ? 'aprobado' : 'rechazado'} correctamente ✅`);
                     loadUsers(); // Recargar la lista
                 } else {
                     const error = await response.json();
-                    alert(`Error: ${error.error}`);
+                    showNotification(`Error: ${error.error || 'Error al actualizar usuario'}`, 'error');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error de conexión');
+                showNotification('Error de conexión. Intenta nuevamente.', 'error');
             }
+        }
+
+        function showNotification(message, type = 'success') {
+            // Remover notificación anterior si existe
+            const existing = document.querySelector('.notification');
+            if (existing) {
+                existing.remove();
+            }
+
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.style.background = type === 'error' ? '#dc3545' : '#28a745';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
         }
 
         function logout() {

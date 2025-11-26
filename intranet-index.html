@@ -183,7 +183,9 @@
                     localStorage.setItem('user', JSON.stringify(data.user));
                     window.location.href = '/dashboard.html';
                 } else {
-                    errorDiv.textContent = data.message || 'Error al iniciar sesión';
+                    // El servidor puede devolver 'error' o 'message'
+                    const errorMsg = data.error || data.message || 'Error al iniciar sesión';
+                    errorDiv.textContent = errorMsg;
                     errorDiv.style.display = 'block';
                 }
             } catch (error) {

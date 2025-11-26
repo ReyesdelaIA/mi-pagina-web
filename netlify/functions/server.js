@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { Resend } = require('resend');
 
 // Configuración de Supabase
 const { createClient } = require('@supabase/supabase-js');
@@ -9,6 +10,109 @@ const supabaseKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cC
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const JWT_SECRET = process.env.JWT_SECRET || 'reyesia-production-jwt-secret-2024';
+
+// Configuración de Resend para emails
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Función para enviar notificación de nuevo usuario
+async function sendNewUserNotification(userData) {
+    try {
+        const adminEmail = 'felipe@reyesia.com';
+        const siteUrl = process.env.SITE_URL || 'https://reyesia.com';
+        const adminUrl = `${siteUrl}/admin`;
+
+        const emailHtml = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+                    .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+                    .user-info { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea; }
+                    .user-info p { margin: 10px 0; }
+                    .user-info strong { color: #667eea; }
+                    .button { display: inline-block; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+                    .button:hover { background: #5568d3; }
+                    .footer { text-align: center; color: #666; font-size: 12px; margin-top: 30px; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h1>🔔 Nuevo Usuario Registrado</h1>
+                        <p>Hay un nuevo usuario esperando aprobación</p>
+                    </div>
+                    <div class="content">
+                        <p>Hola Felipe,</p>
+                        <p>Se ha registrado un nuevo usuario en la intranet de ReyesIA que requiere tu aprobación:</p>
+                        
+                        <div class="user-info">
+                            <p><strong>Nombre:</strong> ${userData.nombre}</p>
+                            <p><strong>Email:</strong> ${userData.email}</p>
+                            <p><strong>Teléfono:</strong> ${userData.telefono}</p>
+                            ${userData.empresa ? `<p><strong>Empresa:</strong> ${userData.empresa}</p>` : ''}
+                            <p><strong>Estado:</strong> <span style="color: #ff9800; font-weight: bold;">Pendiente de aprobación</span></p>
+                        </div>
+                        
+                        <p style="text-align: center;">
+                            <a href="${adminUrl}" class="button">Ir al Panel de Administración</a>
+                        </p>
+                        
+                        <p>Recuerda que el usuario no podrá acceder a la intranet hasta que apruebes su solicitud.</p>
+                    </div>
+                    <div class="footer">
+                        <p>Este es un email automático del sistema de ReyesIA</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
+
+        const emailText = `
+Nuevo Usuario Registrado
+
+Hola Felipe,
+
+Se ha registrado un nuevo usuario en la intranet de ReyesIA que requiere tu aprobación:
+
+Nombre: ${userData.nombre}
+Email: ${userData.email}
+Teléfono: ${userData.telefono}
+${userData.empresa ? `Empresa: ${userData.empresa}` : ''}
+Estado: Pendiente de aprobación
+
+Accede al panel de administración: ${adminUrl}
+
+Recuerda que el usuario no podrá acceder a la intranet hasta que apruebes su solicitud.
+
+---
+Este es un email automático del sistema de ReyesIA
+        `;
+
+        // Solo enviar email si hay API key configurada
+        if (process.env.RESEND_API_KEY) {
+            // Usar dominio verificado o el dominio de prueba de Resend
+            const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+            
+            await resend.emails.send({
+                from: `ReyesIA <${fromEmail}>`,
+                to: adminEmail,
+                subject: `🔔 Nuevo usuario registrado: ${userData.nombre}`,
+                html: emailHtml,
+                text: emailText,
+            });
+            console.log('Email de notificación enviado a', adminEmail);
+        } else {
+            console.log('RESEND_API_KEY no configurada. Email no enviado.');
+        }
+    } catch (error) {
+        // No fallar el registro si el email falla
+        console.error('Error enviando email de notificación:', error);
+    }
+}
 
 // Headers para CORS
 const corsHeaders = {
@@ -85,6 +189,16 @@ exports.handler = async (event, context) => {
                     body: JSON.stringify({ error: 'Error interno del servidor' })
                 };
             }
+
+            // Enviar notificación por email al administrador (no bloquea el registro si falla)
+            sendNewUserNotification({
+                nombre: newUser.nombre,
+                email: newUser.email,
+                telefono: newUser.telefono,
+                empresa: newUser.empresa
+            }).catch(err => {
+                console.error('Error enviando notificación:', err);
+            });
 
             return {
                 statusCode: 201,
