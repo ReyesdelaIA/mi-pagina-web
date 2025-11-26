@@ -145,10 +145,13 @@ exports.handler = async (event, context) => {
     try {
         // Registro de usuarios
         if (path === '/api/auth/register' && httpMethod === 'POST') {
+            console.log('📝 Intento de registro recibido');
             const { nombre, email, telefono, empresa, password } = JSON.parse(body || '{}');
+            console.log('Datos recibidos:', { nombre, email, telefono, empresa: empresa || '(vacío)', password: password ? '***' : '(vacío)' });
 
             // Validar campos requeridos
             if (!nombre || !email || !telefono || !password) {
+                console.log('❌ Campos requeridos faltantes');
                 return {
                     statusCode: 400,
                     headers: corsHeaders,
@@ -157,19 +160,28 @@ exports.handler = async (event, context) => {
             }
 
             // Verificar si el usuario ya existe
-            const { data: existingUser } = await supabase
+            console.log('🔍 Verificando si el usuario ya existe...');
+            const { data: existingUser, error: checkError } = await supabase
                 .from('users')
                 .select('email')
                 .eq('email', email)
                 .single();
 
+            if (checkError && checkError.code !== 'PGRST116') {
+                // PGRST116 es "no rows returned", que está bien
+                console.error('Error verificando usuario existente:', checkError);
+            }
+
             if (existingUser) {
+                console.log('❌ Usuario ya existe:', email);
                 return {
                     statusCode: 400,
                     headers: corsHeaders,
                     body: JSON.stringify({ error: 'El usuario ya existe' })
                 };
             }
+
+            console.log('✅ Usuario no existe, procediendo con el registro...');
 
             // Hash de la contraseña
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -192,10 +204,17 @@ exports.handler = async (event, context) => {
 
             if (error) {
                 console.error('Error creando usuario:', error);
+                console.error('Error details:', JSON.stringify(error, null, 2));
+                console.error('Error message:', error.message);
+                console.error('Error code:', error.code);
+                console.error('Error details:', error.details);
                 return {
                     statusCode: 500,
                     headers: corsHeaders,
-                    body: JSON.stringify({ error: 'Error interno del servidor' })
+                    body: JSON.stringify({ 
+                        error: 'Error interno del servidor',
+                        details: error.message || 'Error desconocido al crear usuario'
+                    })
                 };
             }
 

@@ -333,11 +333,14 @@
                     showAlert('¡Cuenta creada correctamente! Te contactaremos pronto para autorizar tu acceso.', 'success');
                     document.getElementById('registerForm').reset();
                 } else {
-                    showAlert(result.error || result.message || 'Error al crear la cuenta', 'error');
+                    // Mostrar mensaje de error más detallado
+                    const errorMsg = result.error || result.details || result.message || 'Error al crear la cuenta';
+                    console.error('Error del servidor:', result);
+                    showAlert(errorMsg, 'error');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                showAlert('Error de conexión. Intenta nuevamente.', 'error');
+                showAlert('Error de conexión. Intenta nuevamente. Revisa la consola para más detalles.', 'error');
             } finally {
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('submitBtn').disabled = false;
