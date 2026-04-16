@@ -353,8 +353,8 @@
   <!-- PROGRAMA DE CLASES -->
   <section class="clases-detalle section">
     <div class="container">
-      <div class="section-title">Programa de <span>3 Clases</span></div>
-      <div class="section-sub">De cero a Claude Code en 6 horas de práctica intensiva</div>
+      <h2 class="section-title">Programa de <span>3 Clases</span></h2>
+      <p class="section-sub">De cero a Claude Code en 6 horas de práctica intensiva</p>
       <div class="clases-grid">
 
         <div class="clase-card">
@@ -426,8 +426,8 @@
   <!-- BENEFICIOS -->
   <section class="beneficios section">
     <div class="container">
-      <div class="section-title">¿Por qué estas <span>clases</span>?</div>
-      <div class="section-sub">Diseñadas para ir de 0 al ecosistema completo de Anthropic</div>
+      <h2 class="section-title">¿Por qué estas <span>clases</span>?</h2>
+      <p class="section-sub">Diseñadas para ir de 0 al ecosistema completo de Anthropic</p>
       <div class="beneficios-grid">
         <div class="beneficio-card"><div class="beneficio-icon">👥</div><h3>Grupos Reducidos</h3><p>Máximo 10 personas para atención personalizada y todas tus dudas resueltas.</p></div>
         <div class="beneficio-card"><div class="beneficio-icon">⚡</div><h3>Intensivo y Práctico</h3><p>3 × 2h diseñadas para obtener resultados reales desde la primera clase.</p></div>
@@ -444,7 +444,7 @@
   <!-- INFORMACIÓN PRÁCTICA -->
   <section class="info-practica section">
     <div class="container">
-      <div class="section-title">📋 Información <span>Práctica</span></div>
+      <h2 class="section-title">📋 Información <span>Práctica</span></h2>
       <div class="info-grid" style="margin-top: 3rem;">
         <div class="info-card">
           <h3>📅 Detalles del Programa</h3>
@@ -518,7 +518,7 @@
     document.querySelectorAll('.clase-card, .beneficio-card, .info-card').forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(30px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease';
       observer.observe(el);
     });
   </script>
