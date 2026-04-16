@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>Clases de Claude 2026 - Reyes IA | Claude.ai, MCP, Skills y Claude Code</title>
+  <meta name="description" content="Domina el ecosistema completo de Anthropic en grupos reducidos. 3 clases presenciales: Claude.ai, Skills, conectores MCP y Claude Code para crear agentes.">
+  <meta name="keywords" content="clases Claude, Claude Code, MCP, Skills, Anthropic, inteligencia artificial, Felipe Reyes">
+  <meta name="author" content="Felipe Reyes - Reyes IA">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://reyesia.com/clases-claude-2026">
+  <meta property="og:title" content="Clases de Claude 2026 - Reyes IA">
+  <meta property="og:description" content="Ecosistema Anthropic completo: Claude.ai, MCP, Skills y Claude Code. Presencial, grupos reducidos.">
+  <meta property="og:image" content="https://reyesia.com/public/claseIAclaude.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://reyesia.com/clases-claude-2026">
+  <meta property="twitter:title" content="Clases de Claude 2026 - Reyes IA">
+  <meta property="twitter:description" content="Ecosistema Anthropic completo: Claude.ai, MCP, Skills y Claude Code.">
+  <meta property="twitter:image" content="https://reyesia.com/public/claseIAclaude.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; color: #fff; background: #0D0D0D; }
+
+    /* ---------- HEADER ---------- */
+    .header {
+      background: linear-gradient(135deg, #1a2537 0%, #2c3e50 100%);
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.2rem; text-decoration: none; color: white; }
+    .logo img { height: 40px; }
+    .nav { display: flex; gap: 2rem; list-style: none; }
+    .nav a { color: white; text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
+    .nav a:hover { color: #E87040; }
+    .nav a.nav-back { color: #E87040; }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      background: linear-gradient(135deg, #0D0D0D 0%, #1a0f06 50%, #0D0D0D 100%);
+      color: white;
+      padding: 9rem 0 6rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(ellipse at 50% 40%, rgba(232,112,64,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(232,112,64,0.15);
+      border: 1px solid rgba(232,112,64,0.4);
+      color: #E87040;
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2; }
+    .hero h1 span { color: #E87040; }
+    .hero p { font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.8; max-width: 700px; margin-left: auto; margin-right: auto; color: #ccc; }
+    .cta-button {
+      display: inline-block;
+      background: #E87040;
+      color: #0D0D0D;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.05rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 30px rgba(232,112,64,0.4);
+    }
+    .cta-button:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(232,112,64,0.5); background: #f08050; }
+
+    /* ---------- STATS STRIP ---------- */
+    .stats {
+      background: #111;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+      padding: 2rem 0;
+    }
+    .stats-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 5rem;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 800; color: #E87040; }
+    .stat-label { color: #666; font-size: 0.8rem; margin-top: 0.2rem; }
+
+    /* ---------- CONTAINER ---------- */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ---------- SECTIONS ---------- */
+    .section { padding: 6rem 0; }
+
+    /* ---------- METODOLOGÍA ---------- */
+    .metodologia { background: #111; border-bottom: 1px solid #1a1a1a; }
+    .metodologia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .metodologia-content h3 { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; color: #fff; }
+    .metodologia-content h3 .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #E87040; margin-right: 0.6rem; vertical-align: middle; }
+    .metodologia-content p { font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; color: #aaa; }
+    .metodologia-list { list-style: none; }
+    .metodologia-list li { padding: 0.5rem 0; color: #888; position: relative; padding-left: 1.5rem; font-size: 0.95rem; }
+    .metodologia-list li::before { content: '›'; position: absolute; left: 0; color: #E87040; font-weight: 700; font-size: 1.1rem; }
+    .metodologia-image { border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .metodologia-image img { width: 100%; display: block; border-radius: 16px; transition: transform 0.4s ease; }
+    .metodologia-image:hover img { transform: scale(1.03); }
+
+    /* ---------- CLASES ---------- */
+    .clases-detalle { background: #0D0D0D; border-top: 1px solid #1a1a1a; }
+    .section-title { font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 0.8rem; color: #fff; }
+    .section-title span { color: #E87040; }
+    .section-sub { text-align: center; color: #666; font-size: 1rem; margin-bottom: 3rem; }
+    .clases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+    .clase-card {
+      background: #111;
+      border-radius: 16px;
+      border: 1px solid #222;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .clase-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: #E87040;
+    }
+    .clase-card:hover { transform: translateY(-8px); box-shadow: 0 15px 45px rgba(232,112,64,0.15); border-color: #333; }
+    .clase-card-top {
+      background: linear-gradient(135deg, #1a0f06, #2a1a0a);
+      padding: 2rem 2rem 1.5rem;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .clase-numero {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: #E87040;
+      color: #0D0D0D;
+      font-weight: 800;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .clase-card h3 { font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.3; }
+    .clase-card-body { padding: 1.5rem 2rem 2rem; }
+    .clase-card p { color: #888; font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .clase-details { list-style: none; }
+    .clase-details li {
+      padding: 0.4rem 0;
+      color: #666;
+      position: relative;
+      padding-left: 1.5rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .clase-details li:last-child { border-bottom: none; }
+    .clase-details li::before { content: '▸'; position: absolute; left: 0; color: #E87040; font-size: 0.75rem; top: 0.5rem; }
+
+    /* ---------- BENEFICIOS ---------- */
+    .beneficios { background: #111; border-top: 1px solid #1a1a1a; }
+    .beneficios-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .beneficio-card { background: #0D0D0D; border: 1px solid #1a1a1a; border-radius: 12px; padding: 1.5rem; text-align: center; }
+    .beneficio-icon { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .beneficio-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; color: #E87040; }
+    .beneficio-card p { color: #666; line-height: 1.5; font-size: 0.85rem; }
+
+    /* ---------- INFO PRÁCTICA ---------- */
+    .info-practica { background: #0D0D0D; border-top: 1px solid #1a1a1a; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .info-card { background: #111; border: 1px solid #222; border-radius: 16px; padding: 2.5rem; }
+    .info-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: #fff; }
+    .info-list { list-style: none; }
+    .info-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #1a1a1a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .info-list li:last-child { border-bottom: none; }
+    .info-label { font-weight: 600; color: #888; font-size: 0.9rem; }
+    .info-value { color: #E87040; font-weight: 600; font-size: 0.9rem; }
+
+    /* ---------- CTA FINAL ---------- */
+    .cta-final {
+      background: linear-gradient(135deg, #1a0f06 0%, #0D0D0D 100%);
+      border-top: 1px solid #2a1a0a;
+      text-align: center;
+      padding: 6rem 0;
+    }
+    .cta-final h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #fff; }
+    .cta-final h2 span { color: #E87040; }
+    .cta-final p { font-size: 1.1rem; margin-bottom: 2.5rem; color: #888; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .cta-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: #E87040;
+      color: #0D0D0D;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.05rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(232,112,64,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(232,112,64,0.5); background: #f08050; }
+    .btn-secondary {
+      background: transparent;
+      color: #888;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: all 0.3s ease;
+      border: 2px solid #333;
+    }
+    .btn-secondary:hover { border-color: #E87040; color: #E87040; transform: translateY(-3px); }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { font-size: 1.05rem; }
+      .metodologia-grid, .info-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .clases-grid { grid-template-columns: 1fr; }
+      .beneficios-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { gap: 2.5rem; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .nav { display: none; }
+      .section { padding: 4rem 0; }
+      .section-title { font-size: 2rem; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 1rem; }
+      .hero { padding: 7rem 0 4rem; }
+      .hero h1 { font-size: 2rem; }
+      .beneficios-grid { grid-template-columns: 1fr; }
+      .stats-grid { flex-direction: column; gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <a href="index.html" class="logo">
+        <img src="logo reyes IA horizontal blanco.png" alt="Reyes IA" style="filter: brightness(0) invert(1);">
+      </a>
+      <nav>
+        <ul class="nav">
+          <li><a href="clases-grupales-ia.html" class="nav-back">← Clases</a></li>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="index.html#servicios">Servicios</a></li>
+          <li><a href="index.html#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">NUEVO · 2026</div>
+      <h1>Clases de <span>Claude</span> 2026</h1>
+      <p>Domina el ecosistema completo de Claude — desde los fundamentos hasta Claude Code y la creación de agentes. Presencial, grupos reducidos, metodología hands-on.</p>
+      <a href="index.html#contacto" class="cta-button">¡Quiero inscribirme!</a>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats">
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Clases intensivas</div></div>
+      <div class="stat"><div class="stat-num">2h</div><div class="stat-label">Por sesión</div></div>
+      <div class="stat"><div class="stat-num">8–10</div><div class="stat-label">Personas máx.</div></div>
+      <div class="stat"><div class="stat-num">$300K</div><div class="stat-label">Por persona</div></div>
+    </div>
+  </div>
+
+  <!-- METODOLOGÍA -->
+  <section class="metodologia section">
+    <div class="container">
+      <div class="metodologia-grid">
+        <div class="metodologia-content">
+          <h3><span class="dot"></span>Metodología Hands-On</h3>
+          <p>Aprendizaje 100% práctico enfocado en el ecosistema Claude de Anthropic. Desde tu primera conversación hasta construir agentes y usarlo desde la línea de comandos.</p>
+          <ul class="metodologia-list">
+            <li>Grupos reducidos para atención personalizada</li>
+            <li>Práctica aplicada desde el primer minuto</li>
+            <li>Feedback directo y personalizado</li>
+            <li>Casos reales con herramientas Claude</li>
+            <li>Acceso a recursos y materiales post-clase</li>
+          </ul>
+        </div>
+        <div class="metodologia-image">
+          <img src="public/claseIAclaude.jpg" alt="Metodología hands-on Clases de Claude 2026" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMA DE CLASES -->
+  <section class="clases-detalle section">
+    <div class="container">
+      <div class="section-title">Programa de <span>3 Clases</span></div>
+      <div class="section-sub">De cero a Claude Code en 6 horas de práctica intensiva</div>
+      <div class="clases-grid">
+
+        <div class="clase-card">
+          <div class="clase-card-top">
+            <div class="clase-numero">1</div>
+            <h3>Intro a IA + Tour completo de Claude</h3>
+          </div>
+          <div class="clase-card-body">
+            <p>Las bases de la IA actual y un recorrido profundo por el ecosistema Claude.ai: la plataforma, sus modos y sus características únicas.</p>
+            <ul class="clase-details">
+              <li>Inteligencia Artificial en 2026: panorama actual</li>
+              <li>Qué es Claude y qué lo diferencia</li>
+              <li>Tour completo de claude.ai</li>
+              <li>Fundamentos del prompt con Claude</li>
+              <li>Modo Extended Thinking</li>
+              <li>Proyectos en Claude: crear y organizar</li>
+              <li>Memoria y contexto persistente</li>
+              <li>Privacidad, uso responsable y sesgos</li>
+              <li>Ejercicio: crear tu primer Proyecto</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="clase-card">
+          <div class="clase-card-top">
+            <div class="clase-numero">2</div>
+            <h3>Copilot Claude · Skills · MCP · Proyectos</h3>
+          </div>
+          <div class="clase-card-body">
+            <p>Claude como copiloto de productividad: habilidades avanzadas, conectores MCP y construcción de flujos de trabajo potentes.</p>
+            <ul class="clase-details">
+              <li>Recap y avances semana anterior</li>
+              <li>Claude como Copilot en tu flujo de trabajo</li>
+              <li>Qué son los Skills y cómo activarlos</li>
+              <li>Model Context Protocol (MCP): introducción</li>
+              <li>MCP en acción: Gmail, Drive, Canva, Calendar</li>
+              <li>Conectores y automatizaciones con Claude</li>
+              <li>Proyectos avanzados y carpetas compartidas</li>
+              <li>Ejercicio: configurar un conector MCP</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="clase-card">
+          <div class="clase-card-top">
+            <div class="clase-numero">3</div>
+            <h3>Claude Code · Agentes · IDE · CLI</h3>
+          </div>
+          <div class="clase-card-body">
+            <p>El salto al siguiente nivel: Claude Code desde la terminal y el IDE, creación de agentes y automatización avanzada con IA.</p>
+            <ul class="clase-details">
+              <li>Qué es Claude Code y por qué es revolucionario</li>
+              <li>Instalación y configuración</li>
+              <li>Claude Code en VS Code / Cursor</li>
+              <li>Slash commands y atajos</li>
+              <li>CLAUDE.md: instrucciones personalizadas</li>
+              <li>Hooks y automatizaciones</li>
+              <li>Cómo crear agentes con Claude Code</li>
+              <li>Casos prácticos: código, scripts, proyectos</li>
+              <li>Ejercicio: crear y desplegar un mini-agente</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="beneficios section">
+    <div class="container">
+      <div class="section-title">¿Por qué estas <span>clases</span>?</div>
+      <div class="section-sub">Diseñadas para ir de 0 al ecosistema completo de Anthropic</div>
+      <div class="beneficios-grid">
+        <div class="beneficio-card"><div class="beneficio-icon">👥</div><h3>Grupos Reducidos</h3><p>Máximo 10 personas para atención personalizada y todas tus dudas resueltas.</p></div>
+        <div class="beneficio-card"><div class="beneficio-icon">⚡</div><h3>Intensivo y Práctico</h3><p>3 × 2h diseñadas para obtener resultados reales desde la primera clase.</p></div>
+        <div class="beneficio-card"><div class="beneficio-icon">🤖</div><h3>Ecosistema Completo</h3><p>El único curso que cubre todo el stack de Anthropic de principio a fin.</p></div>
+        <div class="beneficio-card"><div class="beneficio-icon">🔌</div><h3>MCP & Conectores</h3><p>Aprende a conectar Claude con tus herramientas del día a día.</p></div>
+        <div class="beneficio-card"><div class="beneficio-icon">🏢</div><h3>Presencial Vitacura</h3><p>Clases presenciales para máxima interacción y retención del conocimiento.</p></div>
+        <div class="beneficio-card"><div class="beneficio-icon">🤝</div><h3>Networking</h3><p>Conecta con otros profesionales que también están adoptando Claude.</p></div>
+        <div class="beneficio-card"><div class="beneficio-icon">🚀</div><h3>Nivel Avanzado</h3><p>Terminas creando agentes con Claude Code — un skill muy escaso hoy.</p></div>
+        <div class="beneficio-card"><div class="beneficio-icon">📚</div><h3>Material Incluido</h3><p>Acceso a todos los recursos y materiales para continuar aprendiendo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFORMACIÓN PRÁCTICA -->
+  <section class="info-practica section">
+    <div class="container">
+      <div class="section-title">📋 Información <span>Práctica</span></div>
+      <div class="info-grid" style="margin-top: 3rem;">
+        <div class="info-card">
+          <h3>📅 Detalles del Programa</h3>
+          <ul class="info-list">
+            <li><span class="info-label">Duración total</span><span class="info-value">3 clases de 2 horas</span></li>
+            <li><span class="info-label">Lugar</span><span class="info-value">Oficina en Vitacura</span></li>
+            <li><span class="info-label">Tamaño del grupo</span><span class="info-value">8–10 personas</span></li>
+            <li><span class="info-label">Costo total programa</span><span class="info-value">$300.000 por persona</span></li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>🎯 Requisitos</h3>
+          <ul class="info-list">
+            <li><span class="info-label">Experiencia previa</span><span class="info-value">No requerida</span></li>
+            <li><span class="info-label">Equipamiento</span><span class="info-value">Notebook</span></li>
+            <li><span class="info-label">Cuenta Claude</span><span class="info-value">Gratis o Pro</span></li>
+            <li><span class="info-label">Idioma</span><span class="info-value">Español</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="container">
+      <h2>¿Listo para dominar <span>Claude</span>?</h2>
+      <p>Únete al programa más completo sobre el ecosistema Anthropic en Chile. Grupos reducidos, metodología hands-on y resultados desde el primer día.</p>
+      <div class="cta-buttons">
+        <a href="index.html#contacto" class="btn-primary">¡Quiero inscribirme!</a>
+        <a href="clases-grupales-ia.html" class="btn-secondary">← Volver a formatos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: #1a2537; color: white; padding: 3rem 0; text-align: center;">
+    <div class="container">
+      <div style="margin-bottom: 2rem;">
+        <img src="logo reyes IA horizontal blanco.png" alt="Reyes IA" style="height: 50px; filter: brightness(0) invert(1); margin-bottom: 1rem;">
+        <p style="opacity: 0.8; margin-bottom: 1rem;">Transformando empresas con Inteligencia Artificial</p>
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+          <a href="https://www.linkedin.com/in/felipereyespolanco" style="color: #c09b5a; text-decoration: none; font-weight: 600;">LinkedIn</a>
+          <a href="https://www.instagram.com/reyesdelaia/" style="color: #c09b5a; text-decoration: none; font-weight: 600;">Instagram</a>
+          <a href="mailto:felipe@reyesia.com" style="color: #c09b5a; text-decoration: none; font-weight: 600;">Email</a>
+        </div>
+      </div>
+      <p style="opacity: 0.6; font-size: 0.9rem;">© 2026 Reyes IA. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ANIMACIONES SCROLL -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.clase-card, .beneficio-card, .info-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
