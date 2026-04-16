@@ -6,7 +6,9 @@
     { "source": "/login", "destination": "/login.html" },
     { "source": "/intranet-login", "destination": "/login.html" },
     { "source": "/register", "destination": "/register.html" },
-    { "source": "/gracias", "destination": "/gracias.html" }
+    { "source": "/gracias", "destination": "/gracias.html" },
+    { "source": "/clases-claude-2026", "destination": "/clases-claude-2026.html" },
+    { "source": "/clases-grupales-ia-tradicional", "destination": "/clases-grupales-ia-tradicional.html" }
   ],
   "headers": [
     {
