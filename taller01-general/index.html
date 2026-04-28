@@ -54,8 +54,8 @@ body { font-family: 'Poppins', sans-serif; background: #f0f0ee; min-height: 100v
 .card-desc { font-size: 13px; color: #777; margin: 0; font-weight: 400; }
 .chevron { margin-left: auto; font-size: 12px; color: #aaa; transition: transform 0.2s; flex-shrink: 0; background: #F5B544; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .chevron.open { transform: rotate(180deg); }
-.card-body { display: none; border-top: 0.5px solid #eee; }
-.card-body.open { display: block; }
+.card-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; border-top: 0.5px solid transparent; }
+.card-body.open { max-height: 8000px; border-top-color: #eee; transition: max-height 0.6s ease; }
 .body-content { padding: 24px 28px; }
 
 /* STEPS */
@@ -587,6 +587,7 @@ body { font-family: 'Poppins', sans-serif; background: #f0f0ee; min-height: 100v
       <div class="body-content">
 
         <div class="rule-title" style="color:#C62828;">🔒 Confidencialidad</div>
+        <img src="/taller01-general/img/imagen13.png" alt="Confidencialidad en IA" style="width:100%;border-radius:12px;margin:12px 0 16px;display:block;" />
         <p style="font-size:14px;color:#333;line-height:1.7;margin:10px 0 12px;">La buena noticia: <strong>las versiones de pago y especialmente las cuentas corporativas son confidenciales</strong>. Puedes subir información sensible y trabajar con tranquilidad en plataformas como <strong>Claude Enterprise, ChatGPT Enterprise, Copilot Enterprise, Perplexity Enterprise y Gemini Workspace</strong> — todas tienen políticas claras de no usar tu información para entrenar sus modelos.</p>
         <ul class="bullet-list">
           <li><div class="bullet-dot">●</div><div>Las cuentas gratuitas tienen políticas más variables — si tienes dudas, revisa los términos o usa la versión de pago.</div></li>
@@ -628,6 +629,10 @@ body { font-family: 'Poppins', sans-serif; background: #f0f0ee; min-height: 100v
           <li><div class="bullet-dot" style="background:#E8F0FE;color:#1A5FA8;">●</div><div><strong>Hospital Chelsea & Westminster (Londres, NHS):</strong> IA aprobada para diagnosticar cáncer de piel sin necesidad de médico, con 99% de precisión en casos benignos.</div></li>
         </ul>
 
+        <img src="/taller01-general/img/imagen14.png" alt="Cómo se viene el mundo de la IA" style="width:100%;border-radius:12px;margin:12px 0 16px;display:block;" />
+
+        <img src="/taller01-general/img/imagen15.png" alt="Y los que se resistan" style="width:100%;border-radius:12px;margin:12px 0 16px;display:block;" />
+
         <div class="rule-title" style="color:#555;">↗️ Y los que se resistan…</div>
         <p style="font-size:14px;color:#333;line-height:1.7;margin:10px 0 16px;">Las empresas que se resistieron a tecnologías anteriores ya no existen: <strong>Compaq, BlackBerry, Blockbuster, Kodak, Nokia</strong>. En 1986 hubo huelgas de profesores contra las calculadoras en colegios. En 2024, huelgas de guionistas contra la IA. <strong>Los ciclos se repiten</strong> — pero la tecnología siempre gana, porque entrega más valor.</p>
 
@@ -652,14 +657,24 @@ body { font-family: 'Poppins', sans-serif; background: #f0f0ee; min-height: 100v
 function toggle(card) {
   const body = card.querySelector('.card-body');
   const chevron = card.querySelector('.chevron');
-  const isOpen = body.classList.contains('open');
+  const wasOpen = body.classList.contains('open');
+
+  // Cierra todas
   document.querySelectorAll('.card-body').forEach(b => b.classList.remove('open'));
   document.querySelectorAll('.chevron').forEach(c => c.classList.remove('open'));
-  if (!isOpen) {
+
+  // Si estaba cerrada, abrir y posicionar suavemente al inicio de la card
+  if (!wasOpen) {
     body.classList.add('open');
     chevron.classList.add('open');
-    setTimeout(() => card.scrollIntoView({behavior:'smooth',block:'nearest'}), 50);
+    // Esperar a que arranque la animación antes de hacer scroll
+    setTimeout(() => {
+      const navHeight = window.innerWidth <= 640 ? 64 : 72;
+      const cardTop = card.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: cardTop - navHeight - 12, behavior: 'smooth' });
+    }, 100);
   }
+  // Si estaba abierta y la cerraron, no hacemos scroll — el usuario se queda donde está
 }
 </script>
 </body>
