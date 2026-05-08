@@ -73,18 +73,17 @@ body { font-family: 'Poppins', sans-serif; background: #f0f0ee; min-height: 100v
 .chevron.open { transform: rotate(180deg); }
 
 /* CARD BODY — smooth animation */
-.card-body { 
-  max-height: 0; 
-  overflow: hidden; 
+.card-body {
+  height: 0;
+  overflow: hidden;
   border-top: none;
-  transition: max-height 0.42s ease-in-out, opacity 0.3s ease;
   opacity: 0;
+  transition: height 0.42s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease;
 }
-.card-body.open { 
-  max-height: 2200px; 
+.card-body.open {
   border-top: 0.5px solid #eee;
-  transition: max-height 0.5s ease-in-out, opacity 0.35s ease 0.05s;
   opacity: 1;
+  transition: height 0.42s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease 0.06s;
 }
 .body-content { padding: 24px 28px; }
 
@@ -575,6 +574,27 @@ function markRead(e, cardId) {
   updateProgress();
 }
 
+function collapseBody(body, chevron) {
+  body.style.height = body.scrollHeight + 'px';
+  body.offsetHeight; // force reflow
+  body.classList.remove('open');
+  if (chevron) chevron.classList.remove('open');
+  requestAnimationFrame(() => { body.style.height = '0px'; });
+}
+
+function expandBody(body, chevron) {
+  const h = body.scrollHeight;
+  body.classList.add('open');
+  if (chevron) chevron.classList.add('open');
+  body.style.height = h + 'px';
+  body.addEventListener('transitionend', function onEnd(e) {
+    if (e.propertyName === 'height') {
+      body.style.height = 'auto';
+      body.removeEventListener('transitionend', onEnd);
+    }
+  });
+}
+
 // Toggle card open/close (ignore clicks on read-btn)
 function handleCardClick(e, card) {
   if (e.target.closest('.read-btn')) return;
@@ -582,12 +602,22 @@ function handleCardClick(e, card) {
   const chevron = card.querySelector('.chevron');
   const isOpen = body.classList.contains('open');
 
-  document.querySelectorAll('.card-body').forEach(b => b.classList.remove('open'));
-  document.querySelectorAll('.chevron').forEach(c => c.classList.remove('open'));
+  // Cerrar otras tarjetas abiertas
+  document.querySelectorAll('.card-body.open').forEach(b => {
+    if (b !== body) collapseBody(b, b.closest('.card').querySelector('.chevron'));
+  });
 
-  if (!isOpen) {
-    body.classList.add('open');
-    chevron.classList.add('open');
+  if (isOpen) {
+    collapseBody(body, chevron);
+  } else {
+    expandBody(body, chevron);
+    // Si el header de la tarjeta quedó fuera de vista arriba, subirlo suavemente
+    setTimeout(() => {
+      const rect = card.getBoundingClientRect();
+      if (rect.top < 76) {
+        window.scrollTo({ top: window.scrollY + rect.top - 90, behavior: 'smooth' });
+      }
+    }, 80);
   }
 }
 
