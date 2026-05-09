@@ -82,7 +82,7 @@
     .card.locked .stitle { color: #aaa; }
 
     .saction { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-    .btn-ver { background: linear-gradient(135deg, var(--navy-mid), var(--navy-light)); color: white; border: none; border-radius: 20px; padding: 7px 14px; font-size: 12px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; text-decoration: none; display: inline-block; }
+    .btn-ver { background: linear-gradient(135deg, var(--navy-mid), var(--navy-light)); color: white; border: none; border-radius: 20px; padding: 5px 10px; font-size: 11px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; text-decoration: none; display: inline-block; white-space: nowrap; }
     .lock-icon { width:32px; height:32px; background:#f0f0ee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; }
 
     .mini-stars { display: flex; gap: 2px; }
@@ -250,8 +250,8 @@
     const bd = document.getElementById(`bd-${sesNum}`);
     const mv = document.getElementById(`ms-${sesNum}-ver`);
     const md = document.getElementById(`ms-${sesNum}-des`);
-    if(bv && st[`${sesNum}-ver`]){ bv.classList.add('done'); bv.disabled=true; bv.textContent='👁 Visto ✓'; }
-    if(bd && st[`${sesNum}-des`]){ bd.classList.add('done'); bd.disabled=true; bd.textContent='✅ Desafío listo ✓'; }
+    if(bv && st[`${sesNum}-ver`]){ bv.classList.add('done'); bv.disabled=true; bv.textContent='Visto ✓'; }
+    if(bd && st[`${sesNum}-des`]){ bd.classList.add('done'); bd.disabled=true; bd.textContent='Desafío listo ✓'; }
     if(mv) mv.className = 'ms' + (st[`${sesNum}-ver`]?' on':'');
     if(md) md.className = 'ms' + (st[`${sesNum}-des`]?' on':'');
   }
@@ -277,7 +277,7 @@
 
     const labelText = sts === 'done' ? '✓ Disponible' : '▶ En curso';
     const actionHTML = url
-      ? `<a class="btn-ver" href="${url}" target="_blank">Ver resumen →</a>`
+      ? `<a class="btn-ver" href="${url}" target="_blank">Ver ↗</a>`
       : `<span style="font-size:11px;color:var(--muted);font-weight:500;">Pronto disponible</span>`;
 
     const thumbs = THUMBS[n] || [];
@@ -306,8 +306,8 @@
         <div class="des-head"><span class="des-icon">🎯</span><span class="des-label">Desafío de la sesión</span></div>
         <div class="des-text">${challengeText}</div>
         <div class="honor-row">
-          <button class="hbtn ver-b" id="bv-${n}" onclick="honor(${n},'ver')">👁 Marcar como visto</button>
-          <button class="hbtn des-b" id="bd-${n}" onclick="honor(${n},'des')">🎯 Marcar desafío</button>
+          <button class="hbtn ver-b" id="bv-${n}" onclick="honor(${n},'ver')">Marcar como visto</button>
+          <button class="hbtn des-b" id="bd-${n}" onclick="honor(${n},'des')">Marcar desafío</button>
         </div>
       </div>
     </div>`;
