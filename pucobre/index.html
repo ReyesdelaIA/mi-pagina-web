@@ -89,6 +89,11 @@
     .ms { font-size: 13px; filter: grayscale(1) opacity(.25); transition: filter .3s; }
     .ms.on { filter: none; }
 
+    .prev-strip { display: flex; gap: 6px; padding: 0 16px 14px; overflow-x: auto; scrollbar-width: none; }
+    .prev-strip::-webkit-scrollbar { display: none; }
+    .prev-thumb { flex-shrink: 0; width: 100px; height: 64px; border-radius: 8px; border: 1px solid var(--border); background: #eae9e7; overflow: hidden; }
+    .prev-thumb img { width:100%; height:100%; object-fit:cover; }
+
     .desafio { background: linear-gradient(135deg,#FFF8EC,#FFF3DC); border-top: 1px solid #F5CC7A; padding: 14px 16px; }
     .des-head { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
     .des-label { font-size: 10px; font-weight: 700; color: #7A4F00; text-transform: uppercase; letter-spacing: .5px; }
@@ -199,6 +204,19 @@
 <div class="toast" id="toast"></div>
 
 <script>
+  const THUMBS = {
+    1: ['/pucobre/thumbs/s1_thumb1.jpg','/pucobre/thumbs/s1_thumb2.jpg','/pucobre/thumbs/s1_thumb3.jpg'],
+    2: ['/pucobre/thumbs/s2_thumb1.jpg','/pucobre/thumbs/s2_thumb2.jpg','/pucobre/thumbs/s2_thumb3.jpg'],
+    3: ['/pucobre/thumbs/s3_thumb1.jpg','/pucobre/thumbs/s3_thumb2.jpg','/pucobre/thumbs/s3_thumb3.jpg'],
+    4: ['/pucobre/thumbs/s4_thumb1.jpg','/pucobre/thumbs/s4_thumb2.jpg','/pucobre/thumbs/s4_thumb3.jpg'],
+  };
+  const CHALLENGES = {
+    1: 'Entra a tu cuenta en Copilot (copilot.microsoft.com), adjúntale un documento de tu SharePoint, y pídele que te haga un resumen del documento en 30 palabras.',
+    2: 'Pídele a Copilot que te ayude con alguna tarea sobre un trabajo relacionado a tu área, pero esta vez con el razonamiento avanzado activado (arriba en vez de automático).',
+    3: 'Abre un Excel, activa Copilot, y pídele que te genere 1 gráfico de tu data 📊. Consejo: cambia el modelo a "Claude" (donde dice automático).',
+    4: 'Activa tu cuenta en NotebookLM, crea tu primer cuaderno, y adjúntale un documento para que empiece a interactuar con tus conocimientos.',
+  };
+
   const SUPABASE_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
   const COMPANY    = 'pucobre';
@@ -262,6 +280,12 @@
       ? `<a class="btn-ver" href="${url}" target="_blank">Ver resumen →</a>`
       : `<span style="font-size:11px;color:var(--muted);font-weight:500;">Pronto disponible</span>`;
 
+    const thumbs = THUMBS[n] || [];
+    const thumbHTML = thumbs.length
+      ? `<div class="prev-strip">${thumbs.map(src=>`<div class="prev-thumb"><img src="${src}" alt="Slide" loading="lazy" /></div>`).join('')}</div>`
+      : '';
+    const challengeText = CHALLENGES[n] || 'Aplica lo aprendido esta semana y márcalo cuando lo hagas.';
+
     return `<div class="card ${sts} active">
       <div class="card-top">
         <div class="snum ${sts}">S${n}</div>
@@ -277,9 +301,10 @@
           </div>
         </div>
       </div>
+      ${thumbHTML}
       <div class="desafio">
         <div class="des-head"><span class="des-icon">🎯</span><span class="des-label">Desafío de la sesión</span></div>
-        <div class="des-text">Aplica lo aprendido esta semana y márcalo cuando lo hagas.</div>
+        <div class="des-text">${challengeText}</div>
         <div class="honor-row">
           <button class="hbtn ver-b" id="bv-${n}" onclick="honor(${n},'ver')">👁 Marcar como visto</button>
           <button class="hbtn des-b" id="bd-${n}" onclick="honor(${n},'des')">🎯 Marcar desafío</button>
