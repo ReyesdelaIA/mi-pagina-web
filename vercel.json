@@ -1,6 +1,8 @@
 {
   "outputDirectory": ".",
   "rewrites": [
+    { "source": "/pucobre", "destination": "/pucobre/index.html" },
+    { "source": "/sesion01-pucobre", "destination": "/sesion01-pucobre/index.html" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/dashboard", "destination": "/dashboard.html" },
     { "source": "/login", "destination": "/login.html" },
