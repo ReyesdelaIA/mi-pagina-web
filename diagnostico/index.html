@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Diagnóstico IA · Reyes IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #2C3E6B;
+      --gold:  #C9973A;
+      --bg:    #F5F5F3;
+      --white: #ffffff;
+      --border: #E2E2E2;
+      --muted: #6B7280;
+      --r: 16px;
+    }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px 60px; }
+
+    .wrap { width: 100%; max-width: 520px; }
+
+    /* Brand */
+    .brand { display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 32px; }
+    .brand-reyes { font-size: 28px; font-weight: 800; color: var(--navy); letter-spacing: -.5px; }
+    .brand-ia    { font-size: 28px; font-weight: 800; color: var(--gold); letter-spacing: -.5px; }
+
+    /* Card */
+    .card { background: var(--white); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.05); }
+
+    /* Progress */
+    .progress-bar { height: 5px; background: #E8E8E8; }
+    .progress-fill { height: 100%; background: var(--gold); transition: width .5s ease; border-radius: 99px; }
+
+    /* Step header */
+    .step-head { padding: 24px 28px 4px; }
+    .step-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .step-tag  { font-size: 11px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .6px; }
+    .step-pct  { font-size: 11px; color: var(--muted); }
+    .step-title { font-size: 18px; font-weight: 700; color: var(--navy); margin-top: 2px; }
+    .step-sub   { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+    /* Content */
+    .step-body { padding: 20px 28px 8px; min-height: 280px; }
+
+    /* Text inputs */
+    .input-group { margin-bottom: 16px; }
+    .input-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 6px; }
+    .input-field { width: 100%; border: 2px solid var(--border); border-radius: 12px; padding: 12px 16px; font-size: 14px; font-family: 'Poppins', sans-serif; outline: none; transition: border-color .2s; color: #1a1a1a; }
+    .input-field:focus { border-color: var(--navy); }
+    textarea.input-field { resize: none; height: 130px; }
+
+    /* Radio / Checkbox cards */
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .options.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .opt-card {
+      display: flex; align-items: center; gap: 12px;
+      border: 2px solid var(--border); border-radius: 12px;
+      padding: 13px 16px; cursor: pointer;
+      transition: all .15s; font-size: 13px; font-weight: 500;
+      color: #333; background: var(--white); user-select: none;
+    }
+    .opt-card:hover { border-color: rgba(44,62,107,.4); background: #F9F9F9; }
+    .opt-card.selected { border-color: var(--navy); background: var(--navy); color: var(--white); }
+    .opt-card.check-selected { border-color: var(--gold); background: rgba(201,151,58,.08); color: var(--navy); }
+    .opt-emoji { font-size: 18px; flex-shrink: 0; }
+    .opt-label { flex: 1; line-height: 1.3; }
+    .check-box {
+      width: 20px; height: 20px; border-radius: 5px; border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all .15s; font-size: 11px; font-weight: 800;
+    }
+    .check-selected .check-box { background: var(--gold); border-color: var(--gold); color: white; }
+
+    /* Navigation */
+    .step-nav { padding: 16px 28px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .btn-back { background: none; border: none; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; padding: 0 4px; transition: color .2s; }
+    .btn-back:hover { color: var(--navy); }
+    .btn-next {
+      background: var(--navy); color: white; border: none; border-radius: 12px;
+      padding: 12px 28px; font-size: 13px; font-weight: 700; font-family: 'Poppins', sans-serif;
+      cursor: pointer; transition: all .2s; box-shadow: 0 4px 12px rgba(44,62,107,.25);
+    }
+    .btn-next:hover { background: #233260; box-shadow: 0 6px 16px rgba(44,62,107,.3); }
+    .btn-next:disabled { background: #D1D5DB; box-shadow: none; cursor: not-allowed; }
+    .btn-submit {
+      background: var(--gold); color: white; border: none; border-radius: 12px;
+      padding: 12px 28px; font-size: 13px; font-weight: 700; font-family: 'Poppins', sans-serif;
+      cursor: pointer; transition: all .2s; box-shadow: 0 4px 12px rgba(201,151,58,.3);
+    }
+    .btn-submit:hover { background: #b8862e; }
+    .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+
+    /* Thank you */
+    .gracias { text-align: center; padding: 40px 28px 48px; }
+    .gracias-icon { font-size: 52px; margin-bottom: 16px; }
+    .gracias-title { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+    .gracias-text  { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* Error */
+    .err { background: #FEF2F2; border: 1px solid #FECACA; border-radius: 10px; padding: 10px 14px; font-size: 12px; color: #991B1B; margin-top: 10px; }
+
+    .foot { text-align: center; font-size: 11px; color: #bbb; margin-top: 20px; }
+    .foot a { color: var(--navy); font-weight: 600; text-decoration: none; }
+
+    @media(max-width: 400px) {
+      body { padding: 24px 12px 40px; }
+      .options.grid { grid-template-columns: 1fr; }
+      .step-head, .step-body, .step-nav { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <span class="brand-reyes">Reyes</span>
+    <span class="brand-ia">IA</span>
+  </div>
+
+  <div class="card">
+    <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+    <div id="app"></div>
+  </div>
+
+  <div class="foot">Diagnóstico confidencial · <a href="https://reyesia.com">reyesia.com</a></div>
+</div>
+
+<script>
+const SB_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
+const TOTAL = 10;
+
+let step = 1;
+let submitting = false;
+let done = false;
+const f = {
+  nombre:'', cargo:'', empresa:'',
+  plataforma_mail:'', repositorio:'', reuniones:'',
+  herramientas_ia:[], nivel_equipo:'',
+  areas_interes:[], areas_otra:'',
+  resistencias:'', comentario:''
+};
+
+const STEPS = [
+  { title:'Tu información',        sub:'Para personalizar la jornada, cuéntame sobre ti.' },
+  { title:'Tu empresa',            sub:'¿A qué organización representas?' },
+  { title:'Plataforma de correo',  sub:'¿Qué usa el equipo para el email?' },
+  { title:'Repositorio de archivos', sub:'¿Dónde guarda sus documentos el equipo?' },
+  { title:'Reuniones online',      sub:'¿Qué herramienta usan para videollamadas?' },
+  { title:'Herramientas IA activas', sub:'¿Cuáles usa hoy el equipo? Selecciona todas las que apliquen.' },
+  { title:'Nivel del equipo',      sub:'¿Cómo describirías el nivel actual con IA?' },
+  { title:'Áreas de interés',      sub:'¿Qué áreas quieres priorizar? Puedes elegir varias.' },
+  { title:'Resistencias',          sub:'¿Cómo perciben la IA en el equipo hoy?' },
+  { title:'Comentarios finales',   sub:'¿Algo más que Felipe deba saber antes de llegar? (opcional)' },
+];
+
+function radio(key, value, label, emoji) {
+  const sel = f[key] === value;
+  return `<div class="opt-card${sel?' selected':''}" onclick="pick('${key}','${value}')">
+    <span class="opt-emoji">${emoji}</span>
+    <span class="opt-label">${label}</span>
+    ${sel ? '<span>✓</span>' : ''}
+  </div>`;
+}
+
+function check(arr, value, label, emoji) {
+  const sel = f[arr].includes(value);
+  return `<div class="opt-card${sel?' check-selected':''}" onclick="toggle('${arr}','${value}')">
+    <span class="check-box">${sel?'✓':''}</span>
+    <span class="opt-emoji">${emoji}</span>
+    <span class="opt-label">${label}</span>
+  </div>`;
+}
+
+function pick(key, value) { f[key] = value; render(); }
+
+function toggle(arr, value) {
+  if (arr === 'herramientas_ia' && value === 'ninguna') {
+    f[arr] = f[arr].includes('ninguna') ? [] : ['ninguna'];
+  } else if (arr === 'herramientas_ia' && f[arr].includes('ninguna')) {
+    f[arr] = [value];
+  } else {
+    const i = f[arr].indexOf(value);
+    if (i > -1) f[arr].splice(i, 1); else f[arr].push(value);
+  }
+  render();
+}
+
+function canNext() {
+  if (step===1) return f.nombre.trim().length > 0;
+  if (step===2) return f.empresa.trim().length > 0;
+  if (step===3) return !!f.plataforma_mail;
+  if (step===4) return !!f.repositorio;
+  if (step===5) return !!f.reuniones;
+  if (step===6) return f.herramientas_ia.length > 0;
+  if (step===7) return !!f.nivel_equipo;
+  if (step===8) return f.areas_interes.length > 0;
+  if (step===9) return !!f.resistencias;
+  return true;
+}
+
+function next() { if (canNext() && step < TOTAL) { step++; render(); } }
+function back() { if (step > 1) { step--; render(); } }
+
+async function submit() {
+  if (submitting) return;
+  submitting = true;
+  render();
+  const nombre_contacto = f.cargo ? `${f.nombre} · ${f.cargo}` : f.nombre;
+  const body = {
+    empresa: f.empresa,
+    nombre_contacto,
+    plataforma_mail: f.plataforma_mail,
+    repositorio: f.repositorio,
+    reuniones: f.reuniones,
+    herramientas_ia: f.herramientas_ia,
+    nivel_equipo: f.nivel_equipo,
+    areas_interes: f.areas_interes,
+    resistencias: f.resistencias,
+    comentario: f.comentario || null,
+  };
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/diagnosticos`, {
+      method: 'POST',
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) throw new Error();
+    // Fire-and-forget email notification
+    fetch('/api/diagnostico-notify', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ ...body, nombre: f.nombre, cargo: f.cargo }),
+    }).catch(() => {});
+    done = true;
+  } catch {
+    submitting = false;
+    document.getElementById('err-msg').style.display = 'block';
+    return;
+  }
+  render();
+}
+
+function stepBody() {
+  if (step === 1) return `
+    <div class="input-group">
+      <label class="input-label">Nombre completo *</label>
+      <input class="input-field" type="text" value="${esc(f.nombre)}" oninput="f.nombre=this.value;updateNav()" placeholder="Ej: María González"/>
+    </div>
+    <div class="input-group">
+      <label class="input-label">Cargo</label>
+      <input class="input-field" type="text" value="${esc(f.cargo)}" oninput="f.cargo=this.value" placeholder="Ej: Gerente de Operaciones"/>
+    </div>`;
+
+  if (step === 2) return `
+    <div class="input-group">
+      <label class="input-label">Empresa *</label>
+      <input class="input-field" type="text" value="${esc(f.empresa)}" oninput="f.empresa=this.value;updateNav()" placeholder="Ej: Newell Brands"/>
+    </div>`;
+
+  if (step === 3) return `<div class="options">
+    ${radio('plataforma_mail','outlook','Outlook / Office 365','📧')}
+    ${radio('plataforma_mail','gmail','Gmail / Google Workspace','📩')}
+    ${radio('plataforma_mail','mix','Mix de plataformas','🔀')}
+    ${radio('plataforma_mail','otro','Otro','💬')}
+  </div>`;
+
+  if (step === 4) return `<div class="options">
+    ${radio('repositorio','sharepoint','SharePoint / OneDrive','☁️')}
+    ${radio('repositorio','drive','Google Drive','📁')}
+    ${radio('repositorio','dropbox','Dropbox u otro','📦')}
+    ${radio('repositorio','mix','Mix de plataformas','🔀')}
+  </div>`;
+
+  if (step === 5) return `<div class="options">
+    ${radio('reuniones','teams','Microsoft Teams','💼')}
+    ${radio('reuniones','zoom','Zoom','🎥')}
+    ${radio('reuniones','meet','Google Meet','🟢')}
+    ${radio('reuniones','mix','Mix de herramientas','🔀')}
+  </div>`;
+
+  if (step === 6) return `<div class="options grid">
+    ${check('herramientas_ia','copilot','Copilot','🤖')}
+    ${check('herramientas_ia','chatgpt','ChatGPT','💬')}
+    ${check('herramientas_ia','claude','Claude','🧠')}
+    ${check('herramientas_ia','gemini','Gemini','✨')}
+    ${check('herramientas_ia','gamma','Gamma','📊')}
+    ${check('herramientas_ia','granola','Granola / Notas','🎙️')}
+    ${check('herramientas_ia','imagen','IA de imagen','🎨')}
+    ${check('herramientas_ia','ninguna','Ninguna aún','🚀')}
+  </div>`;
+
+  if (step === 7) return `<div class="options">
+    ${radio('nivel_equipo','cero','Partiendo desde cero','🌱')}
+    ${radio('nivel_equipo','basico','Algunos usan de forma básica','📚')}
+    ${radio('nivel_equipo','frecuente','Uso frecuente, sin estructura','⚡')}
+    ${radio('nivel_equipo','avanzado','Hay usuarios avanzados','🚀')}
+  </div>`;
+
+  if (step === 8) return `<div class="options grid">
+    ${check('areas_interes','finanzas','Finanzas','💰')}
+    ${check('areas_interes','marketing','Marketing','📣')}
+    ${check('areas_interes','operaciones','Operaciones','⚙️')}
+    ${check('areas_interes','comercial','Comercial','🤝')}
+    ${check('areas_interes','rrhh','RRHH','👥')}
+    ${check('areas_interes','ti','TI / Tecnología','💻')}
+    ${check('areas_interes','legal','Legal','⚖️')}
+    ${check('areas_interes','todas','Todas las áreas','🌐')}
+  </div>
+  ${check('areas_interes','otra','Otra área','✏️')}
+  ${f.areas_interes.includes('otra') ? `<div class="input-group" style="margin-top:10px">
+    <input class="input-field" type="text" value="${esc(f.areas_otra)}" oninput="f.areas_otra=this.value" placeholder="¿Cuál área?"/>
+  </div>` : ''}`;
+
+  if (step === 9) return `<div class="options">
+    ${radio('resistencias','no','No, hay apertura total','🟢')}
+    ${radio('resistencias','algo','Algo de escepticismo','🟡')}
+    ${radio('resistencias','si','Sí, hay resistencia concreta','🔴')}
+    ${radio('resistencias','no_se','No lo sé aún','❓')}
+  </div>`;
+
+  if (step === 10) return `
+    <div class="input-group">
+      <label class="input-label">Comentarios (opcional)</label>
+      <textarea class="input-field" oninput="f.comentario=this.value" placeholder="Contexto adicional, proyectos en curso, expectativas, dudas...">${esc(f.comentario)}</textarea>
+    </div>
+    <div class="err" id="err-msg" style="display:none">Hubo un error al enviar. Intenta de nuevo.</div>`;
+
+  return '';
+}
+
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+function updateNav() {
+  const btn = document.getElementById('btn-action');
+  if (btn) btn.disabled = !canNext();
+}
+
+function render() {
+  const pct = done ? 100 : ((step - 1) / TOTAL) * 100;
+  document.getElementById('prog').style.width = pct + '%';
+
+  if (done) {
+    document.getElementById('app').innerHTML = `
+      <div class="gracias">
+        <div class="gracias-icon">✅</div>
+        <div class="gracias-title">¡Gracias por completar el diagnóstico!</div>
+        <div class="gracias-text">Felipe revisará tus respuestas antes de la jornada y llegará preparado con foco en tu ecosistema y equipo.</div>
+      </div>`;
+    return;
+  }
+
+  const s = STEPS[step - 1];
+  const isLast = step === TOTAL;
+  const ok = canNext();
+
+  document.getElementById('app').innerHTML = `
+    <div class="step-head">
+      <div class="step-meta">
+        <span class="step-tag">Paso ${step} de ${TOTAL}</span>
+        <span class="step-pct">${Math.round(pct)}%</span>
+      </div>
+      <div class="step-title">${s.title}</div>
+      <div class="step-sub">${s.sub}</div>
+    </div>
+    <div class="step-body">${stepBody()}</div>
+    <div class="step-nav">
+      ${step > 1 ? `<button class="btn-back" onclick="back()">← Atrás</button>` : '<div></div>'}
+      ${isLast
+        ? `<button class="btn-submit" id="btn-action" onclick="submit()" ${submitting?'disabled':''}>
+            ${submitting ? 'Enviando…' : 'Enviar diagnóstico ✓'}
+           </button>`
+        : `<button class="btn-next" id="btn-action" onclick="next()" ${ok?'':'disabled'}>Siguiente →</button>`
+      }
+    </div>`;
+}
+
+render();
+</script>
+</body>
+</html>

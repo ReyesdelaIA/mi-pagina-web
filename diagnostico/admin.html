@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Admin · Diagnósticos IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --navy:#2C3E6B; --gold:#C9973A; --bg:#F5F5F3; --white:#fff; --border:#E2E2E2; --muted:#6B7280; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); min-height: 100vh; }
+
+    /* Login */
+    #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+    .login-card { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 40px 32px; width: 100%; max-width: 340px; text-align: center; }
+    .brand { display: flex; justify-content: center; gap: 4px; margin-bottom: 24px; }
+    .brand-r { font-size: 24px; font-weight: 800; color: var(--navy); }
+    .brand-i { font-size: 24px; font-weight: 800; color: var(--gold); }
+    .login-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 20px; }
+    .input-field { width: 100%; border: 2px solid var(--border); border-radius: 12px; padding: 12px 16px; font-size: 14px; font-family: 'Poppins', sans-serif; outline: none; transition: border-color .2s; margin-bottom: 12px; }
+    .input-field:focus { border-color: var(--navy); }
+    .btn-primary { width: 100%; background: var(--navy); color: white; border: none; border-radius: 12px; padding: 12px; font-size: 13px; font-weight: 700; font-family: 'Poppins', sans-serif; cursor: pointer; }
+    .btn-primary:hover { background: #233260; }
+    .err-msg { color: #991B1B; font-size: 12px; margin-bottom: 10px; }
+
+    /* Dashboard */
+    #dashboard { display: none; }
+    .top-bar { background: var(--navy); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; }
+    .top-brand { display: flex; align-items: center; gap: 8px; }
+    .top-brand span:first-child { font-size: 18px; font-weight: 800; color: white; }
+    .top-brand span:last-child  { font-size: 18px; font-weight: 800; color: var(--gold); }
+    .top-sep { color: rgba(255,255,255,.3); margin: 0 8px; }
+    .top-label { color: rgba(255,255,255,.65); font-size: 13px; font-weight: 500; }
+    .top-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-csv { background: var(--gold); color: white; border: none; border-radius: 8px; padding: 8px 16px; font-size: 12px; font-weight: 700; font-family: 'Poppins', sans-serif; cursor: pointer; }
+    .btn-exit { background: none; border: none; color: rgba(255,255,255,.5); font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif; }
+    .btn-exit:hover { color: white; }
+
+    .main { padding: 24px 28px; max-width: 1200px; margin: 0 auto; }
+
+    /* Metrics */
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+    .metric-card { background: var(--white); border-radius: 14px; border: 1px solid var(--border); padding: 18px; }
+    .metric-icon { font-size: 22px; margin-bottom: 6px; }
+    .metric-val  { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1; }
+    .metric-lbl  { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    /* Layout */
+    .content { display: flex; gap: 16px; }
+
+    /* Table */
+    .table-wrap { flex: 1; background: var(--white); border-radius: 14px; border: 1px solid var(--border); overflow: hidden; min-width: 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    thead tr { background: #FAFAFA; border-bottom: 1px solid var(--border); }
+    th { padding: 12px 16px; text-align: left; font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
+    tbody tr { border-bottom: 1px solid #F5F5F5; cursor: pointer; transition: background .15s; }
+    tbody tr:hover { background: #F9F9F9; }
+    tbody tr.active { background: rgba(44,62,107,.05); }
+    td { padding: 12px 16px; vertical-align: middle; }
+    .td-empresa { font-weight: 700; color: var(--navy); }
+    .td-nombre  { color: #555; }
+    .td-eco     { color: var(--muted); font-size: 11px; }
+    .chip { display: inline-block; background: rgba(44,62,107,.1); color: var(--navy); border-radius: 20px; padding: 2px 8px; font-size: 10px; font-weight: 600; margin: 1px; }
+    .chip.gold { background: rgba(201,151,58,.12); color: var(--gold); }
+
+    /* Side panel */
+    .side-panel { width: 300px; flex-shrink: 0; background: var(--white); border-radius: 14px; border: 1px solid var(--border); padding: 20px; align-self: flex-start; display: none; }
+    .side-panel.open { display: block; }
+    .side-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .side-title { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .btn-close { background: none; border: none; color: #ccc; font-size: 18px; cursor: pointer; line-height: 1; }
+    .btn-close:hover { color: #999; }
+    .detail-row { margin-bottom: 14px; }
+    .detail-key { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+    .detail-val { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .detail-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+    .detail-comment { font-size: 12px; color: #555; background: #F9F9F9; border-radius: 8px; padding: 10px 12px; line-height: 1.5; }
+    .detail-date { font-size: 11px; color: var(--muted); padding-top: 10px; border-top: 1px solid var(--border); }
+
+    .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; }
+
+    @media(max-width: 900px) { .metrics { grid-template-columns: 1fr 1fr; } .side-panel { display: none !important; } }
+    @media(max-width: 600px) { .metrics { grid-template-columns: 1fr; } .main { padding: 16px; } th:nth-child(n+4), td:nth-child(n+4) { display: none; } }
+  </style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="brand"><span class="brand-r">Reyes</span><span class="brand-i">IA</span></div>
+    <div class="login-title">Dashboard · Acceso restringido</div>
+    <div class="err-msg" id="login-err" style="display:none">Contraseña incorrecta.</div>
+    <input class="input-field" type="password" id="pw-input" placeholder="Contraseña" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="btn-primary" onclick="doLogin()">Ingresar</button>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard">
+  <div class="top-bar">
+    <div class="top-brand">
+      <span>Reyes</span><span>IA</span>
+      <span class="top-sep">·</span>
+      <span class="top-label">Diagnósticos IA</span>
+    </div>
+    <div class="top-actions">
+      <button class="btn-csv" onclick="exportCSV()">Exportar CSV</button>
+      <button class="btn-exit" onclick="logout()">Salir</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="metrics" id="metrics">
+      <div class="metric-card"><div class="metric-icon">📋</div><div class="metric-val" id="m-total">—</div><div class="metric-lbl">Total diagnósticos</div></div>
+      <div class="metric-card"><div class="metric-icon">📧</div><div class="metric-val" id="m-mail">—</div><div class="metric-lbl">Ecosistema más común</div></div>
+      <div class="metric-card"><div class="metric-icon">🤖</div><div class="metric-val" id="m-ia">—</div><div class="metric-lbl">Herramienta IA más usada</div></div>
+      <div class="metric-card"><div class="metric-icon">🎯</div><div class="metric-val" id="m-area">—</div><div class="metric-lbl">Área más solicitada</div></div>
+    </div>
+
+    <div class="content">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th><th>Empresa</th><th>Nombre</th>
+              <th>Ecosistema</th><th>Herramientas IA</th><th>Nivel</th><th>Áreas</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"><tr><td colspan="7" class="loading">Cargando…</td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="side-panel" id="side-panel">
+        <div class="side-head">
+          <span class="side-title">Detalle completo</span>
+          <button class="btn-close" onclick="closeSide()">✕</button>
+        </div>
+        <div id="side-body"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SB_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
+
+const MAIL_L  = {outlook:'Outlook',gmail:'Gmail',mix:'Mix',otro:'Otro'};
+const REPO_L  = {sharepoint:'SharePoint',drive:'Google Drive',dropbox:'Dropbox',mix:'Mix'};
+const NIVEL_L = {cero:'Desde cero',basico:'Básico',frecuente:'Frecuente',avanzado:'Avanzado'};
+const IA_L    = {copilot:'Copilot',chatgpt:'ChatGPT',claude:'Claude',gemini:'Gemini',gamma:'Gamma',granola:'Granola',imagen:'Imagen IA',ninguna:'Ninguna'};
+const AREA_L  = {finanzas:'Finanzas',marketing:'Marketing',operaciones:'Operaciones',comercial:'Comercial',rrhh:'RRHH',ti:'TI',legal:'Legal',todas:'Todas',otra:'Otra'};
+const RES_L   = {no:'Apertura total',algo:'Algo de escepticismo',si:'Hay resistencia',no_se:'No lo sé'};
+
+let allData = [];
+let selectedId = null;
+
+// Auth
+async function doLogin() {
+  const pw = document.getElementById('pw-input').value;
+  const res = await fetch('/api/diagnostico-auth', {
+    method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({password: pw})
+  });
+  if (res.ok) {
+    sessionStorage.setItem('diag_auth','1');
+    showDashboard();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+
+function logout() { sessionStorage.removeItem('diag_auth'); location.reload(); }
+
+function showDashboard() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  loadData();
+}
+
+async function loadData() {
+  const res = await fetch(`${SB_URL}/rest/v1/diagnosticos?order=created_at.desc`, {
+    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+  });
+  allData = await res.json();
+  renderMetrics();
+  renderTable();
+}
+
+function renderMetrics() {
+  document.getElementById('m-total').textContent = allData.length;
+  const mailFreq = freq(allData.map(d => d.plataforma_mail));
+  document.getElementById('m-mail').textContent = MAIL_L[top(mailFreq)] || top(mailFreq) || '—';
+  const iaFreq = freq(allData.flatMap(d => d.herramientas_ia || []));
+  document.getElementById('m-ia').textContent = IA_L[top(iaFreq)] || top(iaFreq) || '—';
+  const areaFreq = freq(allData.flatMap(d => d.areas_interes || []));
+  document.getElementById('m-area').textContent = AREA_L[top(areaFreq)] || top(areaFreq) || '—';
+}
+
+function freq(arr) { return arr.reduce((a,k) => { a[k]=(a[k]||0)+1; return a; }, {}); }
+function top(obj) { const e = Object.entries(obj).sort((a,b)=>b[1]-a[1])[0]; return e ? e[0] : null; }
+
+function renderTable() {
+  const tb = document.getElementById('tbody');
+  if (!allData.length) { tb.innerHTML = '<tr><td colspan="7" class="loading">Sin diagnósticos aún.</td></tr>'; return; }
+  tb.innerHTML = allData.map(d => {
+    const fecha = new Date(d.created_at).toLocaleDateString('es-CL');
+    const nombre = (d.nombre_contacto||'').split(' · ')[0];
+    const eco = `${MAIL_L[d.plataforma_mail]||d.plataforma_mail} · ${REPO_L[d.repositorio]||d.repositorio}`;
+    const ias = (d.herramientas_ia||[]).slice(0,2).map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('') + ((d.herramientas_ia||[]).length>2?`<span class="chip">+${d.herramientas_ia.length-2}</span>`:'');
+    const nivel = `<span class="chip gold">${NIVEL_L[d.nivel_equipo]||d.nivel_equipo}</span>`;
+    const areas = (d.areas_interes||[]).map(a=>AREA_L[a]||a).join(', ');
+    const active = selectedId === d.id ? ' class="active"' : '';
+    return `<tr${active} onclick="selectRow('${d.id}')">
+      <td>${fecha}</td>
+      <td class="td-empresa">${d.empresa||'—'}</td>
+      <td class="td-nombre">${nombre||'—'}</td>
+      <td class="td-eco">${eco}</td>
+      <td>${ias}</td>
+      <td>${nivel}</td>
+      <td style="font-size:11px;color:#777">${areas}</td>
+    </tr>`;
+  }).join('');
+}
+
+function selectRow(id) {
+  selectedId = id;
+  renderTable();
+  const d = allData.find(x => x.id === id);
+  if (!d) return;
+  const panel = document.getElementById('side-panel');
+  panel.classList.add('open');
+  const fecha = new Date(d.created_at).toLocaleString('es-CL');
+  document.getElementById('side-body').innerHTML = `
+    ${row('Empresa', d.empresa)}
+    ${row('Nombre y cargo', d.nombre_contacto)}
+    ${row('Correo', MAIL_L[d.plataforma_mail]||d.plataforma_mail)}
+    ${row('Repositorio', REPO_L[d.repositorio]||d.repositorio)}
+    ${row('Reuniones', d.reuniones)}
+    ${row('Nivel', NIVEL_L[d.nivel_equipo]||d.nivel_equipo)}
+    ${row('Resistencias', RES_L[d.resistencias]||d.resistencias)}
+    <div class="detail-row">
+      <div class="detail-key">Herramientas IA</div>
+      <div class="detail-chips">${(d.herramientas_ia||[]).map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('')}</div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-key">Áreas de interés</div>
+      <div class="detail-chips">${(d.areas_interes||[]).map(a=>`<span class="chip gold">${AREA_L[a]||a}</span>`).join('')}</div>
+    </div>
+    ${d.comentario ? `<div class="detail-row"><div class="detail-key">Comentarios</div><div class="detail-comment">${d.comentario}</div></div>` : ''}
+    <div class="detail-date">${fecha}</div>`;
+}
+
+function row(k,v) { return `<div class="detail-row"><div class="detail-key">${k}</div><div class="detail-val">${v||'—'}</div></div>`; }
+function closeSide() { selectedId=null; document.getElementById('side-panel').classList.remove('open'); renderTable(); }
+
+function exportCSV() {
+  const cols = ['fecha','empresa','nombre_contacto','plataforma_mail','repositorio','reuniones','herramientas_ia','nivel_equipo','areas_interes','resistencias','comentario'];
+  const rows = allData.map(d => [
+    new Date(d.created_at).toLocaleDateString('es-CL'),
+    d.empresa, d.nombre_contacto, d.plataforma_mail, d.repositorio, d.reuniones,
+    (d.herramientas_ia||[]).join('|'), d.nivel_equipo,
+    (d.areas_interes||[]).join('|'), d.resistencias, d.comentario||''
+  ].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','));
+  const csv = [cols.join(','),...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
+  a.download = `diagnosticos-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+// Init
+if (sessionStorage.getItem('diag_auth') === '1') showDashboard();
+</script>
+</body>
+</html>
