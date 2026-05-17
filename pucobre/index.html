@@ -104,7 +104,33 @@
     .hbtn.ver-b.done { background: var(--navy-light); color: white; }
     .hbtn.des-b { background: white; border-color: #D4900A; color: #7A4F00; }
     .hbtn.des-b.done { background: #F5A623; color: white; border-color: #F5A623; }
+    .hbtn.quiz-b { background: white; border-color: #6B46C1; color: #6B46C1; }
+    .hbtn.quiz-b.done { background: #6B46C1; color: white; border-color: #6B46C1; }
     .hbtn:disabled { opacity: .65; cursor: default; }
+
+    /* Quiz modal */
+    .quiz-overlay { display:none; position:fixed; inset:0; background:rgba(4,44,83,.7); z-index:300; align-items:center; justify-content:center; padding:20px; }
+    .quiz-overlay.open { display:flex; }
+    .quiz-modal { background:white; border-radius:24px; padding:0; max-width:400px; width:100%; animation:mIn .25s ease; overflow:hidden; }
+    .quiz-header { background:linear-gradient(135deg,var(--navy),var(--navy-mid)); padding:20px 24px 16px; }
+    .quiz-prog-label { font-size:11px; color:rgba(255,255,255,0.6); font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+    .quiz-prog-bar { height:4px; background:rgba(255,255,255,0.2); border-radius:99px; overflow:hidden; }
+    .quiz-prog-fill { height:100%; background:white; border-radius:99px; transition:width .4s ease; }
+    .quiz-q-num { font-size:11px; color:rgba(255,255,255,0.55); margin-top:10px; }
+    .quiz-question { font-size:15px; font-weight:700; color:white; margin-top:4px; line-height:1.4; }
+    .quiz-body { padding:20px 24px 24px; }
+    .quiz-options { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+    .qopt { background:#f8f8f8; border:1.5px solid #e8e8e8; border-radius:12px; padding:12px 16px; font-size:13px; font-weight:500; color:#222; cursor:pointer; text-align:left; font-family:'Poppins',sans-serif; transition:all .15s; }
+    .qopt:hover:not(:disabled) { border-color:var(--navy-light); background:#EDF4FF; }
+    .qopt.correct { background:#ECFDF5; border-color:#10B981; color:#065F46; }
+    .qopt.wrong   { background:#FEF2F2; border-color:#EF4444; color:#991B1B; }
+    .qopt:disabled { cursor:default; }
+    .quiz-feedback { font-size:12px; line-height:1.55; border-radius:10px; padding:10px 14px; margin-bottom:14px; display:none; }
+    .quiz-feedback.error { background:#FEF2F2; color:#7F1D1D; border:1px solid #FECACA; display:block; }
+    .quiz-feedback.ok    { background:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; display:block; }
+    .quiz-next { background:linear-gradient(135deg,var(--navy-mid),var(--navy-light)); color:white; border:none; border-radius:20px; padding:11px; font-size:13px; font-weight:700; font-family:'Poppins',sans-serif; cursor:pointer; width:100%; display:none; }
+    .quiz-next.visible { display:block; }
+    .quiz-close-x { position:absolute; top:14px; right:16px; background:rgba(255,255,255,0.15); border:none; color:white; border-radius:50%; width:28px; height:28px; font-size:14px; cursor:pointer; display:flex;align-items:center;justify-content:center; }
 
     .overlay { display:none; position:fixed; inset:0; background:rgba(4,44,83,.6); z-index:200; align-items:center; justify-content:center; padding:20px; }
     .overlay.open { display:flex; }
@@ -116,7 +142,7 @@
     .m-confirm { background:linear-gradient(135deg,var(--navy-mid),var(--navy-light)); color:white; border:none; border-radius:20px; padding:12px; font-size:13px; font-weight:700; font-family:'Poppins',sans-serif; cursor:pointer; width:100%; margin-bottom:8px; }
     .m-cancel  { background:none; border:1.5px solid var(--border); border-radius:20px; padding:10px; font-size:12px; font-weight:600; color:var(--muted); font-family:'Poppins',sans-serif; cursor:pointer; width:100%; }
 
-    .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--navy); color:white; padding:10px 20px; border-radius:20px; font-size:13px; font-weight:600; z-index:300; transition:transform .3s,opacity .3s; opacity:0; white-space:nowrap; }
+    .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--navy); color:white; padding:10px 20px; border-radius:20px; font-size:13px; font-weight:600; z-index:400; transition:transform .3s,opacity .3s; opacity:0; white-space:nowrap; }
     .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
 
     .loading { text-align:center; padding:40px 20px; color:var(--muted); font-size:14px; }
@@ -166,7 +192,6 @@
 <div class="stars-panel">
   <div class="sp-left">
     <div class="sp-title">Tu progreso personal</div>
-    <div class="sp-sub">Cada sesión vista y desafío completado suma ⭐</div>
   </div>
   <div class="sp-right">
     <div class="stars-row" id="stars-big"></div>
@@ -203,6 +228,24 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- Quiz modal -->
+<div class="quiz-overlay" id="quiz-overlay">
+  <div class="quiz-modal" style="position:relative;">
+    <div class="quiz-header">
+      <button class="quiz-close-x" onclick="closeQuiz()">✕</button>
+      <div class="quiz-prog-label">Quiz de la sesión</div>
+      <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qprog-fill" style="width:0%"></div></div>
+      <div class="quiz-q-num" id="q-num">Pregunta 1 de 4</div>
+      <div class="quiz-question" id="q-text"></div>
+    </div>
+    <div class="quiz-body">
+      <div class="quiz-options" id="q-options"></div>
+      <div class="quiz-feedback" id="q-feedback"></div>
+      <button class="quiz-next" id="q-next" onclick="nextQuestion()">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
 <script>
   const THUMBS = {
     1: ['/pucobre/thumbs/s1_thumb1.jpg','/pucobre/thumbs/s1_thumb2.jpg','/pucobre/thumbs/s1_thumb3.jpg'],
@@ -217,6 +260,119 @@
     4: 'Activa tu cuenta en NotebookLM, crea tu primer cuaderno, y adjúntale un documento para que empiece a interactuar con tus conocimientos.',
   };
 
+  const QUIZZES = {
+    1: [
+      {
+        q: '¿Qué modo debes elegir al ingresar a Copilot con tu cuenta corporativa?',
+        opts: ['Personal', 'Student', 'Work', 'Enterprise'],
+        correct: 2,
+        explain: 'El modo Work conecta Copilot con tu cuenta corporativa y tus datos de Microsoft 365. Los otros modos son para cuentas personales o educativas.',
+      },
+      {
+        q: '¿Cuál es la URL correcta para acceder a Copilot de Microsoft?',
+        opts: ['ai.microsoft.com', 'copilot.microsoft.com', 'copilot.google.com', 'office.com/ai'],
+        correct: 1,
+        explain: 'La dirección oficial es copilot.microsoft.com. Desde ahí accedes con tu cuenta corporativa en modo Work.',
+      },
+      {
+        q: '¿Qué tipo de archivo puedes adjuntar directamente desde Copilot en tu cuenta corporativa?',
+        opts: ['Solo imágenes JPG', 'Documentos de SharePoint', 'Archivos de Google Drive', 'Videos de YouTube'],
+        correct: 1,
+        explain: 'Copilot en modo Work se integra con Microsoft 365, por lo que puedes adjuntar documentos directamente desde tu SharePoint corporativo.',
+      },
+      {
+        q: '¿La inteligencia artificial es 100% precisa o se puede equivocar?',
+        opts: ['Es 100% precisa.', 'Sí, la mayoría de las veces alucina.', 'Puede alucinar principalmente cuando sale a buscar internet.', 'Si la tratas mal, eventualmente podría deducir mal las cosas.'],
+        correct: 2,
+        explain: 'La IA puede alucinar especialmente cuando hace búsquedas en internet, mezclando fuentes o inventando datos. No alucina la mayoría de las veces ni depende de cómo la tratas — pero sí hay que verificar lo que entrega, sobre todo con datos recientes.',
+      },
+    ],
+    2: [
+      {
+        q: 'Una vez que tengo encendida la memoria, ¿qué cosas memoriza Copilot sobre mí?',
+        opts: ['Todo lo que sea laboral.', 'Depende de la cantidad de espacios de memoria que tengas disponibles.', 'Todo lo que el razonamiento de Copilot considere relevante de memorizar.', 'Todas las cosas que no sean confidenciales, independiente de la importancia.'],
+        correct: 2,
+        explain: 'Copilot decide por sí mismo qué vale la pena recordar según lo que percibe como relevante en la conversación. No filtra por tema laboral ni por confidencialidad — simplemente guarda lo que su razonamiento considera significativo para futuras interacciones.',
+      },
+      {
+        q: '¿Qué hace el modo de razonamiento avanzado en Copilot?',
+        opts: ['Responde más rápido que el modo normal', 'Piensa paso a paso antes de responder para tareas complejas', 'Busca información en internet automáticamente', 'Traduce el texto a varios idiomas'],
+        correct: 1,
+        explain: 'El razonamiento avanzado permite que Copilot se tome más tiempo para analizar el problema en profundidad antes de responder, lo que mejora la calidad en tareas complejas.',
+      },
+      {
+        q: '¿Cuándo conviene usar el razonamiento avanzado en lugar del modo automático?',
+        opts: ['Para responder emails simples', 'Para tareas que requieren análisis profundo o múltiples pasos', 'Siempre, porque siempre es mejor', 'Cuando necesito que no alucine bajo ningún punto de vista'],
+        correct: 1,
+        explain: 'El razonamiento avanzado es ideal para tareas complejas como análisis, planificación o resolución de problemas de varios pasos. Para tareas simples, el modo automático es suficiente y más rápido.',
+      },
+      {
+        q: '¿Dónde activas el razonamiento avanzado en Copilot?',
+        opts: ['En la barra de menú superior', 'En el selector de modo, cambiando de "Automático" a "Avanzado"', 'En la configuración de tu cuenta', 'No existe esa opción en Copilot'],
+        correct: 1,
+        explain: 'El selector aparece arriba del cuadro de chat. Por defecto está en "Automático" — cámbialo a "Avanzado" para activar el razonamiento extendido.',
+      },
+      {
+        q: '¿Por qué es tan útil la herramienta de dictado?',
+        opts: ['Porque te permite entregar texto de manera mucho más rápida que escribiendo o tecleando.', 'Porque cuando uno habla, se suelta más.', 'Porque gasta menos tokens cuando uno le dicta.', 'La verdad es que conviene escribirle porque uno redacta mejor la idea, pero si está muy apurado, puede dictar.'],
+        correct: 0,
+        explain: 'Dictar es significativamente más rápido que escribir — una persona promedio habla a 130 palabras por minuto y escribe a 40. Eso lo convierte en una de las formas más eficientes de interactuar con la IA.',
+      },
+    ],
+    3: [
+      {
+        q: '¿Dónde encuentras el botón de Copilot dentro de Excel?',
+        opts: ['Menú Archivo → Opciones', 'Pestaña Inicio en la cinta de herramientas', 'Clic derecho sobre una celda', 'Menú Vista → Copilot'],
+        correct: 1,
+        explain: 'El botón de Copilot aparece en la pestaña Inicio de la cinta de herramientas de Excel, siempre que tengas una licencia Microsoft 365 activa.',
+      },
+      {
+        q: '¿Qué puedes pedirle a Copilot en Excel?',
+        opts: ['Solo formatear celdas', 'Generar gráficos, crear fórmulas y analizar datos', 'Imprimir el archivo automáticamente', 'Conectar con otras aplicaciones externas'],
+        correct: 1,
+        explain: 'Copilot en Excel puede generar gráficos, sugerir y crear fórmulas, destacar patrones en los datos y hacer análisis en lenguaje natural.',
+      },
+      {
+        q: '¿Qué modelo se recomienda seleccionar en Copilot para mejores resultados en Excel?',
+        opts: ['GPT-4o', 'Claude', 'Gemini Pro', 'Automático siempre'],
+        correct: 1,
+        explain: 'Copilot permite elegir el modelo subyacente. Cambiar a Claude (de Anthropic) puede dar mejores resultados en análisis de datos complejos en Excel.',
+      },
+      {
+        q: '¿Qué necesitas para usar Copilot en Excel?',
+        opts: ['Solo tener Excel instalado', 'Una licencia Microsoft 365 activa con Copilot habilitado', 'Acceso a internet y una cuenta Google', 'Descargar un plugin adicional'],
+        correct: 1,
+        explain: 'Copilot en Excel requiere una licencia Microsoft 365 con el complemento Copilot habilitado por tu organización. No es suficiente con tener Excel instalado.',
+      },
+    ],
+    4: [
+      {
+        q: '¿Qué es NotebookLM?',
+        opts: ['Un editor de texto de Google', 'Una herramienta de Google para analizar documentos con IA', 'Una app de notas como Evernote', 'Un buscador especializado en PDFs'],
+        correct: 1,
+        explain: 'NotebookLM es una herramienta de Google que usa IA para analizar los documentos que tú subes y responder preguntas basándose exclusivamente en ellos.',
+      },
+      {
+        q: '¿Qué tipo de documentos puedes subir como fuentes en NotebookLM?',
+        opts: ['Solo imágenes PNG y JPG', 'PDFs, textos, presentaciones y URLs de sitios web', 'Solo archivos de Google Docs', 'Videos de YouTube (cualquier duración)'],
+        correct: 1,
+        explain: 'NotebookLM acepta PDFs, documentos de texto, presentaciones, hojas de cálculo, Google Docs y también URLs de páginas web o videos de YouTube.',
+      },
+      {
+        q: '¿En qué información se basa NotebookLM para responder tus preguntas?',
+        opts: ['En toda internet', 'Exclusivamente en las fuentes que tú le subiste', 'En Wikipedia y fuentes públicas', 'En tu historial de búsquedas de Google'],
+        correct: 1,
+        explain: 'NotebookLM solo usa tus documentos como base, no navega por internet ni usa información externa. Esto lo hace muy confiable para trabajar con información interna.',
+      },
+      {
+        q: '¿Cómo se llama el espacio donde organizas tus fuentes y chats en NotebookLM?',
+        opts: ['Proyecto', 'Cuaderno (Notebook)', 'Carpeta', 'Espacio de trabajo'],
+        correct: 1,
+        explain: 'En NotebookLM organizas todo en "Cuadernos". Cada cuaderno tiene sus propias fuentes y un chat contextual basado en esos documentos.',
+      },
+    ],
+  };
+
   const SUPABASE_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
   const COMPANY    = 'pucobre';
@@ -225,6 +381,12 @@
   let st = {};
   let pending = null;
   let activeSessions = 0;
+
+  // Quiz state
+  let quizSesNum = null;
+  let quizQuestions = [];
+  let quizIdx = 0;
+  let quizAnswered = false;
 
   function loadStars(){ try{ st = JSON.parse(localStorage.getItem(STARS_KEY))||{}; }catch{ st={}; } }
   function saveStars(){ localStorage.setItem(STARS_KEY, JSON.stringify(st)); }
@@ -246,14 +408,14 @@
   }
 
   function updateButtonStates(sesNum){
-    const bv = document.getElementById(`bv-${sesNum}`);
     const bd = document.getElementById(`bd-${sesNum}`);
-    const mv = document.getElementById(`ms-${sesNum}-ver`);
+    const bq = document.getElementById(`bq-${sesNum}`);
     const md = document.getElementById(`ms-${sesNum}-des`);
-    if(bv && st[`${sesNum}-ver`]){ bv.classList.add('done'); bv.disabled=true; bv.textContent='Visto ✓'; }
-    if(bd && st[`${sesNum}-des`]){ bd.classList.add('done'); bd.disabled=true; bd.textContent='Desafío listo ✓'; }
-    if(mv) mv.className = 'ms' + (st[`${sesNum}-ver`]?' on':'');
+    const mq = document.getElementById(`ms-${sesNum}-quiz`);
+    if(bd && st[`${sesNum}-des`]){ bd.classList.add('done'); bd.disabled=true; bd.textContent='Desafío ✅'; }
+    if(bq && st[`${sesNum}-quiz`]){ bq.classList.add('done'); bq.disabled=true; bq.textContent='Quiz ✅'; }
     if(md) md.className = 'ms' + (st[`${sesNum}-des`]?' on':'');
+    if(mq) mq.className = 'ms' + (st[`${sesNum}-quiz`]?' on':'');
   }
 
   function buildCard(s){
@@ -285,6 +447,7 @@
       ? `<div class="prev-strip">${thumbs.map(src=>`<div class="prev-thumb"><img src="${src}" alt="Slide" loading="lazy" /></div>`).join('')}</div>`
       : '';
     const challengeText = CHALLENGES[n] || 'Aplica lo aprendido esta semana y márcalo cuando lo hagas.';
+    const hasQuiz = !!QUIZZES[n];
 
     return `<div class="card ${sts} active">
       <div class="card-top">
@@ -296,8 +459,8 @@
         <div class="saction">
           ${actionHTML}
           <div class="mini-stars">
-            <span class="ms" id="ms-${n}-ver">⭐</span>
             <span class="ms" id="ms-${n}-des">⭐</span>
+            ${hasQuiz ? `<span class="ms" id="ms-${n}-quiz">⭐</span>` : ''}
           </div>
         </div>
       </div>
@@ -306,8 +469,8 @@
         <div class="des-head"><span class="des-label">Desafío de la sesión</span></div>
         <div class="des-text">${challengeText}</div>
         <div class="honor-row">
-          <button class="hbtn ver-b" id="bv-${n}" onclick="honor(${n},'ver')">Marcar como visto</button>
           <button class="hbtn des-b" id="bd-${n}" onclick="honor(${n},'des')">Marcar desafío</button>
+          ${hasQuiz ? `<button class="hbtn quiz-b" id="bq-${n}" onclick="startQuiz(${n})">Quiz ▶</button>` : ''}
         </div>
       </div>
     </div>`;
@@ -325,7 +488,7 @@
     activeSessions = sessions.filter(s => s.status !== 'locked').length;
     const doneCount = sessions.filter(s => s.status === 'done').length;
     const pct = Math.round((doneCount / sessions.length) * 100);
-    const maxStars = activeSessions * 2;
+    const maxStars = sessions.filter(s => s.status !== 'locked').reduce((acc, s) => acc + (QUIZZES[s.session_number] ? 2 : 1), 0);
 
     document.getElementById('stat-activas').textContent = activeSessions;
     document.getElementById('prog-pct').textContent = pct + '%';
@@ -341,12 +504,9 @@
   function honor(sesNum, tipo){
     if(st[`${sesNum}-${tipo}`]) return;
     pending = {sesNum, tipo};
-    const isVer = tipo === 'ver';
-    document.getElementById('m-emoji').textContent = isVer ? '👁' : '🎯';
-    document.getElementById('m-title').textContent = isVer ? '¿Revisaste el resumen?' : '¿Completaste el desafío?';
-    document.getElementById('m-text').textContent  = isVer
-      ? 'Declara que leíste el resumen con atención. Tu palabra es lo que cuenta.'
-      : 'Declara que completaste el desafío a conciencia y aplicaste lo aprendido. Tu palabra es lo que cuenta.';
+    document.getElementById('m-emoji').textContent = '🎯';
+    document.getElementById('m-title').textContent = '¿Completaste el desafío?';
+    document.getElementById('m-text').textContent  = 'Declara que completaste el desafío a conciencia y aplicaste lo aprendido. Tu palabra es lo que cuenta.';
     document.getElementById('m-confirm').onclick = confirmHonor;
     document.getElementById('overlay').classList.add('open');
   }
@@ -358,11 +518,93 @@
     closeModal();
     updateButtonStates(pending.sesNum);
     renderStarPanel(activeSessions * 2);
-    showToast(pending.tipo === 'ver' ? '⭐ ¡Sumaste una estrella por ver la sesión!' : '⭐ ¡Desafío completado! Una estrella más.');
+    showToast('⭐ ¡Desafío completado! Una estrella más.');
     pending = null;
   }
 
   function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+
+  // --- QUIZ ---
+  function startQuiz(sesNum){
+    if(st[`${sesNum}-quiz`]) return;
+    quizSesNum = sesNum;
+    quizQuestions = QUIZZES[sesNum];
+    quizIdx = 0;
+    document.getElementById('quiz-overlay').classList.add('open');
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    const q = quizQuestions[quizIdx];
+    const total = quizQuestions.length;
+    quizAnswered = false;
+
+    document.getElementById('q-num').textContent = `Pregunta ${quizIdx + 1} de ${total}`;
+    document.getElementById('q-text').textContent = q.q;
+    document.getElementById('qprog-fill').style.width = `${(quizIdx / total) * 100}%`;
+
+    const fb = document.getElementById('q-feedback');
+    fb.className = 'quiz-feedback';
+    fb.textContent = '';
+
+    const next = document.getElementById('q-next');
+    next.classList.remove('visible');
+    next.textContent = quizIdx < total - 1 ? 'Siguiente →' : 'Finalizar quiz ✓';
+
+    const optsEl = document.getElementById('q-options');
+    optsEl.innerHTML = q.opts.map((opt, i) =>
+      `<button class="qopt" onclick="answerQuiz(${i})">${opt}</button>`
+    ).join('');
+  }
+
+  function answerQuiz(idx){
+    if(quizAnswered) return;
+    const q = quizQuestions[quizIdx];
+    const opts = document.querySelectorAll('.qopt');
+    const fb = document.getElementById('q-feedback');
+
+    opts.forEach(o => o.disabled = true);
+
+    if(idx === q.correct){
+      opts[idx].classList.add('correct');
+      fb.className = 'quiz-feedback ok';
+      fb.textContent = '¡Correcto! ' + (quizIdx < quizQuestions.length - 1 ? 'Pasa a la siguiente pregunta.' : 'Completaste el quiz.');
+      quizAnswered = true;
+      document.getElementById('q-next').classList.add('visible');
+    } else {
+      opts[idx].classList.add('wrong');
+      opts[q.correct].classList.add('correct');
+      fb.className = 'quiz-feedback error';
+      fb.textContent = '❌ Incorrecto. ' + q.explain;
+      setTimeout(() => {
+        opts.forEach(o => { o.disabled = false; o.classList.remove('correct','wrong'); });
+        fb.className = 'quiz-feedback';
+        fb.textContent = '';
+      }, 2800);
+    }
+  }
+
+  function nextQuestion(){
+    quizIdx++;
+    if(quizIdx < quizQuestions.length){
+      renderQuestion();
+    } else {
+      finishQuiz();
+    }
+  }
+
+  function finishQuiz(){
+    document.getElementById('quiz-overlay').classList.remove('open');
+    st[`${quizSesNum}-quiz`] = true;
+    saveStars();
+    updateButtonStates(quizSesNum);
+    renderStarPanel(activeSessions * 2);
+    showToast('⭐ ¡Quiz completado! Una estrella más para ti.');
+  }
+
+  function closeQuiz(){
+    document.getElementById('quiz-overlay').classList.remove('open');
+  }
 
   function showToast(msg){
     const t = document.getElementById('toast');
