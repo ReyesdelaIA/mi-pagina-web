@@ -1,6 +1,7 @@
 {
   "outputDirectory": ".",
   "rewrites": [
+    { "source": "/alfonsolobato", "destination": "/alfonsolobato/index.html" },
     { "source": "/diagnostico", "destination": "/diagnostico/index.html" },
     { "source": "/diagnostico/admin", "destination": "/diagnostico/admin.html" },
     { "source": "/pucobre", "destination": "/pucobre/index.html" },

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Pehuenia → Chile · Análisis de Oportunidad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0a0f1c; }
+    button { font-family: inherit; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const data = {
+      competidores: [
+        { nombre: "Puratos (Bélgica)", presencia: "Planta UHT en Chile", segmentos: "Pastelería, Chocolatería, Heladería", fortaleza: "Escala global, producción local, distribución masiva", debilidad: "Menos enfocado en heladería artesanal" },
+        { nombre: "PreGel (Italia)", presencia: "Oficina + bodega en Renca", segmentos: "Heladería, Pastelería, Bebidas", fortaleza: "Líder en gelato artesanal, asesoría técnica, escuela", debilidad: "Precio premium, catálogo menos diverso en cafetería" },
+        { nombre: "Fabbri 1905 (Italia)", presencia: "Distribución vía importadores", segmentos: "Heladería, Pastelería, Barismo", fortaleza: "Marca icónica, calidad premium", debilidad: "Menor presencia comercial directa en Chile" },
+        { nombre: "1883 Maison Routin (Francia)", presencia: "Distr. Santa Victoria", segmentos: "Cafetería, Coctelería", fortaleza: "Syrups ultra-premium, 90+ sabores", debilidad: "Solo syrups, precio alto (~$10.600/lt)" },
+        { nombre: "Monin (Francia)", presencia: "Distribuidores locales", segmentos: "Cafetería, Coctelería, Barismo", fortaleza: "Marca global reconocida en syrups", debilidad: "Solo syrups y salsas, sin bases ni pastas" },
+      ],
+      categorias: [
+        { cat: "Pastas saborizantes", skus: 35, ticket: "$18.000–$45.000/kg", margen: "42–48%", demanda: "Alta" },
+        { cat: "Syrups (1 lt)", skus: 9, ticket: "$5.500–$7.500/lt", margen: "45–52%", demanda: "Muy alta" },
+        { cat: "Salsas Gourmet", skus: 8, ticket: "$4.500–$8.000/ud", margen: "40–46%", demanda: "Alta" },
+        { cat: "Variegatos", skus: 21, ticket: "$12.000–$22.000/kg", margen: "38–44%", demanda: "Media-Alta" },
+        { cat: "Bases integradas", skus: 8, ticket: "$8.000–$15.000/kg", margen: "35–42%", demanda: "Media" },
+        { cat: "Cremosos/Crujientes", skus: 9, ticket: "$16.000–$28.000/kg", margen: "40–48%", demanda: "Alta" },
+        { cat: "Cacao y derivados", skus: 5, ticket: "$8.000–$18.000/kg", margen: "28–35%", demanda: "Media" },
+        { cat: "Frutas IQF", skus: 6, ticket: "$6.000–$12.000/kg", margen: "25–32%", demanda: "Alta" },
+        { cat: "Toppings/Smoothies", skus: 9, ticket: "$5.000–$9.000/ud", margen: "38–44%", demanda: "Media" },
+        { cat: "Estabilizantes/Polvos", skus: 18, ticket: "$6.000–$14.000/kg", margen: "45–55%", demanda: "Media" },
+        { cat: "Pehuenut/Pistachia", skus: 4, ticket: "$22.000–$38.000/kg", margen: "42–50%", demanda: "Alta" },
+        { cat: "Stracciatella", skus: 3, ticket: "$10.000–$16.000/kg", margen: "38–44%", demanda: "Media" },
+      ],
+      proyeccion: [
+        {
+          year: "Año 1",
+          clientes: 80,
+          ventaMM: 720,
+          costoVentaMM: 432,
+          margenBrutoMM: 288,
+          gastosOpMM: 252,
+          ebitdaMM: 36,
+          margenEbitda: "5%",
+          ticketPromMes: "$750.000",
+          nota: "Penetración inicial: 80 de 260 clientes activos. Foco en heladerías y cafeterías de RM. Inversión en equipo comercial + logística."
+        },
+        {
+          year: "Año 2",
+          clientes: 160,
+          ventaMM: 1560,
+          costoVentaMM: 874,
+          margenBrutoMM: 686,
+          gastosOpMM: 420,
+          ebitdaMM: 266,
+          margenEbitda: "17%",
+          ticketPromMes: "$812.000",
+          nota: "Expansión a regiones (V, VIII, X). Cross-selling de categorías. Entrada fuerte en pastelería y chocolatería."
+        },
+        {
+          year: "Año 3",
+          clientes: 260,
+          ventaMM: 2640,
+          costoVentaMM: 1425,
+          margenBrutoMM: 1215,
+          gastosOpMM: 660,
+          ebitdaMM: 555,
+          margenEbitda: "21%",
+          ticketPromMes: "$846.000",
+          nota: "Base completa de 260+ clientes. Marca posicionada. Economías de escala en importación. Potencial de marca propia o co-branded."
+        },
+      ],
+      costosFijos: {
+        year1: [
+          { concepto: "Gerente Comercial (bruto)", monto: 4200000 },
+          { concepto: "4 KAMs (bruto c/u ~$1.8M)", monto: 7200000 },
+          { concepto: "Logística (bodega + distribución)", monto: 4500000 },
+          { concepto: "Arriendos + servicios", monto: 1800000 },
+          { concepto: "Marketing + muestras", monto: 1500000 },
+          { concepto: "Contabilidad + legales", monto: 800000 },
+          { concepto: "Comisiones variables (~1.5% venta)", monto: 900000 },
+        ]
+      }
+    };
+
+    const thStyle = { padding: "10px 8px", textAlign: "center", fontSize: 11, color: "#94a3b8", fontWeight: 600, whiteSpace: "nowrap" };
+    const tdStyle = { padding: "8px 8px", fontSize: 12, color: "#94a3b8", borderBottom: "1px solid #1e293b33" };
+
+    function SectionTitle({ children }) {
+      return (
+        <h2 style={{
+          fontFamily: "'Fraunces', serif",
+          fontSize: 18,
+          fontWeight: 700,
+          color: "#f8fafc",
+          margin: "0 0 16px",
+          paddingBottom: 8,
+          borderBottom: "1px solid #1e293b"
+        }}>{children}</h2>
+      );
+    }
+
+    function Card({ children, style }) {
+      return (
+        <div style={{
+          background: "#111827",
+          border: "1px solid #1e293b",
+          borderRadius: 14,
+          padding: 16,
+          marginBottom: 12,
+          ...style
+        }}>{children}</div>
+      );
+    }
+
+    function StatCard({ label, value, sub }) {
+      return (
+        <div style={{
+          background: "#111827",
+          border: "1px solid #1e293b",
+          borderRadius: 12,
+          padding: "12px 14px",
+          textAlign: "center"
+        }}>
+          <div style={{ fontSize: 11, color: "#64748b", marginBottom: 4, fontWeight: 500 }}>{label}</div>
+          <div style={{ fontSize: 20, fontWeight: 800, color: "#f59e0b", fontFamily: "monospace" }}>{value}</div>
+          {sub && <div style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>{sub}</div>}
+        </div>
+      );
+    }
+
+    function MiniStat({ label, value, sub, color }) {
+      return (
+        <div style={{ background: "#0f172a", borderRadius: 8, padding: "8px 12px" }}>
+          <div style={{ fontSize: 11, color: "#64748b", marginBottom: 2 }}>{label}</div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: color || "#f8fafc", fontFamily: "monospace" }}>
+            {value} {sub && <span style={{ fontSize: 11, fontWeight: 500 }}>({sub})</span>}
+          </div>
+        </div>
+      );
+    }
+
+    function PehueniaAnalysis() {
+      const [tab, setTab] = useState("mercado");
+      const [expandedComp, setExpandedComp] = useState(null);
+      const [expandedYear, setExpandedYear] = useState(0);
+
+      const tabs = [
+        { id: "mercado", label: "Mercado", icon: "📊" },
+        { id: "competencia", label: "Competencia", icon: "⚔️" },
+        { id: "portfolio", label: "Portfolio", icon: "📦" },
+        { id: "financiero", label: "P&L 3 años", icon: "💰" },
+        { id: "riesgos", label: "Riesgos", icon: "⚠️" },
+      ];
+
+      const totalCostoFijoMes = data.costosFijos.year1.reduce((a, b) => a + b.monto, 0);
+
+      return (
+        <div style={{
+          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          background: "linear-gradient(135deg, #0a0f1c 0%, #111827 50%, #0f172a 100%)",
+          color: "#e2e8f0",
+          minHeight: "100vh",
+          padding: "20px",
+          maxWidth: 900,
+          margin: "0 auto"
+        }}>
+          {/* Header */}
+          <div style={{ textAlign: "center", marginBottom: 32, paddingTop: 12 }}>
+            <div style={{
+              display: "inline-block",
+              background: "linear-gradient(135deg, #f59e0b22, #f59e0b08)",
+              border: "1px solid #f59e0b33",
+              borderRadius: 8,
+              padding: "4px 14px",
+              fontSize: 12,
+              fontWeight: 600,
+              color: "#f59e0b",
+              letterSpacing: 1.5,
+              textTransform: "uppercase",
+              marginBottom: 12
+            }}>
+              Análisis de Oportunidad
+            </div>
+            <h1 style={{
+              fontFamily: "'Fraunces', serif",
+              fontSize: 32,
+              fontWeight: 700,
+              background: "linear-gradient(135deg, #f8fafc, #94a3b8)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              margin: "0 0 6px 0",
+              lineHeight: 1.2
+            }}>
+              Pehuenia → Chile
+            </h1>
+            <p style={{ color: "#64748b", fontSize: 14, margin: 0 }}>
+              Representación de ingredientes para heladería, pastelería, cafetería y chocolatería
+            </p>
+          </div>
+
+          {/* Tabs */}
+          <div style={{
+            display: "flex",
+            gap: 6,
+            marginBottom: 24,
+            overflowX: "auto",
+            paddingBottom: 4
+          }}>
+            {tabs.map(t => (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                style={{
+                  flex: "1 0 auto",
+                  padding: "10px 14px",
+                  borderRadius: 10,
+                  border: tab === t.id ? "1px solid #f59e0b55" : "1px solid #1e293b",
+                  background: tab === t.id
+                    ? "linear-gradient(135deg, #f59e0b18, #f59e0b08)"
+                    : "#0f172a",
+                  color: tab === t.id ? "#f59e0b" : "#64748b",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  whiteSpace: "nowrap"
+                }}
+              >
+                {t.icon} {t.label}
+              </button>
+            ))}
+          </div>
+
+          {/* MERCADO */}
+          {tab === "mercado" && (
+            <div>
+              <SectionTitle>El mercado chileno: números clave</SectionTitle>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+                <StatCard label="Mercado helados Chile" value="USD $384M" sub="2024 · CAGR 4.1%" />
+                <StatCard label="Mercado pastelería Chile" value="USD $89M" sub="2025 · CAGR 4.5%" />
+                <StatCard label="Heladerías en RM" value="723+" sub="↑65% desde 2022" />
+                <StatCard label="Consumo per cápita" value="11 kg/año" sub="#1 en Latam" />
+              </div>
+
+              <Card>
+                <h3 style={{ fontSize: 15, fontWeight: 700, marginTop: 0, marginBottom: 10, color: "#f8fafc" }}>
+                  ¿Por qué es atractivo?
+                </h3>
+                <div style={{ fontSize: 13, lineHeight: 1.7, color: "#94a3b8" }}>
+                  <p style={{ margin: "0 0 10px" }}>
+                    <strong style={{ color: "#f59e0b" }}>Boom heladero sin precedentes:</strong> El número de heladerías en Santiago creció 65% desde 2022, con nuevas aperturas concentradas en el sector oriente (Las Condes, Providencia, Vitacura, Lo Barnechea). Grido lidera con 87 locales, pero el crecimiento real está en el segmento artesanal/premium.
+                  </p>
+                  <p style={{ margin: "0 0 10px" }}>
+                    <strong style={{ color: "#f59e0b" }}>Premiumización:</strong> Euromonitor proyecta ventas minoristas de helado creciendo al 6% anual, con la premiumización como tendencia dominante. Más operadores están entrando al segmento premium/artesanal.
+                  </p>
+                  <p style={{ margin: "0 0 10px" }}>
+                    <strong style={{ color: "#f59e0b" }}>Cafetería en expansión:</strong> Los syrups están en plena penetración. El formato heladería-cafetería es el que más crece, lo que abre oportunidad cruzada para todo el catálogo Pehuenia.
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    <strong style={{ color: "#f59e0b" }}>6 segmentos en un solo proveedor:</strong> Pehuenia cubre heladería, pastelería, cafetería, chocolatería, coctelería y yogurtería. Pocos competidores en Chile ofrecen esa amplitud con certificación FSSC22000 + Kosher + libre de gluten.
+                  </p>
+                </div>
+              </Card>
+
+              <Card>
+                <h3 style={{ fontSize: 15, fontWeight: 700, marginTop: 0, marginBottom: 10, color: "#f8fafc" }}>
+                  Mercado objetivo directo (260 clientes)
+                </h3>
+                <div style={{ fontSize: 13, lineHeight: 1.7, color: "#94a3b8" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                    {[
+                      ["Heladerías artesanales", "~120 clientes"],
+                      ["Cafeterías/Coffee shops", "~60 clientes"],
+                      ["Pastelerías", "~40 clientes"],
+                      ["Chocolaterías", "~15 clientes"],
+                      ["Yogurterías", "~10 clientes"],
+                      ["Hoteles/Restaurantes", "~15 clientes"],
+                    ].map(([seg, n], i) => (
+                      <div key={i} style={{
+                        background: "#1e293b44",
+                        padding: "8px 12px",
+                        borderRadius: 8,
+                        borderLeft: "3px solid #f59e0b33"
+                      }}>
+                        <div style={{ fontWeight: 600, color: "#e2e8f0", fontSize: 13 }}>{seg}</div>
+                        <div style={{ color: "#f59e0b", fontWeight: 700, fontSize: 14 }}>{n}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* COMPETENCIA */}
+          {tab === "competencia" && (
+            <div>
+              <SectionTitle>Landscape competitivo en Chile</SectionTitle>
+
+              <Card>
+                <div style={{ fontSize: 13, color: "#94a3b8", marginBottom: 0, lineHeight: 1.6 }}>
+                  El mercado de ingredientes B2B para heladería/pastelería en Chile está dominado por 3-4 players. <strong style={{ color: "#f59e0b" }}>Pehuenia entra con una ventaja clara: amplitud de catálogo + precio competitivo desde Argentina + certificaciones de nivel global.</strong>
+                </div>
+              </Card>
+
+              {data.competidores.map((c, i) => (
+                <div
+                  key={i}
+                  onClick={() => setExpandedComp(expandedComp === i ? null : i)}
+                  style={{
+                    background: expandedComp === i ? "#1e293b" : "#111827",
+                    border: "1px solid",
+                    borderColor: expandedComp === i ? "#f59e0b33" : "#1e293b",
+                    borderRadius: 12,
+                    padding: "14px 16px",
+                    marginBottom: 8,
+                    cursor: "pointer",
+                    transition: "all 0.2s"
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: 14, color: "#f8fafc" }}>{c.nombre}</div>
+                      <div style={{ fontSize: 12, color: "#64748b", marginTop: 2 }}>{c.segmentos}</div>
+                    </div>
+                    <div style={{ color: "#64748b", fontSize: 18 }}>{expandedComp === i ? "−" : "+"}</div>
+                  </div>
+                  {expandedComp === i && (
+                    <div style={{ marginTop: 12, fontSize: 13, lineHeight: 1.6 }}>
+                      <div style={{ color: "#94a3b8", marginBottom: 6 }}>
+                        <strong style={{ color: "#64748b" }}>Presencia Chile:</strong> {c.presencia}
+                      </div>
+                      <div style={{ color: "#22c55e", marginBottom: 4 }}>
+                        ✓ <strong>Fortaleza:</strong> {c.fortaleza}
+                      </div>
+                      <div style={{ color: "#ef4444" }}>
+                        ✗ <strong>Debilidad:</strong> {c.debilidad}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              <Card style={{ marginTop: 16 }}>
+                <h3 style={{ fontSize: 15, fontWeight: 700, marginTop: 0, marginBottom: 10, color: "#f8fafc" }}>
+                  Posicionamiento Pehuenia
+                </h3>
+                <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.7 }}>
+                  <p style={{ margin: "0 0 8px" }}>
+                    <strong style={{ color: "#f59e0b" }}>vs PreGel:</strong> Precio 20-35% más bajo en pastas y variegatos, con catálogo comparable. PreGel cobra premium por ser italiano; Pehuenia compite en calidad con respaldo de certificaciones FSSC22000.
+                  </p>
+                  <p style={{ margin: "0 0 8px" }}>
+                    <strong style={{ color: "#f59e0b" }}>vs Puratos:</strong> Pehuenia es más especialista en heladería artesanal. Puratos tiene fuerza en panadería/pastelería industrial pero menos profundidad en variegatos, pastas de sabor y cremosos para gelato.
+                  </p>
+                  <p style={{ margin: "0 0 8px" }}>
+                    <strong style={{ color: "#f59e0b" }}>vs 1883/Monin:</strong> Los syrups Pehuenia a $5.500-7.500/lt vs $10.600/lt de 1883. Diferencial de precio brutal para cafeterías, con calidad comparable.
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    <strong style={{ color: "#f59e0b" }}>Ventaja clave:</strong> Ningún competidor ofrece 17 categorías + 140+ SKUs para 6 segmentos (heladería + pastelería + cafetería + chocolatería + coctelería + yogurtería) desde un solo proveedor con FSSC22000 + Kosher + libre de gluten.
+                  </p>
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* PORTFOLIO */}
+          {tab === "portfolio" && (
+            <div>
+              <SectionTitle>Matriz de productos y pricing estimado Chile</SectionTitle>
+
+              <Card>
+                <div style={{ fontSize: 12, color: "#64748b" }}>
+                  Precios estimados de venta al público/distribuidor en Chile (CLP, neto). Rangos basados en análisis competitivo vs PreGel, Puratos, 1883 y Monin.
+                </div>
+              </Card>
+
+              <div style={{ overflowX: "auto" }}>
+                <table style={{
+                  width: "100%",
+                  borderCollapse: "collapse",
+                  fontSize: 12,
+                  background: "#111827",
+                  borderRadius: 12,
+                  overflow: "hidden"
+                }}>
+                  <thead>
+                    <tr style={{ background: "#1e293b" }}>
+                      <th style={{ ...thStyle, textAlign: "left" }}>Categoría</th>
+                      <th style={thStyle}>SKUs</th>
+                      <th style={thStyle}>Precio venta est.</th>
+                      <th style={thStyle}>Margen bruto</th>
+                      <th style={thStyle}>Demanda</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.categorias.map((c, i) => (
+                      <tr key={i} style={{ borderBottom: "1px solid #1e293b22" }}>
+                        <td style={{ ...tdStyle, fontWeight: 600, color: "#e2e8f0" }}>{c.cat}</td>
+                        <td style={{ ...tdStyle, textAlign: "center", color: "#f59e0b" }}>{c.skus}</td>
+                        <td style={{ ...tdStyle, textAlign: "center", fontFamily: "monospace", fontSize: 11 }}>{c.ticket}</td>
+                        <td style={{ ...tdStyle, textAlign: "center", color: "#22c55e" }}>{c.margen}</td>
+                        <td style={{ ...tdStyle, textAlign: "center" }}>
+                          <span style={{
+                            background: c.demanda === "Muy alta" ? "#22c55e22" : c.demanda === "Alta" ? "#f59e0b22" : "#64748b22",
+                            color: c.demanda === "Muy alta" ? "#22c55e" : c.demanda === "Alta" ? "#f59e0b" : "#94a3b8",
+                            padding: "2px 8px",
+                            borderRadius: 4,
+                            fontSize: 11,
+                            fontWeight: 600
+                          }}>
+                            {c.demanda}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 16 }}>
+                <StatCard label="Total SKUs" value="140+" sub="17 categorías" />
+                <StatCard label="Margen bruto prom." value="~40%" sub="Ponderado por mix" />
+                <StatCard label="Ticket prom. cliente" value="$750K" sub="Mensual estimado" />
+              </div>
+
+              <Card style={{ marginTop: 16 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 700, marginTop: 0, marginBottom: 8, color: "#f8fafc" }}>
+                  Productos estrella para Chile
+                </h3>
+                <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.7 }}>
+                  <p style={{ margin: "0 0 6px" }}>🥇 <strong style={{ color: "#f59e0b" }}>Syrups (9 sabores):</strong> Entrada rápida a cafeterías. Precio 35-45% bajo 1883. Rotación alta, recompra frecuente.</p>
+                  <p style={{ margin: "0 0 6px" }}>🥈 <strong style={{ color: "#f59e0b" }}>Pastas saborizantes (35 SKUs):</strong> Core de heladería artesanal. El catálogo más amplio del mercado chileno.</p>
+                  <p style={{ margin: "0 0 6px" }}>🥉 <strong style={{ color: "#f59e0b" }}>Pehuenut + Pistachia:</strong> Productos diferenciadores sin competencia directa. Trend de pistacho en auge global.</p>
+                  <p style={{ margin: 0 }}>⭐ <strong style={{ color: "#f59e0b" }}>Salsas Gourmet:</strong> Formato retail-friendly (210/420ml). Potencial de entrada a tiendas gourmet y minimarkets premium.</p>
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* FINANCIERO */}
+          {tab === "financiero" && (
+            <div>
+              <SectionTitle>Proyección P&L a 3 años (MM CLP)</SectionTitle>
+
+              <Card>
+                <div style={{ fontSize: 12, color: "#64748b" }}>
+                  Supuestos: Capital de trabajo ≤ $500M CLP. Tipo de cambio USD/CLP ~$950. Costo importación promedio 60% del precio de venta. Estructura: 4 KAMs + 1 Gerente Comercial + logística tercerizada.
+                </div>
+              </Card>
+
+              {data.proyeccion.map((p, i) => (
+                <div
+                  key={i}
+                  onClick={() => setExpandedYear(expandedYear === i ? null : i)}
+                  style={{
+                    background: expandedYear === i ? "#1e293b" : "#111827",
+                    border: "1px solid",
+                    borderColor: expandedYear === i ? "#f59e0b44" : "#1e293b",
+                    borderRadius: 14,
+                    padding: 16,
+                    marginBottom: 10,
+                    cursor: "pointer",
+                    transition: "all 0.2s"
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: expandedYear === i ? 14 : 0 }}>
+                    <div>
+                      <span style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 700, color: "#f8fafc" }}>{p.year}</span>
+                      <span style={{ marginLeft: 10, fontSize: 12, color: "#64748b", fontWeight: 500 }}>{p.clientes} clientes activos</span>
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      <div style={{ fontSize: 22, fontWeight: 800, color: "#f59e0b", fontFamily: "monospace" }}>${p.ventaMM}M</div>
+                      <div style={{ fontSize: 11, color: "#64748b" }}>Venta anual</div>
+                    </div>
+                  </div>
+
+                  {expandedYear === i && (
+                    <div>
+                      <div style={{ marginBottom: 14 }}>
+                        <div style={{ display: "flex", borderRadius: 8, overflow: "hidden", height: 28 }}>
+                          <div style={{
+                            width: `${Math.round(p.costoVentaMM / p.ventaMM * 100)}%`,
+                            background: "#ef444444",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            fontSize: 10, fontWeight: 700, color: "#ef4444"
+                          }}>Costo {Math.round(p.costoVentaMM / p.ventaMM * 100)}%</div>
+                          <div style={{
+                            width: `${Math.round(p.gastosOpMM / p.ventaMM * 100)}%`,
+                            background: "#f59e0b33",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            fontSize: 10, fontWeight: 700, color: "#f59e0b"
+                          }}>Gastos Op</div>
+                          <div style={{
+                            flex: 1,
+                            background: p.ebitdaMM > 0 ? "#22c55e33" : "#ef444433",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            fontSize: 10, fontWeight: 700, color: p.ebitdaMM > 0 ? "#22c55e" : "#ef4444"
+                          }}>EBITDA {p.margenEbitda}</div>
+                        </div>
+                      </div>
+
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 12 }}>
+                        <MiniStat label="Venta neta" value={`$${p.ventaMM}M`} />
+                        <MiniStat label="Costo de venta" value={`$${p.costoVentaMM}M`} color="#ef4444" />
+                        <MiniStat label="Margen bruto" value={`$${p.margenBrutoMM}M`} sub={`${Math.round(p.margenBrutoMM / p.ventaMM * 100)}%`} color="#22c55e" />
+                        <MiniStat label="Gastos operacionales" value={`$${p.gastosOpMM}M`} color="#f59e0b" />
+                        <MiniStat label="EBITDA" value={`$${p.ebitdaMM}M`} sub={p.margenEbitda} color={p.ebitdaMM > 0 ? "#22c55e" : "#ef4444"} />
+                        <MiniStat label="Ticket prom./mes" value={p.ticketPromMes} />
+                      </div>
+
+                      <div style={{
+                        fontSize: 12,
+                        color: "#94a3b8",
+                        lineHeight: 1.6,
+                        background: "#0f172a",
+                        padding: 12,
+                        borderRadius: 8,
+                        borderLeft: "3px solid #f59e0b33"
+                      }}>
+                        {p.nota}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              <Card style={{ marginTop: 12 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 700, marginTop: 0, marginBottom: 10, color: "#f8fafc" }}>
+                  Estructura de costos fijos mensuales (Año 1)
+                </h3>
+                {data.costosFijos.year1.map((c, i) => (
+                  <div key={i} style={{
+                    display: "flex", justifyContent: "space-between",
+                    padding: "6px 0",
+                    borderBottom: i < data.costosFijos.year1.length - 1 ? "1px solid #1e293b" : "none",
+                    fontSize: 13
+                  }}>
+                    <span style={{ color: "#94a3b8" }}>{c.concepto}</span>
+                    <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontWeight: 600 }}>
+                      ${(c.monto / 1000000).toFixed(1)}M
+                    </span>
+                  </div>
+                ))}
+                <div style={{
+                  display: "flex", justifyContent: "space-between",
+                  padding: "10px 0 0",
+                  borderTop: "2px solid #f59e0b33",
+                  marginTop: 6,
+                  fontSize: 14,
+                  fontWeight: 700
+                }}>
+                  <span style={{ color: "#f8fafc" }}>Total mensual</span>
+                  <span style={{ color: "#f59e0b", fontFamily: "monospace" }}>
+                    ${(totalCostoFijoMes / 1000000).toFixed(1)}M
+                  </span>
+                </div>
+                <div style={{ fontSize: 11, color: "#64748b", marginTop: 4 }}>
+                  = ${Math.round(totalCostoFijoMes * 12 / 1000000)}M anuales en gastos operacionales (Año 1)
+                </div>
+              </Card>
+
+              <Card style={{ marginTop: 12 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 700, marginTop: 0, marginBottom: 10, color: "#f8fafc" }}>
+                  Uso del capital de trabajo ($500M)
+                </h3>
+                <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.7 }}>
+                  {[
+                    ["Stock inicial (2-3 meses rotación)", "$250M", "50%"],
+                    ["Capital de operación (3 meses gastos)", "$120M", "24%"],
+                    ["Depósitos + equipamiento logístico", "$60M", "12%"],
+                    ["Marketing lanzamiento + muestras", "$40M", "8%"],
+                    ["Reserva de contingencia", "$30M", "6%"],
+                  ].map(([c, v, p], i) => (
+                    <div key={i} style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                      <span>{c}</span>
+                      <span style={{ fontFamily: "monospace", color: "#f59e0b", fontWeight: 600 }}>{v} ({p})</span>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* RIESGOS */}
+          {tab === "riesgos" && (
+            <div>
+              <SectionTitle>Riesgos, mitigantes y recomendaciones</SectionTitle>
+
+              {[
+                {
+                  riesgo: "Tipo de cambio ARS/CLP",
+                  nivel: "Alto",
+                  color: "#ef4444",
+                  detalle: "Argentina tiene volatilidad cambiaria extrema. El costo de importación puede fluctuar significativamente.",
+                  mitigante: "Negociar precios en USD con Pehuenia. Contratos con banda de precio ±10%. Stock buffer de 2-3 meses."
+                },
+                {
+                  riesgo: "Regulación sanitaria (ISP/Seremi Salud)",
+                  nivel: "Medio",
+                  color: "#f59e0b",
+                  detalle: "Todos los productos alimenticios importados requieren resolución sanitaria y etiquetado conforme a la ley chilena (octógonos, alérgenos).",
+                  mitigante: "Pehuenia tiene FSSC22000 y Kosher, lo cual facilita. Presupuestar $15-20M en certificaciones y re-etiquetado para el mercado chileno."
+                },
+                {
+                  riesgo: "Competencia de precio de Puratos (producción local)",
+                  nivel: "Medio",
+                  color: "#f59e0b",
+                  detalle: "Puratos tiene planta en Chile, lo que le da ventaja en costos de flete y plazos de entrega vs importación desde Argentina.",
+                  mitigante: "Diferenciación por especialización (heladería artesanal), amplitud de catálogo en categorías donde Puratos es débil (variegatos, cremosos, syrups)."
+                },
+                {
+                  riesgo: "Estacionalidad del helado",
+                  nivel: "Medio-bajo",
+                  color: "#f59e0b",
+                  detalle: "Heladería tiene pico en noviembre-marzo. Invierno puede caer 40-50% en volumen.",
+                  mitigante: "Portafolio diversificado: syrups y cafetería compensan en invierno. Pastelería y chocolatería son counter-cíclicos."
+                },
+                {
+                  riesgo: "Logística cadena de frío",
+                  nivel: "Medio",
+                  color: "#f59e0b",
+                  detalle: "Frutas congeladas y algunos productos requieren cadena de frío desde Argentina.",
+                  mitigante: "Empezar sin frutas congeladas IQF (foco en productos ambiente/refrigerado). Evaluar importación de IQF en Año 2 cuando haya volumen."
+                },
+                {
+                  riesgo: "Plazo de cobro vs inversión en stock",
+                  nivel: "Medio",
+                  color: "#f59e0b",
+                  detalle: "Heladerías artesanales suelen pagar a 30-45 días. Stock importado requiere pago anticipado o a 30 días.",
+                  mitigante: "Capital de trabajo de $500M cubre 3+ meses de desfase. Pactar 15 días con descuento por pronto pago. Exigir 50% adelantado a clientes nuevos."
+                },
+              ].map((r, i) => (
+                <Card key={i} style={{ borderLeft: `3px solid ${r.color}44` }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                    <h4 style={{ fontSize: 14, fontWeight: 700, margin: 0, color: "#f8fafc" }}>{r.riesgo}</h4>
+                    <span style={{
+                      background: r.color + "22",
+                      color: r.color,
+                      fontSize: 11,
+                      fontWeight: 700,
+                      padding: "2px 10px",
+                      borderRadius: 6
+                    }}>{r.nivel}</span>
+                  </div>
+                  <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6, marginBottom: 6 }}>
+                    {r.detalle}
+                  </div>
+                  <div style={{ fontSize: 12, color: "#22c55e", lineHeight: 1.6 }}>
+                    <strong>Mitigante:</strong> {r.mitigante}
+                  </div>
+                </Card>
+              ))}
+
+              <Card style={{ marginTop: 16, borderColor: "#22c55e33" }}>
+                <h3 style={{ fontSize: 15, fontWeight: 700, marginTop: 0, marginBottom: 10, color: "#22c55e" }}>
+                  Veredicto
+                </h3>
+                <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.8 }}>
+                  <p style={{ margin: "0 0 10px" }}>
+                    <strong style={{ color: "#f8fafc" }}>El negocio es viable y atractivo</strong>, con un break-even estimado entre el mes 10-14 del Año 1 y un EBITDA de ~$555M al Año 3 sobre una inversión de $500M. El ROI acumulado a 3 años es significativo.
+                  </p>
+                  <p style={{ margin: "0 0 10px" }}>
+                    <strong style={{ color: "#f59e0b" }}>Las claves del éxito son:</strong> (1) negociar precios en USD para blindar la volatilidad argentina, (2) arrancar fuerte con syrups + pastas como productos de entrada rápida, (3) invertir en asesoría técnica tipo PreGel (capacitación a heladeros), y (4) aprovechar los 260 clientes ya identificados como pipeline concreto.
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    <strong style={{ color: "#f59e0b" }}>Riesgo principal:</strong> el tipo de cambio argentino. Si Pehuenia acepta facturar en USD con precios estables, el riesgo baja significativamente y el negocio tiene fundamentals sólidos.
+                  </p>
+                </div>
+              </Card>
+            </div>
+          )}
+
+          <div style={{ textAlign: "center", padding: "20px 0 10px", fontSize: 11, color: "#334155" }}>
+            Análisis preparado para Alfonso Lobato · Mayo 2026 · Cifras estimadas basadas en investigación de mercado público
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<PehueniaAnalysis />);
+  </script>
+</body>
+</html>
