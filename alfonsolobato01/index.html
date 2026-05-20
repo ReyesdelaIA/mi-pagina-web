@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Alimentos Asturias — Potencial de Mercado 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1F3864;--blue:#2563c4;--gold:#C9A227;--teal:#1D9E75;--red:#D85A30;
+  --bg:#0d1420;--surface:#111827;--card:#1a2436;--border:rgba(37,99,196,0.22);
+  --text:#e8edf5;--muted:#7a8ba8;--faint:rgba(255,255,255,0.04);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── HEADER ─────────────────────────────── */
+.header{
+  background:linear-gradient(135deg,#080f1c 0%,#1F3864 55%,#1a4585 100%);
+  padding:36px 32px 28px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo{
+  background:var(--gold);color:#1a1200;font-family:'Playfair Display',serif;
+  font-weight:700;font-size:20px;width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.header-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#fff;letter-spacing:-0.3px;line-height:1.1}
+.header-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px}
+.header-tag{
+  background:rgba(201,162,39,0.18);border:1px solid rgba(201,162,39,0.35);
+  color:#e8c55a;font-size:11px;fontp;letter-spacing:0.5px;
+}
+
+/* ── LAYOUT ──────────────────────────────── */
+.main{max-width:1200px;margin:0 auto;padding:32px 24px 64px}
+.section-label{
+  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.mb-20{margin-bottom:20px}
+.mb-28{margin-bottom:28px}
+
+/* ── KPI CARDS ───────────────────────────── */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:20px 18px 16px;position:relative;overflow:hidden;
+}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--kpi-accent,var(--blue))}
+.kpi-label{font-size:11px;color:var(--muted);font-weight:500;letter-spacing:0.4px;margin-bottom:10px}
+.kpi-value{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:#fff;line-height:1}
+.kpi-unit{font-size:12px;color:var(--muted);margin-top:6px}
+.kpi-badge{display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:8px}
+
+/* ── SIMULATOR ───────────────────────────── */
+.sim-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 28px}
+.sim-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px}
+.sim-title{font-size:15px;font-weight:600;color:var(--text)}
+.sc-pill{
+  font-size:12px;font-weight:600;padding:5px 16px;border-radius:20px;
+  background:rgba(37,99,196,0.18);color:#6aadff;border:1px solid rgba(37,99,196,0.38);
+  transition:all .3s;
+}
+.slider-row{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.slider-label{font-size:12px;color:var(--muted);width:120px;flex-shrink:0}
+input[type=range].aa{
+  flex:1;-webkit-appearance:none;height:4px;border-radius:4px;
+  background:rgba(37,99,196,0.28);outline:none;cursor:pointer;
+}
+input[type=range].aa::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:var(--blue);border:2.5px solid #fff;cursor:pointer;
+  box-shadow:0 0 0 4px rgba(37,99,196,0.2);
+}
+input[type=range].aa::-moz-range-thumb{
+  width:18px;height:18px;border-radius:50%;background:var(--blue);
+  border:2.5px solid #fff;cursor:pointer;
+}
+.slider-val{font-size:14px;font-weight:600;color:var(--blue);width:54px;text-align:right;flex-shrink:0}
+.sc-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.sc-card{
+  border-radius:12px;padding:16px 18px;border:1px solid transparent;
+  cursor:pointer;transition:all .25s;
+}
+.sc-card.active{border-color:var(--blue);background:rgba(37,99,196,0.12)}
+.sc-card:not(.active){background:rgba(255,255,255,0.025);border-color:rgba(255,255,255,0.07)}
+.sc-card:hover:not(.active){background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.12)}
+.sc-name{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.sc-clp{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff}
+.sc-ton{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* ── TWO COL ─────────────────────────────── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px}
+.chart-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:18px}
+.chart-sub{font-size:11px;color:var(--muted);margin-top:-12px;margin-bottom:14px}
+
+/* ── REGION BARS ─────────────────────────── */
+.rb-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.rb-label{font-size:12px;color:var(--muted);width:140px;flex-shrink:0;line-height:1.3}
+.rb-track{flex:1;background:rgba(255,255,255,0.05);border-radius:5px;height:24px;overflow:hidden;position:relative}
+.rb-fill{height:100%;border-radius:5px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+.rb-fill span{font-size:11px;font-weight:700;color:rgba(255,255,255,0.95)}
+.rb-val{font-size:12px;font-weight:600;color:var(--text);width:78px;text-align:right;flex-shrink:0}
+
+/* ── PRODUCT GRID ────────────────────────── */
+.prod-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.prod-row:last-child{border-bottom:none}
+.prod-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.prod-name{font-size:12px;color:var(--text);flex:1;line-height:1.3}
+.prod-pct{font-size:12px;font-weight:600;color:var(--muted);width:32px;text-align:right}
+.prod-val{font-size:12px;font-weight:700;color:#6aadff;width:72px;text-align:right}
+
+/* ── MAP ─────────────────────────────────── */
+.map-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px}
+.map-svg{width:100%;display:block}
+.map-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+.ml-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.ml-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.map-stats{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.ms-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.06)}
+.ms-name{font-size:12px;color:var(--text)}
+.ms-val{font-size:12px;font-weight:600;color:#6aadff}
+
+/* ── PRICE TABLE ─────────────────────────── */
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+table.prices{width:100%;border-collapse:collapse;font-size:12px}
+table.prices th{
+  font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);font-weight:500;
+  background:rgba(255,255,255,0.02);
+}
+table.prices td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle}
+table.prices tr:last-child td{border-bottom:none}
+table.prices tr:hover td{background:rgba(255,255,255,0.02)}
+.bbadge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px}
+.bd{background:rgba(37,99,196,0.18);color:#6aadff}
+.ba{background:rgba(29,158,117,0.18);color:#4dd4a8}
+.bm{background:rgba(201,162,39,0.18);color:#e8c55a}
+.bf{background:rgba(216,90,48,0.18);color:#f09070}
+.bx{background:rgba(120,120,140,0.18);color:#aab0c0}
+.pv50{font-weight:600;color:var(--gold)}
+.cod{font-size:11px;color:var(--muted);font-family:monospace}
+
+/* ── FOOTER ──────────────────────────────── */
+.footer{text-align:center;padding:32px 24px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);max-width:1200px;margin:0 auto}
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media(max-width:900px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .sc-cards{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:600px){
+  .main{padding:20px 14px 48px}
+  .header{padding:20px 16px 16px}
+  .header-title{font-size:18px}
+  .kpis{grid-template-columns:1fr 1fr;gap:10px}
+  .kpi-value{font-size:24px}
+  .sim-box{padding:18px 16px}
+  .slider-label{width:90px;font-size:11px}
+  .sc-cards{grid-template-columns:1fr;gap:8px}
+  .rb-label{width:100px;font-size:11px}
+  table.prices th,table.prices td{padding:8px 10px;font-size:11px}
+  .header-tag{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="logo">AA</div>
+      <div>
+        <div class="header-title">Alimentos Asturias</div>
+        <div class="header-sub">Potencial de Mercado · Mantecas, Grasas y Margarinas Industriales</div>
+      </div>
+    </div>
+    <div class="header-tag">Lista precios Junio 2026</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ── KPIs ── -->
+  <div class="mb-28">
+    <div class="section-label">Mercado addressable</div>
+    <div class="kpis">
+      <div class="kpi" style="--kpi-accent:#4a5a7a">
+        <div class="kpi-label">TAM — Chile completo</div>
+        <div class="kpi-value">$82.5</div>
+        <div class="kpi-unit">mil millones CLP / año</div>
+        <div class="kpi-badge" style="background:rgba(255,255,255,0.06);color:var(--muted)">33.681 toneladas</div>
+      </div>
+      <div class="kpi" style="--kpi-accent:var(--blue)">
+        <div class="kpi-label">SAM — 5 regiones Asturias</div>
+        <div class="kpi-value">$57.6</div>
+        <div class="kpi-unit">mil millones CLP / año</div>
+        <div class="kpi-badge" style="background:rgba(37,99,196,0.15);color:#6aadff">23.524 t · 69,8% del país</div>
+      </div>
+      <div class="kpi" style="--kpi-accent:var(--teal)">
+        <div class="kpi-label">SOM Año 1 — escenario base</div>
+        <div class="kpi-value" id="kpi-s1">$8.1</div>
+        <div class="kpi-unit">mil millones CLP / año</div>
+        <div class="kpi-badge" id="kpi-s1b" style="background:rgba(29,158,117,0.15);color:#4dd4a8">3.293 t · 14%</div>
+      </div>
+      <div class="kpi" style="--kpi-accent:var(--gold)">
+        <div class="kpi-label">SOM Año 5 — potencial techo</div>
+        <div class="kpi-value" id="kpi-s5">$13.7</div>
+        <div class="kpi-unit">mil millones CLP / año</div>
+        <div class="kpi-badge" id="kpi-s5b" style="background:rgba(201,162,39,0.15);color:#e8c55a">5.602 t · 22%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SIMULADOR ── -->
+  <div class="mb-28">
+    <div class="section-label">Simulador de escenarios</div>
+    <div class="sim-box">
+      <div class="sim-header">
+        <div class="sim-title">Mueve los sliders — los números se recalculan en tiempo real</div>
+        <div class="sc-pill" id="sc-pill">Escenario Base</div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-label">% Penetración SAM</div>
+        <input type="range" class="aa" id="sl-pen" min="5" max="30" step="1" value="14">
+        <div class="slider-val" id="sv-pen">14%</div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-label">Precio prom. CLP/kg</div>
+        <input type="range" class="aa" id="sl-precio" min="1800" max="3200" step="50" value="2450">
+        <div class="slider-val" id="sv-precio">$2.450</div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-label">Crecim. mercado anual</div>
+        <input type="range" class="aa" id="sl-crecim" min="0" max="8" step="1" value="2">
+        <div class="slider-val" id="sv-crecim">2%</div>
+      </div>
+      <div class="sc-cards">
+        <div class="sc-card" id="sc-cons" onclick="setScenario(10)">
+          <div class="sc-name">Conservador</div>
+          <div class="sc-clp" id="scc-clp">$5.8MM</div>
+          <div class="sc-ton" id="scc-ton">2.352 t · 10%</div>
+        </div>
+        <div class="sc-card active" id="sc-base" onclick="setScenario(14)">
+          <div class="sc-name">Base ★</div>
+          <div class="sc-clp" id="scb-clp">$8.1MM</div>
+          <div class="sc-ton" id="scb-ton">3.293 t · 14%</div>
+        </div>
+        <div class="sc-card" id="sc-amb" onclick="setScenario(18)">
+          <div class="sc-name">Ambicioso</div>
+          <div class="sc-clp" id="sca-clp">$10.4MM</div>
+          <div class="sc-ton" id="sca-ton">4.234 t · 18%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── REGIÓN Y PRODUCTO ── -->
+  <div class="mb-28">
+    <div class="section-label">Desglose por región y producto</div>
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-title">Potencial SAM por región (toneladas y revenue)</div>
+        <div id="reg-bars"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Mix estimado por producto — SOM Año 1 base</div>
+        <div class="chart-sub">Revenue en CLP millones</div>
+        <div id="prod-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PROYECCIÓN + FUNNEL ── -->
+  <div class="mb-28">
+    <div class="section-label">Proyección y distribución de mercado</div>
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-title">Revenue proyectado Años 1→5 (escenario base, CLP MM)</div>
+        <div style="position:relative;height:200px">
+          <canvas id="proyChart" role="img" aria-label="Proyección de revenue de año 1 a año 5 escenario base">Revenue año 1: 8.068MM CLP, crece a 13.725MM en año 5.</canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Embudo TAM → SAM → SOM (CLP MM)</div>
+        <div style="position:relative;height:200px">
+          <canvas id="funnelChart" role="img" aria-label="Funnel de mercado: TAM 82.518, SAM 57.634, SOM año 1 8.068, SOM año 5 13.725 millones CLP">TAM 82.518MM, SAM 57.634MM, SOM año 1 8.068MM, SOM año 5 13.725MM.</canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAPA + STATS ── -->
+  <div class="mb-28">
+    <div class="section-label">Cobertura geográfica · 5 regiones · 69,8% de la población chilena</div>
+    <div class="two-col">
+      <div class="map-wrap">
+        <div class="chart-title">Chile — Red de sucursales Asturias</div>
+        <svg viewBox="0 0 240 540" class="map-svg" role="img" aria-label="Mapa de Chile con las 5 regiones con sucursales Asturias resaltadas en azul">
+          <title>Mapa Chile sucursales Asturias</title>
+          <!-- Fondo regiones norte sin cobertura -->
+          <path d="M118,14 L152,17 L158,26 L154,36 L148,46 L144,58 L141,72 L138,86 L134,100 L131,113 L128,124 L126,134 L122,142 L118,148"
+            fill="#151e2e" stroke="#1e2d45" stroke-width="0.7"/>
+          <path d="M118,14 L152,17 L158,26 L154,36 L148,46 L144,58 L141,72 L138,86 L134,100 L131,113 L128,124 L126,134 L122,142 L118,148
+            L96,148 L92,140 L88,128 L85,116 L82,102 L80,88 L79,74 L80,60 L82,46 L86,35 L92,25 L100,17 Z"
+            fill="#141d2e" stroke="#1e2d45" stroke-width="0.7"/>
+          <!-- Región V Valparaíso -->
+          <path d="M122,142 L96,148 L92,158 L90,170 L93,178 L102,182 L114,182 L124,178 L128,168 L126,156 Z"
+            fill="#1a3870" stroke="#2563c4" stroke-width="1.2"/>
+          <!-- Región Metropolitana (más destacada) -->
+          <path d="M128,168 L114,182 L102,182 L93,178 L90,185 L92,200 L100,207 L115,210 L130,207 L135,196 L133,182 Z"
+            fill="#1e3f80" stroke="#2563c4" stroke-width="1.5"/>
+          <!-- Región VI O'Higgins -->
+          <path d="M133,196 L115,210 L100,207 L92,200 L88,212 L90,226 L100,232 L116,234 L132,230 L136,218 Z"
+            fill="#1a3870" stroke="#2563c4" stroke-width="1.2"/>
+          <!-- Región VII Maule (sin cobertura) -->
+          <path d="M132,230 L116,234 L100,232 L90,226 L86,240 L88,256 L100,264 L118,266 L134,262 L138,248 Z"
+            fill="#141d2e" stroke="#1e2d45" stroke-width="0.7"/>
+          <!-- Región XVI Ñuble (sin cobertura) -->
+          <path d="M134,262 L118,266 L100,264 L88,256 L84,270 L86,284 L98,292 L116,294 L134,290 L138,278 Z"
+            fill="#141d2e" stroke="#1e2d45" stroke-width="0.7"/>
+          <!-- Región VIII Biobío (cobertura) -->
+          <path d="M134,290 L116,294 L98,292 L86,284 L82,298 L84,316 L96,325 L116,328 L136,323 L140,308 Z"
+            fill="#1a3870" stroke="#2563c4" stroke-width="1.2"/>
+          <!-- Región IX Araucanía (cobertura) -->
+          <path d="M136,323 L116,328 L96,325 L84,316 L78,333 L80,352 L94,362 L116,366 L136,360 L142,344 Z"
+            fill="#1a3870" stroke="#2563c4" stroke-width="1.2"/>
+          <!-- Regiones XIV, X (sin cobertura) -->
+          <path d="M136,360 L116,366 L94,362 L80,352 L74,370 L76,394 L90,408 L112,414 L132,408 L140,390 Z"
+            fill="#141d2e" stroke="#1e2d45" stroke-width="0.7"/>
+          <!-- Patagonia sur (difuminada) -->
+          <path d="M132,408 L112,414 L90,408 L76,394 L68,418 L62,448 L66,478 L76,502 L84,518 L89,526 L93,520 L96,504 L98,486 L100,464 L104,446 L108,430 L114,420 Z"
+            fill="#0e1624" stroke="#1a2535" stroke-width="0.6"/>
+
+          <!-- ── Puntos de sucursal ── -->
+          <!-- Glow rings -->
+          <circle cx="114" cy="196" r="18" fill="rgba(37,99,196,0.12)"/>
+          <circle cx="108" cy="172" r="12" fill="rgba(37,99,196,0.1)"/>
+          <circle cx="108" cy="218" r="12" fill="rgba(37,99,196,0.1)"/>
+          <circle cx="112" cy="308" r="14" fill="rgba(29,158,117,0.12)"/>
+          <circle cx="112" cy="343" r="14" fill="rgba(201,162,39,0.12)"/>
+
+          <!-- Santiago — más grande -->
+          <circle cx="114" cy="196" r="7" fill="#2563c4" stroke="#ffffff" stroke-width="2"/>
+          <text x="126" y="200" font-size="10" fill="#6aadff" font-family="DM Sans,sans-serif" font-weight="600">Santiago</text>
+          <text x="126" y="212" font-size="9" fill="rgba(106,173,255,0.6)" font-family="DM Sans,sans-serif">RM · 7,4M hab</text>
+
+          <!-- Valparaíso -->
+          <circle cx="108" cy="172" r="5" fill="#2563c4" stroke="#ffffff" stroke-width="1.5"/>
+          <text x="120" y="176" font-size="9" fill="#7a8ba8" font-family="DM Sans,sans-serif">Valparaíso (V)</text>
+
+          <!-- O'Higgins -->
+          <circle cx="108" cy="218" r="5" fill="#2563c4" stroke="#ffffff" stroke-width="1.5"/>
+          <text x="120" y="222" font-size="9" fill="#7a8ba8" font-family="DM Sans,sans-serif">O'Higgins (VI)</text>
+
+          <!-- Concepción -->
+          <circle cx="112" cy="308" r="6" fill="#1D9E75" stroke="#ffffff" stroke-width="1.5"/>
+          <text x="124" y="312" font-size="10" fill="#4dd4a8" font-family="DM Sans,sans-serif" font-weight="600">Concepción</text>
+
+          <!-- Temuco -->
+          <circle cx="112" cy="343" r="6" fill="#C9A227" stroke="#ffffff" stroke-width="1.5"/>
+          <text x="124" y="347" font-size="10" fill="#e8c55a" font-family="DM Sans,sans-serif" font-weight="600">Temuco</text>
+        </svg>
+        <div class="map-legend">
+          <div class="ml-item"><div class="ml-dot" style="background:#2563c4"></div>Sucursal</div>
+          <div class="ml-item"><div class="ml-dot" style="background:#1a3870;border:1px solid #2563c4"></div>Región cubierta</div>
+          <div class="ml-item"><div class="ml-dot" style="background:#141d2e;border:1px solid #1e2d45"></div>Sin cobertura</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="chart-card">
+          <div class="chart-title">Peso por región en el SAM</div>
+          <div class="map-stats" id="map-stats"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">SAM en cajas/año (vol 50+)</div>
+          <div style="position:relative;height:160px">
+            <canvas id="cajasChart" role="img" aria-label="Cajas equivalentes por región en el SAM">Cajas anuales SAM por región, Santiago 674.400, Valparaíso 172.800.</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TABLA PRECIOS ── -->
+  <div class="mb-28">
+    <div class="section-label">Lista de precios oficial · Junio 2026 · Precios netos sin IVA · Bodega Santiago</div>
+    <div class="table-wrap">
+      <table class="prices">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Formato</th>
+            <th>Vol 1–50 cajas</th>
+            <th>Vol 50+ cajas ★</th>
+          </tr>
+        </thead>
+        <tbody id="price-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── METODOLOGÍA ── -->
+  <div class="mb-28">
+    <div class="section-label">Metodología y fuentes</div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 28px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Cálculo TAM</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.7">
+            Población Chile × 90 kg pan/año × 30% pan con grasa × 5% grasa/kg pan × factor foodservice 1,35 ÷ 1.000 = toneladas.<br>
+            × precio promedio $2.450/kg = CLP.<br><br>
+            <span style="color:var(--muted)">Fuentes: INE Censo 2024, Indupan, Fechipan</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Cálculo SAM</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.7">
+            TAM × proporción de población en las 5 regiones con sucursal Asturias (69,8% según Censo 2024).<br><br>
+            9.831 panaderías y pastelerías formales en Chile.<br>
+            <span style="color:var(--muted)">Fuente: Estudio Xbrein 2025</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Cálculo SOM</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.7">
+            SAM × % de penetración estimado.<br><br>
+            <span style="color:#4dd4a8;font-weight:600">14% base</span> = share actual + 2pp gain.<br>
+            <span style="color:var(--muted)">10% conservador = defender posición actual.</span><br>
+            <span style="color:var(--muted)">18% ambicioso = ofensiva comercial.</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)">
+        Mix de pan: 70% marraqueta (sin grasa) · 20% hallulla (con grasa) · 10% especial/pastelería (con grasa) — Fuente: Chilepan.
+        Precio promedio ponderado de lista oficial Asturias Junio 2026, código S-16122021. Análisis elaborado por Reyes IA · Mayo 2026.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  Alimentos Asturias · Análisis de Potencial de Mercado · Junio 2026<br>
+  Construido con data pública: INE Censo 2024 · Indupan · Fechipan · Xbrein 2025 · Lista de precios oficial Asturias S-16122021<br>
+  Preparado por <strong>Felipe Reyes — Reyes IA</strong> · Mayo 2026
+</div>
+
+<script>
+const SAM=23524,PRECIO0=2450;
+const regions=[
+  {name:'Santiago (RM)',ton:13488,clp:33046,pct:57.3,color:'#2563c4'},
+  {name:'Valparaíso (V)',ton:3456,clp:8467,pct:14.7,color:'#1e56a0'},
+  {name:'Biobío (VIII)',ton:2940,clp:7203,pct:12.5,color:'#1a4a8a'},
+  {name:'La Araucanía (IX)',ton:1841,clp:4510,pct:7.8,color:'#C9A227'},
+  {name:"O'Higgins (VI)",ton:1799,clp:4408,pct:7.6,color:'#1D9E75'},
+];
+const products=[
+  {name:'Manteca Panadera 30% agua',pct:25,color:'#2563c4',precio:2070},
+  {name:'Margarina de Horneo Deleite 20% agua',pct:18,color:'#3880e8',precio:2710},
+  {name:'Manteca Deleite Refinada 0% agua',pct:15,color:'#1D9E75',precio:2740},
+  {name:'Grasa Refinada Deleite',pct:10,color:'#0f6e56',precio:2610},
+  {name:'Manteca Deleite Aroma Mantequilla',pct:8,color:'#C9A227',precio:2760},
+  {name:'Grasa Alborada',pct:6,color:'#a07a10',precio:2510},
+  {name:'Manteca Alborada 0% agua',pct:5,color:'#D85A30',precio:2660},
+  {name:'Doña Margarita (mix)',pct:5,color:'#aa4020',precio:2700},
+  {name:'Aceite Frito Más',pct:5,color:'#7a3a54',precio:1588},
+  {name:'Grasa/Manteca en bloque 20 kg',pct:3,color:'#4a5a7a',precio:2610},
+];
+const prices=[
+  {cod:'11944',prod:'Manteca Deleite Refinada 0% agua',marca:'Deleite',fmt:'Caja 20×1 kg',v1:'$2.790/u',v50:'$2.740/u'},
+  {cod:'11946',prod:'Manteca Deleite Aroma Mantequilla',marca:'Deleite',fmt:'Caja 20×1 kg',v1:'$2.810/u',v50:'$2.760/u'},
+  {cod:'12000',prod:'Manteca Panadera Refinada 30% agua',marca:'Deleite',fmt:'Caja 20×1 kg',v1:'$2.160/u',v50:'$2.090/u'},
+  {cod:'11098',prod:'Grasa Refinada Deleite 0% agua',marca:'Deleite',fmt:'Caja 20×1 kg',v1:'$2.660/u',v50:'$2.610/u'},
+  {cod:'12007',prod:'Margarina de Horneo Deleite 20% agua',marca:'Deleite',fmt:'Caja 20×1 kg',v1:'$2.760/u',v50:'$2.710/u'},
+  {cod:'15504',prod:'Manteca Panadera Alborada 30% agua',marca:'Alborada',fmt:'Caja 20×1 kg',v1:'$2.060/u',v50:'$2.010/u'},
+  {cod:'11092',prod:'Grasa Alborada 0% agua',marca:'Alborada',fmt:'Caja 20×1 kg',v1:'$2.560/u',v50:'$2.510/u'},
+  {cod:'15505',prod:'Manteca Alborada 0% agua',marca:'Alborada',fmt:'Caja 20×1 kg',v1:'$2.710/u',v50:'$2.660/u'},
+  {cod:'11090',prod:'Grasa Panadera Alborada 30% agua',marca:'Alborada',fmt:'Caja 20×1 kg',v1:'$2.090/u',v50:'$2.040/u'},
+  {cod:'11390',prod:'Grasa Panadera Doña Margarita 30% agua',marca:'Doña Margarita',fmt:'Caja 20×1 kg',v1:'$2.090/u',v50:'$2.040/u'},
+  {cod:'11392',prod:'Grasa Refinada Premium Doña Margarita',marca:'Doña Margarita',fmt:'Caja 20×1 kg',v1:'$2.560/u',v50:'$2.510/u'},
+  {cod:'15604',prod:'Manteca Panadera Doña Margarita 30% agua',marca:'Doña Margarita',fmt:'Caja 20×1 kg',v1:'$2.090/u',v50:'$2.040/u'},
+  {cod:'15605',prod:'Manteca Premium Doña Margarita',marca:'Doña Margarita',fmt:'Caja 20×1 kg',v1:'$2.760/u',v50:'$2.710/u'},
+  {cod:'14006',prod:'Aceite Frito Más',marca:'Frito Más',fmt:'2 bidones 10 lt',v1:'$31.750/bidón',v50:'$31.750/bidón'},
+  {cod:'11956',prod:'Grasa en Bloque',marca:'Asturias',fmt:'Caja 1×20 kg',v1:'$2.660/u',v50:'$2.610/u'},
+  {cod:'11945',prod:'Manteca Refinada Deleite en Bloque',marca:'Deleite',fmt:'Caja 1×20 kg',v1:'$2.660/u',v50:'$2.610/u'},
+];
+
+function bc(m){return m==='Deleite'?'bd':m==='Alborada'?'ba':m==='Doña Margarita'?'bm':m==='Frito Más'?'bf':'bx'}
+function fmm(n){return '$'+Math.round(n).toLocaleString('es-CL')+'MM'}
+function ftm(n){return Math.round(n).toLocaleString('es-CL')+' t'}
+
+function buildRegionBars(){
+  document.getElementById('reg-bars').innerHTML=regions.map(r=>`
+    <div class="rb-row">
+      <div class="rb-label">${r.name}</div>
+      <div class="rb-track">
+        <div class="rb-fill" style="width:${r.pct}%;background:${r.color}"><span>${r.pct}%</span></div>
+      </div>
+      <div class="rb-val">$${r.clp.toLocaleString('es-CL')}MM</div>
+    </div>`).join('');
+}
+
+function buildProdGrid(pen,precio){
+  document.getElementById('prod-grid').innerHTML=products.map(p=>{
+    const kg=Math.round(SAM*(pen/100)*1000*p.pct/100);
+    const rev=Math.round(kg*p.precio/1e6);
+    return `<div class="prod-row">
+      <div class="prod-dot" style="background:${p.color}"></div>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-pct">${p.pct}%</div>
+      <div class="prod-val">$${rev}MM</div>
+    </div>`;
+  }).join('');
+}
+
+function buildPriceTable(){
+  document.getElementById('price-tbody').innerHTML=prices.map((p,i)=>`
+    <tr style="background:${i%2?'rgba(255,255,255,0.015)':'transparent'}">
+      <td class="cod">${p.cod}</td>
+      <td style="font-weight:500">${p.prod}</td>
+      <td><span class="bbadge ${bc(p.marca)}">${p.marca}</span></td>
+      <td style="color:var(--muted)">${p.fmt}</td>
+      <td>${p.v1}</td>
+      <td class="pv50">${p.v50}</td>
+    </tr>`).join('');
+}
+
+function buildMapStats(){
+  document.getElementById('map-stats').innerHTML=regions.map(r=>`
+    <div class="ms-row">
+      <div class="ms-name">${r.name}</div>
+      <div class="ms-val">${ftm(r.ton)} · $${r.clp.toLocaleString('es-CL')}MM</div>
+    </div>`).join('');
+}
+
+let proyC=null,funnelC=null,cajasC=null;
+
+function updateProyChart(pen,precio,crecim){
+  const labels=['Año 1','Año 2','Año 3','Año 4','Año 5'];
+  const data=labels.map((_,i)=>{
+    const p=Math.min(pen+i*1.5,30);
+    const g=Math.pow(1+crecim/100,i);
+    return Math.round(SAM*g*(p/100)*1000*precio/1e6);
+  });
+  if(proyC){proyC.data.datasets[0].data=data;proyC.update();return;}
+  proyC=new Chart(document.getElementById('proyChart'),{
+    type:'line',
+    data:{labels,datasets:[{label:'Revenue CLP MM',data,
+      borderColor:'#2563c4',backgroundColor:'rgba(37,99,196,0.1)',fill:true,
+      tension:0.4,pointBackgroundColor:'#2563c4',pointBorderColor:'#fff',
+      pointBorderWidth:2,pointRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{color:'#7a8ba8',font:{size:11}},grid:{color:'rgba(255,255,255,0.04)'}},
+        y:{ticks:{color:'#7a8ba8',font:{size:11},callback:v=>'$'+v+'MM'},grid:{color:'rgba(255,255,255,0.05)'}}
+      }}
+  });
+}
+
+function buildFunnel(){
+  funnelC=new Chart(document.getElementById('funnelChart'),{
+    type:'bar',
+    data:{
+      labels:['TAM Chile','SAM (5 regiones)','SOM Año 1 base','SOM Año 5 base'],
+      datasets:[{data:[82518,57634,8068,13725],
+        backgroundColor:['rgba(74,90,122,0.5)','rgba(37,99,196,0.55)','rgba(29,158,117,0.65)','rgba(201,162,39,0.65)'],
+        borderColor:['#647890','#2563c4','#1D9E75','#C9A227'],
+        borderWidth:1,borderRadius:4}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{color:'#7a8ba8',font:{size:10},callback:v=>'$'+Math.round(v/1000)+'MM'},grid:{color:'rgba(255,255,255,0.04)'}},
+        y:{ticks:{color:'#7a8ba8',font:{size:10}},grid:{display:false}}
+      }}
+  });
+}
+
+function buildCajasChart(){
+  cajasC=new Chart(document.getElementById('cajasChart'),{
+    type:'bar',
+    data:{
+      labels:regions.map(r=>r.name.split(' ')[0]),
+      datasets:[{label:'Cajas/año (SAM)',
+        data:regions.map(r=>Math.round(r.ton*50)),
+        backgroundColor:regions.map(r=>r.color+'99'),
+        borderColor:regions.map(r=>r.color),borderWidth:1,borderRadius:3}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{color:'#7a8ba8',font:{size:10}},grid:{color:'rgba(255,255,255,0.03)'}},
+        y:{ticks:{color:'#7a8ba8',font:{size:10},callback:v=>Math.round(v/1000)+'K'},grid:{color:'rgba(255,255,255,0.04)'}}
+      }}
+  });
+}
+
+function calcSOM(pen,precio){return Math.round(SAM*(pen/100)*1000*precio/1e6);}
+function calcSOM5(pen,precio,crecim){return Math.round(SAM*Math.pow(1+crecim/100,4)*(pen/100)*1000*precio/1e6);}
+
+function update(){
+  const pen=+document.getElementById('sl-pen').value;
+  const precio=+document.getElementById('sl-precio').value;
+  const crecim=+document.getElementById('sl-crecim').value;
+
+  document.getElementById('sv-pen').textContent=pen+'%';
+  document.getElementById('sv-precio').textContent='$'+precio.toLocaleString('es-CL');
+  document.getElementById('sv-crecim').textContent=crecim+'%';
+
+  const s1=calcSOM(pen,precio);
+  const t1=Math.round(SAM*pen/100);
+  document.getElementById('kpi-s1').textContent='$'+(s1/1000).toFixed(1);
+  document.getElementById('kpi-s1b').textContent=t1.toLocaleString('es-CL')+' t · '+pen+'%';
+
+  const s5=calcSOM5(pen,precio,crecim);
+  const t5=Math.round(SAM*Math.pow(1+crecim/100,4)*pen/100);
+  document.getElementById('kpi-s5').textContent='$'+(s5/1000).toFixed(1);
+  document.getElementById('kpi-s5b').textContent=t5.toLocaleString('es-CL')+' t';
+
+  [10,14,18].forEach((p,i)=>{
+    const id=['scc','scb','sca'][i];
+    const v=calcSOM(p,precio);
+    const t=Math.round(SAM*p/100);
+    document.getElementById(id+'-clp').textContent=fmm(v);
+    document.getElementById(id+'-ton').textContent=t.toLocaleString('es-CL')+' t · '+p+'%';
+  });
+
+  const pill=document.getElementById('sc-pill');
+  pill.textContent=pen<=11?'Escenario Conservador':pen<=16?'Escenario Base':'Escenario Ambicioso';
+
+  buildProdGrid(pen,precio);
+  updateProyChart(pen,precio,crecim);
+}
+
+function setScenario(p){
+  document.getElementById('sl-pen').value=p;
+  ['sc-cons','sc-base','sc-amb'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById(p===10?'sc-cons':p===14?'sc-base':'sc-amb').classList.add('active');
+  update();
+}
+
+['sl-pen','sl-precio','sl-crecim'].forEach(id=>document.getElementById(id).addEventListener('input',update));
+
+buildRegionBars();
+buildMapStats();
+buildPriceTable();
+buildFunnel();
+buildCajasChart();
+update();
+</script>
+</body>
+</html>
