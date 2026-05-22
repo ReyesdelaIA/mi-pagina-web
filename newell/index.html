@@ -252,9 +252,11 @@
 <script>
   const THUMBS = {
     1: ['/pucobre/thumbs/s1_thumb1.jpg','/pucobre/thumbs/s1_thumb2.jpg','/pucobre/thumbs/s1_thumb3.jpg'],
+    2: ['/newell/thumbs/s2_thumb1.png','/newell/thumbs/s2_thumb2.png','/newell/thumbs/s2_thumb3.png'],
   };
   const CHALLENGES = {
     1: 'Abre Copilot y logra que memorice 5 temas relevantes de ti y tu rol dentro de Newell. Preséntate, cuéntale en qué área trabajas y qué tipo de tareas haces — y pídele que los recuerde para futuras conversaciones.',
+    2: '1. Abre una planilla Excel.<br>2. Activa la opción Copilot.<br>3. Cambia el modelo automático a Claude (Opus o Sonnet).<br>4. Pídele que te cree gráficos de tu planilla.',
   };
   const QUIZZES = {
     1: [
@@ -281,6 +283,32 @@
         opts: ['Es 100% precisa.', 'Sí, la mayoría de las veces alucina.', 'Puede alucinar principalmente cuando sale a buscar internet.', 'Si la tratas mal, eventualmente podría deducir mal las cosas.'],
         correct: 2,
         explain: 'La IA puede alucinar especialmente cuando hace búsquedas en internet, mezclando fuentes o inventando datos. No alucina la mayoría de las veces ni depende de cómo la tratas — pero sí hay que verificar lo que entrega, sobre todo con datos recientes.',
+      },
+    ],
+    2: [
+      {
+        q: '¿Qué se puede hacer con Copilot dentro de Word?',
+        opts: ['Redactar cosas desde cero.', 'Es solo para documentos ya existentes.', 'Te corrige la ortografía con inteligencia artificial.', 'Todo lo que quieras: documentos en blanco, documentos ya existentes, y muchas cosas más.'],
+        correct: 3,
+        explain: 'Copilot en Word es muy versátil — puedes partir desde cero, mejorar un documento existente, resumir, reescribir y mucho más. No está limitado solo a corrección ortográfica ni a documentos previos.',
+      },
+      {
+        q: '¿Es importante que el Excel tenga una estructura ordenada para que la IA lo trabaje bien?',
+        opts: ['No, da lo mismo, siempre y cuando ocupe un buen modelo y un buen razonamiento.', 'Sí, es fundamental que la planilla sea lo más estructurada posible. Evita celdas combinadas, imágenes incrustadas, entre otros.', 'Lo que más importa es el largo de la planilla para efectos de la IA.', 'Tratar de que tenga pocos datos para que la IA la entienda bien.'],
+        correct: 1,
+        explain: 'Una planilla ordenada, sin celdas combinadas ni imágenes incrustadas, permite que la IA entienda y procese los datos correctamente. La estructura es clave, independiente del modelo o la cantidad de datos.',
+      },
+      {
+        q: '¿Cómo puede ayudarte Copilot en Teams?',
+        opts: ['Me puede generar minutas automáticas de mis reuniones.', 'A darme ideas durante una reunión.', 'No existe Copilot en Teams.', 'Me puede hacer transcripciones de ciertas partes de mi reunión.'],
+        correct: 0,
+        explain: 'Copilot en Teams puede generar minutas automáticas al finalizar una reunión, resumiendo los puntos clave y los compromisos. Para eso necesita activar la transcripción al inicio de la reunión.',
+      },
+      {
+        q: '¿Puedo ocupar la IA de Copilot en mi SharePoint?',
+        opts: ['No, dado que son datos privados.', 'Solo si es que tengo poca información.', 'Por supuesto. Puedes integrar Copilot con tu SharePoint para que te ayude con esa información.', 'Sí, pero pocas veces al día, porque gasta muchos tokens.'],
+        correct: 2,
+        explain: 'Copilot puede integrarse con SharePoint para consultar, resumir y trabajar con la información almacenada ahí. No hay restricción de frecuencia ni de volumen de datos — esa es precisamente una de sus ventajas corporativas.',
       },
     ],
   };
