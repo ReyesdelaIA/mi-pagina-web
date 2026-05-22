@@ -544,7 +544,7 @@
     const mq = document.getElementById(`ms-${sesNum}-quiz`);
     if(bv && st[`${sesNum}-ver`]){ bv.classList.add('done'); bv.disabled=true; bv.textContent='Visto ✓'; }
     if(bd && st[`${sesNum}-des`]){ bd.classList.add('done'); bd.disabled=true; bd.textContent='Desafío listo ✓'; }
-    if(bq && st[`${sesNum}-quiz`]){ bq.classList.add('done'); bq.disabled=true; bq.textContent='Quiz completado ✓'; }
+    if(bq && st[`${sesNum}-quiz`]){ bq.classList.add('done'); bq.disabled=true; bq.textContent='Quiz ✅'; }
     if(mv) mv.className = 'ms' + (st[`${sesNum}-ver`]?' on':'');
     if(md) md.className = 'ms' + (st[`${sesNum}-des`]?' on':'');
     if(mq) mq.className = 'ms' + (st[`${sesNum}-quiz`]?' on':'');
