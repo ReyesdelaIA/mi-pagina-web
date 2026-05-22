@@ -38,16 +38,50 @@
     .stat-label { font-size: 11px; opacity: 0.65; margin-top: 2px; }
     .stat-div { width:1px; background:rgba(255,255,255,0.2); align-self:stretch; }
 
-    .stars-panel { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); margin: 16px 20px 0; padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .sp-title { font-size: 12px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 3px; }
-    .sp-sub { font-size: 11px; color: var(--muted); }
-    .sp-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-    .stars-row { display: flex; gap: 3px; }
-    .s-icon { font-size: 20px; filter: grayscale(1) opacity(.25); transition: filter .3s; }
-    .s-icon.on { filter: none; animation: pop .4s ease; }
+    /* Two-panel row */
+    .panels-row { display:flex; gap:10px; margin:16px 20px 0; }
+    .panel-half { flex:1; min-width:0; border-radius:var(--radius); overflow:hidden; }
+
+    /* Stars panel */
+    .panel-stars { background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%); border:1.5px solid #BFDBFE; padding:14px 14px 16px; display:flex; flex-direction:column; }
+    .sp-title { font-size:10px; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.6px; margin-bottom:2px; }
+    .sp-sub { font-size:9px; color:#5B85C0; margin-bottom:10px; }
+    .stars-row { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:10px; }
+    .s-icon { font-size:22px; transition:filter .3s,transform .2s; filter:grayscale(1) opacity(.2); }
+    .s-icon.on { filter:none; animation:pop .4s ease; }
     @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.45)} 100%{transform:scale(1)} }
-    .sp-count { font-size: 13px; font-weight: 700; color: var(--gold); }
-    .sp-max { font-size: 11px; color: var(--muted); }
+    .sp-bottom { display:flex; align-items:baseline; gap:4px; margin-top:auto; }
+    .sp-count { font-size:22px; font-weight:800; color:var(--navy); line-height:1; }
+    .sp-max { font-size:11px; color:#5B85C0; font-weight:600; }
+
+    /* Skills button panel */
+    .panel-skills { background:linear-gradient(135deg,#EFF6FF 0%,#E0EAFF 100%); border:1.5px solid #BFDBFE; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:filter .15s,transform .1s; user-select:none; padding:10px 8px 12px; }
+    .panel-skills:hover { filter:brightness(.97); }
+    .panel-skills:active { transform:scale(.98); }
+    .ps-label { font-size:11px; font-weight:800; color:var(--navy); text-align:center; margin-bottom:2px; line-height:1.3; }
+    .ps-count { font-size:10px; color:#5B85C0; font-weight:600; }
+
+    /* Skills modal */
+    .sk-overlay { display:none; position:fixed; inset:0; background:rgba(4,44,83,.65); z-index:500; align-items:center; justify-content:center; padding:20px; }
+    .sk-overlay.open { display:flex; }
+    .sk-sheet { background:white; border-radius:24px; width:100%; max-width:520px; max-height:82vh; overflow-y:auto; animation:mIn .25s ease; }
+    .sk-header { padding:18px 20px 14px; border-bottom:1px solid var(--border); position:sticky; top:0; background:white; z-index:1; }
+    .sk-htop { display:flex; align-items:center; justify-content:space-between; }
+    .sk-title { font-size:17px; font-weight:800; color:var(--navy); }
+    .sk-close { background:#f0f0ee; border:none; border-radius:50%; width:30px; height:30px; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .sk-sub { font-size:12px; color:var(--muted); margin-top:4px; }
+    .sk-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:18px 20px 36px; }
+    .sk { border-radius:14px; padding:16px 6px 12px; display:flex; flex-direction:column; align-items:center; gap:7px; text-align:center; position:relative; transition:transform .2s,box-shadow .2s; }
+    .sk.on { box-shadow:0 4px 16px rgba(0,0,0,.14); }
+    .sk.on:hover { transform:translateY(-2px); }
+    .sk.off { background:#f0f0ee !important; filter:grayscale(1); opacity:.4; }
+    .sk-icon { font-size:26px; line-height:1; }
+    .sk-name { font-size:9px; font-weight:700; line-height:1.3; }
+    .sk.on  .sk-name { color:white; }
+    .sk.off .sk-name { color:#aaa; }
+    .sk-lock { position:absolute; top:6px; right:7px; font-size:9px; opacity:.6; }
+    @keyframes skPop { 0%{transform:scale(.6);opacity:0} 65%{transform:scale(1.12)} 100%{transform:scale(1);opacity:1} }
+    .sk.pop { animation:skPop .4s ease forwards; }
 
     .prog-wrap { max-width: 680px; margin: 0 auto; padding: 16px 20px 0; }
     .prog-head { display: flex; justify-content: space-between; margin-bottom: 8px; }
@@ -148,6 +182,7 @@
 
     .loading { text-align:center; padding:40px 20px; color:var(--muted); font-size:14px; }
 
+
     footer { text-align:center; padding:24px 20px 32px; font-size:11px; color:#aaa; }
     footer a { color:var(--navy-light); text-decoration:none; font-weight:500; }
 
@@ -190,14 +225,77 @@
   </div>
 </div>
 
-<div class="stars-panel">
-  <div class="sp-left">
-    <div class="sp-title">Tu progreso personal</div>
-    <div class="sp-sub">Cada sesión vista, desafío y quiz suma ⭐</div>
-  </div>
-  <div class="sp-right">
+<div class="panels-row">
+  <div class="panel-half panel-stars">
+    <div class="sp-title">Tu progreso</div>
+    <div class="sp-sub">Vista + desafío + quiz = ⭐</div>
     <div class="stars-row" id="stars-big"></div>
-    <div><span class="sp-count" id="stars-n">0</span> <span class="sp-max" id="stars-max">/ — ⭐</span></div>
+    <div class="sp-bottom">
+      <span class="sp-count" id="stars-n">0</span>
+      <span class="sp-max" id="stars-max">/ — ⭐</span>
+    </div>
+  </div>
+  <div class="panel-half panel-skills" onclick="openSkills()">
+    <svg width="100%" viewBox="0 0 130 108" style="max-width:130px;display:block;margin:0 auto 4px;">
+      <defs>
+        <linearGradient id="hexG" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#60A5FA"/>
+          <stop offset="100%" stop-color="#1D4ED8"/>
+        </linearGradient>
+        <linearGradient id="hexGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#BFDBFE" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#BFDBFE" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1D4ED8" flood-opacity="0.35"/>
+        </filter>
+      </defs>
+      <!-- Background glow -->
+      <circle cx="65" cy="54" r="50" fill="#EEF5FF" opacity="0.7"/>
+      <!-- Dashed orbit -->
+      <circle cx="65" cy="54" r="43" fill="none" stroke="#93C5FD" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <!-- Sparkles -->
+      <text x="108" y="18" font-size="8" fill="#F59E0B" opacity="0.9">✦</text>
+      <text x="16" y="20" font-size="6" fill="#38BDF8" opacity="0.8">✦</text>
+      <text x="114" y="80" font-size="6" fill="#F59E0B" opacity="0.7">✦</text>
+      <text x="8" y="78" font-size="5" fill="#38BDF8" opacity="0.6">✦</text>
+      <!-- Outer hex ring -->
+      <polygon points="65,18 92,34 92,66 65,82 38,66 38,34" fill="white" opacity="0.6" filter="url(#sh)"/>
+      <!-- Inner hex fill -->
+      <polygon points="65,21 89,36 89,64 65,79 41,64 41,36" fill="url(#hexG)" filter="url(#sh)"/>
+      <!-- Hex shine -->
+      <polygon points="65,21 89,36 89,46 65,52 41,46 41,36" fill="url(#hexGlow)" opacity="0.5"/>
+      <!-- Inner border -->
+      <polygon points="65,24 87,38 87,62 65,76 43,62 43,38" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+      <!-- Brain -->
+      <text x="65" y="55" text-anchor="middle" dominant-baseline="middle" font-size="26">🧠</text>
+      <!-- Node: Top (Trophy) -->
+      <circle cx="65" cy="11" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="65" y="11" text-anchor="middle" dominant-baseline="middle" font-size="12">🏆</text>
+      <circle cx="72" cy="19" r="5" fill="#22C55E"/><text x="72" y="19" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
+      <!-- Node: Top-right (Sparkle) -->
+      <circle cx="101" cy="32" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="101" y="32" text-anchor="middle" dominant-baseline="middle" font-size="12">✨</text>
+      <circle cx="108" cy="40" r="5" fill="#22C55E"/><text x="108" y="40" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
+      <!-- Node: Bottom-right (Chart) -->
+      <circle cx="101" cy="76" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="101" y="76" text-anchor="middle" dominant-baseline="middle" font-size="12">📊</text>
+      <circle cx="108" cy="84" r="5" fill="#22C55E"/><text x="108" y="84" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
+      <!-- Node: Bottom (Locked) -->
+      <circle cx="65" cy="97" r="11" fill="#EEF0F3" stroke="#CBD5E1" stroke-width="1.5"/>
+      <text x="65" y="97" text-anchor="middle" dominant-baseline="middle" font-size="12">💡</text>
+      <circle cx="72" cy="105" r="5" fill="#94A3B8"/><text x="72" y="105" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">🔒</text>
+      <!-- Node: Bottom-left (Doc) -->
+      <circle cx="29" cy="76" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="29" y="76" text-anchor="middle" dominant-baseline="middle" font-size="12">📋</text>
+      <circle cx="36" cy="84" r="5" fill="#22C55E"/><text x="36" y="84" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
+      <!-- Node: Top-left (Chat) -->
+      <circle cx="29" cy="32" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="29" y="32" text-anchor="middle" dominant-baseline="middle" font-size="12">💬</text>
+      <circle cx="36" cy="40" r="5" fill="#22C55E"/><text x="36" y="40" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
+    </svg>
+    <div class="ps-label">Centro de Habilidades</div>
+    <div class="ps-count" id="ps-count">0 / 32 desbloqueadas</div>
   </div>
 </div>
 
@@ -213,6 +311,20 @@
   <div class="sec-title">Resúmenes ejecutivos</div>
   <div class="sess-list" id="sess-list">
     <div class="loading">Cargando sesiones…</div>
+  </div>
+</div>
+
+<!-- Skills modal -->
+<div class="sk-overlay" id="sk-overlay" onclick="closeSkills(event)">
+  <div class="sk-sheet">
+    <div class="sk-header">
+      <div class="sk-htop">
+        <div class="sk-title">🧠 Habilidades de IA desbloqueadas</div>
+        <button class="sk-close" onclick="closeSkills()">✕</button>
+      </div>
+      <div class="sk-sub" id="sk-sub">0 de 32 habilidades desbloqueadas</div>
+    </div>
+    <div class="sk-grid" id="sk-grid"></div>
   </div>
 </div>
 
@@ -313,6 +425,49 @@
     ],
   };
 
+  const SKILLS = [
+    // Sesión 01
+    { icon:'🎤', name:'Dictar a la IA',            session:1, color:'#7C3AED' },
+    { icon:'🧠', name:'Memorización IA',           session:1, color:'#6D28D9' },
+    { icon:'✍️', name:'Redacción Avanzada',        session:1, color:'#5B21B6' },
+    { icon:'🔍', name:'Investigador IA',           session:1, color:'#4338CA' },
+    // Sesión 02
+    { icon:'📝', name:'Copilot en Word',           session:2, color:'#0891B2' },
+    { icon:'📊', name:'Copilot en Excel',          session:2, color:'#0E7490' },
+    { icon:'📑', name:'Copilot en PowerPoint',     session:2, color:'#0D9488' },
+    { icon:'✉️', name:'Copilot en Outlook',        session:2, color:'#0F766E' },
+    // Sesión 03
+    { icon:'🤔', name:'Deep Thinking',             session:3, color:'#059669' },
+    { icon:'📓', name:'Manejo de NotebookLM',      session:3, color:'#047857' },
+    { icon:'🤖', name:'Agentes IA · Básico',       session:3, color:'#065F46' },
+    { icon:'🎬', name:'Agentes Multimedia',        session:3, color:'#14532D' },
+    // Sesión 04
+    { icon:'🖼️', name:'Generar Imágenes',         session:4, color:'#D97706' },
+    { icon:'🎥', name:'Video con IA',              session:4, color:'#B45309' },
+    { icon:'🖥️', name:'Presentaciones Pro',       session:4, color:'#EA580C' },
+    { icon:'🎨', name:'Diseño Visual IA',          session:4, color:'#92400E' },
+    // Sesión 05
+    { icon:'💬', name:'Claude Chat',               session:5, color:'#DC2626' },
+    { icon:'📁', name:'Proyectos Claude',          session:5, color:'#B91C1C' },
+    { icon:'🎭', name:'Artefactos Claude',         session:5, color:'#991B1B' },
+    { icon:'🔌', name:'Claude en Microsoft',       session:5, color:'#E11D48' },
+    // Sesión 06
+    { icon:'🤝', name:'Claude Cowork',             session:6, color:'#DB2777' },
+    { icon:'👨‍💻', name:'Claude Code',            session:6, color:'#BE185D' },
+    { icon:'✨', name:'Artefactos en Vivo',        session:6, color:'#9D174D' },
+    { icon:'🦾', name:'Agentes IA · Intermedio',  session:6, color:'#9333EA' },
+    // Sesión 07
+    { icon:'🔗', name:'Conectores IA',             session:7, color:'#0EA5E9' },
+    { icon:'🔄', name:'Automatizar Tareas',        session:7, color:'#0284C7' },
+    { icon:'🏠', name:'Modelos IA Local',          session:7, color:'#0369A1' },
+    { icon:'🚀', name:'Agentes IA · Pro',          session:7, color:'#075985' },
+    // Sesión 08
+    { icon:'📈', name:'Analizar Datos',            session:8, color:'#CA8A04' },
+    { icon:'🧠', name:'Prompts Avanzados',         session:8, color:'#A16207' },
+    { icon:'🛡️', name:'Control de Alucinaciones', session:8, color:'#854D0E' },
+    { icon:'🏆', name:'Master IA',                session:8, color:'#78350F' },
+  ];
+
   const SUPABASE_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
   const COMPANY   = 'newell';
@@ -330,13 +485,45 @@
 
   function loadStars(){ try{ st = JSON.parse(localStorage.getItem(STARS_KEY))||{}; }catch{ st={}; } }
   function saveStars(){ localStorage.setItem(STARS_KEY, JSON.stringify(st)); }
+
+  function renderSkills(animateSession){
+    const grid = document.getElementById('sk-grid');
+    if(!grid) return;
+    let count = 0;
+    grid.innerHTML = SKILLS.map(sk => {
+      const on = !!st[`${sk.session}-ver`];
+      if(on) count++;
+      const pop = (animateSession === sk.session && on) ? ' pop' : '';
+      const style = on ? `background:${sk.color};` : '';
+      return `<div class="sk ${on?'on':'off'}${pop}" style="${style}">
+        ${!on ? '<span class="sk-lock">🔒</span>' : ''}
+        <span class="sk-icon">${sk.icon}</span>
+        <span class="sk-name">${sk.name}</span>
+      </div>`;
+    }).join('');
+    const sub = `${count} de ${SKILLS.length} habilidades desbloqueadas`;
+    document.getElementById('sk-sub').textContent = sub;
+    document.getElementById('ps-count').textContent = `${count} / ${SKILLS.length} desbloqueadas`;
+  }
+
+  function openSkills(){
+    renderSkills();
+    document.getElementById('sk-overlay').classList.add('open');
+  }
+
+  function closeSkills(e){
+    if(e && e.target !== document.getElementById('sk-overlay')) return;
+    document.getElementById('sk-overlay').classList.remove('open');
+  }
   function countStars(){ return Object.values(st).filter(Boolean).length; }
 
   function renderStarPanel(maxStars){
     const n = countStars();
     const row = document.getElementById('stars-big');
     row.innerHTML = '';
-    for(let i=1; i<=maxStars; i++){
+    // Show all possible stars so user sees how many remain locked
+    const total = maxStars || 24; // show all 24 potential (8 sessions × 3)
+    for(let i=1; i<=total; i++){
       const s = document.createElement('span');
       s.className = 's-icon' + (i<=n?' on':'');
       s.textContent = '⭐';
@@ -344,7 +531,8 @@
     }
     document.getElementById('stars-n').textContent = n;
     document.getElementById('hero-stars').textContent = n;
-    document.getElementById('stars-max').textContent = `/ ${maxStars} ⭐`;
+    document.getElementById('stars-max').textContent = `/ ${total} ⭐`;
+    renderSkills();
   }
 
   function updateButtonStates(sesNum){
@@ -424,6 +612,7 @@
 
   async function init(){
     loadStars();
+    renderSkills();
 
     const res = await fetch(
       `${SUPABASE_URL}/rest/v1/company_sessions?company_slug=eq.${COMPANY}&order=session_number.asc`,
@@ -465,11 +654,14 @@
     if(!pending) return;
     st[`${pending.sesNum}-${pending.tipo}`] = true;
     saveStars();
+    const sesNum = pending.sesNum;
+    const tipo = pending.tipo;
     closeModal();
-    updateButtonStates(pending.sesNum);
+    updateButtonStates(sesNum);
     const maxStars = activeSessions * 3;
     renderStarPanel(maxStars);
-    showToast(pending.tipo === 'ver' ? '⭐ ¡Sumaste una estrella por ver la sesión!' : '⭐ ¡Desafío completado! Una estrella más.');
+    if(tipo === 'ver') renderSkills(sesNum);
+    showToast(tipo === 'ver' ? '⭐ ¡Sumaste una estrella por ver la sesión!' : '⭐ ¡Desafío completado! Una estrella más.');
     pending = null;
   }
 
