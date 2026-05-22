@@ -137,6 +137,8 @@
     .hbtn.quiz-b { background: white; border-color: #6B46C1; color: #6B46C1; }
     .hbtn.quiz-b.done { background: #6B46C1; color: white; border-color: #6B46C1; }
     .hbtn:disabled { opacity: .65; cursor: default; }
+    .dominada-banner { display:none; align-items:center; gap:8px; background:linear-gradient(135deg,#FFFBEB,#FEF3C7); border-top:1px solid #FCD34D; padding:10px 16px; font-size:11px; font-weight:700; color:#78350F; }
+    .dominada-banner.show { display:flex; }
 
     /* Quiz modal */
     .quiz-overlay { display:none; position:fixed; inset:0; background:rgba(4,44,83,.7); z-index:300; align-items:center; justify-content:center; padding:20px; }
@@ -222,7 +224,7 @@
 <div class="panels-row">
   <div class="panel-half panel-stars">
     <div class="sp-title">Tu progreso</div>
-    <div class="sp-sub">Desafío + quiz = ⭐</div>
+    <div class="sp-sub">Completa los 3 pasos y gana ⭐</div>
     <div class="stars-row" id="stars-big"></div>
     <div class="sp-bottom">
       <span class="sp-count" id="stars-n">0</span>
@@ -518,14 +520,23 @@
 
   function loadStars(){ try{ st = JSON.parse(localStorage.getItem(STARS_KEY))||{}; }catch{ st={}; } }
   function saveStars(){ localStorage.setItem(STARS_KEY, JSON.stringify(st)); }
-  function countStars(){ return Object.values(st).filter(Boolean).length; }
+
+  function isComplete(sesNum){
+    return !!(st[`${sesNum}-quiz`] && st[`${sesNum}-des`] && st[`${sesNum}-ver`]);
+  }
+
+  function countStars(){
+    let n = 0;
+    for(let i=1; i<=8; i++) if(isComplete(i)) n++;
+    return n;
+  }
 
   function renderSkills(animateSession){
     const grid = document.getElementById('sk-grid');
     if(!grid) return;
     let count = 0;
     grid.innerHTML = SKILLS.map(sk => {
-      const on = !!st[`${sk.session}-des`];
+      const on = isComplete(sk.session);
       if(on) count++;
       const pop = (animateSession === sk.session && on) ? ' pop' : '';
       const style = on ? `background:${sk.color};` : '';
@@ -550,12 +561,11 @@
     document.getElementById('sk-overlay').classList.remove('open');
   }
 
-  function renderStarPanel(maxStars){
+  function renderStarPanel(){
     const n = countStars();
     const row = document.getElementById('stars-big');
     row.innerHTML = '';
-    const total = maxStars || 16;
-    for(let i=1; i<=total; i++){
+    for(let i=1; i<=8; i++){
       const s = document.createElement('span');
       s.className = 's-icon' + (i<=n?' on':'');
       s.textContent = '⭐';
@@ -563,19 +573,25 @@
     }
     document.getElementById('stars-n').textContent = n;
     document.getElementById('hero-stars').textContent = n;
-    document.getElementById('stars-max').textContent = `/ ${total} ⭐`;
+    document.getElementById('stars-max').textContent = '/ 8 sesiones';
     renderSkills();
   }
 
   function updateButtonStates(sesNum){
-    const bd = document.getElementById(`bd-${sesNum}`);
     const bq = document.getElementById(`bq-${sesNum}`);
-    const md = document.getElementById(`ms-${sesNum}-des`);
+    const bd = document.getElementById(`bd-${sesNum}`);
+    const bv = document.getElementById(`bv-${sesNum}`);
     const mq = document.getElementById(`ms-${sesNum}-quiz`);
-    if(bd && st[`${sesNum}-des`]){ bd.classList.add('done'); bd.disabled=true; bd.textContent='Desafío ✅'; }
+    const md = document.getElementById(`ms-${sesNum}-des`);
+    const mv = document.getElementById(`ms-${sesNum}-ver`);
     if(bq && st[`${sesNum}-quiz`]){ bq.classList.add('done'); bq.disabled=true; bq.textContent='Quiz ✅'; }
-    if(md) md.className = 'ms' + (st[`${sesNum}-des`]?' on':'');
+    if(bd && st[`${sesNum}-des`]){ bd.classList.add('done'); bd.disabled=true; bd.textContent='Desafío ✅'; }
+    if(bv && st[`${sesNum}-ver`]){ bv.classList.add('done'); bv.disabled=true; bv.textContent='Resumen ✅'; }
     if(mq) mq.className = 'ms' + (st[`${sesNum}-quiz`]?' on':'');
+    if(md) md.className = 'ms' + (st[`${sesNum}-des`]?' on':'');
+    if(mv) mv.className = 'ms' + (st[`${sesNum}-ver`]?' on':'');
+    const dom = document.getElementById(`dom-${sesNum}`);
+    if(dom && isComplete(sesNum)) dom.classList.add('show');
   }
 
   function buildCard(s){
@@ -619,8 +635,9 @@
         <div class="saction">
           ${actionHTML}
           <div class="mini-stars">
-            <span class="ms" id="ms-${n}-des">⭐</span>
             ${hasQuiz ? `<span class="ms" id="ms-${n}-quiz">⭐</span>` : ''}
+            <span class="ms" id="ms-${n}-des">⭐</span>
+            <span class="ms" id="ms-${n}-ver">⭐</span>
           </div>
         </div>
       </div>
@@ -629,10 +646,12 @@
         <div class="des-head"><span class="des-label">Desafío de la sesión</span></div>
         <div class="des-text">${challengeText}</div>
         <div class="honor-row">
-          <button class="hbtn des-b" id="bd-${n}" onclick="honor(${n},'des')">Marcar desafío</button>
           ${hasQuiz ? `<button class="hbtn quiz-b" id="bq-${n}" onclick="startQuiz(${n})">Quiz ▶</button>` : ''}
+          <button class="hbtn des-b" id="bd-${n}" onclick="honor(${n},'des')">Desafío</button>
+          <button class="hbtn ver-b" id="bv-${n}" onclick="honor(${n},'ver')">Resumen visto</button>
         </div>
       </div>
+      <div class="dominada-banner" id="dom-${n}">⭐ ¡Sesión dominada · Habilidades desbloqueadas!</div>
     </div>`;
   }
 
@@ -649,7 +668,6 @@
     activeSessions = sessions.filter(s => s.status !== 'locked').length;
     const doneCount = sessions.filter(s => s.status === 'done').length;
     const pct = Math.round((doneCount / sessions.length) * 100);
-    const maxStars = sessions.filter(s => s.status !== 'locked').reduce((acc, s) => acc + (QUIZZES[s.session_number] ? 2 : 1), 0);
 
     document.getElementById('stat-activas').textContent = activeSessions;
     document.getElementById('prog-pct').textContent = pct + '%';
@@ -659,15 +677,21 @@
     list.innerHTML = sessions.map(buildCard).join('');
 
     sessions.filter(s => s.status !== 'locked').forEach(s => updateButtonStates(s.session_number));
-    renderStarPanel(maxStars);
+    renderStarPanel();
   }
 
   function honor(sesNum, tipo){
     if(st[`${sesNum}-${tipo}`]) return;
     pending = {sesNum, tipo};
-    document.getElementById('m-emoji').textContent = '🎯';
-    document.getElementById('m-title').textContent = '¿Completaste el desafío?';
-    document.getElementById('m-text').textContent  = 'Declara que completaste el desafío a conciencia y aplicaste lo aprendido. Tu palabra es lo que cuenta.';
+    if(tipo === 'des'){
+      document.getElementById('m-emoji').textContent = '🎯';
+      document.getElementById('m-title').textContent = '¿Completaste el desafío?';
+      document.getElementById('m-text').textContent  = 'Declara que completaste el desafío a conciencia y aplicaste lo aprendido. Tu palabra es lo que cuenta.';
+    } else {
+      document.getElementById('m-emoji').textContent = '📖';
+      document.getElementById('m-title').textContent = '¿Viste el resumen ejecutivo?';
+      document.getElementById('m-text').textContent  = 'Confirma que revisaste el resumen de la sesión. Repasar consolida el aprendizaje.';
+    }
     document.getElementById('m-confirm').onclick = confirmHonor;
     document.getElementById('overlay').classList.add('open');
   }
@@ -680,9 +704,13 @@
     saveStars();
     closeModal();
     updateButtonStates(sesNum);
-    renderStarPanel(activeSessions * 2);
-    if(tipo === 'des') renderSkills(sesNum);
-    showToast('⭐ ¡Desafío completado! Una estrella más.');
+    renderStarPanel();
+    if(isComplete(sesNum)){
+      renderSkills(sesNum);
+      showToast('⭐ ¡Sesión dominada! Habilidades desbloqueadas.');
+    } else {
+      showToast(tipo === 'des' ? '🎯 ¡Desafío completado!' : '📖 ¡Resumen marcado como visto!');
+    }
     pending = null;
   }
 
@@ -762,8 +790,13 @@
     st[`${quizSesNum}-quiz`] = true;
     saveStars();
     updateButtonStates(quizSesNum);
-    renderStarPanel(activeSessions * 2);
-    showToast('⭐ ¡Quiz completado! Una estrella más para ti.');
+    renderStarPanel();
+    if(isComplete(quizSesNum)){
+      renderSkills(quizSesNum);
+      showToast('⭐ ¡Sesión dominada! Habilidades desbloqueadas.');
+    } else {
+      showToast('🧠 ¡Quiz completado! Sigue con el desafío y el resumen.');
+    }
   }
 
   function closeQuiz(){
