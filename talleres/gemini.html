@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Pack Google Gemini · 3 Talleres · Reyes IA</title>
+  <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1a2537; --gold: #c09b5a; --bg: #f0f6ff;
+      --text: #1a1a1a; --muted: #6b7280; --border: #e5e7eb;
+      --accent: #1A73E8;
+    }
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--text); background: #fff; }
+
+    .header { background: var(--navy); padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(0,0,0,.25); }
+    .logo img { height: 44px; object-fit: contain; }
+    .back-btn { background: rgba(255,255,255,.12); color: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; text-decoration: none; transition: all .2s; border: 1px solid rgba(255,255,255,.2); }
+    .back-btn:hover { background: rgba(255,255,255,.2); }
+
+    .hero { background: linear-gradient(135deg, #0D47A1 0%, #1A73E8 100%); color: #fff; padding: 56px 24px 48px; }
+    .hero-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; gap: 32px; justify-content: space-between; }
+    .dp-mini { flex-shrink: 0; text-align: center; transform: rotate(-3deg); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 20px; padding: 14px 18px 12px; transition: transform .3s; }
+    .dp-mini:hover { transform: rotate(-1deg) scale(1.04); }
+    .dp-mini-label { font-family: 'Caveat', cursive; font-size: 15px; color: rgba(255,255,255,.6); line-height: 1.3; }
+    .dp-mini-name { font-family: 'Caveat', cursive; font-size: 24px; font-weight: 700; color: var(--gold); line-height: 1.1; margin: 3px 0 10px; }
+    .dp-mini-icon { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,.2); display: block; margin: 0 auto; }
+    .hero-icon { width: 72px; height: 72px; border-radius: 20px; background: linear-gradient(135deg, #1557B0, #4285F4); display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
+    .hero-title { font-size: 2.4rem; font-weight: 800; line-height: 1.1; margin-bottom: 8px; }
+    .hero-sub { font-size: 15px; opacity: .85; line-height: 1.5; }
+
+    .main-wrap { max-width: 960px; margin: 0 auto; padding: 56px 24px; }
+    .content-grid { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: start; }
+
+    .ws-track { display: flex; flex-direction: column; }
+    .ws-step { display: flex; gap: 20px; }
+    .ws-col-l { display: flex; flex-direction: column; align-items: center; }
+    .ws-num { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: #fff; flex-shrink: 0; background: var(--accent); }
+    .ws-line { flex: 1; width: 2px; background: var(--border); margin: 5px 0; min-height: 28px; }
+    .ws-step:last-child .ws-line { display: none; }
+    .ws-content { padding-bottom: 36px; flex: 1; padding-top: 4px; }
+    .ws-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 9px; }
+    .ws-tag { display: inline-flex; align-items: center; border-radius: 20px; padding: 3px 11px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; background: #f3f4f6; color: #374151; }
+    .ws-tag.hands-on { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+    .ws-title { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 9px; line-height: 1.3; }
+    .ws-desc { font-size: 14px; color: #374151; line-height: 1.65; }
+    .ws-topics { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; margin-bottom: 14px; }
+    .wt { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: #4B5563; line-height: 1.45; padding: 3px 0; }
+    .wt-dot { width: 6px; height: 6px; border-radius: 50%; background: #D1D5DB; flex-shrink: 0; margin-top: 5px; }
+    @media(max-width:600px){ .ws-topics { grid-template-columns: 1fr; } }
+    .ws-chips { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .ws-chip { background: #f0f6ff; border: 1px solid #BFDBFE; border-radius: 20px; padding: 4px 11px; font-size: 12px; font-weight: 600; color: #374151; }
+
+    .price-card { background: #fff; border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; position: sticky; top: 84px; box-shadow: 0 4px 24px rgba(0,0,0,.07); }
+    .pc-accent { height: 5px; background: var(--accent); }
+    .pc-top { padding: 20px 22px 0; }
+    .pc-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 6px; }
+    .pc-breakdown { display: flex; align-items: baseline; gap: 6px; margin-bottom: 3px; }
+    .pc-price { font-size: 42px; font-weight: 800; line-height: 1; color: var(--accent); }
+    .pc-uf { font-size: 16px; font-weight: 700; color: var(--accent); }
+    .pc-per-taller { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .pc-note { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .pc-detail { font-size: 12px; color: #374151; background: #f0f6ff; border-radius: 10px; padding: 9px 12px; margin-bottom: 18px; line-height: 1.55; }
+    .pc-includes { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 20px; padding: 0 2px; }
+    .pc-includes li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: #374151; line-height: 1.4; }
+    .pc-check { font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 1px; color: var(--accent); }
+    .pc-cta { display: block; text-align: center; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 14px; text-decoration: none; color: #fff; transition: all .2s; border: none; cursor: pointer; font-family: inherit; width: 100%; background: var(--accent); }
+    .pc-cta:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(26,115,232,.35); }
+    .pc-bottom { padding: 14px 22px 18px; border-top: 1px solid var(--border); }
+    .pc-footer-txt { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.55; }
+
+    .contact-section { padding: 64px 24px; background: #f0f6ff; }
+    .contact-inner { max-width: 600px; margin: 0 auto; }
+    .contact-title { font-size: 1.8rem; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 8px; }
+    .contact-sub { font-size: 14px; color: var(--muted); text-align: center; margin-bottom: 32px; line-height: 1.55; }
+    .contact-form-box { background: #fff; border-radius: 20px; padding: 32px; border: 1.5px solid #BFDBFE; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .form-group label { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .form-group input, .form-group select, .form-group textarea { border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 14px; font-size: 14px; font-family: inherit; color: var(--text); background: #fff; transition: border-color .2s; outline: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-submit { background: var(--accent); color: #fff; padding: 14px; border-radius: 12px; border: none; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; width: 100%; transition: all .2s; }
+    .form-submit:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .form-success { display: none; text-align: center; padding: 24px; }
+    .form-success.show { display: block; }
+    .form-success-icon { font-size: 48px; margin-bottom: 12px; }
+    .form-success h3 { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .form-success p { font-size: 14px; color: var(--muted); }
+
+    .footer { background: var(--navy); color: #fff; text-align: center; padding: 28px 24px; font-size: 13px; }
+    .footer a { color: var(--gold); text-decoration: none; margin: 0 6px; }
+
+    @media(max-width: 768px){
+      .hero-inner { flex-direction: column; align-items: flex-start; }
+      .hero-title { font-size: 1.8rem; }
+      .content-grid { grid-template-columns: 1fr; }
+      .price-card { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <a href="../talleres-practicos-ia.html" class="logo"><img src="../logo reyes IA horizontal blanco.png" alt="Reyes IA"></a>
+  <a href="../talleres-practicos-ia.html" class="back-btn">← Volver a talleres</a>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-icon">
+      <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+        <path d="M21 2C21 2 24.5 15.5 30 21C24.5 26.5 21 40 21 40C21 40 17.5 26.5 12 21C17.5 15.5 21 2 21 2Z" fill="white"/>
+        <path d="M2 21C2 21 15.5 17.5 21 12C26.5 17.5 40 21 40 21C40 21 26.5 24.5 21 30C15.5 24.5 2 21 2 21Z" fill="white" opacity="0.75"/>
+      </svg>
+    </div>
+    <div>
+      <div class="hero-badge">Pack de 3 talleres</div>
+      <div class="hero-title">Google Gemini</div>
+      <div class="hero-sub">Para equipos con Google Workspace · Gmail, Docs, Sheets, Slides y Meet</div>
+    </div>
+    <div class="dp-mini">
+      <div class="dp-mini-label">talleres presenciales</div>
+      <div class="dp-mini-label">dictados por</div>
+      <div class="dp-mini-name">Felipe Reyes</div>
+      <img src="../icon-felipe.png" alt="Felipe Reyes" class="dp-mini-icon">
+    </div>
+  </div>
+</section>
+
+<div style="background:#f8fafc; padding: 32px 24px 0;">
+  <div style="max-width:960px; margin:0 auto;">
+    <img src="img-talleres-realizados.png" alt="Talleres realizados" style="width:100%; border-radius:16px; display:block; box-shadow:0 4px 24px rgba(0,0,0,.1);">
+    <p style="text-align:right; font-size:13px; font-weight:600; color:#6b7280; margin-top:10px;">+ 150 empresas capacitadas en IA aplicada</p>
+  </div>
+</div>
+
+<div class="main-wrap">
+  <div class="content-grid">
+    <div class="ws-track">
+      <div class="ws-step">
+        <div class="ws-col-l">
+          <div class="ws-num">1</div>
+          <div class="ws-line"></div>
+        </div>
+        <div class="ws-content">
+          <div class="ws-tags">
+            <span class="ws-tag">Taller 1 · Introductorio</span>
+          </div>
+          <div class="ws-title">Introducción a la IA + Tour por Gemini</div>
+          <div class="ws-topics">
+            <span class="wt"><span class="wt-dot"></span>Intro a la Inteligencia Artificial</span>
+            <span class="wt"><span class="wt-dot"></span>3 verdades sobre uso de IA</span>
+            <span class="wt"><span class="wt-dot"></span>Intro al mundo LLM</span>
+            <span class="wt"><span class="wt-dot"></span>Fundamentos del prompt</span>
+            <span class="wt"><span class="wt-dot"></span>Ejemplos de uso cotidiano</span>
+            <span class="wt"><span class="wt-dot"></span>Intro a Gemini</span>
+            <span class="wt"><span class="wt-dot"></span>4 esferas IA generativa</span>
+            <span class="wt"><span class="wt-dot"></span>Concepto "memorización"</span>
+            <span class="wt"><span class="wt-dot"></span>Herramienta dictado</span>
+            <span class="wt"><span class="wt-dot"></span>Confidencialidad</span>
+            <span class="wt"><span class="wt-dot"></span>Regulaciones actuales IA</span>
+            <span class="wt"><span class="wt-dot"></span>Uso responsable</span>
+            <span class="wt"><span class="wt-dot"></span>IA en los próximos meses (años)</span>
+          </div>
+          <div class="ws-chips">
+            <span class="ws-chip">⏱ 1.5 hrs</span>
+            <span class="ws-chip">Presencial</span>
+          </div>
+        </div>
+      </div>
+      <div class="ws-step">
+        <div class="ws-col-l">
+          <div class="ws-num">2</div>
+          <div class="ws-line"></div>
+        </div>
+        <div class="ws-content">
+          <div class="ws-tags">
+            <span class="ws-tag">Taller 2 · Gemini App</span>
+            <span class="ws-tag hands-on">Metodología Hands-On</span>
+          </div>
+          <div class="ws-title">Dominio de la App de Gemini</div>
+          <div class="ws-topics">
+            <span class="wt"><span class="wt-dot"></span>Recap general</span>
+            <span class="wt"><span class="wt-dot"></span>Tour por Gemini</span>
+            <span class="wt"><span class="wt-dot"></span>Activación Gemini</span>
+            <span class="wt"><span class="wt-dot"></span>Gemini Chat</span>
+            <span class="wt"><span class="wt-dot"></span>Sidebar opciones</span>
+            <span class="wt"><span class="wt-dot"></span>Razonamiento (rápido, pro)</span>
+            <span class="wt"><span class="wt-dot"></span>Tools / herramientas</span>
+            <span class="wt"><span class="wt-dot"></span>Integración Google Drive</span>
+            <span class="wt"><span class="wt-dot"></span>Formatos MD</span>
+            <span class="wt"><span class="wt-dot"></span>Deep research ⭐</span>
+            <span class="wt"><span class="wt-dot"></span>Modo Canvas ⭐</span>
+            <span class="wt"><span class="wt-dot"></span>Gemas (Agentes Gemini) ⭐</span>
+          </div>
+          <div class="ws-chips">
+            <span class="ws-chip">⏱ 1.5 hrs</span>
+            <span class="ws-chip">Presencial</span>
+          </div>
+        </div>
+      </div>
+      <div class="ws-step">
+        <div class="ws-col-l">
+          <div class="ws-num">3</div>
+        </div>
+        <div class="ws-content">
+          <div class="ws-tags">
+            <span class="ws-tag">Taller 3 · Google Workspace</span>
+            <span class="ws-tag hands-on">Metodología Hands-On</span>
+          </div>
+          <div class="ws-title">Gemini en el ecosistema Google</div>
+          <div class="ws-topics">
+            <span class="wt"><span class="wt-dot"></span>Modelo de voz conversacional</span>
+            <span class="wt"><span class="wt-dot"></span>Gemini en Gmail</span>
+            <span class="wt"><span class="wt-dot"></span>Gemini en Google Doc</span>
+            <span class="wt"><span class="wt-dot"></span>Gemini en Google Sheet ⭐</span>
+            <span class="wt"><span class="wt-dot"></span>Gemini en Google Slide</span>
+            <span class="wt"><span class="wt-dot"></span>Gemini en Google Chat</span>
+            <span class="wt"><span class="wt-dot"></span>Gemini en Meet ⭐</span>
+            <span class="wt"><span class="wt-dot"></span>Intro a NotebookLM ⭐</span>
+            <span class="wt"><span class="wt-dot"></span>Cuadernos en NotebookLM</span>
+            <span class="wt"><span class="wt-dot"></span>Integración Gemini - NotebookLM</span>
+            <span class="wt"><span class="wt-dot"></span>Intro a Flow Studio ⭐</span>
+          </div>
+          <div class="ws-chips">
+            <span class="ws-chip">⏱ 1.5 hrs</span>
+            <span class="ws-chip">Presencial</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="price-card">
+      <div class="pc-accent"></div>
+      <div class="pc-top">
+        <div class="pc-label">Costo del programa</div>
+        <div class="pc-breakdown">
+          <span class="pc-price">51</span>
+          <span class="pc-uf">UF</span>
+        </div>
+        <div class="pc-per-taller">17 UF por taller · pack de 3</div>
+        <div class="pc-note">Total programa completo</div>
+        <div class="pc-detail">hasta 20 personas por sesión · 4.5 hrs en total</div>
+        <ul class="pc-includes">
+          <li><span class="pc-check">✓</span>Portal web exclusivo del equipo</li>
+          <li><span class="pc-check">✓</span>Quiz interactivo por sesión</li>
+          <li><span class="pc-check">✓</span>Habilidades desbloqueables + desafíos entre sesiones</li>
+          <li><span class="pc-check">✓</span>PPT descargable post-taller</li>
+          <li><span class="pc-check">✓</span>Presencial · también disponible online</li>
+          <li><span class="pc-check">✓</span>Talleres en oficinas del cliente</li>
+        </ul>
+        <button class="pc-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Me interesa este pack →</button>
+      </div>
+      <div class="pc-bottom">
+        <div class="pc-footer-txt">📅 Coordinamos fechas según tu calendario</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="contacto" class="contact-section">
+  <div class="contact-inner">
+    <div class="contact-title">¿Te interesa el Pack Gemini?</div>
+    <div class="contact-sub">Completa el formulario y te contacto en menos de 24 horas para coordinar fechas y ajustar el programa a tu equipo.</div>
+    <div class="contact-form-box">
+      <div class="form-success" id="formSuccess">
+        <div class="form-success-icon">🎉</div>
+        <h3>¡Mensaje recibido!</h3>
+        <p>Te contactaré en menos de 24 horas para coordinar los detalles del programa.</p>
+      </div>
+      <form id="talleresForm" action="https://formspree.io/f/mvgbjoyy" method="POST">
+        <input type="hidden" name="servicio" value="Pack Gemini · 3 Talleres">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input type="text" name="nombre" required placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label>Empresa *</label>
+            <input type="text" name="empresa" required placeholder="Nombre de la empresa">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" name="email" required placeholder="tu@empresa.com">
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" name="telefono" placeholder="+56 9 XXXX XXXX">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Mensaje (opcional)</label>
+          <textarea name="mensaje" placeholder="Tamaño del equipo, fechas tentativas u otras consultas…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Me interesa, quiero este programa →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>✉️ <a href="mailto:felipe@reyesia.com">felipe@reyesia.com</a> · <a href="/">reyesia.com</a></p>
+  <p style="margin-top:8px;opacity:.5;">© 2025 Reyes IA</p>
+</footer>
+
+<script>
+  document.getElementById('talleresForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = this.querySelector('.form-submit');
+    btn.textContent = 'Enviando…'; btn.disabled = true;
+    try {
+      const res = await fetch(this.action, { method:'POST', body: new FormData(this), headers:{'Accept':'application/json'} });
+      if(res.ok){ this.style.display='none'; document.getElementById('formSuccess').classList.add('show'); }
+      else { btn.textContent = 'Error al enviar. Intenta de nuevo.'; btn.disabled = false; }
+    } catch { btn.textContent = 'Error al enviar. Intenta de nuevo.'; btn.disabled = false; }
+  });
+</script>
+</body>
+</html>
