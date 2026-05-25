@@ -500,6 +500,38 @@
         explain: 'En NotebookLM organizas todo en "Cuadernos". Cada cuaderno tiene sus propias fuentes y un chat contextual basado en esos documentos.',
       },
     ],
+    6: [
+      {
+        q: "¿Qué se puede hacer con la 'Cámara' de la App de Copilot, ChatGPT u otro?",
+        opts: ['Pedirle que te traduzca algo en otro idioma', 'Pedirle que rediseñe un lugar', 'Pedirle que te transcriba un texto escrito a mano', 'Todas las anteriores'],
+        correct: 3,
+        explain: 'La cámara de estas apps permite analizar cualquier imagen y hacer múltiples tareas: traducir, rediseñar, transcribir y mucho más.',
+      },
+      {
+        q: '¿Cuál fue el modelo destacado como el mejor para generar imágenes profesionales en esta sesión?',
+        opts: ['ChatGPT', 'Copilot', 'Gemini', 'Grok'],
+        correct: 2,
+        explain: 'Gemini fue posicionado como el líder en generación de imágenes profesionales en 2026, superando a ChatGPT, Copilot y Grok.',
+      },
+      {
+        q: '¿Cuál es el principal uso de las herramientas de upscaling/enhancer con IA aplicadas a fotografías?',
+        opts: ['Cambiar el fondo de una foto por uno generado con IA', 'Mejorar la resolución y restaurar detalles de fotos antiguas o de baja calidad', 'Convertir fotos en videos animados automáticamente', 'Aplicar filtros artísticos estilo pintura o ilustración'],
+        correct: 1,
+        explain: 'El upscaling/enhancer reconstruye detalles perdidos y aumenta la resolución — ideal para restaurar fotos antiguas o preparar imágenes para impresión.',
+      },
+      {
+        q: '¿Importa el idioma al generar contenido multimedia con IA?',
+        opts: ['Español, porque los modelos están optimizados para Latinoamérica', 'No importa el idioma, los resultados son idénticos', 'Inglés, porque los modelos de video están entrenados principalmente con ese idioma', 'Francés, porque Runway es una empresa europea'],
+        correct: 2,
+        explain: 'Los modelos de video fueron entrenados mayoritariamente en inglés, lo que se traduce en resultados notablemente mejores con prompts en ese idioma.',
+      },
+      {
+        q: '¿Qué opción dentro de Ideogram.ai debes activar para obtener mejores resultados al generar logos y diseños con texto?',
+        opts: ['Modo "Batch"', 'Modo "Canvas"', 'Modo "Design"', 'Modo "Characters"'],
+        correct: 2,
+        explain: 'El modo Design optimiza Ideogram para logos y tipografías, generando texto legible y preciso dentro del diseño — clave para branding.',
+      },
+    ],
   };
 
   const SKILLS = [
@@ -694,7 +726,7 @@
     { session_number:3, title:'Copilot en el M365',                                     status:'done',    session_url:'/sesion03-k7x9' },
     { session_number:4, title:'Deep Research / NotebookLM / Intro Agentes Copilot',     status:'done',    session_url:'/sesion04-castilla' },
     { session_number:5, title:'Alucinaciones · PPTs con IA · Infografías',               status:'done',    session_url:'/sesion05-castilla' },
-    { session_number:6, title:'Claude Avanzado + Agentes IA Intermedios',               status:'current', session_url:null },
+    { session_number:6, title:'Mundo Visual con IA: imágenes, videos y logos',            status:'done',    session_url:'/sesion06-castilla' },
     { session_number:7, title:'Sesión 7',                                               status:'locked',  session_url:null },
     { session_number:8, title:'Sesión 8',                                               status:'locked',  session_url:null },
   ];
