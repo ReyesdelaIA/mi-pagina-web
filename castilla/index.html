@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Portal IA · Inversiones Castilla</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #042C53; --navy-mid: #0C447C; --navy-light: #185FA5;
+      --bg: #f0f0ee; --white: #ffffff; --border: #e0e0e0;
+      --text: #1a1a1a; --muted: #6b7280; --radius: 16px; --gold: #F5A623;
+    }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    nav {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, var(--navy-light) 100%);
+      position: sticky; top: 0; z-index: 100; padding: 0 20px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 12px rgba(4,44,83,0.3);
+    }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+    .nav-right a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: 20px; transition: background 0.2s; display:flex;align-items:center;justify-content:center; }
+    .nav-right a:hover { background: rgba(255,255,255,0.15); }
+    .nav-icon { width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.15); }
+
+    .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy-light) 100%); color: white; padding: 32px 20px 28px; position: relative; overflow: hidden; }
+    .hero::after { content:''; position:absolute; bottom:-60px; left:-20px; width:160px; height:160px; border-radius:50%; background:rgba(255,255,255,0.03); }
+    .hero-inner { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:4px 12px; font-size:11px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; margin-bottom:14px; }
+    .hero-company { font-size: 26px; font-weight: 800; line-height: 1.1; margin-bottom: 6px; }
+    .hero-program { font-size: 13px; opacity: 0.75; margin-bottom: 20px; }
+    .hero-stats { display: flex; gap: 20px; }
+    .stat { display: flex; flex-direction: column; }
+    .stat-value { font-size: 22px; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: 11px; opacity: 0.65; margin-top: 2px; }
+    .stat-div { width:1px; background:rgba(255,255,255,0.2); align-self:stretch; }
+
+    /* Two-panel row */
+    .panels-row { display:flex; gap:10px; margin:16px 20px 0; }
+    .panel-half { flex:1; min-width:0; border-radius:var(--radius); overflow:hidden; }
+    .panel-stars { background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%); border:1.5px solid #BFDBFE; padding:14px 14px 16px; display:flex; flex-direction:column; }
+    .sp-title { font-size:10px; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.6px; margin-bottom:2px; }
+    .sp-sub { font-size:9px; color:#5B85C0; margin-bottom:10px; }
+    .stars-row { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:10px; }
+    .s-icon { font-size:22px; transition:filter .3s; filter:grayscale(1) opacity(.2); }
+    .s-icon.on { filter:none; animation:pop .4s ease; }
+    @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.45)} 100%{transform:scale(1)} }
+    .sp-bottom { display:flex; align-items:baseline; gap:4px; margin-top:auto; }
+    .sp-count { font-size:22px; font-weight:800; color:var(--navy); line-height:1; }
+    .sp-max { font-size:11px; color:#5B85C0; font-weight:600; }
+    /* Skills panel */
+    .panel-skills { background:linear-gradient(135deg,#EFF6FF 0%,#E0EAFF 100%); border:1.5px solid #BFDBFE; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:filter .15s,transform .1s; user-select:none; padding:10px 8px 12px; }
+    .panel-skills:hover { filter:brightness(.97); }
+    .panel-skills:active { transform:scale(.98); }
+    .ps-label { font-size:11px; font-weight:800; color:var(--navy); text-align:center; margin-bottom:2px; line-height:1.3; }
+    .ps-count { font-size:10px; color:#5B85C0; font-weight:600; }
+    /* Skills modal */
+    .sk-overlay { display:none; position:fixed; inset:0; background:rgba(4,44,83,.65); z-index:500; align-items:center; justify-content:center; padding:20px; }
+    .sk-overlay.open { display:flex; }
+    .sk-sheet { background:white; border-radius:24px; width:100%; max-width:520px; max-height:82vh; overflow-y:auto; animation:mIn .25s ease; }
+    .sk-header { padding:18px 20px 14px; border-bottom:1px solid var(--border); position:sticky; top:0; background:white; z-index:1; }
+    .sk-htop { display:flex; align-items:center; justify-content:space-between; }
+    .sk-title { font-size:17px; font-weight:800; color:var(--navy); }
+    .sk-close { background:#f0f0ee; border:none; border-radius:50%; width:30px; height:30px; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .sk-sub { font-size:12px; color:var(--muted); margin-top:4px; }
+    .sk-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:18px 20px 36px; }
+    .sk { border-radius:14px; padding:16px 6px 12px; display:flex; flex-direction:column; align-items:center; gap:7px; text-align:center; position:relative; transition:transform .2s,box-shadow .2s; }
+    .sk.on { box-shadow:0 4px 16px rgba(0,0,0,.14); }
+    .sk.on:hover { transform:translateY(-2px); }
+    .sk.off { background:#f0f0ee !important; filter:grayscale(1); opacity:.4; }
+    .sk-icon { font-size:26px; line-height:1; }
+    .sk-name { font-size:9px; font-weight:700; line-height:1.3; }
+    .sk.on  .sk-name { color:white; }
+    .sk.off .sk-name { color:#aaa; }
+    .sk-lock { position:absolute; top:6px; right:7px; font-size:9px; opacity:.6; }
+    @keyframes skPop { 0%{transform:scale(.6);opacity:0} 65%{transform:scale(1.12)} 100%{transform:scale(1);opacity:1} }
+    .sk.pop { animation:skPop .4s ease forwards; }
+
+    .prog-wrap { max-width: 680px; margin: 0 auto; padding: 16px 20px 0; }
+    .prog-head { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .prog-label { font-size: 12px; font-weight: 600; color: var(--navy); text-transform: uppercase; letter-spacing: .5px; }
+    .prog-pct { font-size: 12px; font-weight: 700; color: var(--navy-light); }
+    .prog-bg { height: 8px; background: #d8d8d4; border-radius: 99px; overflow: hidden; }
+    .prog-fill { height: 100%; background: linear-gradient(90deg, var(--navy-mid), var(--navy-light)); border-radius: 99px; transition: width 1s ease; }
+
+    .sess-wrap { max-width: 680px; margin: 0 auto; padding: 24px 20px 40px; }
+    .sec-title { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 16px; }
+    .sess-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .card.active { box-shadow: 0 2px 8px rgba(4,44,83,0.08); }
+    .card.locked { opacity: .42; }
+    .card-top { display: flex; align-items: center; gap: 14px; padding: 16px; }
+    .card.done    .card-top { border-left: 4px solid var(--navy); }
+    .card.current .card-top { border-left: 4px solid #2980D9; }
+    .card.locked  .card-top { border-left: 4px solid #e0e0e0; }
+
+    .snum { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; flex-shrink:0; }
+    .snum.done    { background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: white; }
+    .snum.current { background: linear-gradient(135deg, #185FA5, #2980D9); color: white; box-shadow: 0 4px 12px rgba(24,95,165,0.35); }
+    .snum.locked  { background: #e8e8e6; color: #aaa; }
+
+    .sinfo { flex: 1; min-width: 0; }
+    .slabel { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; }
+    .slabel.done    { color: var(--navy-light); }
+    .slabel.current { color: #2980D9; }
+    .slabel.locked  { color: #bbb; }
+    .stitle { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .card.locked .stitle { color: #aaa; }
+
+    .saction { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .btn-ver { background: linear-gradient(135deg, var(--navy-mid), var(--navy-light)); color: white; border: none; border-radius: 20px; padding: 5px 10px; font-size: 11px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; text-decoration: none; display: inline-block; white-space: nowrap; }
+    .lock-icon { width:32px; height:32px; background:#f0f0ee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; }
+
+    .mini-stars { display: flex; gap: 2px; }
+    .ms { font-size: 13px; filter: grayscale(1) opacity(.25); transition: filter .3s; }
+    .ms.on { filter: none; }
+
+    .prev-strip { display: flex; gap: 6px; padding: 0 16px 14px; overflow-x: auto; scrollbar-width: none; }
+    .prev-strip::-webkit-scrollbar { display: none; }
+    .prev-thumb { flex-shrink: 0; width: 100px; height: 64px; border-radius: 8px; border: 1px solid var(--border); background: #eae9e7; overflow: hidden; }
+    .prev-thumb img { width:100%; height:100%; object-fit:cover; }
+
+    .desafio { background: linear-gradient(135deg,#FFF8EC,#FFF3DC); border-top: 1px solid #F5CC7A; padding: 14px 16px; }
+    .des-head { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+    .des-label { font-size: 10px; font-weight: 700; color: #7A4F00; text-transform: uppercase; letter-spacing: .5px; }
+    .des-text { font-size: 12px; color: #5C3D00; line-height: 1.5; margin-bottom: 10px; }
+    .honor-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .hbtn { display: flex; align-items: center; gap: 5px; border-radius: 20px; padding: 6px 12px; font-size: 11px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; border: 1.5px solid; transition: all .2s; }
+    .hbtn.ver-b { background: white; border-color: var(--navy-light); color: var(--navy-light); }
+    .hbtn.ver-b.done { background: var(--navy-light); color: white; }
+    .hbtn.des-b { background: white; border-color: #D4900A; color: #7A4F00; }
+    .hbtn.des-b.done { background: #F5A623; color: white; border-color: #F5A623; }
+    .hbtn.quiz-b { background: white; border-color: #6B46C1; color: #6B46C1; }
+    .hbtn.quiz-b.done { background: #6B46C1; color: white; border-color: #6B46C1; }
+    .hbtn:disabled { opacity: .65; cursor: default; }
+    .dominada-banner { display:none; align-items:center; gap:8px; background:linear-gradient(135deg,#FFFBEB,#FEF3C7); border-top:1px solid #FCD34D; padding:10px 16px; font-size:11px; font-weight:700; color:#78350F; }
+    .dominada-banner.show { display:flex; }
+
+    /* Quiz modal */
+    .quiz-overlay { display:none; position:fixed; inset:0; background:rgba(4,44,83,.7); z-index:300; align-items:center; justify-content:center; padding:20px; }
+    .quiz-overlay.open { display:flex; }
+    .quiz-modal { background:white; border-radius:24px; padding:0; max-width:400px; width:100%; animation:mIn .25s ease; overflow:hidden; }
+    .quiz-header { background:linear-gradient(135deg,var(--navy),var(--navy-mid)); padding:20px 24px 16px; }
+    .quiz-prog-label { font-size:11px; color:rgba(255,255,255,0.6); font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+    .quiz-prog-bar { height:4px; background:rgba(255,255,255,0.2); border-radius:99px; overflow:hidden; }
+    .quiz-prog-fill { height:100%; background:white; border-radius:99px; transition:width .4s ease; }
+    .quiz-q-num { font-size:11px; color:rgba(255,255,255,0.55); margin-top:10px; }
+    .quiz-question { font-size:15px; font-weight:700; color:white; margin-top:4px; line-height:1.4; }
+    .quiz-body { padding:20px 24px 24px; }
+    .quiz-options { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+    .qopt { background:#f8f8f8; border:1.5px solid #e8e8e8; border-radius:12px; padding:12px 16px; font-size:13px; font-weight:500; color:#222; cursor:pointer; text-align:left; font-family:'Poppins',sans-serif; transition:all .15s; }
+    .qopt:hover:not(:disabled) { border-color:var(--navy-light); background:#EDF4FF; }
+    .qopt.correct { background:#ECFDF5; border-color:#10B981; color:#065F46; }
+    .qopt.wrong   { background:#FEF2F2; border-color:#EF4444; color:#991B1B; }
+    .qopt:disabled { cursor:default; }
+    .quiz-feedback { font-size:12px; line-height:1.55; border-radius:10px; padding:10px 14px; margin-bottom:14px; display:none; }
+    .quiz-feedback.error { background:#FEF2F2; color:#7F1D1D; border:1px solid #FECACA; display:block; }
+    .quiz-feedback.ok    { background:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; display:block; }
+    .quiz-next { background:linear-gradient(135deg,var(--navy-mid),var(--navy-light)); color:white; border:none; border-radius:20px; padding:11px; font-size:13px; font-weight:700; font-family:'Poppins',sans-serif; cursor:pointer; width:100%; display:none; }
+    .quiz-next.visible { display:block; }
+    .quiz-close-x { position:absolute; top:14px; right:16px; background:rgba(255,255,255,0.15); border:none; color:white; border-radius:50%; width:28px; height:28px; font-size:14px; cursor:pointer; display:flex;align-items:center;justify-content:center; }
+
+    .overlay { display:none; position:fixed; inset:0; background:rgba(4,44,83,.6); z-index:200; align-items:center; justify-content:center; padding:20px; }
+    .overlay.open { display:flex; }
+    .modal { background:white; border-radius:20px; padding:28px 24px; max-width:340px; width:100%; text-align:center; animation:mIn .25s ease; }
+    @keyframes mIn { from{transform:scale(.9);opacity:0} to{transform:scale(1);opacity:1} }
+    .m-emoji { font-size:48px; margin-bottom:12px; }
+    .m-title { font-size:18px; font-weight:800; color:var(--navy); margin-bottom:8px; }
+    .m-text  { font-size:13px; color:var(--muted); line-height:1.55; margin-bottom:20px; }
+    .m-confirm { background:linear-gradient(135deg,var(--navy-mid),var(--navy-light)); color:white; border:none; border-radius:20px; padding:12px; font-size:13px; font-weight:700; font-family:'Poppins',sans-serif; cursor:pointer; width:100%; margin-bottom:8px; }
+    .m-cancel  { background:none; border:1.5px solid var(--border); border-radius:20px; padding:10px; font-size:12px; font-weight:600; color:var(--muted); font-family:'Poppins',sans-serif; cursor:pointer; width:100%; }
+
+    .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--navy); color:white; padding:10px 20px; border-radius:20px; font-size:13px; font-weight:600; z-index:400; transition:transform .3s,opacity .3s; opacity:0; white-space:nowrap; }
+    .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+
+    .loading { text-align:center; padding:40px 20px; color:var(--muted); font-size:14px; }
+
+    footer { text-align:center; padding:24px 20px 32px; font-size:11px; color:#aaa; }
+    footer a { color:var(--navy-light); text-decoration:none; font-weight:500; }
+
+    @media(max-width:400px){
+      .hero-company{font-size:22px;} .stat-value{font-size:18px;}
+      .panels-row{margin:16px 12px 0;} .sess-wrap{padding:20px 12px 40px;} .prog-wrap{padding:16px 12px 0;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <img src="/logo reyes IA horizontal blanco.png" alt="Reyes IA" style="height:36px;object-fit:contain;" />
+  <div class="nav-right">
+    <a href="https://reyesia.com" target="_blank">reyesia.com</a>
+    <a href="https://instagram.com/reyesdelaia" target="_blank" title="Instagram" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4.5"/>
+        <circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/>
+      </svg>
+    </a>
+    <a href="mailto:felipe@reyesia.com" title="Email" class="nav-icon">✉️</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🏢 Programa corporativo</div>
+    <div class="hero-company">Inversiones Castilla</div>
+    <div class="hero-program">Adopción Profunda de IA · Programa 8 sesiones</div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-value" id="stat-activas">—</span><span class="stat-label">Sesiones activas</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-value">8</span><span class="stat-label">Total sesiones</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-value" id="hero-stars">0</span><span class="stat-label">⭐ Tus estrellas</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="panels-row">
+  <div class="panel-half panel-stars">
+    <div class="sp-title">Tu progreso</div>
+    <div class="sp-sub">Completa los pasos y gana ⭐</div>
+    <div class="stars-row" id="stars-big"></div>
+    <div class="sp-bottom">
+      <span class="sp-count" id="stars-n">0</span>
+      <span class="sp-max" id="stars-max">/ — ⭐</span>
+    </div>
+  </div>
+  <div class="panel-half panel-skills" onclick="openSkills()">
+    <svg width="100%" viewBox="0 0 130 108" style="max-width:130px;display:block;margin:0 auto 4px;">
+      <defs>
+        <linearGradient id="hexG" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#60A5FA"/>
+          <stop offset="100%" stop-color="#1D4ED8"/>
+        </linearGradient>
+        <linearGradient id="hexGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#BFDBFE" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#BFDBFE" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1D4ED8" flood-opacity="0.35"/>
+        </filter>
+      </defs>
+      <circle cx="65" cy="54" r="50" fill="#EEF5FF" opacity="0.7"/>
+      <circle cx="65" cy="54" r="43" fill="none" stroke="#93C5FD" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <text x="108" y="18" font-size="8" fill="#F59E0B" opacity="0.9">✦</text>
+      <text x="16" y="20" font-size="6" fill="#38BDF8" opacity="0.8">✦</text>
+      <text x="114" y="80" font-size="6" fill="#F59E0B" opacity="0.7">✦</text>
+      <polygon points="65,18 92,34 92,66 65,82 38,66 38,34" fill="white" opacity="0.6" filter="url(#sh)"/>
+      <polygon points="65,21 89,36 89,64 65,79 41,64 41,36" fill="url(#hexG)" filter="url(#sh)"/>
+      <polygon points="65,21 89,36 89,46 65,52 41,46 41,36" fill="url(#hexGlow)" opacity="0.5"/>
+      <polygon points="65,24 87,38 87,62 65,76 43,62 43,38" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+      <text x="65" y="55" text-anchor="middle" dominant-baseline="middle" font-size="26">🧠</text>
+      <circle cx="65" cy="11" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="65" y="11" text-anchor="middle" dominant-baseline="middle" font-size="12">🏆</text>
+      <circle cx="72" cy="19" r="5" fill="#22C55E"/><text x="72" y="19" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
+      <circle cx="101" cy="32" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="101" y="32" text-anchor="middle" dominant-baseline="middle" font-size="12">✨</text>
+      <circle cx="108" cy="40" r="5" fill="#22C55E"/><text x="108" y="40" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
+      <circle cx="101" cy="76" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="101" y="76" text-anchor="middle" dominant-baseline="middle" font-size="12">📊</text>
+      <circle cx="108" cy="84" r="5" fill="#22C55E"/><text x="108" y="84" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
+      <circle cx="65" cy="97" r="11" fill="#EEF0F3" stroke="#CBD5E1" stroke-width="1.5"/>
+      <text x="65" y="97" text-anchor="middle" dominant-baseline="middle" font-size="12">💡</text>
+      <circle cx="72" cy="105" r="5" fill="#94A3B8"/><text x="72" y="105" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">🔒</text>
+      <circle cx="29" cy="76" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="29" y="76" text-anchor="middle" dominant-baseline="middle" font-size="12">📋</text>
+      <circle cx="36" cy="84" r="5" fill="#22C55E"/><text x="36" y="84" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
+      <circle cx="29" cy="32" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="29" y="32" text-anchor="middle" dominant-baseline="middle" font-size="12">💬</text>
+      <circle cx="36" cy="40" r="5" fill="#22C55E"/><text x="36" y="40" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
+    </svg>
+    <div class="ps-label">Centro de Habilidades</div>
+    <div class="ps-count" id="ps-count">0 / 32 desbloqueadas</div>
+  </div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-head">
+    <span class="prog-label">Avance del programa</span>
+    <span class="prog-pct" id="prog-pct">—</span>
+  </div>
+  <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+
+<div class="sess-wrap">
+  <div class="sec-title">Resúmenes ejecutivos</div>
+  <div class="sess-list" id="sess-list">
+    <div class="loading">Cargando sesiones…</div>
+  </div>
+</div>
+
+<!-- Skills modal -->
+<div class="sk-overlay" id="sk-overlay" onclick="closeSkills(event)">
+  <div class="sk-sheet">
+    <div class="sk-header">
+      <div class="sk-htop">
+        <div class="sk-title">🧠 Habilidades de IA desbloqueadas</div>
+        <button class="sk-close" onclick="closeSkills()">✕</button>
+      </div>
+      <div class="sk-sub" id="sk-sub">0 de 32 habilidades desbloqueadas</div>
+    </div>
+    <div class="sk-grid" id="sk-grid"></div>
+  </div>
+</div>
+
+<footer>Programa facilitado por <a href="https://reyesia.com" target="_blank">Reyes IA</a> · Felipe Reyes</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="m-emoji" id="m-emoji">⭐</div>
+    <div class="m-title" id="m-title"></div>
+    <div class="m-text"  id="m-text"></div>
+    <button class="m-confirm" id="m-confirm">Sí, lo hice con compromiso ✓</button>
+    <button class="m-cancel" onclick="closeModal()">Todavía no</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Quiz modal -->
+<div class="quiz-overlay" id="quiz-overlay">
+  <div class="quiz-modal" style="position:relative;">
+    <div class="quiz-header">
+      <button class="quiz-close-x" onclick="closeQuiz()">✕</button>
+      <div class="quiz-prog-label">Quiz de la sesión</div>
+      <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qprog-fill" style="width:0%"></div></div>
+      <div class="quiz-q-num" id="q-num">Pregunta 1 de 4</div>
+      <div class="quiz-question" id="q-text"></div>
+    </div>
+    <div class="quiz-body">
+      <div class="quiz-options" id="q-options"></div>
+      <div class="quiz-feedback" id="q-feedback"></div>
+      <button class="quiz-next" id="q-next" onclick="nextQuestion()">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const THUMBS = {
+    1: ['/pucobre/thumbs/s1_thumb1.jpg','/pucobre/thumbs/s1_thumb2.jpg','/pucobre/thumbs/s1_thumb3.jpg'],
+    2: ['/pucobre/thumbs/s2_thumb1.jpg','/pucobre/thumbs/s2_thumb2.jpg','/pucobre/thumbs/s2_thumb3.jpg'],
+    3: ['/pucobre/thumbs/s3_thumb1.jpg','/pucobre/thumbs/s3_thumb2.jpg','/pucobre/thumbs/s3_thumb3.jpg'],
+    4: ['/pucobre/thumbs/s4_thumb1.jpg','/pucobre/thumbs/s4_thumb2.jpg','/pucobre/thumbs/s4_thumb3.jpg'],
+  };
+  const CHALLENGES = {
+    1: 'Entra a tu cuenta en Copilot (copilot.microsoft.com), adjúntale un documento de tu SharePoint, y pídele que te haga un resumen del documento en 30 palabras.',
+    2: 'Pídele a Copilot que te ayude con alguna tarea sobre un trabajo relacionado a tu área, pero esta vez con el razonamiento avanzado activado (arriba en vez de automático).',
+    3: 'Abre un Excel, activa Copilot, y pídele que te genere 1 gráfico de tu data 📊. Consejo: cambia el modelo a "Claude" (donde dice automático).',
+    4: 'Activa tu cuenta en NotebookLM, crea tu primer cuaderno, y adjúntale un documento para que empiece a interactuar con tus conocimientos.',
+    5: 'Entra a Claude.ai, crea un Proyecto nuevo y agrega un documento o instrucción importante de tu área. Luego hazle una pregunta compleja y evalúa la respuesta.',
+    6: 'Usa Claude para crear un artefacto en vivo (tabla, código o documento interactivo) sobre algo concreto de tu trabajo. Prueba que funcione y compártelo con alguien.',
+  };
+
+  const QUIZZES = {
+    1: [
+      {
+        q: '¿Qué modo debes elegir al ingresar a Copilot con tu cuenta corporativa?',
+        opts: ['Personal', 'Student', 'Work', 'Enterprise'],
+        correct: 2,
+        explain: 'El modo Work conecta Copilot con tu cuenta corporativa y tus datos de Microsoft 365. Los otros modos son para cuentas personales o educativas.',
+      },
+      {
+        q: '¿Cuál es la URL correcta para acceder a Copilot de Microsoft?',
+        opts: ['ai.microsoft.com', 'copilot.microsoft.com', 'copilot.google.com', 'office.com/ai'],
+        correct: 1,
+        explain: 'La dirección oficial es copilot.microsoft.com. Desde ahí accedes con tu cuenta corporativa en modo Work.',
+      },
+      {
+        q: '¿Qué tipo de archivo puedes adjuntar directamente desde Copilot en tu cuenta corporativa?',
+        opts: ['Solo imágenes JPG', 'Documentos de SharePoint', 'Archivos de Google Drive', 'Videos de YouTube'],
+        correct: 1,
+        explain: 'Copilot en modo Work se integra con Microsoft 365, por lo que puedes adjuntar documentos directamente desde tu SharePoint corporativo.',
+      },
+      {
+        q: '¿La inteligencia artificial es 100% precisa o se puede equivocar?',
+        opts: ['Es 100% precisa.', 'Sí, la mayoría de las veces alucina.', 'Puede alucinar principalmente cuando sale a buscar internet.', 'Si la tratas mal, eventualmente podría deducir mal las cosas.'],
+        correct: 2,
+        explain: 'La IA puede alucinar especialmente cuando hace búsquedas en internet, mezclando fuentes o inventando datos. No alucina la mayoría de las veces ni depende de cómo la tratas — pero sí hay que verificar lo que entrega, sobre todo con datos recientes.',
+      },
+    ],
+    2: [
+      {
+        q: 'Una vez que tengo encendida la memoria, ¿qué cosas memoriza Copilot sobre mí?',
+        opts: ['Todo lo que sea laboral.', 'Depende de la cantidad de espacios de memoria que tengas disponibles.', 'Todo lo que el razonamiento de Copilot considere relevante de memorizar.', 'Todas las cosas que no sean confidenciales, independiente de la importancia.'],
+        correct: 2,
+        explain: 'Copilot decide por sí mismo qué vale la pena recordar según lo que percibe como relevante en la conversación. No filtra por tema laboral ni por confidencialidad — simplemente guarda lo que su razonamiento considera significativo para futuras interacciones.',
+      },
+      {
+        q: '¿Qué hace el modo de razonamiento avanzado en Copilot?',
+        opts: ['Responde más rápido que el modo normal', 'Piensa paso a paso antes de responder para tareas complejas', 'Busca información en internet automáticamente', 'Traduce el texto a varios idiomas'],
+        correct: 1,
+        explain: 'El razonamiento avanzado permite que Copilot se tome más tiempo para analizar el problema en profundidad antes de responder, lo que mejora la calidad en tareas complejas.',
+      },
+      {
+        q: '¿Cuándo conviene usar el razonamiento avanzado en lugar del modo automático?',
+        opts: ['Para responder emails simples', 'Para tareas que requieren análisis profundo o múltiples pasos', 'Siempre, porque siempre es mejor', 'Cuando necesito que no alucine bajo ningún punto de vista'],
+        correct: 1,
+        explain: 'El razonamiento avanzado es ideal para tareas complejas como análisis, planificación o resolución de problemas de varios pasos. Para tareas simples, el modo automático es suficiente y más rápido.',
+      },
+      {
+        q: '¿Dónde activas el razonamiento avanzado en Copilot?',
+        opts: ['En la barra de menú superior', 'En el selector de modo, cambiando de "Automático" a "Avanzado"', 'En la configuración de tu cuenta', 'No existe esa opción en Copilot'],
+        correct: 1,
+        explain: 'El selector aparece arriba del cuadro de chat. Por defecto está en "Automático" — cámbialo a "Avanzado" para activar el razonamiento extendido.',
+      },
+      {
+        q: '¿Por qué es tan útil la herramienta de dictado?',
+        opts: ['Porque te permite entregar texto de manera mucho más rápida que escribiendo o tecleando.', 'Porque cuando uno habla, se suelta más.', 'Porque gasta menos tokens cuando uno le dicta.', 'La verdad es que conviene escribirle porque uno redacta mejor la idea, pero si está muy apurado, puede dictar.'],
+        correct: 0,
+        explain: 'Dictar es significativamente más rápido que escribir — una persona promedio habla a 130 palabras por minuto y escribe a 40. Eso lo convierte en una de las formas más eficientes de interactuar con la IA.',
+      },
+    ],
+    3: [
+      {
+        q: '¿Dónde encuentras el botón de Copilot dentro de Excel?',
+        opts: ['Menú Archivo → Opciones', 'Pestaña Inicio en la cinta de herramientas', 'Clic derecho sobre una celda', 'Menú Vista → Copilot'],
+        correct: 1,
+        explain: 'El botón de Copilot aparece en la pestaña Inicio de la cinta de herramientas de Excel, siempre que tengas una licencia Microsoft 365 activa.',
+      },
+      {
+        q: '¿Qué puedes pedirle a Copilot en Excel?',
+        opts: ['Solo formatear celdas', 'Generar gráficos, crear fórmulas y analizar datos', 'Imprimir el archivo automáticamente', 'Conectar con otras aplicaciones externas'],
+        correct: 1,
+        explain: 'Copilot en Excel puede generar gráficos, sugerir y crear fórmulas, destacar patrones en los datos y hacer análisis en lenguaje natural.',
+      },
+      {
+        q: '¿Qué modelo se recomienda seleccionar en Copilot para mejores resultados en Excel?',
+        opts: ['GPT-4o', 'Claude', 'Gemini Pro', 'Automático siempre'],
+        correct: 1,
+        explain: 'Copilot permite elegir el modelo subyacente. Cambiar a Claude (de Anthropic) puede dar mejores resultados en análisis de datos complejos en Excel.',
+      },
+      {
+        q: '¿Qué necesitas para usar Copilot en Excel?',
+        opts: ['Solo tener Excel instalado', 'Una licencia Microsoft 365 activa con Copilot habilitado', 'Acceso a internet y una cuenta Google', 'Descargar un plugin adicional'],
+        correct: 1,
+        explain: 'Copilot en Excel requiere una licencia Microsoft 365 con el complemento Copilot habilitado por tu organización. No es suficiente con tener Excel instalado.',
+      },
+    ],
+    4: [
+      {
+        q: '¿Qué es NotebookLM?',
+        opts: ['Un editor de texto de Google', 'Una herramienta de Google para analizar documentos con IA', 'Una app de notas como Evernote', 'Un buscador especializado en PDFs'],
+        correct: 1,
+        explain: 'NotebookLM es una herramienta de Google que usa IA para analizar los documentos que tú subes y responder preguntas basándose exclusivamente en ellos.',
+      },
+      {
+        q: '¿Qué tipo de documentos puedes subir como fuentes en NotebookLM?',
+        opts: ['Solo imágenes PNG y JPG', 'PDFs, textos, presentaciones y URLs de sitios web', 'Solo archivos de Google Docs', 'Videos de YouTube (cualquier duración)'],
+        correct: 1,
+        explain: 'NotebookLM acepta PDFs, documentos de texto, presentaciones, hojas de cálculo, Google Docs y también URLs de páginas web o videos de YouTube.',
+      },
+      {
+        q: '¿En qué información se basa NotebookLM para responder tus preguntas?',
+        opts: ['En toda internet', 'Exclusivamente en las fuentes que tú le subiste', 'En Wikipedia y fuentes públicas', 'En tu historial de búsquedas de Google'],
+        correct: 1,
+        explain: 'NotebookLM solo usa tus documentos como base, no navega por internet ni usa información externa. Esto lo hace muy confiable para trabajar con información interna.',
+      },
+      {
+        q: '¿Cómo se llama el espacio donde organizas tus fuentes y chats en NotebookLM?',
+        opts: ['Proyecto', 'Cuaderno (Notebook)', 'Carpeta', 'Espacio de trabajo'],
+        correct: 1,
+        explain: 'En NotebookLM organizas todo en "Cuadernos". Cada cuaderno tiene sus propias fuentes y un chat contextual basado en esos documentos.',
+      },
+    ],
+  };
+
+  const SKILLS = [
+    { icon:'🎤', name:'Dictar a la IA',            session:1, color:'#7C3AED' },
+    { icon:'🧠', name:'Memorización IA',           session:1, color:'#6D28D9' },
+    { icon:'✍️', name:'Redacción Avanzada',        session:1, color:'#5B21B6' },
+    { icon:'🔍', name:'Investigador IA',           session:1, color:'#4338CA' },
+    { icon:'📝', name:'Copilot en Word',           session:2, color:'#0891B2' },
+    { icon:'📊', name:'Copilot en Excel',          session:2, color:'#0E7490' },
+    { icon:'📑', name:'Copilot en PowerPoint',     session:2, color:'#0D9488' },
+    { icon:'✉️', name:'Copilot en Outlook',        session:2, color:'#0F766E' },
+    { icon:'🤔', name:'Deep Thinking',             session:3, color:'#059669' },
+    { icon:'📓', name:'Manejo de NotebookLM',      session:3, color:'#047857' },
+    { icon:'🤖', name:'Agentes IA · Básico',       session:3, color:'#065F46' },
+    { icon:'🎬', name:'Agentes Multimedia',        session:3, color:'#14532D' },
+    { icon:'🖼️', name:'Generar Imágenes',         session:4, color:'#D97706' },
+    { icon:'🎥', name:'Video con IA',              session:4, color:'#B45309' },
+    { icon:'🖥️', name:'Presentaciones Pro',       session:4, color:'#EA580C' },
+    { icon:'🎨', name:'Diseño Visual IA',          session:4, color:'#92400E' },
+    { icon:'💬', name:'Claude Chat',               session:5, color:'#DC2626' },
+    { icon:'📁', name:'Proyectos Claude',          session:5, color:'#B91C1C' },
+    { icon:'🎭', name:'Artefactos Claude',         session:5, color:'#991B1B' },
+    { icon:'🔌', name:'Claude en Microsoft',       session:5, color:'#E11D48' },
+    { icon:'🤝', name:'Claude Cowork',             session:6, color:'#DB2777' },
+    { icon:'👨‍💻', name:'Claude Code',            session:6, color:'#BE185D' },
+    { icon:'✨', name:'Artefactos en Vivo',        session:6, color:'#9D174D' },
+    { icon:'🦾', name:'Agentes IA · Intermedio',  session:6, color:'#9333EA' },
+    { icon:'🔗', name:'Conectores IA',             session:7, color:'#0EA5E9' },
+    { icon:'🔄', name:'Automatizar Tareas',        session:7, color:'#0284C7' },
+    { icon:'🏠', name:'Modelos IA Local',          session:7, color:'#0369A1' },
+    { icon:'🚀', name:'Agentes IA · Pro',          session:7, color:'#075985' },
+    { icon:'📈', name:'Analizar Datos',            session:8, color:'#CA8A04' },
+    { icon:'🧠', name:'Prompts Avanzados',         session:8, color:'#A16207' },
+    { icon:'🛡️', name:'Control de Alucinaciones', session:8, color:'#854D0E' },
+    { icon:'🏆', name:'Master IA',                session:8, color:'#78350F' },
+  ];
+
+  const SUPABASE_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
+  const COMPANY    = 'castilla';
+  const STARS_KEY  = 'castilla_stars_v1';
+
+  let st = {};
+  let pending = null;
+  let activeSessions = 0;
+
+  // Quiz state
+  let quizSesNum = null;
+  let quizQuestions = [];
+  let quizIdx = 0;
+  let quizAnswered = false;
+
+  function loadStars(){ try{ st = JSON.parse(localStorage.getItem(STARS_KEY))||{}; }catch{ st={}; } }
+  function saveStars(){ localStorage.setItem(STARS_KEY, JSON.stringify(st)); }
+
+  function isComplete(sesNum){
+    const hasQ = !!QUIZZES[sesNum];
+    if(hasQ) return !!(st[`${sesNum}-quiz`] && st[`${sesNum}-des`] && st[`${sesNum}-ver`]);
+    return !!(st[`${sesNum}-des`] && st[`${sesNum}-ver`]);
+  }
+
+  function countStars(){
+    let n = 0;
+    for(let i=1; i<=8; i++) if(isComplete(i)) n++;
+    return n;
+  }
+
+  function renderSkills(animateSession){
+    const grid = document.getElementById('sk-grid');
+    if(!grid) return;
+    let count = 0;
+    grid.innerHTML = SKILLS.map(sk => {
+      const on = isComplete(sk.session);
+      if(on) count++;
+      const pop = (animateSession === sk.session && on) ? ' pop' : '';
+      const style = on ? `background:${sk.color};` : '';
+      return `<div class="sk ${on?'on':'off'}${pop}" style="${style}">
+        ${!on ? '<span class="sk-lock">🔒</span>' : ''}
+        <span class="sk-icon">${sk.icon}</span>
+        <span class="sk-name">${sk.name}</span>
+      </div>`;
+    }).join('');
+    const total = SKILLS.length;
+    document.getElementById('sk-sub').textContent = `${count} de ${total} habilidades desbloqueadas`;
+    document.getElementById('ps-count').textContent = `${count} / ${total} desbloqueadas`;
+  }
+
+  function openSkills(){
+    renderSkills();
+    document.getElementById('sk-overlay').classList.add('open');
+  }
+
+  function closeSkills(e){
+    if(e && e.target !== document.getElementById('sk-overlay')) return;
+    document.getElementById('sk-overlay').classList.remove('open');
+  }
+
+  function renderStarPanel(){
+    const n = countStars();
+    const row = document.getElementById('stars-big');
+    row.innerHTML = '';
+    for(let i=1; i<=8; i++){
+      const s = document.createElement('span');
+      s.className = 's-icon' + (i<=n?' on':'');
+      s.textContent = '⭐';
+      row.appendChild(s);
+    }
+    document.getElementById('stars-n').textContent = n;
+    document.getElementById('hero-stars').textContent = n;
+    document.getElementById('stars-max').textContent = '/ 8 sesiones';
+    renderSkills();
+  }
+
+  function updateButtonStates(sesNum){
+    const bq = document.getElementById(`bq-${sesNum}`);
+    const bd = document.getElementById(`bd-${sesNum}`);
+    const bv = document.getElementById(`bv-${sesNum}`);
+    const mq = document.getElementById(`ms-${sesNum}-quiz`);
+    const md = document.getElementById(`ms-${sesNum}-des`);
+    const mv = document.getElementById(`ms-${sesNum}-ver`);
+    if(bq && st[`${sesNum}-quiz`]){ bq.classList.add('done'); bq.disabled=true; bq.textContent='Quiz ✅'; }
+    if(bd && st[`${sesNum}-des`]){ bd.classList.add('done'); bd.disabled=true; bd.textContent='Desafío ✅'; }
+    if(bv && st[`${sesNum}-ver`]){ bv.classList.add('done'); bv.disabled=true; bv.textContent='Resumen ✅'; }
+    if(mq) mq.className = 'ms' + (st[`${sesNum}-quiz`]?' on':'');
+    if(md) md.className = 'ms' + (st[`${sesNum}-des`]?' on':'');
+    if(mv) mv.className = 'ms' + (st[`${sesNum}-ver`]?' on':'');
+    const dom = document.getElementById(`dom-${sesNum}`);
+    if(dom && isComplete(sesNum)) dom.classList.add('show');
+  }
+
+  function buildCard(s){
+    const n   = s.session_number;
+    const sts = s.status;
+    const url = s.session_url;
+    const tit = s.title;
+
+    if(sts === 'locked'){
+      return `<div class="card locked">
+        <div class="card-top locked">
+          <div class="snum locked">S${n}</div>
+          <div class="sinfo">
+            <div class="slabel locked">Próximamente</div>
+            <div class="stitle">${tit}</div>
+          </div>
+          <div class="lock-icon">🔒</div>
+        </div>
+      </div>`;
+    }
+
+    const labelText = sts === 'done' ? '✓ Disponible' : '▶ En curso';
+    const actionHTML = url
+      ? `<a class="btn-ver" href="${url}" target="_blank">Ver ↗</a>`
+      : `<span style="font-size:11px;color:var(--muted);font-weight:500;">Pronto disponible</span>`;
+
+    const thumbs = THUMBS[n] || [];
+    const thumbHTML = thumbs.length
+      ? `<div class="prev-strip">${thumbs.map(src=>`<div class="prev-thumb"><img src="${src}" alt="Slide" loading="lazy" /></div>`).join('')}</div>`
+      : '';
+    const challengeText = CHALLENGES[n] || 'Aplica lo aprendido esta semana y márcalo cuando lo hagas.';
+    const hasQuiz = !!QUIZZES[n];
+
+    return `<div class="card ${sts} active">
+      <div class="card-top">
+        <div class="snum ${sts}">S${n}</div>
+        <div class="sinfo">
+          <div class="slabel ${sts}">${labelText}</div>
+          <div class="stitle">${tit}</div>
+        </div>
+        <div class="saction">
+          ${actionHTML}
+          <div class="mini-stars">
+            ${hasQuiz ? `<span class="ms" id="ms-${n}-quiz">⭐</span>` : ''}
+            <span class="ms" id="ms-${n}-des">⭐</span>
+            <span class="ms" id="ms-${n}-ver">⭐</span>
+          </div>
+        </div>
+      </div>
+      ${thumbHTML}
+      <div class="desafio">
+        <div class="des-head"><span class="des-label">Desafío de la sesión</span></div>
+        <div class="des-text">${challengeText}</div>
+        <div class="honor-row">
+          ${hasQuiz ? `<button class="hbtn quiz-b" id="bq-${n}" onclick="startQuiz(${n})">Quiz ▶</button>` : ''}
+          <button class="hbtn des-b" id="bd-${n}" onclick="honor(${n},'des')">Desafío</button>
+          <button class="hbtn ver-b" id="bv-${n}" onclick="honor(${n},'ver')">Resumen visto</button>
+        </div>
+      </div>
+      <div class="dominada-banner" id="dom-${n}">⭐ ¡Sesión dominada · Habilidades desbloqueadas!</div>
+    </div>`;
+  }
+
+  async function init(){
+    loadStars();
+    renderSkills();
+
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/company_sessions?company_slug=eq.${COMPANY}&order=session_number.asc`,
+      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+    );
+    const sessions = await res.json();
+
+    activeSessions = sessions.filter(s => s.status !== 'locked').length;
+    const doneCount = sessions.filter(s => s.status === 'done').length;
+    const pct = Math.round((doneCount / sessions.length) * 100);
+
+    document.getElementById('stat-activas').textContent = activeSessions;
+    document.getElementById('prog-pct').textContent = pct + '%';
+    document.getElementById('prog-fill').style.width = pct + '%';
+
+    const list = document.getElementById('sess-list');
+    list.innerHTML = sessions.map(buildCard).join('');
+
+    sessions.filter(s => s.status !== 'locked').forEach(s => updateButtonStates(s.session_number));
+    renderStarPanel();
+  }
+
+  function honor(sesNum, tipo){
+    if(st[`${sesNum}-${tipo}`]) return;
+    pending = {sesNum, tipo};
+    if(tipo === 'des'){
+      document.getElementById('m-emoji').textContent = '🎯';
+      document.getElementById('m-title').textContent = '¿Completaste el desafío?';
+      document.getElementById('m-text').textContent  = 'Declara que completaste el desafío a conciencia y aplicaste lo aprendido. Tu palabra es lo que cuenta.';
+    } else {
+      document.getElementById('m-emoji').textContent = '📖';
+      document.getElementById('m-title').textContent = '¿Viste el resumen ejecutivo?';
+      document.getElementById('m-text').textContent  = 'Confirma que revisaste el resumen de la sesión. Repasar consolida el aprendizaje.';
+    }
+    document.getElementById('m-confirm').onclick = confirmHonor;
+    document.getElementById('overlay').classList.add('open');
+  }
+
+  function confirmHonor(){
+    if(!pending) return;
+    const sesNum = pending.sesNum;
+    const tipo = pending.tipo;
+    st[`${sesNum}-${tipo}`] = true;
+    saveStars();
+    closeModal();
+    updateButtonStates(sesNum);
+    renderStarPanel();
+    if(isComplete(sesNum)){
+      renderSkills(sesNum);
+      showToast('⭐ ¡Sesión dominada! Habilidades desbloqueadas.');
+    } else {
+      showToast(tipo === 'des' ? '🎯 ¡Desafío completado!' : '📖 ¡Resumen marcado como visto!');
+    }
+    pending = null;
+  }
+
+  function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+
+  // --- QUIZ ---
+  function startQuiz(sesNum){
+    if(st[`${sesNum}-quiz`]) return;
+    quizSesNum = sesNum;
+    quizQuestions = QUIZZES[sesNum];
+    quizIdx = 0;
+    document.getElementById('quiz-overlay').classList.add('open');
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    const q = quizQuestions[quizIdx];
+    const total = quizQuestions.length;
+    quizAnswered = false;
+
+    document.getElementById('q-num').textContent = `Pregunta ${quizIdx + 1} de ${total}`;
+    document.getElementById('q-text').textContent = q.q;
+    document.getElementById('qprog-fill').style.width = `${(quizIdx / total) * 100}%`;
+
+    const fb = document.getElementById('q-feedback');
+    fb.className = 'quiz-feedback';
+    fb.textContent = '';
+
+    const next = document.getElementById('q-next');
+    next.classList.remove('visible');
+    next.textContent = quizIdx < total - 1 ? 'Siguiente →' : 'Finalizar quiz ✓';
+
+    const optsEl = document.getElementById('q-options');
+    optsEl.innerHTML = q.opts.map((opt, i) =>
+      `<button class="qopt" onclick="answerQuiz(${i})">${opt}</button>`
+    ).join('');
+  }
+
+  function answerQuiz(idx){
+    if(quizAnswered) return;
+    const q = quizQuestions[quizIdx];
+    const opts = document.querySelectorAll('.qopt');
+    const fb = document.getElementById('q-feedback');
+
+    opts.forEach(o => o.disabled = true);
+
+    if(idx === q.correct){
+      opts[idx].classList.add('correct');
+      fb.className = 'quiz-feedback ok';
+      fb.textContent = '¡Correcto! ' + (quizIdx < quizQuestions.length - 1 ? 'Pasa a la siguiente pregunta.' : 'Completaste el quiz.');
+      quizAnswered = true;
+      document.getElementById('q-next').classList.add('visible');
+    } else {
+      opts[idx].classList.add('wrong');
+      opts[q.correct].classList.add('correct');
+      fb.className = 'quiz-feedback error';
+      fb.textContent = '❌ Incorrecto. ' + q.explain;
+      setTimeout(() => {
+        opts.forEach(o => { o.disabled = false; o.classList.remove('correct','wrong'); });
+        fb.className = 'quiz-feedback';
+        fb.textContent = '';
+      }, 2800);
+    }
+  }
+
+  function nextQuestion(){
+    quizIdx++;
+    if(quizIdx < quizQuestions.length){
+      renderQuestion();
+    } else {
+      finishQuiz();
+    }
+  }
+
+  function finishQuiz(){
+    document.getElementById('quiz-overlay').classList.remove('open');
+    st[`${quizSesNum}-quiz`] = true;
+    saveStars();
+    updateButtonStates(quizSesNum);
+    renderStarPanel();
+    if(isComplete(quizSesNum)){
+      renderSkills(quizSesNum);
+      showToast('⭐ ¡Sesión dominada! Habilidades desbloqueadas.');
+    } else {
+      showToast('🧠 ¡Quiz completado! Sigue con el desafío y el resumen.');
+    }
+  }
+
+  function closeQuiz(){
+    document.getElementById('quiz-overlay').classList.remove('open');
+  }
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 3000);
+  }
+
+  init();
+</script>
+</body>
+</html>
