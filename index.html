@@ -732,6 +732,11 @@
       display: flex;
       gap: 2rem;
       list-style: none;
+      align-items: center;
+    }
+    .nav-desktop li {
+      display: flex;
+      align-items: center;
     }
     
     /* Menú móvil */
@@ -799,13 +804,40 @@
       width: 100%;
     }
 
+    /* Link Repo de prompts — estilo code */
+    .nav-repo {
+      font-family: 'SF Mono', 'DM Mono', ui-monospace, Menlo, Consolas, monospace !important;
+      color: #c8f064 !important;
+      font-weight: 600 !important;
+      font-size: 0.9rem !important;
+      line-height: 1 !important;
+      letter-spacing: -0.01em;
+      border: 1px solid rgba(200,240,100,0.32);
+      border-radius: 6px;
+      padding: calc(0.5rem - 1px) 0.85rem !important;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .nav-repo .nav-repo-code { opacity: 0.7; font-weight: 700; }
+    .nav-repo::after { display: none !important; }
+    .nav-repo:hover {
+      color: #c8f064 !important;
+      background: rgba(200,240,100,0.1);
+      border-color: rgba(200,240,100,0.6);
+      box-shadow: 0 0 16px rgba(200,240,100,0.22);
+    }
+
     .btn-ingresar {
       background: linear-gradient(135deg, #c09b5a, #e0c07c) !important;
       color: #1a1a1a !important;
       padding: 0.5rem 1rem !important;
+      border: 1px solid transparent !important;
       border-radius: 6px !important;
       font-weight: 700 !important;
       font-size: 0.9rem !important;
+      line-height: 1 !important;
       transition: all 0.3s ease !important;
       box-shadow: 0 4px 12px rgba(192, 155, 90, 0.3) !important;
     }
@@ -1788,15 +1820,17 @@
         <li><a href="#quien-soy" aria-label="Ir a la sección quién soy">Quién soy</a></li>
         <li><a href="#servicios" aria-label="Ir a la sección de servicios">Servicios</a></li>
         <li><a href="#contacto" aria-label="Ir a la sección de contacto">Contacto</a></li>
+        <li><a href="/repo-prompts" class="nav-repo" aria-label="Ir al repositorio de prompts"><span class="nav-repo-code">&lt;/&gt;</span> Repo</a></li>
         <li><a href="/login.html" class="btn-ingresar" aria-label="Ir a la página de inicio de sesión">Ingresar</a></li>
       </ul>
-      
+
       <!-- Menú móvil -->
       <ul class="nav-mobile" id="navMobile" aria-label="Menú de navegación móvil">
         <li><a href="#inicio" aria-label="Ir a la sección de inicio">Inicio</a></li>
         <li><a href="#quien-soy" aria-label="Ir a la sección quién soy">Quién soy</a></li>
         <li><a href="#servicios" aria-label="Ir a la sección de servicios">Servicios</a></li>
         <li><a href="#contacto" aria-label="Ir a la sección de contacto">Contacto</a></li>
+        <li><a href="/repo-prompts" class="nav-repo" aria-label="Ir al repositorio de prompts"><span class="nav-repo-code">&lt;/&gt;</span> Repo</a></li>
         <li><a href="/login.html" class="btn-ingresar" aria-label="Ir a la página de inicio de sesión">Ingresar</a></li>
       </ul>
     </nav>
