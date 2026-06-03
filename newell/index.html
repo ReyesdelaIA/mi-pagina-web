@@ -367,10 +367,12 @@
   const THUMBS = {
     1: ['/pucobre/thumbs/s1_thumb1.jpg','/pucobre/thumbs/s1_thumb2.jpg','/pucobre/thumbs/s1_thumb3.jpg'],
     2: ['/newell/thumbs/s2_thumb1.png','/newell/thumbs/s2_thumb2.png','/newell/thumbs/s2_thumb3.png'],
+    3: ['/newell/thumbs/s3_thumb1.png','/newell/thumbs/s3_thumb2.png','/newell/thumbs/s3_thumb3.png'],
   };
   const CHALLENGES = {
     1: 'Abre Copilot y logra que memorice 5 temas relevantes de ti y tu rol dentro de Newell. Preséntate, cuéntale en qué área trabajas y qué tipo de tareas haces — y pídele que los recuerde para futuras conversaciones.',
     2: '1. Abre una planilla Excel.<br>2. Activa la opción Copilot.<br>3. Cambia el modelo automático a Claude.<br>4. Pídele que te cree gráficos de tu planilla.',
+    3: 'Crea tu primer agente básico en Copilot. Piensa en una tarea o dolor recurrente de tu día a día en Newell y construye un agente para resolverlo:<br>1. Dale un nombre y un propósito claro.<br>2. Redacta una buena paleta de instrucciones (apóyate en la IA para escribirlas).<br>3. Cárgale conocimiento vinculante (SharePoint, Teams, Outlook o una web).<br>4. Pruébalo con un caso real y ajusta las instrucciones según el resultado.',
   };
   const QUIZZES = {
     1: [
@@ -423,6 +425,38 @@
         opts: ['No, dado que son datos privados.', 'Solo si es que tengo poca información.', 'Por supuesto. Puedes integrar Copilot con tu SharePoint para que te ayude con esa información.', 'Sí, pero pocas veces al día, porque gasta muchos tokens.'],
         correct: 2,
         explain: 'Copilot puede integrarse con SharePoint para consultar, resumir y trabajar con la información almacenada ahí. No hay restricción de frecuencia ni de volumen de datos — esa es precisamente una de sus ventajas corporativas.',
+      },
+    ],
+    3: [
+      {
+        q: '¿Qué es un agente en Copilot?',
+        opts: ['Un chat nuevo que se borra apenas cierras la ventana.', 'Un asistente de IA que configuras una sola vez con instrucciones y conocimiento, y luego repite esa lógica automáticamente cada vez que lo usas.', 'Un programa que debes descargar e instalar aparte en tu computador.', 'Una macro de Excel que solo sirve para planillas.'],
+        correct: 1,
+        explain: 'Un agente se configura una vez —con un propósito, instrucciones y conocimiento— y luego repite esa lógica automáticamente. No es un chat desechable ni algo que se instale aparte.',
+      },
+      {
+        q: 'Para que tu agente responda con precisión sobre temas de Newell, ¿qué es clave hacer?',
+        opts: ['Ponerle un nombre llamativo.', 'Usarlo muchas veces al día.', 'Cargarle conocimiento vinculante: conectar fuentes como SharePoint, Teams, Outlook o sitios web en su sección "Conocimiento".', 'Dejar las instrucciones en blanco para que improvise.'],
+        correct: 2,
+        explain: 'En la sección "Conocimiento" conectas las fuentes que el agente usará (SharePoint, Teams, Outlook, webs). Cuanto mejor alimentado está, más preciso responde. El nombre o la frecuencia de uso no influyen en su precisión.',
+      },
+      {
+        q: 'Las instrucciones de un agente, una vez creado, ¿se pueden modificar?',
+        opts: ['No, se escriben una sola vez y quedan fijas para siempre.', 'Solo las puede cambiar el administrador de TI.', 'Son como un prompt permanente, pero puedes —y debes— irlas ecualizando e iterando a medida que conoces mejor al agente.', 'No influyen en cómo responde, así que da lo mismo.'],
+        correct: 2,
+        explain: 'Las instrucciones funcionan como un prompt permanente, pero no están escritas en piedra: lo ideal es iterarlas y mejorarlas con el uso, ajustando lo que funciona y lo que no.',
+      },
+      {
+        q: '¿Para qué sirve el Agente Investigador?',
+        opts: ['Buscar, recopilar y sintetizar información desde múltiples fuentes internas y externas, entregando un informe estructurado.', 'Crear gráficos de colores en PowerPoint.', 'Borrar correos antiguos de Outlook automáticamente.', 'Únicamente traducir documentos a otros idiomas.'],
+        correct: 0,
+        explain: 'El Investigador razona sobre tus datos de trabajo (chats, reuniones, archivos, correos) y los combina con información externa de la web para entregar un informe completo y estructurado.',
+      },
+      {
+        q: '¿Cómo te ayuda Copilot integrado en SharePoint y OneDrive?',
+        opts: ['Hay que instalar un complemento pago para activarlo.', 'Solo funciona con archivos PDF.', 'Sirve únicamente para subir archivos, no para leerlos.', 'Por conexión nativa: resume documentos y los encuentra con lenguaje natural, sin instalar nada adicional.'],
+        correct: 3,
+        explain: 'Copilot está integrado de forma nativa en SharePoint y OneDrive —el ícono aparece junto a cada archivo—, así que puedes resumir y buscar documentos con lenguaje natural sin instalar nada.',
       },
     ],
   };
