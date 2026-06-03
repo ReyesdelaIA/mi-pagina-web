@@ -16,6 +16,7 @@
     { "source": "/clases-grupales-ia-tradicional", "destination": "/clases-grupales-ia-tradicional.html" },
     { "source": "/maestros-fc-privacidad", "destination": "/maestros-fc-privacidad.html" },
     { "source": "/talleres-ia", "destination": "/talleres-practicos-ia.html" },
+    { "source": "/repo-prompts", "destination": "/repo-prompts/index.html" },
     { "source": "/pack-copilot", "destination": "/talleres/copilot.html" },
     { "source": "/pack-gemini", "destination": "/talleres/gemini.html" },
     { "source": "/pack-claude", "destination": "/talleres/claude.html" }
