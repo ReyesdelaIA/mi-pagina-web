@@ -347,6 +347,7 @@
     2: ['/pucobre/thumbs/s2_thumb1.jpg','/pucobre/thumbs/s2_thumb2.jpg','/pucobre/thumbs/s2_thumb3.jpg'],
     3: ['/pucobre/thumbs/s3_thumb1.jpg','/pucobre/thumbs/s3_thumb2.jpg','/pucobre/thumbs/s3_thumb3.jpg'],
     4: ['/pucobre/thumbs/s4_thumb1.jpg','/pucobre/thumbs/s4_thumb2.jpg','/pucobre/thumbs/s4_thumb3.jpg'],
+    5: ['/pucobre/thumbs/s5_thumb1.jpg','/pucobre/thumbs/s5_thumb2.jpg','/pucobre/thumbs/s5_thumb3.jpg'],
   };
   const CHALLENGES = {
     1: 'Entra a tu cuenta en Copilot (copilot.microsoft.com), adjúntale un documento de tu SharePoint, y pídele que te haga un resumen del documento en 30 palabras.',
@@ -464,6 +465,38 @@
         opts: ['Proyecto', 'Cuaderno (Notebook)', 'Carpeta', 'Espacio de trabajo'],
         correct: 1,
         explain: 'En NotebookLM organizas todo en "Cuadernos". Cada cuaderno tiene sus propias fuentes y un chat contextual basado en esos documentos.',
+      },
+    ],
+    5: [
+      {
+        q: '¿Cuál de estas estrategias ayuda a reducir alucinaciones al usar IA generativa?',
+        opts: ['Pedirle a la IA que invente cuando no sabe', 'Darle documentos internos con información relevante', 'Usar siempre el modelo más rápido disponible', 'Evitar dar contexto para que razone solo'],
+        correct: 1,
+        explain: 'Entregar documentos internos reduce la invención porque la IA trabaja sobre información real en vez de rellenar los vacíos por su cuenta.',
+      },
+      {
+        q: '¿Cuál es la ventaja de activar el modelo Opus en Copilot para Excel?',
+        opts: ['Permite importar datos desde Google Sheets automáticamente', 'Cambia el idioma del archivo a inglés para mayor precisión', 'Aplica razonamiento más profundo para crear fórmulas y análisis complejos', 'Genera macros en VBA sin necesidad de revisar el código'],
+        correct: 2,
+        explain: 'Opus es un modelo de razonamiento avanzado que entrega análisis más precisos y fórmulas mejor construidas.',
+      },
+      {
+        q: '¿Qué herramienta se destaca por crear presentaciones más visualmente atractivas?',
+        opts: ['Copilot con modelo Sonnet', 'Claude Artifacts directamente', 'Gamma', 'Microsoft Designer'],
+        correct: 2,
+        explain: 'Gamma está especializada en la generación de slides con diseño profesional a partir de texto.',
+      },
+      {
+        q: '¿Qué creencia errónea suele tener la gente sobre Copilot respecto a imágenes?',
+        opts: ['Que solo funciona en inglés', 'Que no puede generar imágenes de calidad porque es una herramienta "seria"', 'Que sus imágenes violan derechos de autor siempre', 'Que necesita suscripción premium para crear imágenes'],
+        correct: 1,
+        explain: 'Copilot usa DALL·E 3 internamente y genera imágenes de muy buena calidad, sin costo adicional.',
+      },
+      {
+        q: '¿Para qué es especialmente útil Napkin en el contexto de IA?',
+        opts: ['Gestionar tareas y proyectos de equipo con IA', 'Generar resúmenes de reuniones automáticamente', 'Crear infografías e HTMLs a partir de texto o ideas', 'Transcribir audios y convertirlos en presentaciones'],
+        correct: 2,
+        explain: 'Napkin analiza texto e ideas estructuradas y genera infografías y visualizaciones listas para exportar.',
       },
     ],
   };
