@@ -369,12 +369,14 @@
     2: ['/newell/thumbs/s2_thumb1.png','/newell/thumbs/s2_thumb2.png','/newell/thumbs/s2_thumb3.png'],
     3: ['/newell/thumbs/s3_thumb1.png','/newell/thumbs/s3_thumb2.png','/newell/thumbs/s3_thumb3.png'],
     4: ['/newell/thumbs/s4_thumb1.png','/newell/thumbs/s4_thumb2.png','/newell/thumbs/s4_thumb3.png'],
+  5: ['/newell/thumbs/s5_thumb1.jpg','/newell/thumbs/s5_thumb2.jpg','/newell/thumbs/s5_thumb3.jpg'],
 };
   const CHALLENGES = {
     1: 'Abre Copilot y logra que memorice 5 temas relevantes de ti y tu rol dentro de Newell. Preséntate, cuéntale en qué área trabajas y qué tipo de tareas haces — y pídele que los recuerde para futuras conversaciones.',
     2: '1. Abre una planilla Excel.<br>2. Activa la opción Copilot.<br>3. Cambia el modelo automático a Claude.<br>4. Pídele que te cree gráficos de tu planilla.',
     3: 'Crea tu primer agente básico en Copilot. Piensa en una tarea o dolor recurrente de tu día a día en Newell y construye un agente para resolverlo:<br>1. Dale un nombre y un propósito claro.<br>2. Redacta una buena paleta de instrucciones (apóyate en la IA para escribirlas).<br>3. Cárgale conocimiento vinculante (SharePoint, Teams, Outlook o una web).<br>4. Pruébalo con un caso real y ajusta las instrucciones según el resultado.',
       4: 'Pon en práctica el flujo Pro de la sesión:<br>1. Pídele al <strong>Agente Analista</strong> que analice un Excel real de tu área en Newell (KPIs, ventas, lo que tengas) y genere 2-3 gráficos.<br>2. Abre <strong>PowerPoint con Copilot</strong> (con modelo Claude) y pídele que arme una presentación ejecutiva basada en ese análisis.<br>3. Pule un par de slides con instrucciones en lenguaje natural. ¡De datos crudos a presentación lista sin salir de M365!',
+    5: 'Crea una pieza de campaña de punta a punta:<br>1. Genera una imagen de producto con tu marca (Crear con Copilot o Gemini).<br>2. Anímala con <strong>image-to-video en Gemini</strong> para un reel.<br>3. Si la imagen base estaba pixelada, pásala antes por <strong>Krea.ai</strong>.<br>Comparte el resultado con tu equipo. 🎬',
 };
   const QUIZZES = {
     1: [
@@ -491,6 +493,38 @@
         opts: ['Hacer todo manualmente en cada app por separado.', 'Usar solo Word para todo.', 'El Investigador trae datos externos, el Analista los cruza y analiza, exportas a Excel y Copilot en PowerPoint arma la presentación.', 'Copiar y pegar entre apps sin usar IA.'],
         correct: 2,
         explain: 'El flujo Pro encadena los agentes y las apps: investigar, analizar, exportar a Excel y generar la presentación en PowerPoint con Copilot. De datos crudos a entregable sin salir de M365.',
+      },
+    ],
+    5: [
+      {
+        q: '¿Qué permite hacer "Crear con Copilot" para marketing?',
+        opts: ['Solo escribir correos.', 'Solo crear tablas de Excel.', 'Generar imágenes y pósters e insertar el logo de tu marca en una escena realista (mockups).', 'Nada visual, solo texto.'],
+        correct: 2,
+        explain: 'Desde "Crear" en Copilot generas imágenes, pósters, infografías y más. Con "Insertar un logotipo en una escena" puedes integrar el logo de la marca de forma realista — ideal para mockups de campaña.',
+      },
+      {
+        q: 'Al generar imágenes pro de producto con ChatGPT o Gemini, ¿qué conviene hacer?',
+        opts: ['Subir una foto real del producto como referencia y dar un prompt con superficie, fondo, estilo y uso final.', 'Pedir "una foto linda" sin más contexto.', 'Usar siempre la menor resolución posible.', 'Evitar mencionar la marca o el producto.'],
+        correct: 0,
+        explain: 'La foto de referencia mantiene la fidelidad del producto, y un prompt detallado (superficie + fondo + estilo + uso final) define la calidad del resultado. Mientras más específico, mejor.',
+      },
+      {
+        q: 'Sobre los videos con Gemini, ¿qué es cierto?',
+        opts: ['Requiere pagar una licencia aparte.', 'Solo genera videos de una hora.', 'No acepta fotos como punto de partida.', 'Se activa gratis con tu Gmail (~3 videos/día) y permite text-to-video e image-to-video (animar una foto real).'],
+        correct: 3,
+        explain: 'Gemini se activa gratis con tu cuenta de Gmail y permite generar video desde texto o animar una foto real (image-to-video) — perfecto para reels de marketing sin rodaje.',
+      },
+      {
+        q: '¿Por qué usar Ideogram en modo "Design" para logos y mockups?',
+        opts: ['Porque es el único generador gratis que existe.', 'Es el más confiable para que el texto y el nombre de la marca salgan bien escritos dentro del diseño.', 'Porque solo trabaja en blanco y negro.', 'Porque no necesita ningún prompt.'],
+        correct: 1,
+        explain: 'La mayoría de generadores distorsionan el texto. Ideogram en modo Design es el más confiable para que el nombre de la marca aparezca legible y bien escrito — clave en branding y mockups.',
+      },
+      {
+        q: '¿Para qué sirve Krea.ai en marketing?',
+        opts: ['Para borrar el fondo de una foto.', 'Para escribir el copy de la campaña.', 'Para subir la resolución de fotos pixeladas o de baja calidad y dejarlas listas para valla o catálogo.', 'Para componer la música de un reel.'],
+        correct: 2,
+        explain: 'Krea.ai (cuenta gratis) reconstruye detalle y sube la resolución de imágenes pixeladas o borrosas, dejándolas listas para impresión de gran formato o catálogo.',
       },
     ],
 };
