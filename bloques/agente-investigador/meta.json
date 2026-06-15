@@ -1,0 +1,45 @@
+{
+  "id": "agente-investigador",
+  "nombre": "Agente Investigador",
+  "emoji": "🕵️",
+  "descripcion": "Búsqueda profunda y síntesis desde múltiples fuentes externas e internas",
+  "categoria": "agentes",
+  "tags": [
+    "agentes",
+    "investigacion",
+    "copilot",
+    "sintesis"
+  ],
+  "pasos": [
+    "¿Para qué sirve? Para buscar, recopilar y sintetizar información desde múltiples fuentes externas: web, documentos internos, reuniones, correos y bases de datos corporativas.",
+    "Cómo usarlo: Selecciona el agente Investigador en el panel de Copilot y escribe tu pregunta de investigación. Puede razonar sobre todos tus datos de trabajo simultáneamente.",
+    "Casos de uso clave: Preparar reuniones con inteligencia de cliente, actualizar el estado de proyectos, analizar la posición de mercado de una compañía, y hacer seguimiento de elementos de acción.",
+    "Output: Entrega un informe de investigación completo y estructurado, combinando datos internos (chats, reuniones, archivos) con información externa de la web."
+  ],
+  "pro_tip": "\"Prepárame un informe ejecutivo sobre [Cliente/Proyecto]: incluye estado actual, últimas interacciones, compromisos pendientes y contexto de mercado relevante.\"",
+  "desafio": null,
+  "assets": [
+    "cover.jpg",
+    "paso1.jpg",
+    "cover_v2.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/agente-investigador/cover.jpg",
+    "https://reyesia.com/bloques/agente-investigador/paso1.jpg",
+    "https://reyesia.com/bloques/agente-investigador/cover_v2.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-newell/index.html",
+      "title": "Agente Investigador",
+      "imgs": 2,
+      "variant": 0
+    },
+    {
+      "file": "sesion04-castilla/index.html",
+      "title": "Agente Investigador (M365 Copilot Pro)",
+      "imgs": 1,
+      "variant": 1
+    }
+  ]
+}

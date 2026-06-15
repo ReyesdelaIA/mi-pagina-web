@@ -1,0 +1,31 @@
+{
+  "id": "internet-avanzada",
+  "nombre": "Internet avanzada",
+  "emoji": "🔎",
+  "descripcion": "Investigación con fuentes controladas y resultados estructurados",
+  "categoria": "fundamentos",
+  "tags": [
+    "busqueda",
+    "fuentes",
+    "investigacion",
+    "web"
+  ],
+  "pasos": [
+    "Pasa URLs directamente: \"Analiza esta nota: [link]\". La IA leerá la página y responderá sobre su contenido. Útil para noticias, artículos técnicos, licitaciones.",
+    "Controla las fuentes: \"Omite resultados de redes sociales, solo fuentes como Emol, La Tercera o El Mercurio.\" Filtra el ruido y obtén información de calidad.",
+    "Pide formato de salida: \"dame el resultado como un resumen de 5 puntos clave\" o \"en tabla comparativa\" o \"como briefing ejecutivo de una página\".",
+    "Preguntas de seguimiento: Una vez que la IA tiene el contexto de la página o búsqueda, puedes seguir preguntando: \"¿qué implica esto para una empresa minera?\" o \"explícame el IMACEC en términos simples\"."
+  ],
+  "pro_tip": "\"Investiga [tema] usando solo fuentes confiables como [portales]. Omite [fuentes a omitir]. Dame el resultado como [formato: resumen / tabla / bullets / briefing] de no más de [extensión].\"",
+  "desafio": "Hands-on 05: Pídele que investigue algo con el micrófono, especificando fuentes y formato de salida.",
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "sesion02-castilla/index.html",
+      "title": "Internet avanzada",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

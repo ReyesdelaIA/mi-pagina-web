@@ -1,0 +1,26 @@
+{
+  "id": "3-esferas",
+  "nombre": "Las 3 grandes esferas de la IA generativa",
+  "emoji": "🌐",
+  "descripcion": "El mapa mental para saber qué pedirle a la IA en cada situación",
+  "categoria": "fundamentos",
+  "tags": [
+    "fundamentos",
+    "prompting",
+    "generativa",
+    "mapa-mental"
+  ],
+  "pasos": [],
+  "pro_tip": "Antes de abrir la IA, pregúntate: ¿esto es redactar algo , buscar algo en internet , o analizar algo que ya tengo ? La respuesta te dice el prompt y la herramienta.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "sesion02-castilla/index.html",
+      "title": "Las 3 grandes esferas de la IA generativa",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

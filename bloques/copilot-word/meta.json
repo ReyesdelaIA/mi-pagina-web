@@ -1,0 +1,51 @@
+{
+  "id": "copilot-word",
+  "nombre": "Copilot en Word",
+  "emoji": "📝",
+  "descripcion": "Redacta, resume y mejora documentos con IA dentro de Word",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "word",
+    "documentos",
+    "microsoft"
+  ],
+  "pasos": [
+    "Abre Word y haz clic en el ícono Copilot en la barra de herramientas (esquina superior derecha). Se abrirá el panel lateral de Copilot.",
+    "Para crear un documento desde cero: escribe \"/\" en el documento vacío para activar el modo de redacción asistida por Copilot y describe lo que necesitas.",
+    "Con un documento ya existente: puedes pedirle que lo resuma, mejore el tono, reformule secciones, agregue contenido o transforme el formato. También puede leer archivos adjuntos desde OneDrive como contexto.",
+    "Usa el Editor integrado para revisión de gramática y estilo, y Copilot para sugerir mejoras de fondo y coherencia."
+  ],
+  "pro_tip": "Abre un documento Word en blanco → haz clic en Copilot en la barra → pídele que redacte un borrador sobre un tema de tu trabajo en . Luego usa el panel para refinarlo.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg",
+    "paso1.jpg",
+    "paso2.jpg",
+    "cover_v2.jpg",
+    "paso1_v2.jpg",
+    "paso2_v2.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-word/cover.jpg",
+    "https://reyesia.com/bloques/copilot-word/paso1.jpg",
+    "https://reyesia.com/bloques/copilot-word/paso2.jpg",
+    "https://reyesia.com/bloques/copilot-word/cover_v2.jpg",
+    "https://reyesia.com/bloques/copilot-word/paso1_v2.jpg",
+    "https://reyesia.com/bloques/copilot-word/paso2_v2.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-k7x9/index.html",
+      "title": "Copilot en Word",
+      "imgs": 3,
+      "variant": 0
+    },
+    {
+      "file": "sesion02-newell/index.html",
+      "title": "Copilot en Word",
+      "imgs": 3,
+      "variant": 1
+    }
+  ]
+}

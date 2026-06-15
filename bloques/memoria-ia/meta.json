@@ -1,0 +1,33 @@
+{
+  "id": "memoria-ia",
+  "nombre": "Memoria en IA",
+  "emoji": "🧠",
+  "descripcion": "Haz que Copilot y ChatGPT recuerden quién eres entre sesiones",
+  "categoria": "fundamentos",
+  "tags": [
+    "memoria",
+    "contexto",
+    "copilot",
+    "chatgpt",
+    "personalizacion"
+  ],
+  "pasos": [
+    "Activar en Copilot: Ve a Configuración → Personalización → Memoria de Copilot → activa el toggle azul. La IA empieza a inferir y guardar datos desde tus conversaciones.",
+    "Activar en ChatGPT: Perfil → Configuración → Personalización → sección \"Memoria\" → toggle \"Consultar memorias guardadas\" activado. También activa \"Consultar historial del chat\".",
+    "Memorizar algo intencionalmente: Escríbele directamente: \"memoriza que soy [cargo] en [empresa] y que prefiero respuestas cortas y directas\" . La IA confirmará con un badge \"Memoria actualizada\" o \"Added memory\".",
+    "Consultar qué sabe de ti: Pregunta directamente: \"¿qué sabes de mí? dame el resultado en bullets\" . Útil para auditar y corregir datos incorrectos.",
+    "Administrar recuerdos: En Copilot: Configuración → Personalización → ver y eliminar memorias individuales. En ChatGPT: Configuración → Personalización → \"Administrar memorias\" → botón Administrar."
+  ],
+  "pro_tip": "En tu primera sesión con cualquier IA escríbele: \"Memoriza lo siguiente sobre mí: trabajo en [empresa] como [cargo]. Mis proyectos principales son [X e Y]. Prefiero respuestas directas, sin rodeos, en español chileno.\" Esto acelera enormemente la personalización.",
+  "desafio": "Hands-on 01: Logra que Copilot memorice algo de ti y verifica que aparezca el badge \"Memoria actualizada\" ✓",
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "sesion02-castilla/index.html",
+      "title": "Memoria en IA",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

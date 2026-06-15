@@ -1,0 +1,38 @@
+{
+  "id": "notebooklm",
+  "nombre": "NotebookLM",
+  "emoji": "📓",
+  "descripcion": "Tus fuentes con superpoderes de análisis — PDFs, webs, YouTube y más",
+  "categoria": "herramientas-ia",
+  "tags": [
+    "notebooklm",
+    "google",
+    "fuentes",
+    "analisis"
+  ],
+  "pasos": [
+    "Accede desde notebooklm.google.com o desde el menú de apps de Google (cuadrícula de 9 puntos → NotebookLM).",
+    "Crea un nuevo cuaderno y sube tus fuentes: PDFs, documentos de Google, sitios web, videos de YouTube o archivos de audio.",
+    "El panel tiene 3 zonas clave : (izquierda) Fuentes cargadas y búsqueda web, (centro) Chat con el cuaderno, (derecha) Accionables del Studio — Podcast (dos locutores IA que debaten tu contenido), presentación, mapa mental, infografía, cuestionario.",
+    "Desde Gemini , puedes vincular un cuaderno directamente: clic en \"+\" → NotebookLM → selecciona el cuaderno. Gemini accede a tus fuentes y responde con ese contexto.",
+    "Usa los Accionables del Studio para generar en 1 clic: podcast de audio con 2 locutores IA, presentación de diapositivas, mapa mental o tabla de datos."
+  ],
+  "pro_tip": "Puedes subir hasta 50 documentos en cuentas gratuitas y hasta 300 en cuentas de pago . NotebookLM soporta casi todo tipo de formatos, por ejemplo: páginas web, videos de YouTube, archivos de audio, PDFs, documentos de Google y más.",
+  "desafio": "Casos de uso: Sube contratos, licitaciones o reportes técnicos y pregunta directamente sobre el contenido. NotebookLM solo responde basado en tus fuentes, evitando alucinaciones.",
+  "assets": [
+    "cover.jpg",
+    "paso1.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/notebooklm/cover.jpg",
+    "https://reyesia.com/bloques/notebooklm/paso1.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion04-castilla/index.html",
+      "title": "NotebookLM",
+      "imgs": 2,
+      "variant": 0
+    }
+  ]
+}

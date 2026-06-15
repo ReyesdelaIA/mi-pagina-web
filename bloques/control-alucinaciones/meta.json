@@ -1,0 +1,30 @@
+{
+  "id": "control-alucinaciones",
+  "nombre": "Control de Alucinaciones",
+  "emoji": "🎯",
+  "descripcion": "Cómo reducir la invención de la IA — sin poder eliminarla al 100%",
+  "categoria": "fundamentos",
+  "tags": [
+    "alucinaciones",
+    "verificacion",
+    "confiabilidad",
+    "prompting"
+  ],
+  "pasos": [],
+  "pro_tip": "«Responde solo si tienes al menos 90% de seguridad. Si no estás seguro, dímelo claramente en vez de inventar.»",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/control-alucinaciones/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion05-castilla/index.html",
+      "title": "Control de Alucinaciones",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

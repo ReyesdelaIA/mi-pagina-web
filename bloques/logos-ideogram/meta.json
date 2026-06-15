@@ -1,0 +1,36 @@
+{
+  "id": "logos-ideogram",
+  "nombre": "Logos con IA — Ideogram.ai",
+  "emoji": "🎭",
+  "descripcion": "Generación de logos, mockups y diseños con texto preciso",
+  "categoria": "mundo-visual",
+  "tags": [
+    "logos",
+    "ideogram",
+    "branding",
+    "diseno"
+  ],
+  "pasos": [
+    "Entra a ideogram.ai y crea una cuenta gratuita. Verás el campo de prompt con las opciones de generación.",
+    "Activa el modo \"Design\" — optimiza el modelo para logos, tipografías y diseño gráfico con texto legible y preciso dentro de la imagen.",
+    "Escribe un prompt describiendo el logo: nombre de la marca, estilo visual, colores e íconos. Ej: \"Logo for REYES IA, crown icon, dark background, gold and white typography, modern tech style.\"",
+    "Ideogram genera 4 variaciones simultáneas . Haz clic en la que más te guste para remix, editar colores o pedir variaciones de estilo.",
+    "También funciona para mockups de productos : perfumes, latas, jabones, packaging — con el nombre de tu marca integrado de forma realista."
+  ],
+  "pro_tip": "La mayoría de generadores distorsionan el texto. Ideogram en modo Design es el más confiable para que el nombre de tu marca aparezca escrito correctamente dentro del diseño — ventaja clave para branding.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/logos-ideogram/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion06-castilla/index.html",
+      "title": "Logos con IA — Ideogram.ai",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

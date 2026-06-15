@@ -1,0 +1,34 @@
+{
+  "id": "copilot-m365-hub",
+  "nombre": "Copilot en M365",
+  "emoji": "🏢",
+  "descripcion": "El hub central de IA integrado en todas tus apps de Microsoft",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "m365",
+    "hub",
+    "microsoft"
+  ],
+  "pasos": [
+    "Copilot en M365 está integrado en Word, Excel, PowerPoint, Outlook, Teams, OneNote y OneDrive — todas las apps usan el mismo Copilot con contexto de tu organización.",
+    "Copilot como App standalone : Accede a Copilot directamente desde copilot.microsoft.com o desde la app M365. Allí encuentras Chat, Agentes (Investigador, Analista), y la sección Crear.",
+    "La diferencia clave vs ChatGPT: Copilot conoce tu contexto corporativo — accede a tus archivos de OneDrive, tus correos de Outlook, tus reuniones de Teams y los datos de SharePoint de tu empresa."
+  ],
+  "pro_tip": "Copilot es más poderoso cuando tus archivos están bien organizados en OneDrive y SharePoint. Cuanto más ordenada esté tu nube, mejores serán las respuestas que obtendrás.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-m365-hub/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-k7x9/index.html",
+      "title": "Copilot en M365",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

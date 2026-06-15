@@ -1,0 +1,26 @@
+{
+  "id": "modelos-fast-vs-razonamiento",
+  "nombre": "Modelos Fast vs. Razonamiento",
+  "emoji": "⚡",
+  "descripcion": "Cuándo usar velocidad y cuándo usar pensamiento profundo",
+  "categoria": "fundamentos",
+  "tags": [
+    "modelos",
+    "razonamiento",
+    "velocidad",
+    "seleccion"
+  ],
+  "pasos": [],
+  "pro_tip": "Rápido: cuando no necesito que piense mucho pero sí que conteste rápido. Razonamiento: cuando quiero que no solo escriba, sino que realmente razone y me acompañe a pensar. El razonamiento consume más créditos — úsalo cuando vale la pena.",
+  "desafio": "Hands-on 07: Activa el modo \"Razonamiento profundo\" en Copilot (o Thinking en ChatGPT) y compara la respuesta con el modo estándar en una pregunta compleja de tu área.",
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "sesion02-castilla/index.html",
+      "title": "Modelos Fast vs. Razonamiento",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

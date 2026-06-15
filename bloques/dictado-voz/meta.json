@@ -1,0 +1,31 @@
+{
+  "id": "dictado-voz",
+  "nombre": "Herramienta de Dictado / Voz",
+  "emoji": "🎙️",
+  "descripcion": "Habla en vez de escribir — prompts más ricos, más rápido",
+  "categoria": "fundamentos",
+  "tags": [
+    "voz",
+    "dictado",
+    "productividad",
+    "prompts"
+  ],
+  "pasos": [
+    "Dictado en Copilot (web/móvil): Ícono de micrófono 🎤 en la barra de chat → dar permisos al micrófono → habla tu prompt completo → Enter para enviar. Disponible tanto en desktop como en app móvil.",
+    "Dictado en Word: Cinta → botón \"Dictar\" (ícono micrófono) → habla directamente en el documento. Útil para redactar borradores largos.",
+    "Dictado en Google Docs: Herramientas → Escribir por voz (atajo: ⌘+Mayús+S en Mac). Activa el micrófono y dicta.",
+    "Modelo de Voz Conversacional (ChatGPT/Copilot móvil): Distinto al dictado — es una conversación real tipo \"Her\". En ChatGPT app: ícono de ondas de sonido 🌊 → modo conversación en tiempo real con respuesta hablada. En Copilot: ícono de ondas al lado del micrófono."
+  ],
+  "pro_tip": "Al dictar, incluye todo: \"Quiero [qué cosa] en máximo [N] palabras, con un tono [formal/cercano/técnico], en formato [bullets/párrafo/tabla], dirigido a [audiencia].\" Un buen prompt por esencia es largo — el dictado te libera de esa fricción.",
+  "desafio": "Hands-on 02 y 03: Dicta tu primer prompt a Copilot dando permisos al micrófono. Luego prueba el modelo conversacional (ícono ondas).",
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "sesion02-castilla/index.html",
+      "title": "Herramienta de Dictado / Voz",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

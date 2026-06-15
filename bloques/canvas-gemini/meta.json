@@ -1,0 +1,36 @@
+{
+  "id": "canvas-gemini",
+  "nombre": "Canvas en Gemini",
+  "emoji": "🧩",
+  "descripcion": "Crea visualizaciones y apps interactivas directamente desde Gemini",
+  "categoria": "herramientas-ia",
+  "tags": [
+    "gemini",
+    "canvas",
+    "google",
+    "colaboracion"
+  ],
+  "pasos": [
+    "Abre Gemini y haz clic en el botón \"+\" → selecciona \"Canvas\" en el menú de herramientas.",
+    "Escribe tu instrucción: puede ser una app interactiva, un quiz, un dashboard, una landing page, etc.",
+    "Gemini genera el código HTML/JS y lo previsualiza en tiempo real en el panel derecho.",
+    "Puedes iterar con instrucciones adicionales: \"agrégale un botón de reset\", \"cambia los colores a verde\".",
+    "Usa el botón \"Compartir\" para enviar el link del Canvas a otras personas."
+  ],
+  "pro_tip": "Pídele a Gemini Canvas que cree 10 tarjetas interactivas de inducción sobre tu empresa, con la URL del sitio web como contexto. En segundos tienes una mini-app de onboarding lista para compartir.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/canvas-gemini/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion05-castilla/index.html",
+      "title": "Canvas en Gemini",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

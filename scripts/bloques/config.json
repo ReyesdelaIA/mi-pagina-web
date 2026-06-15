@@ -1,0 +1,99 @@
+{
+  "blocks": [
+    { "id": "intro-copilot", "emoji": "🤖", "categoria": "copilot", "tags": ["copilot","microsoft","introduccion","m365"],
+      "sources": [ { "file": "sesion01-k7x9/index.html", "title": "¿Qué es Microsoft Copilot?" } ] },
+
+    { "id": "3-esferas", "emoji": "🌐", "categoria": "fundamentos", "tags": ["fundamentos","prompting","generativa","mapa-mental"],
+      "sources": [ { "file": "sesion02-castilla/index.html", "title": "Las 3 grandes esferas de la IA generativa" } ] },
+
+    { "id": "memoria-ia", "emoji": "🧠", "categoria": "fundamentos", "tags": ["memoria","contexto","copilot","chatgpt","personalizacion"],
+      "sources": [ { "file": "sesion02-castilla/index.html", "title": "Memoria en IA" } ] },
+
+    { "id": "dictado-voz", "emoji": "🎙️", "categoria": "fundamentos", "tags": ["voz","dictado","productividad","prompts"],
+      "sources": [ { "file": "sesion02-castilla/index.html", "title": "Herramienta de Dictado / Voz" } ] },
+
+    { "id": "modelos-fast-vs-razonamiento", "emoji": "⚡", "categoria": "fundamentos", "tags": ["modelos","razonamiento","velocidad","seleccion"],
+      "sources": [ { "file": "sesion02-castilla/index.html", "title": "Modelos Fast vs. Razonamiento" } ] },
+
+    { "id": "redaccion-avanzada", "emoji": "✍️", "categoria": "fundamentos", "tags": ["redaccion","tono","formato","prompting"],
+      "sources": [ { "file": "sesion02-castilla/index.html", "title": "Redacción avanzada" } ] },
+
+    { "id": "internet-avanzada", "emoji": "🔎", "categoria": "fundamentos", "tags": ["busqueda","fuentes","investigacion","web"],
+      "sources": [ { "file": "sesion02-castilla/index.html", "title": "Internet avanzada" } ] },
+
+    { "id": "analisis-documentos", "emoji": "📄", "categoria": "fundamentos", "tags": ["documentos","pdf","contratos","analisis"],
+      "sources": [ { "file": "sesion02-castilla/index.html", "title": "Análisis de documentos" } ] },
+
+    { "id": "copilot-m365-hub", "emoji": "🏢", "categoria": "copilot", "tags": ["copilot","m365","hub","microsoft"],
+      "sources": [ { "file": "sesion03-k7x9/index.html", "title": "Copilot en M365" } ] },
+
+    { "id": "crear-con-copilot", "emoji": "✨", "categoria": "copilot", "tags": ["copilot","crear","contenido","microsoft"],
+      "sources": [ { "file": "sesion03-k7x9/index.html", "title": "Crear con Copilot" } ] },
+
+    { "id": "copilot-word", "emoji": "📝", "categoria": "copilot", "tags": ["copilot","word","documentos","microsoft"],
+      "sources": [ { "file": "sesion03-k7x9/index.html", "title": "Copilot en Word" }, { "file": "sesion02-newell/index.html", "title": "Copilot en Word" } ] },
+
+    { "id": "copilot-excel", "emoji": "📊", "categoria": "copilot", "tags": ["copilot","excel","datos","microsoft"],
+      "sources": [ { "file": "sesion03-k7x9/index.html", "title": "Copilot en Excel" }, { "file": "sesion02-newell/index.html", "title": "Copilot en Excel" } ] },
+
+    { "id": "copilot-powerpoint", "emoji": "📽️", "categoria": "copilot", "tags": ["copilot","powerpoint","presentaciones","microsoft"],
+      "sources": [ { "file": "sesion03-k7x9/index.html", "title": "Copilot en PowerPoint" }, { "file": "sesion02-newell/index.html", "title": "Copilot en PowerPoint" } ] },
+
+    { "id": "copilot-outlook", "emoji": "📧", "categoria": "copilot", "tags": ["copilot","outlook","correo","microsoft"],
+      "sources": [ { "file": "sesion03-k7x9/index.html", "title": "Copilot en Outlook" } ] },
+
+    { "id": "copilot-teams", "emoji": "💬", "categoria": "copilot", "tags": ["copilot","teams","reuniones","microsoft"],
+      "sources": [ { "file": "sesion03-k7x9/index.html", "title": "Copilot en Teams" } ] },
+
+    { "id": "copilot-onedrive", "emoji": "☁️", "categoria": "copilot", "tags": ["copilot","onedrive","archivos","microsoft"],
+      "sources": [ { "file": "sesion03-k7x9/index.html", "title": "Copilot en OneDrive" } ] },
+
+    { "id": "copilot-sharepoint", "emoji": "🗂️", "categoria": "copilot", "tags": ["copilot","sharepoint","onedrive","microsoft"],
+      "sources": [ { "file": "sesion03-newell/index.html", "title": "Copilot + SharePoint & OneDrive" } ] },
+
+    { "id": "agentes-basicos", "emoji": "🛠️", "categoria": "agentes", "tags": ["agentes","copilot","automatizacion","creacion"],
+      "sources": [ { "file": "sesion03-newell/index.html", "title": "Agentes básicos en Copilot" }, { "file": "sesion04-castilla/index.html", "title": "Crear tu propio agente Copilot" } ] },
+
+    { "id": "agente-investigador", "emoji": "🕵️", "categoria": "agentes", "tags": ["agentes","investigacion","copilot","sintesis"],
+      "sources": [ { "file": "sesion03-newell/index.html", "title": "Agente Investigador" }, { "file": "sesion04-castilla/index.html", "title": "Agente Investigador (M365 Copilot Pro)" } ] },
+
+    { "id": "agente-analista", "emoji": "📈", "categoria": "agentes", "tags": ["agentes","analisis","datos","copilot"],
+      "sources": [ { "file": "sesion03-newell/index.html", "title": "Agente Analista" } ] },
+
+    { "id": "deep-research", "emoji": "🔬", "categoria": "agentes", "tags": ["deep-research","investigacion","fuentes","informes"],
+      "sources": [ { "file": "sesion04-castilla/index.html", "title": "Deep Research (Investigación Profunda)" } ] },
+
+    { "id": "notebooklm", "emoji": "📓", "categoria": "herramientas-ia", "tags": ["notebooklm","google","fuentes","analisis"],
+      "sources": [ { "file": "sesion04-castilla/index.html", "title": "NotebookLM" } ] },
+
+    { "id": "control-alucinaciones", "emoji": "🎯", "categoria": "fundamentos", "tags": ["alucinaciones","verificacion","confiabilidad","prompting"],
+      "sources": [ { "file": "sesion05-castilla/index.html", "title": "Control de Alucinaciones" } ] },
+
+    { "id": "gamma-ppts", "emoji": "🎨", "categoria": "herramientas-ia", "tags": ["gamma","presentaciones","ppt","ia"],
+      "sources": [ { "file": "sesion05-castilla/index.html", "title": "Gamma — Presentaciones con IA" } ] },
+
+    { "id": "napkin-infografias", "emoji": "🖼️", "categoria": "herramientas-ia", "tags": ["napkin","infografias","visual","texto"],
+      "sources": [ { "file": "sesion05-castilla/index.html", "title": "Napkin — Infografías desde texto" } ] },
+
+    { "id": "canvas-gemini", "emoji": "🧩", "categoria": "herramientas-ia", "tags": ["gemini","canvas","google","colaboracion"],
+      "sources": [ { "file": "sesion05-castilla/index.html", "title": "Canvas en Gemini" } ] },
+
+    { "id": "artefactos-claude", "emoji": "🪄", "categoria": "herramientas-ia", "tags": ["claude","artefactos","anthropic","apps"],
+      "sources": [ { "file": "sesion05-castilla/index.html", "title": "Artefactos de Claude" } ] },
+
+    { "id": "camara-con-ia", "emoji": "📷", "categoria": "mundo-visual", "tags": ["camara","vision","multimodal","movil"],
+      "sources": [ { "file": "sesion06-castilla/index.html", "title": "Uso de Cámara con IA" } ] },
+
+    { "id": "imagenes-pro", "emoji": "🖌️", "categoria": "mundo-visual", "tags": ["imagenes","generativa","llm","diseno"],
+      "sources": [ { "file": "sesion06-castilla/index.html", "title": "Imágenes Pro con LLMs" } ] },
+
+    { "id": "enhancer-upscale", "emoji": "🔍", "categoria": "mundo-visual", "tags": ["upscale","enhancer","calidad","imagenes"],
+      "sources": [ { "file": "sesion06-castilla/index.html", "title": "Enhancer / Upscale de Imágenes" } ] },
+
+    { "id": "videos-con-ia", "emoji": "🎬", "categoria": "mundo-visual", "tags": ["video","generativa","ia","produccion"],
+      "sources": [ { "file": "sesion06-castilla/index.html", "title": "Generación de Videos con IA" } ] },
+
+    { "id": "logos-ideogram", "emoji": "🎭", "categoria": "mundo-visual", "tags": ["logos","ideogram","branding","diseno"],
+      "sources": [ { "file": "sesion06-castilla/index.html", "title": "Logos con IA — Ideogram.ai" } ] }
+  ]
+}

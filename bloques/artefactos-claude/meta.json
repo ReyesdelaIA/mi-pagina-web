@@ -1,0 +1,36 @@
+{
+  "id": "artefactos-claude",
+  "nombre": "Artefactos de Claude",
+  "emoji": "🪄",
+  "descripcion": "Entregables vivos: visibles, interactivos, reutilizables y compartibles",
+  "categoria": "herramientas-ia",
+  "tags": [
+    "claude",
+    "artefactos",
+    "anthropic",
+    "apps"
+  ],
+  "pasos": [
+    "En Claude, ve al menú lateral → \"Más\" → \"Artefactos\" para ver tu biblioteca de artefactos creados.",
+    "Haz clic en \"Nuevo artefacto\" para crear uno desde cero. Elige la categoría: App/web, Documento, Juego, Herramienta de productividad, etc.",
+    "Describe lo que necesitas. Claude lo crea y lo muestra en el panel lateral interactivo , separado del chat.",
+    "Puedes iterar el artefacto con mensajes adicionales, ver el código fuente, copiar y publicar con un enlace público.",
+    "Los artefactos se guardan en tu biblioteca para reutilizar en futuras conversaciones."
+  ],
+  "pro_tip": "Pide un artefacto tipo \"tablero de seguimiento de tareas de mi equipo\" — Claude crea una mini-app interactiva que puedes compartir con tu equipo con un solo link.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/artefactos-claude/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion05-castilla/index.html",
+      "title": "Artefactos de Claude",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

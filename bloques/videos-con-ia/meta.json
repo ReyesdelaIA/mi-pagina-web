@@ -1,0 +1,35 @@
+{
+  "id": "videos-con-ia",
+  "nombre": "Generación de Videos con IA",
+  "emoji": "🎬",
+  "descripcion": "Text to Video e Image to Video — Kling, Runway, Sora y otros",
+  "categoria": "mundo-visual",
+  "tags": [
+    "video",
+    "generativa",
+    "ia",
+    "produccion"
+  ],
+  "pasos": [
+    "Elige la herramienta: Kling 2.0 , Runway o Sora (disponible en ChatGPT Pro) son los referentes actuales.",
+    "Escribe el prompt en inglés — los modelos de video están entrenados principalmente en inglés y los resultados son notablemente mejores. Ej: \"Cinematic fixed-shot scene. A small gas station on a hill at night, heavy rain, intense lightning, neon sign reading REYES IA. Moody atmosphere, film-quality VFX.\"",
+    "Para Image to Video : sube una foto estática y pide a la IA que la anime — movimiento de cámara, personas, luces, efectos climáticos.",
+    "Mejora tus prompts con IA: escribe la idea en español, pídele a Claude o ChatGPT que la convierta en un prompt cinematográfico técnico en inglés y úsalo en el generador."
+  ],
+  "pro_tip": "Dile a Claude o ChatGPT: \"Tengo esta idea para un video: [tu idea simple en español]. Conviértela en un prompt cinematográfico detallado en inglés para Runway.\" La diferencia en calidad es enorme.",
+  "desafio": "Text to Video: creas un video desde cero describiendo la escena con texto. Image to Video: partes de una foto existente y la IA la anima.",
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/videos-con-ia/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion06-castilla/index.html",
+      "title": "Generación de Videos con IA",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

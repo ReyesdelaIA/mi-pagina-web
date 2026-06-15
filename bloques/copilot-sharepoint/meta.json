@@ -1,0 +1,35 @@
+{
+  "id": "copilot-sharepoint",
+  "nombre": "Copilot + SharePoint & OneDrive",
+  "emoji": "🗂️",
+  "descripcion": "Conexión nativa para resumir y buscar documentos corporativos",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "sharepoint",
+    "onedrive",
+    "microsoft"
+  ],
+  "pasos": [
+    "Conexión nativa: Copilot está integrado directamente en SharePoint y OneDrive. No necesitas instalar nada adicional — el ícono de Copilot aparece junto a cada archivo.",
+    "Resúmenes de documentos: Haz clic en el ícono de Copilot junto a cualquier archivo y pídele que resuma el contenido. Funciona con Word, Excel, PowerPoint y PDF.",
+    "Búsqueda inteligente: Desde el chat de Copilot, puedes preguntar por archivos usando lenguaje natural: \"¿Cuál es el informe de ventas más reciente?\" y Copilot lo encuentra y resume.",
+    "Referencia cruzada: Copilot puede cruzar información de múltiples documentos al mismo tiempo. Pídele comparar, consolidar o extraer datos de varios archivos de tu OneDrive."
+  ],
+  "pro_tip": "Antes de una reunión importante, pídele a Copilot: \"Resume los últimos 3 documentos relacionados con [proyecto]\" . Llegas preparado en segundos.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-sharepoint/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-newell/index.html",
+      "title": "Copilot + SharePoint & OneDrive",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

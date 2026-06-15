@@ -1,0 +1,31 @@
+{
+  "id": "analisis-documentos",
+  "nombre": "Análisis de documentos",
+  "emoji": "📄",
+  "descripcion": "PDFs legales, contratos y múltiples archivos de una vez",
+  "categoria": "fundamentos",
+  "tags": [
+    "documentos",
+    "pdf",
+    "contratos",
+    "analisis"
+  ],
+  "pasos": [
+    "Subir un archivo: En Copilot/ChatGPT, clic en el ícono \"+\" o clip adjunto → seleccionar desde computadora o Google Drive. Formatos soportados: PDF, Word, Excel, TXT.",
+    "Documentos legales/contratos: Usa ChatGPT con agentes especializados (ej: FFMA GPT para contratos laborales). También funciona con Claude o Copilot para contratos generales.",
+    "Subir múltiples PDFs: En ChatGPT puedes adjuntar hasta 20 archivos por conversación (con GPT). En Copilot, adjunta varios archivos usando el botón \"+\" repetidamente.",
+    "Prompt para análisis multi-documento: \"Analiza ambos archivos y dame un resumen consolidado de [N] palabras, con una mirada [crítica / ejecutiva / técnica] sobre [el asunto].\""
+  ],
+  "pro_tip": "\"Analiza este contrato. Identifica: (1) las principales obligaciones de cada parte, (2) cláusulas de riesgo o penalidades, (3) cualquier inconsistencia o ambigüedad legal. Dame el resultado en formato estructurado.\"",
+  "desafio": "Hands-on 06: Sube 2 PDFs de menos de 20 páginas y pide un resumen consolidado con mirada específica.",
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "sesion02-castilla/index.html",
+      "title": "Análisis de documentos",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

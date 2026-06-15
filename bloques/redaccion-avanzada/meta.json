@@ -1,0 +1,32 @@
+{
+  "id": "redaccion-avanzada",
+  "nombre": "Redacción avanzada",
+  "emoji": "✍️",
+  "descripcion": "Prompts con tono, formato y extensión controlada",
+  "categoria": "fundamentos",
+  "tags": [
+    "redaccion",
+    "tono",
+    "formato",
+    "prompting"
+  ],
+  "pasos": [
+    "Define el qué: No solo \"escríbeme un email\" — dile el contexto completo: destinatario, objetivo, situación previa.",
+    "Controla la extensión: \"en máximo 80 palabras\", \"en 3 párrafos\", \"en 5 bullets\". La IA tiende a ser verbosa — ponle límite.",
+    "Especifica el tono: formal, cercano, técnico, ejecutivo, motivacional, empático. El tono cambia todo el resultado.",
+    "Pide el formato: bullets, tabla, párrafo corrido, con subtítulos, en formato asunto + cuerpo + cierre. El formato hace el output inmediatamente usable.",
+    "Usa el micrófono: Dicta el prompt completo — es mucho más fácil hablar todos esos detalles que escribirlos. El resultado es significativamente mejor."
+  ],
+  "pro_tip": "\"Redacta un [tipo de documento] dirigido a [destinatario/audiencia], en máximo [N] palabras, con tono [tono], en formato [formato]. El objetivo es [objetivo]. Contexto: [contexto relevante].\"",
+  "desafio": "Hands-on 04: Dicta a Copilot un prompt de redacción completo con tono, extensión y formato especificados.",
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "sesion02-castilla/index.html",
+      "title": "Redacción avanzada",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

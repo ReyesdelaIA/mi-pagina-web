@@ -1,0 +1,43 @@
+{
+  "id": "copilot-powerpoint",
+  "nombre": "Copilot en PowerPoint",
+  "emoji": "📽️",
+  "descripcion": "Crea presentaciones completas desde un prompt o a partir de documentos",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "powerpoint",
+    "presentaciones",
+    "microsoft"
+  ],
+  "pasos": [
+    "Abre PowerPoint y haz clic en Copilot en la barra superior. También puedes acceder desde el ícono de estrella ✨ que aparece al hacer clic en el área de texto de una diapositiva.",
+    "Crear presentación desde cero : escribe \"Crea una presentación de 10 slides sobre [tema]\". Copilot generará slides con contenido, diseño y sugerencias de imágenes automáticamente.",
+    "Crear desde un documento Word : pídele \"Crea una presentación basada en este archivo\" y adjunta tu documento de OneDrive. Es la forma más poderosa — convierte informes en slides al instante.",
+    "Con presentación existente: usa Copilot para resumir el contenido, agregar slides, cambiar el tono , o que te explique qué debería ir en cada sección."
+  ],
+  "pro_tip": "Abre una presentación nueva → Copilot → pídele \"Crea una presentación de 5 slides sobre seguridad en faenas mineras\". Revisa el resultado y ajusta slides con lenguaje natural.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg",
+    "cover_v2.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-powerpoint/cover.jpg",
+    "https://reyesia.com/bloques/copilot-powerpoint/cover_v2.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-k7x9/index.html",
+      "title": "Copilot en PowerPoint",
+      "imgs": 1,
+      "variant": 0
+    },
+    {
+      "file": "sesion02-newell/index.html",
+      "title": "Copilot en PowerPoint",
+      "imgs": 1,
+      "variant": 1
+    }
+  ]
+}

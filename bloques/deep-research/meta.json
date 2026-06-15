@@ -1,0 +1,35 @@
+{
+  "id": "deep-research",
+  "nombre": "Deep Research (Investigación Profunda)",
+  "emoji": "🔬",
+  "descripcion": "Informes de 15 páginas visitando 30–80 fuentes en ~10 minutos",
+  "categoria": "agentes",
+  "tags": [
+    "deep-research",
+    "investigacion",
+    "fuentes",
+    "informes"
+  ],
+  "pasos": [
+    "Copilot M365: En el panel izquierdo, selecciona el agente \"Investigador\" y escribe tu pregunta de investigación. Accede también desde el botón \"+\" → Fuentes.",
+    "Claude.ai: Haz clic en \"+\" → selecciona \"Investigación\" (modo Deep Research). Ideal para temas que requieren síntesis de múltiples fuentes externas.",
+    "Gemini: Haz clic en \"Herramientas\" → selecciona \"Deep Research\" . Genera informes con acceso a la web de Google en tiempo real.",
+    "ChatGPT: Haz clic en \"+\" → selecciona \"Investigación avanzada\" . Disponible en plan Plus. Genera informes extensos con citas verificables."
+  ],
+  "pro_tip": "«Realiza un estudio de mercado del sector minero-cuprero en Chile: tendencias 2026-2027, principales actores, tecnologías emergentes e impacto de la IA en operaciones. Incluye fuentes verificables y presenta el informe en secciones con conclusiones accionables.» Recuerda que el Deep Research no solo funciona sobre la web — también puedes pedirle que investigue sobre tus propios documentos, correos, reuniones o archivos internos . En Copilot, el agente Investigador cruza fuentes externas con tu entorno de trabajo completo.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/deep-research/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion04-castilla/index.html",
+      "title": "Deep Research (Investigación Profunda)",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "crear-con-copilot",
+  "nombre": "Crear con Copilot",
+  "emoji": "✨",
+  "descripcion": "Genera imágenes, videos, infografías y pósters con IA generativa",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "crear",
+    "contenido",
+    "microsoft"
+  ],
+  "pasos": [
+    "Ve a Copilot (web o app M365) y haz clic en \"Crear\" en el menú lateral izquierdo.",
+    "Selecciona el tipo de contenido: Crear una imagen, Crear un video, Diseñar una infografía, Crear una historia, Diseñar un póster y más.",
+    "Describe lo que quieres. Para imágenes con logo: selecciona \"Insertar un logotipo en una escena\" y sube el logo de tu empresa — Copilot lo integra naturalmente en la imagen generada.",
+    "Usa opciones avanzadas: Estilo, Marca y color, Tamaño para afinar el resultado. También puedes usar \"Transformar con IA\" para editar una imagen ya generada."
+  ],
+  "pro_tip": "Crea una imagen o video relacionado con tu área de trabajo en . Prueba insertar el logo de la empresa en una escena relevante para comunicaciones internas o redes sociales.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg",
+    "paso1.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/crear-con-copilot/cover.jpg",
+    "https://reyesia.com/bloques/crear-con-copilot/paso1.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-k7x9/index.html",
+      "title": "Crear con Copilot",
+      "imgs": 2,
+      "variant": 0
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "copilot-teams",
+  "nombre": "Copilot en Teams",
+  "emoji": "💬",
+  "descripcion": "Resume reuniones, extrae tareas y participa en conversaciones con IA",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "teams",
+    "reuniones",
+    "microsoft"
+  ],
+  "pasos": [
+    "Durante una reunión : activa la transcripción al inicio (botón \"...más\" → Transcribir). Copilot se activa y puede responder preguntas sobre lo que se ha dicho hasta ese momento en tiempo real.",
+    "Después de la reunión : Copilot genera automáticamente un resumen con los puntos clave, decisiones tomadas y tareas asignadas con nombre de responsable y plazo si se mencionaron.",
+    "En el chat de Teams : abre cualquier canal o conversación y haz clic en el ícono Copilot. Pregúntale \"¿Cuáles son los mensajes más importantes de esta semana?\" o \"Resume la conversación sobre [tema]\".",
+    "Usa Copilot para ponerte al día cuando llegas tarde a una reunión: pregúntale \"¿Qué me perdí?\" y te da un resumen del hilo de la conversación hasta ese momento."
+  ],
+  "pro_tip": "Activa siempre la transcripción al inicio de tus reuniones en Teams. El resumen automático de Copilot al finalizar te ahorra escribir actas manualmente y garantiza que todos tengan claridad sobre las tareas.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg",
+    "paso1.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-teams/cover.jpg",
+    "https://reyesia.com/bloques/copilot-teams/paso1.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-k7x9/index.html",
+      "title": "Copilot en Teams",
+      "imgs": 2,
+      "variant": 0
+    }
+  ]
+}

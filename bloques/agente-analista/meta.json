@@ -1,0 +1,37 @@
+{
+  "id": "agente-analista",
+  "nombre": "Agente Analista",
+  "emoji": "📈",
+  "descripcion": "Análisis de datos, insights y visualizaciones desde archivos internos",
+  "categoria": "agentes",
+  "tags": [
+    "agentes",
+    "analisis",
+    "datos",
+    "copilot"
+  ],
+  "pasos": [
+    "¿Para qué sirve? Para analizar, interpretar y generar insights a partir de datos ya disponibles: archivos Excel, reportes, métricas internas y datos corporativos.",
+    "Análisis de datos: Carga tus archivos y pregunta al Analista sobre tendencias, patrones o anomalías. Ejemplo: \"¿Cuáles son las tendencias que ves en los archivos cargados?\"",
+    "Obtener conclusiones: Pídele conclusiones ejecutivas directamente. El Analista sintetiza los datos y presenta los hallazgos más relevantes en formato legible.",
+    "Visualizar: Solicita tablas comparativas, gráficos de tendencia o resúmenes visuales. El Analista puede crear visualizaciones directamente desde tus datos."
+  ],
+  "pro_tip": "El Investigador sale a buscar información nueva desde fuentes externas. El Analista trabaja con datos que ya tienes: interpreta, compara y visualiza lo que ya existe en tus archivos.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg",
+    "paso1.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/agente-analista/cover.jpg",
+    "https://reyesia.com/bloques/agente-analista/paso1.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-newell/index.html",
+      "title": "Agente Analista",
+      "imgs": 2,
+      "variant": 0
+    }
+  ]
+}

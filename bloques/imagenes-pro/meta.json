@@ -1,0 +1,35 @@
+{
+  "id": "imagenes-pro",
+  "nombre": "Imágenes Pro con LLMs",
+  "emoji": "🖌️",
+  "descripcion": "ChatGPT, Copilot, Gemini y Grok — generación de fotos profesionales con prompt",
+  "categoria": "mundo-visual",
+  "tags": [
+    "imagenes",
+    "generativa",
+    "llm",
+    "diseno"
+  ],
+  "pasos": [
+    "Sube la foto del producto que quieres usar como referencia (packaging, objeto, producto).",
+    "Escribe un prompt detallado con contexto, ambientación y estilo. Ej: \"Hazme esta imagen del insecticida sobre una mesa de madera con un tractor John Deere verde al fondo, montañas chilenas, estilo hiperrealista de estudio publicitario.\"",
+    "Gemini fue destacado como el mejor modelo para generación de imágenes pro en 2026, seguido de ChatGPT/DALL·E, Copilot y Grok.",
+    "Itera dentro de la misma conversación: cambia color del producto, agrega personas, prueba distintos fondos."
+  ],
+  "pro_tip": "Incluye siempre: superficie (madera, mármol), fondo (campo, ciudad), estilo (hiperrealista, editorial) y uso final (publicidad, catálogo). Cuanto más específico, mejor resultado.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/imagenes-pro/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion06-castilla/index.html",
+      "title": "Imágenes Pro con LLMs",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

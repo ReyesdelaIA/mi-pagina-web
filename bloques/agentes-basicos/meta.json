@@ -1,0 +1,49 @@
+{
+  "id": "agentes-basicos",
+  "nombre": "Agentes básicos en Copilot",
+  "emoji": "🛠️",
+  "descripcion": "Cómo construirlos, cargarles conocimiento y darles instrucciones",
+  "categoria": "agentes",
+  "tags": [
+    "agentes",
+    "copilot",
+    "automatizacion",
+    "creacion"
+  ],
+  "pasos": [
+    "¿Qué es un agente? Un asistente de IA que configuras una sola vez con instrucciones y conocimiento específico, y luego repite esa lógica automáticamente cada vez que lo usas.",
+    "Cómo crearlo: En el panel izquierdo de Copilot, haz clic en \"Nuevo agente\" . Asígnale un nombre, define su propósito y escribe las instrucciones que guiarán su comportamiento.",
+    "Lógica Input → Output: El agente recibe documentos, correos o datos como input, los procesa según su configuración y entrega outputs listos: resúmenes, reportes, respuestas, tablas.",
+    "Cargarle conocimiento: En la sección \"Conocimiento\" , conecta las fuentes que el agente usará: archivos de SharePoint, reuniones de Teams, correos de Outlook o sitios web."
+  ],
+  "pro_tip": "Las instrucciones del agente son como un prompt permanente, pero eso no significa que estén escritas en piedra. Puedes — y debes — ir ecualizándolas e iterándolas cada vez que quieras. Lo bueno es ir mejorando al agente en la medida que lo vas conociendo: a más uso, más claro tienes qué funciona y qué ajustar.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg",
+    "paso1.jpg",
+    "paso2.jpg",
+    "cover_v2.jpg",
+    "paso1_v2.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/agentes-basicos/cover.jpg",
+    "https://reyesia.com/bloques/agentes-basicos/paso1.jpg",
+    "https://reyesia.com/bloques/agentes-basicos/paso2.jpg",
+    "https://reyesia.com/bloques/agentes-basicos/cover_v2.jpg",
+    "https://reyesia.com/bloques/agentes-basicos/paso1_v2.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-newell/index.html",
+      "title": "Agentes básicos en Copilot",
+      "imgs": 3,
+      "variant": 0
+    },
+    {
+      "file": "sesion04-castilla/index.html",
+      "title": "Crear tu propio agente Copilot",
+      "imgs": 2,
+      "variant": 1
+    }
+  ]
+}

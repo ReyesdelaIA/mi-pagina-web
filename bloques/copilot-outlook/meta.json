@@ -1,0 +1,37 @@
+{
+  "id": "copilot-outlook",
+  "nombre": "Copilot en Outlook",
+  "emoji": "📧",
+  "descripcion": "Resume correos, redacta respuestas y configura tu estilo de escritura",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "outlook",
+    "correo",
+    "microsoft"
+  ],
+  "pasos": [
+    "En Outlook, el botón Copilot aparece en la barra superior derecha. Al abrir un correo, Copilot ofrece tres acciones rápidas: Resumir, Resumir y responder, Sugerir mi siguiente paso .",
+    "Redactar con Copilot : al escribir un correo nuevo, haz clic en el ícono Copilot del editor. Descríbele el objetivo del correo y él genera un borrador completo respetando tu estilo.",
+    "Configura tus instrucciones personalizadas : ve a Configuración de Outlook → Copilot → \"Instrucciones de borrador\". Escribe tu estilo preferido (tono, saludo, cierre) y Copilot lo aplicará siempre en tus borradores.",
+    "Copilot también gestiona tu bandeja de entrada : pregúntale \"¿Qué correos importantes no he respondido?\" o \"Resume los emails de esta semana sobre el proyecto X\"."
+  ],
+  "pro_tip": "Abre un correo largo en Outlook → haz clic en Copilot → \"Resumir este correo electrónico\". Luego configura tus instrucciones de borrador personalizadas con tu saludo y firma habitual.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg",
+    "paso1.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-outlook/cover.jpg",
+    "https://reyesia.com/bloques/copilot-outlook/paso1.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-k7x9/index.html",
+      "title": "Copilot en Outlook",
+      "imgs": 2,
+      "variant": 0
+    }
+  ]
+}

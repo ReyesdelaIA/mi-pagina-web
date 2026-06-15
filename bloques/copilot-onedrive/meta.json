@@ -1,0 +1,35 @@
+{
+  "id": "copilot-onedrive",
+  "nombre": "Copilot en OneDrive",
+  "emoji": "☁️",
+  "descripcion": "Busca, resume y compara archivos de tu nube con lenguaje natural",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "onedrive",
+    "archivos",
+    "microsoft"
+  ],
+  "pasos": [
+    "En OneDrive, selecciona uno o varios archivos y haz clic en el botón Copilot que aparece en la barra de herramientas superior. Funciona con Word, PDF, Excel y PowerPoint.",
+    "Resume documentos largos sin abrirlos: selecciona el archivo → Copilot → \"Resume este documento\". Ideal para revisar informes extensos en segundos.",
+    "Compara múltiples archivos : selecciona dos o más documentos → Copilot → \"¿Cuáles son las diferencias principales entre estos archivos?\" Perfecto para comparar versiones de contratos o informes.",
+    "OneDrive es la base de todo el ecosistema Copilot : cuanto más organizados estén tus archivos en carpetas con nombres claros, mejor podrá Copilot encontrar y trabajar con ellos desde cualquier app."
+  ],
+  "pro_tip": "Organiza tu OneDrive con carpetas claras por proyecto o área. Copilot en todas las apps M365 accede a estos archivos como contexto, así que el orden de tu nube determina la calidad de las respuestas que obtienes.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-onedrive/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-k7x9/index.html",
+      "title": "Copilot en OneDrive",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

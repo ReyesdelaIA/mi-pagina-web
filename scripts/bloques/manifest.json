@@ -1,0 +1,1185 @@
+[
+  {
+    "id": "intro-copilot",
+    "emoji": "🤖",
+    "categoria": "copilot",
+    "tags": [
+      "copilot",
+      "microsoft",
+      "introduccion",
+      "m365"
+    ],
+    "nombre": "¿Qué es Microsoft Copilot?",
+    "descripcion": "La IA de Microsoft construida sobre GPT, integrada en todo el ecosistema M365",
+    "pasos": [
+      "Qué es: Copilot es la IA de Microsoft, construida sobre los modelos de OpenAI (GPT) e integrada en su ecosistema de productos. ChatGPT = versatilidad. Copilot = productividad empresarial.",
+      "Dos versiones clave: Copilot Chat (incluido) — gratis con tu cuenta Microsoft 365. Copilot Business — USD $18/usuario/mes, se integra dentro de Word, Excel, Teams, Outlook y PowerPoint.",
+      "Novedad 2026: Claude de Anthropic ya está disponible como motor alternativo dentro de Copilot. Microsoft amplió su ecosistema más allá de OpenAI.",
+      "En datos de Reyes IA: de más de 200 empresas capacitadas, el 70% usa Microsoft (Outlook), el 30% usa Google Workspace (Gmail). Tu empresa está en el ecosistema Microsoft — Copilot es la herramienta natural."
+    ],
+    "pro_tip": null,
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/intro-copilot/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion01-k7x9/index.html",
+        "title": "¿Qué es Microsoft Copilot?",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "3-esferas",
+    "emoji": "🌐",
+    "categoria": "fundamentos",
+    "tags": [
+      "fundamentos",
+      "prompting",
+      "generativa",
+      "mapa-mental"
+    ],
+    "nombre": "Las 3 grandes esferas de la IA generativa",
+    "descripcion": "El mapa mental para saber qué pedirle a la IA en cada situación",
+    "pasos": [],
+    "pro_tip": "Antes de abrir la IA, pregúntate: ¿esto es redactar algo , buscar algo en internet , o analizar algo que ya tengo ? La respuesta te dice el prompt y la herramienta.",
+    "desafio": null,
+    "assets": [],
+    "assets_github": [],
+    "sources": [
+      {
+        "file": "sesion02-castilla/index.html",
+        "title": "Las 3 grandes esferas de la IA generativa",
+        "imgs": 0,
+        "variant": 0
+      }
+    ],
+    "imageCount": 0
+  },
+  {
+    "id": "memoria-ia",
+    "emoji": "🧠",
+    "categoria": "fundamentos",
+    "tags": [
+      "memoria",
+      "contexto",
+      "copilot",
+      "chatgpt",
+      "personalizacion"
+    ],
+    "nombre": "Memoria en IA",
+    "descripcion": "Haz que Copilot y ChatGPT recuerden quién eres entre sesiones",
+    "pasos": [
+      "Activar en Copilot: Ve a Configuración → Personalización → Memoria de Copilot → activa el toggle azul. La IA empieza a inferir y guardar datos desde tus conversaciones.",
+      "Activar en ChatGPT: Perfil → Configuración → Personalización → sección \"Memoria\" → toggle \"Consultar memorias guardadas\" activado. También activa \"Consultar historial del chat\".",
+      "Memorizar algo intencionalmente: Escríbele directamente: \"memoriza que soy [cargo] en [empresa] y que prefiero respuestas cortas y directas\" . La IA confirmará con un badge \"Memoria actualizada\" o \"Added memory\".",
+      "Consultar qué sabe de ti: Pregunta directamente: \"¿qué sabes de mí? dame el resultado en bullets\" . Útil para auditar y corregir datos incorrectos.",
+      "Administrar recuerdos: En Copilot: Configuración → Personalización → ver y eliminar memorias individuales. En ChatGPT: Configuración → Personalización → \"Administrar memorias\" → botón Administrar."
+    ],
+    "pro_tip": "En tu primera sesión con cualquier IA escríbele: \"Memoriza lo siguiente sobre mí: trabajo en [empresa] como [cargo]. Mis proyectos principales son [X e Y]. Prefiero respuestas directas, sin rodeos, en español chileno.\" Esto acelera enormemente la personalización.",
+    "desafio": "Hands-on 01: Logra que Copilot memorice algo de ti y verifica que aparezca el badge \"Memoria actualizada\" ✓",
+    "assets": [],
+    "assets_github": [],
+    "sources": [
+      {
+        "file": "sesion02-castilla/index.html",
+        "title": "Memoria en IA",
+        "imgs": 0,
+        "variant": 0
+      }
+    ],
+    "imageCount": 0
+  },
+  {
+    "id": "dictado-voz",
+    "emoji": "🎙️",
+    "categoria": "fundamentos",
+    "tags": [
+      "voz",
+      "dictado",
+      "productividad",
+      "prompts"
+    ],
+    "nombre": "Herramienta de Dictado / Voz",
+    "descripcion": "Habla en vez de escribir — prompts más ricos, más rápido",
+    "pasos": [
+      "Dictado en Copilot (web/móvil): Ícono de micrófono 🎤 en la barra de chat → dar permisos al micrófono → habla tu prompt completo → Enter para enviar. Disponible tanto en desktop como en app móvil.",
+      "Dictado en Word: Cinta → botón \"Dictar\" (ícono micrófono) → habla directamente en el documento. Útil para redactar borradores largos.",
+      "Dictado en Google Docs: Herramientas → Escribir por voz (atajo: ⌘+Mayús+S en Mac). Activa el micrófono y dicta.",
+      "Modelo de Voz Conversacional (ChatGPT/Copilot móvil): Distinto al dictado — es una conversación real tipo \"Her\". En ChatGPT app: ícono de ondas de sonido 🌊 → modo conversación en tiempo real con respuesta hablada. En Copilot: ícono de ondas al lado del micrófono."
+    ],
+    "pro_tip": "Al dictar, incluye todo: \"Quiero [qué cosa] en máximo [N] palabras, con un tono [formal/cercano/técnico], en formato [bullets/párrafo/tabla], dirigido a [audiencia].\" Un buen prompt por esencia es largo — el dictado te libera de esa fricción.",
+    "desafio": "Hands-on 02 y 03: Dicta tu primer prompt a Copilot dando permisos al micrófono. Luego prueba el modelo conversacional (ícono ondas).",
+    "assets": [],
+    "assets_github": [],
+    "sources": [
+      {
+        "file": "sesion02-castilla/index.html",
+        "title": "Herramienta de Dictado / Voz",
+        "imgs": 0,
+        "variant": 0
+      }
+    ],
+    "imageCount": 0
+  },
+  {
+    "id": "modelos-fast-vs-razonamiento",
+    "emoji": "⚡",
+    "categoria": "fundamentos",
+    "tags": [
+      "modelos",
+      "razonamiento",
+      "velocidad",
+      "seleccion"
+    ],
+    "nombre": "Modelos Fast vs. Razonamiento",
+    "descripcion": "Cuándo usar velocidad y cuándo usar pensamiento profundo",
+    "pasos": [],
+    "pro_tip": "Rápido: cuando no necesito que piense mucho pero sí que conteste rápido. Razonamiento: cuando quiero que no solo escriba, sino que realmente razone y me acompañe a pensar. El razonamiento consume más créditos — úsalo cuando vale la pena.",
+    "desafio": "Hands-on 07: Activa el modo \"Razonamiento profundo\" en Copilot (o Thinking en ChatGPT) y compara la respuesta con el modo estándar en una pregunta compleja de tu área.",
+    "assets": [],
+    "assets_github": [],
+    "sources": [
+      {
+        "file": "sesion02-castilla/index.html",
+        "title": "Modelos Fast vs. Razonamiento",
+        "imgs": 0,
+        "variant": 0
+      }
+    ],
+    "imageCount": 0
+  },
+  {
+    "id": "redaccion-avanzada",
+    "emoji": "✍️",
+    "categoria": "fundamentos",
+    "tags": [
+      "redaccion",
+      "tono",
+      "formato",
+      "prompting"
+    ],
+    "nombre": "Redacción avanzada",
+    "descripcion": "Prompts con tono, formato y extensión controlada",
+    "pasos": [
+      "Define el qué: No solo \"escríbeme un email\" — dile el contexto completo: destinatario, objetivo, situación previa.",
+      "Controla la extensión: \"en máximo 80 palabras\", \"en 3 párrafos\", \"en 5 bullets\". La IA tiende a ser verbosa — ponle límite.",
+      "Especifica el tono: formal, cercano, técnico, ejecutivo, motivacional, empático. El tono cambia todo el resultado.",
+      "Pide el formato: bullets, tabla, párrafo corrido, con subtítulos, en formato asunto + cuerpo + cierre. El formato hace el output inmediatamente usable.",
+      "Usa el micrófono: Dicta el prompt completo — es mucho más fácil hablar todos esos detalles que escribirlos. El resultado es significativamente mejor."
+    ],
+    "pro_tip": "\"Redacta un [tipo de documento] dirigido a [destinatario/audiencia], en máximo [N] palabras, con tono [tono], en formato [formato]. El objetivo es [objetivo]. Contexto: [contexto relevante].\"",
+    "desafio": "Hands-on 04: Dicta a Copilot un prompt de redacción completo con tono, extensión y formato especificados.",
+    "assets": [],
+    "assets_github": [],
+    "sources": [
+      {
+        "file": "sesion02-castilla/index.html",
+        "title": "Redacción avanzada",
+        "imgs": 0,
+        "variant": 0
+      }
+    ],
+    "imageCount": 0
+  },
+  {
+    "id": "internet-avanzada",
+    "emoji": "🔎",
+    "categoria": "fundamentos",
+    "tags": [
+      "busqueda",
+      "fuentes",
+      "investigacion",
+      "web"
+    ],
+    "nombre": "Internet avanzada",
+    "descripcion": "Investigación con fuentes controladas y resultados estructurados",
+    "pasos": [
+      "Pasa URLs directamente: \"Analiza esta nota: [link]\". La IA leerá la página y responderá sobre su contenido. Útil para noticias, artículos técnicos, licitaciones.",
+      "Controla las fuentes: \"Omite resultados de redes sociales, solo fuentes como Emol, La Tercera o El Mercurio.\" Filtra el ruido y obtén información de calidad.",
+      "Pide formato de salida: \"dame el resultado como un resumen de 5 puntos clave\" o \"en tabla comparativa\" o \"como briefing ejecutivo de una página\".",
+      "Preguntas de seguimiento: Una vez que la IA tiene el contexto de la página o búsqueda, puedes seguir preguntando: \"¿qué implica esto para una empresa minera?\" o \"explícame el IMACEC en términos simples\"."
+    ],
+    "pro_tip": "\"Investiga [tema] usando solo fuentes confiables como [portales]. Omite [fuentes a omitir]. Dame el resultado como [formato: resumen / tabla / bullets / briefing] de no más de [extensión].\"",
+    "desafio": "Hands-on 05: Pídele que investigue algo con el micrófono, especificando fuentes y formato de salida.",
+    "assets": [],
+    "assets_github": [],
+    "sources": [
+      {
+        "file": "sesion02-castilla/index.html",
+        "title": "Internet avanzada",
+        "imgs": 0,
+        "variant": 0
+      }
+    ],
+    "imageCount": 0
+  },
+  {
+    "id": "analisis-documentos",
+    "emoji": "📄",
+    "categoria": "fundamentos",
+    "tags": [
+      "documentos",
+      "pdf",
+      "contratos",
+      "analisis"
+    ],
+    "nombre": "Análisis de documentos",
+    "descripcion": "PDFs legales, contratos y múltiples archivos de una vez",
+    "pasos": [
+      "Subir un archivo: En Copilot/ChatGPT, clic en el ícono \"+\" o clip adjunto → seleccionar desde computadora o Google Drive. Formatos soportados: PDF, Word, Excel, TXT.",
+      "Documentos legales/contratos: Usa ChatGPT con agentes especializados (ej: FFMA GPT para contratos laborales). También funciona con Claude o Copilot para contratos generales.",
+      "Subir múltiples PDFs: En ChatGPT puedes adjuntar hasta 20 archivos por conversación (con GPT). En Copilot, adjunta varios archivos usando el botón \"+\" repetidamente.",
+      "Prompt para análisis multi-documento: \"Analiza ambos archivos y dame un resumen consolidado de [N] palabras, con una mirada [crítica / ejecutiva / técnica] sobre [el asunto].\""
+    ],
+    "pro_tip": "\"Analiza este contrato. Identifica: (1) las principales obligaciones de cada parte, (2) cláusulas de riesgo o penalidades, (3) cualquier inconsistencia o ambigüedad legal. Dame el resultado en formato estructurado.\"",
+    "desafio": "Hands-on 06: Sube 2 PDFs de menos de 20 páginas y pide un resumen consolidado con mirada específica.",
+    "assets": [],
+    "assets_github": [],
+    "sources": [
+      {
+        "file": "sesion02-castilla/index.html",
+        "title": "Análisis de documentos",
+        "imgs": 0,
+        "variant": 0
+      }
+    ],
+    "imageCount": 0
+  },
+  {
+    "id": "copilot-m365-hub",
+    "emoji": "🏢",
+    "categoria": "copilot",
+    "tags": [
+      "copilot",
+      "m365",
+      "hub",
+      "microsoft"
+    ],
+    "nombre": "Copilot en M365",
+    "descripcion": "El hub central de IA integrado en todas tus apps de Microsoft",
+    "pasos": [
+      "Copilot en M365 está integrado en Word, Excel, PowerPoint, Outlook, Teams, OneNote y OneDrive — todas las apps usan el mismo Copilot con contexto de tu organización.",
+      "Copilot como App standalone : Accede a Copilot directamente desde copilot.microsoft.com o desde la app M365. Allí encuentras Chat, Agentes (Investigador, Analista), y la sección Crear.",
+      "La diferencia clave vs ChatGPT: Copilot conoce tu contexto corporativo — accede a tus archivos de OneDrive, tus correos de Outlook, tus reuniones de Teams y los datos de SharePoint de tu empresa."
+    ],
+    "pro_tip": "Copilot es más poderoso cuando tus archivos están bien organizados en OneDrive y SharePoint. Cuanto más ordenada esté tu nube, mejores serán las respuestas que obtendrás.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/copilot-m365-hub/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-k7x9/index.html",
+        "title": "Copilot en M365",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "crear-con-copilot",
+    "emoji": "✨",
+    "categoria": "copilot",
+    "tags": [
+      "copilot",
+      "crear",
+      "contenido",
+      "microsoft"
+    ],
+    "nombre": "Crear con Copilot",
+    "descripcion": "Genera imágenes, videos, infografías y pósters con IA generativa",
+    "pasos": [
+      "Ve a Copilot (web o app M365) y haz clic en \"Crear\" en el menú lateral izquierdo.",
+      "Selecciona el tipo de contenido: Crear una imagen, Crear un video, Diseñar una infografía, Crear una historia, Diseñar un póster y más.",
+      "Describe lo que quieres. Para imágenes con logo: selecciona \"Insertar un logotipo en una escena\" y sube el logo de tu empresa — Copilot lo integra naturalmente en la imagen generada.",
+      "Usa opciones avanzadas: Estilo, Marca y color, Tamaño para afinar el resultado. También puedes usar \"Transformar con IA\" para editar una imagen ya generada."
+    ],
+    "pro_tip": "Crea una imagen o video relacionado con tu área de trabajo en . Prueba insertar el logo de la empresa en una escena relevante para comunicaciones internas o redes sociales.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg",
+      "paso1.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/crear-con-copilot/cover.jpg",
+      "https://reyesia.com/bloques/crear-con-copilot/paso1.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-k7x9/index.html",
+        "title": "Crear con Copilot",
+        "imgs": 2,
+        "variant": 0
+      }
+    ],
+    "imageCount": 2
+  },
+  {
+    "id": "copilot-word",
+    "emoji": "📝",
+    "categoria": "copilot",
+    "tags": [
+      "copilot",
+      "word",
+      "documentos",
+      "microsoft"
+    ],
+    "nombre": "Copilot en Word",
+    "descripcion": "Redacta, resume y mejora documentos con IA dentro de Word",
+    "pasos": [
+      "Abre Word y haz clic en el ícono Copilot en la barra de herramientas (esquina superior derecha). Se abrirá el panel lateral de Copilot.",
+      "Para crear un documento desde cero: escribe \"/\" en el documento vacío para activar el modo de redacción asistida por Copilot y describe lo que necesitas.",
+      "Con un documento ya existente: puedes pedirle que lo resuma, mejore el tono, reformule secciones, agregue contenido o transforme el formato. También puede leer archivos adjuntos desde OneDrive como contexto.",
+      "Usa el Editor integrado para revisión de gramática y estilo, y Copilot para sugerir mejoras de fondo y coherencia."
+    ],
+    "pro_tip": "Abre un documento Word en blanco → haz clic en Copilot en la barra → pídele que redacte un borrador sobre un tema de tu trabajo en . Luego usa el panel para refinarlo.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg",
+      "paso1.jpg",
+      "paso2.jpg",
+      "cover_v2.jpg",
+      "paso1_v2.jpg",
+      "paso2_v2.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/copilot-word/cover.jpg",
+      "https://reyesia.com/bloques/copilot-word/paso1.jpg",
+      "https://reyesia.com/bloques/copilot-word/paso2.jpg",
+      "https://reyesia.com/bloques/copilot-word/cover_v2.jpg",
+      "https://reyesia.com/bloques/copilot-word/paso1_v2.jpg",
+      "https://reyesia.com/bloques/copilot-word/paso2_v2.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-k7x9/index.html",
+        "title": "Copilot en Word",
+        "imgs": 3,
+        "variant": 0
+      },
+      {
+        "file": "sesion02-newell/index.html",
+        "title": "Copilot en Word",
+        "imgs": 3,
+        "variant": 1
+      }
+    ],
+    "imageCount": 6
+  },
+  {
+    "id": "copilot-excel",
+    "emoji": "📊",
+    "categoria": "copilot",
+    "tags": [
+      "copilot",
+      "excel",
+      "datos",
+      "microsoft"
+    ],
+    "nombre": "Copilot en Excel",
+    "descripcion": "Analiza datos, crea fórmulas y genera visualizaciones con lenguaje natural",
+    "pasos": [
+      "Abre Excel y haz clic en Copilot en la barra de herramientas. Importante: los datos deben estar formateados como Tabla (Insertar → Tabla) para que Copilot los lea correctamente.",
+      "Hazle preguntas en español: \"¿Cuál es el producto con más ventas?\", \"Crea un gráfico de barras por sucursal\", \"Añade una columna con el % del total\" . Copilot genera fórmulas y visualizaciones automáticamente.",
+      "Usa \"Analizar datos\" para que Copilot identifique patrones, outliers y tendencias clave en tu hoja de forma automática sin necesidad de escribir fórmulas complejas.",
+      "Para datos de producción o costos de : sube el archivo a OneDrive primero, abre desde allí, y activa Copilot para hacer análisis conversacionales en tiempo real."
+    ],
+    "pro_tip": "Abre Excel con datos formateados como tabla → activa Copilot → pregunta \"¿Qué tendencia ves en estos datos?\" o \"Crea un gráfico resumen\". Observa cómo genera la visualización automáticamente.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg",
+      "cover_v2.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/copilot-excel/cover.jpg",
+      "https://reyesia.com/bloques/copilot-excel/cover_v2.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-k7x9/index.html",
+        "title": "Copilot en Excel",
+        "imgs": 1,
+        "variant": 0
+      },
+      {
+        "file": "sesion02-newell/index.html",
+        "title": "Copilot en Excel",
+        "imgs": 1,
+        "variant": 1
+      }
+    ],
+    "imageCount": 2
+  },
+  {
+    "id": "copilot-powerpoint",
+    "emoji": "📽️",
+    "categoria": "copilot",
+    "tags": [
+      "copilot",
+      "powerpoint",
+      "presentaciones",
+      "microsoft"
+    ],
+    "nombre": "Copilot en PowerPoint",
+    "descripcion": "Crea presentaciones completas desde un prompt o a partir de documentos",
+    "pasos": [
+      "Abre PowerPoint y haz clic en Copilot en la barra superior. También puedes acceder desde el ícono de estrella ✨ que aparece al hacer clic en el área de texto de una diapositiva.",
+      "Crear presentación desde cero : escribe \"Crea una presentación de 10 slides sobre [tema]\". Copilot generará slides con contenido, diseño y sugerencias de imágenes automáticamente.",
+      "Crear desde un documento Word : pídele \"Crea una presentación basada en este archivo\" y adjunta tu documento de OneDrive. Es la forma más poderosa — convierte informes en slides al instante.",
+      "Con presentación existente: usa Copilot para resumir el contenido, agregar slides, cambiar el tono , o que te explique qué debería ir en cada sección."
+    ],
+    "pro_tip": "Abre una presentación nueva → Copilot → pídele \"Crea una presentación de 5 slides sobre seguridad en faenas mineras\". Revisa el resultado y ajusta slides con lenguaje natural.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg",
+      "cover_v2.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/copilot-powerpoint/cover.jpg",
+      "https://reyesia.com/bloques/copilot-powerpoint/cover_v2.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-k7x9/index.html",
+        "title": "Copilot en PowerPoint",
+        "imgs": 1,
+        "variant": 0
+      },
+      {
+        "file": "sesion02-newell/index.html",
+        "title": "Copilot en PowerPoint",
+        "imgs": 1,
+        "variant": 1
+      }
+    ],
+    "imageCount": 2
+  },
+  {
+    "id": "copilot-outlook",
+    "emoji": "📧",
+    "categoria": "copilot",
+    "tags": [
+      "copilot",
+      "outlook",
+      "correo",
+      "microsoft"
+    ],
+    "nombre": "Copilot en Outlook",
+    "descripcion": "Resume correos, redacta respuestas y configura tu estilo de escritura",
+    "pasos": [
+      "En Outlook, el botón Copilot aparece en la barra superior derecha. Al abrir un correo, Copilot ofrece tres acciones rápidas: Resumir, Resumir y responder, Sugerir mi siguiente paso .",
+      "Redactar con Copilot : al escribir un correo nuevo, haz clic en el ícono Copilot del editor. Descríbele el objetivo del correo y él genera un borrador completo respetando tu estilo.",
+      "Configura tus instrucciones personalizadas : ve a Configuración de Outlook → Copilot → \"Instrucciones de borrador\". Escribe tu estilo preferido (tono, saludo, cierre) y Copilot lo aplicará siempre en tus borradores.",
+      "Copilot también gestiona tu bandeja de entrada : pregúntale \"¿Qué correos importantes no he respondido?\" o \"Resume los emails de esta semana sobre el proyecto X\"."
+    ],
+    "pro_tip": "Abre un correo largo en Outlook → haz clic en Copilot → \"Resumir este correo electrónico\". Luego configura tus instrucciones de borrador personalizadas con tu saludo y firma habitual.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg",
+      "paso1.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/copilot-outlook/cover.jpg",
+      "https://reyesia.com/bloques/copilot-outlook/paso1.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-k7x9/index.html",
+        "title": "Copilot en Outlook",
+        "imgs": 2,
+        "variant": 0
+      }
+    ],
+    "imageCount": 2
+  },
+  {
+    "id": "copilot-teams",
+    "emoji": "💬",
+    "categoria": "copilot",
+    "tags": [
+      "copilot",
+      "teams",
+      "reuniones",
+      "microsoft"
+    ],
+    "nombre": "Copilot en Teams",
+    "descripcion": "Resume reuniones, extrae tareas y participa en conversaciones con IA",
+    "pasos": [
+      "Durante una reunión : activa la transcripción al inicio (botón \"...más\" → Transcribir). Copilot se activa y puede responder preguntas sobre lo que se ha dicho hasta ese momento en tiempo real.",
+      "Después de la reunión : Copilot genera automáticamente un resumen con los puntos clave, decisiones tomadas y tareas asignadas con nombre de responsable y plazo si se mencionaron.",
+      "En el chat de Teams : abre cualquier canal o conversación y haz clic en el ícono Copilot. Pregúntale \"¿Cuáles son los mensajes más importantes de esta semana?\" o \"Resume la conversación sobre [tema]\".",
+      "Usa Copilot para ponerte al día cuando llegas tarde a una reunión: pregúntale \"¿Qué me perdí?\" y te da un resumen del hilo de la conversación hasta ese momento."
+    ],
+    "pro_tip": "Activa siempre la transcripción al inicio de tus reuniones en Teams. El resumen automático de Copilot al finalizar te ahorra escribir actas manualmente y garantiza que todos tengan claridad sobre las tareas.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg",
+      "paso1.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/copilot-teams/cover.jpg",
+      "https://reyesia.com/bloques/copilot-teams/paso1.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-k7x9/index.html",
+        "title": "Copilot en Teams",
+        "imgs": 2,
+        "variant": 0
+      }
+    ],
+    "imageCount": 2
+  },
+  {
+    "id": "copilot-onedrive",
+    "emoji": "☁️",
+    "categoria": "copilot",
+    "tags": [
+      "copilot",
+      "onedrive",
+      "archivos",
+      "microsoft"
+    ],
+    "nombre": "Copilot en OneDrive",
+    "descripcion": "Busca, resume y compara archivos de tu nube con lenguaje natural",
+    "pasos": [
+      "En OneDrive, selecciona uno o varios archivos y haz clic en el botón Copilot que aparece en la barra de herramientas superior. Funciona con Word, PDF, Excel y PowerPoint.",
+      "Resume documentos largos sin abrirlos: selecciona el archivo → Copilot → \"Resume este documento\". Ideal para revisar informes extensos en segundos.",
+      "Compara múltiples archivos : selecciona dos o más documentos → Copilot → \"¿Cuáles son las diferencias principales entre estos archivos?\" Perfecto para comparar versiones de contratos o informes.",
+      "OneDrive es la base de todo el ecosistema Copilot : cuanto más organizados estén tus archivos en carpetas con nombres claros, mejor podrá Copilot encontrar y trabajar con ellos desde cualquier app."
+    ],
+    "pro_tip": "Organiza tu OneDrive con carpetas claras por proyecto o área. Copilot en todas las apps M365 accede a estos archivos como contexto, así que el orden de tu nube determina la calidad de las respuestas que obtienes.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/copilot-onedrive/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-k7x9/index.html",
+        "title": "Copilot en OneDrive",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "copilot-sharepoint",
+    "emoji": "🗂️",
+    "categoria": "copilot",
+    "tags": [
+      "copilot",
+      "sharepoint",
+      "onedrive",
+      "microsoft"
+    ],
+    "nombre": "Copilot + SharePoint & OneDrive",
+    "descripcion": "Conexión nativa para resumir y buscar documentos corporativos",
+    "pasos": [
+      "Conexión nativa: Copilot está integrado directamente en SharePoint y OneDrive. No necesitas instalar nada adicional — el ícono de Copilot aparece junto a cada archivo.",
+      "Resúmenes de documentos: Haz clic en el ícono de Copilot junto a cualquier archivo y pídele que resuma el contenido. Funciona con Word, Excel, PowerPoint y PDF.",
+      "Búsqueda inteligente: Desde el chat de Copilot, puedes preguntar por archivos usando lenguaje natural: \"¿Cuál es el informe de ventas más reciente?\" y Copilot lo encuentra y resume.",
+      "Referencia cruzada: Copilot puede cruzar información de múltiples documentos al mismo tiempo. Pídele comparar, consolidar o extraer datos de varios archivos de tu OneDrive."
+    ],
+    "pro_tip": "Antes de una reunión importante, pídele a Copilot: \"Resume los últimos 3 documentos relacionados con [proyecto]\" . Llegas preparado en segundos.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/copilot-sharepoint/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-newell/index.html",
+        "title": "Copilot + SharePoint & OneDrive",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "agentes-basicos",
+    "emoji": "🛠️",
+    "categoria": "agentes",
+    "tags": [
+      "agentes",
+      "copilot",
+      "automatizacion",
+      "creacion"
+    ],
+    "nombre": "Agentes básicos en Copilot",
+    "descripcion": "Cómo construirlos, cargarles conocimiento y darles instrucciones",
+    "pasos": [
+      "¿Qué es un agente? Un asistente de IA que configuras una sola vez con instrucciones y conocimiento específico, y luego repite esa lógica automáticamente cada vez que lo usas.",
+      "Cómo crearlo: En el panel izquierdo de Copilot, haz clic en \"Nuevo agente\" . Asígnale un nombre, define su propósito y escribe las instrucciones que guiarán su comportamiento.",
+      "Lógica Input → Output: El agente recibe documentos, correos o datos como input, los procesa según su configuración y entrega outputs listos: resúmenes, reportes, respuestas, tablas.",
+      "Cargarle conocimiento: En la sección \"Conocimiento\" , conecta las fuentes que el agente usará: archivos de SharePoint, reuniones de Teams, correos de Outlook o sitios web."
+    ],
+    "pro_tip": "Las instrucciones del agente son como un prompt permanente, pero eso no significa que estén escritas en piedra. Puedes — y debes — ir ecualizándolas e iterándolas cada vez que quieras. Lo bueno es ir mejorando al agente en la medida que lo vas conociendo: a más uso, más claro tienes qué funciona y qué ajustar.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg",
+      "paso1.jpg",
+      "paso2.jpg",
+      "cover_v2.jpg",
+      "paso1_v2.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/agentes-basicos/cover.jpg",
+      "https://reyesia.com/bloques/agentes-basicos/paso1.jpg",
+      "https://reyesia.com/bloques/agentes-basicos/paso2.jpg",
+      "https://reyesia.com/bloques/agentes-basicos/cover_v2.jpg",
+      "https://reyesia.com/bloques/agentes-basicos/paso1_v2.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-newell/index.html",
+        "title": "Agentes básicos en Copilot",
+        "imgs": 3,
+        "variant": 0
+      },
+      {
+        "file": "sesion04-castilla/index.html",
+        "title": "Crear tu propio agente Copilot",
+        "imgs": 2,
+        "variant": 1
+      }
+    ],
+    "imageCount": 5
+  },
+  {
+    "id": "agente-investigador",
+    "emoji": "🕵️",
+    "categoria": "agentes",
+    "tags": [
+      "agentes",
+      "investigacion",
+      "copilot",
+      "sintesis"
+    ],
+    "nombre": "Agente Investigador",
+    "descripcion": "Búsqueda profunda y síntesis desde múltiples fuentes externas e internas",
+    "pasos": [
+      "¿Para qué sirve? Para buscar, recopilar y sintetizar información desde múltiples fuentes externas: web, documentos internos, reuniones, correos y bases de datos corporativas.",
+      "Cómo usarlo: Selecciona el agente Investigador en el panel de Copilot y escribe tu pregunta de investigación. Puede razonar sobre todos tus datos de trabajo simultáneamente.",
+      "Casos de uso clave: Preparar reuniones con inteligencia de cliente, actualizar el estado de proyectos, analizar la posición de mercado de una compañía, y hacer seguimiento de elementos de acción.",
+      "Output: Entrega un informe de investigación completo y estructurado, combinando datos internos (chats, reuniones, archivos) con información externa de la web."
+    ],
+    "pro_tip": "\"Prepárame un informe ejecutivo sobre [Cliente/Proyecto]: incluye estado actual, últimas interacciones, compromisos pendientes y contexto de mercado relevante.\"",
+    "desafio": null,
+    "assets": [
+      "cover.jpg",
+      "paso1.jpg",
+      "cover_v2.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/agente-investigador/cover.jpg",
+      "https://reyesia.com/bloques/agente-investigador/paso1.jpg",
+      "https://reyesia.com/bloques/agente-investigador/cover_v2.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-newell/index.html",
+        "title": "Agente Investigador",
+        "imgs": 2,
+        "variant": 0
+      },
+      {
+        "file": "sesion04-castilla/index.html",
+        "title": "Agente Investigador (M365 Copilot Pro)",
+        "imgs": 1,
+        "variant": 1
+      }
+    ],
+    "imageCount": 3
+  },
+  {
+    "id": "agente-analista",
+    "emoji": "📈",
+    "categoria": "agentes",
+    "tags": [
+      "agentes",
+      "analisis",
+      "datos",
+      "copilot"
+    ],
+    "nombre": "Agente Analista",
+    "descripcion": "Análisis de datos, insights y visualizaciones desde archivos internos",
+    "pasos": [
+      "¿Para qué sirve? Para analizar, interpretar y generar insights a partir de datos ya disponibles: archivos Excel, reportes, métricas internas y datos corporativos.",
+      "Análisis de datos: Carga tus archivos y pregunta al Analista sobre tendencias, patrones o anomalías. Ejemplo: \"¿Cuáles son las tendencias que ves en los archivos cargados?\"",
+      "Obtener conclusiones: Pídele conclusiones ejecutivas directamente. El Analista sintetiza los datos y presenta los hallazgos más relevantes en formato legible.",
+      "Visualizar: Solicita tablas comparativas, gráficos de tendencia o resúmenes visuales. El Analista puede crear visualizaciones directamente desde tus datos."
+    ],
+    "pro_tip": "El Investigador sale a buscar información nueva desde fuentes externas. El Analista trabaja con datos que ya tienes: interpreta, compara y visualiza lo que ya existe en tus archivos.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg",
+      "paso1.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/agente-analista/cover.jpg",
+      "https://reyesia.com/bloques/agente-analista/paso1.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion03-newell/index.html",
+        "title": "Agente Analista",
+        "imgs": 2,
+        "variant": 0
+      }
+    ],
+    "imageCount": 2
+  },
+  {
+    "id": "deep-research",
+    "emoji": "🔬",
+    "categoria": "agentes",
+    "tags": [
+      "deep-research",
+      "investigacion",
+      "fuentes",
+      "informes"
+    ],
+    "nombre": "Deep Research (Investigación Profunda)",
+    "descripcion": "Informes de 15 páginas visitando 30–80 fuentes en ~10 minutos",
+    "pasos": [
+      "Copilot M365: En el panel izquierdo, selecciona el agente \"Investigador\" y escribe tu pregunta de investigación. Accede también desde el botón \"+\" → Fuentes.",
+      "Claude.ai: Haz clic en \"+\" → selecciona \"Investigación\" (modo Deep Research). Ideal para temas que requieren síntesis de múltiples fuentes externas.",
+      "Gemini: Haz clic en \"Herramientas\" → selecciona \"Deep Research\" . Genera informes con acceso a la web de Google en tiempo real.",
+      "ChatGPT: Haz clic en \"+\" → selecciona \"Investigación avanzada\" . Disponible en plan Plus. Genera informes extensos con citas verificables."
+    ],
+    "pro_tip": "«Realiza un estudio de mercado del sector minero-cuprero en Chile: tendencias 2026-2027, principales actores, tecnologías emergentes e impacto de la IA en operaciones. Incluye fuentes verificables y presenta el informe en secciones con conclusiones accionables.» Recuerda que el Deep Research no solo funciona sobre la web — también puedes pedirle que investigue sobre tus propios documentos, correos, reuniones o archivos internos . En Copilot, el agente Investigador cruza fuentes externas con tu entorno de trabajo completo.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/deep-research/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion04-castilla/index.html",
+        "title": "Deep Research (Investigación Profunda)",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "notebooklm",
+    "emoji": "📓",
+    "categoria": "herramientas-ia",
+    "tags": [
+      "notebooklm",
+      "google",
+      "fuentes",
+      "analisis"
+    ],
+    "nombre": "NotebookLM",
+    "descripcion": "Tus fuentes con superpoderes de análisis — PDFs, webs, YouTube y más",
+    "pasos": [
+      "Accede desde notebooklm.google.com o desde el menú de apps de Google (cuadrícula de 9 puntos → NotebookLM).",
+      "Crea un nuevo cuaderno y sube tus fuentes: PDFs, documentos de Google, sitios web, videos de YouTube o archivos de audio.",
+      "El panel tiene 3 zonas clave : (izquierda) Fuentes cargadas y búsqueda web, (centro) Chat con el cuaderno, (derecha) Accionables del Studio — Podcast (dos locutores IA que debaten tu contenido), presentación, mapa mental, infografía, cuestionario.",
+      "Desde Gemini , puedes vincular un cuaderno directamente: clic en \"+\" → NotebookLM → selecciona el cuaderno. Gemini accede a tus fuentes y responde con ese contexto.",
+      "Usa los Accionables del Studio para generar en 1 clic: podcast de audio con 2 locutores IA, presentación de diapositivas, mapa mental o tabla de datos."
+    ],
+    "pro_tip": "Puedes subir hasta 50 documentos en cuentas gratuitas y hasta 300 en cuentas de pago . NotebookLM soporta casi todo tipo de formatos, por ejemplo: páginas web, videos de YouTube, archivos de audio, PDFs, documentos de Google y más.",
+    "desafio": "Casos de uso: Sube contratos, licitaciones o reportes técnicos y pregunta directamente sobre el contenido. NotebookLM solo responde basado en tus fuentes, evitando alucinaciones.",
+    "assets": [
+      "cover.jpg",
+      "paso1.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/notebooklm/cover.jpg",
+      "https://reyesia.com/bloques/notebooklm/paso1.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion04-castilla/index.html",
+        "title": "NotebookLM",
+        "imgs": 2,
+        "variant": 0
+      }
+    ],
+    "imageCount": 2
+  },
+  {
+    "id": "control-alucinaciones",
+    "emoji": "🎯",
+    "categoria": "fundamentos",
+    "tags": [
+      "alucinaciones",
+      "verificacion",
+      "confiabilidad",
+      "prompting"
+    ],
+    "nombre": "Control de Alucinaciones",
+    "descripcion": "Cómo reducir la invención de la IA — sin poder eliminarla al 100%",
+    "pasos": [],
+    "pro_tip": "«Responde solo si tienes al menos 90% de seguridad. Si no estás seguro, dímelo claramente en vez de inventar.»",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/control-alucinaciones/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion05-castilla/index.html",
+        "title": "Control de Alucinaciones",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "gamma-ppts",
+    "emoji": "🎨",
+    "categoria": "herramientas-ia",
+    "tags": [
+      "gamma",
+      "presentaciones",
+      "ppt",
+      "ia"
+    ],
+    "nombre": "Gamma — Presentaciones con IA",
+    "descripcion": "Crea decks profesionales en segundos desde una instrucción",
+    "pasos": [
+      "Ve a gamma.app y crea una cuenta gratuita.",
+      "Elige \"Crear con IA → Generar\" para crear desde una instrucción en lenguaje natural.",
+      "Escribe tu instrucción (tema, audiencia, tono) y selecciona número de tarjetas e idioma.",
+      "Gamma genera el deck completo. Puedes editar textos, cambiar diseño y exportar a PPT o PDF .",
+      "Alternativa avanzada: Manus (manus.im/app) — agente IA que crea presentaciones más complejas con investigación web incluida."
+    ],
+    "pro_tip": "También puedes crear PPTs desde Copilot en PowerPoint web — útil si ya tienes M365. Para proyectos con investigación previa, Manus hace el trabajo de principio a fin.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/gamma-ppts/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion05-castilla/index.html",
+        "title": "Gamma — Presentaciones con IA",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "napkin-infografias",
+    "emoji": "🖼️",
+    "categoria": "herramientas-ia",
+    "tags": [
+      "napkin",
+      "infografias",
+      "visual",
+      "texto"
+    ],
+    "nombre": "Napkin — Infografías desde texto",
+    "descripcion": "Convierte cualquier texto en un visual con un clic",
+    "pasos": [
+      "Ve a napkin.ai y crea una cuenta gratuita.",
+      "Pega o escribe tu texto en el editor. Napkin lo analiza automáticamente.",
+      "Haz clic en el ícono de rayo (⚡) que aparece junto a cualquier párrafo para generar un visual.",
+      "Elige entre los diferentes estilos de infografía generados (flowchart, diagrama, lista visual, etc.).",
+      "Descarga como PNG, SVG o PDF para usar en tus presentaciones o documentos."
+    ],
+    "pro_tip": "Primero genera el texto con Claude o ChatGPT, luego pégalo en Napkin para convertirlo en infografía. Combinación poderosa para comunicaciones ejecutivas.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/napkin-infografias/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion05-castilla/index.html",
+        "title": "Napkin — Infografías desde texto",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "canvas-gemini",
+    "emoji": "🧩",
+    "categoria": "herramientas-ia",
+    "tags": [
+      "gemini",
+      "canvas",
+      "google",
+      "colaboracion"
+    ],
+    "nombre": "Canvas en Gemini",
+    "descripcion": "Crea visualizaciones y apps interactivas directamente desde Gemini",
+    "pasos": [
+      "Abre Gemini y haz clic en el botón \"+\" → selecciona \"Canvas\" en el menú de herramientas.",
+      "Escribe tu instrucción: puede ser una app interactiva, un quiz, un dashboard, una landing page, etc.",
+      "Gemini genera el código HTML/JS y lo previsualiza en tiempo real en el panel derecho.",
+      "Puedes iterar con instrucciones adicionales: \"agrégale un botón de reset\", \"cambia los colores a verde\".",
+      "Usa el botón \"Compartir\" para enviar el link del Canvas a otras personas."
+    ],
+    "pro_tip": "Pídele a Gemini Canvas que cree 10 tarjetas interactivas de inducción sobre tu empresa, con la URL del sitio web como contexto. En segundos tienes una mini-app de onboarding lista para compartir.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/canvas-gemini/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion05-castilla/index.html",
+        "title": "Canvas en Gemini",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "artefactos-claude",
+    "emoji": "🪄",
+    "categoria": "herramientas-ia",
+    "tags": [
+      "claude",
+      "artefactos",
+      "anthropic",
+      "apps"
+    ],
+    "nombre": "Artefactos de Claude",
+    "descripcion": "Entregables vivos: visibles, interactivos, reutilizables y compartibles",
+    "pasos": [
+      "En Claude, ve al menú lateral → \"Más\" → \"Artefactos\" para ver tu biblioteca de artefactos creados.",
+      "Haz clic en \"Nuevo artefacto\" para crear uno desde cero. Elige la categoría: App/web, Documento, Juego, Herramienta de productividad, etc.",
+      "Describe lo que necesitas. Claude lo crea y lo muestra en el panel lateral interactivo , separado del chat.",
+      "Puedes iterar el artefacto con mensajes adicionales, ver el código fuente, copiar y publicar con un enlace público.",
+      "Los artefactos se guardan en tu biblioteca para reutilizar en futuras conversaciones."
+    ],
+    "pro_tip": "Pide un artefacto tipo \"tablero de seguimiento de tareas de mi equipo\" — Claude crea una mini-app interactiva que puedes compartir con tu equipo con un solo link.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/artefactos-claude/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion05-castilla/index.html",
+        "title": "Artefactos de Claude",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "camara-con-ia",
+    "emoji": "📷",
+    "categoria": "mundo-visual",
+    "tags": [
+      "camara",
+      "vision",
+      "multimodal",
+      "movil"
+    ],
+    "nombre": "Uso de Cámara con IA",
+    "descripcion": "Gemini, ChatGPT, Copilot — análisis visual en tiempo real desde el celular",
+    "pasos": [
+      "Abre la app de Gemini, ChatGPT o Copilot en tu celular y toca el ícono \"+\" para adjuntar.",
+      "Selecciona \"Cámara\" para tomar una foto en el momento, o \"Fotos\" para subir una imagen desde tu galería.",
+      "Hazle cualquier pregunta sobre lo que ves: traducir texto , rediseñar un espacio , transcribir escritura a mano , identificar objetos, calcular calorías y mucho más.",
+      "La IA combina lo visual con tu instrucción de texto y responde de forma contextual e inteligente."
+    ],
+    "pro_tip": "Fotografía un menú, un contrato, una pizarra de reunión, o la heladera vacía y pídele recetas. La cámara convierte la IA en un asistente del mundo real.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/camara-con-ia/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion06-castilla/index.html",
+        "title": "Uso de Cámara con IA",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "imagenes-pro",
+    "emoji": "🖌️",
+    "categoria": "mundo-visual",
+    "tags": [
+      "imagenes",
+      "generativa",
+      "llm",
+      "diseno"
+    ],
+    "nombre": "Imágenes Pro con LLMs",
+    "descripcion": "ChatGPT, Copilot, Gemini y Grok — generación de fotos profesionales con prompt",
+    "pasos": [
+      "Sube la foto del producto que quieres usar como referencia (packaging, objeto, producto).",
+      "Escribe un prompt detallado con contexto, ambientación y estilo. Ej: \"Hazme esta imagen del insecticida sobre una mesa de madera con un tractor John Deere verde al fondo, montañas chilenas, estilo hiperrealista de estudio publicitario.\"",
+      "Gemini fue destacado como el mejor modelo para generación de imágenes pro en 2026, seguido de ChatGPT/DALL·E, Copilot y Grok.",
+      "Itera dentro de la misma conversación: cambia color del producto, agrega personas, prueba distintos fondos."
+    ],
+    "pro_tip": "Incluye siempre: superficie (madera, mármol), fondo (campo, ciudad), estilo (hiperrealista, editorial) y uso final (publicidad, catálogo). Cuanto más específico, mejor resultado.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/imagenes-pro/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion06-castilla/index.html",
+        "title": "Imágenes Pro con LLMs",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "enhancer-upscale",
+    "emoji": "🔍",
+    "categoria": "mundo-visual",
+    "tags": [
+      "upscale",
+      "enhancer",
+      "calidad",
+      "imagenes"
+    ],
+    "nombre": "Enhancer / Upscale de Imágenes",
+    "descripcion": "Restaurar y mejorar fotos antiguas o de baja calidad con IA — krea.ai y otros",
+    "pasos": [
+      "Sube tu foto antigua, borrosa o de baja resolución a una herramienta de upscaling. Recomendado: krea.ai (también Remini, Adobe Enhance, Topaz Gigapixel).",
+      "Ajusta los parámetros: AI Strength (intensidad de mejora), Resemblance (fidelidad al original) y Clarity (nitidez). Empieza con valores moderados.",
+      "Elige el factor de escala : 2x, 4x, 8x o 16x según el uso final (pantalla vs. impresión de gran formato).",
+      "La IA reconstruye detalles perdidos y aumenta la resolución sin distorsionar la imagen. Descarga el resultado en alta calidad."
+    ],
+    "pro_tip": "Recupera fotos familiares de los 70s u 80s deterioradas. Con upscaling + colorización puedes entregar una foto restaurada a full color como regalo único e invaluable.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/enhancer-upscale/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion06-castilla/index.html",
+        "title": "Enhancer / Upscale de Imágenes",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "videos-con-ia",
+    "emoji": "🎬",
+    "categoria": "mundo-visual",
+    "tags": [
+      "video",
+      "generativa",
+      "ia",
+      "produccion"
+    ],
+    "nombre": "Generación de Videos con IA",
+    "descripcion": "Text to Video e Image to Video — Kling, Runway, Sora y otros",
+    "pasos": [
+      "Elige la herramienta: Kling 2.0 , Runway o Sora (disponible en ChatGPT Pro) son los referentes actuales.",
+      "Escribe el prompt en inglés — los modelos de video están entrenados principalmente en inglés y los resultados son notablemente mejores. Ej: \"Cinematic fixed-shot scene. A small gas station on a hill at night, heavy rain, intense lightning, neon sign reading REYES IA. Moody atmosphere, film-quality VFX.\"",
+      "Para Image to Video : sube una foto estática y pide a la IA que la anime — movimiento de cámara, personas, luces, efectos climáticos.",
+      "Mejora tus prompts con IA: escribe la idea en español, pídele a Claude o ChatGPT que la convierta en un prompt cinematográfico técnico en inglés y úsalo en el generador."
+    ],
+    "pro_tip": "Dile a Claude o ChatGPT: \"Tengo esta idea para un video: [tu idea simple en español]. Conviértela en un prompt cinematográfico detallado en inglés para Runway.\" La diferencia en calidad es enorme.",
+    "desafio": "Text to Video: creas un video desde cero describiendo la escena con texto. Image to Video: partes de una foto existente y la IA la anima.",
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/videos-con-ia/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion06-castilla/index.html",
+        "title": "Generación de Videos con IA",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  },
+  {
+    "id": "logos-ideogram",
+    "emoji": "🎭",
+    "categoria": "mundo-visual",
+    "tags": [
+      "logos",
+      "ideogram",
+      "branding",
+      "diseno"
+    ],
+    "nombre": "Logos con IA — Ideogram.ai",
+    "descripcion": "Generación de logos, mockups y diseños con texto preciso",
+    "pasos": [
+      "Entra a ideogram.ai y crea una cuenta gratuita. Verás el campo de prompt con las opciones de generación.",
+      "Activa el modo \"Design\" — optimiza el modelo para logos, tipografías y diseño gráfico con texto legible y preciso dentro de la imagen.",
+      "Escribe un prompt describiendo el logo: nombre de la marca, estilo visual, colores e íconos. Ej: \"Logo for REYES IA, crown icon, dark background, gold and white typography, modern tech style.\"",
+      "Ideogram genera 4 variaciones simultáneas . Haz clic en la que más te guste para remix, editar colores o pedir variaciones de estilo.",
+      "También funciona para mockups de productos : perfumes, latas, jabones, packaging — con el nombre de tu marca integrado de forma realista."
+    ],
+    "pro_tip": "La mayoría de generadores distorsionan el texto. Ideogram en modo Design es el más confiable para que el nombre de tu marca aparezca escrito correctamente dentro del diseño — ventaja clave para branding.",
+    "desafio": null,
+    "assets": [
+      "cover.jpg"
+    ],
+    "assets_github": [
+      "https://reyesia.com/bloques/logos-ideogram/cover.jpg"
+    ],
+    "sources": [
+      {
+        "file": "sesion06-castilla/index.html",
+        "title": "Logos con IA — Ideogram.ai",
+        "imgs": 1,
+        "variant": 0
+      }
+    ],
+    "imageCount": 1
+  }
+]

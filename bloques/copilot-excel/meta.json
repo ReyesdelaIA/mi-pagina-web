@@ -1,0 +1,43 @@
+{
+  "id": "copilot-excel",
+  "nombre": "Copilot en Excel",
+  "emoji": "📊",
+  "descripcion": "Analiza datos, crea fórmulas y genera visualizaciones con lenguaje natural",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "excel",
+    "datos",
+    "microsoft"
+  ],
+  "pasos": [
+    "Abre Excel y haz clic en Copilot en la barra de herramientas. Importante: los datos deben estar formateados como Tabla (Insertar → Tabla) para que Copilot los lea correctamente.",
+    "Hazle preguntas en español: \"¿Cuál es el producto con más ventas?\", \"Crea un gráfico de barras por sucursal\", \"Añade una columna con el % del total\" . Copilot genera fórmulas y visualizaciones automáticamente.",
+    "Usa \"Analizar datos\" para que Copilot identifique patrones, outliers y tendencias clave en tu hoja de forma automática sin necesidad de escribir fórmulas complejas.",
+    "Para datos de producción o costos de : sube el archivo a OneDrive primero, abre desde allí, y activa Copilot para hacer análisis conversacionales en tiempo real."
+  ],
+  "pro_tip": "Abre Excel con datos formateados como tabla → activa Copilot → pregunta \"¿Qué tendencia ves en estos datos?\" o \"Crea un gráfico resumen\". Observa cómo genera la visualización automáticamente.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg",
+    "cover_v2.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-excel/cover.jpg",
+    "https://reyesia.com/bloques/copilot-excel/cover_v2.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion03-k7x9/index.html",
+      "title": "Copilot en Excel",
+      "imgs": 1,
+      "variant": 0
+    },
+    {
+      "file": "sesion02-newell/index.html",
+      "title": "Copilot en Excel",
+      "imgs": 1,
+      "variant": 1
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "enhancer-upscale",
+  "nombre": "Enhancer / Upscale de Imágenes",
+  "emoji": "🔍",
+  "descripcion": "Restaurar y mejorar fotos antiguas o de baja calidad con IA — krea.ai y otros",
+  "categoria": "mundo-visual",
+  "tags": [
+    "upscale",
+    "enhancer",
+    "calidad",
+    "imagenes"
+  ],
+  "pasos": [
+    "Sube tu foto antigua, borrosa o de baja resolución a una herramienta de upscaling. Recomendado: krea.ai (también Remini, Adobe Enhance, Topaz Gigapixel).",
+    "Ajusta los parámetros: AI Strength (intensidad de mejora), Resemblance (fidelidad al original) y Clarity (nitidez). Empieza con valores moderados.",
+    "Elige el factor de escala : 2x, 4x, 8x o 16x según el uso final (pantalla vs. impresión de gran formato).",
+    "La IA reconstruye detalles perdidos y aumenta la resolución sin distorsionar la imagen. Descarga el resultado en alta calidad."
+  ],
+  "pro_tip": "Recupera fotos familiares de los 70s u 80s deterioradas. Con upscaling + colorización puedes entregar una foto restaurada a full color como regalo único e invaluable.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/enhancer-upscale/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion06-castilla/index.html",
+      "title": "Enhancer / Upscale de Imágenes",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

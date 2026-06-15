@@ -1,0 +1,36 @@
+{
+  "id": "napkin-infografias",
+  "nombre": "Napkin — Infografías desde texto",
+  "emoji": "🖼️",
+  "descripcion": "Convierte cualquier texto en un visual con un clic",
+  "categoria": "herramientas-ia",
+  "tags": [
+    "napkin",
+    "infografias",
+    "visual",
+    "texto"
+  ],
+  "pasos": [
+    "Ve a napkin.ai y crea una cuenta gratuita.",
+    "Pega o escribe tu texto en el editor. Napkin lo analiza automáticamente.",
+    "Haz clic en el ícono de rayo (⚡) que aparece junto a cualquier párrafo para generar un visual.",
+    "Elige entre los diferentes estilos de infografía generados (flowchart, diagrama, lista visual, etc.).",
+    "Descarga como PNG, SVG o PDF para usar en tus presentaciones o documentos."
+  ],
+  "pro_tip": "Primero genera el texto con Claude o ChatGPT, luego pégalo en Napkin para convertirlo en infografía. Combinación poderosa para comunicaciones ejecutivas.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/napkin-infografias/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion05-castilla/index.html",
+      "title": "Napkin — Infografías desde texto",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "intro-copilot",
+  "nombre": "¿Qué es Microsoft Copilot?",
+  "emoji": "🤖",
+  "descripcion": "La IA de Microsoft construida sobre GPT, integrada en todo el ecosistema M365",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "microsoft",
+    "introduccion",
+    "m365"
+  ],
+  "pasos": [
+    "Qué es: Copilot es la IA de Microsoft, construida sobre los modelos de OpenAI (GPT) e integrada en su ecosistema de productos. ChatGPT = versatilidad. Copilot = productividad empresarial.",
+    "Dos versiones clave: Copilot Chat (incluido) — gratis con tu cuenta Microsoft 365. Copilot Business — USD $18/usuario/mes, se integra dentro de Word, Excel, Teams, Outlook y PowerPoint.",
+    "Novedad 2026: Claude de Anthropic ya está disponible como motor alternativo dentro de Copilot. Microsoft amplió su ecosistema más allá de OpenAI.",
+    "En datos de Reyes IA: de más de 200 empresas capacitadas, el 70% usa Microsoft (Outlook), el 30% usa Google Workspace (Gmail). Tu empresa está en el ecosistema Microsoft — Copilot es la herramienta natural."
+  ],
+  "pro_tip": null,
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/intro-copilot/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion01-k7x9/index.html",
+      "title": "¿Qué es Microsoft Copilot?",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "gamma-ppts",
+  "nombre": "Gamma — Presentaciones con IA",
+  "emoji": "🎨",
+  "descripcion": "Crea decks profesionales en segundos desde una instrucción",
+  "categoria": "herramientas-ia",
+  "tags": [
+    "gamma",
+    "presentaciones",
+    "ppt",
+    "ia"
+  ],
+  "pasos": [
+    "Ve a gamma.app y crea una cuenta gratuita.",
+    "Elige \"Crear con IA → Generar\" para crear desde una instrucción en lenguaje natural.",
+    "Escribe tu instrucción (tema, audiencia, tono) y selecciona número de tarjetas e idioma.",
+    "Gamma genera el deck completo. Puedes editar textos, cambiar diseño y exportar a PPT o PDF .",
+    "Alternativa avanzada: Manus (manus.im/app) — agente IA que crea presentaciones más complejas con investigación web incluida."
+  ],
+  "pro_tip": "También puedes crear PPTs desde Copilot en PowerPoint web — útil si ya tienes M365. Para proyectos con investigación previa, Manus hace el trabajo de principio a fin.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/gamma-ppts/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion05-castilla/index.html",
+      "title": "Gamma — Presentaciones con IA",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "camara-con-ia",
+  "nombre": "Uso de Cámara con IA",
+  "emoji": "📷",
+  "descripcion": "Gemini, ChatGPT, Copilot — análisis visual en tiempo real desde el celular",
+  "categoria": "mundo-visual",
+  "tags": [
+    "camara",
+    "vision",
+    "multimodal",
+    "movil"
+  ],
+  "pasos": [
+    "Abre la app de Gemini, ChatGPT o Copilot en tu celular y toca el ícono \"+\" para adjuntar.",
+    "Selecciona \"Cámara\" para tomar una foto en el momento, o \"Fotos\" para subir una imagen desde tu galería.",
+    "Hazle cualquier pregunta sobre lo que ves: traducir texto , rediseñar un espacio , transcribir escritura a mano , identificar objetos, calcular calorías y mucho más.",
+    "La IA combina lo visual con tu instrucción de texto y responde de forma contextual e inteligente."
+  ],
+  "pro_tip": "Fotografía un menú, un contrato, una pizarra de reunión, o la heladera vacía y pídele recetas. La cámara convierte la IA en un asistente del mundo real.",
+  "desafio": null,
+  "assets": [
+    "cover.jpg"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/camara-con-ia/cover.jpg"
+  ],
+  "sources": [
+    {
+      "file": "sesion06-castilla/index.html",
+      "title": "Uso de Cámara con IA",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}
