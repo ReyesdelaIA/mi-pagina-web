@@ -368,12 +368,14 @@
     1: ['/pucobre/thumbs/s1_thumb1.jpg','/pucobre/thumbs/s1_thumb2.jpg','/pucobre/thumbs/s1_thumb3.jpg'],
     2: ['/newell/thumbs/s2_thumb1.png','/newell/thumbs/s2_thumb2.png','/newell/thumbs/s2_thumb3.png'],
     3: ['/newell/thumbs/s3_thumb1.png','/newell/thumbs/s3_thumb2.png','/newell/thumbs/s3_thumb3.png'],
-  };
+    4: ['/newell/thumbs/s4_thumb1.png','/newell/thumbs/s4_thumb2.png','/newell/thumbs/s4_thumb3.png'],
+};
   const CHALLENGES = {
     1: 'Abre Copilot y logra que memorice 5 temas relevantes de ti y tu rol dentro de Newell. Preséntate, cuéntale en qué área trabajas y qué tipo de tareas haces — y pídele que los recuerde para futuras conversaciones.',
     2: '1. Abre una planilla Excel.<br>2. Activa la opción Copilot.<br>3. Cambia el modelo automático a Claude.<br>4. Pídele que te cree gráficos de tu planilla.',
     3: 'Crea tu primer agente básico en Copilot. Piensa en una tarea o dolor recurrente de tu día a día en Newell y construye un agente para resolverlo:<br>1. Dale un nombre y un propósito claro.<br>2. Redacta una buena paleta de instrucciones (apóyate en la IA para escribirlas).<br>3. Cárgale conocimiento vinculante (SharePoint, Teams, Outlook o una web).<br>4. Pruébalo con un caso real y ajusta las instrucciones según el resultado.',
-  };
+      4: 'Pon en práctica el flujo Pro de la sesión:<br>1. Pídele al <strong>Agente Analista</strong> que analice un Excel real de tu área en Newell (KPIs, ventas, lo que tengas) y genere 2-3 gráficos.<br>2. Abre <strong>PowerPoint con Copilot</strong> (con modelo Claude) y pídele que arme una presentación ejecutiva basada en ese análisis.<br>3. Pule un par de slides con instrucciones en lenguaje natural. ¡De datos crudos a presentación lista sin salir de M365!',
+};
   const QUIZZES = {
     1: [
       {
@@ -459,7 +461,39 @@
         explain: 'Copilot está integrado de forma nativa en SharePoint y OneDrive —el ícono aparece junto a cada archivo—, así que puedes resumir y buscar documentos con lenguaje natural sin instalar nada.',
       },
     ],
-  };
+      4: [
+      {
+        q: '¿Qué hace el Agente Investigador?',
+        opts: ['Crea gráficos de colores en PowerPoint.', 'Navega por internet de forma autónoma y entrega un informe estructurado con citas y fuentes.', 'Borra correos antiguos de Outlook automáticamente.', 'Solo traduce documentos a otros idiomas.'],
+        correct: 1,
+        explain: 'El Investigador navega la web de forma autónoma, recopila información actualizada de múltiples fuentes y entrega un informe estructurado con citas. Es el punto de partida ideal para alimentar otros agentes, documentos o presentaciones.',
+      },
+      {
+        q: '¿Cuál es la diferencia clave del Agente Analista frente al Investigador?',
+        opts: ['El Analista busca noticias nuevas en internet.', 'Son exactamente lo mismo.', 'El Analista interpreta datos estructurados que ya tienes (Excel, CSV, tablas) y genera gráficos e insights ejecutivos.', 'El Analista solo sirve para redactar correos.'],
+        correct: 2,
+        explain: 'El Investigador trae datos externos desde la web; el Analista trabaja sobre datos estructurados que ya tienes y entrega gráficos, tablas resumen e interpretaciones en lenguaje ejecutivo. Juntos forman un flujo potente.',
+      },
+      {
+        q: 'En Word con Copilot, ¿cuál es la forma rápida de intervenir un párrafo puntual sin tocar el resto del documento?',
+        opts: ['Borrar todo y empezar de nuevo.', 'Copiar el texto a otro programa.', 'No se puede editar párrafo por párrafo.', 'Seleccionar el párrafo, clic derecho → Copilot, y pedirle que lo reescriba o mejore.'],
+        correct: 3,
+        explain: 'Con clic derecho → Copilot sobre un párrafo seleccionado puedes reescribirlo, mejorar el tono, ampliarlo o resumirlo sin afectar el resto del documento.',
+      },
+      {
+        q: 'Al usar Copilot en Excel y PowerPoint, ¿qué recomendación clave se dio para obtener mejores resultados?',
+        opts: ['Usar siempre el modelo por defecto.', 'Cambiar el selector de modelo a Claude (Opus 4.7 o superior) por su mejor razonamiento.', 'Desactivar Copilot y hacer todo a mano.', 'Trabajar siempre sin conexión a internet.'],
+        correct: 1,
+        explain: 'En Excel y PowerPoint conviene cambiar el modelo de Copilot a Claude (Opus 4.7 o superior): su razonamiento produce planillas y presentaciones de mejor calidad.',
+      },
+      {
+        q: '¿Cuál es el flujo más potente combinando las herramientas de la sesión?',
+        opts: ['Hacer todo manualmente en cada app por separado.', 'Usar solo Word para todo.', 'El Investigador trae datos externos, el Analista los cruza y analiza, exportas a Excel y Copilot en PowerPoint arma la presentación.', 'Copiar y pegar entre apps sin usar IA.'],
+        correct: 2,
+        explain: 'El flujo Pro encadena los agentes y las apps: investigar, analizar, exportar a Excel y generar la presentación en PowerPoint con Copilot. De datos crudos a entregable sin salir de M365.',
+      },
+    ],
+};
 
   const SKILLS = [
     // Sesión 01
