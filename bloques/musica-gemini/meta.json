@@ -1,0 +1,24 @@
+{
+  "id": "musica-gemini",
+  "nombre": "Música con IA (Gemini)",
+  "emoji": "🎵",
+  "descripcion": "Crea canciones y jingles originales con Gemini (modelo Lyria 3)",
+  "categoria": "mundo-visual",
+  "tags": ["musica", "gemini", "lyria", "jingles", "marketing", "audio"],
+  "pasos": [
+    "En Gemini (gratis con tu Gmail), haz clic en el botón \"+\" → \"Más herramientas\" → \"Crear música\". Gemini genera canciones con el modelo Lyria 3.",
+    "Elige una plantilla de género (Pop latino, Reguetón, Balada folk, 8 bits, R&B, Cine, Kawaii metal y más) o escribe tu propia idea en \"Describe la pista musical\".",
+    "Especifica estilo, mood y letra: puedes darle la letra tú o pedirle que la escriba. Indica idioma, tono y duración aproximada.",
+    "Escucha el resultado e itera (ritmo, instrumentos, letra) y descarga la pista para reels, videos de producto o presentaciones — música original sin problemas de derechos."
+  ],
+  "pro_tip": "Para marketing, un jingle corto y pegajoso con el nombre de la marca funciona increíble en reels y stories. Genera 2-3 versiones y prueba cuál conecta más con tu audiencia.",
+  "desafio": null,
+  "assets": ["cover.jpg", "paso1.jpg"],
+  "assets_github": [
+    "https://reyesia.com/bloques/musica-gemini/cover.jpg",
+    "https://reyesia.com/bloques/musica-gemini/paso1.jpg"
+  ],
+  "sources": [
+    { "file": "sesion05-newell/index.html", "title": "Música con IA (Gemini)", "imgs": 2, "variant": 0 }
+  ]
+}

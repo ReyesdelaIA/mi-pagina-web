@@ -20,8 +20,9 @@ const toggleJs = tpl.slice(sStart + '<script>'.length, tpl.indexOf('const QUIZ',
 // --- helper imagen base64 desde biblioteca ---
 function imgB64(id, file, bg) {
   const buf = fs.readFileSync(path.join(ROOT, 'bloques', id, file));
+  const mime = (buf[0] === 0x89 && buf[1] === 0x50) ? 'image/png' : 'image/jpeg';
   const b64 = buf.toString('base64');
-  return `<img src="data:image/jpeg;base64,${b64}" alt="" style="width:100%;max-height:440px;object-fit:contain;background:${bg};display:block;padding:16px 0;" />`;
+  return `<img src="data:${mime};base64,${b64}" alt="" style="width:100%;max-height:440px;object-fit:contain;background:${bg};display:block;padding:16px 0;" />`;
 }
 
 const esc = s => s; // contenido ya en texto plano seguro
@@ -142,13 +143,13 @@ const cards = [
   },
   {
     emoji: '🎵', iconBg: '#FFF4E5', title: 'Música con IA (Gemini)',
-    desc: 'Crea canciones y jingles originales para tus campañas',
-    placeholder: true,
+    desc: 'Crea canciones y jingles originales con Gemini (modelo Lyria 3)',
+    imgs: [{ id: 'musica-gemini', file: 'cover.jpg', bg: '#fff4e5' }, { id: 'musica-gemini', file: 'paso1.jpg', bg: '#fff4e5' }],
     steps: [
-      'Abre <strong>Gemini</strong> (gratis con tu Gmail) y pídele crear una canción: describe el género, el mood, el tema y para qué la quieres (jingle de campaña, intro de video, contenido para redes).',
-      'Especifica estilo y letra: puedes darle tú la letra o pedirle que la escriba. Indica idioma, tono y duración aproximada.',
-      'Escucha el resultado e itera: pide cambios de ritmo, instrumentos o letra hasta que calce con tu marca.',
-      'Descarga y úsala en reels, videos de producto o presentaciones — música original, sin problemas de derechos de autor.',
+      'En <strong>Gemini</strong> (gratis con tu Gmail), haz clic en el botón <strong>"+"</strong> → <strong>"Más herramientas"</strong> → <strong>"Crear música"</strong>. Gemini genera canciones con el modelo <strong>Lyria 3</strong>.',
+      'Elige una <strong>plantilla de género</strong> (Pop latino, Reguetón, Balada folk, 8 bits, R&B, Cine, Kawaii metal y más) o escribe tu propia idea en <em>"Describe la pista musical"</em>.',
+      'Especifica estilo, mood y letra: puedes darle la letra tú o pedirle que la escriba. Indica idioma, tono y duración aproximada.',
+      'Escucha el resultado e itera (ritmo, instrumentos, letra) y descarga la pista para reels, videos de producto o presentaciones — música original, sin problemas de derechos de autor.',
     ],
     protip: 'Un jingle corto y pegajoso con el nombre de la marca funciona increíble en reels y stories. Genera 2-3 versiones y prueba cuál conecta más con tu audiencia.',
   },
