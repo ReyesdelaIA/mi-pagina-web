@@ -49,29 +49,42 @@
     .metric-val  { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1; }
     .metric-lbl  { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
-    /* Resumen (distribuciones) */
-    .resumen { background: var(--white); border-radius: 14px; border: 1px solid var(--border); padding: 20px 22px; margin-bottom: 24px; }
-    .resumen-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-    .resumen-title { font-size: 14px; font-weight: 700; color: var(--navy); }
-    .resumen-sub { font-size: 11px; color: var(--muted); margin-bottom: 18px; }
-    .resumen-filter { border: 1.5px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 12px; font-family: 'Poppins', sans-serif; color: var(--navy); font-weight: 600; outline: none; cursor: pointer; background: #fff; }
-    .resumen-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 34px; }
-    .dist-block { min-width: 0; }
-    .dist-block-title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px; }
-    .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
-    .bar-label { font-size: 12px; color: #444; width: 130px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .bar-track { flex: 1; height: 18px; background: #F0F0EE; border-radius: 6px; overflow: hidden; min-width: 40px; }
-    .bar-fill { height: 100%; background: var(--navy); border-radius: 6px; transition: width .4s ease; }
-    .bar-fill.gold { background: var(--gold); }
-    .bar-fill.split-emp { background: var(--navy); }
-    .bar-fill.split-per { background: var(--gold); }
-    .bar-count { font-size: 12px; font-weight: 700; color: var(--navy); width: 58px; flex-shrink: 0; text-align: right; }
-    .split-legend { display: flex; gap: 16px; font-size: 10px; color: var(--muted); margin-bottom: 12px; }
-    .split-legend span::before { content: ''; display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+    /* Hero */
+    .hero { display: flex; align-items: center; gap: 20px; margin-bottom: 22px; flex-wrap: wrap; }
+    .hero-total { display: flex; align-items: center; gap: 12px; }
+    .hero-num { font-size: 46px; font-weight: 800; color: var(--navy); line-height: .9; font-variant-numeric: tabular-nums; }
+    .hero-num-lbl { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .hero-num-lbl b { color: var(--navy); font-weight: 700; }
+    .hero-mid { display: flex; gap: 12px; flex-wrap: wrap; flex: 1; }
+    .hero-chip { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
+    .hero-chip .hc-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .hero-chip .hc-k { font-size: 9px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); font-weight: 600; }
+    .hero-chip .hc-v { font-size: 15px; font-weight: 800; color: var(--navy); line-height: 1.1; }
+    .hero-right { margin-left: auto; }
+    .resumen-filter { border: 1.5px solid var(--border); border-radius: 10px; padding: 9px 14px; font-size: 13px; font-family: 'Poppins', sans-serif; color: var(--navy); font-weight: 700; outline: none; cursor: pointer; background: #fff; }
+    .resumen-filter:focus { border-color: var(--navy); }
+
+    /* Chart cards */
+    .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .chart-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; }
+    .chart-card.wide { grid-column: 1 / -1; }
+    .chart-card h3 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+    .chart-card h3 .ico { font-size: 16px; }
+    .cbar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 13px; }
+    .cbar-row:last-child { margin-bottom: 0; }
+    .cbar-label { width: 120px; flex-shrink: 0; font-size: 12px; color: #3a3a3a; font-weight: 600; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cbar-track { flex: 1; height: 26px; background: #F1F1EE; border-radius: 8px; overflow: hidden; min-width: 40px; }
+    .cbar-fill { display: block; height: 100%; border-radius: 8px; min-width: 4px; width: 0; transition: width .6s cubic-bezier(.34,1.2,.4,1); }
+    .cbar-track.stack { display: flex; }
+    .cbar-fill.seg + .cbar-fill.seg { box-shadow: -2px 0 0 0 var(--white); }
+    .cbar-val { width: 62px; flex-shrink: 0; text-align: right; font-size: 13px; font-weight: 800; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .cbar-val .pct { font-size: 11px; font-weight: 600; color: var(--muted); }
+    .split-legend { display: flex; gap: 18px; font-size: 11px; color: var(--muted); margin: -6px 0 16px; }
+    .split-legend span { display: flex; align-items: center; gap: 6px; }
+    .split-legend span::before { content: ''; width: 11px; height: 11px; border-radius: 3px; }
     .lg-emp::before { background: var(--navy); }
     .lg-per::before { background: var(--gold); }
-    .stack-track { flex: 1; height: 18px; border-radius: 6px; overflow: hidden; display: flex; background: #F0F0EE; min-width: 40px; }
-    .dist-empty { font-size: 12px; color: var(--muted); }
+    .dist-empty { font-size: 12px; color: var(--muted); padding: 8px 0; }
 
     /* Layout */
     .content { display: flex; gap: 16px; }
@@ -107,7 +120,7 @@
 
     .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; }
 
-    @media(max-width: 900px) { .metrics { grid-template-columns: 1fr 1fr; } .resumen-grid { grid-template-columns: 1fr; } .side-panel { display: none !important; } }
+    @media(max-width: 900px) { .metrics { grid-template-columns: 1fr 1fr; } .charts { grid-template-columns: 1fr; } .chart-card.wide { grid-column: auto; } .hero-mid { order: 3; flex-basis: 100%; } .hero-right { margin-left: 0; } .side-panel { display: none !important; } }
     @media(max-width: 600px) { .metrics { grid-template-columns: 1fr; } .main { padding: 16px; } th:nth-child(n+4), td:nth-child(n+4) { display: none; } }
   </style>
 </head>
@@ -140,23 +153,21 @@
   </div>
 
   <div class="main">
-    <div class="metrics" id="metrics">
-      <div class="metric-card"><div class="metric-icon">📋</div><div class="metric-val" id="m-total">—</div><div class="metric-lbl">Total diagnósticos</div></div>
-      <div class="metric-card"><div class="metric-icon">📧</div><div class="metric-val" id="m-mail">—</div><div class="metric-lbl">Ecosistema más común</div></div>
-      <div class="metric-card"><div class="metric-icon">🤖</div><div class="metric-val" id="m-ia">—</div><div class="metric-lbl">Herramienta IA más usada</div></div>
-      <div class="metric-card"><div class="metric-icon">🎯</div><div class="metric-val" id="m-area">—</div><div class="metric-lbl">Área más solicitada</div></div>
-    </div>
-
-    <div class="resumen" id="resumen">
-      <div class="resumen-head">
-        <span class="resumen-title">Resumen del equipo</span>
+    <!-- Hero: total + empresa filter + titulares -->
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-total"><span class="hero-num" id="h-total">—</span><span class="hero-num-lbl">respuestas<br/><b id="h-empresas">—</b></span></div>
+      </div>
+      <div class="hero-mid" id="hero-chips"></div>
+      <div class="hero-right">
         <select class="resumen-filter" id="empresa-filter" onchange="render()">
           <option value="">Todas las empresas</option>
         </select>
       </div>
-      <div class="resumen-sub" id="resumen-sub">—</div>
-      <div class="resumen-grid" id="resumen-grid"></div>
     </div>
+
+    <!-- Gráficos de barras -->
+    <div class="charts" id="charts"></div>
 
     <div class="content">
       <div class="table-wrap">
@@ -247,105 +258,116 @@ function populateEmpresaFilter() {
   sel.value = cur;
 }
 
-function render() { renderMetrics(); renderResumen(); renderTable(); }
-
-function renderMetrics() {
-  const data = filtered();
-  document.getElementById('m-total').textContent = data.length;
-  const mailFreq = freq(data.map(d => d.plataforma_mail));
-  document.getElementById('m-mail').textContent = MAIL_L[topKey(mailFreq)] || topKey(mailFreq) || '—';
-  const iaFreq = freq(data.flatMap(d => d.herramientas_ia || []).filter(h => h !== 'ninguna'));
-  document.getElementById('m-ia').textContent = IA_L[topKey(iaFreq)] || topKey(iaFreq) || '—';
-  const areaFreq = freq(data.flatMap(d => d.areas_interes || []));
-  document.getElementById('m-area').textContent = AREA_L[topKey(areaFreq)] || topKey(areaFreq) || '—';
-}
+function render() { renderHero(); renderCharts(); renderTable(); }
 
 function freq(arr) { return arr.reduce((a,k) => { a[k]=(a[k]||0)+1; return a; }, {}); }
 function topKey(obj) { const e = Object.entries(obj).sort((a,b)=>b[1]-a[1])[0]; return e ? e[0] : null; }
 
-// ── Resumen agregado ──
-function bar(label, count, total, gold) {
-  const pct = total ? Math.round(count/total*100) : 0;
-  return `<div class="bar-row">
-    <span class="bar-label" title="${esc(label)}">${label}</span>
-    <span class="bar-track"><span class="bar-fill${gold?' gold':''}" style="width:${pct}%"></span></span>
-    <span class="bar-count">${count} · ${pct}%</span>
+// ── Colores por entidad (fijos: el color sigue a la categoría, no a su ranking) ──
+const COL = {
+  plataforma_mail: { outlook:'#2a78d6', gmail:'#e34948', mix:'#4a3aa7', otro:'#eb6834' },
+  nivel_equipo:    { cero:'#e87ba4', basico:'#eda100', frecuente:'#1baf7a', avanzado:'#2a78d6' },
+  area_trabajo:    { finanzas:'#2a78d6', rrhh:'#1baf7a', ventas:'#eda100', operaciones:'#4a3aa7', marketing:'#e34948', programacion_ti:'#eb6834', gerencia_general:'#e87ba4', otra:'#898781' },
+  areas_interes:   { finanzas:'#2a78d6', marketing:'#e34948', operaciones:'#4a3aa7', comercial:'#1baf7a', rrhh:'#eda100', ti:'#eb6834', legal:'#e87ba4', todas:'#008300', otra:'#898781' },
+  resistencias:    { no:'#0ca30c', algo:'#fab219', si:'#d03b3b', no_se:'#898781' }, // semáforo
+};
+
+// Una fila de barra: etiqueta + barra coloreada (ancho = relativo al máximo) + valor·%
+function cbar(label, count, maxCount, denom, color) {
+  const w = maxCount ? Math.round(count/maxCount*100) : 0;
+  const pct = denom ? Math.round(count/denom*100) : 0;
+  return `<div class="cbar-row">
+    <span class="cbar-label" title="${esc(label)}">${esc(label)}</span>
+    <span class="cbar-track"><span class="cbar-fill" style="width:${w}%;background:${color}"></span></span>
+    <span class="cbar-val">${count} <span class="pct">${pct}%</span></span>
   </div>`;
 }
 
-// distribución de un campo simple (radio) usando su mapa de etiquetas y un orden fijo
-function distSimple(data, field, labelMap, order, gold) {
+// Gráfico de barras para un campo simple (radio). order = orden fijo de categorías.
+function chartSimple(title, ico, data, field, labelMap, order) {
   const fq = freq(data.map(d => d[field]).filter(Boolean));
   const keys = (order || Object.keys(labelMap)).filter(k => fq[k]);
   Object.keys(fq).forEach(k => { if (!keys.includes(k)) keys.push(k); });
-  if (!keys.length) return '<div class="dist-empty">Sin datos.</div>';
-  return keys.map(k => bar(labelMap[k]||k, fq[k], data.length, gold)).join('');
+  keys.sort((a,b) => fq[b]-fq[a]);
+  const max = Math.max(...keys.map(k => fq[k]), 1);
+  const cmap = COL[field] || {};
+  const body = keys.length
+    ? keys.map(k => cbar(labelMap[k]||k, fq[k], max, data.length, cmap[k]||'#2a78d6')).join('')
+    : '<div class="dist-empty">Sin datos.</div>';
+  return card(title, ico, body);
 }
 
-// distribución de un campo array (checkboxes) — total = nº de personas
-function distArray(data, field, labelMap, gold, skip) {
-  const fq = freq(data.flatMap(d => d[field] || []).filter(v => !skip || v !== skip));
+// Gráfico de barras para un campo array (checkboxes). denom = nº de personas.
+function chartArray(title, ico, data, field, labelMap) {
+  const fq = freq(data.flatMap(d => d[field] || []));
   const keys = Object.keys(fq).sort((a,b) => fq[b]-fq[a]);
-  if (!keys.length) return '<div class="dist-empty">Sin datos.</div>';
-  return keys.map(k => bar(labelMap[k]||k, fq[k], data.length, gold)).join('');
+  const max = Math.max(...keys.map(k => fq[k]), 1);
+  const cmap = COL[field] || {};
+  const body = keys.length
+    ? keys.map(k => cbar(labelMap[k]||k, fq[k], max, data.length, cmap[k]||'#2a78d6')).join('')
+    : '<div class="dist-empty">Sin datos.</div>';
+  return card(title, ico, body);
 }
 
-// herramientas IA con barra apilada empresa (navy) vs personal (gold)
-function distTools(data) {
+// Herramientas IA: barra apilada empresa (navy) + personal (dorado)
+function chartTools(data) {
   const emp = freq(data.flatMap(d => d.herramientas_empresa || []));
   const per = freq(data.flatMap(d => d.herramientas_personal || []));
   const keys = [...new Set([...Object.keys(emp), ...Object.keys(per)])]
     .sort((a,b) => ((emp[b]||0)+(per[b]||0)) - ((emp[a]||0)+(per[a]||0)));
-  if (!keys.length) return '<div class="dist-empty">Nadie declaró herramientas de IA aún.</div>';
-  const maxTotal = Math.max(...keys.map(k => (emp[k]||0)+(per[k]||0)), 1);
-  return keys.map(k => {
-    const e = emp[k]||0, p = per[k]||0, t = e+p;
-    const eW = Math.round(e/maxTotal*100), pW = Math.round(p/maxTotal*100);
-    return `<div class="bar-row">
-      <span class="bar-label" title="${esc(IA_L[k]||k)}">${IA_L[k]||k}</span>
-      <span class="stack-track">
-        <span class="bar-fill split-emp" style="width:${eW}%"></span>
-        <span class="bar-fill split-per" style="width:${pW}%"></span>
+  const legend = '<div class="split-legend"><span class="lg-emp">Paga la empresa</span><span class="lg-per">Pagas tú</span></div>';
+  if (!keys.length) return card('Herramientas IA · quién paga', '🤖', legend + '<div class="dist-empty">Nadie declaró herramientas de IA aún.</div>', true);
+  const max = Math.max(...keys.map(k => (emp[k]||0)+(per[k]||0)), 1);
+  const body = keys.map(k => {
+    const e = emp[k]||0, p = per[k]||0;
+    const eW = Math.round(e/max*100), pW = Math.round(p/max*100);
+    return `<div class="cbar-row">
+      <span class="cbar-label" title="${esc(IA_L[k]||k)}">${esc(IA_L[k]||k)}</span>
+      <span class="cbar-track stack">
+        ${e?`<span class="cbar-fill seg" style="width:${eW}%;background:var(--navy)"></span>`:''}
+        ${p?`<span class="cbar-fill seg" style="width:${pW}%;background:var(--gold)"></span>`:''}
       </span>
-      <span class="bar-count">${e}/${p}</span>
+      <span class="cbar-val">${e}<span class="pct">/${p}</span></span>
     </div>`;
   }).join('');
+  return card('Herramientas IA · quién paga', '🤖', legend + body, true);
 }
 
-function renderResumen() {
+function card(title, ico, body, wide) {
+  return `<div class="chart-card${wide?' wide':''}"><h3><span class="ico">${ico}</span>${title}</h3>${body}</div>`;
+}
+
+function renderHero() {
   const data = filtered();
   const n = data.length;
   const empresas = new Set(data.map(d => d.empresa).filter(Boolean)).size;
-  const sinIA = data.filter(d => (d.herramientas_ia||[]).length === 1 && d.herramientas_ia[0] === 'ninguna').length;
-  document.getElementById('resumen-sub').textContent =
-    `${n} ${n===1?'respuesta':'respuestas'} · ${empresas} ${empresas===1?'empresa':'empresas'} · ${sinIA} sin ninguna herramienta de IA`;
+  document.getElementById('h-total').textContent = n;
+  document.getElementById('h-empresas').textContent = `${empresas} ${empresas===1?'empresa':'empresas'}`;
 
-  document.getElementById('resumen-grid').innerHTML = `
-    <div class="dist-block">
-      <div class="dist-block-title">Quién respondió · por área</div>
-      ${distSimple(data, 'area_trabajo', TRAB_L, Object.keys(TRAB_L), false)}
-    </div>
-    <div class="dist-block">
-      <div class="dist-block-title">Nivel con IA</div>
-      ${distSimple(data, 'nivel_equipo', NIVEL_L, ['cero','basico','frecuente','avanzado'], true)}
-    </div>
-    <div class="dist-block">
-      <div class="dist-block-title">Herramientas IA · quién paga (empresa / yo)</div>
-      <div class="split-legend"><span class="lg-emp">Empresa</span><span class="lg-per">Personal (yo)</span></div>
-      ${distTools(data)}
-    </div>
-    <div class="dist-block">
-      <div class="dist-block-title">Áreas de interés priorizadas</div>
-      ${distArray(data, 'areas_interes', AREA_L, true)}
-    </div>
-    <div class="dist-block">
-      <div class="dist-block-title">Apertura a la IA</div>
-      ${distSimple(data, 'resistencias', RES_L, ['no','algo','si','no_se'], false)}
-    </div>
-    <div class="dist-block">
-      <div class="dist-block-title">Ecosistema · correo</div>
-      ${distSimple(data, 'plataforma_mail', MAIL_L, Object.keys(MAIL_L), false)}
-    </div>`;
+  // Titulares: ecosistema líder, nivel más común, herramienta top
+  const mailK = topKey(freq(data.map(d => d.plataforma_mail).filter(Boolean)));
+  const nivelK = topKey(freq(data.map(d => d.nivel_equipo).filter(Boolean)));
+  const iaK = topKey(freq(data.flatMap(d => d.herramientas_ia || []).filter(h => h !== 'ninguna')));
+  const chips = [
+    { k:'Ecosistema líder', v: MAIL_L[mailK]||'—', c: (COL.plataforma_mail[mailK])||'#2a78d6' },
+    { k:'Nivel más común',  v: NIVEL_L[nivelK]||'—', c: (COL.nivel_equipo[nivelK])||'#2a78d6' },
+    { k:'Herramienta top',  v: IA_L[iaK]||'—', c:'#4a3aa7' },
+  ];
+  document.getElementById('hero-chips').innerHTML = n ? chips.map(ch =>
+    `<div class="hero-chip"><span class="hc-dot" style="background:${ch.c}"></span><div><div class="hc-k">${ch.k}</div><div class="hc-v">${esc(ch.v)}</div></div></div>`
+  ).join('') : '';
+}
+
+function renderCharts() {
+  const data = filtered();
+  document.getElementById('charts').innerHTML = [
+    chartSimple('Ecosistema de correo', '📧', data, 'plataforma_mail', MAIL_L, Object.keys(MAIL_L)),
+    chartSimple('Nivel de conocimiento con IA', '📊', data, 'nivel_equipo', NIVEL_L, ['cero','basico','frecuente','avanzado']),
+    chartTools(data),
+    chartArray('Áreas de interés priorizadas', '🎯', data, 'areas_interes', AREA_L),
+    chartSimple('Apertura a la IA', '🚦', data, 'resistencias', RES_L, ['no','algo','si','no_se']),
+    chartSimple('Quién respondió · por área', '👥', data, 'area_trabajo', TRAB_L, Object.keys(TRAB_L)),
+  ].join('');
 }
 
 function renderTable() {
