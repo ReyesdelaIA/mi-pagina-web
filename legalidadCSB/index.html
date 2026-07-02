@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Ranking de la Legalidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void: #0a0908;
+    --void-2: #14110f;
+    --bone: #e8e2d4;
+    --bone-dim: #a89f8c;
+    --blood: #7a1f1f;
+    --blood-bright: #b8342f;
+    --gold: #c9a24b;
+    --sun: #ff8c42;
+    --sun-2: #ffb347;
+    --sky: #4ecdc4;
+    --lilac: #b98ee0;
+    --grid-line: rgba(232,226,212,0.06);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background: var(--void);
+    color: var(--bone);
+    font-family:'Cormorant Garamond', serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* ambient grain */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
+    background-size: 3px 3px;
+    z-index: 5;
+    mix-blend-mode: overlay;
+    opacity:0.5;
+  }
+
+  .stage{
+    position:relative;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% -10%, rgba(122,31,31,0.35), transparent 60%),
+      linear-gradient(180deg,
+        var(--void) 0%,
+        var(--void) 18%,
+        #171310 34%,
+        #241a17 50%,
+        #3a2418 64%,
+        #6b3a1f 78%,
+        #d97a2e 90%,
+        #ffcf6b 100%);
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    position:relative;
+    text-align:center;
+    padding: 5.5rem 1.5rem 4rem;
+    overflow:hidden;
+  }
+
+  header::after{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0; bottom:0;
+    background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 70% 100% at 50% 0%, black, transparent 75%);
+    pointer-events:none;
+  }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.45em;
+    font-size:0.7rem;
+    color: var(--gold);
+    text-transform:uppercase;
+    display:inline-block;
+    margin-bottom:1.6rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(201,162,75,0.35);
+    border-radius:999px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  h1{
+    font-family:'Cinzel Decorative', serif;
+    font-weight:900;
+    font-size: clamp(2.4rem, 7vw, 5.2rem);
+    line-height:1.05;
+    letter-spacing:0.01em;
+    background: linear-gradient(180deg, #fff 0%, var(--bone) 35%, var(--gold) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow: 0 0 60px rgba(201,162,75,0.25);
+    animation: fadeUp 1s ease 0.1s both;
+  }
+
+  .subhead{
+    max-width:640px;
+    margin: 1.6rem auto 0;
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    font-style:italic;
+    color: var(--bone-dim);
+    line-height:1.6;
+    animation: fadeUp 1s ease 0.25s both;
+  }
+
+  .subhead b{ color:var(--bone); font-style:normal; font-weight:600; }
+
+  .divider{
+    display:flex; align-items:center; gap:1rem;
+    max-width:340px; margin: 2.4rem auto 0;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+  .divider .line{ flex:1; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .divider .skull{ font-size:1.3rem; filter: drop-shadow(0 0 8px rgba(201,162,75,0.5)); }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(18px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  /* ===== ZONE LABELS ===== */
+  .zone-label{
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    padding: 3.2rem 0 1.2rem;
+    position:relative;
+    z-index:2;
+  }
+  .zone-label.dead{ color: var(--blood-bright); }
+  .zone-label span{
+    padding: 0.35rem 1.1rem;
+    border-radius:999px;
+  }
+  .zone-label.dead span{ background: rgba(122,31,31,0.15); border:1px solid rgba(184,52,47,0.4);}
+
+  /* ===== LIST ===== */
+  .list{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.4rem 6rem;
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    gap: 0.9rem;
+  }
+
+  .row{
+    position:relative;
+    display:grid;
+    grid-template-columns: 64px 1fr auto;
+    align-items:center;
+    gap: 1.1rem;
+    padding: 1rem 1.3rem;
+    border-radius: 14px;
+    background: rgba(20,17,15,0.55);
+    border: 1px solid rgba(232,226,212,0.08);
+    backdrop-filter: blur(2px);
+    opacity:0;
+    animation: rowIn 0.6s ease forwards;
+    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  }
+  .row:hover{ transform: translateX(6px); border-color: rgba(232,226,212,0.25); }
+
+  @keyframes rowIn{
+    from{ opacity:0; transform: translateY(14px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .rank{
+    font-family:'Cinzel Decorative', serif;
+    font-weight:700;
+    font-size:1.5rem;
+    text-align:center;
+    color: var(--bone-dim);
+  }
+
+  .name{
+    font-size:1.35rem;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+
+  .tags{
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    color: var(--bone-dim);
+    display:block;
+    margin-top:0.15rem;
+    text-transform:uppercase;
+  }
+
+  .score{
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+    text-align:right;
+    white-space:nowrap;
+    color: var(--bone-dim);
+  }
+  .score .num{
+    display:block;
+    font-size:1.05rem;
+    font-weight:700;
+    color: var(--bone);
+  }
+  .score .unit{
+    font-size:0.6rem;
+    letter-spacing:0.15em;
+    opacity:0.6;
+  }
+  .row.dead .score .num{ color: var(--blood-bright); text-shadow: 0 0 12px rgba(184,52,47,0.5); }
+  .row.free .score .num{ color: var(--sun-2); }
+
+  /* --- DEAD ZONE (1-5) --- */
+  .row.dead{
+    background: linear-gradient(90deg, rgba(122,31,31,0.22), rgba(20,17,15,0.55));
+    border-color: rgba(184,52,47,0.3);
+  }
+  .row.dead .rank{
+    color: var(--blood-bright);
+    text-shadow: 0 0 18px rgba(184,52,47,0.6);
+  }
+  .row.dead .name{ color: #fff; }
+
+  /* --- FREE ZONE (16-21) --- */
+  .row.free{
+    background: linear-gradient(90deg, rgba(255,179,71,0.14), rgba(45,32,20,0.35));
+    border-color: rgba(255,179,71,0.35);
+  }
+  .row.free .rank{ color: var(--sun-2); }
+  .row.free .name{ color: #fff5e6; }
+
+  .block-gap{ height: 1.4rem; position:relative; }
+  .block-gap::after{
+    content:"";
+    position:absolute;
+    left:50%; top:50%;
+    transform: translate(-50%,-50%);
+    width:64px; height:1px;
+    background: rgba(232,226,212,0.14);
+  }
+
+  footer{
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color: rgba(43,33,23,0.55);
+    padding-bottom: 3rem;
+    position:relative;
+    z-index:2;
+  }
+
+  /* ===== COMISIÓN ===== */
+  .commission{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1rem 1.4rem 4.5rem;
+    position:relative;
+    z-index:2;
+  }
+
+  .commission-head{
+    text-align:center;
+    margin-bottom: 2.2rem;
+  }
+
+  .commission-head .eyebrow{
+    color: var(--sun-2);
+    background: rgba(20,17,15,0.85);
+    border-color: rgba(255,179,71,0.4);
+  }
+
+  .commission-head .motto{
+    font-family:'Cinzel Decorative', serif;
+    font-weight:700;
+    font-size: clamp(1.1rem, 2.6vw, 1.5rem);
+    color: #2b2117;
+    margin: 1.1rem 0 0.6rem;
+  }
+
+  .commission-head h2{
+    font-family:'Cinzel Decorative', serif;
+    font-weight:700;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: #2b2117;
+    letter-spacing:0.02em;
+  }
+
+  .commission-head p{
+    font-style:italic;
+    color: rgba(43,33,23,0.7);
+    margin-top:0.5rem;
+    font-size:1.05rem;
+  }
+
+  .commission-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+  }
+
+  .seat{
+    background: rgba(20,17,15,0.9);
+    border: 1px solid rgba(201,162,75,0.35);
+    border-radius: 14px;
+    padding: 1.4rem 1.3rem;
+    position:relative;
+    overflow:hidden;
+    opacity:0;
+    animation: rowIn 0.6s ease forwards;
+  }
+
+  .seat::before{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(circle at 100% 0%, rgba(201,162,75,0.12), transparent 60%);
+    pointer-events:none;
+  }
+
+  .seat .role{
+    font-family:'Space Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color: var(--gold);
+    margin-bottom:0.5rem;
+    display:block;
+  }
+
+  .seat .who{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:1.3rem;
+    color: var(--bone);
+  }
+
+  .seat.lead{
+    grid-column: 1 / -1;
+    background: linear-gradient(90deg, rgba(122,31,31,0.85), rgba(20,17,15,0.95));
+    border-color: rgba(184,52,47,0.5);
+  }
+  .seat.lead .role{ color: #ff8a7a; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
+  .seat.lead .who{ font-size:1.5rem; color:#fff; }
+
+  @media (max-width:480px){
+    .row{ grid-template-columns: 48px 1fr auto; padding: 0.85rem 1rem; gap:0.7rem;}
+    .name{ font-size:1.15rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <header>
+    <span class="eyebrow">Edición N° 1 &middot; Actualización manual</span>
+    <h1>El Ranking<br>de la Legalidad</h1>
+    <p class="subhead">
+    La Comisión actúa siempre con la verdad por delante, no conoce favoritos ni acepta favores:<br>
+    falla con la frialdad de los hechos, la memoria de la historia y la firmeza de una ley<br>
+    que nadie escribió, pero todos conocen. <span style="opacity:0.75;">#legalidad</span></p>
+    <div class="divider"><span class="line"></span><span class="skull">💀</span><span class="line"></span></div>
+  </header>
+
+  <div class="zone-label dead"><span>☠ Zona de máxima legalidad ☠</span></div>
+
+  <div class="list" id="list">
+    <!-- rows injected by JS -->
+  </div>
+
+  <section class="commission">
+    <div class="commission-head">
+      <span class="eyebrow">Órgano rector del ranking</span>
+      <p class="motto">21 amigos. Un solo veredicto.</p>
+      <h2>Comisión 2026 <span style="font-size:0.6em; opacity:0.7;">— ad honorem</span></h2>
+      <p>Los encargados de vigilar, evaluar y sentenciar cada movimiento del grupo.</p>
+    </div>
+    <div class="commission-grid">
+      <div class="seat lead">
+        <span class="role">Presidente</span>
+        <span class="who">Mateo García</span>
+      </div>
+      <div class="seat">
+        <span class="role">Fiscal</span>
+        <span class="who">Santiago Montes</span>
+      </div>
+      <div class="seat">
+        <span class="role">Jefe de Gabinete</span>
+        <span class="who">Sebastián Manzur</span>
+      </div>
+      <div class="seat">
+        <span class="role">Secretario de Actas</span>
+        <span class="who">Felipe Reyes</span>
+      </div>
+      <div class="seat">
+        <span class="role">Ojeador Externo Invitado</span>
+        <span class="who">José Manuel Jarpa</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>El ranking se actualiza cuando alguien comete un acto de legalidad flagrante</footer>
+
+</div>
+
+<script>
+const data = [
+  {r:1, name:"Alvarito Valdes", tag:"El más legal de todos", pts:3200},
+  {r:2, name:"Negro Garcia", pts:2545},
+  {r:3, name:"Euge Zegers", pts:2310},
+  {r:4, name:"Nacho Bezanilla", pts:2100},
+  {r:5, name:"Monito Paut", pts:1890},
+  {r:6, name:"Pipo Cosmelli", pts:1720},
+  {r:7, name:"Nico GH", pts:1580},
+  {r:8, name:"Tio", pts:1455},
+  {r:9, name:"Obeja", pts:1340},
+  {r:10, name:"Vicho", pts:1220},
+  {r:11, name:"Juan Obach", pts:1105},
+  {r:12, name:"Mateo", pts:995},
+  {r:13, name:"Tomás Bravo", pts:890},
+  {r:14, name:"Raul Lagos", pts:790},
+  {r:15, name:"Chico Villaseca", pts:695},
+  {r:16, name:"Jarita", pts:605},
+  {r:17, name:"Roto Reyes", pts:520},
+  {r:18, name:"Turco Manzur", pts:440},
+  {r:19, name:"Rod Palacios", pts:365},
+  {r:20, name:"Agustín Baldrich", pts:295},
+  {r:21, name:"Pelu Montes", pts:230},
+];
+
+const list = document.getElementById('list');
+
+data.forEach((p, i) => {
+  // block separators before 6, 11 and 16
+  if(p.r === 6 || p.r === 11 || p.r === 16){
+    const gap = document.createElement('div');
+    gap.className = 'block-gap';
+    list.appendChild(gap);
+  }
+
+  const row = document.createElement('div');
+  row.className = 'row';
+  if(p.r <= 5) row.classList.add('dead');
+  if(p.r >= 16) row.classList.add('free');
+  row.style.animationDelay = (i * 0.045) + 's';
+
+  row.innerHTML = `
+    <div class="rank">${p.r}</div>
+    <div>
+      <div class="name">${p.name}</div>
+      ${p.tag ? `<span class="tags">${p.tag}</span>` : ''}
+    </div>
+    <div class="score"><span class="num">${p.pts.toLocaleString('es-CL')}</span><span class="unit">pts legalidad</span></div>
+  `;
+  list.appendChild(row);
+});
+</script>
+
+</body>
+</html>
