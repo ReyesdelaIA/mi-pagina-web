@@ -36,6 +36,9 @@
     .btn-csv { background: var(--gold); color: white; border: none; border-radius: 8px; padding: 8px 16px; font-size: 12px; font-weight: 700; font-family: 'Poppins', sans-serif; cursor: pointer; }
     .btn-exit { background: none; border: none; color: rgba(255,255,255,.5); font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif; }
     .btn-exit:hover { color: white; }
+    .live-dot { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,.7); font-size: 11px; font-weight: 500; }
+    .live-dot .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; box-shadow: 0 0 0 0 rgba(74,222,128,.7); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)} 70%{box-shadow:0 0 0 6px rgba(74,222,128,0)} 100%{box-shadow:0 0 0 0 rgba(74,222,128,0)} }
 
     .main { padding: 24px 28px; max-width: 1200px; margin: 0 auto; }
 
@@ -45,6 +48,30 @@
     .metric-icon { font-size: 22px; margin-bottom: 6px; }
     .metric-val  { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1; }
     .metric-lbl  { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    /* Resumen (distribuciones) */
+    .resumen { background: var(--white); border-radius: 14px; border: 1px solid var(--border); padding: 20px 22px; margin-bottom: 24px; }
+    .resumen-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+    .resumen-title { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .resumen-sub { font-size: 11px; color: var(--muted); margin-bottom: 18px; }
+    .resumen-filter { border: 1.5px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 12px; font-family: 'Poppins', sans-serif; color: var(--navy); font-weight: 600; outline: none; cursor: pointer; background: #fff; }
+    .resumen-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 34px; }
+    .dist-block { min-width: 0; }
+    .dist-block-title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px; }
+    .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+    .bar-label { font-size: 12px; color: #444; width: 130px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-track { flex: 1; height: 18px; background: #F0F0EE; border-radius: 6px; overflow: hidden; min-width: 40px; }
+    .bar-fill { height: 100%; background: var(--navy); border-radius: 6px; transition: width .4s ease; }
+    .bar-fill.gold { background: var(--gold); }
+    .bar-fill.split-emp { background: var(--navy); }
+    .bar-fill.split-per { background: var(--gold); }
+    .bar-count { font-size: 12px; font-weight: 700; color: var(--navy); width: 58px; flex-shrink: 0; text-align: right; }
+    .split-legend { display: flex; gap: 16px; font-size: 10px; color: var(--muted); margin-bottom: 12px; }
+    .split-legend span::before { content: ''; display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+    .lg-emp::before { background: var(--navy); }
+    .lg-per::before { background: var(--gold); }
+    .stack-track { flex: 1; height: 18px; border-radius: 6px; overflow: hidden; display: flex; background: #F0F0EE; min-width: 40px; }
+    .dist-empty { font-size: 12px; color: var(--muted); }
 
     /* Layout */
     .content { display: flex; gap: 16px; }
@@ -80,7 +107,7 @@
 
     .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; }
 
-    @media(max-width: 900px) { .metrics { grid-template-columns: 1fr 1fr; } .side-panel { display: none !important; } }
+    @media(max-width: 900px) { .metrics { grid-template-columns: 1fr 1fr; } .resumen-grid { grid-template-columns: 1fr; } .side-panel { display: none !important; } }
     @media(max-width: 600px) { .metrics { grid-template-columns: 1fr; } .main { padding: 16px; } th:nth-child(n+4), td:nth-child(n+4) { display: none; } }
   </style>
 </head>
@@ -106,6 +133,7 @@
       <span class="top-label">Diagnósticos IA</span>
     </div>
     <div class="top-actions">
+      <span class="live-dot" id="live-dot" title="Actualiza cada 15s"><span class="dot"></span><span id="live-time">en vivo</span></span>
       <button class="btn-csv" onclick="exportCSV()">Exportar CSV</button>
       <button class="btn-exit" onclick="logout()">Salir</button>
     </div>
@@ -119,16 +147,27 @@
       <div class="metric-card"><div class="metric-icon">🎯</div><div class="metric-val" id="m-area">—</div><div class="metric-lbl">Área más solicitada</div></div>
     </div>
 
+    <div class="resumen" id="resumen">
+      <div class="resumen-head">
+        <span class="resumen-title">Resumen del equipo</span>
+        <select class="resumen-filter" id="empresa-filter" onchange="render()">
+          <option value="">Todas las empresas</option>
+        </select>
+      </div>
+      <div class="resumen-sub" id="resumen-sub">—</div>
+      <div class="resumen-grid" id="resumen-grid"></div>
+    </div>
+
     <div class="content">
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Fecha</th><th>Empresa</th><th>Nombre</th>
-              <th>Ecosistema</th><th>Herramientas IA</th><th>Nivel</th><th>Áreas</th>
+              <th>Fecha</th><th>Empresa</th><th>Nombre</th><th>Área</th>
+              <th>Ecosistema</th><th>Herramientas IA</th><th>Nivel</th><th>Interés</th>
             </tr>
           </thead>
-          <tbody id="tbody"><tr><td colspan="7" class="loading">Cargando…</td></tr></tbody>
+          <tbody id="tbody"><tr><td colspan="8" class="loading">Cargando…</td></tr></tbody>
         </table>
       </div>
 
@@ -147,12 +186,14 @@
 const SB_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
 
-const MAIL_L  = {outlook:'Outlook',gmail:'Gmail',mix:'Mix',otro:'Otro'};
-const REPO_L  = {sharepoint:'SharePoint',drive:'Google Drive',dropbox:'Dropbox',mix:'Mix'};
-const NIVEL_L = {cero:'Desde cero',basico:'Básico',frecuente:'Frecuente',avanzado:'Avanzado'};
-const IA_L    = {copilot:'Copilot',chatgpt:'ChatGPT',claude:'Claude',gemini:'Gemini',gamma:'Gamma',granola:'Granola',imagen:'Imagen IA',ninguna:'Ninguna'};
-const AREA_L  = {finanzas:'Finanzas',marketing:'Marketing',operaciones:'Operaciones',comercial:'Comercial',rrhh:'RRHH',ti:'TI',legal:'Legal',todas:'Todas',otra:'Otra'};
-const RES_L   = {no:'Apertura total',algo:'Algo de escepticismo',si:'Hay resistencia',no_se:'No lo sé'};
+const MAIL_L  = {outlook:'Outlook / Office 365',gmail:'Gmail / Workspace',mix:'Mix',otro:'Otro'};
+const REPO_L  = {sharepoint:'SharePoint / OneDrive',drive:'Google Drive',dropbox:'Dropbox u otro',mix:'Mix',no_seguro:'No estoy seguro'};
+const REUN_L  = {teams:'Microsoft Teams',zoom:'Zoom',meet:'Google Meet',mix:'Mix'};
+const TRAB_L  = {finanzas:'Finanzas',rrhh:'Recursos Humanos',ventas:'Ventas',operaciones:'Operaciones',marketing:'Marketing',programacion_ti:'Programación & TI',gerencia_general:'Gerencia General',otra:'Otra'};
+const NIVEL_L = {cero:'Foja cero',basico:'Básico',frecuente:'Recurrente',avanzado:'Avanzado'};
+const IA_L    = {copilot:'Copilot',chatgpt:'ChatGPT',claude:'Claude',gemini:'Gemini',gamma:'Gamma',granola:'Granola / Notas',imagen:'IA de imagen',ninguna:'Ninguna'};
+const AREA_L  = {finanzas:'Finanzas',marketing:'Marketing',operaciones:'Operaciones',comercial:'Comercial',rrhh:'RRHH',ti:'TI / Tecnología',legal:'Legal',todas:'Todas las áreas',otra:'Otra'};
+const RES_L   = {no:'Apertura total',algo:'Algo de escepticismo',si:'Hay resistencia',no_se:'No lo sé aún'};
 
 let allData = [];
 let selectedId = null;
@@ -177,6 +218,7 @@ function showDashboard() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
   loadData();
+  startAutoRefresh();
 }
 
 async function loadData() {
@@ -184,38 +226,149 @@ async function loadData() {
     headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
   });
   allData = await res.json();
-  renderMetrics();
-  renderTable();
+  populateEmpresaFilter();
+  render();
+  const t = new Date().toLocaleTimeString('es-CL', {hour:'2-digit', minute:'2-digit'});
+  const lt = document.getElementById('live-time'); if (lt) lt.textContent = `en vivo · ${t}`;
 }
 
+// Datos según el filtro de empresa activo
+function filtered() {
+  const emp = document.getElementById('empresa-filter').value;
+  return emp ? allData.filter(d => d.empresa === emp) : allData;
+}
+
+function populateEmpresaFilter() {
+  const sel = document.getElementById('empresa-filter');
+  const empresas = [...new Set(allData.map(d => d.empresa).filter(Boolean))].sort();
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">Todas las empresas</option>' +
+    empresas.map(e => `<option value="${esc(e)}">${e}</option>`).join('');
+  sel.value = cur;
+}
+
+function render() { renderMetrics(); renderResumen(); renderTable(); }
+
 function renderMetrics() {
-  document.getElementById('m-total').textContent = allData.length;
-  const mailFreq = freq(allData.map(d => d.plataforma_mail));
-  document.getElementById('m-mail').textContent = MAIL_L[top(mailFreq)] || top(mailFreq) || '—';
-  const iaFreq = freq(allData.flatMap(d => d.herramientas_ia || []));
-  document.getElementById('m-ia').textContent = IA_L[top(iaFreq)] || top(iaFreq) || '—';
-  const areaFreq = freq(allData.flatMap(d => d.areas_interes || []));
-  document.getElementById('m-area').textContent = AREA_L[top(areaFreq)] || top(areaFreq) || '—';
+  const data = filtered();
+  document.getElementById('m-total').textContent = data.length;
+  const mailFreq = freq(data.map(d => d.plataforma_mail));
+  document.getElementById('m-mail').textContent = MAIL_L[topKey(mailFreq)] || topKey(mailFreq) || '—';
+  const iaFreq = freq(data.flatMap(d => d.herramientas_ia || []).filter(h => h !== 'ninguna'));
+  document.getElementById('m-ia').textContent = IA_L[topKey(iaFreq)] || topKey(iaFreq) || '—';
+  const areaFreq = freq(data.flatMap(d => d.areas_interes || []));
+  document.getElementById('m-area').textContent = AREA_L[topKey(areaFreq)] || topKey(areaFreq) || '—';
 }
 
 function freq(arr) { return arr.reduce((a,k) => { a[k]=(a[k]||0)+1; return a; }, {}); }
-function top(obj) { const e = Object.entries(obj).sort((a,b)=>b[1]-a[1])[0]; return e ? e[0] : null; }
+function topKey(obj) { const e = Object.entries(obj).sort((a,b)=>b[1]-a[1])[0]; return e ? e[0] : null; }
+
+// ── Resumen agregado ──
+function bar(label, count, total, gold) {
+  const pct = total ? Math.round(count/total*100) : 0;
+  return `<div class="bar-row">
+    <span class="bar-label" title="${esc(label)}">${label}</span>
+    <span class="bar-track"><span class="bar-fill${gold?' gold':''}" style="width:${pct}%"></span></span>
+    <span class="bar-count">${count} · ${pct}%</span>
+  </div>`;
+}
+
+// distribución de un campo simple (radio) usando su mapa de etiquetas y un orden fijo
+function distSimple(data, field, labelMap, order, gold) {
+  const fq = freq(data.map(d => d[field]).filter(Boolean));
+  const keys = (order || Object.keys(labelMap)).filter(k => fq[k]);
+  Object.keys(fq).forEach(k => { if (!keys.includes(k)) keys.push(k); });
+  if (!keys.length) return '<div class="dist-empty">Sin datos.</div>';
+  return keys.map(k => bar(labelMap[k]||k, fq[k], data.length, gold)).join('');
+}
+
+// distribución de un campo array (checkboxes) — total = nº de personas
+function distArray(data, field, labelMap, gold, skip) {
+  const fq = freq(data.flatMap(d => d[field] || []).filter(v => !skip || v !== skip));
+  const keys = Object.keys(fq).sort((a,b) => fq[b]-fq[a]);
+  if (!keys.length) return '<div class="dist-empty">Sin datos.</div>';
+  return keys.map(k => bar(labelMap[k]||k, fq[k], data.length, gold)).join('');
+}
+
+// herramientas IA con barra apilada empresa (navy) vs personal (gold)
+function distTools(data) {
+  const emp = freq(data.flatMap(d => d.herramientas_empresa || []));
+  const per = freq(data.flatMap(d => d.herramientas_personal || []));
+  const keys = [...new Set([...Object.keys(emp), ...Object.keys(per)])]
+    .sort((a,b) => ((emp[b]||0)+(per[b]||0)) - ((emp[a]||0)+(per[a]||0)));
+  if (!keys.length) return '<div class="dist-empty">Nadie declaró herramientas de IA aún.</div>';
+  const maxTotal = Math.max(...keys.map(k => (emp[k]||0)+(per[k]||0)), 1);
+  return keys.map(k => {
+    const e = emp[k]||0, p = per[k]||0, t = e+p;
+    const eW = Math.round(e/maxTotal*100), pW = Math.round(p/maxTotal*100);
+    return `<div class="bar-row">
+      <span class="bar-label" title="${esc(IA_L[k]||k)}">${IA_L[k]||k}</span>
+      <span class="stack-track">
+        <span class="bar-fill split-emp" style="width:${eW}%"></span>
+        <span class="bar-fill split-per" style="width:${pW}%"></span>
+      </span>
+      <span class="bar-count">${e}/${p}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderResumen() {
+  const data = filtered();
+  const n = data.length;
+  const empresas = new Set(data.map(d => d.empresa).filter(Boolean)).size;
+  const sinIA = data.filter(d => (d.herramientas_ia||[]).length === 1 && d.herramientas_ia[0] === 'ninguna').length;
+  document.getElementById('resumen-sub').textContent =
+    `${n} ${n===1?'respuesta':'respuestas'} · ${empresas} ${empresas===1?'empresa':'empresas'} · ${sinIA} sin ninguna herramienta de IA`;
+
+  document.getElementById('resumen-grid').innerHTML = `
+    <div class="dist-block">
+      <div class="dist-block-title">Quién respondió · por área</div>
+      ${distSimple(data, 'area_trabajo', TRAB_L, Object.keys(TRAB_L), false)}
+    </div>
+    <div class="dist-block">
+      <div class="dist-block-title">Nivel con IA</div>
+      ${distSimple(data, 'nivel_equipo', NIVEL_L, ['cero','basico','frecuente','avanzado'], true)}
+    </div>
+    <div class="dist-block">
+      <div class="dist-block-title">Herramientas IA · quién paga (empresa / yo)</div>
+      <div class="split-legend"><span class="lg-emp">Empresa</span><span class="lg-per">Personal (yo)</span></div>
+      ${distTools(data)}
+    </div>
+    <div class="dist-block">
+      <div class="dist-block-title">Áreas de interés priorizadas</div>
+      ${distArray(data, 'areas_interes', AREA_L, true)}
+    </div>
+    <div class="dist-block">
+      <div class="dist-block-title">Apertura a la IA</div>
+      ${distSimple(data, 'resistencias', RES_L, ['no','algo','si','no_se'], false)}
+    </div>
+    <div class="dist-block">
+      <div class="dist-block-title">Ecosistema · correo</div>
+      ${distSimple(data, 'plataforma_mail', MAIL_L, Object.keys(MAIL_L), false)}
+    </div>`;
+}
 
 function renderTable() {
+  const data = filtered();
   const tb = document.getElementById('tbody');
-  if (!allData.length) { tb.innerHTML = '<tr><td colspan="7" class="loading">Sin diagnósticos aún.</td></tr>'; return; }
-  tb.innerHTML = allData.map(d => {
+  if (!data.length) { tb.innerHTML = '<tr><td colspan="8" class="loading">Sin diagnósticos aún.</td></tr>'; return; }
+  tb.innerHTML = data.map(d => {
     const fecha = new Date(d.created_at).toLocaleDateString('es-CL');
     const nombre = (d.nombre_contacto||'').split(' · ')[0];
-    const eco = `${MAIL_L[d.plataforma_mail]||d.plataforma_mail} · ${REPO_L[d.repositorio]||d.repositorio}`;
-    const ias = (d.herramientas_ia||[]).slice(0,2).map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('') + ((d.herramientas_ia||[]).length>2?`<span class="chip">+${d.herramientas_ia.length-2}</span>`:'');
-    const nivel = `<span class="chip gold">${NIVEL_L[d.nivel_equipo]||d.nivel_equipo}</span>`;
+    const trab = TRAB_L[d.area_trabajo] || d.area_trabajo || '—';
+    const eco = `${MAIL_L[d.plataforma_mail]||d.plataforma_mail||'—'} · ${REPO_L[d.repositorio]||d.repositorio||'—'}`;
+    const iaList = (d.herramientas_ia||[]).filter(h => h !== 'ninguna');
+    const ias = iaList.length
+      ? iaList.slice(0,2).map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('') + (iaList.length>2?`<span class="chip">+${iaList.length-2}</span>`:'')
+      : '<span class="td-eco">Ninguna</span>';
+    const nivel = `<span class="chip gold">${NIVEL_L[d.nivel_equipo]||d.nivel_equipo||'—'}</span>`;
     const areas = (d.areas_interes||[]).map(a=>AREA_L[a]||a).join(', ');
     const active = selectedId === d.id ? ' class="active"' : '';
     return `<tr${active} onclick="selectRow('${d.id}')">
       <td>${fecha}</td>
       <td class="td-empresa">${d.empresa||'—'}</td>
       <td class="td-nombre">${nombre||'—'}</td>
+      <td class="td-eco">${trab}</td>
       <td class="td-eco">${eco}</td>
       <td>${ias}</td>
       <td>${nivel}</td>
@@ -232,17 +385,26 @@ function selectRow(id) {
   const panel = document.getElementById('side-panel');
   panel.classList.add('open');
   const fecha = new Date(d.created_at).toLocaleString('es-CL');
+  const emp = d.herramientas_empresa || [];
+  const per = d.herramientas_personal || [];
+  const sinIA = (d.herramientas_ia||[]).length === 1 && d.herramientas_ia[0] === 'ninguna';
+  const toolsBlock = sinIA
+    ? `<div class="detail-chips"><span class="chip">Ninguna aún</span></div>`
+    : `${emp.length ? `<div class="detail-chips" style="margin-bottom:6px"><span class="detail-key" style="width:100%">Paga la empresa</span>${emp.map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('')}</div>` : ''}
+       ${per.length ? `<div class="detail-chips"><span class="detail-key" style="width:100%">Paga la persona</span>${per.map(h=>`<span class="chip gold">${IA_L[h]||h}</span>`).join('')}</div>` : ''}
+       ${(!emp.length && !per.length) ? `<div class="detail-chips">${(d.herramientas_ia||[]).map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('')||'—'}</div>` : ''}`;
   document.getElementById('side-body').innerHTML = `
     ${row('Empresa', d.empresa)}
     ${row('Nombre y cargo', d.nombre_contacto)}
+    ${row('Área de trabajo', TRAB_L[d.area_trabajo]||d.area_trabajo)}
     ${row('Correo', MAIL_L[d.plataforma_mail]||d.plataforma_mail)}
     ${row('Repositorio', REPO_L[d.repositorio]||d.repositorio)}
-    ${row('Reuniones', d.reuniones)}
-    ${row('Nivel', NIVEL_L[d.nivel_equipo]||d.nivel_equipo)}
-    ${row('Resistencias', RES_L[d.resistencias]||d.resistencias)}
+    ${row('Reuniones', REUN_L[d.reuniones]||d.reuniones)}
+    ${row('Nivel con IA', NIVEL_L[d.nivel_equipo]||d.nivel_equipo)}
+    ${row('Apertura a la IA', RES_L[d.resistencias]||d.resistencias)}
     <div class="detail-row">
       <div class="detail-key">Herramientas IA</div>
-      <div class="detail-chips">${(d.herramientas_ia||[]).map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('')}</div>
+      ${toolsBlock}
     </div>
     <div class="detail-row">
       <div class="detail-key">Áreas de interés</div>
@@ -256,18 +418,33 @@ function row(k,v) { return `<div class="detail-row"><div class="detail-key">${k}
 function closeSide() { selectedId=null; document.getElementById('side-panel').classList.remove('open'); renderTable(); }
 
 function exportCSV() {
-  const cols = ['fecha','empresa','nombre_contacto','plataforma_mail','repositorio','reuniones','herramientas_ia','nivel_equipo','areas_interes','resistencias','comentario'];
-  const rows = allData.map(d => [
+  const cols = ['fecha','empresa','nombre_contacto','area_trabajo','plataforma_mail','repositorio','reuniones','herramientas_ia','herramientas_empresa','herramientas_personal','nivel_equipo','areas_interes','resistencias','comentario'];
+  const rows = filtered().map(d => [
     new Date(d.created_at).toLocaleDateString('es-CL'),
-    d.empresa, d.nombre_contacto, d.plataforma_mail, d.repositorio, d.reuniones,
-    (d.herramientas_ia||[]).join('|'), d.nivel_equipo,
-    (d.areas_interes||[]).join('|'), d.resistencias, d.comentario||''
-  ].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','));
+    d.empresa, d.nombre_contacto, d.area_trabajo, d.plataforma_mail, d.repositorio, d.reuniones,
+    (d.herramientas_ia||[]).join('|'), (d.herramientas_empresa||[]).join('|'), (d.herramientas_personal||[]).join('|'),
+    d.nivel_equipo, (d.areas_interes||[]).join('|'), d.resistencias, d.comentario||''
+  ].map(v=>`"${String(v==null?'':v).replace(/"/g,'""')}"`).join(','));
   const csv = [cols.join(','),...rows].join('\n');
+  const emp = document.getElementById('empresa-filter').value;
+  const slug = emp ? '-' + emp.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') : '';
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
-  a.download = `diagnosticos-${new Date().toISOString().slice(0,10)}.csv`;
+  a.href = URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'}));
+  a.download = `diagnosticos${slug}-${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
+}
+
+// Escapa texto para atributos HTML
+function esc(s) { return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// Auto-refresh en vivo: recarga datos cada 15s sin perder filtro ni fila abierta
+let refreshTimer = null;
+function startAutoRefresh() {
+  if (refreshTimer) return;
+  refreshTimer = setInterval(() => {
+    if (document.hidden) return;
+    loadData();
+  }, 15000);
 }
 
 // Init
