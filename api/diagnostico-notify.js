@@ -1,12 +1,15 @@
 const { Resend } = require('resend');
 
 const MAIL_L  = { outlook:'Outlook / Office 365', gmail:'Gmail / Google Workspace', mix:'Mix', otro:'Otro' };
-const REPO_L  = { sharepoint:'SharePoint / OneDrive', drive:'Google Drive', dropbox:'Dropbox u otro', mix:'Mix' };
+const REPO_L  = { sharepoint:'SharePoint / OneDrive', drive:'Google Drive', dropbox:'Dropbox u otro', mix:'Mix', no_seguro:'No estoy seguro' };
 const REUN_L  = { teams:'Microsoft Teams', zoom:'Zoom', meet:'Google Meet', mix:'Mix' };
 const NIVEL_L = { cero:'Partiendo desde cero', basico:'Algunos usan de forma básica', frecuente:'Uso frecuente sin estructura', avanzado:'Hay usuarios avanzados' };
 const RES_L   = { no:'No, hay apertura total', algo:'Algo de escepticismo', si:'Sí, hay resistencia concreta', no_se:'No lo sé' };
 const IA_L    = { copilot:'Copilot', chatgpt:'ChatGPT', claude:'Claude', gemini:'Gemini', gamma:'Gamma', granola:'Granola / Transcriptor', imagen:'Midjourney / Imagen IA', ninguna:'Ninguna aún' };
 const AREA_L  = { finanzas:'Finanzas', marketing:'Marketing', operaciones:'Operaciones', comercial:'Comercial', rrhh:'RRHH', ti:'TI / Tecnología', legal:'Legal', todas:'Todas las áreas', otra:'Otra' };
+const TRAB_L  = { finanzas:'Finanzas', rrhh:'Recursos Humanos', ventas:'Ventas', operaciones:'Operaciones', marketing:'Marketing', programacion_ti:'Programación & TI', gerencia_general:'Gerencia General' };
+const NIVEL_PERSONA_L = { cero:'Foja cero, casi no la usa', basico:'La usa de forma básica', frecuente:'La usa de forma recurrente', avanzado:'Usuario avanzado' };
+const RES_PERSONA_L   = { no:'Apertura total', algo:'Algo de escepticismo', si:'Le cuesta engancharse', no_se:'No lo sabe aún' };
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).end();
@@ -14,19 +17,29 @@ module.exports = async (req, res) => {
 
   const b = req.body || {};
   const nombre_contacto = b.cargo ? `${b.nombre} · ${b.cargo}` : b.nombre;
-  const ias   = (b.herramientas_ia || []).map(h => IA_L[h] || h).join(', ');
   const areas = (b.areas_interes  || []).map(a => (a === 'otra' && b.areas_otra ? `Otra: ${b.areas_otra}` : AREA_L[a] || a)).join(', ');
+  const area_trabajo = TRAB_L[b.area_trabajo] || b.area_trabajo || '—';
+
+  // Herramientas IA: quién paga cada una
+  const empIas = (b.herramientas_empresa  || []).map(h => IA_L[h] || h);
+  const perIas = (b.herramientas_personal || []).map(h => IA_L[h] || h);
+  let ias = [
+    empIas.length ? `<b>Empresa:</b> ${empIas.join(', ')}` : '',
+    perIas.length ? `<b>Pagada personalmente:</b> ${perIas.join(', ')}` : '',
+  ].filter(Boolean).join('<br>');
+  if (!ias) ias = (b.herramientas_ia || []).map(h => IA_L[h] || h).join(', ') || 'Ninguna aún';
 
   const rows = [
     ['Nombre y cargo', nombre_contacto],
     ['Empresa', b.empresa],
+    ['Área de trabajo', area_trabajo],
     ['Plataforma de correo', MAIL_L[b.plataforma_mail] || b.plataforma_mail],
     ['Repositorio', REPO_L[b.repositorio] || b.repositorio],
     ['Reuniones', REUN_L[b.reuniones] || b.reuniones],
     ['Herramientas IA', ias],
-    ['Nivel del equipo', NIVEL_L[b.nivel_equipo] || b.nivel_equipo],
+    ['Nivel con IA (persona)', NIVEL_PERSONA_L[b.nivel_equipo] || NIVEL_L[b.nivel_equipo] || b.nivel_equipo],
     ['Áreas de interés', areas],
-    ['Resistencias', RES_L[b.resistencias] || b.resistencias],
+    ['Apertura a la IA', RES_PERSONA_L[b.resistencias] || RES_L[b.resistencias] || b.resistencias],
     ['Comentarios', b.comentario || '—'],
   ];
 

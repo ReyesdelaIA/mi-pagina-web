@@ -5,6 +5,7 @@
     { "source": "/juanobach01", "destination": "/juanobach01/index.html" },
     { "source": "/legalidadCSB", "destination": "/legalidadCSB/index.html" },
     { "source": "/diagnostico", "destination": "/diagnostico/index.html" },
+    { "source": "/diagnosticoinicial", "destination": "/diagnostico/index.html" },
     { "source": "/diagnostico/admin", "destination": "/diagnostico/admin.html" },
     { "source": "/pucobre", "destination": "/pucobre/index.html" },
     { "source": "/sesion01-pucobre", "destination": "/sesion01-pucobre/index.html" },
