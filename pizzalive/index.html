@@ -99,6 +99,28 @@
     border-radius:999px;
   }
 
+  .header-right{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:10px;
+  }
+  .header-controls{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .last-update{
+    font-size:0.82rem;
+    color:var(--text-dim);
+    font-variant-numeric:tabular-nums;
+  }
+  #refreshBtnTop{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+
   .dot{
     width:9px; height:9px;
     border-radius:50%;
@@ -388,9 +410,15 @@
       <h1>Tabla de Datos en Vivo</h1>
       <div class="subtitle">Datos cargados en tiempo real desde Google Sheets</div>
     </div>
-    <div class="status" id="statusBox">
-      <span class="dot loading" id="statusDot"></span>
-      <span id="statusText">Cargando datos…</span>
+    <div class="header-right">
+      <div class="status" id="statusBox">
+        <span class="dot loading" id="statusDot"></span>
+        <span id="statusText">Cargando datos…</span>
+      </div>
+      <div class="header-controls">
+        <span class="last-update" id="lastUpdatedTop">Última actualización: —</span>
+        <button id="refreshBtnTop">↻ Actualizar</button>
+      </div>
     </div>
   </header>
 
@@ -434,9 +462,11 @@
     statusText: document.getElementById('statusText'),
     search: document.getElementById('searchInput'),
     refreshBtn: document.getElementById('refreshBtn'),
+    refreshBtnTop: document.getElementById('refreshBtnTop'),
     downloadBtn: document.getElementById('downloadBtn'),
     rowCount: document.getElementById('rowCount'),
     lastUpdated: document.getElementById('lastUpdated'),
+    lastUpdatedTop: document.getElementById('lastUpdatedTop'),
     kpiGrid: document.getElementById('kpiGrid'),
     chartsGrid: document.getElementById('chartsGrid'),
   };
@@ -966,6 +996,7 @@
   async function loadData(){
     setStatus('loading', 'Cargando datos…');
     els.refreshBtn.disabled = true;
+    els.refreshBtnTop.disabled = true;
     els.search.disabled = true;
     els.downloadBtn.disabled = true;
     els.scroll.innerHTML = `
@@ -1000,7 +1031,9 @@
       setStatus('ok', 'Conectado');
       els.search.disabled = false;
       els.downloadBtn.disabled = false;
-      els.lastUpdated.textContent = 'Última actualización: ' + new Date().toLocaleString('es-CL');
+      const now = new Date();
+      els.lastUpdated.textContent = 'Última actualización: ' + now.toLocaleString('es-CL');
+      els.lastUpdatedTop.textContent = 'Última actualización: ' + now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
     } catch(err){
       setStatus('err', 'Error de conexión');
@@ -1015,6 +1048,7 @@
         </div>`;
     } finally {
       els.refreshBtn.disabled = false;
+      els.refreshBtnTop.disabled = false;
     }
   }
 
@@ -1024,6 +1058,7 @@
   });
 
   els.refreshBtn.addEventListener('click', loadData);
+  els.refreshBtnTop.addEventListener('click', loadData);
   els.downloadBtn.addEventListener('click', downloadCSV);
 
   loadData();
