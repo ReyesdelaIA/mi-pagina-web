@@ -4,6 +4,7 @@
     { "source": "/alfonsolobato", "destination": "/alfonsolobato/index.html" },
     { "source": "/juanobach01", "destination": "/juanobach01/index.html" },
     { "source": "/legalidadCSB", "destination": "/legalidadCSB/index.html" },
+    { "source": "/pizzalive", "destination": "/pizzalive/index.html" },
     { "source": "/diagnostico", "destination": "/diagnostico/index.html" },
     { "source": "/diagnosticoinicial", "destination": "/diagnostico/index.html" },
     { "source": "/diagnostico/admin", "destination": "/diagnostico/admin.html" },
