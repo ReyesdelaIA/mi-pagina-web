@@ -137,6 +137,20 @@
     .hbtn.quiz-b { background: white; border-color: #6B46C1; color: #6B46C1; }
     .hbtn.quiz-b.done { background: #6B46C1; color: white; border-color: #6B46C1; }
     .hbtn:disabled { opacity: .65; cursor: default; }
+    /* Descargables del desafío */
+    .dl-wrap { margin: 12px 0; padding: 12px; background: #fff; border: 1px solid #F0D9A8; border-radius: 12px; }
+    .dl-title { font-size: 10px; font-weight: 800; color: #7A4F00; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
+    .dl-zip { display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #F5A623, #E08A00); color: white; border-radius: 10px; padding: 11px 14px; font-size: 13px; font-weight: 800; text-decoration: none; box-shadow: 0 2px 8px rgba(224,138,0,.28); transition: transform .15s, box-shadow .15s; }
+    .dl-zip:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(224,138,0,.36); }
+    .dl-zip-sub { font-size: 10px; font-weight: 600; opacity: .9; background: rgba(255,255,255,.22); padding: 2px 7px; border-radius: 20px; }
+    .dl-files { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+    .dl-file { display: flex; align-items: center; gap: 10px; background: #FDFBF6; border: 1px solid #EFE7D6; border-radius: 9px; padding: 8px 11px; text-decoration: none; transition: background .15s, border-color .15s; }
+    .dl-file:hover { background: #FBF4E6; border-color: #E4C98A; }
+    .dl-ico { font-size: 17px; flex-shrink: 0; }
+    .dl-meta { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+    .dl-label { font-size: 12px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+    .dl-type { font-size: 10px; color: var(--muted); font-weight: 600; }
+    .dl-arrow { font-size: 15px; color: #C08A1E; font-weight: 800; flex-shrink: 0; }
     .dominada-banner { display:none; align-items:center; gap:8px; background:linear-gradient(135deg,#FFFBEB,#FEF3C7); border-top:1px solid #FCD34D; padding:10px 16px; font-size:11px; font-weight:700; color:#78350F; }
     .dominada-banner.show { display:flex; }
 
@@ -355,6 +369,19 @@
     3: 'Abre un Excel, activa Copilot, y pídele que te genere 1 gráfico de tu data 📊. Consejo: cambia el modelo a "Claude" (donde dice automático).',
     4: 'Activa tu cuenta en NotebookLM, crea tu primer cuaderno, y adjúntale un documento para que empiece a interactuar con tus conocimientos.',
     5: 'Crea un dashboard profesional con datos laborales de Pucobre. Cárgale los datos a Copilot y pídele que te haga un dashboard interactivo ocupando los modelos de Claude.',
+    7: 'El Agente con Memoria: en Copilot (Chat → Agentes) crea un agente y adjúntale la Tabla Estándar de Indicadores como conocimiento fijo. Luego pásale la planilla real del mes y pídele que compare cada indicador contra su rango aceptable y levante las desviaciones. Descarga los archivos aquí abajo. 👇',
+  };
+
+  // Archivos descargables por sesión (ZIP + individuales)
+  const DOWNLOADS = {
+    7: {
+      zip: { href: '/pucobre/desafio-s7/desafio-sesion7-pucobre.zip', name: 'Desafio-Sesion7-Pucobre.zip' },
+      files: [
+        { href: '/pucobre/desafio-s7/instrucciones-prompts.docx',   name: 'Instrucciones y Prompts - Desafio S7.docx',    ico: '📄', label: 'Instrucciones y prompts', type: 'Word' },
+        { href: '/pucobre/desafio-s7/tabla-estandar-seguridad.xlsx', name: 'Tabla Estandar Indicadores Seguridad.xlsx',    ico: '📊', label: 'Tabla estándar de indicadores', type: 'Excel' },
+        { href: '/pucobre/desafio-s7/planilla-junio-2026.xlsx',      name: 'Planilla Junio 2026.xlsx',                     ico: '📊', label: 'Planilla del mes (real)', type: 'Excel' },
+      ],
+    },
   };
 
   const QUIZZES = {
@@ -628,6 +655,25 @@
     if(dom && isComplete(sesNum)) dom.classList.add('show');
   }
 
+  function downloadsHTML(n){
+    const d = DOWNLOADS[n];
+    if(!d) return '';
+    const zip = d.zip
+      ? `<a class="dl-zip" href="${d.zip.href}" download="${d.zip.name}">⬇&nbsp; Descargar Desafío Sesión ${n} <span class="dl-zip-sub">ZIP · ${d.files.length} archivos</span></a>`
+      : '';
+    const files = d.files.map(f => `
+      <a class="dl-file" href="${f.href}" download="${f.name}">
+        <span class="dl-ico">${f.ico}</span>
+        <span class="dl-meta"><span class="dl-label">${f.label}</span><span class="dl-type">${f.type}</span></span>
+        <span class="dl-arrow">↓</span>
+      </a>`).join('');
+    return `<div class="dl-wrap">
+      <div class="dl-title">📥 Archivos del desafío</div>
+      ${zip}
+      <div class="dl-files">${files}</div>
+    </div>`;
+  }
+
   function buildCard(s){
     const n   = s.session_number;
     const sts = s.status; // 'done' | 'current' | 'locked'
@@ -679,6 +725,7 @@
       <div class="desafio">
         <div class="des-head"><span class="des-label">Desafío de la sesión</span></div>
         <div class="des-text">${challengeText}</div>
+        ${downloadsHTML(n)}
         <div class="honor-row">
           ${hasQuiz ? `<button class="hbtn quiz-b" id="bq-${n}" onclick="startQuiz(${n})">Quiz ▶</button>` : ''}
           <button class="hbtn des-b" id="bd-${n}" onclick="honor(${n},'des')">Desafío</button>
