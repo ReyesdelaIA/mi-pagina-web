@@ -362,6 +362,7 @@
     3: ['/pucobre/thumbs/s3_thumb1.jpg','/pucobre/thumbs/s3_thumb2.jpg','/pucobre/thumbs/s3_thumb3.jpg'],
     4: ['/pucobre/thumbs/s4_thumb1.jpg','/pucobre/thumbs/s4_thumb2.jpg','/pucobre/thumbs/s4_thumb3.jpg'],
     5: ['/pucobre/thumbs/s5_thumb1.jpg','/pucobre/thumbs/s5_thumb2.jpg','/pucobre/thumbs/s5_thumb3.jpg'],
+    6: ['/bloques/agente-investigador/cover.jpg','/bloques/agente-analista/cover.jpg','/bloques/agente-investigador/cover_v2.jpg'],
   };
   const CHALLENGES = {
     1: 'Entra a tu cuenta en Copilot (copilot.microsoft.com), adjúntale un documento de tu SharePoint, y pídele que te haga un resumen del documento en 30 palabras.',
@@ -369,6 +370,7 @@
     3: 'Abre un Excel, activa Copilot, y pídele que te genere 1 gráfico de tu data 📊. Consejo: cambia el modelo a "Claude" (donde dice automático).',
     4: 'Activa tu cuenta en NotebookLM, crea tu primer cuaderno, y adjúntale un documento para que empiece a interactuar con tus conocimientos.',
     5: 'Crea un dashboard profesional con datos laborales de Pucobre. Cárgale los datos a Copilot y pídele que te haga un dashboard interactivo ocupando los modelos de Claude.',
+    6: 'Prueba el Agente Investigador cargándole un documento o una carpeta de tu SharePoint y pídele que la analice a fondo. O usa el Agente Analista para que analice un tema desde tu bandeja de entrada, SharePoint, Outlook o una reunión reciente. Comparte el resultado con tu equipo. 🕵️📈',
     7: 'El Agente con Memoria: en Copilot (Chat → Agentes) crea un agente y adjúntale la Tabla Estándar de Indicadores como conocimiento fijo. Luego pásale la planilla real del mes y pídele que compare cada indicador contra su rango aceptable y levante las desviaciones. Descarga los archivos aquí abajo. 👇',
   };
 
@@ -385,6 +387,38 @@
   };
 
   const QUIZZES = {
+    6: [
+      {
+        q: '¿Cuál es la principal fortaleza del Agente Investigador de Copilot?',
+        opts: ['Combina y sintetiza info de múltiples fuentes (web, correos, reuniones, archivos) en un informe estructurado', 'Solo busca en internet, sin acceso a tus datos de trabajo', 'Edita automáticamente tus documentos de Word', 'Genera imágenes a partir de texto'],
+        correct: 0,
+        explain: 'El Investigador razona sobre fuentes internas y externas a la vez y entrega un informe estructurado combinando datos de la web con tus archivos, correos y reuniones.',
+      },
+      {
+        q: 'El Agente Analista es ideal cuando quieres…',
+        opts: ['Crear un logo para tu marca', 'Que analice datos y temas desde tu bandeja de entrada, SharePoint, Outlook o reuniones', 'Traducir un documento a otro idioma', 'Grabar una reunión de Teams'],
+        correct: 1,
+        explain: 'El Analista trabaja con datos que YA tienes: interpreta, compara y visualiza lo existente en tus archivos, correos y reuniones. El Investigador, en cambio, sale a buscar info nueva.',
+      },
+      {
+        q: '¿Qué hace especial a los Cuadernos de Copilot?',
+        opts: ['Permiten hacer videollamadas grupales', 'Son un editor de planillas Excel', 'Copilot responde aterrizado SOLO en las fuentes que agregaste al cuaderno, con citas', 'Reemplazan tu correo de Outlook'],
+        correct: 2,
+        explain: 'El cuaderno acota las fuentes: Copilot responde solo en base a lo que agregaste, con citas y sin ruido externo. Es la respuesta de Copilot a NotebookLM.',
+      },
+      {
+        q: '¿Cuál es el salto clave que introduce Claude Cowork?',
+        opts: ['Es un chat idéntico a los anteriores pero más rápido', 'Sirve solo para generar imágenes', 'Es una app de mensajería', 'Pasa de un chat que responde a un agente que ACTÚA sobre tu computador (archivos y terminal)'],
+        correct: 3,
+        explain: 'Cowork da el salto de conversar a actuar: se conecta a la terminal de tu equipo, lee archivos, crea documentos y ejecuta comandos por ti (con tu supervisión).',
+      },
+      {
+        q: '¿Cuál es un buen primer caso de uso para Cowork?',
+        opts: ['Borrar sin respaldo todos los archivos del servidor', 'Ordenar y consolidar una carpeta de planillas en un reporte, probando primero con una copia', 'Enviar correos masivos sin revisar', 'Publicar automáticamente en redes sociales sin supervisión'],
+        correct: 1,
+        explain: 'Empieza con tareas acotadas y de bajo riesgo, sobre una copia de tus archivos, para tomarle confianza al agente antes de darle tareas críticas.',
+      },
+    ],
     1: [
       {
         q: '¿Qué modo debes elegir al ingresar a Copilot con tu cuenta corporativa?',
