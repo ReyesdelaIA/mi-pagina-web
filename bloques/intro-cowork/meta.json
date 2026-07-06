@@ -1,0 +1,38 @@
+{
+  "id": "intro-cowork",
+  "nombre": "Intro a Claude Cowork",
+  "emoji": "🤝",
+  "descripcion": "El salto de un chat que responde a un agente que ACTÚA: Cowork se conecta a la terminal de tu computador y ejecuta tareas reales sobre tus archivos.",
+  "categoria": "herramientas-ia",
+  "tags": [
+    "claude",
+    "cowork",
+    "agentes",
+    "terminal",
+    "automatizacion"
+  ],
+  "pasos": [
+    "El salto clave: pasamos de un chat que solo responde, a un AGENTE que actúa sobre tu computador — lee archivos, crea documentos y ejecuta tareas reales desde tu terminal.",
+    "La familia Claude: Chat (conversa, colabora, crea) → Code (construye, automatiza, escala) → Cowork (conecta, comparte, crece). Cowork lleva el agente a tu entorno de trabajo real.",
+    "3 tipos de acciones: reactivas (responde a lo que le pides), programadas (tareas agendadas) e interactivas / en vivo (trabaja contigo en tiempo real).",
+    "Tú mandas: El agente pide permiso antes de acciones sensibles; tú supervisas, apruebas o corriges sobre la marcha."
+  ],
+  "pro_tip": "Piensa en Cowork como un practicante digital: dale tareas acotadas y de bajo riesgo primero, y sube la complejidad a medida que le tomas confianza.",
+  "desafio": null,
+  "assets": [
+    "cover.png",
+    "paso1.png"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/intro-cowork/cover.png",
+    "https://reyesia.com/bloques/intro-cowork/paso1.png"
+  ],
+  "sources": [
+    {
+      "file": "sesion06-k7x9/index.html",
+      "title": "Intro a Claude Cowork",
+      "imgs": 2,
+      "variant": 0
+    }
+  ]
+}

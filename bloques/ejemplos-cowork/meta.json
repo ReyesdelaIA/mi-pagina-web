@@ -1,0 +1,38 @@
+{
+  "id": "ejemplos-cowork",
+  "nombre": "Ejemplos de Claude Cowork",
+  "emoji": "⚡",
+  "descripcion": "Casos reales del agente en acción: ordenar carpetas, consolidar planillas, generar reportes y automatizar tareas repetitivas.",
+  "categoria": "herramientas-ia",
+  "tags": [
+    "claude",
+    "cowork",
+    "ejemplos",
+    "automatizacion",
+    "productividad"
+  ],
+  "pasos": [
+    "Ejemplo real (convertir contratos): le das acceso a una carpeta (permiso al sandbox) y le pides: \"agarra todos los contratos en Word y conviértelos en PDF en una nueva subcarpeta\". Cowork lo ejecuta solo.",
+    "El resultado: en segundos deja los 5 contratos convertidos a PDF en la subcarpeta, y hasta te avisa de los archivos temporales que quedaron — con total transparencia.",
+    "Otros casos: ordenar y renombrar carpetas, consolidar varias planillas Excel en un reporte, o generar un resumen ejecutivo desde un set de documentos.",
+    "Automatizar lo repetitivo: convierte formatos, extrae datos y ejecuta tareas manuales que antes te tomaban horas."
+  ],
+  "pro_tip": "Antes de pedirle una tarea crítica, prueba Cowork con una copia de tus archivos — así ves cómo trabaja sin riesgo sobre los originales.",
+  "desafio": null,
+  "assets": [
+    "cover.png",
+    "paso1.png"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/ejemplos-cowork/cover.png",
+    "https://reyesia.com/bloques/ejemplos-cowork/paso1.png"
+  ],
+  "sources": [
+    {
+      "file": "sesion06-k7x9/index.html",
+      "title": "Ejemplos de Claude Cowork",
+      "imgs": 2,
+      "variant": 0
+    }
+  ]
+}
