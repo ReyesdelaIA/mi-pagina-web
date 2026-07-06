@@ -97,7 +97,7 @@ const cards = [
   {
     emoji: '🤝', iconBg: '#FAECE7', numBg: '#FAECE7', numColor: '#993C1D',
     title: 'Intro a Claude Cowork', desc: 'De un chat que responde a un agente que ACTÚA sobre tu computador',
-    imgs: [{ id: 'intro-cowork', file: 'cover.png', bg: '#f4ede7' }, { id: 'intro-cowork', file: 'paso1.png', bg: '#0a0e1a' }],
+    imgs: [{ id: 'intro-cowork', file: 'paso1.png', bg: '#0a0e1a' }],
     steps: [
       '<strong>El salto clave:</strong> pasamos de un chat que solo responde, a un <strong>AGENTE que actúa</strong> sobre tu computador — lee archivos, crea documentos y ejecuta tareas reales desde tu terminal.',
       '<strong>La familia Claude:</strong> <strong>Chat</strong> (conversa, colabora, crea) → <strong>Code</strong> (construye, automatiza, escala) → <strong>Cowork</strong> (conecta, comparte, crece). Cowork lleva el agente a tu entorno de trabajo real.',
@@ -109,7 +109,7 @@ const cards = [
   {
     emoji: '⚡', iconBg: '#FAECE7', numBg: '#FAECE7', numColor: '#993C1D',
     title: 'Ejemplos de Claude Cowork', desc: 'Casos reales: ordenar carpetas, consolidar planillas, generar reportes y automatizar',
-    imgs: [{ id: 'ejemplos-cowork', file: 'cover.png', bg: '#faf8f5' }, { id: 'ejemplos-cowork', file: 'paso1.png', bg: '#faf8f5' }],
+    imgs: [{ id: 'ejemplos-cowork', file: 'cover.png', bg: '#faf8f5' }, { id: 'ejemplos-cowork', file: 'paso1.png', bg: '#faf8f5' }, { id: 'ejemplos-cowork', file: 'paso2.png', bg: '#f4ede7' }],
     steps: [
       '<strong>Ejemplo real (convertir contratos):</strong> le das acceso a una carpeta (permiso al <strong>sandbox</strong>) y le pides: <em>"agarra todos los contratos en Word y conviértelos en PDF en una nueva subcarpeta"</em>. Cowork lo ejecuta solo.',
       '<strong>El resultado:</strong> en segundos deja los 5 contratos convertidos a PDF en la subcarpeta, y hasta te avisa de los archivos temporales que quedaron — con total transparencia.',
