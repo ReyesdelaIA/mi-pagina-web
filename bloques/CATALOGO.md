@@ -1,7 +1,7 @@
 # Catálogo de bloques — Biblioteca de sesiones
 
 _Generado automáticamente desde `bloques/*/meta.json` con `node scripts/bloques/gen-catalogo.js`._
-_Total: 33 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
+_Total: 34 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 
 ## fundamentos (8)
 
@@ -16,7 +16,7 @@ _Total: 33 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 | `modelos-fast-vs-razonamiento` | Modelos Fast vs. Razonamiento | 0 ⚠️ | 0 | ✓ |
 | `redaccion-avanzada` | Redacción avanzada | 0 ⚠️ | 5 | ✓ |
 
-## copilot (10)
+## copilot (11)
 
 | id | nombre | imgs | pasos | pro tip |
 |---|---|---|---|---|
@@ -29,6 +29,7 @@ _Total: 33 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 | `copilot-teams` | Copilot en Teams | 2 | 4 | ✓ |
 | `copilot-word` | Copilot en Word | 6 | 4 | ✓ |
 | `crear-con-copilot` | Crear con Copilot | 2 | 4 | ✓ |
+| `cuadernos-copilot` | Cuadernos de Copilot | 2 | 4 | ✓ |
 | `intro-copilot` | ¿Qué es Microsoft Copilot? | 1 | 4 | — |
 
 ## agentes (4)

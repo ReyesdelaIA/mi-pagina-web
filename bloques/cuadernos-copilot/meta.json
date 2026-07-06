@@ -1,0 +1,38 @@
+{
+  "id": "cuadernos-copilot",
+  "nombre": "Cuadernos de Copilot",
+  "emoji": "📔",
+  "descripcion": "La respuesta de Copilot a NotebookLM: agrupa archivos, páginas y notas en un cuaderno y Copilot responde aterrizado solo en ese contenido.",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "cuadernos",
+    "notebooks",
+    "research",
+    "m365"
+  ],
+  "pasos": [
+    "¿Qué es? Es la respuesta de Copilot a NotebookLM: un espacio donde agrupas archivos, páginas, notas y links sobre un tema, y Copilot responde SOLO en base a ese contenido.",
+    "Cómo crearlo: En Copilot entra a la sección Cuadernos (Notebooks), crea uno nuevo y agrégale tus fuentes desde SharePoint, OneDrive, documentos o notas.",
+    "Cómo usarlo: Hazle preguntas al cuaderno y responderá aterrizado en esas fuentes, con citas — sin inventar ni traer ruido de otros lados.",
+    "Qué obtienes: Resúmenes, preguntas frecuentes y análisis precisos de un set acotado de documentos, ideal para un proyecto o tema puntual."
+  ],
+  "pro_tip": "Mantén cada cuaderno enfocado en UN tema o proyecto. Mientras más acotadas las fuentes, más precisas y confiables las respuestas.",
+  "desafio": null,
+  "assets": [
+    "cover.png",
+    "paso1.png"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/cuadernos-copilot/cover.png",
+    "https://reyesia.com/bloques/cuadernos-copilot/paso1.png"
+  ],
+  "sources": [
+    {
+      "file": "sesion06-k7x9/index.html",
+      "title": "Cuadernos de Copilot",
+      "imgs": 2,
+      "variant": 0
+    }
+  ]
+}

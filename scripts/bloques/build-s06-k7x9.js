@@ -85,11 +85,12 @@ const cards = [
   {
     emoji: '📔', iconBg: '#E6F1FB', numBg: '#E6F1FB', numColor: '#185FA5',
     title: 'Cuadernos de Copilot', desc: 'La respuesta de Copilot a NotebookLM: respuestas aterrizadas solo en las fuentes que agregas',
+    imgs: [{ id: 'cuadernos-copilot', file: 'cover.png', bg: '#eef4fb' }, { id: 'cuadernos-copilot', file: 'paso1.png', bg: '#eef4fb' }],
     steps: [
       '<strong>¿Qué es?</strong> Es la respuesta de Copilot a NotebookLM: un espacio donde agrupas archivos, páginas, notas y links sobre un tema, y Copilot responde <strong>SOLO</strong> en base a ese contenido.',
-      '<strong>Cómo crearlo:</strong> En Copilot entra a la sección Cuadernos (Notebooks), crea uno nuevo y agrégale tus fuentes desde SharePoint, OneDrive, documentos o notas.',
+      '<strong>Cómo llegar:</strong> En m365.cloud.microsoft/chat haz clic en los <strong>9 puntitos</strong> (arriba a la izquierda) y elige <strong>"Notebooks"</strong>. Crea un cuaderno nuevo y agrégale tus fuentes desde SharePoint, OneDrive, documentos o notas.',
       '<strong>Cómo usarlo:</strong> Hazle preguntas al cuaderno y responderá aterrizado en esas fuentes, con citas — sin inventar ni traer ruido de otros lados.',
-      '<strong>Qué obtienes:</strong> Resúmenes, preguntas frecuentes y análisis precisos de un set acotado de documentos, ideal para un proyecto o tema puntual.',
+      '<strong>Qué obtienes:</strong> Resúmenes, preguntas frecuentes, audio overviews y hasta <strong>mapas mentales</strong> de un set acotado de documentos, ideal para un proyecto o tema puntual.',
     ],
     protip: 'Mantén cada cuaderno enfocado en <strong>UN</strong> tema o proyecto. Mientras más acotadas las fuentes, más precisas y confiables las respuestas.',
   },
