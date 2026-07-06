@@ -27,6 +27,14 @@ const challengeCSS = `
 .dl-file:hover{border-color:#E8912A;background:#FFFBF2;}
 .dl-file .ico{font-size:20px;line-height:1;}
 .dl-file .type{margin-left:auto;font-size:11px;font-weight:600;color:#9A6B12;background:#FBE7B8;padding:3px 9px;border-radius:20px;}
+.prompt-box{margin:14px 0 4px;background:#0f1729;border:1px solid #1e293b;border-radius:12px;overflow:hidden;}
+.prompt-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#111c33;border-bottom:1px solid #1e293b;}
+.prompt-label{font-size:12px;font-weight:700;letter-spacing:0.04em;color:#8FB7E8;}
+.prompt-copy{background:#2B5BA8;color:#fff;border:none;border-radius:7px;padding:6px 14px;font-size:12px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;transition:background .15s;}
+.prompt-copy:hover{background:#356BC4;}
+.prompt-copy.copied{background:#16a34a;}
+.prompt-text{margin:0;padding:14px 16px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;line-height:1.6;color:#D6E4F5;white-space:pre-wrap;word-break:break-word;}
+.prompt-note{margin:10px 0 4px;font-size:12.5px;line-height:1.5;color:#185FA5;background:#EAF3FE;border-left:3px solid #2B5BA8;padding:9px 13px;border-radius:6px;}
 `;
 head = head.replace('</style>', challengeCSS + '</style>');
 
@@ -53,10 +61,22 @@ function stepsHtml(steps, numBg, numColor, inserts) {
 function protipHtml(label, text) {
   return `<div class="idea-pro"><div class="idea-pro-icon">💡</div><div class="idea-pro-content"><div class="idea-pro-label">${label}</div><div class="idea-pro-text">${text}</div></div></div>`;
 }
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function promptBoxHtml(label, text, note) {
+  const noteHtml = note ? `\n      <div class="prompt-note">${note}</div>` : '';
+  return `<div class="prompt-box">
+        <div class="prompt-head"><span class="prompt-label">✍️ ${label}</span><button class="prompt-copy">📋 Copiar</button></div>
+        <pre class="prompt-text">${esc(text)}</pre>
+      </div>${noteHtml}`;
+}
 function card(c) {
   const media = (c.imgs || []).map(im => imgB64(im.id, im.file, im.bg)).join('\n      ');
   const inserts = {};
   (c.stepImgs || []).forEach(si => { inserts[si.step] = imgB64(si.img.id, si.img.file, si.img.bg); });
+  (c.prompts || []).forEach(p => {
+    const box = promptBoxHtml(p.label, p.text, p.note);
+    inserts[p.step] = (inserts[p.step] ? inserts[p.step] + '\n      ' : '') + box;
+  });
   const intro = c.intro ? `<p style="font-size:14.5px;line-height:1.6;color:#333;margin:0 0 16px;">${c.intro}</p>` : '';
   return `  <div class="card">
     <div class="card-header">
@@ -95,6 +115,13 @@ const cards = [
       { step: 3, img: { id: 'html-avanzado', file: 'nivel3.png', bg: '#f7f9fc' } },
       { step: 4, img: { id: 'html-avanzado', file: 'nivel4.png', bg: '#f7f9fc' } },
       { step: 5, img: { id: 'html-avanzado', file: 'nivel5.png', bg: '#f7f9fc' } },
+    ],
+    prompts: [
+      { step: 1, label: 'Prompt Nivel 1', text: 'Genera un archivo HTML interactivo descargable según el archivo que te adjunto.' },
+      { step: 2, label: 'Prompt Nivel 2', text: 'Genera un archivo HTML interactivo descargable según el archivo que te adjunto. El HTML debe ser una herramienta reutilizable, no un reporte con datos incrustados. Debe incluir una pantalla inicial de carga (drag & drop + botón para seleccionar archivo) que permita subir un Excel o CSV distinto cada vez.' },
+      { step: 3, label: 'Prompt Nivel 3', text: 'Genera un archivo HTML interactivo descargable según el archivo que te adjunto, con los datos incrustados (no separados).' },
+      { step: 4, label: 'Prompt Nivel 4', text: 'Genera un archivo HTML interactivo descargable según el archivo que te adjunto, con los datos incrustados (no separados).', note: '💡 Es el mismo prompt del Nivel 3 — la diferencia es que ahora <strong>publicas</strong> el HTML. Si no tienes hosting propio (lo recomendado), súbelo gratis arrastrándolo a <strong>app.netlify.com/drop</strong>.' },
+      { step: 5, label: 'Prompt Nivel 5', text: 'Genera un archivo HTML interactivo y descargable que construya una tabla o listado de datos. La data no debe estar estática en el código. Utiliza JavaScript (fetch API) para conectarte al siguiente endpoint de Supabase y traer los datos en formato JSON: [INSERTA LA URL DEL ENDPOINT]. Asegúrate de incluir en el código dónde debo pegar mi clave pública (anon key) en los headers de la petición, e itera sobre los resultados para mostrarlos dinámicamente en la interfaz.' },
     ],
     protip: 'La escalera va de lo simple y local (Nivel 1) a lo publicado y dinámico (Nivel 5). No necesitas llegar siempre al 5: elige el nivel según <strong>para qué</strong> y <strong>para quién</strong> es el dashboard.',
   },
@@ -155,9 +182,33 @@ const QUIZ = [
     correct: 1, exp: "El agente guarda un archivo fijo como conocimiento base y lo usa de referencia para comparar todas las planillas que le pases después." },
 ];
 
+const copyScript = `<script>
+(function(){
+  document.querySelectorAll('.prompt-box').forEach(function(box){
+    box.addEventListener('click', function(e){ e.stopPropagation(); });
+  });
+  document.querySelectorAll('.prompt-copy').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var box = btn.closest('.prompt-box');
+      var pre = box ? box.querySelector('.prompt-text') : null;
+      var txt = pre ? pre.textContent : '';
+      var done = function(){ btn.textContent = '✅ Copiado'; btn.classList.add('copied'); setTimeout(function(){ btn.textContent = '📋 Copiar'; btn.classList.remove('copied'); }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(done).catch(function(){ done(); });
+      } else {
+        var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch(err) {} document.body.removeChild(ta); done();
+      }
+    });
+  });
+})();
+</script>`;
+
 let tailFinal = tail
   .replace(/var QUIZ = \[[\s\S]*?\];/, 'var QUIZ = ' + JSON.stringify(QUIZ, null, 2) + ';')
-  .replace('Pregunta 1 de 6', 'Pregunta 1 de 5');
+  .replace('Pregunta 1 de 6', 'Pregunta 1 de 5')
+  .replace('</body>', copyScript + '\n</body>');
 
 const out = head + '\n' + header + '\n' + cards.map(card).join('\n\n') + '\n\n' + challenge + '\n' + footer + tailFinal;
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
