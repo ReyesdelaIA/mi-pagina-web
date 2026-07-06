@@ -1,0 +1,45 @@
+{
+  "id": "html-avanzado",
+  "nombre": "HTML Avanzado con Drag & Drop",
+  "emoji": "🖥️",
+  "descripcion": "La escalera del HTML: de un dashboard local que lee un Excel, hasta uno publicado que se alimenta en vivo de Google Sheets o Supabase.",
+  "categoria": "herramientas-ia",
+  "tags": [
+    "html",
+    "dashboards",
+    "drag-and-drop",
+    "netlify",
+    "datos"
+  ],
+  "pasos": [
+    "Nivel 1 — HTML local con el Excel aparte: el dashboard es un archivo HTML en tu computador que lee un Excel que vive por separado. Simple y 100% local.",
+    "Nivel 2 — HTML local con carga de archivos (drag & drop): arrastras y sueltas tu Excel, CSV o Google Sheets sobre el dashboard y se actualiza solo, sin tocar el código.",
+    "Nivel 3 — HTML con datos incrustados: los datos quedan embebidos dentro del propio HTML. Es un único archivo autosuficiente que puedes enviar por email o WhatsApp y se ve en cualquier lado.",
+    "Nivel 4 — HTML en hosting (ej. Netlify): publicas el dashboard en internet con una URL propia, accesible desde computador, tablet o celular.",
+    "Nivel 5 — HTML en hosting con datos dinámicos: el dashboard se conecta en tiempo real a fuentes vivas (Google Sheets, Supabase, APIs, WhatsApp) y se actualiza solo."
+  ],
+  "pro_tip": "La escalera va de lo simple y local (Nivel 1) a lo publicado y dinámico (Nivel 5). No necesitas llegar siempre al 5: elige el nivel según para qué y para quién es el dashboard.",
+  "desafio": null,
+  "assets": [
+    "nivel1.png",
+    "nivel2.png",
+    "nivel3.png",
+    "nivel4.png",
+    "nivel5.png"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/html-avanzado/nivel1.png",
+    "https://reyesia.com/bloques/html-avanzado/nivel2.png",
+    "https://reyesia.com/bloques/html-avanzado/nivel3.png",
+    "https://reyesia.com/bloques/html-avanzado/nivel4.png",
+    "https://reyesia.com/bloques/html-avanzado/nivel5.png"
+  ],
+  "sources": [
+    {
+      "file": "sesion07-k7x9/index.html",
+      "title": "HTML Avanzado con Drag & Drop",
+      "imgs": 5,
+      "variant": 0
+    }
+  ]
+}

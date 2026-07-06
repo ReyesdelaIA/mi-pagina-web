@@ -363,6 +363,7 @@
     4: ['/pucobre/thumbs/s4_thumb1.jpg','/pucobre/thumbs/s4_thumb2.jpg','/pucobre/thumbs/s4_thumb3.jpg'],
     5: ['/pucobre/thumbs/s5_thumb1.jpg','/pucobre/thumbs/s5_thumb2.jpg','/pucobre/thumbs/s5_thumb3.jpg'],
     6: ['/bloques/agente-investigador/cover.jpg','/bloques/agente-analista/cover.jpg','/bloques/cuadernos-copilot/cover.png'],
+    7: ['/bloques/html-avanzado/nivel1.png','/bloques/html-avanzado/nivel3.png','/bloques/html-avanzado/nivel5.png'],
   };
   const CHALLENGES = {
     1: 'Entra a tu cuenta en Copilot (copilot.microsoft.com), adjúntale un documento de tu SharePoint, y pídele que te haga un resumen del documento en 30 palabras.',
@@ -371,7 +372,7 @@
     4: 'Activa tu cuenta en NotebookLM, crea tu primer cuaderno, y adjúntale un documento para que empiece a interactuar con tus conocimientos.',
     5: 'Crea un dashboard profesional con datos laborales de Pucobre. Cárgale los datos a Copilot y pídele que te haga un dashboard interactivo ocupando los modelos de Claude.',
     6: 'Prueba el Agente Investigador cargándole un documento o una carpeta de tu SharePoint y pídele que la analice a fondo. O usa el Agente Analista para que analice un tema desde tu bandeja de entrada, SharePoint, Outlook o una reunión reciente. Comparte el resultado con tu equipo. 🕵️📈',
-    7: 'El Agente con Memoria: en Copilot (Chat → Agentes) crea un agente y adjúntale la Tabla Estándar de Indicadores como conocimiento fijo. Luego pásale la planilla real del mes y pídele que compare cada indicador contra su rango aceptable y levante las desviaciones. Descarga los archivos aquí abajo. 👇',
+    7: 'El Agente con Memoria: en Copilot (Chat → Agentes) crea un agente personalizado y adjúntale un Excel fijo de referencia como conocimiento base (por ejemplo, una tabla estándar de indicadores). Luego pásale la planilla real del mes y pídele que compare cada indicador contra su rango aceptable y levante las desviaciones. Descarga los archivos aquí abajo. 👇',
   };
 
   // Archivos descargables por sesión (ZIP + individuales)
@@ -387,6 +388,38 @@
   };
 
   const QUIZZES = {
+    7: [
+      {
+        q: 'En el Nivel 1 (HTML local con el Excel aparte), ¿dónde viven los datos?',
+        opts: ['En un archivo Excel separado, en tu computador, que el HTML lee', 'Escritos dentro del propio HTML', 'En internet, en tiempo real', 'El dashboard no usa datos'],
+        correct: 0,
+        explain: 'En el Nivel 1 el HTML y el Excel son archivos distintos: el dashboard lee los datos desde el Excel que está aparte.',
+      },
+      {
+        q: '¿Qué permite el Nivel 2 (carga de archivos / drag & drop)?',
+        opts: ['Publicar el dashboard en internet', 'Arrastrar y soltar un Excel/CSV/Google Sheets para actualizar el dashboard sin tocar el código', 'Conectarse a una base de datos en la nube', 'Enviarlo por WhatsApp'],
+        correct: 1,
+        explain: 'El drag & drop deja actualizar el dashboard cargando un archivo nuevo, sin editar el código.',
+      },
+      {
+        q: 'La gran ventaja de un HTML con datos incrustados (Nivel 3) es que…',
+        opts: ['Se actualiza solo en tiempo real', 'Necesita internet para funcionar', 'Requiere Excel instalado', 'Es un único archivo autosuficiente que puedes enviar por email o WhatsApp y se ve en cualquier lado'],
+        correct: 3,
+        explain: 'Con los datos embebidos, el HTML es un solo archivo que funciona en cualquier lado sin depender de otro archivo ni de internet.',
+      },
+      {
+        q: '¿Qué diferencia hay entre un HTML conectado a fuentes en vivo y un HTML que solo está publicado en internet?',
+        opts: ['El conectado en vivo no se puede abrir en el celular', 'El que solo está publicado no se ve en internet', 'El conectado a fuentes en vivo (Google Sheets, Supabase, APIs) se actualiza solo en tiempo real; el solo publicado muestra datos fijos hasta que lo edites', 'No hay ninguna diferencia'],
+        correct: 2,
+        explain: 'Estar publicado solo lo hace accesible por una URL con datos fijos. Estar conectado a fuentes en vivo hace que se actualice solo cuando cambian los datos de origen.',
+      },
+      {
+        q: "En 'El Agente con Memoria', ¿cómo funciona el conocimiento fijo del agente?",
+        opts: ['El agente inventa los criterios cada vez', 'Le adjuntas un Excel fijo de referencia para que compare contra él las siguientes planillas que le vayas entregando', 'Hay que volver a explicarle todo en cada conversación', 'Solo sirve para una única planilla y luego se borra'],
+        correct: 1,
+        explain: 'El agente guarda un archivo fijo como conocimiento base y lo usa de referencia para comparar todas las planillas que le pases después.',
+      },
+    ],
     6: [
       {
         q: '¿Cuál es la principal fortaleza del Agente Investigador de Copilot?',

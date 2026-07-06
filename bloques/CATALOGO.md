@@ -1,7 +1,7 @@
 # Catálogo de bloques — Biblioteca de sesiones
 
 _Generado automáticamente desde `bloques/*/meta.json` con `node scripts/bloques/gen-catalogo.js`._
-_Total: 36 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
+_Total: 37 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 
 ## fundamentos (8)
 
@@ -41,7 +41,7 @@ _Total: 36 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 | `agentes-basicos` | Agentes básicos en Copilot | 5 | 4 | ✓ |
 | `deep-research` | Deep Research (Investigación Profunda) | 1 | 4 | ✓ |
 
-## herramientas-ia (7)
+## herramientas-ia (8)
 
 | id | nombre | imgs | pasos | pro tip |
 |---|---|---|---|---|
@@ -49,6 +49,7 @@ _Total: 36 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 | `canvas-gemini` | Canvas en Gemini | 1 | 5 | ✓ |
 | `ejemplos-cowork` | Ejemplos de Claude Cowork | 2 | 4 | ✓ |
 | `gamma-ppts` | Gamma — Presentaciones con IA | 1 | 5 | ✓ |
+| `html-avanzado` | HTML Avanzado con Drag & Drop | 5 | 5 | ✓ |
 | `intro-cowork` | Intro a Claude Cowork | 2 | 4 | ✓ |
 | `napkin-infografias` | Napkin — Infografías desde texto | 1 | 5 | ✓ |
 | `notebooklm` | NotebookLM | 2 | 5 | ✓ |
