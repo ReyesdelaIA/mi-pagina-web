@@ -35,6 +35,7 @@ const challengeCSS = `
 .prompt-copy.copied{background:#16a34a;}
 .prompt-text{margin:0;padding:14px 16px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;line-height:1.6;color:#D6E4F5;white-space:pre-wrap;word-break:break-word;}
 .prompt-note{margin:10px 0 4px;font-size:12.5px;line-height:1.5;color:#185FA5;background:#EAF3FE;border-left:3px solid #2B5BA8;padding:9px 13px;border-radius:6px;}
+.nivel-sep{height:1px;background:linear-gradient(90deg,transparent,#cfdcee 18%,#cfdcee 82%,transparent);margin:26px 0 22px;border:0;}
 `;
 head = head.replace('</style>', challengeCSS + '</style>');
 
@@ -53,7 +54,8 @@ function stepsHtml(steps, numBg, numColor, inserts) {
   return `<ol class="steps">\n` + steps.map((t, i) => {
     let li = `          <li class="step"><div class="step-num" style="background:${numBg};color:${numColor};">${i + 1}</div><div class="step-text">${t}</div></li>`;
     if (inserts[i + 1]) {
-      li += `\n        </ol>\n      ${inserts[i + 1]}\n      <ol class="steps" style="margin-top:14px;">`;
+      const sep = (i + 1 < steps.length) ? '\n      <hr class="nivel-sep" />' : '';
+      li += `\n        </ol>\n      ${inserts[i + 1]}${sep}\n      <ol class="steps" style="margin-top:14px;">`;
     }
     return li;
   }).join('\n') + `\n        </ol>`;
@@ -78,13 +80,14 @@ function card(c) {
     inserts[p.step] = (inserts[p.step] ? inserts[p.step] + '\n      ' : '') + box;
   });
   const intro = c.intro ? `<p style="font-size:14.5px;line-height:1.6;color:#333;margin:0 0 16px;">${c.intro}</p>` : '';
+  const op = c.open ? ' open' : '';
   return `  <div class="card">
     <div class="card-header">
       <div class="icon" style="background:${c.iconBg};">${c.emoji}</div>
       <div><div class="card-title">${c.title}</div><div class="card-desc">${c.desc}</div></div>
-      <div class="chevron">▼</div>
+      <div class="chevron${op}">▼</div>
     </div>
-    <div class="card-body">
+    <div class="card-body${op}">
       ${media}
       <div class="body-content">
         ${intro}${stepsHtml(c.steps, c.numBg, c.numColor, inserts)}
@@ -98,7 +101,7 @@ function card(c) {
 const NB = '#E6F1FB', NC = '#185FA5';
 const cards = [
   {
-    emoji: '🖥️', iconBg: '#E6F1FB', numBg: NB, numColor: NC,
+    emoji: '🖥️', iconBg: '#E6F1FB', numBg: NB, numColor: NC, open: true,
     title: 'HTML Avanzado con Drag & Drop',
     desc: 'La escalera del HTML: de un dashboard local hasta uno publicado y dinámico',
     intro: 'Aprendiste a crear <strong>dashboards en HTML</strong> que leen tus datos — desde lo más simple y local hasta lo más avanzado y conectado en vivo. Esta es la escalera de <strong>5 niveles</strong>:',

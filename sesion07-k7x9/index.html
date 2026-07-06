@@ -111,6 +111,7 @@ body{font-family:'Poppins',sans-serif;background:#f0f0ee;min-height:100vh;paddin
 .prompt-copy.copied{background:#16a34a;}
 .prompt-text{margin:0;padding:14px 16px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;line-height:1.6;color:#D6E4F5;white-space:pre-wrap;word-break:break-word;}
 .prompt-note{margin:10px 0 4px;font-size:12.5px;line-height:1.5;color:#185FA5;background:#EAF3FE;border-left:3px solid #2B5BA8;padding:9px 13px;border-radius:6px;}
+.nivel-sep{height:1px;background:linear-gradient(90deg,transparent,#cfdcee 18%,#cfdcee 82%,transparent);margin:26px 0 22px;border:0;}
 </style>
 </head>
 <body>
@@ -151,9 +152,9 @@ body{font-family:'Poppins',sans-serif;background:#f0f0ee;min-height:100vh;paddin
     <div class="card-header">
       <div class="icon" style="background:#E6F1FB;">🖥️</div>
       <div><div class="card-title">HTML Avanzado con Drag & Drop</div><div class="card-desc">La escalera del HTML: de un dashboard local hasta uno publicado y dinámico</div></div>
-      <div class="chevron">▼</div>
+      <div class="chevron open">▼</div>
     </div>
-    <div class="card-body">
+    <div class="card-body open">
       
       <div class="body-content">
         <p style="font-size:14.5px;line-height:1.6;color:#333;margin:0 0 16px;">Aprendiste a crear <strong>dashboards en HTML</strong> que leen tus datos — desde lo más simple y local hasta lo más avanzado y conectado en vivo. Esta es la escalera de <strong>5 niveles</strong>:</p><ol class="steps">
@@ -164,6 +165,7 @@ body{font-family:'Poppins',sans-serif;background:#f0f0ee;min-height:100vh;paddin
         <div class="prompt-head"><span class="prompt-label">✍️ Prompt Nivel 1</span><button class="prompt-copy">📋 Copiar</button></div>
         <pre class="prompt-text">Genera un archivo HTML interactivo descargable según el archivo que te adjunto.</pre>
       </div>
+      <hr class="nivel-sep" />
       <ol class="steps" style="margin-top:14px;">
           <li class="step"><div class="step-num" style="background:#E6F1FB;color:#185FA5;">2</div><div class="step-text"><strong>Nivel 2 — HTML local con carga de archivos (drag &amp; drop):</strong> arrastras y sueltas tu Excel, CSV o Google Sheets sobre el dashboard y se actualiza solo, sin tocar el código.</div></li>
         </ol>
@@ -172,6 +174,7 @@ body{font-family:'Poppins',sans-serif;background:#f0f0ee;min-height:100vh;paddin
         <div class="prompt-head"><span class="prompt-label">✍️ Prompt Nivel 2</span><button class="prompt-copy">📋 Copiar</button></div>
         <pre class="prompt-text">Genera un archivo HTML interactivo descargable según el archivo que te adjunto. El HTML debe ser una herramienta reutilizable, no un reporte con datos incrustados. Debe incluir una pantalla inicial de carga (drag &amp; drop + botón para seleccionar archivo) que permita subir un Excel o CSV distinto cada vez.</pre>
       </div>
+      <hr class="nivel-sep" />
       <ol class="steps" style="margin-top:14px;">
           <li class="step"><div class="step-num" style="background:#E6F1FB;color:#185FA5;">3</div><div class="step-text"><strong>Nivel 3 — HTML con datos incrustados:</strong> los datos quedan embebidos dentro del propio HTML. Es un único archivo autosuficiente que puedes enviar por email o WhatsApp y se ve en cualquier lado.</div></li>
         </ol>
@@ -180,6 +183,7 @@ body{font-family:'Poppins',sans-serif;background:#f0f0ee;min-height:100vh;paddin
         <div class="prompt-head"><span class="prompt-label">✍️ Prompt Nivel 3</span><button class="prompt-copy">📋 Copiar</button></div>
         <pre class="prompt-text">Genera un archivo HTML interactivo descargable según el archivo que te adjunto, con los datos incrustados (no separados).</pre>
       </div>
+      <hr class="nivel-sep" />
       <ol class="steps" style="margin-top:14px;">
           <li class="step"><div class="step-num" style="background:#E6F1FB;color:#185FA5;">4</div><div class="step-text"><strong>Nivel 4 — HTML en hosting (ej. Netlify):</strong> publicas el dashboard en internet con una URL propia, accesible desde computador, tablet o celular.</div></li>
         </ol>
@@ -189,6 +193,7 @@ body{font-family:'Poppins',sans-serif;background:#f0f0ee;min-height:100vh;paddin
         <pre class="prompt-text">Genera un archivo HTML interactivo descargable según el archivo que te adjunto, con los datos incrustados (no separados).</pre>
       </div>
       <div class="prompt-note">💡 Es el mismo prompt del Nivel 3 — la diferencia es que ahora <strong>publicas</strong> el HTML. Si no tienes hosting propio (lo recomendado), súbelo gratis arrastrándolo a <strong>app.netlify.com/drop</strong>.</div>
+      <hr class="nivel-sep" />
       <ol class="steps" style="margin-top:14px;">
           <li class="step"><div class="step-num" style="background:#E6F1FB;color:#185FA5;">5</div><div class="step-text"><strong>Nivel 5 — HTML en hosting con datos dinámicos:</strong> el dashboard se conecta en tiempo real a fuentes vivas (Google Sheets, Supabase, APIs, WhatsApp) y se actualiza solo.</div></li>
         </ol>
