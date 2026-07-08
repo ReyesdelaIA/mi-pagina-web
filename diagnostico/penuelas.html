@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Diagnóstico IA · Peñuelas · Reyes IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#042C53; --page:#f0f0ee; --surface:#ffffff;
+    --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+    --grid:#e9e8e2; --track:#eef0f2; --border:rgba(11,11,11,0.10);
+    --blue:#2a78d6; --aqua:#1baf7a; --yellow:#eda100; --green:#008300;
+    --o1:#a9ccf6; --o2:#5598e7; --o3:#2a78d6; --o4:#124a8f;
+    --good:#0ca30c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;background:var(--page);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 60px;}
+
+  /* Header */
+  .top{background:var(--navy);color:#fff;padding:34px 0 30px;}
+  .top .wrap{padding-bottom:0;}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#85B7EB;margin-bottom:10px;}
+  .top h1{font-size:30px;font-weight:800;line-height:1.12;margin-bottom:8px;}
+  .top p{font-size:14.5px;color:#B5D4F4;max-width:640px;}
+  .top .meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{font-size:12px;font-weight:600;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.16);color:#dCE9F8;padding:6px 12px;border-radius:20px;}
+
+  /* KPI tiles */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-26px;}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 18px 16px;box-shadow:0 6px 20px rgba(4,44,83,0.06);}
+  .kpi-val{font-size:34px;font-weight:800;color:var(--navy);line-height:1;}
+  .kpi-val small{font-size:15px;font-weight:700;color:var(--muted);}
+  .kpi-lbl{font-size:12.5px;color:var(--ink2);font-weight:500;margin-top:7px;}
+
+  /* Insight banner */
+  .insight{margin-top:22px;background:#EAF3FE;border:1px solid #cfe0f6;border-left:4px solid var(--blue);border-radius:12px;padding:16px 18px;font-size:14px;color:#123a63;}
+  .insight strong{color:var(--navy);}
+
+  /* Section + card grid */
+  .sec-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:30px 0 12px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 20px 18px;}
+  .card h3{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+  .card .sub{font-size:12px;color:var(--muted);margin-bottom:16px;}
+
+  /* Horizontal bars */
+  .bars{display:flex;flex-direction:column;gap:11px;}
+  .bar-row{display:grid;grid-template-columns:118px 1fr 34px;align-items:center;gap:10px;}
+  .bar-name{font-size:12.5px;color:var(--ink2);font-weight:500;text-align:right;}
+  .bar-track{position:relative;height:16px;background:var(--track);border-radius:5px;overflow:hidden;}
+  .bar-fill{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--blue);transition:width .2s;min-width:2px;}
+  .bar-val{font-size:13px;font-weight:700;color:var(--ink);text-align:left;font-variant-numeric:tabular-nums;}
+  .bar-row:hover .bar-fill{filter:brightness(1.06);}
+
+  /* Donut */
+  .donut-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .donut{position:relative;width:158px;height:158px;border-radius:50%;flex-shrink:0;
+    background:conic-gradient(var(--blue) 0 62.5%, var(--aqua) 62.5% 75%, var(--yellow) 75% 87.5%, var(--green) 87.5% 100%);}
+  .donut::after{content:'';position:absolute;inset:34px;background:var(--surface);border-radius:50%;}
+  .donut-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;}
+  .donut-c b{font-size:30px;font-weight:800;color:var(--navy);line-height:1;}
+  .donut-c span{font-size:11px;color:var(--muted);font-weight:600;}
+  .legend{display:flex;flex-direction:column;gap:9px;}
+  .lg{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink2);}
+  .sw{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+  .lg b{color:var(--ink);font-weight:700;margin-left:auto;font-variant-numeric:tabular-nums;padding-left:14px;}
+
+  /* Infra tiles */
+  .infra{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .itile{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;text-align:center;}
+  .itile .pct{font-size:30px;font-weight:800;color:var(--navy);}
+  .itile .nm{font-size:13.5px;font-weight:600;color:var(--ink);margin-top:4px;}
+  .itile .ds{font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .ibar{height:6px;background:var(--track);border-radius:4px;margin-top:12px;overflow:hidden;}
+  .ibar>span{display:block;height:100%;background:var(--good);border-radius:4px;}
+
+  /* Comments */
+  .quotes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .quote{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;}
+  .quote p{font-size:13.5px;color:var(--ink);font-style:italic;line-height:1.55;}
+  .quote .by{font-size:12px;color:var(--muted);font-weight:600;margin-top:9px;}
+
+  /* Table */
+  .tbl-scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;}
+  table{width:100%;border-collapse:collapse;min-width:640px;}
+  th,td{text-align:left;padding:12px 14px;font-size:12.5px;border-bottom:1px solid var(--grid);}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--muted);font-weight:700;background:#fafafa;}
+  td{color:var(--ink2);}
+  td b{color:var(--ink);font-weight:600;}
+  tr:last-child td{border-bottom:none;}
+  .lvl{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;}
+  .lvl.cero{background:#FDECEC;color:#993030;}
+  .lvl.basico{background:#EAF3FE;color:#185FA5;}
+  .lvl.frecuente{background:#E7F6EF;color:#0a7a51;}
+
+  .foot{margin-top:34px;text-align:center;font-size:12px;color:var(--muted);}
+
+  /* Tooltip */
+  #tip{position:fixed;pointer-events:none;background:var(--navy);color:#fff;font-size:12px;font-weight:500;padding:7px 11px;border-radius:8px;opacity:0;transition:opacity .12s;z-index:50;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.25);}
+  #tip.on{opacity:1;}
+
+  @media(max-width:720px){
+    .kpis{grid-template-columns:1fr 1fr;}
+    .grid{grid-template-columns:1fr;}
+    .quotes{grid-template-columns:1fr;}
+    .top h1{font-size:24px;}
+    .bar-row{grid-template-columns:96px 1fr 30px;}
+  }
+  @media(prefers-color-scheme:dark){
+    :root{--page:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--track:#25272b;--border:rgba(255,255,255,0.10);
+      --blue:#3987e5;--aqua:#199e70;--yellow:#c98500;--green:#008300;--o1:#3f6fae;--o2:#3987e5;--o3:#5598e7;--o4:#9ec5f4;--good:#0ca30c;}
+    .insight{background:#12233a;border-color:#1e3a5f;color:#cfe0f6;}
+    .insight strong{color:#dCE9F8;}
+    th{background:#222220;}
+    .kpi-val,.donut-c b,.itile .pct{color:#dCE9F8;}
+    .lvl.cero{background:#3a1f1f;color:#f0a3a3;}
+    .lvl.basico{background:#12314f;color:#9fc6ee;}
+    .lvl.frecuente{background:#14392a;color:#6fd4a8;}
+  }
+  @media print{ body{background:#fff;} .card,.kpi,.itile,.quote,.tbl-scroll{box-shadow:none;} }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <div class="eyebrow">Diagnóstico Inicial de IA · Reyes IA</div>
+    <h1>Peñuelas — Radiografía de adopción de IA</h1>
+    <p>Resultados del diagnóstico inicial del equipo. Muestra concentrada en finanzas y contabilidad, con un ecosistema 100% Microsoft y alta disposición al cambio.</p>
+    <div class="meta">
+      <span class="chip">8 respuestas</span>
+      <span class="chip">03 Jul – 06 Jul 2026</span>
+      <span class="chip">DT Peñuelas · Peñuelas Corp SPA</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-val">8</div><div class="kpi-lbl">Personas diagnosticadas</div></div>
+    <div class="kpi"><div class="kpi-val">63<small>%</small></div><div class="kpi-lbl">Del área de finanzas (5 de 8)</div></div>
+    <div class="kpi"><div class="kpi-val">100<small>%</small></div><div class="kpi-lbl">Ecosistema Microsoft (Outlook + Teams)</div></div>
+    <div class="kpi"><div class="kpi-val">75<small>%</small></div><div class="kpi-lbl">En nivel inicial de IA (cero + básico)</div></div>
+  </div>
+
+  <div class="insight">
+    <strong>Lectura rápida:</strong> equipo mayormente de finanzas/contabilidad, con <strong>6 de 8 en nivel inicial</strong> (cero o básico) y prácticamente sin resistencia declarada. Ya trabajan sobre <strong>Outlook, Teams y SharePoint</strong> → terreno ideal para <strong>Copilot M365</strong>, complementado con ChatGPT/Claude que ya usan de forma personal. El foco de interés es claro: <strong>automatizar tareas contables monótonas</strong>.
+  </div>
+
+  <!-- Charts -->
+  <div class="sec-label">Resultados del diagnóstico</div>
+  <div class="grid">
+
+    <div class="card">
+      <h3>Nivel de madurez en IA</h3>
+      <div class="sub">Autoevaluación del uso de IA · 8 respuestas</div>
+      <div class="bars" id="chart-nivel">
+        <div class="bar-row" data-tip="Nivel cero — 2 personas (25%)"><div class="bar-name">Cero</div><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--o1);"></div></div><div class="bar-val">2</div></div>
+        <div class="bar-row" data-tip="Nivel básico — 4 personas (50%)"><div class="bar-name">Básico</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--o2);"></div></div><div class="bar-val">4</div></div>
+        <div class="bar-row" data-tip="Uso frecuente — 2 personas (25%)"><div class="bar-name">Frecuente</div><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--o3);"></div></div><div class="bar-val">2</div></div>
+        <div class="bar-row" data-tip="Avanzado — 0 personas"><div class="bar-name">Avanzado</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--o4);"></div></div><div class="bar-val">0</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Herramientas de IA en uso</h3>
+      <div class="sub">Nº de personas que ya la usan · respuesta múltiple</div>
+      <div class="bars" id="chart-tools">
+        <div class="bar-row" data-tip="ChatGPT — 6 de 8"><div class="bar-name">ChatGPT</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-val">6</div></div>
+        <div class="bar-row" data-tip="Copilot — 5 de 8"><div class="bar-name">Copilot</div><div class="bar-track"><div class="bar-fill" style="width:83.3%"></div></div><div class="bar-val">5</div></div>
+        <div class="bar-row" data-tip="Claude — 3 de 8"><div class="bar-name">Claude</div><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><div class="bar-val">3</div></div>
+        <div class="bar-row" data-tip="Gemini — 1 de 8"><div class="bar-name">Gemini</div><div class="bar-track"><div class="bar-fill" style="width:16.7%"></div></div><div class="bar-val">1</div></div>
+        <div class="bar-row" data-tip="Granola — 1 de 8"><div class="bar-name">Granola</div><div class="bar-track"><div class="bar-fill" style="width:16.7%"></div></div><div class="bar-val">1</div></div>
+        <div class="bar-row" data-tip="Ninguna herramienta — 1 de 8"><div class="bar-name">Ninguna</div><div class="bar-track"><div class="bar-fill" style="width:16.7%;background:var(--muted);"></div></div><div class="bar-val">1</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Áreas donde quieren aplicar IA</h3>
+      <div class="sub">Interés declarado · respuesta múltiple</div>
+      <div class="bars" id="chart-areas">
+        <div class="bar-row" data-tip="Finanzas — 7 menciones"><div class="bar-name">Finanzas</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-val">7</div></div>
+        <div class="bar-row" data-tip="Operaciones — 3 menciones"><div class="bar-name">Operaciones</div><div class="bar-track"><div class="bar-fill" style="width:42.9%"></div></div><div class="bar-val">3</div></div>
+        <div class="bar-row" data-tip="TI — 2 menciones"><div class="bar-name">TI</div><div class="bar-track"><div class="bar-fill" style="width:28.6%"></div></div><div class="bar-val">2</div></div>
+        <div class="bar-row" data-tip="Todas las áreas — 2 menciones"><div class="bar-name">Todas</div><div class="bar-track"><div class="bar-fill" style="width:28.6%"></div></div><div class="bar-val">2</div></div>
+        <div class="bar-row" data-tip="Legal — 1 mención"><div class="bar-name">Legal</div><div class="bar-track"><div class="bar-fill" style="width:14.3%"></div></div><div class="bar-val">1</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Rol de los encuestados</h3>
+      <div class="sub">Área de trabajo · 8 respuestas</div>
+      <div class="donut-wrap">
+        <div class="donut">
+          <div class="donut-c"><b>8</b><span>respuestas</span></div>
+        </div>
+        <div class="legend">
+          <div class="lg"><span class="sw" style="background:var(--blue)"></span> Finanzas <b>5</b></div>
+          <div class="lg"><span class="sw" style="background:var(--aqua)"></span> Contabilidad <b>1</b></div>
+          <div class="lg"><span class="sw" style="background:var(--yellow)"></span> Auditoría interna <b>1</b></div>
+          <div class="lg"><span class="sw" style="background:var(--green)"></span> Gerencia general <b>1</b></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Infra -->
+  <div class="sec-label">Infraestructura del equipo</div>
+  <div class="infra">
+    <div class="itile"><div class="pct">100%</div><div class="nm">Outlook</div><div class="ds">Correo · 8 de 8</div><div class="ibar"><span style="width:100%"></span></div></div>
+    <div class="itile"><div class="pct">100%</div><div class="nm">Microsoft Teams</div><div class="ds">Reuniones · 8 de 8</div><div class="ibar"><span style="width:100%"></span></div></div>
+    <div class="itile"><div class="pct">88%</div><div class="nm">SharePoint</div><div class="ds">Repositorio · 7 de 8</div><div class="ibar"><span style="width:88%"></span></div></div>
+  </div>
+
+  <!-- Comments -->
+  <div class="sec-label">Voces del equipo</div>
+  <div class="quotes">
+    <div class="quote"><p>"La automatización de procesos manuales es la clave para estar al día con los nuevos requerimientos que necesita la industria global."</p><div class="by">Alexis Meza · Jefe de Contabilidad</div></div>
+    <div class="quote"><p>"Tenemos tareas monótonas que quitan tiempo para el análisis contable; sería bueno mejorar los entregables de estados financieros."</p><div class="by">Carolay Madrid · Analista Contable</div></div>
+    <div class="quote"><p>"Aunque manejo la IA para procesos básicos, quiero expandir más mis conocimientos y mejorar la efectividad laboral."</p><div class="by">Laura Linares · Asistente Contable</div></div>
+    <div class="quote"><p>"En algunos casos puede pasar que desconfíen de los resultados de la IA."</p><div class="by">Consuelo Del Pilar · Control de Gestión</div></div>
+  </div>
+
+  <!-- Table -->
+  <div class="sec-label">Detalle de respuestas</div>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Persona</th><th>Rol</th><th>Nivel IA</th><th>Herramientas</th><th>Interés</th></tr></thead>
+      <tbody>
+        <tr><td><b>Patricio Mackenna</b></td><td>Gerente General</td><td><span class="lvl basico">Básico</span></td><td>Copilot, ChatGPT, Claude, Granola</td><td>Finanzas, Operaciones, Legal</td></tr>
+        <tr><td><b>Alexis Meza</b></td><td>Jefe Contabilidad</td><td><span class="lvl cero">Cero</span></td><td>Copilot</td><td>Finanzas</td></tr>
+        <tr><td><b>Carolay Madrid</b></td><td>Analista Contable</td><td><span class="lvl basico">Básico</span></td><td>Copilot, ChatGPT, Claude</td><td>Finanzas, Operaciones</td></tr>
+        <tr><td><b>Laura Linares</b></td><td>Asistente Contable</td><td><span class="lvl basico">Básico</span></td><td>Gemini, Copilot, ChatGPT</td><td>Finanzas, Operaciones, Todas</td></tr>
+        <tr><td><b>Consuelo Del Pilar</b></td><td>Control de Gestión</td><td><span class="lvl frecuente">Frecuente</span></td><td>ChatGPT, Claude</td><td>Finanzas, TI</td></tr>
+        <tr><td><b>Damián Calderón</b></td><td>Asistente de Tesorería</td><td><span class="lvl frecuente">Frecuente</span></td><td>ChatGPT</td><td>Finanzas, TI</td></tr>
+        <tr><td><b>Daisy Arellano</b></td><td>Tesorera</td><td><span class="lvl cero">Cero</span></td><td>Ninguna</td><td>Finanzas</td></tr>
+        <tr><td><b>Alejandro Ramos</b></td><td>Auditor Interno</td><td><span class="lvl basico">Básico</span></td><td>Copilot, ChatGPT</td><td>Todas</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="foot">Diagnóstico confidencial · Programa Adopción Profunda de IA · <strong>Reyes IA</strong> · @reyesdelaIA</div>
+</div>
+
+<div id="tip"></div>
+<script>
+(function(){
+  var tip = document.getElementById('tip');
+  document.querySelectorAll('[data-tip]').forEach(function(el){
+    el.addEventListener('mousemove', function(e){
+      tip.textContent = el.getAttribute('data-tip');
+      tip.classList.add('on');
+      var x = e.clientX + 14, y = e.clientY + 14;
+      if (x + tip.offsetWidth > window.innerWidth - 8) x = e.clientX - tip.offsetWidth - 14;
+      tip.style.left = x + 'px'; tip.style.top = y + 'px';
+    });
+    el.addEventListener('mouseleave', function(){ tip.classList.remove('on'); });
+  });
+})();
+</script>
+</body>
+</html>

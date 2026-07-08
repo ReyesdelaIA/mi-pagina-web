@@ -9,6 +9,7 @@
     { "source": "/diagnostico", "destination": "/diagnostico/index.html" },
     { "source": "/diagnosticoinicial", "destination": "/diagnostico/index.html" },
     { "source": "/diagnostico/admin", "destination": "/diagnostico/admin.html" },
+    { "source": "/diagnostico/penuelas", "destination": "/diagnostico/penuelas.html" },
     { "source": "/pucobre", "destination": "/pucobre/index.html" },
     { "source": "/sesion01-pucobre", "destination": "/sesion01-pucobre/index.html" },
     { "source": "/admin", "destination": "/admin.html" },
