@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Vibe Coding · 3 Talleres · Reyes IA</title>
+  <link rel="icon" type="image/png" href="https://reyesia.com/icon%20reyes%20IA.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #042C53; --gold: #c09b5a; --bg: #fffbf0;
+      --text: #1a1a1a; --muted: #6b7280; --border: #e5e7eb;
+      --accent: #D97706;
+    }
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--text); background: #fff; }
+
+    /* ── NAVBAR ── */
+    .header { background: var(--navy); padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(0,0,0,.25); }
+    .logo img { height: 44px; object-fit: contain; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 26px; }
+    .nav-links a { color: rgba(255,255,255,.85); text-decoration: none; font-size: 14px; font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a.nav-cta { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); padding: 8px 16px; border-radius: 8px; color: #fff; }
+    .nav-links a.nav-cta:hover { background: rgba(255,255,255,.2); color: #fff; }
+
+    /* ── HERO ── */
+    .hero { background: linear-gradient(135deg, #021d38 0%, #042C53 60%, #063a6e 100%); color: #fff; padding: 56px 24px 48px; }
+    .hero-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; gap: 32px; justify-content: space-between; }
+    .dp-mini { flex-shrink: 0; text-align: center; transform: rotate(-3deg); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 20px; padding: 14px 18px 12px; transition: transform .3s; }
+    .dp-mini:hover { transform: rotate(-1deg) scale(1.04); }
+    .dp-mini-label { font-family: 'Caveat', cursive; font-size: 15px; color: rgba(255,255,255,.6); line-height: 1.3; }
+    .dp-mini-name { font-family: 'Caveat', cursive; font-size: 24px; font-weight: 700; color: var(--gold); line-height: 1.1; margin: 3px 0 10px; }
+    .dp-mini-icon { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,.2); display: block; margin: 0 auto; }
+    .hero-icon { width: 72px; height: 72px; border-radius: 20px; background: linear-gradient(135deg, #B45309, #F59E0B); display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
+    .hero-title { font-size: 2.4rem; font-weight: 800; line-height: 1.1; margin-bottom: 8px; }
+    .hero-sub { font-size: 15px; opacity: .9; line-height: 1.5; max-width: 460px; }
+    .hero-meta { font-size: 13px; font-weight: 600; opacity: .8; margin-top: 12px; }
+
+    /* ── REALIZADOS BAND ── */
+    .realizados { background: #f8fafc; padding: 32px 24px 0; }
+    .realizados-inner { max-width: 960px; margin: 0 auto; }
+    .realizados img { width: 100%; border-radius: 16px; display: block; box-shadow: 0 4px 24px rgba(0,0,0,.1); }
+    .realizados-cap { text-align: right; font-size: 13px; font-weight: 600; color: #6b7280; margin-top: 10px; }
+
+    /* ── MAIN / TALLERES ── */
+    .main-wrap { max-width: 960px; margin: 0 auto; padding: 56px 24px; }
+    .content-grid { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: start; }
+
+    .ws-track { display: flex; flex-direction: column; }
+    .ws-step { display: flex; gap: 20px; }
+    .ws-col-l { display: flex; flex-direction: column; align-items: center; }
+    .ws-num { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: #fff; flex-shrink: 0; background: var(--accent); }
+    .ws-line { flex: 1; width: 2px; background: var(--border); margin: 5px 0; min-height: 28px; }
+    .ws-step:last-child .ws-line { display: none; }
+    .ws-content { padding-bottom: 36px; flex: 1; padding-top: 4px; }
+    .ws-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 9px; }
+    .ws-tag { display: inline-flex; align-items: center; border-radius: 20px; padding: 3px 11px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; background: #fef3c7; color: #92400e; }
+    .ws-tag.hands-on { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+    .ws-title { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 9px; line-height: 1.3; }
+    .ws-desc { font-size: 14px; color: #374151; line-height: 1.65; }
+    .ws-chips { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .ws-chip { background: #fffbf0; border: 1px solid #FDE68A; border-radius: 20px; padding: 4px 11px; font-size: 12px; font-weight: 600; color: #374151; }
+    .ws-topics { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; margin-bottom: 14px; }
+    .wt { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: #4B5563; line-height: 1.45; padding: 3px 0; }
+    .wt-dot { width: 6px; height: 6px; border-radius: 50%; background: #D1D5DB; flex-shrink: 0; margin-top: 5px; }
+    @media(max-width:600px){ .ws-topics { grid-template-columns: 1fr; } }
+
+    /* ── PRICE CARD ── */
+    .price-card { background: #fff; border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; position: sticky; top: 84px; box-shadow: 0 4px 24px rgba(0,0,0,.07); }
+    .pc-accent { height: 5px; background: var(--accent); }
+    .pc-top { padding: 20px 22px 0; }
+    .pc-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 6px; }
+    .pc-breakdown { display: flex; align-items: baseline; gap: 6px; margin-bottom: 3px; }
+    .pc-price { font-size: 38px; font-weight: 800; line-height: 1; color: var(--accent); }
+    .pc-per { font-size: 14px; font-weight: 700; color: var(--accent); }
+    .pc-note { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    .pc-detail { font-size: 12px; color: #374151; background: #fffbf0; border-radius: 10px; padding: 9px 12px; margin: 12px 0 18px; line-height: 1.55; }
+    .pc-includes { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 20px; padding: 0 2px; }
+    .pc-includes li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: #374151; line-height: 1.4; }
+    .pc-check { font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 1px; color: var(--accent); }
+    .pc-cta { display: block; text-align: center; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 14px; text-decoration: none; color: #fff; transition: all .2s; border: none; cursor: pointer; font-family: inherit; width: 100%; background: var(--accent); }
+    .pc-cta:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(217,119,6,.35); }
+    .pc-bottom { padding: 14px 22px 18px; border-top: 1px solid var(--border); }
+    .pc-footer-txt { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.55; }
+
+    /* ── CONTACT ── */
+    .contact-section { padding: 64px 24px; background: #fffbf0; }
+    .contact-inner { max-width: 600px; margin: 0 auto; }
+    .contact-title { font-size: 1.8rem; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 8px; }
+    .contact-sub { font-size: 14px; color: var(--muted); text-align: center; margin-bottom: 32px; line-height: 1.55; }
+    .contact-form-box { background: #fff; border-radius: 20px; padding: 32px; border: 1.5px solid #FDE68A; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .form-group label { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .form-group input, .form-group select, .form-group textarea { border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 14px; font-size: 14px; font-family: inherit; color: var(--text); background: #fff; transition: border-color .2s; outline: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-submit { background: var(--accent); color: #fff; padding: 14px; border-radius: 12px; border: none; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; width: 100%; transition: all .2s; }
+    .form-submit:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .form-success { display: none; text-align: center; padding: 24px; }
+    .form-success.show { display: block; }
+    .form-success-icon { font-size: 48px; margin-bottom: 12px; }
+    .form-success h3 { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .form-success p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--navy); color: #fff; text-align: center; padding: 28px 24px; font-size: 13px; }
+    .footer a { color: var(--gold); text-decoration: none; margin: 0 6px; }
+
+    @media(max-width: 768px){
+      .hero-inner { flex-direction: column; align-items: flex-start; }
+      .hero-title { font-size: 1.8rem; }
+      .hero-sub, .hero-meta { max-width: none; }
+      .content-grid { grid-template-columns: 1fr; }
+      .price-card { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .dp-mini { display: none; }
+      .nav-links { gap: 16px; }
+      .nav-links a.nav-hide { display: none; }
+    }
+    @media(max-width: 420px){
+      .nav-links a.nav-soft { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<header class="header">
+  <a href="https://reyesia.com" class="logo"><img src="https://reyesia.com/logo%20reyes%20IA%20horizontal%20blanco.png" alt="REYES IA"></a>
+  <nav class="nav-links">
+    <a href="https://reyesia.com">Inicio</a>
+    <a href="https://reyesia.com/#servicios" class="nav-soft">Servicios</a>
+    <a href="https://reyesia.com/#quien-soy" class="nav-hide">Quién soy</a>
+    <a href="#contacto" class="nav-cta">Contacto</a>
+  </nav>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-icon">🖥️</div>
+    <div>
+      <div class="hero-badge">Nuevo 2026</div>
+      <div class="hero-title">AI Vibe Coding</div>
+      <div class="hero-sub">Aprende a programar productos reales con Inteligencia Artificial, desde la terminal, sin ser desarrollador.</div>
+      <div class="hero-meta">⌨️ 3 clases presenciales · 90 min cada una · por Felipe Reyes</div>
+    </div>
+    <div class="dp-mini">
+      <div class="dp-mini-label">talleres presenciales</div>
+      <div class="dp-mini-label">dictados por</div>
+      <div class="dp-mini-name">Felipe Reyes</div>
+      <img src="https://reyesia.com/icon-felipe.png" alt="Felipe Reyes" class="dp-mini-icon">
+    </div>
+  </div>
+</section>
+
+<!-- ── TALLERES REALIZADOS ── -->
+<div class="realizados">
+  <div class="realizados-inner">
+    <img src="https://reyesia.com/talleres/img-talleres-realizados.png" alt="Talleres realizados">
+    <p class="realizados-cap">+ 150 empresas capacitadas en IA aplicada</p>
+  </div>
+</div>
+
+<!-- ── TALLERES + PRECIO ── -->
+<div class="main-wrap">
+  <div class="content-grid">
+    <div class="ws-track">
+
+      <!-- TALLER 1 -->
+      <div class="ws-step">
+        <div class="ws-col-l">
+          <div class="ws-num">1</div>
+          <div class="ws-line"></div>
+        </div>
+        <div class="ws-content">
+          <div class="ws-tags">
+            <span class="ws-tag">Taller 1 · El Entorno del Builder</span>
+            <span class="ws-tag hands-on">Metodología Hands-On</span>
+          </div>
+          <div class="ws-title">El Entorno del Builder</div>
+          <div class="ws-topics">
+            <span class="wt"><span class="wt-dot"></span>Por qué la terminal es el entorno real del builder moderno</span>
+            <span class="wt"><span class="wt-dot"></span>Mapa del ecosistema: terminal → Node → GitHub → Vercel → Supabase</span>
+            <span class="wt"><span class="wt-dot"></span>Glosario esencial: repo, rama, commit, push, deploy, env, API key</span>
+            <span class="wt"><span class="wt-dot"></span>Navegación y comandos fundamentales de terminal</span>
+            <span class="wt"><span class="wt-dot"></span>Instalación y verificación: Node.js, npm, git</span>
+            <span class="wt"><span class="wt-dot"></span>GitHub desde terminal: primer repo, primer push, sin GUI</span>
+            <span class="wt"><span class="wt-dot"></span>Vercel: deploy automático y URL pública en minutos</span>
+            <span class="wt"><span class="wt-dot"></span>Hooks, entornos y la lógica de cómo se conecta todo</span>
+          </div>
+          <div class="ws-chips">
+            <span class="ws-chip">⏱ 1.5 hrs</span>
+            <span class="ws-chip">Presencial</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TALLER 2 -->
+      <div class="ws-step">
+        <div class="ws-col-l">
+          <div class="ws-num">2</div>
+          <div class="ws-line"></div>
+        </div>
+        <div class="ws-content">
+          <div class="ws-tags">
+            <span class="ws-tag">Taller 2 · Claude Code en Acción</span>
+            <span class="ws-tag hands-on">Metodología Hands-On</span>
+          </div>
+          <div class="ws-title">Claude Code en Acción</div>
+          <div class="ws-topics">
+            <span class="wt"><span class="wt-dot"></span>Qué es Claude Code y cómo se diferencia del Claude que ya conoces</span>
+            <span class="wt"><span class="wt-dot"></span>Instalación y activación desde la terminal</span>
+            <span class="wt"><span class="wt-dot"></span>El archivo CLAUDE.md: cómo darle contexto y memoria al agente</span>
+            <span class="wt"><span class="wt-dot"></span>Skills y hooks: potenciar y personalizar Claude Code</span>
+            <span class="wt"><span class="wt-dot"></span>Clonar una página web real con prompts bien estructurados</span>
+            <span class="wt"><span class="wt-dot"></span>El ciclo del builder: pedir → revisar → corregir → iterar</span>
+            <span class="wt"><span class="wt-dot"></span>Adaptar, personalizar y hacer tuyo el proyecto</span>
+            <span class="wt"><span class="wt-dot"></span>Push a GitHub + deploy en Vercel: tu proyecto en vivo en clase</span>
+          </div>
+          <div class="ws-chips">
+            <span class="ws-chip">⏱ 1.5 hrs</span>
+            <span class="ws-chip">Presencial</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TALLER 3 -->
+      <div class="ws-step">
+        <div class="ws-col-l">
+          <div class="ws-num">3</div>
+        </div>
+        <div class="ws-content">
+          <div class="ws-tags">
+            <span class="ws-tag">Taller 3 · Agentes, Datos y Producto Real</span>
+            <span class="ws-tag hands-on">Metodología Hands-On</span>
+          </div>
+          <div class="ws-title">Agentes, Datos y Producto Real</div>
+          <div class="ws-topics">
+            <span class="wt"><span class="wt-dot"></span>Variables de entorno: seguridad y configuración profesional</span>
+            <span class="wt"><span class="wt-dot"></span>Supabase: bases de datos, tablas, lectura y escritura real</span>
+            <span class="wt"><span class="wt-dot"></span>Autenticación: login, registro y gestión de sesión</span>
+            <span class="wt"><span class="wt-dot"></span>Formularios conectados a base de datos en tiempo real</span>
+            <span class="wt"><span class="wt-dot"></span>Supabase MCP + Vercel MCP: Claude Code con acceso directo</span>
+            <span class="wt"><span class="wt-dot"></span>Agentes y subagentes: delegar tareas complejas a la IA</span>
+            <span class="wt"><span class="wt-dot"></span>Claude Code en modo orquestador: proyectos que se construyen solos</span>
+            <span class="wt"><span class="wt-dot"></span>Debugging con IA: metodología para cuando algo explota</span>
+            <span class="wt"><span class="wt-dot"></span>De proyecto a producto: publicar, iterar y escalar</span>
+          </div>
+          <div class="ws-chips">
+            <span class="ws-chip">⏱ 1.5 hrs</span>
+            <span class="ws-chip">Presencial</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRECIO -->
+    <div class="price-card">
+      <div class="pc-accent"></div>
+      <div class="pc-top">
+        <div class="pc-label">Inversión</div>
+        <div class="pc-breakdown">
+          <span class="pc-price">$300.000</span>
+          <span class="pc-per">por persona</span>
+        </div>
+        <div class="pc-note">3 clases presenciales · 4.5 hrs en total</div>
+        <div class="pc-detail">3 clases presenciales · grupos de 7 a 10 personas · 4.5 hrs en total</div>
+        <ul class="pc-includes">
+          <li><span class="pc-check">✓</span>Terminal + Claude Code desde cero</li>
+          <li><span class="pc-check">✓</span>Tu proyecto en vivo desde la clase 2</li>
+          <li><span class="pc-check">✓</span>Acceso a material y recursos post-clase</li>
+          <li><span class="pc-check">✓</span>Grupo reducido: máximo 10 personas</li>
+          <li><span class="pc-check">✓</span>Presencial · también disponible online</li>
+        </ul>
+        <button class="pc-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Me interesa este curso →</button>
+      </div>
+      <div class="pc-bottom">
+        <div class="pc-footer-txt">📅 Coordinamos fechas según tu calendario</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONTACTO ── -->
+<section id="contacto" class="contact-section">
+  <div class="contact-inner">
+    <div class="contact-title">¿Te interesa el curso AI Vibe Coding?</div>
+    <div class="contact-sub">Completa el formulario y te contacto en menos de 24 horas para coordinar fechas y confirmar tu cupo.</div>
+    <div class="contact-form-box">
+      <div class="form-success" id="formSuccess">
+        <div class="form-success-icon">🎉</div>
+        <h3>¡Mensaje recibido!</h3>
+        <p>Te contactaré en menos de 24 horas para confirmar tu cupo.</p>
+      </div>
+      <form id="vibeForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input type="text" name="nombre" required placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" name="email" required placeholder="tu@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" name="telefono" placeholder="+56 9 XXXX XXXX">
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea name="mensaje" placeholder="Cuéntame qué te gustaría construir, fechas tentativas u otras consultas…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Quiero reservar mi cupo →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <p>✉️ <a href="mailto:felipe@reyesia.com">felipe@reyesia.com</a> · <a href="https://reyesia.com">reyesia.com</a></p>
+  <p style="margin-top:8px;opacity:.5;">© 2026 Reyes IA</p>
+</footer>
+
+<script>
+  document.getElementById('vibeForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var f = this;
+    var payload = {
+      nombre: (f.nombre && f.nombre.value || '').trim(),
+      email: (f.email && f.email.value || '').trim(),
+      telefono: (f.telefono && f.telefono.value || '').trim(),
+      mensaje: (f.mensaje && f.mensaje.value || '').trim()
+    };
+    var SB_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
+    var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
+    try {
+      await fetch(SB_URL + '/rest/v1/vibe_leads', {
+        method: 'POST',
+        headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {}
+    f.style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+    document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
+</body>
+</html>
