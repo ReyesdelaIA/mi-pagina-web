@@ -10,6 +10,8 @@
     { "source": "/diagnosticoinicial", "destination": "/diagnostico/index.html" },
     { "source": "/diagnostico/admin", "destination": "/diagnostico/admin.html" },
     { "source": "/diagnostico/penuelas", "destination": "/diagnostico/penuelas.html" },
+    { "source": "/diagnostico/resultados", "destination": "/diagnostico/panel.html" },
+    { "source": "/diagnostico/panel", "destination": "/diagnostico/panel.html" },
     { "source": "/ai-vibe-coding", "destination": "/ai-vibe-coding.html" },
     { "source": "/vibecoding", "destination": "/ai-vibe-coding.html" },
     { "source": "/pucobre", "destination": "/pucobre/index.html" },

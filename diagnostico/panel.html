@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Resultados de Diagnósticos IA · Reyes IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#042C53; --page:#f0f0ee; --surface:#ffffff;
+    --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+    --grid:#e9e8e2; --track:#eef0f2; --border:rgba(11,11,11,0.10);
+    --blue:#2a78d6; --aqua:#1baf7a; --yellow:#eda100; --green:#008300;
+    --o1:#a9ccf6; --o2:#5598e7; --o3:#2a78d6; --o4:#124a8f;
+    --good:#0ca30c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Poppins',system-ui,-apple-system,sans-serif;background:var(--page);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 60px;}
+
+  .top{background:var(--navy);color:#fff;padding:30px 0 26px;}
+  .top .wrap{padding-bottom:0;}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#85B7EB;margin-bottom:9px;}
+  .top h1{font-size:26px;font-weight:800;line-height:1.12;margin-bottom:6px;}
+  .top p{font-size:13.5px;color:#B5D4F4;max-width:640px;}
+  .filterbar{margin-top:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+  .filterbar label{font-size:12px;font-weight:600;color:#B5D4F4;text-transform:uppercase;letter-spacing:0.08em;}
+  select#company{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;color:var(--navy);background:#fff;border:none;border-radius:10px;padding:11px 40px 11px 15px;cursor:pointer;appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23042C53' stroke-width='3'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 14px center;min-width:230px;}
+  .count-pill{font-size:12.5px;font-weight:700;color:#fff;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:8px 14px;}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-22px;}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:17px 17px 15px;box-shadow:0 6px 20px rgba(4,44,83,0.06);}
+  .kpi-val{font-size:30px;font-weight:800;color:var(--navy);line-height:1;}
+  .kpi-val small{font-size:14px;font-weight:700;color:var(--muted);}
+  .kpi-lbl{font-size:12px;color:var(--ink2);font-weight:500;margin-top:6px;}
+
+  .sec-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:28px 0 12px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 20px 18px;}
+  .card h3{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+  .card .sub{font-size:12px;color:var(--muted);margin-bottom:16px;}
+
+  .bars{display:flex;flex-direction:column;gap:11px;}
+  .bar-row{display:grid;grid-template-columns:120px 1fr 34px;align-items:center;gap:10px;}
+  .bar-name{font-size:12.5px;color:var(--ink2);font-weight:500;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .bar-track{position:relative;height:16px;background:var(--track);border-radius:5px;overflow:hidden;}
+  .bar-fill{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--blue);transition:width .35s ease;min-width:2px;}
+  .bar-val{font-size:13px;font-weight:700;color:var(--ink);text-align:left;font-variant-numeric:tabular-nums;}
+  .bar-row:hover .bar-fill{filter:brightness(1.06);}
+  .empty{font-size:13px;color:var(--muted);font-style:italic;padding:8px 0;}
+
+  .donut-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .donut{position:relative;width:150px;height:150px;border-radius:50%;flex-shrink:0;background:var(--track);}
+  .donut::after{content:'';position:absolute;inset:32px;background:var(--surface);border-radius:50%;}
+  .donut-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;}
+  .donut-c b{font-size:28px;font-weight:800;color:var(--navy);line-height:1;}
+  .donut-c span{font-size:11px;color:var(--muted);font-weight:600;}
+  .legend{display:flex;flex-direction:column;gap:8px;min-width:150px;}
+  .lg{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink2);}
+  .sw{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+  .lg b{color:var(--ink);font-weight:700;margin-left:auto;font-variant-numeric:tabular-nums;padding-left:14px;}
+
+  .infra{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .itile{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;}
+  .itile .pct{font-size:27px;font-weight:800;color:var(--navy);}
+  .itile .nm{font-size:13px;font-weight:600;color:var(--ink);margin-top:3px;}
+  .itile .ds{font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .ibar{height:6px;background:var(--track);border-radius:4px;margin-top:11px;overflow:hidden;}
+  .ibar>span{display:block;height:100%;background:var(--good);border-radius:4px;transition:width .35s;}
+
+  .quotes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .quote{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 17px;}
+  .quote p{font-size:13.5px;color:var(--ink);font-style:italic;line-height:1.55;}
+  .quote .by{font-size:12px;color:var(--muted);font-weight:600;margin-top:8px;}
+
+  .tbl-scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;}
+  table{width:100%;border-collapse:collapse;min-width:640px;}
+  th,td{text-align:left;padding:11px 14px;font-size:12.5px;border-bottom:1px solid var(--grid);vertical-align:top;}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--muted);font-weight:700;background:#fafafa;}
+  td{color:var(--ink2);}
+  td b{color:var(--ink);font-weight:600;}
+  tr:last-child td{border-bottom:none;}
+  .lvl{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+  .lvl.cero{background:#FDECEC;color:#993030;}
+  .lvl.basico{background:#EAF3FE;color:#185FA5;}
+  .lvl.frecuente{background:#E7F6EF;color:#0a7a51;}
+  .lvl.avanzado{background:#EEEDFE;color:#4a3aa7;}
+
+  .foot{margin-top:30px;text-align:center;font-size:12px;color:var(--muted);}
+  #loading{text-align:center;padding:70px 20px;color:var(--muted);font-size:15px;}
+  #tip{position:fixed;pointer-events:none;background:var(--navy);color:#fff;font-size:12px;font-weight:500;padding:7px 11px;border-radius:8px;opacity:0;transition:opacity .12s;z-index:50;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.25);}
+  #tip.on{opacity:1;}
+
+  @media(max-width:720px){
+    .kpis{grid-template-columns:1fr 1fr;}
+    .grid,.quotes{grid-template-columns:1fr;}
+    .bar-row{grid-template-columns:96px 1fr 30px;}
+  }
+  @media(prefers-color-scheme:dark){
+    :root{--page:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--track:#25272b;--border:rgba(255,255,255,0.10);
+      --blue:#3987e5;--aqua:#199e70;--yellow:#c98500;--green:#008300;--o1:#3f6fae;--o2:#3987e5;--o3:#5598e7;--o4:#9ec5f4;}
+    th{background:#222220;} .kpi-val,.donut-c b,.itile .pct{color:#dCE9F8;}
+    .lvl.cero{background:#3a1f1f;color:#f0a3a3;}.lvl.basico{background:#12314f;color:#9fc6ee;}.lvl.frecuente{background:#14392a;color:#6fd4a8;}.lvl.avanzado{background:#26234d;color:#b3aaf0;}
+  }
+  @media print{body{background:#fff;}.card,.kpi,.itile,.quote,.tbl-scroll{box-shadow:none;}.filterbar{display:none;}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <div class="eyebrow">Diagnóstico Inicial de IA · Reyes IA</div>
+    <h1>Resultados de Diagnósticos</h1>
+    <p>Panel en vivo de los diagnósticos de adopción de IA. Elige una empresa para ver solo sus resultados.</p>
+    <div class="filterbar">
+      <label for="company">Empresa</label>
+      <select id="company"></select>
+      <span class="count-pill" id="countPill">—</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div id="loading">Cargando diagnósticos…</div>
+  <div id="dash" style="display:none;">
+    <div class="kpis" id="kpis"></div>
+
+    <div class="sec-label">Resultados del diagnóstico</div>
+    <div class="grid">
+      <div class="card"><h3>Nivel de madurez en IA</h3><div class="sub" id="nivel-sub"></div><div class="donut-wrap"><div class="donut" id="nivel-donut"><div class="donut-c"><b id="nivel-total">0</b><span>respuestas</span></div></div><div class="legend" id="nivel-legend"></div></div></div>
+      <div class="card"><h3>Herramientas de IA en uso</h3><div class="sub">Nº de personas que ya la usan</div><div class="bars" id="tools"></div></div>
+      <div class="card"><h3>Áreas donde quieren aplicar IA</h3><div class="sub">Interés declarado</div><div class="bars" id="areas"></div></div>
+      <div class="card"><h3>Rol / área de los encuestados</h3><div class="sub">Área de trabajo</div><div class="bars" id="roles"></div></div>
+    </div>
+
+    <div class="sec-label">Infraestructura del equipo</div>
+    <div class="infra" id="infra"></div>
+
+    <div class="sec-label" id="voices-label">Voces del equipo</div>
+    <div class="quotes" id="quotes"></div>
+
+    <div class="sec-label">Detalle de respuestas</div>
+    <div class="tbl-scroll"><table><thead><tr><th>Persona</th><th>Rol</th><th>Nivel IA</th><th>Herramientas</th><th>Interés</th></tr></thead><tbody id="tbody"></tbody></table></div>
+  </div>
+  <div class="foot">Panel confidencial · lee en vivo desde la base de datos · <strong>Reyes IA</strong> · @reyesdelaIA</div>
+</div>
+
+<div id="tip"></div>
+<script>
+const SB_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
+
+const NIVEL_ORDER = ['cero','basico','frecuente','avanzado'];
+const NIVEL_LABEL = {cero:'Cero', basico:'Básico', frecuente:'Frecuente', avanzado:'Avanzado'};
+const NIVEL_COLOR = {cero:'var(--o1)', basico:'var(--o2)', frecuente:'var(--o3)', avanzado:'var(--o4)'};
+const NIVEL_HEX   = {cero:'#a9ccf6', basico:'#5598e7', frecuente:'#2a78d6', avanzado:'#124a8f'};
+const LBL = {chatgpt:'ChatGPT',copilot:'Copilot',claude:'Claude',gemini:'Gemini',granola:'Granola',ninguna:'Ninguna',notebooklm:'NotebookLM',perplexity:'Perplexity',
+  finanzas:'Finanzas',operaciones:'Operaciones',ti:'TI',legal:'Legal',todas:'Todas',marketing:'Marketing',comercial:'Comercial',rrhh:'RRHH',gerencia:'Gerencia',
+  outlook:'Outlook',gmail:'Gmail',sharepoint:'SharePoint',onedrive:'OneDrive',gdrive:'Google Drive',drive:'Google Drive',no_seguro:'No sabe / otro',teams:'Microsoft Teams',meet:'Google Meet',zoom:'Zoom',
+  gerencia_general:'Gerencia General'};
+
+function titleCase(s){ if(!s) return '—'; s=String(s).trim(); return s.charAt(0).toUpperCase()+s.slice(1).toLowerCase(); }
+function nice(v){ if(v==null) return '—'; const k=String(v).trim().toLowerCase(); return LBL[k] || titleCase(v); }
+function noAccents(s){ s=(s||'').toLowerCase(); const m={'á':'a','é':'e','í':'i','ó':'o','ú':'u','ñ':'n','ü':'u'}; return s.replace(/[áéíóúñü]/g,c=>m[c]).trim(); }
+
+function normCompany(raw){
+  const s = noAccents(raw);
+  if(/penuela/.test(s)) return 'Peñuelas';
+  if(/cintazul|cinta azul/.test(s)) return 'Cintazul';
+  if(/elite/.test(s)) return 'Elite';
+  if(/toco/.test(s)) return 'Avícola El Toco';
+  if(/kenoz/.test(s)) return 'Kenoz';
+  if(/reyes/.test(s)) return 'Reyes IA';
+  return (raw||'Sin empresa').trim();
+}
+
+let ALL = [];
+
+function countBy(rows, fn){
+  const m={}; rows.forEach(r=>{ const v=fn(r); if(v==null||v==='') return; m[v]=(m[v]||0)+1; }); return m;
+}
+function freqArr(rows, field){
+  const m={}; rows.forEach(r=>{ (r[field]||[]).forEach(x=>{ if(!x) return; const k=String(x).trim().toLowerCase(); m[k]=(m[k]||0)+1; }); }); return m;
+}
+function sortEntries(m){ return Object.entries(m).sort((a,b)=>b[1]-a[1]); }
+
+function barRow(label, val, max, color){
+  const w = max>0 ? (val/max*100) : 0;
+  const pct = Math.round(val / (window._curTotal||1) * 100);
+  return `<div class="bar-row" data-tip="${label} — ${val} (${pct}%)"><div class="bar-name" title="${label}">${label}</div><div class="bar-track"><div class="bar-fill" style="width:${w}%;${color?'background:'+color+';':''}"></div></div><div class="bar-val">${val}</div></div>`;
+}
+function renderBars(id, entries, colorFn){
+  const el=document.getElementById(id);
+  if(!entries.length){ el.innerHTML='<div class="empty">Sin datos para esta empresa.</div>'; return; }
+  const max=Math.max.apply(null, entries.map(e=>e[1]));
+  el.innerHTML = entries.map(e=>barRow(e[0], e[1], max, colorFn?colorFn(e):null)).join('');
+}
+
+function render(companyKey){
+  const rows = companyKey==='__all__' ? ALL : ALL.filter(r=>normCompany(r.empresa)===companyKey);
+  const total = rows.length;
+  window._curTotal = total;
+  document.getElementById('countPill').textContent = total + (total===1?' respuesta':' respuestas');
+
+  // KPIs
+  const areaCounts = countBy(rows, r=>nice(r.area_trabajo));
+  const topArea = sortEntries(areaCounts)[0];
+  const outlookN = rows.filter(r=>noAccents(r.plataforma_mail)==='outlook').length;
+  const nivelC = countBy(rows, r=>r.nivel_equipo);
+  const inicial = (nivelC.cero||0)+(nivelC.basico||0);
+  const pct=(n)=> total? Math.round(n/total*100):0;
+  document.getElementById('kpis').innerHTML = [
+    ['<b>'+total+'</b>','Personas diagnosticadas'],
+    [topArea?('<b>'+pct(topArea[1])+'</b><small>%</small>'):'—', topArea?('En '+topArea[0]+' ('+topArea[1]+' de '+total+')'):'Área principal'],
+    ['<b>'+pct(outlookN)+'</b><small>%</small>','Usa Outlook (ecosistema MS)'],
+    ['<b>'+pct(inicial)+'</b><small>%</small>','En nivel inicial (cero + básico)']
+  ].map(k=>`<div class="kpi"><div class="kpi-val">${k[0]}</div><div class="kpi-lbl">${k[1]}</div></div>`).join('');
+
+  // Nivel donut
+  document.getElementById('nivel-total').textContent = total;
+  document.getElementById('nivel-sub').textContent = 'Autoevaluación del uso de IA · '+total+' respuestas';
+  let acc=0; const segs=[]; const legend=[];
+  NIVEL_ORDER.forEach(k=>{
+    const n=nivelC[k]||0; if(n===0){ legend.push(`<div class="lg"><span class="sw" style="background:${NIVEL_HEX[k]}"></span> ${NIVEL_LABEL[k]} <b>0</b></div>`); return; }
+    const p=n/total*100; segs.push(`${NIVEL_HEX[k]} ${acc}% ${acc+p}%`); acc+=p;
+    legend.push(`<div class="lg"><span class="sw" style="background:${NIVEL_HEX[k]}"></span> ${NIVEL_LABEL[k]} <b>${n}</b></div>`);
+  });
+  const donut=document.getElementById('nivel-donut');
+  donut.style.background = segs.length? `conic-gradient(${segs.join(',')})` : 'var(--track)';
+  document.getElementById('nivel-legend').innerHTML = legend.join('');
+
+  // Tools / Areas / Roles
+  renderBars('tools', sortEntries(freqArr(rows,'herramientas_ia')).map(e=>[nice(e[0]),e[1]]).map((e,i,a)=>e), (e)=> e[0]==='Ninguna'?'var(--muted)':null);
+  renderBars('areas', sortEntries(freqArr(rows,'areas_interes')).map(e=>[nice(e[0]),e[1]]));
+  renderBars('roles', sortEntries(areaCounts).map(e=>[e[0],e[1]]));
+
+  // Infra tiles
+  function topOf(field, map){
+    const c=countBy(rows, r=>noAccents(r[field])); const t=sortEntries(c)[0];
+    if(!t) return {nm:'—',pct:0,ds:'sin dato'};
+    return {nm: nice(t[0]), pct: pct(t[1]), ds: t[1]+' de '+total};
+  }
+  const infra=[['plataforma_mail','Correo'],['reuniones','Reuniones'],['repositorio','Repositorio']].map(([f,cap])=>{
+    const t=topOf(f); return `<div class="itile"><div class="pct">${t.pct}%</div><div class="nm">${t.nm}</div><div class="ds">${cap} · ${t.ds}</div><div class="ibar"><span style="width:${t.pct}%"></span></div></div>`;
+  });
+  document.getElementById('infra').innerHTML = infra.join('');
+
+  // Comments
+  const qs = rows.filter(r=>r.comentario && r.comentario.trim()).map(r=>{
+    const nm=(r.nombre_contacto||'').split('·')[0].trim();
+    return `<div class="quote"><p>"${r.comentario.trim()}"</p><div class="by">${nm||'Anónimo'}</div></div>`;
+  });
+  document.getElementById('voices-label').style.display = qs.length? '' : 'none';
+  document.getElementById('quotes').innerHTML = qs.join('') || '';
+  document.getElementById('quotes').style.display = qs.length? '' : 'none';
+
+  // Table
+  document.getElementById('tbody').innerHTML = rows.map(r=>{
+    const parts=(r.nombre_contacto||'').split('·'); const nm=(parts[0]||'').trim()||'—'; const rol=(parts[1]||'').trim()||nice(r.area_trabajo);
+    const lv=r.nivel_equipo||''; const tools=(r.herramientas_ia||[]).map(nice).join(', ')||'—'; const ints=(r.areas_interes||[]).map(nice).join(', ')||'—';
+    return `<tr><td><b>${nm}</b></td><td>${rol}</td><td><span class="lvl ${lv}">${NIVEL_LABEL[lv]||'—'}</span></td><td>${tools}</td><td>${ints}</td></tr>`;
+  }).join('');
+
+  bindTips();
+}
+
+function bindTips(){
+  const tip=document.getElementById('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.onmousemove=(e)=>{ tip.textContent=el.getAttribute('data-tip'); tip.classList.add('on');
+      let x=e.clientX+14,y=e.clientY+14; if(x+tip.offsetWidth>innerWidth-8)x=e.clientX-tip.offsetWidth-14; tip.style.left=x+'px'; tip.style.top=y+'px'; };
+    el.onmouseleave=()=>tip.classList.remove('on');
+  });
+}
+
+async function init(){
+  try{
+    const res = await fetch(`${SB_URL}/rest/v1/diagnosticos?select=*&order=created_at.desc`, {
+      headers:{ 'apikey':SB_KEY, 'Authorization':'Bearer '+SB_KEY }
+    });
+    ALL = await res.json();
+  }catch(err){ document.getElementById('loading').textContent='Error al cargar los datos.'; return; }
+
+  // Build company groups sorted by count desc
+  const groups={}; ALL.forEach(r=>{ const k=normCompany(r.empresa); groups[k]=(groups[k]||0)+1; });
+  const ordered = Object.entries(groups).sort((a,b)=>b[1]-a[1]);
+  const sel=document.getElementById('company');
+  sel.innerHTML = `<option value="__all__">Todas las empresas (${ALL.length})</option>` +
+    ordered.map(([k,n])=>`<option value="${k}">${k} (${n})</option>`).join('');
+  // Default to the company with most responses
+  sel.value = ordered.length? ordered[0][0] : '__all__';
+  sel.addEventListener('change', ()=>render(sel.value));
+
+  document.getElementById('loading').style.display='none';
+  document.getElementById('dash').style.display='';
+  render(sel.value);
+}
+init();
+</script>
+</body>
+</html>
