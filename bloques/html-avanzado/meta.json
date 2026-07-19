@@ -25,14 +25,16 @@
     "nivel2.png",
     "nivel3.png",
     "nivel4.png",
-    "nivel5.png"
+    "nivel5.png",
+    "cover.png"
   ],
   "assets_github": [
     "https://reyesia.com/bloques/html-avanzado/nivel1.png",
     "https://reyesia.com/bloques/html-avanzado/nivel2.png",
     "https://reyesia.com/bloques/html-avanzado/nivel3.png",
     "https://reyesia.com/bloques/html-avanzado/nivel4.png",
-    "https://reyesia.com/bloques/html-avanzado/nivel5.png"
+    "https://reyesia.com/bloques/html-avanzado/nivel5.png",
+    "https://reyesia.com/bloques/html-avanzado/cover.png"
   ],
   "sources": [
     {
