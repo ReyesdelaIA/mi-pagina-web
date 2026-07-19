@@ -217,6 +217,95 @@
       .hero-company{font-size:22px;} .stat-value{font-size:18px;}
       .sk-grid { grid-template-columns:repeat(3,1fr); }
     }
+
+    /* ------------------------------------------------------------------
+       Desktop: la página cambia de forma, no se estira.
+       El progreso pasa a una barra lateral fija y los talleres ocupan
+       el ancho útil. En móvil todo esto no aplica y sigue en una columna.
+    ------------------------------------------------------------------ */
+    @media(min-width:1024px){
+      /* Las cifras se van a la derecha: el hero baja de alto y deja de
+         tener medio ancho vacío. */
+      .hero { padding: 34px 20px 32px; }
+      .hero-inner {
+        max-width: 1180px;
+        display: grid; grid-template-columns: 1fr auto;
+        align-items: center; column-gap: 60px;
+      }
+      .hero-top     { grid-column: 1; grid-row: 1; }
+      .hero-company { grid-column: 1; grid-row: 2; font-size: 34px; }
+      .hero-program { grid-column: 1; grid-row: 3; font-size: 15px; margin-bottom: 0; }
+      .hero-stats   { grid-column: 2; grid-row: 1 / span 3; gap: 26px; align-self: center; }
+      .stat-value { font-size: 28px; }
+      .stat-label { font-size: 12px; }
+      .hero-logo { width:60px; height:60px; }
+      .hero-logo img { width:40px; height:40px; }
+
+      .layout {
+        max-width: 1180px; margin: 0 auto; padding: 24px 20px 0;
+        display: grid; grid-template-columns: 320px 1fr;
+        gap: 30px; align-items: start;
+      }
+      /* La barra lateral acompaña el scroll: ves las estrellas subir
+         mientras lees los talleres. */
+      .rail {
+        position: sticky; top: 78px;
+        display: flex; flex-direction: column; gap: 12px;
+      }
+      .who, .prog-wrap { max-width: none; margin: 0; padding: 0; }
+      .panels-row { flex-direction: column; max-width: none; margin: 0; padding: 0; gap: 12px; }
+      .panel-stars { padding: 16px 18px 18px; }
+      .sp-title { font-size: 11px; }
+      .sp-sub { font-size: 10px; }
+      .s-icon { font-size: 30px; }
+      .sp-count { font-size: 26px; }
+      .ps-label { font-size: 12px; }
+      .panel-skills { padding: 14px 10px 16px; }
+
+      .main { min-width: 0; }
+      .sess-wrap { max-width: none; margin: 0; padding: 0 0 48px; }
+      .sec-title { margin-bottom: 14px; }
+      .sess-list { gap: 16px; }
+
+      .card-top { padding: 20px 22px; }
+      .snum { width: 50px; height: 50px; font-size: 17px; }
+      .stitle { font-size: 16px; }
+      .slabel { font-size: 11px; }
+      .ms { font-size: 15px; }
+      .res-toggle { padding: 13px 22px; font-size: 13px; }
+
+      /* Puntos clave y temario lado a lado en vez de un chorizo vertical */
+      .res-body { padding: 6px 22px 20px; }
+      .res-body.open {
+        display: grid; grid-template-columns: 1.35fr 1fr;
+        column-gap: 34px; align-items: start;
+      }
+      .res-body > div:nth-of-type(1) { grid-column: 1; grid-row: 1; margin: 8px 0 10px; }
+      .res-body > .res-list          { grid-column: 1; grid-row: 2; }
+      .res-body > div:nth-of-type(2) { grid-column: 2; grid-row: 1; margin: 8px 0 10px; }
+      .res-body > div:nth-of-type(3) { grid-column: 2; grid-row: 2; }
+      .res-list li { font-size: 13px; }
+
+      /* Desafío a la izquierda, botones apilados a la derecha */
+      .desafio { display: grid; grid-template-columns: 1fr auto; column-gap: 28px; padding: 18px 22px; }
+      .des-head  { grid-column: 1; grid-row: 1; }
+      .des-text  { grid-column: 1; grid-row: 2; margin-bottom: 0; font-size: 13px; }
+      .honor-row { grid-column: 2; grid-row: 1 / span 2; flex-direction: column; align-self: center; min-width: 150px; }
+      .hbtn { justify-content: center; padding: 9px 14px; font-size: 12px; width: 100%; }
+      .dominada-banner { padding: 12px 22px; font-size: 12px; }
+
+      .sk-sheet { max-width: 720px; }
+      .sk-grid { grid-template-columns: repeat(6,1fr); }
+      .quiz-modal { max-width: 520px; }
+      .quiz-question { font-size: 17px; }
+      .qopt { font-size: 14px; padding: 13px 18px; }
+    }
+
+    /* Pantallas anchas: un poco más de aire, sin estirar el texto */
+    @media(min-width:1400px){
+      .layout { max-width: 1280px; grid-template-columns: 340px 1fr; }
+      .hero-inner { max-width: 1280px; }
+    }
   </style>
 </head>
 <body>
@@ -253,6 +342,9 @@
     </div>
   </div>
 </div>
+
+<div class="layout">
+<aside class="rail">
 
 <div class="who">
   <div class="who-box">
@@ -327,9 +419,15 @@
   <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
 </div>
 
+</aside>
+<main class="main">
+
 <div class="sess-wrap">
   <div class="sec-title">Los 3 talleres</div>
   <div class="sess-list" id="sess-list"></div>
+</div>
+
+</main>
 </div>
 
 <!-- Skills modal -->
