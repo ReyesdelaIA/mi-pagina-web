@@ -54,6 +54,30 @@
       "destination": "/ai-vibe-coding.html"
     },
     {
+      "source": "/claude",
+      "destination": "/claude/index.html"
+    },
+    {
+      "source": "/portal-claude",
+      "destination": "/claude/index.html"
+    },
+    {
+      "source": "/claude/panel",
+      "destination": "/claude/panel.html"
+    },
+    {
+      "source": "/claude/taller-1",
+      "destination": "/claude/taller.html?n=1"
+    },
+    {
+      "source": "/claude/taller-2",
+      "destination": "/claude/taller.html?n=2"
+    },
+    {
+      "source": "/claude/taller-3",
+      "destination": "/claude/taller.html?n=3"
+    },
+    {
       "source": "/pucobre",
       "destination": "/pucobre/index.html"
     },

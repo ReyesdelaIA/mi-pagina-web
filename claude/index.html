@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Portal Claude · Pack de 3 Talleres · Reyes IA</title>
+  <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a2537; --ink-mid: #2c3e57; --ink-light: #46617f;
+      --amber: #D97706; --amber-dark: #92400E; --amber-light: #F59E0B;
+      --bg: #f4f1ec; --white: #ffffff; --border: #e3ded4;
+      --text: #1a1a1a; --muted: #6b7280; --radius: 16px; --gold: #F5A623;
+    }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    nav {
+      background: var(--ink); position: sticky; top: 0; z-index: 100; padding: 0 20px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 12px rgba(26,37,55,0.3);
+    }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+    .nav-right a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: 20px; transition: background 0.2s; display:flex;align-items:center;justify-content:center; }
+    .nav-right a:hover { background: rgba(255,255,255,0.15); }
+    .nav-icon { width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.15); }
+
+    .hero { background: linear-gradient(135deg, #92400E 0%, #B45309 50%, #D97706 100%); color: white; padding: 32px 20px 28px; position: relative; overflow: hidden; }
+    .hero::after { content:''; position:absolute; bottom:-60px; left:-20px; width:160px; height:160px; border-radius:50%; background:rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-top { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+    .hero-logo { width:52px; height:52px; border-radius:14px; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 6px 18px rgba(0,0,0,.22); }
+    .hero-logo img { width:34px; height:34px; object-fit:contain; display:block; }
+    .hero-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); border-radius:20px; padding:4px 12px; font-size:11px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; }
+    .hero-company { font-size: 26px; font-weight: 800; line-height: 1.1; margin-bottom: 6px; }
+    .hero-program { font-size: 13px; opacity: 0.8; margin-bottom: 20px; }
+    .hero-stats { display: flex; gap: 20px; }
+    .stat { display: flex; flex-direction: column; }
+    .stat-value { font-size: 22px; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+    .stat-div { width:1px; background:rgba(255,255,255,0.25); align-self:stretch; }
+
+    /* Identidad del participante */
+    .who { max-width:680px; margin:12px auto 0; padding:0 20px; }
+    .who-box { display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--border); border-radius:12px; padding:9px 13px; }
+    .who-av { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,var(--amber),var(--amber-dark)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0; }
+    .who-txt { flex:1; min-width:0; }
+    .who-name { font-size:12px; font-weight:700; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .who-org { font-size:10px; color:var(--muted); }
+    .who-edit { background:none; border:none; color:var(--amber); font-size:11px; font-weight:600; cursor:pointer; font-family:inherit; flex-shrink:0; }
+
+    /* Two-panel row */
+    .panels-row { display:flex; gap:10px; max-width:680px; margin:16px auto 0; padding:0 20px; }
+    .panel-half { flex:1; min-width:0; border-radius:var(--radius); overflow:hidden; }
+    .panel-stars { background:linear-gradient(135deg,#FFFBEB 0%,#FEF3C7 100%); border:1.5px solid #FDE68A; padding:14px 14px 16px; display:flex; flex-direction:column; }
+    .sp-title { font-size:10px; font-weight:800; color:var(--amber-dark); text-transform:uppercase; letter-spacing:.6px; margin-bottom:2px; }
+    .sp-sub { font-size:9px; color:#B45309; margin-bottom:10px; }
+    .stars-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+    .s-icon { font-size:26px; transition:filter .3s; filter:grayscale(1) opacity(.2); }
+    .s-icon.on { filter:none; animation:pop .4s ease; }
+    @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.45)} 100%{transform:scale(1)} }
+    .sp-bottom { display:flex; align-items:baseline; gap:4px; margin-top:auto; }
+    .sp-count { font-size:22px; font-weight:800; color:var(--amber-dark); line-height:1; }
+    .sp-max { font-size:11px; color:#B45309; font-weight:600; }
+
+    .panel-skills { background:linear-gradient(135deg,#FFFBEB 0%,#FDF0D5 100%); border:1.5px solid #FDE68A; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:filter .15s,transform .1s; user-select:none; padding:10px 8px 12px; }
+    .panel-skills:hover { filter:brightness(.97); }
+    .panel-skills:active { transform:scale(.98); }
+    .ps-label { font-size:11px; font-weight:800; color:var(--amber-dark); text-align:center; margin-bottom:2px; line-height:1.3; }
+    .ps-count { font-size:10px; color:#B45309; font-weight:600; }
+
+    /* Skills modal */
+    .sk-overlay { display:none; position:fixed; inset:0; background:rgba(26,37,55,.65); z-index:500; align-items:center; justify-content:center; padding:20px; }
+    .sk-overlay.open { display:flex; }
+    .sk-sheet { background:white; border-radius:24px; width:100%; max-width:520px; max-height:82vh; overflow-y:auto; animation:mIn .25s ease; }
+    .sk-header { padding:18px 20px 14px; border-bottom:1px solid var(--border); position:sticky; top:0; background:white; z-index:1; }
+    .sk-htop { display:flex; align-items:center; justify-content:space-between; }
+    .sk-title { font-size:17px; font-weight:800; color:var(--ink); }
+    .sk-close { background:#f0eee9; border:none; border-radius:50%; width:30px; height:30px; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .sk-sub { font-size:12px; color:var(--muted); margin-top:4px; }
+    .sk-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:18px 20px 36px; }
+    .sk { border-radius:14px; padding:16px 6px 12px; display:flex; flex-direction:column; align-items:center; gap:7px; text-align:center; position:relative; transition:transform .2s,box-shadow .2s; }
+    .sk.on { box-shadow:0 4px 16px rgba(0,0,0,.14); }
+    .sk.on:hover { transform:translateY(-2px); }
+    .sk.off { background:#f0eee9 !important; filter:grayscale(1); opacity:.4; }
+    .sk-icon { font-size:26px; line-height:1; }
+    .sk-name { font-size:9px; font-weight:700; line-height:1.3; }
+    .sk.on  .sk-name { color:white; }
+    .sk.off .sk-name { color:#aaa; }
+    .sk-lock { position:absolute; top:6px; right:7px; font-size:9px; opacity:.6; }
+    @keyframes skPop { 0%{transform:scale(.6);opacity:0} 65%{transform:scale(1.12)} 100%{transform:scale(1);opacity:1} }
+    .sk.pop { animation:skPop .4s ease forwards; }
+
+    .prog-wrap { max-width: 680px; margin: 0 auto; padding: 16px 20px 0; }
+    .prog-head { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .prog-label { font-size: 12px; font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: .5px; }
+    .prog-pct { font-size: 12px; font-weight: 700; color: var(--amber); }
+    .prog-bg { height: 8px; background: #ddd8ce; border-radius: 99px; overflow: hidden; }
+    .prog-fill { height: 100%; background: linear-gradient(90deg, var(--amber-dark), var(--amber-light)); border-radius: 99px; transition: width 1s ease; }
+
+    .sess-wrap { max-width: 680px; margin: 0 auto; padding: 24px 20px 40px; }
+    .sec-title { font-size: 13px; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 16px; }
+    .sess-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 8px rgba(26,37,55,0.05); }
+    .card-top { display: flex; align-items: center; gap: 14px; padding: 16px; border-left: 4px solid var(--amber); }
+    .card.done .card-top { border-left-color: var(--amber-dark); }
+
+    .snum { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; flex-shrink:0; background: linear-gradient(135deg, var(--amber-dark), var(--amber-light)); color:white; box-shadow: 0 4px 12px rgba(217,119,6,0.3); }
+
+    .sinfo { flex: 1; min-width: 0; }
+    .slabel { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; color: var(--amber); }
+    .stitle { font-size: 14px; font-weight: 600; line-height:1.3; }
+    .sdur { font-size:10px; color:var(--muted); margin-top:3px; }
+
+    .saction { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .mini-stars { display: flex; gap: 2px; }
+    .ms { font-size: 13px; filter: grayscale(1) opacity(.25); transition: filter .3s; }
+    .ms.on { filter: none; }
+
+    /* Resumen ejecutivo desplegable */
+    .res-toggle { width:100%; background:#FDFBF6; border:none; border-top:1px solid var(--border); padding:11px 16px; font-family:inherit; font-size:12px; font-weight:700; color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:space-between; transition:background .15s; }
+    .res-toggle:hover { background:#FBF6EA; }
+    .res-arrow { transition:transform .25s; font-size:11px; color:var(--amber); }
+    .res-toggle.open .res-arrow { transform:rotate(180deg); }
+    .res-body { display:none; padding:4px 16px 16px; background:#FDFBF6; border-top:1px solid #F3EADA; }
+    .res-body.open { display:block; }
+    .res-h { font-size:10px; font-weight:800; color:var(--amber-dark); text-transform:uppercase; letter-spacing:.5px; margin:14px 0 8px; }
+    .res-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+    .res-list li { display:flex; gap:9px; font-size:12.5px; color:#374151; line-height:1.55; }
+    .res-bullet { color:var(--amber); font-weight:800; flex-shrink:0; }
+    .res-chips { display:flex; flex-wrap:wrap; gap:5px; }
+    .res-chip { background:#fff; border:1px solid #F0D9A8; border-radius:20px; padding:3px 10px; font-size:10.5px; font-weight:600; color:#5C3D00; }
+
+    .desafio { background: linear-gradient(135deg,#FFF8EC,#FFF3DC); border-top: 1px solid #F5CC7A; padding: 14px 16px; }
+    .des-head { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+    .des-label { font-size: 10px; font-weight: 700; color: #7A4F00; text-transform: uppercase; letter-spacing: .5px; }
+    .des-text { font-size: 12px; color: #5C3D00; line-height: 1.5; margin-bottom: 10px; }
+    .honor-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .hbtn { display: flex; align-items: center; gap: 5px; border-radius: 20px; padding: 6px 12px; font-size: 11px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; border: 1.5px solid; transition: all .2s; }
+    .hbtn.ver-b { background: white; border-color: var(--ink-light); color: var(--ink-light); }
+    .hbtn.ver-b.done { background: var(--ink-light); color: white; }
+    .hbtn.des-b { background: white; border-color: #D4900A; color: #7A4F00; }
+    .hbtn.des-b.done { background: #F5A623; color: white; border-color: #F5A623; }
+    .hbtn.quiz-b { background: white; border-color: #6B46C1; color: #6B46C1; }
+    .hbtn.quiz-b.done { background: #6B46C1; color: white; border-color: #6B46C1; }
+    .hbtn:disabled { opacity: .65; cursor: default; }
+
+    .dominada-banner { display:none; align-items:center; gap:8px; background:linear-gradient(135deg,#FFFBEB,#FEF3C7); border-top:1px solid #FCD34D; padding:10px 16px; font-size:11px; font-weight:700; color:#78350F; }
+    .dominada-banner.show { display:flex; }
+
+    /* Quiz modal */
+    .quiz-overlay { display:none; position:fixed; inset:0; background:rgba(26,37,55,.72); z-index:300; align-items:center; justify-content:center; padding:20px; }
+    .quiz-overlay.open { display:flex; }
+    .quiz-modal { background:white; border-radius:24px; max-width:420px; width:100%; animation:mIn .25s ease; overflow:hidden; max-height:90vh; display:flex; flex-direction:column; }
+    .quiz-header { background:linear-gradient(135deg,var(--amber-dark),var(--amber)); padding:20px 24px 16px; flex-shrink:0; }
+    .quiz-prog-label { font-size:11px; color:rgba(255,255,255,0.7); font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+    .quiz-prog-bar { height:4px; background:rgba(255,255,255,0.25); border-radius:99px; overflow:hidden; }
+    .quiz-prog-fill { height:100%; background:white; border-radius:99px; transition:width .4s ease; }
+    .quiz-q-num { font-size:11px; color:rgba(255,255,255,0.65); margin-top:10px; }
+    .quiz-question { font-size:15px; font-weight:700; color:white; margin-top:4px; line-height:1.4; }
+    .quiz-body { padding:20px 24px 24px; overflow-y:auto; }
+    .quiz-options { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+    .qopt { background:#f8f7f4; border:1.5px solid #e8e4dc; border-radius:12px; padding:12px 16px; font-size:13px; font-weight:500; color:#222; cursor:pointer; text-align:left; font-family:'Poppins',sans-serif; transition:all .15s; }
+    .qopt:hover:not(:disabled) { border-color:var(--amber); background:#FFF8EC; }
+    .qopt.correct { background:#ECFDF5; border-color:#10B981; color:#065F46; }
+    .qopt.wrong   { background:#FEF2F2; border-color:#EF4444; color:#991B1B; }
+    .qopt:disabled { cursor:default; }
+    .quiz-feedback { font-size:12px; line-height:1.55; border-radius:10px; padding:10px 14px; margin-bottom:14px; display:none; }
+    .quiz-feedback.error { background:#FEF2F2; color:#7F1D1D; border:1px solid #FECACA; display:block; }
+    .quiz-feedback.ok    { background:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; display:block; }
+    .quiz-next { background:linear-gradient(135deg,var(--amber-dark),var(--amber)); color:white; border:none; border-radius:20px; padding:11px; font-size:13px; font-weight:700; font-family:'Poppins',sans-serif; cursor:pointer; width:100%; display:none; }
+    .quiz-next.visible { display:block; }
+    .quiz-close-x { position:absolute; top:14px; right:16px; background:rgba(255,255,255,0.2); border:none; color:white; border-radius:50%; width:28px; height:28px; font-size:14px; cursor:pointer; display:flex;align-items:center;justify-content:center; z-index:2; }
+
+    .overlay { display:none; position:fixed; inset:0; background:rgba(26,37,55,.65); z-index:200; align-items:center; justify-content:center; padding:20px; }
+    .overlay.open { display:flex; }
+    .modal { background:white; border-radius:20px; padding:28px 24px; max-width:340px; width:100%; text-align:center; animation:mIn .25s ease; }
+    @keyframes mIn { from{transform:scale(.9);opacity:0} to{transform:scale(1);opacity:1} }
+    .m-emoji { font-size:48px; margin-bottom:12px; }
+    .m-title { font-size:18px; font-weight:800; color:var(--ink); margin-bottom:8px; }
+    .m-text  { font-size:13px; color:var(--muted); line-height:1.55; margin-bottom:20px; }
+    .m-confirm { background:linear-gradient(135deg,var(--amber-dark),var(--amber)); color:white; border:none; border-radius:20px; padding:12px; font-size:13px; font-weight:700; font-family:'Poppins',sans-serif; cursor:pointer; width:100%; margin-bottom:8px; }
+    .m-cancel  { background:none; border:1.5px solid var(--border); border-radius:20px; padding:10px; font-size:12px; font-weight:600; color:var(--muted); font-family:'Poppins',sans-serif; cursor:pointer; width:100%; }
+
+    /* Gate de identificación */
+    .gate { display:none; position:fixed; inset:0; background:rgba(26,37,55,.82); z-index:900; align-items:center; justify-content:center; padding:20px; overflow-y:auto; }
+    .gate.open { display:flex; }
+    .gate-box { background:#fff; border-radius:22px; width:100%; max-width:400px; padding:28px 26px 24px; animation:mIn .25s ease; }
+    .gate-ico { width:54px; height:54px; border-radius:15px; background:linear-gradient(135deg,var(--amber-dark),var(--amber-light)); display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:14px; }
+    .gate-title { font-size:19px; font-weight:800; color:var(--ink); margin-bottom:6px; line-height:1.25; }
+    .gate-sub { font-size:12.5px; color:var(--muted); line-height:1.55; margin-bottom:20px; }
+    .gate-field { display:flex; flex-direction:column; gap:5px; margin-bottom:13px; }
+    .gate-field label { font-size:11px; font-weight:700; color:var(--ink); }
+    .gate-field input { border:1.5px solid var(--border); border-radius:10px; padding:11px 13px; font-size:13.5px; font-family:inherit; color:var(--text); outline:none; transition:border-color .15s; }
+    .gate-field input:focus { border-color:var(--amber); }
+    .gate-field input.err { border-color:#EF4444; background:#FEF2F2; }
+    .gate-btn { background:linear-gradient(135deg,var(--amber-dark),var(--amber)); color:#fff; border:none; border-radius:12px; padding:13px; font-size:14px; font-weight:700; font-family:inherit; cursor:pointer; width:100%; margin-top:6px; transition:filter .15s,transform .1s; }
+    .gate-btn:hover { filter:brightness(1.08); }
+    .gate-btn:active { transform:scale(.99); }
+    .gate-cancel { display:none; width:100%; background:none; border:none; color:var(--muted); font-size:12px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 0 2px; }
+    .gate-cancel:hover { color:var(--ink); }
+    .gate-cancel.show { display:block; }
+    .gate-note { font-size:10.5px; color:#9ca3af; line-height:1.5; margin-top:13px; text-align:center; }
+    .gate-err { font-size:11.5px; color:#B91C1C; margin-top:8px; display:none; }
+    .gate-err.show { display:block; }
+
+    .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--ink); color:white; padding:10px 20px; border-radius:20px; font-size:13px; font-weight:600; z-index:400; transition:transform .3s,opacity .3s; opacity:0; white-space:nowrap; }
+    .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+
+    footer { text-align:center; padding:24px 20px 32px; font-size:11px; color:#9c968a; }
+    footer a { color:var(--amber); text-decoration:none; font-weight:500; }
+
+    @media(max-width:400px){
+      .hero-company{font-size:22px;} .stat-value{font-size:18px;}
+      .sk-grid { grid-template-columns:repeat(3,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <img src="/logo reyes IA horizontal blanco.png" alt="Reyes IA" style="height:36px;object-fit:contain;" />
+  <div class="nav-right">
+    <a href="https://reyesia.com" target="_blank" rel="noopener">reyesia.com</a>
+    <a href="https://instagram.com/reyesdelaia" target="_blank" rel="noopener" title="Instagram" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4.5"/>
+        <circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/>
+      </svg>
+    </a>
+    <a href="mailto:felipe@reyesia.com" title="Email" class="nav-icon">✉️</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="hero-logo"><img src="/talleres/icon-claude.png" alt="Claude" /></div>
+      <div class="hero-badge">🎓 Pack de 3 talleres</div>
+    </div>
+    <div class="hero-company">Programa Claude</div>
+    <div class="hero-program">De cero a agentes · 3 talleres presenciales · 4.5 hrs</div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-value">3</span><span class="stat-label">Talleres</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-value">12</span><span class="stat-label">Habilidades</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-value" id="hero-stars">0</span><span class="stat-label">⭐ Tus estrellas</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="who">
+  <div class="who-box">
+    <div class="who-av" id="who-av">?</div>
+    <div class="who-txt">
+      <div class="who-name" id="who-name">—</div>
+      <div class="who-org" id="who-org">—</div>
+    </div>
+    <button class="who-edit" onclick="openGate(true)">Cambiar</button>
+  </div>
+</div>
+
+<div class="panels-row">
+  <div class="panel-half panel-stars">
+    <div class="sp-title">Tu progreso</div>
+    <div class="sp-sub">Completa los 3 pasos y gana ⭐</div>
+    <div class="stars-row" id="stars-big"></div>
+    <div class="sp-bottom">
+      <span class="sp-count" id="stars-n">0</span>
+      <span class="sp-max">/ 3 ⭐</span>
+    </div>
+  </div>
+  <div class="panel-half panel-skills" onclick="openSkills()">
+    <svg width="100%" viewBox="0 0 130 108" style="max-width:130px;display:block;margin:0 auto 4px;">
+      <defs>
+        <linearGradient id="hexG" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#F59E0B"/>
+          <stop offset="100%" stop-color="#92400E"/>
+        </linearGradient>
+        <linearGradient id="hexGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#FDE68A" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#FDE68A" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#92400E" flood-opacity="0.35"/>
+        </filter>
+      </defs>
+      <circle cx="65" cy="54" r="50" fill="#FFFBEB" opacity="0.8"/>
+      <circle cx="65" cy="54" r="43" fill="none" stroke="#FCD34D" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <text x="108" y="18" font-size="8" fill="#D97706" opacity="0.9">✦</text>
+      <text x="16" y="20" font-size="6" fill="#F59E0B" opacity="0.8">✦</text>
+      <text x="114" y="80" font-size="6" fill="#D97706" opacity="0.7">✦</text>
+      <polygon points="65,18 92,34 92,66 65,82 38,66 38,34" fill="white" opacity="0.6" filter="url(#sh)"/>
+      <polygon points="65,21 89,36 89,64 65,79 41,64 41,36" fill="url(#hexG)" filter="url(#sh)"/>
+      <polygon points="65,21 89,36 89,46 65,52 41,46 41,36" fill="url(#hexGlow)" opacity="0.5"/>
+      <polygon points="65,24 87,38 87,62 65,76 43,62 43,38" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+      <text x="65" y="55" text-anchor="middle" dominant-baseline="middle" font-size="26">🧠</text>
+      <circle cx="65" cy="11" r="11" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/>
+      <text x="65" y="11" text-anchor="middle" dominant-baseline="middle" font-size="12">💬</text>
+      <circle cx="101" cy="32" r="11" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/>
+      <text x="101" y="32" text-anchor="middle" dominant-baseline="middle" font-size="12">📁</text>
+      <circle cx="101" cy="76" r="11" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/>
+      <text x="101" y="76" text-anchor="middle" dominant-baseline="middle" font-size="12">🎭</text>
+      <circle cx="65" cy="97" r="11" fill="#F0EEE9" stroke="#D6D0C4" stroke-width="1.5"/>
+      <text x="65" y="97" text-anchor="middle" dominant-baseline="middle" font-size="12">🤖</text>
+      <circle cx="72" cy="105" r="5" fill="#94A3B8"/><text x="72" y="105" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">🔒</text>
+      <circle cx="29" cy="76" r="11" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/>
+      <text x="29" y="76" text-anchor="middle" dominant-baseline="middle" font-size="12">🔌</text>
+      <circle cx="29" cy="32" r="11" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/>
+      <text x="29" y="32" text-anchor="middle" dominant-baseline="middle" font-size="12">🎤</text>
+    </svg>
+    <div class="ps-label">Centro de Habilidades</div>
+    <div class="ps-count" id="ps-count">0 / 12 desbloqueadas</div>
+  </div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-head">
+    <span class="prog-label">Avance del programa</span>
+    <span class="prog-pct" id="prog-pct">0%</span>
+  </div>
+  <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+
+<div class="sess-wrap">
+  <div class="sec-title">Los 3 talleres</div>
+  <div class="sess-list" id="sess-list"></div>
+</div>
+
+<!-- Skills modal -->
+<div class="sk-overlay" id="sk-overlay" onclick="closeSkills(event)">
+  <div class="sk-sheet">
+    <div class="sk-header">
+      <div class="sk-htop">
+        <div class="sk-title">🧠 Habilidades desbloqueadas</div>
+        <button class="sk-close" onclick="closeSkills()">✕</button>
+      </div>
+      <div class="sk-sub" id="sk-sub">0 de 12 habilidades desbloqueadas</div>
+    </div>
+    <div class="sk-grid" id="sk-grid"></div>
+  </div>
+</div>
+
+<footer>Programa facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="m-emoji" id="m-emoji">⭐</div>
+    <div class="m-title" id="m-title"></div>
+    <div class="m-text"  id="m-text"></div>
+    <button class="m-confirm" id="m-confirm">Sí, lo hice con compromiso ✓</button>
+    <button class="m-cancel" onclick="closeModal()">Todavía no</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Quiz modal -->
+<div class="quiz-overlay" id="quiz-overlay">
+  <div class="quiz-modal" style="position:relative;">
+    <button class="quiz-close-x" onclick="closeQuiz()">✕</button>
+    <div class="quiz-header">
+      <div class="quiz-prog-label">Quiz del taller</div>
+      <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qprog-fill" style="width:0%"></div></div>
+      <div class="quiz-q-num" id="q-num">Pregunta 1 de 5</div>
+      <div class="quiz-question" id="q-text"></div>
+    </div>
+    <div class="quiz-body">
+      <div class="quiz-options" id="q-options"></div>
+      <div class="quiz-feedback" id="q-feedback"></div>
+      <button class="quiz-next" id="q-next" onclick="nextQuestion()">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Gate de identificación -->
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="gate-ico">👋</div>
+    <div class="gate-title">Antes de partir, cuéntanos quién eres</div>
+    <div class="gate-sub">Así guardamos tu avance y tu empresa puede ver cómo va el equipo. No hay contraseña ni registro: son 10 segundos.</div>
+    <div class="gate-field">
+      <label for="g-nombre">Nombre y apellido</label>
+      <input type="text" id="g-nombre" autocomplete="name" placeholder="Ej: Ana Pérez" />
+    </div>
+    <div class="gate-field">
+      <label for="g-email">Email corporativo</label>
+      <input type="email" id="g-email" autocomplete="email" placeholder="ana.perez@empresa.cl" />
+    </div>
+    <div class="gate-field">
+      <label for="g-empresa">Empresa</label>
+      <input type="text" id="g-empresa" autocomplete="organization" placeholder="Ej: Minera Los Andes" />
+    </div>
+    <div class="gate-err" id="gate-err"></div>
+    <button class="gate-btn" onclick="submitGate()">Entrar al portal →</button>
+    <button class="gate-cancel" id="gate-cancel" onclick="closeGate()">Cancelar</button>
+    <div class="gate-note">Usamos estos datos solo para reportar el avance del programa a tu empresa. No enviamos publicidad ni compartimos tu correo con terceros.</div>
+  </div>
+</div>
+
+<script>
+  /* ------------------------------------------------------------------
+     Contenido de los 3 talleres del Pack Claude.
+     Fuente del temario: /talleres/claude.html
+  ------------------------------------------------------------------ */
+  const TALLERES = [
+    {
+      n: 1,
+      label: 'Taller 1 · Introductorio',
+      title: 'Introducción a la IA + Tour por Claude',
+      dur: '1.5 hrs · Presencial',
+      claves: [
+        'La IA generativa no "sabe" cosas: predice la continuación más probable de un texto. Entender eso explica por qué a veces inventa y por qué el contexto que le das lo cambia todo.',
+        'Un buen prompt tiene rol, contexto, tarea concreta y formato de salida esperado. La diferencia entre un resultado mediocre y uno excelente casi nunca es el modelo: es el prompt.',
+        'Claude tiene distintos modelos según la tarea. Los rápidos sirven para volumen y respuestas simples; los de razonamiento profundo, para análisis y problemas complejos.',
+        'Todo lo que escribes en una IA sale de tu computador. Antes de pegar algo, pregúntate si lo mandarías por correo a alguien fuera de la empresa.',
+        'La IA no reemplaza tu criterio: acelera el borrador. La revisión sigue siendo tuya, y la responsabilidad del resultado también.'
+      ],
+      temario: ['Intro a la Inteligencia Artificial','3 verdades sobre uso de IA','Intro al mundo LLM','Fundamentos del prompt','Ejemplos de uso cotidiano','Intro a Claude','Activaciones de modelos','4 esferas IA generativa','Concepto "memorización"','Herramienta dictado','Confidencialidad','Regulaciones actuales IA','Uso responsable','IA en los próximos años'],
+      desafio: 'Entra a Claude y toma una tarea real que hiciste esta semana (un correo difícil, un resumen, una minuta). Pídesela a Claude dos veces: primero con un prompt de una línea, y después con un prompt completo que incluya rol, contexto, tarea y formato. Compara los dos resultados y quédate con la diferencia. 🎯',
+      quiz: [
+        {
+          q: '¿Qué hace realmente un modelo de lenguaje como Claude cuando le escribes?',
+          opts: ['Busca la respuesta en Google y la copia','Predice, palabra por palabra, la continuación más probable del texto','Consulta una base de datos oficial de respuestas verificadas','Ejecuta un programa fijo escrito por sus creadores'],
+          correct: 1,
+          explain: 'Un LLM genera texto prediciendo la continuación más probable. Por eso el contexto que le das influye tanto en el resultado, y por eso también puede equivocarse con seguridad.'
+        },
+        {
+          q: '¿Cuál de estos prompts va a dar mejor resultado?',
+          opts: ['"Escríbeme un correo"','"Correo urgente"','"Hazlo bien y que sea profesional"','"Eres jefe de operaciones. Escribe un correo al proveedor X avisando que el despacho se atrasó 3 días, en tono firme pero cordial, máximo 120 palabras"'],
+          correct: 3,
+          explain: 'Rol, contexto, tarea concreta y formato. Mientras más específico el prompt, menos tiene que adivinar el modelo y mejor sale el resultado a la primera.'
+        },
+        {
+          q: 'Cuando decimos que la IA "alucina", nos referimos a que…',
+          opts: ['Se apaga cuando la pregunta es muy difícil','Entrega información falsa redactada con total seguridad','Solo funciona con conexión a internet','Repite siempre la misma respuesta'],
+          correct: 1,
+          explain: 'La alucinación es información inventada pero presentada con confianza. Por eso todo dato crítico (cifras, nombres, fechas, normas) se verifica antes de usarlo.'
+        },
+        {
+          q: '¿Qué NO deberías pegar en una IA sin revisar antes la política de tu empresa?',
+          opts: ['Un texto público de tu sitio web','Datos personales de clientes, información financiera no publicada o contratos confidenciales','Una noticia del diario','Una pregunta general sobre tu industria'],
+          correct: 1,
+          explain: 'La regla práctica: si no se lo mandarías por correo a alguien fuera de la empresa, no lo pegues en una IA sin confirmar primero qué permite tu organización.'
+        },
+        {
+          q: '¿Por qué conviene elegir el modelo según la tarea y no usar siempre el mismo?',
+          opts: ['Porque los modelos rápidos rinden mejor en tareas simples y de volumen, y los de razonamiento profundo en análisis complejos','Porque solo hay un modelo disponible por día','Porque cambiar de modelo borra la conversación','Porque los modelos más lentos siempre dan peores respuestas'],
+          correct: 0,
+          explain: 'Usar razonamiento profundo para reformular un correo es gastar de más; usar el modelo más rápido para un análisis delicado es quedarse corto. Elegir bien es parte del oficio.'
+        }
+      ]
+    },
+    {
+      n: 2,
+      label: 'Taller 2 · Claude App',
+      title: 'Dominio de la App de Claude',
+      dur: '1.5 hrs · Presencial · Hands-On',
+      claves: [
+        'Los Proyectos son el salto más grande de productividad: cargas una vez el contexto de tu área (documentos, instrucciones, tono) y todas las conversaciones dentro parten sabiendo quién eres y cómo trabajas.',
+        'Los conectores y MCP permiten que Claude trabaje con tus datos donde ya viven —tus archivos, tu correo, tus herramientas— en vez de que tú los copies y pegues.',
+        'Elegir el modelo correcto es una decisión de costo y calidad: rápido para volumen, razonamiento profundo para análisis delicado.',
+        'Markdown (MD) es el formato en que Claude piensa y estructura. Pedirle salidas en tablas, listas y encabezados hace que el resultado se pegue limpio en cualquier parte.',
+        'Las conversaciones largas se vuelven caras y confusas. Abrir un chat nuevo por tema es mejor práctica que arrastrar un hilo eterno.'
+      ],
+      temario: ['Recap general','Tour por Claude','3 mundos en Claude','Claude chat','Sidebar y opciones','Razonamiento (Sonnet / Opus)','Tools / herramientas','MCP claves para trabajo','Formatos MD','Proyectos','Claude en el Office','Optimización de uso de tokens'],
+      desafio: 'Crea tu primer Proyecto en Claude para tu área de trabajo. Súbele 2 o 3 documentos que uses seguido (un instructivo, una plantilla, un informe tipo) y escríbele instrucciones fijas: quién eres, qué hace tu equipo y cómo quieres que te responda. Después hazle una pregunta real de tu trabajo y nota la diferencia contra un chat en blanco. 📁',
+      quiz: [
+        {
+          q: '¿Cuál es la principal ventaja de un Proyecto frente a un chat suelto?',
+          opts: ['Guarda el contexto y las instrucciones una sola vez, y todas las conversaciones del Proyecto parten desde ahí','Permite hacer videollamadas con el equipo','Hace que las respuestas sean más cortas','Es la única forma de subir archivos'],
+          correct: 0,
+          explain: 'El Proyecto es memoria de trabajo persistente: documentos base más instrucciones fijas. Dejas de reexplicar tu contexto en cada conversación.'
+        },
+        {
+          q: '¿Para qué sirven los conectores y MCP en el trabajo diario?',
+          opts: ['Para cambiar el color de la interfaz','Para conectar Claude con tus herramientas y datos (archivos, correo, sistemas) sin copiar y pegar','Para descargar la app en el celular','Para traducir la interfaz a otro idioma'],
+          correct: 1,
+          explain: 'MCP es el estándar que permite a Claude leer y actuar sobre herramientas externas. Es lo que lo lleva de "chat que aconseja" a "asistente que trabaja con tus datos reales".'
+        },
+        {
+          q: 'Tienes que analizar un contrato largo y detectar riesgos legales. ¿Qué modelo conviene?',
+          opts: ['El más rápido, porque el tiempo es lo que importa','Da exactamente lo mismo cuál elijas','Uno de razonamiento profundo, porque la tarea exige análisis cuidadoso y no volumen','Ninguno: eso no se puede hacer con IA'],
+          correct: 2,
+          explain: 'Tareas de análisis delicado justifican el modelo de razonamiento profundo. Los modelos rápidos brillan en volumen y tareas simples, no en juicio fino.'
+        },
+        {
+          q: '¿Por qué conviene pedirle a Claude que responda en formato Markdown (tablas, listas, encabezados)?',
+          opts: ['Porque es el único formato que Claude entiende','Porque acorta las respuestas a la mitad','Porque estructura la respuesta y se pega limpia en Word, Notion, correo o donde la necesites','Porque activa el modo avanzado'],
+          correct: 2,
+          explain: 'Markdown le da estructura a la salida. Una respuesta bien estructurada es más fácil de revisar, de reutilizar y de pegar donde la necesitas.'
+        },
+        {
+          q: '¿Cuál es una buena práctica para no desperdiciar tokens ni ensuciar el contexto?',
+          opts: ['Usar un solo chat gigante para todo el año','Abrir una conversación nueva por tema, en vez de arrastrar un hilo eterno','Escribir siempre en mayúsculas','Repetir la pregunta tres veces'],
+          correct: 1,
+          explain: 'Un hilo muy largo arrastra todo el historial en cada respuesta: sale más caro y confunde al modelo con contexto viejo. Un chat por tema es más limpio y más barato.'
+        }
+      ]
+    },
+    {
+      n: 3,
+      label: 'Taller 3 · Claude Avanzado',
+      title: 'Cowork, Artefactos & Plugins',
+      dur: '1.5 hrs · Presencial · Hands-On',
+      claves: [
+        'Las Skills son procedimientos que le enseñas una vez a Claude y que después ejecuta igual siempre. Es la forma de estandarizar cómo tu equipo hace una tarea recurrente.',
+        'Los Artefactos convierten una respuesta en algo usable: un dashboard, una calculadora, un documento interactivo que puedes compartir por link.',
+        'Claude Cowork es el salto de "chat que responde" a "agente que actúa": trabaja sobre tus archivos y ejecuta tareas reales, con tu supervisión.',
+        'Un agente bien definido tiene un objetivo acotado, acceso limitado y un resultado verificable. Los agentes que fallan casi siempre fallan por tener el alcance demasiado abierto.',
+        'Empieza siempre con tareas de bajo riesgo y sobre copias de tus archivos. La confianza en un agente se gana con evidencia, no con fe.'
+      ],
+      temario: ['Skills','Plugins','Artefactos','Claude Cowork','Cowork · acciones reactivas','Cowork · acciones programadas','Cowork · acciones en vivo','Claude Code en terminal / IDE','Live Artifacts','Claude Code en App','Intro a Agentes','Agentes optimizados'],
+      desafio: 'Elige una tarea que tu equipo repite todas las semanas siempre igual (un reporte, una revisión, un consolidado). Descríbele a Claude el procedimiento paso a paso y pídele que lo deje como una Skill reutilizable. Después ejecútala con datos reales de esta semana y ajusta lo que salga torcido. Bonus: pídele que el resultado sea un Artefacto compartible. ⚡',
+      quiz: [
+        {
+          q: '¿Qué es una Skill en Claude?',
+          opts: ['Un procedimiento que le enseñas una vez y que después ejecuta igual cada vez que lo necesitas','Un curso en video dentro de la aplicación','Una insignia que ganas por usar la app','Un plan de suscripción más caro'],
+          correct: 0,
+          explain: 'Una Skill empaqueta un procedimiento repetible. Sirve justamente para estandarizar: la tarea sale igual de bien la haga quien la haga.'
+        },
+        {
+          q: '¿Qué distingue a un Artefacto de una respuesta normal de chat?',
+          opts: ['Que siempre es más largo','Que es un entregable funcional —dashboard, documento, herramienta— que puedes usar y compartir, no solo texto para leer','Que se borra a las 24 horas','Que solo funciona en el celular'],
+          correct: 1,
+          explain: 'El Artefacto convierte la respuesta en algo usable y compartible por link, en vez de dejarte texto que tienes que trasladar a mano a otra herramienta.'
+        },
+        {
+          q: '¿Cuál es el salto clave que introduce Claude Cowork?',
+          opts: ['Es un chat idéntico al anterior pero más rápido','Sirve solo para generar imágenes','Pasa de conversar a actuar: trabaja sobre tus archivos y ejecuta tareas reales, con tu supervisión','Es una app de mensajería interna'],
+          correct: 2,
+          explain: 'Cowork deja de solo aconsejar y empieza a hacer: lee archivos, crea documentos y ejecuta tareas por ti, siempre bajo tu supervisión.'
+        },
+        {
+          q: '¿Cuál es un buen primer caso de uso para un agente?',
+          opts: ['Borrar sin respaldo los archivos del servidor','Consolidar una carpeta de planillas en un reporte, probando primero sobre una copia','Enviar correos masivos a clientes sin revisar','Publicar solo en redes sociales sin supervisión'],
+          correct: 1,
+          explain: 'Alcance acotado, bajo riesgo y sobre una copia. La confianza en un agente se construye con resultados verificables antes de darle tareas críticas.'
+        },
+        {
+          q: '¿Qué caracteriza a un agente bien diseñado?',
+          opts: ['Tener el objetivo más amplio posible para que sirva para todo','Objetivo acotado, acceso limitado y un resultado que puedas verificar','No necesitar nunca supervisión humana','Usar la mayor cantidad de herramientas disponibles'],
+          correct: 1,
+          explain: 'Los agentes fallan por alcance demasiado abierto. Objetivo estrecho, permisos mínimos y salida verificable es lo que los hace confiables.'
+        }
+      ]
+    }
+  ];
+
+  const SKILLS = [
+    { icon:'🎤', name:'Dictar a la IA',        taller:1, color:'#B45309' },
+    { icon:'✍️', name:'Fundamentos del Prompt', taller:1, color:'#92400E' },
+    { icon:'🧠', name:'Memorización IA',       taller:1, color:'#78350F' },
+    { icon:'🛡️', name:'Uso Responsable',       taller:1, color:'#A16207' },
+    { icon:'💬', name:'Claude Chat',           taller:2, color:'#D97706' },
+    { icon:'📁', name:'Proyectos Claude',      taller:2, color:'#C2410C' },
+    { icon:'🔌', name:'MCP y Conectores',      taller:2, color:'#EA580C' },
+    { icon:'📊', name:'Claude en el Office',   taller:2, color:'#9A3412' },
+    { icon:'⚡', name:'Skills y Plugins',      taller:3, color:'#7C3AED' },
+    { icon:'🎭', name:'Artefactos',            taller:3, color:'#6D28D9' },
+    { icon:'🤝', name:'Claude Cowork',         taller:3, color:'#5B21B6' },
+    { icon:'🤖', name:'Agentes Claude',        taller:3, color:'#4C1D95' }
+  ];
+
+  const SUPABASE_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
+  const STARS_KEY = 'claude_pack_stars_v1';
+  const USER_KEY  = 'claude_pack_user_v1';
+
+  let st = {};
+  let user = null;
+  let pending = null;
+
+  let quizTaller = null, quizQuestions = [], quizIdx = 0, quizAnswered = false, quizAciertos = 0;
+
+  const T = n => TALLERES.find(t => t.n === n);
+
+  /* ---------------- Identidad ---------------- */
+
+  function uuid(){
+    if (crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = crypto.getRandomValues(new Uint8Array(1))[0] % 16;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
+  function slugify(s){
+    return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sin-empresa';
+  }
+
+  function loadUser(){
+    try { user = JSON.parse(localStorage.getItem(USER_KEY)); } catch { user = null; }
+    if (user && (!user.id || !user.nombre || !user.empresa_slug)) user = null;
+  }
+
+  function renderUser(){
+    if (!user) return;
+    const ini = user.nombre.trim().split(/\s+/).map(p => p[0]).slice(0, 2).join('').toUpperCase();
+    document.getElementById('who-av').textContent = ini || '?';
+    document.getElementById('who-name').textContent = user.nombre;
+    document.getElementById('who-org').textContent = user.empresa;
+  }
+
+  function openGate(edit){
+    if (edit && user){
+      document.getElementById('g-nombre').value = user.nombre;
+      document.getElementById('g-email').value = user.email;
+      document.getElementById('g-empresa').value = user.empresa;
+    }
+    // Solo se puede cancelar si ya hay una identidad guardada.
+    document.getElementById('gate-cancel').classList.toggle('show', !!user);
+    document.getElementById('gate-err').classList.remove('show');
+    document.getElementById('gate').classList.add('open');
+    setTimeout(() => document.getElementById('g-nombre').focus(), 150);
+  }
+
+  function closeGate(){
+    if (!user) return;
+    document.getElementById('gate').classList.remove('open');
+  }
+
+  function gateError(msg, id){
+    const el = document.getElementById('gate-err');
+    el.textContent = msg;
+    el.classList.add('show');
+    ['g-nombre','g-email','g-empresa'].forEach(i => document.getElementById(i).classList.remove('err'));
+    if (id) document.getElementById(id).classList.add('err');
+  }
+
+  function submitGate(){
+    const nombre  = document.getElementById('g-nombre').value.trim();
+    const email   = document.getElementById('g-email').value.trim().toLowerCase();
+    const empresa = document.getElementById('g-empresa').value.trim();
+
+    if (nombre.length < 3)  return gateError('Escribe tu nombre y apellido.', 'g-nombre');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return gateError('Revisa tu email, algo no cuadra.', 'g-email');
+    if (empresa.length < 2) return gateError('Falta el nombre de tu empresa.', 'g-empresa');
+
+    document.getElementById('gate-err').classList.remove('show');
+
+    user = {
+      id: (user && user.id) || uuid(),
+      nombre, email, empresa,
+      empresa_slug: slugify(empresa)
+    };
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    renderUser();
+    document.getElementById('gate').classList.remove('open');
+    syncUser().then(resyncAll);
+  }
+
+  /* ---------------- Sync a Supabase (best-effort, nunca bloquea) ---------------- */
+
+  function sbHeaders(extra){
+    return Object.assign({
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    }, extra || {});
+  }
+
+  // La anon key no puede leer ni escribir las tablas directamente: solo
+  // ejecutar estas dos funciones. Así los emails nunca quedan expuestos
+  // a cualquiera que abra el código del portal.
+  function rpc(fn, args){
+    return fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {
+      method: 'POST', headers: sbHeaders(), body: JSON.stringify(args)
+    });
+  }
+
+  async function syncUser(){
+    if (!user) return;
+    try {
+      await rpc('claude_registrar_participante', {
+        p_id: user.id, p_nombre: user.nombre, p_email: user.email,
+        p_empresa: user.empresa, p_empresa_slug: user.empresa_slug
+      });
+    } catch (e) { /* sin red: el progreso local sigue funcionando */ }
+  }
+
+  async function syncProgreso(taller, tipo, score, total){
+    if (!user) return;
+    try {
+      await rpc('claude_registrar_progreso', {
+        p_participante_id: user.id, p_empresa_slug: user.empresa_slug,
+        p_taller: taller, p_tipo: tipo,
+        p_quiz_score: (score === undefined ? null : score),
+        p_quiz_total: (total === undefined ? null : total)
+      });
+    } catch (e) { /* idem */ }
+  }
+
+  // Reenvía todo lo que está completo localmente. Cubre el caso de que
+  // una escritura haya fallado (sin red, pestaña cerrada a medias) y evita
+  // que el panel muestre menos avance del que la persona realmente hizo.
+  async function resyncAll(){
+    if (!user) return;
+    for (const t of TALLERES){
+      if (st[`${t.n}-quiz`]) await syncProgreso(t.n, 'quiz', st[`${t.n}-quizScore`], st[`${t.n}-quizTotal`]);
+      if (st[`${t.n}-des`])  await syncProgreso(t.n, 'desafio');
+      if (st[`${t.n}-ver`])  await syncProgreso(t.n, 'resumen');
+    }
+  }
+
+  /* ---------------- Progreso local ---------------- */
+
+  function loadStars(){ try { st = JSON.parse(localStorage.getItem(STARS_KEY)) || {}; } catch { st = {}; } }
+  function saveStars(){ localStorage.setItem(STARS_KEY, JSON.stringify(st)); }
+
+  const isComplete = n => !!(st[`${n}-quiz`] && st[`${n}-des`] && st[`${n}-ver`]);
+  const countStars = () => TALLERES.filter(t => isComplete(t.n)).length;
+
+  function renderSkills(animateTaller){
+    const grid = document.getElementById('sk-grid');
+    let count = 0;
+    grid.innerHTML = SKILLS.map(sk => {
+      const on = isComplete(sk.taller);
+      if (on) count++;
+      const pop = (animateTaller === sk.taller && on) ? ' pop' : '';
+      return `<div class="sk ${on ? 'on' : 'off'}${pop}" style="${on ? `background:${sk.color};` : ''}">
+        ${!on ? '<span class="sk-lock">🔒</span>' : ''}
+        <span class="sk-icon">${sk.icon}</span>
+        <span class="sk-name">${sk.name}</span>
+      </div>`;
+    }).join('');
+    document.getElementById('sk-sub').textContent   = `${count} de ${SKILLS.length} habilidades desbloqueadas`;
+    document.getElementById('ps-count').textContent = `${count} / ${SKILLS.length} desbloqueadas`;
+  }
+
+  function openSkills(){ renderSkills(); document.getElementById('sk-overlay').classList.add('open'); }
+  function closeSkills(e){
+    if (e && e.target !== document.getElementById('sk-overlay')) return;
+    document.getElementById('sk-overlay').classList.remove('open');
+  }
+
+  function renderStarPanel(){
+    const n = countStars();
+    const row = document.getElementById('stars-big');
+    row.innerHTML = '';
+    for (let i = 1; i <= TALLERES.length; i++){
+      const s = document.createElement('span');
+      s.className = 's-icon' + (i <= n ? ' on' : '');
+      s.textContent = '⭐';
+      row.appendChild(s);
+    }
+    document.getElementById('stars-n').textContent   = n;
+    document.getElementById('hero-stars').textContent = n;
+
+    let steps = 0;
+    TALLERES.forEach(t => {
+      if (st[`${t.n}-quiz`]) steps++;
+      if (st[`${t.n}-des`])  steps++;
+      if (st[`${t.n}-ver`])  steps++;
+    });
+    const pct = Math.round((steps / (TALLERES.length * 3)) * 100);
+    document.getElementById('prog-pct').textContent = pct + '%';
+    document.getElementById('prog-fill').style.width = pct + '%';
+  }
+
+  /* ---------------- Tarjetas ---------------- */
+
+  function buildCard(t){
+    return `
+    <div class="card" id="card-${t.n}">
+      <div class="card-top">
+        <div class="snum">${t.n}</div>
+        <div class="sinfo">
+          <div class="slabel">${t.label}</div>
+          <div class="stitle">${t.title}</div>
+          <div class="sdur">${t.dur}</div>
+        </div>
+        <div class="saction">
+          <div class="mini-stars" id="mini-${t.n}">
+            <span class="ms" id="ms-${t.n}-quiz">⭐</span>
+            <span class="ms" id="ms-${t.n}-des">⭐</span>
+            <span class="ms" id="ms-${t.n}-ver">⭐</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="res-toggle" id="rt-${t.n}" onclick="toggleResumen(${t.n})">
+        <span>📖 Resumen ejecutivo del taller</span>
+        <span class="res-arrow">▼</span>
+      </button>
+      <div class="res-body" id="rb-${t.n}">
+        <div class="res-h">Lo que te tienes que llevar</div>
+        <ul class="res-list">
+          ${t.claves.map(c => `<li><span class="res-bullet">▸</span><span>${c}</span></li>`).join('')}
+        </ul>
+        <div class="res-h">Temario completo</div>
+        <div class="res-chips">${t.temario.map(x => `<span class="res-chip">${x}</span>`).join('')}</div>
+      </div>
+
+      <div class="desafio">
+        <div class="des-head"><span>🎯</span><span class="des-label">Desafío entre talleres</span></div>
+        <div class="des-text">${t.desafio}</div>
+        <div class="honor-row">
+          <button class="hbtn quiz-b" id="bq-${t.n}" onclick="startQuiz(${t.n})">Quiz ▶</button>
+          <button class="hbtn des-b"  id="bd-${t.n}" onclick="honor(${t.n},'des')">Desafío</button>
+          <button class="hbtn ver-b"  id="bv-${t.n}" onclick="honor(${t.n},'ver')">Resumen visto</button>
+        </div>
+      </div>
+      <div class="dominada-banner" id="dom-${t.n}">⭐ ¡Taller dominado · Habilidades desbloqueadas!</div>
+    </div>`;
+  }
+
+  function toggleResumen(n){
+    document.getElementById(`rt-${n}`).classList.toggle('open');
+    document.getElementById(`rb-${n}`).classList.toggle('open');
+  }
+
+  function updateButtonStates(n){
+    const map = { quiz: 'bq', des: 'bd', ver: 'bv' };
+    Object.keys(map).forEach(tipo => {
+      const done = !!st[`${n}-${tipo}`];
+      const btn  = document.getElementById(`${map[tipo]}-${n}`);
+      const ms   = document.getElementById(`ms-${n}-${tipo}`);
+      if (ms) ms.classList.toggle('on', done);
+      if (!btn) return;
+      btn.classList.toggle('done', done);
+      btn.disabled = done;
+      if (done){
+        if (tipo === 'quiz') btn.textContent = 'Quiz ✓';
+        if (tipo === 'des')  btn.textContent = 'Desafío ✓';
+        if (tipo === 'ver')  btn.textContent = 'Resumen ✓';
+      }
+    });
+    const dom = document.getElementById(`dom-${n}`);
+    if (dom) dom.classList.toggle('show', isComplete(n));
+    document.getElementById(`card-${n}`).classList.toggle('done', isComplete(n));
+  }
+
+  /* ---------------- Honor (desafío / resumen) ---------------- */
+
+  function honor(n, tipo){
+    if (st[`${n}-${tipo}`]) return;
+    pending = { n, tipo };
+    if (tipo === 'des'){
+      document.getElementById('m-emoji').textContent = '🎯';
+      document.getElementById('m-title').textContent = '¿Completaste el desafío?';
+      document.getElementById('m-text').textContent  = 'Declara que hiciste el desafío a conciencia y aplicaste lo aprendido. Tu palabra es lo que cuenta.';
+    } else {
+      document.getElementById('m-emoji').textContent = '📖';
+      document.getElementById('m-title').textContent = '¿Leíste el resumen ejecutivo?';
+      document.getElementById('m-text').textContent  = 'Confirma que revisaste los puntos clave del taller. Repasar es lo que consolida el aprendizaje.';
+    }
+    document.getElementById('m-confirm').onclick = confirmHonor;
+    document.getElementById('overlay').classList.add('open');
+  }
+
+  function confirmHonor(){
+    if (!pending) return;
+    const { n, tipo } = pending;
+    st[`${n}-${tipo}`] = true;
+    saveStars();
+    syncProgreso(n, tipo === 'des' ? 'desafio' : 'resumen');
+    closeModal();
+    afterProgress(n, tipo === 'des' ? '🎯 ¡Desafío completado!' : '📖 ¡Resumen registrado!');
+  }
+
+  function closeModal(){
+    document.getElementById('overlay').classList.remove('open');
+    pending = null;
+  }
+
+  function afterProgress(n, msg){
+    const eraCompleto = isComplete(n);
+    updateButtonStates(n);
+    renderStarPanel();
+    renderSkills(eraCompleto ? n : null);
+    toast(eraCompleto ? '⭐ ¡Taller dominado! Habilidades desbloqueadas' : msg);
+  }
+
+  function toast(msg){
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('show'), 2800);
+  }
+
+  /* ---------------- Quiz ---------------- */
+
+  function startQuiz(n){
+    if (st[`${n}-quiz`]) return;
+    quizTaller = n;
+    quizQuestions = T(n).quiz;
+    quizIdx = 0;
+    quizAciertos = 0;
+    document.getElementById('quiz-overlay').classList.add('open');
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    quizAnswered = false;
+    const q = quizQuestions[quizIdx];
+    document.getElementById('qprog-fill').style.width = ((quizIdx / quizQuestions.length) * 100) + '%';
+    document.getElementById('q-num').textContent  = `Pregunta ${quizIdx + 1} de ${quizQuestions.length}`;
+    document.getElementById('q-text').textContent = q.q;
+    document.getElementById('q-feedback').className = 'quiz-feedback';
+    document.getElementById('q-next').classList.remove('visible');
+    document.getElementById('q-next').textContent = (quizIdx === quizQuestions.length - 1) ? 'Terminar quiz ✓' : 'Siguiente →';
+
+    const box = document.getElementById('q-options');
+    box.innerHTML = '';
+    q.opts.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.className = 'qopt';
+      b.textContent = opt;
+      b.onclick = () => answer(i);
+      box.appendChild(b);
+    });
+  }
+
+  function answer(i){
+    if (quizAnswered) return;
+    quizAnswered = true;
+    const q = quizQuestions[quizIdx];
+    const btns = document.querySelectorAll('#q-options .qopt');
+    btns.forEach((b, idx) => {
+      b.disabled = true;
+      if (idx === q.correct) b.classList.add('correct');
+      else if (idx === i) b.classList.add('wrong');
+    });
+    const fb = document.getElementById('q-feedback');
+    const ok = i === q.correct;
+    if (ok) quizAciertos++;
+    fb.className = 'quiz-feedback ' + (ok ? 'ok' : 'error');
+    fb.textContent = (ok ? '✅ Correcto. ' : '❌ No era esa. ') + q.explain;
+    document.getElementById('q-next').classList.add('visible');
+  }
+
+  function nextQuestion(){
+    if (quizIdx < quizQuestions.length - 1){
+      quizIdx++;
+      renderQuestion();
+      return;
+    }
+    document.getElementById('qprog-fill').style.width = '100%';
+    const n = quizTaller;
+    st[`${n}-quiz`] = true;
+    st[`${n}-quizScore`] = quizAciertos;
+    st[`${n}-quizTotal`] = quizQuestions.length;
+    saveStars();
+    syncProgreso(n, 'quiz', quizAciertos, quizQuestions.length);
+    closeQuiz();
+    afterProgress(n, `🧠 Quiz completado · ${quizAciertos}/${quizQuestions.length} correctas`);
+  }
+
+  function closeQuiz(){
+    document.getElementById('quiz-overlay').classList.remove('open');
+    quizTaller = null;
+  }
+
+  /* ---------------- Init ---------------- */
+
+  function init(){
+    loadStars();
+    loadUser();
+    document.getElementById('sess-list').innerHTML = TALLERES.map(buildCard).join('');
+    TALLERES.forEach(t => updateButtonStates(t.n));
+    renderStarPanel();
+    renderSkills();
+
+    if (!user) { openGate(false); }
+    else { renderUser(); syncUser().then(resyncAll); }
+  }
+
+  document.getElementById('gate').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitGate();
+  });
+
+  init();
+</script>
+</body>
+</html>

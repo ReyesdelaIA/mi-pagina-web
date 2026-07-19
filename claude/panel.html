@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Panel · Portal Claude · Reyes IA</title>
+  <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink:#1a2537; --amber:#D97706; --amber-dark:#92400E;
+      --bg:#f4f1ec; --border:#e3ded4; --muted:#6b7280;
+    }
+    body { font-family:'Poppins',sans-serif; background:var(--bg); color:#1a1a1a; }
+
+    nav { background:var(--ink); height:58px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; }
+    nav img { height:34px; object-fit:contain; }
+    nav .tag { color:rgba(255,255,255,.7); font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+
+    .wrap { max-width:1100px; margin:0 auto; padding:26px 20px 60px; }
+
+    /* Login */
+    .login { max-width:360px; margin:70px auto; background:#fff; border:1px solid var(--border); border-radius:20px; padding:30px 26px; }
+    .login h1 { font-size:19px; font-weight:800; color:var(--ink); margin-bottom:6px; }
+    .login p { font-size:12.5px; color:var(--muted); margin-bottom:20px; line-height:1.5; }
+    .login input { width:100%; border:1.5px solid var(--border); border-radius:10px; padding:12px 14px; font-size:14px; font-family:inherit; outline:none; margin-bottom:12px; }
+    .login input:focus { border-color:var(--amber); }
+    .login button { width:100%; background:linear-gradient(135deg,var(--amber-dark),var(--amber)); color:#fff; border:none; border-radius:11px; padding:13px; font-size:14px; font-weight:700; font-family:inherit; cursor:pointer; }
+    .login .err { font-size:12px; color:#B91C1C; margin-top:10px; display:none; line-height:1.5; }
+    .login .err.show { display:block; }
+
+    .head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
+    .head h1 { font-size:22px; font-weight:800; color:var(--ink); }
+    .head p { font-size:12.5px; color:var(--muted); margin-top:3px; }
+    .filters { display:flex; gap:8px; flex-wrap:wrap; }
+    .fbtn { background:#fff; border:1.5px solid var(--border); border-radius:20px; padding:7px 14px; font-size:12px; font-weight:600; font-family:inherit; color:#374151; cursor:pointer; transition:all .15s; }
+    .fbtn:hover { border-color:var(--amber); }
+    .fbtn.on { background:var(--amber); border-color:var(--amber); color:#fff; }
+
+    .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:24px; }
+    .kpi { background:#fff; border:1px solid var(--border); border-radius:14px; padding:16px 18px; }
+    .kpi-v { font-size:28px; font-weight:800; color:var(--amber-dark); line-height:1; }
+    .kpi-l { font-size:11px; color:var(--muted); font-weight:600; margin-top:6px; text-transform:uppercase; letter-spacing:.4px; }
+
+    .sec { font-size:12px; font-weight:800; color:var(--ink); text-transform:uppercase; letter-spacing:.6px; margin:26px 0 12px; }
+
+    .tallers { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+    .tcard { background:#fff; border:1px solid var(--border); border-radius:14px; padding:16px; }
+    .tcard-t { font-size:13px; font-weight:700; color:var(--ink); margin-bottom:12px; }
+    .bar-row { margin-bottom:10px; }
+    .bar-lbl { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); font-weight:600; margin-bottom:4px; }
+    .bar-bg { height:7px; background:#eae5da; border-radius:99px; overflow:hidden; }
+    .bar-fl { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--amber-dark),#F59E0B); transition:width .6s ease; }
+    .tcard-q { font-size:11.5px; color:var(--muted); margin-top:12px; padding-top:10px; border-top:1px solid #f0ebe0; }
+    .tcard-q b { color:var(--ink); font-size:13px; }
+
+    .tbl-wrap { background:#fff; border:1px solid var(--border); border-radius:14px; overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12.5px; min-width:620px; }
+    th { text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.4px; color:var(--muted); font-weight:700; padding:12px 14px; border-bottom:1px solid var(--border); white-space:nowrap; }
+    td { padding:11px 14px; border-bottom:1px solid #f2eee5; vertical-align:middle; }
+    tr:last-child td { border-bottom:none; }
+    .p-name { font-weight:600; color:var(--ink); }
+    .p-mail { font-size:11px; color:var(--muted); }
+    .dots { display:flex; gap:3px; }
+    .dot { width:9px; height:9px; border-radius:50%; background:#e2ddd2; }
+    .dot.on { background:var(--amber); }
+    .tgrp { display:flex; gap:9px; }
+    .tg { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .tg-n { font-size:9px; color:#b0a99c; font-weight:700; }
+    .stars-c { font-size:12px; white-space:nowrap; }
+    .empty { text-align:center; padding:44px 20px; color:var(--muted); font-size:13px; }
+    .loading { text-align:center; padding:60px 20px; color:var(--muted); font-size:13px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <img src="/logo reyes IA horizontal blanco.png" alt="Reyes IA" />
+  <span class="tag">Panel interno</span>
+</nav>
+
+<!-- Login -->
+<div class="login" id="login">
+  <h1>🔒 Panel Portal Claude</h1>
+  <p>Avance de los participantes del pack de 3 talleres, por empresa.</p>
+  <input type="password" id="pw" placeholder="Contraseña" autocomplete="current-password" />
+  <button onclick="entrar()">Entrar</button>
+  <div class="err" id="login-err"></div>
+</div>
+
+<!-- Panel -->
+<div class="wrap" id="panel" style="display:none;">
+  <div class="head">
+    <div>
+      <h1>Portal Claude · Avance</h1>
+      <p id="sub">—</p>
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="sec">Avance por taller</div>
+  <div class="tallers" id="tallers"></div>
+
+  <div class="sec">Participantes</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Participante</th>
+          <th>Empresa</th>
+          <th>Taller 1</th>
+          <th>Taller 2</th>
+          <th>Taller 3</th>
+          <th>⭐</th>
+          <th>Quiz</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const TALLER_NOMBRE = {
+    1: 'T1 · Introductorio',
+    2: 'T2 · Claude App',
+    3: 'T3 · Claude Avanzado'
+  };
+  const TIPOS = ['quiz','desafio','resumen'];
+  const TIPO_LABEL = { quiz:'Quiz', desafio:'Desafío', resumen:'Resumen' };
+
+  let PART = [], PROG = [], filtro = '__all__';
+
+  async function entrar(){
+    const pw = document.getElementById('pw').value;
+    const err = document.getElementById('login-err');
+    err.classList.remove('show');
+    if (!pw) { err.textContent = 'Escribe la contraseña.'; err.classList.add('show'); return; }
+
+    try {
+      const r = await fetch('/api/claude-panel', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ password: pw })
+      });
+      const data = await r.json();
+      if (!r.ok) {
+        err.textContent = data.error || 'No se pudo entrar.';
+        err.classList.add('show');
+        return;
+      }
+      PART = data.participantes || [];
+      PROG = data.progreso || [];
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('panel').style.display = 'block';
+      render();
+    } catch (e) {
+      err.textContent = 'Error de conexión. Intenta de nuevo.';
+      err.classList.add('show');
+    }
+  }
+
+  document.getElementById('pw').addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
+
+  // progreso indexado: participante -> taller -> tipo
+  function indexar(){
+    const idx = {};
+    PROG.forEach(p => {
+      idx[p.participante_id] = idx[p.participante_id] || {};
+      idx[p.participante_id][p.taller] = idx[p.participante_id][p.taller] || {};
+      idx[p.participante_id][p.taller][p.tipo] = p;
+    });
+    return idx;
+  }
+
+  function empresas(){
+    const m = new Map();
+    PART.forEach(p => {
+      const cur = m.get(p.empresa_slug);
+      m.set(p.empresa_slug, { slug: p.empresa_slug, nombre: p.empresa, n: (cur ? cur.n : 0) + 1 });
+    });
+    return [...m.values()].sort((a,b) => b.n - a.n);
+  }
+
+  function visibles(){
+    return filtro === '__all__' ? PART : PART.filter(p => p.empresa_slug === filtro);
+  }
+
+  function render(){
+    const idx = indexar();
+    const emps = empresas();
+
+    // Filtros
+    document.getElementById('filters').innerHTML =
+      [`<button class="fbtn ${filtro==='__all__'?'on':''}" onclick="setFiltro('__all__')">Todas (${PART.length})</button>`]
+      .concat(emps.map(e => `<button class="fbtn ${filtro===e.slug?'on':''}" onclick="setFiltro('${e.slug}')">${esc(e.nombre)} (${e.n})</button>`))
+      .join('');
+
+    const vis = visibles();
+    document.getElementById('sub').textContent =
+      `${vis.length} participante${vis.length===1?'':'s'} · ${emps.length} empresa${emps.length===1?'':'s'} registrada${emps.length===1?'':'s'}`;
+
+    // KPIs
+    const completos = vis.filter(p => [1,2,3].every(t => TIPOS.every(ti => idx[p.id]?.[t]?.[ti]))).length;
+    const quizzes = PROG.filter(g => g.tipo==='quiz' && vis.some(p => p.id===g.participante_id));
+    const conNota = quizzes.filter(q => q.quiz_total > 0);
+    const promedio = conNota.length
+      ? Math.round(conNota.reduce((a,q) => a + (q.quiz_score / q.quiz_total), 0) / conNota.length * 100)
+      : null;
+    const pasosTotales = vis.length * 9;
+    const pasosHechos = PROG.filter(g => vis.some(p => p.id===g.participante_id)).length;
+    const avance = pasosTotales ? Math.round(pasosHechos / pasosTotales * 100) : 0;
+
+    document.getElementById('kpis').innerHTML = `
+      <div class="kpi"><div class="kpi-v">${vis.length}</div><div class="kpi-l">Participantes</div></div>
+      <div class="kpi"><div class="kpi-v">${avance}%</div><div class="kpi-l">Avance global</div></div>
+      <div class="kpi"><div class="kpi-v">${completos}</div><div class="kpi-l">Programa completo</div></div>
+      <div class="kpi"><div class="kpi-v">${quizzes.length}</div><div class="kpi-l">Quizzes rendidos</div></div>
+      <div class="kpi"><div class="kpi-v">${promedio===null?'—':promedio+'%'}</div><div class="kpi-l">Promedio quiz</div></div>`;
+
+    // Por taller
+    document.getElementById('tallers').innerHTML = [1,2,3].map(t => {
+      const rows = TIPOS.map(ti => {
+        const n = vis.filter(p => idx[p.id]?.[t]?.[ti]).length;
+        const pct = vis.length ? Math.round(n / vis.length * 100) : 0;
+        return `<div class="bar-row">
+          <div class="bar-lbl"><span>${TIPO_LABEL[ti]}</span><span>${n}/${vis.length} · ${pct}%</span></div>
+          <div class="bar-bg"><div class="bar-fl" style="width:${pct}%"></div></div>
+        </div>`;
+      }).join('');
+      const qs = PROG.filter(g => g.taller===t && g.tipo==='quiz' && g.quiz_total > 0 && vis.some(p => p.id===g.participante_id));
+      const prom = qs.length ? Math.round(qs.reduce((a,q)=>a+(q.quiz_score/q.quiz_total),0)/qs.length*100) : null;
+      return `<div class="tcard">
+        <div class="tcard-t">${TALLER_NOMBRE[t]}</div>
+        ${rows}
+        <div class="tcard-q">Promedio del quiz: <b>${prom===null?'sin datos':prom+'%'}</b> ${qs.length?`(${qs.length} rendido${qs.length===1?'':'s'})`:''}</div>
+      </div>`;
+    }).join('');
+
+    // Tabla
+    const tb = document.getElementById('tbody');
+    if (!vis.length){
+      tb.innerHTML = `<tr><td colspan="7"><div class="empty">Todavía no hay participantes registrados.</div></td></tr>`;
+      return;
+    }
+    tb.innerHTML = vis.map(p => {
+      const cell = t => `<td><div class="tgrp">${TIPOS.map(ti => `
+        <div class="tg"><div class="dot ${idx[p.id]?.[t]?.[ti] ? 'on':''}"></div><div class="tg-n">${TIPO_LABEL[ti][0]}</div></div>`).join('')}</div></td>`;
+      const stars = [1,2,3].filter(t => TIPOS.every(ti => idx[p.id]?.[t]?.[ti])).length;
+      const notas = [1,2,3].map(t => {
+        const q = idx[p.id]?.[t]?.quiz;
+        return (q && q.quiz_total) ? `${q.quiz_score}/${q.quiz_total}` : '—';
+      }).join(' · ');
+      return `<tr>
+        <td><div class="p-name">${esc(p.nombre)}</div><div class="p-mail">${esc(p.email)}</div></td>
+        <td>${esc(p.empresa)}</td>
+        ${cell(1)}${cell(2)}${cell(3)}
+        <td class="stars-c">${stars ? '⭐'.repeat(stars) : '—'}</td>
+        <td>${notas}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function setFiltro(f){ filtro = f; render(); }
+
+  function esc(s){
+    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+</script>
+</body>
+</html>
