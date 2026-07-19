@@ -1,0 +1,31 @@
+{
+  "id": "fundamentos-prompt",
+  "nombre": "Fundamentos del prompt",
+  "emoji": "✍️",
+  "descripcion": "Un buen prompt tiene rol, contexto, tarea y formato. La diferencia entre un resultado mediocre y uno excelente casi nunca es el modelo: es cómo pediste.",
+  "categoria": "fundamentos",
+  "tags": [
+    "prompt",
+    "fundamentos",
+    "productividad"
+  ],
+  "pasos": [
+    "Dale un ROL: \"Eres jefe de operaciones de una minera\". El rol activa el vocabulario y los criterios de esa disciplina.",
+    "Dale CONTEXTO: qué pasó, para quién es, qué restricciones hay. La IA no sabe nada de tu empresa hasta que se lo cuentas.",
+    "Dale una TAREA concreta: \"redacta\", \"compara\", \"resume en 5 puntos\". Evita pedidos vagos como \"ayúdame con esto\".",
+    "Dale el FORMATO de salida: tabla, lista, máximo de palabras, tono. Si no lo pides, el modelo elige por ti.",
+    "Itera: casi nunca sale perfecto a la primera. Corrige sobre la respuesta anterior en vez de empezar de cero."
+  ],
+  "pro_tip": "Prueba el mismo pedido dos veces: una con un prompt de una línea y otra con rol, contexto, tarea y formato. La diferencia entre ambos resultados es exactamente lo que te estabas perdiendo.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Fundamentos del prompt",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

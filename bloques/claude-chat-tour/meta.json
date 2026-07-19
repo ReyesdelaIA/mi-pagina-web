@@ -1,0 +1,32 @@
+{
+  "id": "claude-chat-tour",
+  "nombre": "Tour por Claude Chat",
+  "emoji": "💬",
+  "descripcion": "La interfaz de Claude, el sidebar, el historial y cómo elegir el modelo correcto según la tarea que tienes entre manos.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "anthropic",
+    "chat",
+    "modelos"
+  ],
+  "pasos": [
+    "Entra a claude.ai e identifica las tres zonas: el sidebar (historial, proyectos, más opciones), el área de conversación y el selector de modelo.",
+    "El selector de modelo es la decisión más importante: los modelos rápidos rinden en volumen y tareas simples; los de razonamiento profundo, en análisis delicado.",
+    "El historial guarda todas tus conversaciones. Ponles nombre a las importantes: en un mes vas a agradecerlo.",
+    "Abre una conversación nueva por tema. Un hilo eterno arrastra todo el historial en cada respuesta: sale más caro y confunde al modelo con contexto viejo.",
+    "Explora el menú \"Más\" del sidebar: ahí viven Proyectos, Artefactos y el resto de las funciones que vas a usar en los siguientes talleres."
+  ],
+  "pro_tip": "Usar razonamiento profundo para reformular un correo es gastar de más; usar el modelo más rápido para revisar un contrato es quedarse corto. Elegir bien el modelo es parte del oficio.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Tour por Claude Chat",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

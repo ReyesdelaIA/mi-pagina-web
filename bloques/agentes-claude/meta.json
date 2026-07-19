@@ -1,0 +1,32 @@
+{
+  "id": "agentes-claude",
+  "nombre": "Agentes con Claude",
+  "emoji": "🤖",
+  "descripcion": "Del chat que responde al agente que actúa: qué es un agente, qué lo hace confiable y por qué el alcance acotado importa más que el modelo.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "agentes",
+    "cowork",
+    "automatizacion"
+  ],
+  "pasos": [
+    "Un agente no conversa: ejecuta. Recibe un objetivo, decide los pasos, usa herramientas y entrega un resultado.",
+    "Un agente bien diseñado tiene tres cosas: objetivo acotado, acceso limitado y un resultado que puedas verificar. Los que fallan casi siempre fallan por alcance demasiado abierto.",
+    "Tipos de acción: reactivas (responde a lo que le pides), programadas (corre solo en un horario) y en vivo (trabaja contigo en tiempo real).",
+    "Empieza con tareas de bajo riesgo y sobre copias de tus archivos. Sube la complejidad a medida que le tomas confianza.",
+    "Define de antemano cómo vas a saber si el agente lo hizo bien. Si no puedes verificar el resultado, todavía no es candidato a automatizarse."
+  ],
+  "pro_tip": "Piensa en un agente como un practicante digital: dale tareas acotadas y verificables primero, y sube la complejidad a medida que demuestra que entendió.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Agentes con Claude",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "memoria-claude",
+  "nombre": "Memoria y contexto",
+  "emoji": "🧠",
+  "descripcion": "Qué recuerda la IA, qué olvida y por qué el contexto que le das cambia por completo la calidad de la respuesta.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "memoria",
+    "contexto",
+    "fundamentos"
+  ],
+  "pasos": [
+    "La IA no \"sabe\" cosas de ti: predice la continuación más probable del texto que tiene delante. Todo lo que no esté en ese texto, no existe para ella.",
+    "Dentro de una conversación sí recuerda: cada respuesta considera todo lo que se dijo antes en ese chat. Por eso puedes corregir sobre la marcha.",
+    "Entre conversaciones distintas, por defecto no arrastra nada. Un chat nuevo parte en blanco salvo que uses un Proyecto o la memoria del asistente.",
+    "Para memoria persistente están los Proyectos: documentos e instrucciones fijas que se cargan solas en cada conversación de ese proyecto.",
+    "Cuando una conversación se vuelve muy larga, el contexto se satura y empieza a olvidar detalles del principio. Ahí conviene abrir un chat nuevo con lo esencial."
+  ],
+  "pro_tip": "Si te sorprende que la IA \"olvidó\" algo, casi siempre es que nunca lo supo: estaba en otro chat, o en tu cabeza. El contexto hay que dárselo explícitamente.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Memoria y contexto",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

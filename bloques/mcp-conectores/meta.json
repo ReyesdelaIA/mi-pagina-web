@@ -1,0 +1,32 @@
+{
+  "id": "mcp-conectores",
+  "nombre": "MCP y conectores",
+  "emoji": "🔌",
+  "descripcion": "El salto de \"chat que aconseja\" a \"asistente que trabaja con tus datos reales\": conectar Claude a tus herramientas sin copiar y pegar.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "mcp",
+    "conectores",
+    "integraciones"
+  ],
+  "pasos": [
+    "MCP (Model Context Protocol) es el estándar abierto que permite a Claude leer y actuar sobre herramientas externas: archivos, correo, calendario, bases de datos, sistemas internos.",
+    "En la configuración de Claude, revisa los conectores disponibles y activa los que uses de verdad. Menos es más: cada conector activo agrega opciones que el modelo debe considerar.",
+    "Conecta primero donde vive tu trabajo repetitivo: el repositorio de documentos, el correo o la herramienta de gestión que abres todos los días.",
+    "Pídele tareas que crucen fuentes: \"revisa los correos de esta semana sobre el proyecto X y arma un resumen con los pendientes\". Ahí se nota la diferencia contra copiar y pegar.",
+    "Revisa siempre los permisos que otorgas: un conector con acceso de escritura puede modificar cosas. Empieza con acceso de solo lectura y sube desde ahí."
+  ],
+  "pro_tip": "El valor de MCP no es técnico, es de fricción: cada copiar-y-pegar que eliminas es una tarea que pasa de \"cuando tenga tiempo\" a \"ya está hecha\".",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "MCP y conectores",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

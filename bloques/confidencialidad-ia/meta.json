@@ -1,0 +1,32 @@
+{
+  "id": "confidencialidad-ia",
+  "nombre": "Confidencialidad y uso responsable",
+  "emoji": "🛡️",
+  "descripcion": "Todo lo que escribes en una IA sale de tu computador. Qué puedes pegar, qué no, y por qué la responsabilidad del resultado sigue siendo tuya.",
+  "categoria": "fundamentos",
+  "tags": [
+    "confidencialidad",
+    "seguridad",
+    "regulacion",
+    "uso-responsable"
+  ],
+  "pasos": [
+    "La regla práctica: si no se lo mandarías por correo a alguien fuera de la empresa, no lo pegues en una IA sin confirmar antes qué permite tu organización.",
+    "Datos personales de clientes, información financiera no publicada, contratos y credenciales son los cuatro casos donde casi siempre hay que pedir permiso primero.",
+    "Las cuentas corporativas y las personales no son lo mismo: revisa cuál estás usando y qué política de datos aplica antes de trabajar con información de la empresa.",
+    "La IA puede entregar información falsa con total seguridad. Todo dato crítico (cifras, nombres, fechas, normas legales) se verifica antes de usarlo.",
+    "La responsabilidad del resultado es tuya. La IA acelera el borrador; la revisión y la firma siguen siendo humanas."
+  ],
+  "pro_tip": "Antes de pegar algo, hazte una sola pregunta: ¿esto aparecería en un diario mañana y sería un problema? Si dudas, anonimiza los datos antes de pegarlos.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Confidencialidad y uso responsable",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

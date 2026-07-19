@@ -10,7 +10,13 @@
     "generativa",
     "mapa-mental"
   ],
-  "pasos": [],
+  "pasos": [
+    "Esfera 1 · Texto: redactar, resumir, traducir, analizar documentos y responder preguntas. Es donde la IA está más madura y donde casi todo el mundo empieza.",
+    "Esfera 2 · Imagen y video: generar, editar y transformar contenido visual a partir de una descripción o de una imagen de referencia.",
+    "Esfera 3 · Datos y código: analizar planillas, construir visualizaciones, automatizar cálculos y escribir código.",
+    "El mapa sirve para elegir herramienta: no todas las IA son igual de buenas en las tres esferas. Sabiendo en cuál estás, sabes a cuál acudir.",
+    "La mayoría del valor en el trabajo de oficina está en la esfera de texto y la de datos. Lo visual llama más la atención, pero rinde menos horas."
+  ],
   "pro_tip": "Antes de abrir la IA, pregúntate: ¿esto es redactar algo , buscar algo en internet , o analizar algo que ya tengo ? La respuesta te dice el prompt y la herramienta.",
   "desafio": null,
   "assets": [],

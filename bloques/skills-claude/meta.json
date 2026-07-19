@@ -1,0 +1,32 @@
+{
+  "id": "skills-claude",
+  "nombre": "Skills y Plugins",
+  "emoji": "⚡",
+  "descripcion": "Enseñarle un procedimiento una vez para que lo ejecute igual siempre. La forma de estandarizar cómo tu equipo hace una tarea recurrente.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "skills",
+    "plugins",
+    "estandarizacion"
+  ],
+  "pasos": [
+    "Una Skill empaqueta un procedimiento: las instrucciones, el formato de salida y los archivos de referencia que esa tarea necesita.",
+    "Identifica una tarea que tu equipo repite igual todas las semanas: un reporte, una revisión, un consolidado, una respuesta tipo.",
+    "Descríbele a Claude el procedimiento paso a paso y pídele que lo deje como una Skill reutilizable, con el formato de salida que ustedes usan.",
+    "Ejecútala con datos reales y ajusta lo que salga torcido. Una Skill se afina con uso, no se diseña perfecta desde el escritorio.",
+    "Los Plugins agrupan Skills y otras capacidades en un paquete instalable: así una buena práctica de una persona se vuelve el estándar de todo el equipo."
+  ],
+  "pro_tip": "El mejor candidato a Skill es esa tarea donde el resultado depende de quién la haga. Estandarizarla no solo ahorra tiempo: sube el piso de calidad de todo el equipo.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Skills y Plugins",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

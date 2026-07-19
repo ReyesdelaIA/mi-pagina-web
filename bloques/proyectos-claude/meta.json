@@ -1,0 +1,32 @@
+{
+  "id": "proyectos-claude",
+  "nombre": "Proyectos en Claude",
+  "emoji": "📁",
+  "descripcion": "Memoria de trabajo persistente: cargas una vez el contexto de tu área y todas las conversaciones dentro parten sabiendo quién eres y cómo trabajas.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "proyectos",
+    "contexto",
+    "productividad"
+  ],
+  "pasos": [
+    "En el sidebar, entra a Proyectos y crea uno nuevo. Ponle el nombre de tu área o del proceso que quieres apoyar.",
+    "Sube al conocimiento del proyecto los documentos que usas seguido: un instructivo, una plantilla, un informe tipo, el glosario de tu industria.",
+    "Escribe las instrucciones fijas del proyecto: quién eres, qué hace tu equipo, qué tono quieres y qué formato de salida prefieres.",
+    "Conversa dentro del proyecto. Cada chat nuevo ya parte con todo ese contexto cargado: dejas de reexplicarte en cada conversación.",
+    "Comparte el proyecto con tu equipo para que todos trabajen con el mismo contexto y las mismas instrucciones. Ahí es donde deja de ser productividad personal y pasa a ser estándar de equipo."
+  ],
+  "pro_tip": "El mejor primer proyecto no es el más ambicioso: es esa tarea que haces todas las semanas y en la que siempre escribes el mismo párrafo de contexto.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Proyectos en Claude",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

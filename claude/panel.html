@@ -66,6 +66,7 @@
     .dots { display:flex; gap:3px; }
     .dot { width:9px; height:9px; border-radius:50%; background:#e2ddd2; }
     .dot.on { background:var(--amber); }
+    .dot.half { background:linear-gradient(90deg,var(--amber) 50%,#e2ddd2 50%); }
     .tgrp { display:flex; gap:9px; }
     .tg { display:flex; flex-direction:column; align-items:center; gap:4px; }
     .tg-n { font-size:9px; color:#b0a99c; font-weight:700; }
@@ -130,10 +131,28 @@
     2: 'T2 · Claude App',
     3: 'T3 · Claude Avanzado'
   };
-  const TIPOS = ['quiz','desafio','resumen'];
-  const TIPO_LABEL = { quiz:'Quiz', desafio:'Desafío', resumen:'Resumen' };
+  // Debe reflejar los conceptos de claude/index.html
+  const CONCEPTOS = {
+    1: ['3-esferas', 'fundamentos-prompt', 'modelos-fast-vs-razonamiento', 'memoria-claude', 'confidencialidad-ia'],
+    2: ['claude-chat-tour', 'proyectos-claude', 'mcp-conectores', 'claude-en-office', 'formatos-md-tokens'],
+    3: ['skills-claude', 'artefactos-claude', 'intro-cowork', 'claude-code', 'agentes-claude'],
+  };
+  const NOMBRES = {};   // id -> nombre legible, desde /bloques
 
   let PART = [], PROG = [], filtro = '__all__';
+
+  const totalPasos = () => [1,2,3].reduce((a,t) => a + CONCEPTOS[t].length + 2, 0);
+  const nom = id => NOMBRES[id] || id;
+
+  async function cargarNombres(){
+    const ids = [...new Set([1,2,3].flatMap(t => CONCEPTOS[t]))];
+    await Promise.all(ids.map(async id => {
+      try {
+        const r = await fetch(`/bloques/${id}/meta.json`);
+        if (r.ok){ const m = await r.json(); NOMBRES[id] = `${m.emoji} ${m.nombre}`; }
+      } catch (e) { /* cae al id */ }
+    }));
+  }
 
   async function entrar(){
     const pw = document.getElementById('pw').value;
@@ -148,13 +167,10 @@
         body: JSON.stringify({ password: pw })
       });
       const data = await r.json();
-      if (!r.ok) {
-        err.textContent = data.error || 'No se pudo entrar.';
-        err.classList.add('show');
-        return;
-      }
+      if (!r.ok) { err.textContent = data.error || 'No se pudo entrar.'; err.classList.add('show'); return; }
       PART = data.participantes || [];
       PROG = data.progreso || [];
+      await cargarNombres();
       document.getElementById('login').style.display = 'none';
       document.getElementById('panel').style.display = 'block';
       render();
@@ -166,13 +182,15 @@
 
   document.getElementById('pw').addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
 
-  // progreso indexado: participante -> taller -> tipo
+  // hecho[participante][taller] = { quiz, desafio, conceptos:Set }
   function indexar(){
     const idx = {};
     PROG.forEach(p => {
       idx[p.participante_id] = idx[p.participante_id] || {};
-      idx[p.participante_id][p.taller] = idx[p.participante_id][p.taller] || {};
-      idx[p.participante_id][p.taller][p.tipo] = p;
+      const t = idx[p.participante_id][p.taller] = idx[p.participante_id][p.taller]
+        || { conceptos: new Set() };
+      if (p.tipo === 'concepto') t.conceptos.add(p.concepto);
+      else t[p.tipo] = p;
     });
     return idx;
   }
@@ -186,15 +204,16 @@
     return [...m.values()].sort((a,b) => b.n - a.n);
   }
 
-  function visibles(){
-    return filtro === '__all__' ? PART : PART.filter(p => p.empresa_slug === filtro);
-  }
+  const visibles = () => filtro === '__all__' ? PART : PART.filter(p => p.empresa_slug === filtro);
+
+  const tallerCompleto = (idx, p, t) =>
+    !!(idx[p.id]?.[t]?.quiz && idx[p.id]?.[t]?.desafio &&
+       (idx[p.id]?.[t]?.conceptos?.size || 0) === CONCEPTOS[t].length);
 
   function render(){
     const idx = indexar();
     const emps = empresas();
 
-    // Filtros
     document.getElementById('filters').innerHTML =
       [`<button class="fbtn ${filtro==='__all__'?'on':''}" onclick="setFiltro('__all__')">Todas (${PART.length})</button>`]
       .concat(emps.map(e => `<button class="fbtn ${filtro===e.slug?'on':''}" onclick="setFiltro('${e.slug}')">${esc(e.nombre)} (${e.n})</button>`))
@@ -204,16 +223,16 @@
     document.getElementById('sub').textContent =
       `${vis.length} participante${vis.length===1?'':'s'} · ${emps.length} empresa${emps.length===1?'':'s'} registrada${emps.length===1?'':'s'}`;
 
-    // KPIs
-    const completos = vis.filter(p => [1,2,3].every(t => TIPOS.every(ti => idx[p.id]?.[t]?.[ti]))).length;
-    const quizzes = PROG.filter(g => g.tipo==='quiz' && vis.some(p => p.id===g.participante_id));
+    const visIds = new Set(vis.map(p => p.id));
+    const míos = PROG.filter(g => visIds.has(g.participante_id));
+
+    const completos = vis.filter(p => [1,2,3].every(t => tallerCompleto(idx, p, t))).length;
+    const quizzes = míos.filter(g => g.tipo === 'quiz');
     const conNota = quizzes.filter(q => q.quiz_total > 0);
     const promedio = conNota.length
       ? Math.round(conNota.reduce((a,q) => a + (q.quiz_score / q.quiz_total), 0) / conNota.length * 100)
       : null;
-    const pasosTotales = vis.length * 9;
-    const pasosHechos = PROG.filter(g => vis.some(p => p.id===g.participante_id)).length;
-    const avance = pasosTotales ? Math.round(pasosHechos / pasosTotales * 100) : 0;
+    const avance = vis.length ? Math.round(míos.length / (vis.length * totalPasos()) * 100) : 0;
 
     document.getElementById('kpis').innerHTML = `
       <div class="kpi"><div class="kpi-v">${vis.length}</div><div class="kpi-l">Participantes</div></div>
@@ -222,42 +241,52 @@
       <div class="kpi"><div class="kpi-v">${quizzes.length}</div><div class="kpi-l">Quizzes rendidos</div></div>
       <div class="kpi"><div class="kpi-v">${promedio===null?'—':promedio+'%'}</div><div class="kpi-l">Promedio quiz</div></div>`;
 
-    // Por taller
+    // Avance por taller: quiz, desafío y cada concepto por separado
     document.getElementById('tallers').innerHTML = [1,2,3].map(t => {
-      const rows = TIPOS.map(ti => {
-        const n = vis.filter(p => idx[p.id]?.[t]?.[ti]).length;
+      const barra = (label, n) => {
         const pct = vis.length ? Math.round(n / vis.length * 100) : 0;
         return `<div class="bar-row">
-          <div class="bar-lbl"><span>${TIPO_LABEL[ti]}</span><span>${n}/${vis.length} · ${pct}%</span></div>
+          <div class="bar-lbl"><span>${esc(label)}</span><span>${n}/${vis.length} · ${pct}%</span></div>
           <div class="bar-bg"><div class="bar-fl" style="width:${pct}%"></div></div>
         </div>`;
-      }).join('');
-      const qs = PROG.filter(g => g.taller===t && g.tipo==='quiz' && g.quiz_total > 0 && vis.some(p => p.id===g.participante_id));
+      };
+      const filas = [
+        barra('Quiz',    vis.filter(p => idx[p.id]?.[t]?.quiz).length),
+        barra('Desafío', vis.filter(p => idx[p.id]?.[t]?.desafio).length),
+        ...CONCEPTOS[t].map(c => barra(nom(c), vis.filter(p => idx[p.id]?.[t]?.conceptos?.has(c)).length)),
+      ].join('');
+      const qs = míos.filter(g => g.taller===t && g.tipo==='quiz' && g.quiz_total > 0);
       const prom = qs.length ? Math.round(qs.reduce((a,q)=>a+(q.quiz_score/q.quiz_total),0)/qs.length*100) : null;
       return `<div class="tcard">
         <div class="tcard-t">${TALLER_NOMBRE[t]}</div>
-        ${rows}
+        ${filas}
         <div class="tcard-q">Promedio del quiz: <b>${prom===null?'sin datos':prom+'%'}</b> ${qs.length?`(${qs.length} rendido${qs.length===1?'':'s'})`:''}</div>
       </div>`;
     }).join('');
 
-    // Tabla
     const tb = document.getElementById('tbody');
     if (!vis.length){
       tb.innerHTML = `<tr><td colspan="7"><div class="empty">Todavía no hay participantes registrados.</div></td></tr>`;
       return;
     }
     tb.innerHTML = vis.map(p => {
-      const cell = t => `<td><div class="tgrp">${TIPOS.map(ti => `
-        <div class="tg"><div class="dot ${idx[p.id]?.[t]?.[ti] ? 'on':''}"></div><div class="tg-n">${TIPO_LABEL[ti][0]}</div></div>`).join('')}</div></td>`;
-      const stars = [1,2,3].filter(t => TIPOS.every(ti => idx[p.id]?.[t]?.[ti])).length;
+      const cell = t => {
+        const d = idx[p.id]?.[t] || {};
+        const nC = d.conceptos?.size || 0;
+        return `<td><div class="tgrp">
+          <div class="tg"><div class="dot ${d.quiz?'on':''}"></div><div class="tg-n">Q</div></div>
+          <div class="tg"><div class="dot ${d.desafio?'on':''}"></div><div class="tg-n">D</div></div>
+          <div class="tg"><div class="dot ${nC===CONCEPTOS[t].length?'on':(nC?'half':'')}"></div><div class="tg-n">${nC}/${CONCEPTOS[t].length}</div></div>
+        </div></td>`;
+      };
+      const stars = [1,2,3].filter(t => tallerCompleto(idx, p, t)).length;
       const notas = [1,2,3].map(t => {
         const q = idx[p.id]?.[t]?.quiz;
         return (q && q.quiz_total) ? `${q.quiz_score}/${q.quiz_total}` : '—';
       }).join(' · ');
       return `<tr>
         <td><div class="p-name">${esc(p.nombre)}</div><div class="p-mail">${esc(p.email)}</div></td>
-        <td>${esc(p.empresa)}</td>
+        <td>${esc(p.empresa)}<div class="p-mail">${esc(p.cargo || '')}</div></td>
         ${cell(1)}${cell(2)}${cell(3)}
         <td class="stars-c">${stars ? '⭐'.repeat(stars) : '—'}</td>
         <td>${notas}</td>

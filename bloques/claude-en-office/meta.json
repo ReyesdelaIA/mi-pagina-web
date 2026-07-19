@@ -1,0 +1,33 @@
+{
+  "id": "claude-en-office",
+  "nombre": "Claude en el Office",
+  "emoji": "📊",
+  "descripcion": "Llevar Claude a Word, Excel, PowerPoint y el correo: dónde se integra, qué le puedes pedir y cómo pegar los resultados sin romper el formato.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "office",
+    "excel",
+    "word",
+    "documentos"
+  ],
+  "pasos": [
+    "Sube el archivo directamente a la conversación: Claude lee Word, Excel, PowerPoint, PDF y CSV, y puede analizar el contenido sin que tengas que transcribirlo.",
+    "Para planillas: pídele que identifique tendencias, detecte inconsistencias o proponga las fórmulas, en vez de pedirle que \"analice el Excel\" sin más.",
+    "Para documentos largos: pídele un resumen ejecutivo, los puntos de riesgo o una comparación contra otro documento que le subas en el mismo chat.",
+    "Pide las salidas en formato tabla o lista para que se peguen limpias en Word o Excel sin tener que reformatear a mano.",
+    "Para presentaciones: pídele la estructura y el contenido de cada lámina antes de armarla. Es mucho más rápido corregir un esquema que rehacer un PPT."
+  ],
+  "pro_tip": "No le pidas \"analiza este Excel\". Pídele \"compara la columna de gasto real contra el presupuesto y dime las tres desviaciones más grandes con su explicación probable\". La especificidad es todo.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Claude en el Office",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

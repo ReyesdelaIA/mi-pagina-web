@@ -120,19 +120,36 @@
     .ms { font-size: 13px; filter: grayscale(1) opacity(.25); transition: filter .3s; }
     .ms.on { filter: none; }
 
-    /* Resumen ejecutivo desplegable */
-    .res-toggle { width:100%; background:#FDFBF6; border:none; border-top:1px solid var(--border); padding:11px 16px; font-family:inherit; font-size:12px; font-weight:700; color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:space-between; transition:background .15s; }
-    .res-toggle:hover { background:#FBF6EA; }
-    .res-arrow { transition:transform .25s; font-size:11px; color:var(--amber); }
-    .res-toggle.open .res-arrow { transform:rotate(180deg); }
-    .res-body { display:none; padding:4px 16px 16px; background:#FDFBF6; border-top:1px solid #F3EADA; }
-    .res-body.open { display:block; }
-    .res-h { font-size:10px; font-weight:800; color:var(--amber-dark); text-transform:uppercase; letter-spacing:.5px; margin:14px 0 8px; }
-    .res-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
-    .res-list li { display:flex; gap:9px; font-size:12.5px; color:#374151; line-height:1.55; }
-    .res-bullet { color:var(--amber); font-weight:800; flex-shrink:0; }
-    .res-chips { display:flex; flex-wrap:wrap; gap:5px; }
-    .res-chip { background:#fff; border:1px solid #F0D9A8; border-radius:20px; padding:3px 10px; font-size:10.5px; font-weight:600; color:#5C3D00; }
+    /* Resumen ejecutivo = conceptos con check individual */
+    .res-head { padding:12px 16px 8px; background:#FDFBF6; border-top:1px solid var(--border); display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+    .res-h { font-size:11px; font-weight:800; color:var(--ink); text-transform:uppercase; letter-spacing:.5px; }
+    .res-count { font-size:11px; font-weight:700; color:var(--amber); white-space:nowrap; }
+    .cpt-list { background:#FDFBF6; padding:0 16px 14px; display:flex; flex-direction:column; gap:8px; }
+
+    .cpt { background:#fff; border:1.5px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color .2s; }
+    .cpt.done { border-color:#A7F3D0; background:#F7FDFA; }
+    .cpt-head { display:flex; align-items:center; gap:11px; padding:11px 13px; cursor:pointer; user-select:none; }
+    .cpt-head:hover { background:rgba(217,119,6,.04); }
+    .cpt-emoji { font-size:20px; line-height:1; flex-shrink:0; }
+    .cpt-t { flex:1; min-width:0; }
+    .cpt-name { font-size:13px; font-weight:700; color:var(--ink); line-height:1.3; }
+    .cpt-desc { font-size:11.5px; color:var(--muted); line-height:1.45; margin-top:2px; }
+    .cpt-state { flex-shrink:0; display:flex; align-items:center; gap:7px; }
+    .cpt-tick { width:20px; height:20px; border-radius:50%; border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:11px; color:transparent; flex-shrink:0; transition:all .2s; }
+    .cpt.done .cpt-tick { background:#10B981; border-color:#10B981; color:#fff; }
+    .cpt-arrow { font-size:10px; color:var(--amber); transition:transform .25s; }
+    .cpt.open .cpt-arrow { transform:rotate(180deg); }
+    .cpt-body { display:none; padding:2px 13px 13px; border-top:1px solid #F3EADA; }
+    .cpt.open .cpt-body { display:block; }
+    .cpt-pasos { list-style:none; display:flex; flex-direction:column; gap:8px; margin:12px 0 0; }
+    .cpt-pasos li { display:flex; gap:9px; font-size:12.5px; color:#374151; line-height:1.55; }
+    .cpt-num { flex-shrink:0; width:17px; height:17px; border-radius:50%; background:#FEF3C7; color:var(--amber-dark); font-size:9.5px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:2px; }
+    .cpt-tip { margin-top:12px; background:#FFFBEB; border:1px solid #FDE68A; border-radius:9px; padding:9px 12px; font-size:12px; color:#5C3D00; line-height:1.55; }
+    .cpt-tip b { color:var(--amber-dark); }
+    .cpt-check { margin-top:12px; width:100%; background:#fff; border:1.5px solid #10B981; color:#065F46; border-radius:10px; padding:10px 12px; font-family:inherit; font-size:12.5px; font-weight:700; cursor:pointer; transition:all .15s; }
+    .cpt-check:hover { background:#ECFDF5; }
+    .cpt-check.done { background:#10B981; color:#fff; border-color:#10B981; cursor:default; }
+    .cpt-loading { font-size:12px; color:var(--muted); padding:12px 2px; }
 
     .desafio { background: linear-gradient(135deg,#FFF8EC,#FFF3DC); border-top: 1px solid #F5CC7A; padding: 14px 16px; }
     .des-head { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
@@ -272,19 +289,14 @@
       .stitle { font-size: 16px; }
       .slabel { font-size: 11px; }
       .ms { font-size: 15px; }
-      .res-toggle { padding: 13px 22px; font-size: 13px; }
-
-      /* Puntos clave y temario lado a lado en vez de un chorizo vertical */
-      .res-body { padding: 6px 22px 20px; }
-      .res-body.open {
-        display: grid; grid-template-columns: 1.35fr 1fr;
-        column-gap: 34px; align-items: start;
-      }
-      .res-body > div:nth-of-type(1) { grid-column: 1; grid-row: 1; margin: 8px 0 10px; }
-      .res-body > .res-list          { grid-column: 1; grid-row: 2; }
-      .res-body > div:nth-of-type(2) { grid-column: 2; grid-row: 1; margin: 8px 0 10px; }
-      .res-body > div:nth-of-type(3) { grid-column: 2; grid-row: 2; }
-      .res-list li { font-size: 13px; }
+      .res-head { padding: 14px 22px 10px; }
+      .cpt-list { padding: 0 22px 18px; gap: 9px; }
+      .cpt-head { padding: 13px 16px; }
+      .cpt-name { font-size: 14px; }
+      .cpt-desc { font-size: 12px; }
+      .cpt-body { padding: 2px 16px 16px; }
+      .cpt-pasos li { font-size: 13px; }
+      .cpt-check { width: auto; min-width: 280px; }
 
       /* Desafío a la izquierda, botones apilados a la derecha */
       .desafio { display: grid; grid-template-columns: 1fr auto; column-gap: 28px; padding: 18px 22px; }
@@ -336,7 +348,7 @@
     <div class="hero-stats">
       <div class="stat"><span class="stat-value">3</span><span class="stat-label">Talleres</span></div>
       <div class="stat-div"></div>
-      <div class="stat"><span class="stat-value">12</span><span class="stat-label">Habilidades</span></div>
+      <div class="stat"><span class="stat-value" id="hero-skills">—</span><span class="stat-label">Habilidades</span></div>
       <div class="stat-div"></div>
       <div class="stat"><span class="stat-value" id="hero-stars">0</span><span class="stat-label">⭐ Tus estrellas</span></div>
     </div>
@@ -494,6 +506,10 @@
       <label for="g-empresa">Empresa</label>
       <input type="text" id="g-empresa" autocomplete="organization" placeholder="Ej: Minera Los Andes" />
     </div>
+    <div class="gate-field">
+      <label for="g-cargo">Cargo</label>
+      <input type="text" id="g-cargo" autocomplete="organization-title" placeholder="Ej: Jefa de Operaciones" />
+    </div>
     <div class="gate-err" id="gate-err"></div>
     <button class="gate-btn" onclick="submitGate()">Entrar al portal →</button>
     <button class="gate-cancel" id="gate-cancel" onclick="closeGate()">Cancelar</button>
@@ -506,49 +522,48 @@
      Contenido de los 3 talleres del Pack Claude.
      Fuente del temario: /talleres/claude.html
   ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------
+     Los 3 talleres del Pack Claude.
+     El temario de cada taller vive como "conceptos": cada uno es un
+     bloque de /bloques con su propio check y su propia habilidad.
+     Fuente del temario: /talleres/claude.html
+  ------------------------------------------------------------------ */
   const TALLERES = [
     {
       n: 1,
       label: 'Taller 1 · Introductorio',
       title: 'Introducción a la IA + Tour por Claude',
       dur: '1.5 hrs · Presencial',
-      claves: [
-        'La IA generativa no "sabe" cosas: predice la continuación más probable de un texto. Entender eso explica por qué a veces inventa y por qué el contexto que le das lo cambia todo.',
-        'Un buen prompt tiene rol, contexto, tarea concreta y formato de salida esperado. La diferencia entre un resultado mediocre y uno excelente casi nunca es el modelo: es el prompt.',
-        'Claude tiene distintos modelos según la tarea. Los rápidos sirven para volumen y respuestas simples; los de razonamiento profundo, para análisis y problemas complejos.',
-        'Todo lo que escribes en una IA sale de tu computador. Antes de pegar algo, pregúntate si lo mandarías por correo a alguien fuera de la empresa.',
-        'La IA no reemplaza tu criterio: acelera el borrador. La revisión sigue siendo tuya, y la responsabilidad del resultado también.'
-      ],
-      temario: ['Intro a la Inteligencia Artificial','3 verdades sobre uso de IA','Intro al mundo LLM','Fundamentos del prompt','Ejemplos de uso cotidiano','Intro a Claude','Activaciones de modelos','4 esferas IA generativa','Concepto "memorización"','Herramienta dictado','Confidencialidad','Regulaciones actuales IA','Uso responsable','IA en los próximos años'],
+      conceptos: ['3-esferas', 'fundamentos-prompt', 'modelos-fast-vs-razonamiento', 'memoria-claude', 'confidencialidad-ia'],
       desafio: 'Entra a Claude y toma una tarea real que hiciste esta semana (un correo difícil, un resumen, una minuta). Pídesela a Claude dos veces: primero con un prompt de una línea, y después con un prompt completo que incluya rol, contexto, tarea y formato. Compara los dos resultados y quédate con la diferencia. 🎯',
       quiz: [
         {
           q: '¿Qué hace realmente un modelo de lenguaje como Claude cuando le escribes?',
-          opts: ['Busca la respuesta en Google y la copia','Predice, palabra por palabra, la continuación más probable del texto','Consulta una base de datos oficial de respuestas verificadas','Ejecuta un programa fijo escrito por sus creadores'],
+          opts: ['Busca la respuesta en Google y la copia', 'Predice, palabra por palabra, la continuación más probable del texto', 'Consulta una base de datos oficial de respuestas verificadas', 'Ejecuta un programa fijo escrito por sus creadores'],
           correct: 1,
           explain: 'Un LLM genera texto prediciendo la continuación más probable. Por eso el contexto que le das influye tanto en el resultado, y por eso también puede equivocarse con seguridad.'
         },
         {
           q: '¿Cuál de estos prompts va a dar mejor resultado?',
-          opts: ['"Escríbeme un correo"','"Correo urgente"','"Hazlo bien y que sea profesional"','"Eres jefe de operaciones. Escribe un correo al proveedor X avisando que el despacho se atrasó 3 días, en tono firme pero cordial, máximo 120 palabras"'],
+          opts: ['"Escríbeme un correo"', '"Correo urgente"', '"Hazlo bien y que sea profesional"', '"Eres jefe de operaciones. Escribe un correo al proveedor X avisando que el despacho se atrasó 3 días, en tono firme pero cordial, máximo 120 palabras"'],
           correct: 3,
           explain: 'Rol, contexto, tarea concreta y formato. Mientras más específico el prompt, menos tiene que adivinar el modelo y mejor sale el resultado a la primera.'
         },
         {
           q: 'Cuando decimos que la IA "alucina", nos referimos a que…',
-          opts: ['Se apaga cuando la pregunta es muy difícil','Entrega información falsa redactada con total seguridad','Solo funciona con conexión a internet','Repite siempre la misma respuesta'],
+          opts: ['Se apaga cuando la pregunta es muy difícil', 'Entrega información falsa redactada con total seguridad', 'Solo funciona con conexión a internet', 'Repite siempre la misma respuesta'],
           correct: 1,
           explain: 'La alucinación es información inventada pero presentada con confianza. Por eso todo dato crítico (cifras, nombres, fechas, normas) se verifica antes de usarlo.'
         },
         {
           q: '¿Qué NO deberías pegar en una IA sin revisar antes la política de tu empresa?',
-          opts: ['Un texto público de tu sitio web','Datos personales de clientes, información financiera no publicada o contratos confidenciales','Una noticia del diario','Una pregunta general sobre tu industria'],
+          opts: ['Un texto público de tu sitio web', 'Datos personales de clientes, información financiera no publicada o contratos confidenciales', 'Una noticia del diario', 'Una pregunta general sobre tu industria'],
           correct: 1,
           explain: 'La regla práctica: si no se lo mandarías por correo a alguien fuera de la empresa, no lo pegues en una IA sin confirmar primero qué permite tu organización.'
         },
         {
           q: '¿Por qué conviene elegir el modelo según la tarea y no usar siempre el mismo?',
-          opts: ['Porque los modelos rápidos rinden mejor en tareas simples y de volumen, y los de razonamiento profundo en análisis complejos','Porque solo hay un modelo disponible por día','Porque cambiar de modelo borra la conversación','Porque los modelos más lentos siempre dan peores respuestas'],
+          opts: ['Porque los modelos rápidos rinden mejor en tareas simples y de volumen, y los de razonamiento profundo en análisis complejos', 'Porque solo hay un modelo disponible por día', 'Porque cambiar de modelo borra la conversación', 'Porque los modelos más lentos siempre dan peores respuestas'],
           correct: 0,
           explain: 'Usar razonamiento profundo para reformular un correo es gastar de más; usar el modelo más rápido para un análisis delicado es quedarse corto. Elegir bien es parte del oficio.'
         }
@@ -559,43 +574,36 @@
       label: 'Taller 2 · Claude App',
       title: 'Dominio de la App de Claude',
       dur: '1.5 hrs · Presencial · Hands-On',
-      claves: [
-        'Los Proyectos son el salto más grande de productividad: cargas una vez el contexto de tu área (documentos, instrucciones, tono) y todas las conversaciones dentro parten sabiendo quién eres y cómo trabajas.',
-        'Los conectores y MCP permiten que Claude trabaje con tus datos donde ya viven —tus archivos, tu correo, tus herramientas— en vez de que tú los copies y pegues.',
-        'Elegir el modelo correcto es una decisión de costo y calidad: rápido para volumen, razonamiento profundo para análisis delicado.',
-        'Markdown (MD) es el formato en que Claude piensa y estructura. Pedirle salidas en tablas, listas y encabezados hace que el resultado se pegue limpio en cualquier parte.',
-        'Las conversaciones largas se vuelven caras y confusas. Abrir un chat nuevo por tema es mejor práctica que arrastrar un hilo eterno.'
-      ],
-      temario: ['Recap general','Tour por Claude','3 mundos en Claude','Claude chat','Sidebar y opciones','Razonamiento (Sonnet / Opus)','Tools / herramientas','MCP claves para trabajo','Formatos MD','Proyectos','Claude en el Office','Optimización de uso de tokens'],
+      conceptos: ['claude-chat-tour', 'proyectos-claude', 'mcp-conectores', 'claude-en-office', 'formatos-md-tokens'],
       desafio: 'Crea tu primer Proyecto en Claude para tu área de trabajo. Súbele 2 o 3 documentos que uses seguido (un instructivo, una plantilla, un informe tipo) y escríbele instrucciones fijas: quién eres, qué hace tu equipo y cómo quieres que te responda. Después hazle una pregunta real de tu trabajo y nota la diferencia contra un chat en blanco. 📁',
       quiz: [
         {
           q: '¿Cuál es la principal ventaja de un Proyecto frente a un chat suelto?',
-          opts: ['Guarda el contexto y las instrucciones una sola vez, y todas las conversaciones del Proyecto parten desde ahí','Permite hacer videollamadas con el equipo','Hace que las respuestas sean más cortas','Es la única forma de subir archivos'],
+          opts: ['Guarda el contexto y las instrucciones una sola vez, y todas las conversaciones del Proyecto parten desde ahí', 'Permite hacer videollamadas con el equipo', 'Hace que las respuestas sean más cortas', 'Es la única forma de subir archivos'],
           correct: 0,
           explain: 'El Proyecto es memoria de trabajo persistente: documentos base más instrucciones fijas. Dejas de reexplicar tu contexto en cada conversación.'
         },
         {
           q: '¿Para qué sirven los conectores y MCP en el trabajo diario?',
-          opts: ['Para cambiar el color de la interfaz','Para conectar Claude con tus herramientas y datos (archivos, correo, sistemas) sin copiar y pegar','Para descargar la app en el celular','Para traducir la interfaz a otro idioma'],
+          opts: ['Para cambiar el color de la interfaz', 'Para conectar Claude con tus herramientas y datos (archivos, correo, sistemas) sin copiar y pegar', 'Para descargar la app en el celular', 'Para traducir la interfaz a otro idioma'],
           correct: 1,
           explain: 'MCP es el estándar que permite a Claude leer y actuar sobre herramientas externas. Es lo que lo lleva de "chat que aconseja" a "asistente que trabaja con tus datos reales".'
         },
         {
           q: 'Tienes que analizar un contrato largo y detectar riesgos legales. ¿Qué modelo conviene?',
-          opts: ['El más rápido, porque el tiempo es lo que importa','Da exactamente lo mismo cuál elijas','Uno de razonamiento profundo, porque la tarea exige análisis cuidadoso y no volumen','Ninguno: eso no se puede hacer con IA'],
+          opts: ['El más rápido, porque el tiempo es lo que importa', 'Da exactamente lo mismo cuál elijas', 'Uno de razonamiento profundo, porque la tarea exige análisis cuidadoso y no volumen', 'Ninguno: eso no se puede hacer con IA'],
           correct: 2,
           explain: 'Tareas de análisis delicado justifican el modelo de razonamiento profundo. Los modelos rápidos brillan en volumen y tareas simples, no en juicio fino.'
         },
         {
           q: '¿Por qué conviene pedirle a Claude que responda en formato Markdown (tablas, listas, encabezados)?',
-          opts: ['Porque es el único formato que Claude entiende','Porque acorta las respuestas a la mitad','Porque estructura la respuesta y se pega limpia en Word, Notion, correo o donde la necesites','Porque activa el modo avanzado'],
+          opts: ['Porque es el único formato que Claude entiende', 'Porque acorta las respuestas a la mitad', 'Porque estructura la respuesta y se pega limpia en Word, Notion, correo o donde la necesites', 'Porque activa el modo avanzado'],
           correct: 2,
           explain: 'Markdown le da estructura a la salida. Una respuesta bien estructurada es más fácil de revisar, de reutilizar y de pegar donde la necesitas.'
         },
         {
           q: '¿Cuál es una buena práctica para no desperdiciar tokens ni ensuciar el contexto?',
-          opts: ['Usar un solo chat gigante para todo el año','Abrir una conversación nueva por tema, en vez de arrastrar un hilo eterno','Escribir siempre en mayúsculas','Repetir la pregunta tres veces'],
+          opts: ['Usar un solo chat gigante para todo el año', 'Abrir una conversación nueva por tema, en vez de arrastrar un hilo eterno', 'Escribir siempre en mayúsculas', 'Repetir la pregunta tres veces'],
           correct: 1,
           explain: 'Un hilo muy largo arrastra todo el historial en cada respuesta: sale más caro y confunde al modelo con contexto viejo. Un chat por tema es más limpio y más barato.'
         }
@@ -606,43 +614,36 @@
       label: 'Taller 3 · Claude Avanzado',
       title: 'Cowork, Artefactos & Plugins',
       dur: '1.5 hrs · Presencial · Hands-On',
-      claves: [
-        'Las Skills son procedimientos que le enseñas una vez a Claude y que después ejecuta igual siempre. Es la forma de estandarizar cómo tu equipo hace una tarea recurrente.',
-        'Los Artefactos convierten una respuesta en algo usable: un dashboard, una calculadora, un documento interactivo que puedes compartir por link.',
-        'Claude Cowork es el salto de "chat que responde" a "agente que actúa": trabaja sobre tus archivos y ejecuta tareas reales, con tu supervisión.',
-        'Un agente bien definido tiene un objetivo acotado, acceso limitado y un resultado verificable. Los agentes que fallan casi siempre fallan por tener el alcance demasiado abierto.',
-        'Empieza siempre con tareas de bajo riesgo y sobre copias de tus archivos. La confianza en un agente se gana con evidencia, no con fe.'
-      ],
-      temario: ['Skills','Plugins','Artefactos','Claude Cowork','Cowork · acciones reactivas','Cowork · acciones programadas','Cowork · acciones en vivo','Claude Code en terminal / IDE','Live Artifacts','Claude Code en App','Intro a Agentes','Agentes optimizados'],
+      conceptos: ['skills-claude', 'artefactos-claude', 'intro-cowork', 'claude-code', 'agentes-claude'],
       desafio: 'Elige una tarea que tu equipo repite todas las semanas siempre igual (un reporte, una revisión, un consolidado). Descríbele a Claude el procedimiento paso a paso y pídele que lo deje como una Skill reutilizable. Después ejecútala con datos reales de esta semana y ajusta lo que salga torcido. Bonus: pídele que el resultado sea un Artefacto compartible. ⚡',
       quiz: [
         {
           q: '¿Qué es una Skill en Claude?',
-          opts: ['Un procedimiento que le enseñas una vez y que después ejecuta igual cada vez que lo necesitas','Un curso en video dentro de la aplicación','Una insignia que ganas por usar la app','Un plan de suscripción más caro'],
+          opts: ['Un procedimiento que le enseñas una vez y que después ejecuta igual cada vez que lo necesitas', 'Un curso en video dentro de la aplicación', 'Una insignia que ganas por usar la app', 'Un plan de suscripción más caro'],
           correct: 0,
           explain: 'Una Skill empaqueta un procedimiento repetible. Sirve justamente para estandarizar: la tarea sale igual de bien la haga quien la haga.'
         },
         {
           q: '¿Qué distingue a un Artefacto de una respuesta normal de chat?',
-          opts: ['Que siempre es más largo','Que es un entregable funcional —dashboard, documento, herramienta— que puedes usar y compartir, no solo texto para leer','Que se borra a las 24 horas','Que solo funciona en el celular'],
+          opts: ['Que siempre es más largo', 'Que es un entregable funcional —dashboard, documento, herramienta— que puedes usar y compartir, no solo texto para leer', 'Que se borra a las 24 horas', 'Que solo funciona en el celular'],
           correct: 1,
           explain: 'El Artefacto convierte la respuesta en algo usable y compartible por link, en vez de dejarte texto que tienes que trasladar a mano a otra herramienta.'
         },
         {
           q: '¿Cuál es el salto clave que introduce Claude Cowork?',
-          opts: ['Es un chat idéntico al anterior pero más rápido','Sirve solo para generar imágenes','Pasa de conversar a actuar: trabaja sobre tus archivos y ejecuta tareas reales, con tu supervisión','Es una app de mensajería interna'],
+          opts: ['Es un chat idéntico al anterior pero más rápido', 'Sirve solo para generar imágenes', 'Pasa de conversar a actuar: trabaja sobre tus archivos y ejecuta tareas reales, con tu supervisión', 'Es una app de mensajería interna'],
           correct: 2,
           explain: 'Cowork deja de solo aconsejar y empieza a hacer: lee archivos, crea documentos y ejecuta tareas por ti, siempre bajo tu supervisión.'
         },
         {
           q: '¿Cuál es un buen primer caso de uso para un agente?',
-          opts: ['Borrar sin respaldo los archivos del servidor','Consolidar una carpeta de planillas en un reporte, probando primero sobre una copia','Enviar correos masivos a clientes sin revisar','Publicar solo en redes sociales sin supervisión'],
+          opts: ['Borrar sin respaldo los archivos del servidor', 'Consolidar una carpeta de planillas en un reporte, probando primero sobre una copia', 'Enviar correos masivos a clientes sin revisar', 'Publicar solo en redes sociales sin supervisión'],
           correct: 1,
           explain: 'Alcance acotado, bajo riesgo y sobre una copia. La confianza en un agente se construye con resultados verificables antes de darle tareas críticas.'
         },
         {
           q: '¿Qué caracteriza a un agente bien diseñado?',
-          opts: ['Tener el objetivo más amplio posible para que sirva para todo','Objetivo acotado, acceso limitado y un resultado que puedas verificar','No necesitar nunca supervisión humana','Usar la mayor cantidad de herramientas disponibles'],
+          opts: ['Tener el objetivo más amplio posible para que sirva para todo', 'Objetivo acotado, acceso limitado y un resultado que puedas verificar', 'No necesitar nunca supervisión humana', 'Usar la mayor cantidad de herramientas disponibles'],
           correct: 1,
           explain: 'Los agentes fallan por alcance demasiado abierto. Objetivo estrecho, permisos mínimos y salida verificable es lo que los hace confiables.'
         }
@@ -650,33 +651,30 @@
     }
   ];
 
-  const SKILLS = [
-    { icon:'🎤', name:'Dictar a la IA',        taller:1, color:'#B45309' },
-    { icon:'✍️', name:'Fundamentos del Prompt', taller:1, color:'#92400E' },
-    { icon:'🧠', name:'Memorización IA',       taller:1, color:'#78350F' },
-    { icon:'🛡️', name:'Uso Responsable',       taller:1, color:'#A16207' },
-    { icon:'💬', name:'Claude Chat',           taller:2, color:'#D97706' },
-    { icon:'📁', name:'Proyectos Claude',      taller:2, color:'#C2410C' },
-    { icon:'🔌', name:'MCP y Conectores',      taller:2, color:'#EA580C' },
-    { icon:'📊', name:'Claude en el Office',   taller:2, color:'#9A3412' },
-    { icon:'⚡', name:'Skills y Plugins',      taller:3, color:'#7C3AED' },
-    { icon:'🎭', name:'Artefactos',            taller:3, color:'#6D28D9' },
-    { icon:'🤝', name:'Claude Cowork',         taller:3, color:'#5B21B6' },
-    { icon:'🤖', name:'Agentes Claude',        taller:3, color:'#4C1D95' }
-  ];
+  // Una habilidad por concepto: marcar el check la desbloquea.
+  const COLORES = {
+    1: ['#B45309', '#92400E', '#78350F', '#A16207', '#854D0E'],
+    2: ['#D97706', '#C2410C', '#EA580C', '#9A3412', '#B45309'],
+    3: ['#7C3AED', '#6D28D9', '#5B21B6', '#4C1D95', '#9333EA'],
+  };
+  const SKILLS = TALLERES.flatMap(t =>
+    t.conceptos.map((id, i) => ({ id, taller: t.n, color: COLORES[t.n][i] }))
+  );
 
   const SUPABASE_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
-  const STARS_KEY = 'claude_pack_stars_v1';
-  const USER_KEY  = 'claude_pack_user_v1';
+  const STARS_KEY = 'claude_pack_v2';
+  const USER_KEY  = 'claude_pack_user_v2';
 
-  let st = {};
+  let st = {};            // progreso local
   let user = null;
   let pending = null;
+  const BLOQUES = {};     // id -> meta.json de /bloques
 
   let quizTaller = null, quizQuestions = [], quizIdx = 0, quizAnswered = false, quizAciertos = 0;
 
   const T = n => TALLERES.find(t => t.n === n);
+  const totalPasos = () => TALLERES.reduce((a, t) => a + t.conceptos.length + 2, 0);
 
   /* ---------------- Identidad ---------------- */
 
@@ -684,8 +682,7 @@
     if (crypto.randomUUID) return crypto.randomUUID();
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
       const r = crypto.getRandomValues(new Uint8Array(1))[0] % 16;
-      const v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
   }
 
@@ -704,16 +701,16 @@
     const ini = user.nombre.trim().split(/\s+/).map(p => p[0]).slice(0, 2).join('').toUpperCase();
     document.getElementById('who-av').textContent = ini || '?';
     document.getElementById('who-name').textContent = user.nombre;
-    document.getElementById('who-org').textContent = user.empresa;
+    document.getElementById('who-org').textContent = user.cargo ? `${user.cargo} · ${user.empresa}` : user.empresa;
   }
 
   function openGate(edit){
     if (edit && user){
-      document.getElementById('g-nombre').value = user.nombre;
-      document.getElementById('g-email').value = user.email;
+      document.getElementById('g-nombre').value  = user.nombre;
+      document.getElementById('g-email').value   = user.email;
       document.getElementById('g-empresa').value = user.empresa;
+      document.getElementById('g-cargo').value   = user.cargo || '';
     }
-    // Solo se puede cancelar si ya hay una identidad guardada.
     document.getElementById('gate-cancel').classList.toggle('show', !!user);
     document.getElementById('gate-err').classList.remove('show');
     document.getElementById('gate').classList.add('open');
@@ -729,7 +726,7 @@
     const el = document.getElementById('gate-err');
     el.textContent = msg;
     el.classList.add('show');
-    ['g-nombre','g-email','g-empresa'].forEach(i => document.getElementById(i).classList.remove('err'));
+    ['g-nombre','g-email','g-empresa','g-cargo'].forEach(i => document.getElementById(i).classList.remove('err'));
     if (id) document.getElementById(id).classList.add('err');
   }
 
@@ -737,18 +734,15 @@
     const nombre  = document.getElementById('g-nombre').value.trim();
     const email   = document.getElementById('g-email').value.trim().toLowerCase();
     const empresa = document.getElementById('g-empresa').value.trim();
+    const cargo   = document.getElementById('g-cargo').value.trim();
 
     if (nombre.length < 3)  return gateError('Escribe tu nombre y apellido.', 'g-nombre');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return gateError('Revisa tu email, algo no cuadra.', 'g-email');
     if (empresa.length < 2) return gateError('Falta el nombre de tu empresa.', 'g-empresa');
+    if (cargo.length < 2)   return gateError('Falta tu cargo.', 'g-cargo');
 
     document.getElementById('gate-err').classList.remove('show');
-
-    user = {
-      id: (user && user.id) || uuid(),
-      nombre, email, empresa,
-      empresa_slug: slugify(empresa)
-    };
+    user = { id: (user && user.id) || uuid(), nombre, email, empresa, cargo, empresa_slug: slugify(empresa) };
     localStorage.setItem(USER_KEY, JSON.stringify(user));
     renderUser();
     document.getElementById('gate').classList.remove('open');
@@ -757,13 +751,13 @@
 
   /* ---------------- Sync a Supabase (best-effort, nunca bloquea) ---------------- */
 
-  function sbHeaders(extra){
-    return Object.assign({
+  function sbHeaders(){
+    return {
       'apikey': SUPABASE_KEY,
       'Authorization': `Bearer ${SUPABASE_KEY}`,
       'Content-Type': 'application/json',
       'Prefer': 'return=minimal'
-    }, extra || {});
+    };
   }
 
   // La anon key no puede leer ni escribir las tablas directamente: solo
@@ -780,17 +774,17 @@
     try {
       await rpc('claude_registrar_participante', {
         p_id: user.id, p_nombre: user.nombre, p_email: user.email,
-        p_empresa: user.empresa, p_empresa_slug: user.empresa_slug
+        p_empresa: user.empresa, p_empresa_slug: user.empresa_slug, p_cargo: user.cargo || null
       });
     } catch (e) { /* sin red: el progreso local sigue funcionando */ }
   }
 
-  async function syncProgreso(taller, tipo, score, total){
+  async function syncProgreso(taller, tipo, concepto, score, total){
     if (!user) return;
     try {
       await rpc('claude_registrar_progreso', {
         p_participante_id: user.id, p_empresa_slug: user.empresa_slug,
-        p_taller: taller, p_tipo: tipo,
+        p_taller: taller, p_tipo: tipo, p_concepto: concepto || '',
         p_quiz_score: (score === undefined ? null : score),
         p_quiz_total: (total === undefined ? null : total)
       });
@@ -803,9 +797,11 @@
   async function resyncAll(){
     if (!user) return;
     for (const t of TALLERES){
-      if (st[`${t.n}-quiz`]) await syncProgreso(t.n, 'quiz', st[`${t.n}-quizScore`], st[`${t.n}-quizTotal`]);
-      if (st[`${t.n}-des`])  await syncProgreso(t.n, 'desafio');
-      if (st[`${t.n}-ver`])  await syncProgreso(t.n, 'resumen');
+      if (st[`${t.n}-quiz`]) await syncProgreso(t.n, 'quiz', '', st[`${t.n}-quizScore`], st[`${t.n}-quizTotal`]);
+      if (st[`${t.n}-des`])  await syncProgreso(t.n, 'desafio', '');
+      for (const id of t.conceptos){
+        if (st[`c-${id}`]) await syncProgreso(t.n, 'concepto', id);
+      }
     }
   }
 
@@ -814,22 +810,25 @@
   function loadStars(){ try { st = JSON.parse(localStorage.getItem(STARS_KEY)) || {}; } catch { st = {}; } }
   function saveStars(){ localStorage.setItem(STARS_KEY, JSON.stringify(st)); }
 
-  const isComplete = n => !!(st[`${n}-quiz`] && st[`${n}-des`] && st[`${n}-ver`]);
-  const countStars = () => TALLERES.filter(t => isComplete(t.n)).length;
+  const conceptosOk = n => T(n).conceptos.filter(id => st[`c-${id}`]).length;
+  const isComplete  = n => !!(st[`${n}-quiz`] && st[`${n}-des`] && conceptosOk(n) === T(n).conceptos.length);
+  const countStars  = () => TALLERES.filter(t => isComplete(t.n)).length;
 
-  function renderSkills(animateTaller){
+  function renderSkills(animar){
     const grid = document.getElementById('sk-grid');
     let count = 0;
     grid.innerHTML = SKILLS.map(sk => {
-      const on = isComplete(sk.taller);
+      const b  = BLOQUES[sk.id];
+      const on = !!st[`c-${sk.id}`];
       if (on) count++;
-      const pop = (animateTaller === sk.taller && on) ? ' pop' : '';
-      return `<div class="sk ${on ? 'on' : 'off'}${pop}" style="${on ? `background:${sk.color};` : ''}">
+      const pop = (animar === sk.id && on) ? ' pop' : '';
+      return `<div class="sk ${on ? 'on' : 'off'}${pop}" style="${on ? `background:${sk.color};` : ''}" title="${esc(b ? b.nombre : sk.id)}">
         ${!on ? '<span class="sk-lock">🔒</span>' : ''}
-        <span class="sk-icon">${sk.icon}</span>
-        <span class="sk-name">${sk.name}</span>
+        <span class="sk-icon">${b ? b.emoji : '•'}</span>
+        <span class="sk-name">${esc(b ? b.nombre : sk.id)}</span>
       </div>`;
     }).join('');
+    document.getElementById('hero-skills').textContent = SKILLS.length;
     document.getElementById('sk-sub').textContent   = `${count} de ${SKILLS.length} habilidades desbloqueadas`;
     document.getElementById('ps-count').textContent = `${count} / ${SKILLS.length} desbloqueadas`;
   }
@@ -850,21 +849,25 @@
       s.textContent = '⭐';
       row.appendChild(s);
     }
-    document.getElementById('stars-n').textContent   = n;
+    document.getElementById('stars-n').textContent    = n;
     document.getElementById('hero-stars').textContent = n;
 
-    let steps = 0;
+    let pasos = 0;
     TALLERES.forEach(t => {
-      if (st[`${t.n}-quiz`]) steps++;
-      if (st[`${t.n}-des`])  steps++;
-      if (st[`${t.n}-ver`])  steps++;
+      if (st[`${t.n}-quiz`]) pasos++;
+      if (st[`${t.n}-des`])  pasos++;
+      pasos += conceptosOk(t.n);
     });
-    const pct = Math.round((steps / (TALLERES.length * 3)) * 100);
+    const pct = Math.round((pasos / totalPasos()) * 100);
     document.getElementById('prog-pct').textContent = pct + '%';
     document.getElementById('prog-fill').style.width = pct + '%';
   }
 
   /* ---------------- Tarjetas ---------------- */
+
+  function esc(s){
+    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
 
   function buildCard(t){
     return `
@@ -880,22 +883,17 @@
           <div class="mini-stars" id="mini-${t.n}">
             <span class="ms" id="ms-${t.n}-quiz">⭐</span>
             <span class="ms" id="ms-${t.n}-des">⭐</span>
-            <span class="ms" id="ms-${t.n}-ver">⭐</span>
+            <span class="ms" id="ms-${t.n}-cpt">⭐</span>
           </div>
         </div>
       </div>
 
-      <button class="res-toggle" id="rt-${t.n}" onclick="toggleResumen(${t.n})">
-        <span>📖 Resumen ejecutivo del taller</span>
-        <span class="res-arrow">▼</span>
-      </button>
-      <div class="res-body" id="rb-${t.n}">
-        <div class="res-h">Lo que te tienes que llevar</div>
-        <ul class="res-list">
-          ${t.claves.map(c => `<li><span class="res-bullet">▸</span><span>${c}</span></li>`).join('')}
-        </ul>
-        <div class="res-h">Temario completo</div>
-        <div class="res-chips">${t.temario.map(x => `<span class="res-chip">${x}</span>`).join('')}</div>
+      <div class="res-head">
+        <span class="res-h">📖 Resumen ejecutivo</span>
+        <span class="res-count" id="cc-${t.n}">0 / ${t.conceptos.length} conceptos</span>
+      </div>
+      <div class="cpt-list" id="cl-${t.n}">
+        <div class="cpt-loading">Cargando conceptos…</div>
       </div>
 
       <div class="desafio">
@@ -903,66 +901,114 @@
         <div class="des-text">${t.desafio}</div>
         <div class="honor-row">
           <button class="hbtn quiz-b" id="bq-${t.n}" onclick="startQuiz(${t.n})">Quiz ▶</button>
-          <button class="hbtn des-b"  id="bd-${t.n}" onclick="honor(${t.n},'des')">Desafío</button>
-          <button class="hbtn ver-b"  id="bv-${t.n}" onclick="honor(${t.n},'ver')">Resumen visto</button>
+          <button class="hbtn des-b"  id="bd-${t.n}" onclick="honor(${t.n})">Desafío</button>
         </div>
       </div>
       <div class="dominada-banner" id="dom-${t.n}">⭐ ¡Taller dominado · Habilidades desbloqueadas!</div>
     </div>`;
   }
 
-  function toggleResumen(n){
-    document.getElementById(`rt-${n}`).classList.toggle('open');
-    document.getElementById(`rb-${n}`).classList.toggle('open');
+  function conceptoHTML(tallerN, id){
+    const b = BLOQUES[id];
+    if (!b) return `<div class="cpt"><div class="cpt-head"><span class="cpt-emoji">•</span><div class="cpt-t"><div class="cpt-name">${esc(id)}</div><div class="cpt-desc">No se pudo cargar este concepto.</div></div></div></div>`;
+    const on = !!st[`c-${id}`];
+    return `
+    <div class="cpt ${on ? 'done' : ''}" id="cpt-${id}">
+      <div class="cpt-head" onclick="toggleConcepto('${id}')">
+        <span class="cpt-emoji">${b.emoji}</span>
+        <div class="cpt-t">
+          <div class="cpt-name">${esc(b.nombre)}</div>
+          <div class="cpt-desc">${esc(b.descripcion)}</div>
+        </div>
+        <div class="cpt-state">
+          <span class="cpt-tick">✓</span>
+          <span class="cpt-arrow">▼</span>
+        </div>
+      </div>
+      <div class="cpt-body">
+        <ul class="cpt-pasos">
+          ${b.pasos.map((p, i) => `<li><span class="cpt-num">${i + 1}</span><span>${esc(p)}</span></li>`).join('')}
+        </ul>
+        ${b.pro_tip ? `<div class="cpt-tip"><b>💡 Pro tip:</b> ${esc(b.pro_tip)}</div>` : ''}
+        <button class="cpt-check ${on ? 'done' : ''}" id="chk-${id}" onclick="checkConcepto(${tallerN},'${id}')">
+          ${on ? `✓ Entendido: ${esc(b.nombre)}` : `Entendí la lógica de ${esc(b.nombre)}`}
+        </button>
+      </div>
+    </div>`;
+  }
+
+  function renderConceptos(t){
+    document.getElementById(`cl-${t.n}`).innerHTML =
+      t.conceptos.map(id => conceptoHTML(t.n, id)).join('');
+    updateConceptCount(t.n);
+  }
+
+  function toggleConcepto(id){
+    document.getElementById(`cpt-${id}`).classList.toggle('open');
+  }
+
+  function updateConceptCount(n){
+    const t = T(n);
+    document.getElementById(`cc-${n}`).textContent = `${conceptosOk(n)} / ${t.conceptos.length} conceptos`;
+  }
+
+  function checkConcepto(tallerN, id){
+    if (st[`c-${id}`]) return;
+    st[`c-${id}`] = true;
+    saveStars();
+    syncProgreso(tallerN, 'concepto', id);
+
+    const b = BLOQUES[id];
+    const el = document.getElementById(`cpt-${id}`);
+    if (el) el.classList.add('done');
+    const btn = document.getElementById(`chk-${id}`);
+    if (btn){ btn.classList.add('done'); btn.textContent = `✓ Entendido: ${b ? b.nombre : id}`; }
+
+    updateConceptCount(tallerN);
+    afterProgress(tallerN, `🧠 Habilidad desbloqueada: ${b ? b.nombre : id}`, id);
   }
 
   function updateButtonStates(n){
-    const map = { quiz: 'bq', des: 'bd', ver: 'bv' };
-    Object.keys(map).forEach(tipo => {
+    [['quiz','bq'], ['des','bd']].forEach(([tipo, pre]) => {
       const done = !!st[`${n}-${tipo}`];
-      const btn  = document.getElementById(`${map[tipo]}-${n}`);
+      const btn  = document.getElementById(`${pre}-${n}`);
       const ms   = document.getElementById(`ms-${n}-${tipo}`);
       if (ms) ms.classList.toggle('on', done);
       if (!btn) return;
       btn.classList.toggle('done', done);
       btn.disabled = done;
-      if (done){
-        if (tipo === 'quiz') btn.textContent = 'Quiz ✓';
-        if (tipo === 'des')  btn.textContent = 'Desafío ✓';
-        if (tipo === 'ver')  btn.textContent = 'Resumen ✓';
-      }
+      if (done) btn.textContent = tipo === 'quiz' ? 'Quiz ✓' : 'Desafío ✓';
     });
+    const t = T(n);
+    const cptOk = conceptosOk(n) === t.conceptos.length;
+    const msc = document.getElementById(`ms-${n}-cpt`);
+    if (msc) msc.classList.toggle('on', cptOk);
+
     const dom = document.getElementById(`dom-${n}`);
     if (dom) dom.classList.toggle('show', isComplete(n));
     document.getElementById(`card-${n}`).classList.toggle('done', isComplete(n));
   }
 
-  /* ---------------- Honor (desafío / resumen) ---------------- */
+  /* ---------------- Desafío (declaración de honor) ---------------- */
 
-  function honor(n, tipo){
-    if (st[`${n}-${tipo}`]) return;
-    pending = { n, tipo };
-    if (tipo === 'des'){
-      document.getElementById('m-emoji').textContent = '🎯';
-      document.getElementById('m-title').textContent = '¿Completaste el desafío?';
-      document.getElementById('m-text').textContent  = 'Declara que hiciste el desafío a conciencia y aplicaste lo aprendido. Tu palabra es lo que cuenta.';
-    } else {
-      document.getElementById('m-emoji').textContent = '📖';
-      document.getElementById('m-title').textContent = '¿Leíste el resumen ejecutivo?';
-      document.getElementById('m-text').textContent  = 'Confirma que revisaste los puntos clave del taller. Repasar es lo que consolida el aprendizaje.';
-    }
+  function honor(n){
+    if (st[`${n}-des`]) return;
+    pending = n;
+    document.getElementById('m-emoji').textContent = '🎯';
+    document.getElementById('m-title').textContent = '¿Completaste el desafío?';
+    document.getElementById('m-text').textContent  = 'Declara que hiciste el desafío a conciencia y aplicaste lo aprendido. Tu palabra es lo que cuenta.';
     document.getElementById('m-confirm').onclick = confirmHonor;
     document.getElementById('overlay').classList.add('open');
   }
 
   function confirmHonor(){
-    if (!pending) return;
-    const { n, tipo } = pending;
-    st[`${n}-${tipo}`] = true;
+    if (pending === null) return;
+    const n = pending;
+    st[`${n}-des`] = true;
     saveStars();
-    syncProgreso(n, tipo === 'des' ? 'desafio' : 'resumen');
+    syncProgreso(n, 'desafio', '');
     closeModal();
-    afterProgress(n, tipo === 'des' ? '🎯 ¡Desafío completado!' : '📖 ¡Resumen registrado!');
+    afterProgress(n, '🎯 ¡Desafío completado!');
   }
 
   function closeModal(){
@@ -970,12 +1016,12 @@
     pending = null;
   }
 
-  function afterProgress(n, msg){
-    const eraCompleto = isComplete(n);
+  function afterProgress(n, msg, skillId){
+    const completo = isComplete(n);
     updateButtonStates(n);
     renderStarPanel();
-    renderSkills(eraCompleto ? n : null);
-    toast(eraCompleto ? '⭐ ¡Taller dominado! Habilidades desbloqueadas' : msg);
+    renderSkills(skillId);
+    toast(completo ? '⭐ ¡Taller dominado! Estrella ganada' : msg);
   }
 
   function toast(msg){
@@ -983,7 +1029,7 @@
     el.textContent = msg;
     el.classList.add('show');
     clearTimeout(el._t);
-    el._t = setTimeout(() => el.classList.remove('show'), 2800);
+    el._t = setTimeout(() => el.classList.remove('show'), 3000);
   }
 
   /* ---------------- Quiz ---------------- */
@@ -1023,8 +1069,7 @@
     if (quizAnswered) return;
     quizAnswered = true;
     const q = quizQuestions[quizIdx];
-    const btns = document.querySelectorAll('#q-options .qopt');
-    btns.forEach((b, idx) => {
+    document.querySelectorAll('#q-options .qopt').forEach((b, idx) => {
       b.disabled = true;
       if (idx === q.correct) b.classList.add('correct');
       else if (idx === i) b.classList.add('wrong');
@@ -1038,18 +1083,14 @@
   }
 
   function nextQuestion(){
-    if (quizIdx < quizQuestions.length - 1){
-      quizIdx++;
-      renderQuestion();
-      return;
-    }
+    if (quizIdx < quizQuestions.length - 1){ quizIdx++; renderQuestion(); return; }
     document.getElementById('qprog-fill').style.width = '100%';
     const n = quizTaller;
     st[`${n}-quiz`] = true;
     st[`${n}-quizScore`] = quizAciertos;
     st[`${n}-quizTotal`] = quizQuestions.length;
     saveStars();
-    syncProgreso(n, 'quiz', quizAciertos, quizQuestions.length);
+    syncProgreso(n, 'quiz', '', quizAciertos, quizQuestions.length);
     closeQuiz();
     afterProgress(n, `🧠 Quiz completado · ${quizAciertos}/${quizQuestions.length} correctas`);
   }
@@ -1061,16 +1102,29 @@
 
   /* ---------------- Init ---------------- */
 
-  function init(){
+  async function cargarBloques(){
+    const ids = [...new Set(TALLERES.flatMap(t => t.conceptos))];
+    await Promise.all(ids.map(async id => {
+      try {
+        const r = await fetch(`/bloques/${id}/meta.json`);
+        if (r.ok) BLOQUES[id] = await r.json();
+      } catch (e) { /* la tarjeta muestra un aviso en vez de romperse */ }
+    }));
+  }
+
+  async function init(){
     loadStars();
     loadUser();
     document.getElementById('sess-list').innerHTML = TALLERES.map(buildCard).join('');
-    TALLERES.forEach(t => updateButtonStates(t.n));
     renderStarPanel();
     renderSkills();
 
-    if (!user) { openGate(false); }
+    if (!user) openGate(false);
     else { renderUser(); syncUser().then(resyncAll); }
+
+    await cargarBloques();
+    TALLERES.forEach(t => { renderConceptos(t); updateButtonStates(t.n); });
+    renderSkills();
   }
 
   document.getElementById('gate').addEventListener('keydown', e => {
