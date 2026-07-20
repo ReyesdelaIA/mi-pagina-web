@@ -1,56 +1,165 @@
 {
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/alfonsolobato", "destination": "/alfonsolobato/index.html" },
-    { "source": "/juanobach01", "destination": "/juanobach01/index.html" },
-    { "source": "/legalidadCSB", "destination": "/legalidadCSB/index.html" },
-    { "source": "/pizzalive", "destination": "/pizzalive/index.html" },
-    { "source": "/planesclaude", "destination": "/planesclaude/index.html" },
-    { "source": "/diagnostico", "destination": "/diagnostico/index.html" },
-    { "source": "/diagnosticoinicial", "destination": "/diagnostico/index.html" },
-    { "source": "/diagnostico/admin", "destination": "/diagnostico/admin.html" },
-    { "source": "/diagnostico/penuelas", "destination": "/diagnostico/penuelas.html" },
-    { "source": "/diagnostico/resultados", "destination": "/diagnostico/panel.html" },
-    { "source": "/diagnostico/panel", "destination": "/diagnostico/panel.html" },
-    { "source": "/ai-vibe-coding", "destination": "/ai-vibe-coding.html" },
-    { "source": "/vibecoding", "destination": "/ai-vibe-coding.html" },
-    { "source": "/pucobre", "destination": "/pucobre/index.html" },
-    { "source": "/sesion01-pucobre", "destination": "/sesion01-pucobre/index.html" },
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/dashboard", "destination": "/dashboard.html" },
-    { "source": "/login", "destination": "/login.html" },
-    { "source": "/intranet-login", "destination": "/login.html" },
-    { "source": "/register", "destination": "/register.html" },
-    { "source": "/gracias", "destination": "/gracias.html" },
-    { "source": "/clases-claude-2026", "destination": "/clases-claude-2026.html" },
-    { "source": "/clases-grupales-ia-tradicional", "destination": "/clases-grupales-ia-tradicional.html" },
-    { "source": "/maestros-fc-privacidad", "destination": "/maestros-fc-privacidad.html" },
-    { "source": "/talleres-ia", "destination": "/talleres-practicos-ia.html" },
-    { "source": "/repo-prompts", "destination": "/repo-prompts/index.html" },
-    { "source": "/repo-skills", "destination": "/repo-skills/index.html" },
-    { "source": "/pack-copilot", "destination": "/talleres/copilot.html" },
-    { "source": "/pack-gemini", "destination": "/talleres/gemini.html" },
-    { "source": "/pack-claude", "destination": "/talleres/claude.html" }
+    {
+      "source": "/alfonsolobato",
+      "destination": "/alfonsolobato/index.html"
+    },
+    {
+      "source": "/juanobach01",
+      "destination": "/juanobach01/index.html"
+    },
+    {
+      "source": "/legalidadCSB",
+      "destination": "/legalidadCSB/index.html"
+    },
+    {
+      "source": "/pizzalive",
+      "destination": "/pizzalive/index.html"
+    },
+    {
+      "source": "/planesclaude",
+      "destination": "/planesclaude/index.html"
+    },
+    {
+      "source": "/diagnostico",
+      "destination": "/diagnostico/index.html"
+    },
+    {
+      "source": "/diagnosticoinicial",
+      "destination": "/diagnostico/index.html"
+    },
+    {
+      "source": "/diagnostico/admin",
+      "destination": "/diagnostico/admin.html"
+    },
+    {
+      "source": "/diagnostico/penuelas",
+      "destination": "/diagnostico/penuelas.html"
+    },
+    {
+      "source": "/diagnostico/resultados",
+      "destination": "/diagnostico/panel.html"
+    },
+    {
+      "source": "/diagnostico/panel",
+      "destination": "/diagnostico/panel.html"
+    },
+    {
+      "source": "/ai-vibe-coding",
+      "destination": "/ai-vibe-coding.html"
+    },
+    {
+      "source": "/vibecoding",
+      "destination": "/ai-vibe-coding.html"
+    },
+    {
+      "source": "/pucobre",
+      "destination": "/pucobre/index.html"
+    },
+    {
+      "source": "/sesion01-pucobre",
+      "destination": "/sesion01-pucobre/index.html"
+    },
+    {
+      "source": "/panel-clientes",
+      "destination": "/panel-clientes/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/dashboard.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/intranet-login",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/register",
+      "destination": "/register.html"
+    },
+    {
+      "source": "/gracias",
+      "destination": "/gracias.html"
+    },
+    {
+      "source": "/clases-claude-2026",
+      "destination": "/clases-claude-2026.html"
+    },
+    {
+      "source": "/clases-grupales-ia-tradicional",
+      "destination": "/clases-grupales-ia-tradicional.html"
+    },
+    {
+      "source": "/maestros-fc-privacidad",
+      "destination": "/maestros-fc-privacidad.html"
+    },
+    {
+      "source": "/talleres-ia",
+      "destination": "/talleres-practicos-ia.html"
+    },
+    {
+      "source": "/repo-prompts",
+      "destination": "/repo-prompts/index.html"
+    },
+    {
+      "source": "/repo-skills",
+      "destination": "/repo-skills/index.html"
+    },
+    {
+      "source": "/pack-copilot",
+      "destination": "/talleres/copilot.html"
+    },
+    {
+      "source": "/pack-gemini",
+      "destination": "/talleres/gemini.html"
+    },
+    {
+      "source": "/pack-claude",
+      "destination": "/talleres/claude.html"
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
       ]
     },
     {
       "source": "/static/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000"
+        }
       ]
     },
     {
       "source": "/(.*).pdf",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
     }
   ]
