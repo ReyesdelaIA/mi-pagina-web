@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel de Clientes — Reyes IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{
+    --navy1:#042C53; --navy2:#0C447C; --navy3:#185FA5;
+    --bg:#f0f0ee; --card:#ffffff; --border:#e0e0e0;
+    --green:#22C55E; --greenbg:#E8F8EE;
+    --amber:#F59E0B; --amberbg:#FEF3E2;
+    --purple:#7C3AED;
+    --text:#1a1a1a; --sub:#6b7280;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);}
+  a{text-decoration:none;color:inherit;}
+
+  /* NAVBAR */
+  .navbar{position:sticky;top:0;z-index:100;background:linear-gradient(135deg,var(--navy1) 0%,var(--navy2) 50%,var(--navy3) 100%);
+    padding:14px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .navbar-title{color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+  .navbar-title .dot{width:8px;height:8px;border-radius:50%;background:var(--green);}
+  .navbar-links{display:flex;gap:16px;}
+  .navbar-links a{color:rgba(255,255,255,0.85);font-size:13px;font-weight:500;}
+
+  .wrap{max-width:960px;margin:0 auto;padding:28px 20px 80px;}
+
+  /* LANDING */
+  .page-header{margin-bottom:24px;}
+  .page-header h1{font-size:22px;font-weight:800;margin:0 0 4px;color:var(--navy1);}
+  .page-header p{color:var(--sub);font-size:14px;margin:0;}
+
+  .group-label{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy2);
+    margin:28px 0 12px;display:flex;align-items:center;gap:8px;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+
+  .client-card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:18px 20px;cursor:pointer;
+    transition:transform .15s, box-shadow .15s, border-color .15s;}
+  .client-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(4,44,83,0.10);border-color:var(--navy3);}
+  .client-card .name{font-weight:700;font-size:16px;margin-bottom:2px;}
+  .client-card .meta{font-size:12px;color:var(--sub);margin-bottom:14px;}
+  .progress-track{height:8px;background:#eee;border-radius:6px;overflow:hidden;margin-bottom:8px;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--navy3),var(--navy1));border-radius:6px;}
+  .progress-text{font-size:12px;color:var(--sub);font-weight:600;display:flex;justify-content:space-between;}
+  .badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.03em;}
+  .badge-activo{background:var(--greenbg);color:#166534;}
+  .badge-pausado{background:var(--amberbg);color:#92400E;}
+  .badge-completado{background:#EEF2FF;color:#3730A3;}
+
+  .empty{color:var(--sub);font-size:14px;padding:20px;text-align:center;background:var(--card);border-radius:14px;border:1.5px dashed var(--border);}
+
+  /* DETAIL */
+  .back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--navy2);cursor:pointer;margin-bottom:18px;}
+
+  .client-header{background:linear-gradient(135deg,var(--navy1) 0%,var(--navy2) 55%,var(--navy3) 100%);
+    border-radius:20px;padding:26px 28px;color:#fff;margin-bottom:24px;}
+  .client-header .name{font-size:24px;font-weight:800;margin-bottom:6px;}
+  .client-header .meta{font-size:13px;opacity:.85;margin-bottom:16px;}
+  .client-header .progress-track{background:rgba(255,255,255,0.2);}
+  .client-header .progress-fill{background:#fff;}
+  .client-header .progress-text{color:rgba(255,255,255,0.9);}
+
+  .session-block{background:var(--card);border:1.5px solid var(--border);border-radius:16px;margin-bottom:14px;overflow:hidden;}
+  .session-head{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+  .session-head .left{display:flex;align-items:center;gap:12px;}
+  .session-num{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;}
+  .session-num.done{background:var(--greenbg);color:#166534;}
+  .session-num.current{background:var(--navy2);color:#fff;}
+  .session-num.future{background:#f0f0f0;color:var(--sub);}
+  .session-title{font-weight:700;font-size:14.5px;}
+  .session-date{font-size:12px;color:var(--sub);font-weight:500;}
+  .session-status{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;}
+  .chev{color:var(--sub);transition:transform .2s;font-size:12px;}
+  .chev.open{transform:rotate(180deg);}
+
+  .session-body{display:none;padding:4px 20px 18px;border-top:1px solid var(--border);}
+  .session-body.open{display:block;}
+
+  .tema-row{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f2f2f0;}
+  .tema-row:last-child{border-bottom:none;}
+  .checkbox{width:22px;height:22px;border-radius:6px;border:2px solid #cbd5e1;flex-shrink:0;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .15s;}
+  .checkbox.checked{background:var(--green);border-color:var(--green);}
+  .checkbox.checked::after{content:'✓';color:#fff;font-size:13px;font-weight:800;}
+  .tema-content{flex:1;min-width:0;}
+  .tema-nombre{font-size:14px;font-weight:500;line-height:1.4;}
+  .tema-nombre.done{color:#166534;}
+  .tema-comment{width:100%;border:1px solid transparent;background:transparent;font-family:'Poppins',sans-serif;
+    font-size:12.5px;color:var(--sub);padding:4px 0;margin-top:2px;resize:none;outline:none;}
+  .tema-comment:focus{color:var(--text);}
+  .tema-comment::placeholder{color:#c4c4c4;}
+  .tema-del{color:#d1d5db;font-size:16px;cursor:pointer;padding:2px 6px;flex-shrink:0;}
+  .tema-del:hover{color:#EF4444;}
+
+  .add-tema-row{display:flex;gap:8px;margin-top:10px;}
+  .add-tema-row input{flex:1;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;font-family:'Poppins',sans-serif;font-size:13px;outline:none;}
+  .add-tema-row input:focus{border-color:var(--navy3);}
+  .add-tema-row button{background:var(--navy2);color:#fff;border:none;border-radius:10px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;}
+
+  .add-session-btn{display:block;width:100%;background:var(--card);border:1.5px dashed var(--border);border-radius:16px;
+    padding:14px;text-align:center;font-size:13px;font-weight:600;color:var(--navy2);cursor:pointer;margin-bottom:14px;}
+
+  .save-pill{position:fixed;bottom:20px;right:20px;background:#111;color:#fff;font-size:12px;font-weight:600;
+    padding:8px 16px;border-radius:20px;opacity:0;transition:opacity .3s;pointer-events:none;}
+  .save-pill.show{opacity:0.92;}
+
+  .loading{padding:60px 20px;text-align:center;color:var(--sub);font-size:14px;}
+
+  @media (max-width:600px){
+    .navbar-links a:not(.always){display:none;}
+    .client-header{padding:20px;}
+    .client-header .name{font-size:19px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="navbar-title" onclick="location.hash='#/'"><span class="dot"></span> Panel de Clientes — Reyes IA</div>
+  <div class="navbar-links"><a href="https://reyesia.com" target="_blank">reyesia.com</a></div>
+</div>
+
+<div class="wrap" id="app">
+  <div class="loading">Cargando…</div>
+</div>
+
+<div class="save-pill" id="savePill">Guardado ✓</div>
+
+<script>
+const SUPABASE_URL = "https://lzrhpmwrbcrprsnpuadh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_oak2a-feuA_tdZxbyqufCw_XpqWGgTZ";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const app = document.getElementById('app');
+const savePill = document.getElementById('savePill');
+
+function flashSaved(){
+  savePill.classList.add('show');
+  clearTimeout(flashSaved._t);
+  flashSaved._t = setTimeout(()=>savePill.classList.remove('show'), 1200);
+}
+
+function esc(s){ return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+window.addEventListener('hashchange', route);
+window.addEventListener('DOMContentLoaded', route);
+
+function route(){
+  const h = location.hash;
+  const m = h.match(/^#\/cliente\/([a-f0-9-]+)/);
+  if (m) renderDetail(m[1]);
+  else renderLanding();
+}
+
+// ---------- LANDING ----------
+async function renderLanding(){
+  app.innerHTML = '<div class="loading">Cargando programas…</div>';
+  const { data: programas, error } = await sb
+    .from('programas_clientes')
+    .select('*')
+    .order('updated_at', { ascending: false });
+
+  if (error){ app.innerHTML = '<div class="empty">Error cargando datos: '+esc(error.message)+'</div>'; return; }
+
+  const empresas = programas.filter(p => (p.tipo || 'empresa') === 'empresa');
+  const mentorias = programas.filter(p => p.tipo === 'mentoria_1a1');
+
+  const cardHtml = p => {
+    const total = p.total_sesiones || 8;
+    const done = p.sesiones_completadas || 0;
+    const pct = total ? Math.round((done/total)*100) : 0;
+    return `<a class="client-card" onclick="location.hash='#/cliente/${p.id}'">
+      <div class="name">${esc(p.cliente)}</div>
+      <div class="meta">${esc(p.contacto || '')} ${p.contacto ? '· ' : ''}<span class="badge badge-${p.estado}">${p.estado}</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="progress-text"><span>Sesión ${done}/${total}</span><span>${pct}%</span></div>
+    </a>`;
+  };
+
+  app.innerHTML = `
+    <div class="page-header">
+      <h1>Panel de Clientes</h1>
+      <p>Selecciona una empresa o una mentoría para ver la bitácora y el temario en vivo.</p>
+    </div>
+    ${empresas.length ? `<div class="group-label">🏢 Adopción Profunda — Empresas</div><div class="grid">${empresas.map(cardHtml).join('')}</div>` : ''}
+    ${mentorias.length ? `<div class="group-label">🎯 Mentorías 1:1</div><div class="grid">${mentorias.map(cardHtml).join('')}</div>` : ''}
+    ${!programas.length ? '<div class="empty">Aún no hay programas registrados.</div>' : ''}
+  `;
+}
+
+// ---------- DETAIL ----------
+async function renderDetail(programaId){
+  app.innerHTML = '<div class="loading">Cargando cliente…</div>';
+
+  const [{ data: programa, error: e1 }, { data: temas, error: e2 }] = await Promise.all([
+    sb.from('programas_clientes').select('*').eq('id', programaId).single(),
+    sb.from('temario_temas').select('*').eq('programa_id', programaId).order('numero_sesion').order('orden')
+  ]);
+
+  if (e1 || !programa){ app.innerHTML = '<div class="empty">No se encontró el cliente.</div>'; return; }
+
+  const total = programa.total_sesiones || (temas.length ? Math.max(...temas.map(t=>t.numero_sesion)) : 4);
+  const done = programa.sesiones_completadas || 0;
+  const pct = total ? Math.round((done/total)*100) : 0;
+
+  // Agrupar temas por sesión
+  const bySesion = {};
+  (temas || []).forEach(t => { (bySesion[t.numero_sesion] ||= []).push(t); });
+  const sesionesNums = Object.keys(bySesion).map(Number).sort((a,b)=>a-b);
+  const maxNum = Math.max(total, ...sesionesNums, 0);
+
+  let sessionsHtml = '';
+  for (let n = 1; n <= maxNum; n++){
+    const list = bySesion[n] || [];
+    const allDone = list.length > 0 && list.every(t => t.estado === 'visto');
+    const isCurrent = n === done + 1;
+    const stateClass = allDone ? 'done' : isCurrent ? 'current' : 'future';
+    const stateLabel = allDone ? 'Completada' : isCurrent ? 'En curso' : 'Próxima';
+    const openAttr = isCurrent ? 'open' : '';
+
+    sessionsHtml += `
+    <div class="session-block">
+      <div class="session-head" onclick="this.parentElement.querySelector('.session-body').classList.toggle('open'); this.querySelector('.chev').classList.toggle('open')">
+        <div class="left">
+          <div class="session-num ${stateClass}">${n}</div>
+          <div>
+            <div class="session-title">Sesión ${n}</div>
+            <div class="session-date">${list.length} tema${list.length===1?'':'s'} · ${stateLabel}</div>
+          </div>
+        </div>
+        <div class="chev ${openAttr}">▼</div>
+      </div>
+      <div class="session-body ${openAttr}">
+        ${list.map(t => `
+          <div class="tema-row" data-tema-id="${t.id}">
+            <div class="checkbox ${t.estado==='visto'?'checked':''}" onclick="toggleTema('${t.id}', this)"></div>
+            <div class="tema-content">
+              <div class="tema-nombre ${t.estado==='visto'?'done':''}">${esc(t.tema)}</div>
+              <textarea class="tema-comment" rows="1" placeholder="Agregar comentario…" onfocus="this.rows=2" onblur="saveComentario('${t.id}', this.value); if(!this.value) this.rows=1">${esc(t.comentario||'')}</textarea>
+            </div>
+            <div class="tema-del" onclick="deleteTema('${t.id}')">✕</div>
+          </div>
+        `).join('')}
+        <div class="add-tema-row">
+          <input type="text" placeholder="+ agregar tema a la sesión ${n}" onkeydown="if(event.key==='Enter'){addTema('${programaId}', ${n}, this); event.preventDefault();}">
+          <button onclick="addTema('${programaId}', ${n}, this.previousElementSibling)">Agregar</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  app.innerHTML = `
+    <div class="back-btn" onclick="location.hash='#/'">← Volver al panel</div>
+    <div class="client-header">
+      <div class="name">${esc(programa.cliente)}</div>
+      <div class="meta">${programa.tipo === 'mentoria_1a1' ? 'Mentoría 1:1' : 'Adopción Profunda de IA'}${programa.contacto ? ' · ' + esc(programa.contacto) : ''}${programa.fecha_inicio ? ' · Inicio: ' + programa.fecha_inicio : ''}</div>
+      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="progress-text"><span>Sesión ${done}/${total}</span><span>${pct}% completado</span></div>
+    </div>
+    ${sessionsHtml}
+    <div class="add-session-btn" onclick="addSession('${programaId}', ${maxNum+1})">+ Agregar sesión ${maxNum+1}</div>
+  `;
+}
+
+// ---------- ACTIONS ----------
+async function toggleTema(id, el){
+  const nowChecked = !el.classList.contains('checked');
+  el.classList.toggle('checked', nowChecked);
+  const nombreEl = el.parentElement.querySelector('.tema-nombre');
+  nombreEl.classList.toggle('done', nowChecked);
+  await sb.from('temario_temas').update({ estado: nowChecked ? 'visto' : 'pendiente', fecha_actualizacion: new Date().toISOString() }).eq('id', id);
+  flashSaved();
+}
+
+async function saveComentario(id, valor){
+  await sb.from('temario_temas').update({ comentario: valor, fecha_actualizacion: new Date().toISOString() }).eq('id', id);
+  flashSaved();
+}
+
+async function deleteTema(id){
+  if (!confirm('¿Eliminar este tema?')) return;
+  await sb.from('temario_temas').delete().eq('id', id);
+  route();
+}
+
+async function addTema(programaId, numeroSesion, inputEl){
+  const val = inputEl.value.trim();
+  if (!val) return;
+  await sb.from('temario_temas').insert({ programa_id: programaId, numero_sesion: numeroSesion, tema: val, orden: 999 });
+  inputEl.value = '';
+  route();
+}
+
+async function addSession(programaId, numeroSesion){
+  const val = prompt('Primer tema de la sesión ' + numeroSesion + ':');
+  if (!val) return;
+  await sb.from('temario_temas').insert({ programa_id: programaId, numero_sesion: numeroSesion, tema: val, orden: 1 });
+  route();
+}
+</script>
+</body>
+</html>
