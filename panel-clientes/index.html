@@ -189,12 +189,17 @@ async function entrar(){
   lockErr.classList.remove('show');
   if (!pw){ lockErr.textContent = 'Escribe la contraseña.'; lockErr.classList.add('show'); return; }
   try {
-    const r = await fetch('/api/diagnostico-auth', {
+    const r = await fetch('/api/panel-clientes-auth', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: pw })
     });
-    if (!r.ok){ lockErr.textContent = 'Contraseña incorrecta.'; lockErr.classList.add('show'); return; }
+    if (!r.ok){
+      const d = await r.json().catch(() => ({}));
+      lockErr.textContent = d.error || 'Contraseña incorrecta.';
+      lockErr.classList.add('show');
+      return;
+    }
     sessionStorage.setItem('panel_clientes_ok', '1');
     abrir();
   } catch (e) {
