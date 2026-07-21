@@ -117,10 +117,10 @@
     border-radius:6px;padding:3px 6px;margin-top:2px;line-height:1;}
   .pend-count{color:#B45309;font-weight:700;}
   .temas-list.dragging-on .tema-comment{pointer-events:none;}
-  .fecha-chip{display:inline-flex;margin-left:8px;vertical-align:middle;}
-  .fecha-input{border:1px solid var(--border);border-radius:7px;padding:3px 7px;font-size:11px;
+  .fecha-chip{display:inline-flex;gap:6px;margin-left:8px;vertical-align:middle;}
+  .fecha-input,.hora-input{border:1px solid var(--border);border-radius:7px;padding:3px 7px;font-size:11px;
     font-family:'Poppins',sans-serif;color:var(--sub);background:#fff;cursor:pointer;}
-  .fecha-input:hover{border-color:var(--navy3);}
+  .fecha-input:hover,.hora-input:hover{border-color:var(--navy3);}
   .tema-del{color:#d1d5db;font-size:16px;cursor:pointer;padding:2px 6px;flex-shrink:0;}
   .tema-del:hover{color:#EF4444;}
 
@@ -365,11 +365,13 @@ async function renderDetail(programaId){
             <div class="session-title">
               Sesión ${n}
               <span class="fecha-chip" onclick="event.stopPropagation()">
-                <input type="datetime-local" class="fecha-input" value="${paraInput(fechas[n]?.fecha_hora)}"
-                       onchange="saveFecha('${programaId}', ${n}, this.value)">
+                <input type="date" class="fecha-input" value="${diaParaInput(fechas[n]?.fecha_hora)}"
+                       onchange="saveFecha('${programaId}', ${n}, this)">
+                <input type="time" class="hora-input" value="${horaParaInput(fechas[n]?.fecha_hora)}"
+                       onchange="saveFecha('${programaId}', ${n}, this)">
               </span>
             </div>
-            <div class="session-date">${fechaLegible(fechas[n]?.fecha_hora)}${list.length} tema${list.length===1?'':'s'}${arrastrados.length ? `<span class="pend-count"> · ${arrastrados.length} pendiente${arrastrados.length===1?'':'s'}</span>` : ''} · ${stateLabel}</div>
+            <div class="session-date"><span class="fecha-legible">${fechaLegible(fechas[n]?.fecha_hora)}</span>${list.length} tema${list.length===1?'':'s'}${arrastrados.length ? `<span class="pend-count"> · ${arrastrados.length} pendiente${arrastrados.length===1?'':'s'}</span>` : ''} · ${stateLabel}</div>
           </div>
         </div>
         <div class="chev ${openAttr}">▼</div>
@@ -439,32 +441,67 @@ function sacarDePendientes(fila){
 }
 
 // --- Bitácora: fecha y hora de cada sesión ---
-function paraInput(iso){
+// Día y hora van en campos separados a propósito: un <input datetime-local>
+// no entrega ningún valor hasta que están completos el día Y la hora, así que
+// anotar solo la fecha se perdía en silencio. La hora es opcional; cuando no
+// se indica, se guarda a medianoche y no se muestra.
+const p2 = n => String(n).padStart(2,'0');
+
+function diaParaInput(iso){
   if (!iso) return '';
   const d = new Date(iso);
-  const p = n => String(n).padStart(2,'0');
-  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+  return `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+}
+
+function horaParaInput(iso){
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (!d.getHours() && !d.getMinutes()) return '';
+  return `${p2(d.getHours())}:${p2(d.getMinutes())}`;
 }
 
 function fechaLegible(iso){
   if (!iso) return '';
   const d = new Date(iso);
-  const txt = d.toLocaleDateString('es-CL', { weekday:'long', day:'numeric', month:'long' })
-            + ' · ' + d.toLocaleTimeString('es-CL', { hour:'2-digit', minute:'2-digit' });
+  let txt = d.toLocaleDateString('es-CL', { weekday:'long', day:'numeric', month:'long' });
+  if (d.getHours() || d.getMinutes())
+    txt += ' · ' + d.toLocaleTimeString('es-CL', { hour:'2-digit', minute:'2-digit' });
   return txt.charAt(0).toUpperCase() + txt.slice(1) + ' · ';
 }
 
-async function saveFecha(programaId, numeroSesion, valor){
-  const fila = {
+// Mientras se escribe una fecha, el navegador dispara un `change` por cada
+// estado intermedio válido: tecleando el año 2026 pasa por el año 2, 20 y 202.
+// Por eso se espera a que termine de escribir y se descartan los años absurdos.
+const timersFecha = {};
+
+function saveFecha(programaId, numeroSesion, el){
+  const chip = el.closest('.fecha-chip');
+  clearTimeout(timersFecha[numeroSesion]);
+  timersFecha[numeroSesion] = setTimeout(() => guardarFecha(programaId, numeroSesion, chip), 700);
+}
+
+async function guardarFecha(programaId, numeroSesion, chip){
+  const dia  = chip.querySelector('.fecha-input').value;
+  const hora = chip.querySelector('.hora-input').value;
+
+  // Una hora sin día no dice nada: se espera a que anote el día.
+  if (!dia && hora) return;
+  if (dia && Number(dia.slice(0,4)) < 2000) return;
+
+  const fechaHora = dia ? new Date(`${dia}T${hora || '00:00'}`).toISOString() : null;
+  const { error } = await sb.from('sesiones_cliente').upsert({
     programa_id: programaId,
     numero_sesion: numeroSesion,
-    fecha_hora: valor ? new Date(valor).toISOString() : null,
+    fecha_hora: fechaHora,
     updated_at: new Date().toISOString()
-  };
-  const { error } = await sb.from('sesiones_cliente').upsert(fila, { onConflict: 'programa_id,numero_sesion' });
+  }, { onConflict: 'programa_id,numero_sesion' });
+
   if (error){ alert('No se pudo guardar la fecha: ' + error.message); return; }
+
+  // Se actualiza el texto en el lugar, sin volver a dibujar toda la ficha.
+  const etiqueta = chip.closest('.session-block').querySelector('.fecha-legible');
+  if (etiqueta) etiqueta.textContent = fechaLegible(fechaHora);
   flashSaved();
-  renderDetail(programaId);
 }
 
 // Los comentarios se guardan solos: 800 ms después de dejar de escribir,
