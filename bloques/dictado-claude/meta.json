@@ -9,7 +9,10 @@
     "anthropic"
   ],
   "pasos": [
-    "Activa el dictado desde el ícono de micrófono en el campo de escritura. La primera vez el navegador o el sistema te va a pedir permiso.",
+    {
+      "texto": "El dictado está en el ícono de micrófono, dentro del campo de escritura. Lo tienes igual en el celular y en el computador. La primera vez el navegador o el sistema te va a pedir permiso para usar el micrófono.",
+      "img": "01-herramienta-dictado.png"
+    },
     "Habla como le explicarías a una persona: con contexto, sin miedo a extenderte. Dictar rinde mucho más que escribir porque no editas mientras hablas.",
     "No te preocupes por la puntuación ni por corregir sobre la marcha: revisa el texto antes de enviarlo, ahí arreglas lo que quedó mal.",
     "El modo de voz permite conversar de ida y vuelta, sin teclado. Sirve para pensar en voz alta mientras caminas o manejas.",
@@ -21,8 +24,12 @@
     "prompt": null,
     "origen": "propuesto"
   },
-  "assets": [],
-  "assets_github": [],
+  "assets": [
+    "01-herramienta-dictado.png"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/dictado-claude/01-herramienta-dictado.png"
+  ],
   "sources": [
     {
       "file": "claude/index.html",
@@ -30,5 +37,6 @@
       "imgs": 0,
       "variant": 0
     }
-  ]
+  ],
+  "portada": "portada.png"
 }
