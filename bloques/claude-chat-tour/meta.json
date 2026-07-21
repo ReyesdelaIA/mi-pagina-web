@@ -48,7 +48,8 @@
       "img": "06-instantaneo-vs-thinking.png"
     },
     {
-      "texto": "El esfuerzo: Bajo viene por defecto, y puedes subirlo a Medio, Alto o Max. Más esfuerzo son respuestas más detalladas, pero tarda más y consume tus límites más rápido."
+      "texto": "El esfuerzo es el tiraje que le das al modelo: Bajo, Medio —que viene por defecto—, Alto, Extra y Máx. Mientras más esfuerzo, más completas las respuestas; pero lleva más tiempo y consume tus límites más rápido.",
+      "img": "07-esfuerzo.png"
     },
     {
       "texto": "El Pensamiento: es un interruptor aparte que le permite razonar en tareas más complejas. Actívalo cuando el problema tenga varios pasos y la respuesta rápida no te sirva."
@@ -79,7 +80,8 @@
     "03-chat-temporal.png",
     "04-adjuntar.png",
     "05-razonamiento.png",
-    "06-instantaneo-vs-thinking.png"
+    "06-instantaneo-vs-thinking.png",
+    "07-esfuerzo.png"
   ],
   "assets_github": [
     "https://reyesia.com/bloques/claude-chat-tour/01-interfaz.png",
@@ -88,7 +90,8 @@
     "https://reyesia.com/bloques/claude-chat-tour/03-chat-temporal.png",
     "https://reyesia.com/bloques/claude-chat-tour/04-adjuntar.png",
     "https://reyesia.com/bloques/claude-chat-tour/05-razonamiento.png",
-    "https://reyesia.com/bloques/claude-chat-tour/06-instantaneo-vs-thinking.png"
+    "https://reyesia.com/bloques/claude-chat-tour/06-instantaneo-vs-thinking.png",
+    "https://reyesia.com/bloques/claude-chat-tour/07-esfuerzo.png"
   ],
   "sources": [
     {
