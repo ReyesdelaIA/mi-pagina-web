@@ -63,6 +63,16 @@
   .btn-duplicar{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:7px 13px;
     font-size:12.5px;font-weight:600;font-family:'Poppins',sans-serif;color:var(--navy2);cursor:pointer;}
   .btn-duplicar:hover{border-color:var(--navy3);}
+  .acciones-ficha{display:flex;gap:8px;}
+  .btn-eliminar{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:7px 13px;
+    font-size:12.5px;font-weight:600;font-family:'Poppins',sans-serif;color:#B91C1C;cursor:pointer;}
+  .btn-eliminar:hover{border-color:#EF4444;background:#FEF2F2;}
+  .client-header .name{cursor:pointer;}
+  .lapiz{font-size:14px;opacity:.35;}
+  .client-header .name:hover .lapiz{opacity:.9;}
+  .nombre-input{width:100%;max-width:420px;border:none;border-radius:9px;padding:4px 9px;
+    font-family:'Poppins',sans-serif;font-size:23px;font-weight:800;color:var(--navy1);
+    background:rgba(255,255,255,.95);outline:none;}
 
   /* Modal de nuevo cliente */
   .modal-bg{position:fixed;inset:0;background:rgba(4,44,83,.45);z-index:500;padding:20px;
@@ -465,10 +475,14 @@ async function renderDetail(programaId){
   app.innerHTML = `
     <div class="barra-ficha">
       <div class="back-btn" onclick="location.hash='#/'">← Volver al panel</div>
-      <button class="btn-duplicar" onclick="abrirNuevoCliente('${programaId}')">⧉ Duplicar este programa</button>
+      <div class="acciones-ficha">
+        <button class="btn-duplicar" onclick="abrirNuevoCliente('${programaId}')">⧉ Duplicar este programa</button>
+        <button class="btn-eliminar" onclick="eliminarPrograma('${programaId}', ${JSON.stringify(programa.cliente).replace(/"/g,'&quot;')}, ${temas.length})">🗑 Eliminar</button>
+      </div>
     </div>
     <div class="client-header">
-      <div class="name">${esc(programa.cliente)}</div>
+      <div class="name" data-nombre="${esc(programa.cliente)}" title="Clic para renombrar"
+           onclick="editarNombre('${programaId}', this)">${esc(programa.cliente)} <span class="lapiz">✎</span></div>
       <div class="meta">${programa.tipo === 'mentoria_1a1' ? 'Mentoría 1:1' : 'Adopción Profunda de IA'}${programa.contacto ? ' · ' + esc(programa.contacto) : ''}${programa.fecha_inicio ? ' · Inicio: ' + programa.fecha_inicio : ''}</div>
       <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
       <div class="progress-text"><span>Sesión ${done}/${total}</span><span>${pct}% completado</span></div>
@@ -666,6 +680,52 @@ async function addTema(programaId, numeroSesion, inputEl){
   await sb.from('temario_temas').insert({ programa_id: programaId, numero_sesion: numeroSesion, tema: val, orden: 999 });
   inputEl.value = '';
   route();
+}
+
+// ---------- RENOMBRAR / ELIMINAR ----------
+function pintarNombre(caja, nombre){
+  caja.dataset.nombre = nombre;
+  caja.innerHTML = esc(nombre) + ' <span class="lapiz">✎</span>';
+}
+
+function editarNombre(programaId, caja){
+  if (caja.querySelector('input')) return;
+  caja.innerHTML = `<input class="nombre-input" value="${esc(caja.dataset.nombre)}"
+    onclick="event.stopPropagation()"
+    onkeydown="if(event.key==='Enter'){this.blur();} if(event.key==='Escape'){this.dataset.cancelar='1';this.blur();}"
+    onblur="guardarNombre('${programaId}', this)">`;
+  const inp = caja.querySelector('input');
+  inp.focus(); inp.select();
+}
+
+async function guardarNombre(programaId, inp){
+  const caja  = inp.closest('.name');
+  const antes = caja.dataset.nombre;
+  const nuevo = inp.value.trim();
+
+  if (inp.dataset.cancelar || !nuevo || nuevo === antes){ pintarNombre(caja, antes); return; }
+
+  const { error } = await sb.from('programas_clientes')
+    .update({ cliente: nuevo, updated_at: new Date().toISOString() }).eq('id', programaId);
+
+  if (error){ alert('No se pudo renombrar: ' + error.message); pintarNombre(caja, antes); return; }
+  pintarNombre(caja, nuevo);
+  flashSaved();
+}
+
+// Borrar el programa se lleva por delante su temario, sus comentarios y sus
+// fechas (la base borra en cascada). Por eso pide escribir el nombre.
+async function eliminarPrograma(programaId, nombre, nTemas){
+  if (!confirm(`Vas a eliminar «${nombre}» con sus ${nTemas} temas, comentarios y fechas.\n\nEsto no se puede deshacer.`)) return;
+
+  const escrito = prompt(`Para confirmar, escribe el nombre del cliente:\n\n${nombre}`);
+  if (escrito === null) return;
+  if (escrito.trim() !== nombre){ alert('El nombre no coincide. No se eliminó nada.'); return; }
+
+  const { error } = await sb.from('programas_clientes').delete().eq('id', programaId);
+  if (error){ alert('No se pudo eliminar: ' + error.message); return; }
+  flashSaved();
+  location.hash = '#/';
 }
 
 // ---------- NUEVO CLIENTE / DUPLICAR ----------
