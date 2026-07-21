@@ -14,7 +14,20 @@ const TALLERES = [
     dur: '1.5 hrs · Presencial',
     resumen: 'Dejar Claude andando y aprender a manejarlo: la cuenta, la interfaz, qué recuerda, cómo hablarle y cuándo hacerlo pensar.',
     conceptos: ['activacion-claude', 'claude-chat-tour', 'memoria-claude', 'dictado-claude'],
-    desafio: 'Entra a Claude y toma una tarea real que hiciste esta semana (un correo difícil, un resumen, una minuta). Pídesela a Claude dos veces: primero con un prompt de una línea, y después con un prompt completo que incluya rol, contexto, tarea y formato. Compara los dos resultados y quédate con la diferencia. 🎯',
+    desafio: {
+      titulo: 'El consolidado de dos documentos',
+      intro: 'Los ejercicios eran para probar cada cosa por separado. Este junta todo lo del taller en una sola tarea real: chat nuevo, modelo y esfuerzo, archivos adjuntos, memoria y dictado.',
+      pasos: [
+        'Abre un chat nuevo, para no arrastrar el contexto de otra conversación.',
+        'Elige el modelo Sonnet 5 y súbele el esfuerzo a Extra. Esta no es una tarea de responder rápido: es de comparar y razonar.',
+        'Adjunta dos documentos tuyos de verdad que tengan relación entre sí: dos informes del mismo proyecto, dos propuestas a clientes distintos, las actas de dos reuniones seguidas.',
+        'Antes de pedirle nada, dictando por el micrófono, fuérzale la memoria: «Memoriza lo siguiente: soy [tu cargo] en [tu empresa], mi equipo hace [X] y lo que más me importa cuando reviso un documento es [Y]».',
+        'Ahora sí, dicta el encargo (tienes el prompt abajo) y déjalo pensar.',
+        'Cuando te entregue el consolidado, pídele una vuelta más: «¿qué contradicciones entre los dos documentos dejaste fuera del consolidado?». Ahí aparece lo bueno.'
+      ],
+      prompt: 'Lee los dos documentos que te adjunté. No quiero un resumen de cada uno: quiero un documento consolidado. Identifica qué dicen igual, en qué se contradicen y qué está en uno y falta en el otro. Ordénalo por lo que más impacta a mi trabajo y ciérralo con las 3 decisiones que tengo que tomar. Usa lo que ya sabes de mí y de mi cargo para priorizar.',
+      cierre: 'Guárdate el resultado y llévalo al Taller 2: esa tarea es exactamente la que vas a convertir en un Proyecto para no repetir el contexto nunca más.'
+    },
     quiz: [
       {
         q: '¿Qué hace realmente un modelo de lenguaje como Claude cuando le escribes?',
