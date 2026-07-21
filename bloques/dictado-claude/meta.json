@@ -1,0 +1,47 @@
+{
+  "id": "dictado-claude",
+  "nombre": "Dictado y modelo de voz",
+  "emoji": "🎙️",
+  "descripcion": "Hablarle a Claude en vez de escribirle: prompts más largos, más naturales y en una fracción del tiempo.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "anthropic"
+  ],
+  "pasos": [
+    {
+      "texto": "El dictado está en el ícono de micrófono, dentro del campo de escritura. Lo tienes igual en el celular y en el computador. La primera vez el navegador o el sistema te va a pedir permiso para usar el micrófono.",
+      "img": "01-herramienta-dictado.webp"
+    },
+    "Habla como le explicarías a una persona: con contexto, sin miedo a extenderte. Dictar rinde mucho más que escribir porque no editas mientras hablas.",
+    {
+      "texto": "Recuerda que es importante que modules para que la herramienta agarre bien tus palabras y tus frases. Y cuando terminas, tienes que apretar el botón Check para que el dictado pase a texto.",
+      "img": "02-boton-check.webp"
+    },
+    "El modo de voz permite conversar de ida y vuelta, sin teclado. Sirve para pensar en voz alta mientras caminas o manejas.",
+    "Combínalo con el celular: dictar una idea en el momento en que se te ocurre vale más que anotarla para después."
+  ],
+  "pro_tip": "El mejor prompt que vas a escribir hoy probablemente no lo escribas: lo dictes. Un prompt hablado de 60 segundos tiene más contexto que uno tecleado de 10 líneas.",
+  "desafio": {
+    "enunciado": "Toma una tarea que ibas a escribir y díctala completa, con contexto y todo, sin corregir mientras hablas. Compara el resultado con lo que habrías tecleado.",
+    "prompt": null,
+    "origen": "propuesto"
+  },
+  "assets": [
+    "01-herramienta-dictado.webp",
+    "02-boton-check.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/dictado-claude/01-herramienta-dictado.webp",
+    "https://reyesia.com/bloques/dictado-claude/02-boton-check.webp"
+  ],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Dictado y modelo de voz",
+      "imgs": 0,
+      "variant": 0
+    }
+  ],
+  "portada": "portada.webp"
+}

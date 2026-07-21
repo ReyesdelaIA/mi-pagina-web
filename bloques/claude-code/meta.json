@@ -1,0 +1,36 @@
+{
+  "id": "claude-code",
+  "nombre": "Claude Code",
+  "emoji": "👨‍💻",
+  "descripcion": "Claude trabajando directamente sobre tus archivos y tu terminal. No es solo para programadores: es para cualquiera que trabaje con muchos archivos.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "claude-code",
+    "terminal",
+    "automatizacion"
+  ],
+  "pasos": [
+    "Claude Code es Claude operando sobre una carpeta de tu computador: lee los archivos, los modifica, ejecuta comandos y te muestra qué hizo.",
+    "Disponible en la terminal, dentro del editor de código y también desde la aplicación: elige la puerta de entrada que te acomode.",
+    "El caso de uso que sorprende a los no-programadores: ordenar, renombrar, consolidar y analizar carpetas completas de documentos o planillas.",
+    "Trabaja siempre sobre una copia al principio. La confianza en un agente se gana con evidencia, no con fe.",
+    "Revisa lo que propone antes de aceptar. Claude Code pide permiso para las acciones sensibles: úsalo, no lo apruebes en automático."
+  ],
+  "pro_tip": "Si alguna vez pensaste \"esto lo haría rápido si supiera programar\", ese es exactamente el trabajo para Claude Code. Descríbelo en español y deja que él escriba el código.",
+  "desafio": {
+    "enunciado": "Pídele a Claude Code que ordene una carpeta desordenada tuya: que renombre los archivos con un criterio claro y los agrupe por tipo o por fecha. Trabaja sobre una copia.",
+    "prompt": null,
+    "origen": "reciclado · sesion07-k7x9 nivel 5"
+  },
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Claude Code",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

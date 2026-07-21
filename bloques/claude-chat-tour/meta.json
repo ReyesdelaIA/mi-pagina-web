@@ -1,0 +1,105 @@
+{
+  "id": "claude-chat-tour",
+  "nombre": "Tour por Claude",
+  "emoji": "💬",
+  "descripcion": "Manejar el chat de verdad: nuevo chat, buscador, conversaciones que no se guardan, adjuntos y el selector de razonamiento.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "anthropic",
+    "chat",
+    "modelos"
+  ],
+  "pasos": [
+    {
+      "titulo": "Lo básico del chat",
+      "texto": "La pantalla de Claude tiene tres zonas que conviene distinguir desde el principio: el selector de razonamiento, el sidebar y el menú de herramientas.",
+      "img": "01-interfaz.webp"
+    },
+    {
+      "texto": "Lo básico de Claude Chat: cada vez que cambies de tema, abre un Nuevo chat. Arrastrar temas distintos en la misma conversación la ensucia y confunde al modelo."
+    },
+    {
+      "texto": "Para volver a algo que ya conversaste está el buscador, la lupa arriba del sidebar. Busca entre todos tus chats y proyectos, así que no necesitas acordarte de dónde lo dejaste.",
+      "img": "02-buscador.webp"
+    },
+    {
+      "texto": "El fantasmita, arriba a la derecha, abre una conversación que no se guarda. No queda en tu historial y Claude no aprende nada de ti a partir de ella: son conversaciones que nacen destinadas a desaparecer.",
+      "img": "03-chat-temporal.webp"
+    },
+    {
+      "texto": "Para adjuntar archivos usa el botón + → «Agregar archivos o fotos», o simplemente arrástralos al chat. También puedes traerlos desde Drive o desde GitHub, sin descargarlos antes.",
+      "img": "04-adjuntar.webp"
+    },
+    {
+      "texto": "Puedes subir hasta 10 archivos por chat, y pueden ser de formatos distintos entre sí: PDF, Word, PowerPoint, Excel, capturas de pantalla, texto plano."
+    },
+    {
+      "texto": "Lo que no acepta son formatos específicos de programas: AutoCAD, Illustrator o archivos de video. Si necesitas trabajar con algo así, exporta antes a PDF o a imagen."
+    },
+    {
+      "corte": true,
+      "titulo": "Los controles",
+      "texto": "1 · Razonamiento. Al lado del campo de escritura está el selector. Ahí no eliges una cosa sino tres: el modelo, el esfuerzo y si quiere pensar antes de responder.",
+      "img": "05-razonamiento.webp"
+    },
+    {
+      "texto": "El modelo: cada uno dice para qué sirve. El más capaz para los desafíos difíciles, el más eficiente para las tareas cotidianas, el más rápido para respuestas inmediatas. En «Más modelos» quedan las versiones anteriores.",
+      "img": "06-instantaneo-vs-thinking.webp"
+    },
+    {
+      "texto": "El esfuerzo es el tiraje que le das al modelo: Bajo, Medio —que viene por defecto—, Alto, Extra y Máx. Mientras más esfuerzo, más completas las respuestas; pero lleva más tiempo y consume tus límites más rápido.",
+      "img": "07-esfuerzo.webp"
+    },
+    {
+      "texto": "El Pensamiento: es un interruptor aparte que le permite razonar en tareas más complejas. Actívalo cuando el problema tenga varios pasos y la respuesta rápida no te sirva."
+    },
+    {
+      "texto": "Mi recomendación de qué modelo ocupar: piénsalo como el octanaje del combustible. Haiku es el liviano para lo simple, Sonnet el intermedio para el día a día, y Opus el máximo, para cuando la tarea de verdad lo pide.",
+      "img": "08-octanaje.webp"
+    },
+    {
+      "texto": "Si tienes el plan Pro —los 20 o 25 dólares al mes—, mi recomendación es usar Sonnet el 97% del tiempo y dejar Opus para el 3%. Opus consume tus límites mucho más rápido, y para casi todo lo que haces en el día Sonnet rinde igual.",
+      "img": "09-sonnet-opus.webp"
+    }
+  ],
+  "pro_tip": "El modelo, el esfuerzo y el Pensamiento son los tres controles que más cambian el resultado, y son los que casi nadie toca. Si una respuesta te sale superficial, prueba ahí antes de reescribir el prompt.",
+  "desafio": {
+    "enunciado": "Activa la Investigación profunda en Claude (botón + → Investigación) y pídele un estudio de tu propio sector. Fíjate en cuánto se demora y en si las fuentes son verificables.",
+    "prompt": "Realiza un estudio de mercado de [TU SECTOR] en Chile: tendencias 2026-2027, principales actores, tecnologías emergentes e impacto de la IA en las operaciones. Incluye fuentes verificables y presenta el informe en secciones con conclusiones accionables.",
+    "origen": "reciclado · bloque deep-research"
+  },
+  "assets": [
+    "01-interfaz.webp",
+    "portada.webp",
+    "02-buscador.webp",
+    "03-chat-temporal.webp",
+    "04-adjuntar.webp",
+    "05-razonamiento.webp",
+    "06-instantaneo-vs-thinking.webp",
+    "07-esfuerzo.webp",
+    "08-octanaje.webp",
+    "09-sonnet-opus.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/claude-chat-tour/01-interfaz.webp",
+    "https://reyesia.com/bloques/claude-chat-tour/portada.webp",
+    "https://reyesia.com/bloques/claude-chat-tour/02-buscador.webp",
+    "https://reyesia.com/bloques/claude-chat-tour/03-chat-temporal.webp",
+    "https://reyesia.com/bloques/claude-chat-tour/04-adjuntar.webp",
+    "https://reyesia.com/bloques/claude-chat-tour/05-razonamiento.webp",
+    "https://reyesia.com/bloques/claude-chat-tour/06-instantaneo-vs-thinking.webp",
+    "https://reyesia.com/bloques/claude-chat-tour/07-esfuerzo.webp",
+    "https://reyesia.com/bloques/claude-chat-tour/08-octanaje.webp",
+    "https://reyesia.com/bloques/claude-chat-tour/09-sonnet-opus.webp"
+  ],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Tour por Claude Chat",
+      "imgs": 0,
+      "variant": 0
+    }
+  ],
+  "portada": "portada.webp"
+}

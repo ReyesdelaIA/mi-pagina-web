@@ -1,0 +1,49 @@
+{
+  "id": "memoria-claude",
+  "nombre": "Memorización de Claude",
+  "emoji": "🧠",
+  "descripcion": "Qué recuerda la IA, qué olvida y por qué el contexto que le das cambia por completo la calidad de la respuesta.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "memoria",
+    "contexto",
+    "fundamentos"
+  ],
+  "pasos": [
+    {
+      "texto": "Para que Claude memorice cosas de ti, la memoria tiene que estar encendida. Está en Configuración → Personalizar → Memoria, y son dos interruptores: uno le permite buscar y referenciar tus conversaciones pasadas, y el otro le permite generar memoria a partir de tus chats. Los dos tienen que estar prendidos.",
+      "img": "01-memoria-encendida.webp"
+    },
+    "Dentro de una conversación sí recuerda: cada respuesta considera todo lo que se dijo antes en ese chat. Por eso puedes corregir sobre la marcha.",
+    {
+      "texto": "Recuerda que la herramienta va a memorizar lo que considere trascendente de memorizar. Ahora, además de eso, tú puedes forzarlo a memorizar, diciéndole literalmente: «Memoriza lo siguiente:».",
+      "img": "02-forzar-memoria.webp"
+    },
+    "Para memoria persistente están los Proyectos: documentos e instrucciones fijas que se cargan solas en cada conversación de ese proyecto.",
+    "Cuando una conversación se vuelve muy larga, el contexto se satura y empieza a olvidar detalles del principio. Ahí conviene abrir un chat nuevo con lo esencial."
+  ],
+  "pro_tip": "Si te sorprende que la IA \"olvidó\" algo, casi siempre es que nunca lo supo: estaba en otro chat, o en tu cabeza. El contexto hay que dárselo explícitamente.",
+  "desafio": {
+    "enunciado": "Cuéntale a Claude en un chat cómo trabaja tu equipo. Abre un chat nuevo y hazle una pregunta que dependa de eso, sin repetir el contexto. Comprueba que no se acuerda: eso es lo que vienen a resolver los Proyectos.",
+    "prompt": null,
+    "origen": "propuesto"
+  },
+  "assets": [
+    "01-memoria-encendida.webp",
+    "02-forzar-memoria.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/memoria-claude/01-memoria-encendida.webp",
+    "https://reyesia.com/bloques/memoria-claude/02-forzar-memoria.webp"
+  ],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Memoria y contexto",
+      "imgs": 0,
+      "variant": 0
+    }
+  ],
+  "portada": "portada.webp"
+}

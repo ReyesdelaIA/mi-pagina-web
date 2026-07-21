@@ -18,7 +18,11 @@
     "Tú mandas: El agente pide permiso antes de acciones sensibles; tú supervisas, apruebas o corriges sobre la marcha."
   ],
   "pro_tip": "Piensa en Cowork como un practicante digital: dale tareas acotadas y de bajo riesgo primero, y sube la complejidad a medida que le tomas confianza.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Dale a Cowork acceso a una carpeta de prueba (una copia, no la original) y pídele una tarea de ordenamiento sobre varios archivos a la vez. Revisa lo que hizo antes de aceptar.",
+    "prompt": "Toma todos los documentos de esta carpeta, conviértelos a PDF y déjalos en una subcarpeta nueva llamada PDF, sin borrar los originales.",
+    "origen": "reciclado · bloque ejemplos-cowork"
+  },
   "assets": [
     "cover.png",
     "paso1.png"

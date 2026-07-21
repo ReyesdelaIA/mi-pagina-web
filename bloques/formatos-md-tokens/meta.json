@@ -1,0 +1,36 @@
+{
+  "id": "formatos-md-tokens",
+  "nombre": "Formato Markdown y uso de tokens",
+  "emoji": "📝",
+  "descripcion": "Markdown es el idioma en que la IA estructura. Entenderlo mejora tus resultados y, de paso, te ahorra plata.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "markdown",
+    "tokens",
+    "eficiencia"
+  ],
+  "pasos": [
+    "Markdown (MD) es texto plano con marcas simples: # para títulos, - para listas, ** para negrita, | para tablas. Es como el modelo organiza su salida.",
+    "Pide explícitamente el formato: \"respóndeme en una tabla con estas columnas\" o \"dame 5 bullets, máximo 20 palabras cada uno\". Estructurado se revisa y se reutiliza mejor.",
+    "Un token es aproximadamente 3/4 de una palabra. Todo lo que escribes y todo lo que el modelo responde consume tokens: por eso el contexto no es infinito.",
+    "En una conversación larga, cada respuesta nueva vuelve a procesar todo el historial. Por eso un hilo eterno sale caro y se pone lento.",
+    "Buena práctica: un chat por tema. Cuando cambies de asunto, abre uno nuevo. Si necesitas continuidad, usa un Proyecto en vez de estirar el hilo."
+  ],
+  "pro_tip": "Si una conversación empezó a dar respuestas raras o a olvidar cosas que le dijiste, casi siempre es contexto saturado. Abre un chat nuevo y pega solo lo que importa.",
+  "desafio": {
+    "enunciado": "Al final de un chat largo de verdad, pídele el resumen denso de abajo y pégalo en un chat nuevo. Comprueba que puedes seguir trabajando sin haber perdido el hilo.",
+    "prompt": "Haz un resumen denso de este chat para que yo lo pueda pegar en un nuevo chat y continuar sin perder contexto. Incluye: el objetivo principal de la conversación, las decisiones tomadas, los archivos o configuraciones relevantes con detalles exactos, los pendientes o próximos pasos, y cualquier dato clave. Entrégalo en un único bloque de código listo para copiar y pegar.",
+    "origen": "reciclado · repo-prompts"
+  },
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Formato Markdown y uso de tokens",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

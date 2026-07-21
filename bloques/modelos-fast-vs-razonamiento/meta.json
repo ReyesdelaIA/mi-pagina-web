@@ -10,9 +10,19 @@
     "velocidad",
     "seleccion"
   ],
-  "pasos": [],
+  "pasos": [
+    "Los modelos rápidos responden casi al instante y rinden muy bien en tareas simples y de volumen: reformular, traducir, resumir algo breve, clasificar.",
+    "Los modelos de razonamiento profundo se toman más tiempo porque piensan antes de responder: sirven para análisis, decisiones y problemas de varios pasos.",
+    "El criterio no es \"cuál es mejor\", es \"qué pide esta tarea\". Usar razonamiento profundo para arreglar un correo es gastar de más.",
+    "Usar el modelo más rápido para revisar un contrato o analizar una desviación es quedarse corto: ahí el tiempo extra se paga solo.",
+    "Regla práctica: si te equivocas y no pasa nada, usa el rápido. Si te equivocas y hay consecuencias, usa el de razonamiento profundo."
+  ],
   "pro_tip": "Rápido: cuando no necesito que piense mucho pero sí que conteste rápido. Razonamiento: cuando quiero que no solo escriba, sino que realmente razone y me acompañe a pensar. El razonamiento consume más créditos — úsalo cuando vale la pena.",
-  "desafio": "Hands-on 07: Activa el modo \"Razonamiento profundo\" en Copilot (o Thinking en ChatGPT) y compara la respuesta con el modo estándar en una pregunta compleja de tu área.",
+  "desafio": {
+    "enunciado": "Toma una pregunta compleja de tu área. Hazla primero con un modelo rápido y después con uno de razonamiento profundo. Compara las dos respuestas y decide con cuál te habrías quedado.",
+    "prompt": null,
+    "origen": "reciclado · Hands-on 07 (adaptado de Copilot a Claude)"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

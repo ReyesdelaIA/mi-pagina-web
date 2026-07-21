@@ -1,0 +1,70 @@
+{
+  "id": "activacion-claude",
+  "nombre": "Activación de Claude",
+  "emoji": "🔑",
+  "descripcion": "Dejar Claude andando: por dónde entrar, por qué conviene la misma cuenta en todas partes, y las tres cosas que puedes personalizar desde el principio.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "anthropic"
+  ],
+  "pasos": [
+    {
+      "texto": "Hay tres formas de entrar a Claude: la app del celular, la página web desde cualquier navegador, y la app de escritorio.",
+      "img": "01-formas-de-acceso.webp",
+      "titulo": "Por dónde entrar"
+    },
+    {
+      "texto": "En las tres tienes que entrar con la misma cuenta. Así quedan sincronizadas y conversan entre ellas: tu historial, tus proyectos y tus preferencias te siguen estés donde estés."
+    },
+    {
+      "texto": "La ventaja de entrar por la página web es que puedes tener varias pestañas de Chrome con Claude abiertas al mismo tiempo, cada una en una conversación distinta.",
+      "img": "03-pestanas-chrome.webp"
+    },
+    {
+      "texto": "La ventaja de la app de escritorio es Cowork, que solo funciona ahí. Si vas a llegar al Taller 3, esta es la que vas a necesitar.",
+      "img": "04-app-escritorio.webp"
+    },
+    {
+      "texto": "En Configuración → General puedes personalizar tres cosas que cambian cómo te responde Claude en todos tus chats.",
+      "img": "02-personalizar.webp",
+      "corte": true,
+      "titulo": "Personaliza tu Claude"
+    },
+    {
+      "texto": "El apodo: cómo quieres que Claude te llame. Suena menor, pero ordena el trato desde el primer mensaje."
+    },
+    {
+      "texto": "Las instrucciones para Claude: es tu system prompt global. Aplica en todos los chats y también en Cowork. Cuidado con poner ahí el contexto de un cliente o un proyecto: se te va a colar en conversaciones que no tienen nada que ver."
+    },
+    {
+      "texto": "La industria: al decirle a qué te dedicas, ajusta el vocabulario y los ejemplos a tu mundo en vez de darte respuestas genéricas."
+    }
+  ],
+  "pro_tip": "El estilo va arriba, el contexto va en el proyecto. En las instrucciones globales pon solo lo que no cambia nunca —tono, idioma, formato, nivel de detalle— y deja el \"quién soy y de qué se trata este trabajo\" para las instrucciones de cada Proyecto. Si trabajas con varios clientes, esto te evita que el contexto de uno contamine el chat de otro.",
+  "desafio": {
+    "enunciado": "Deja tu cuenta operativa en las tres puertas: entra desde el celular, desde el navegador y desde la app de escritorio con la misma cuenta, y comprueba que ves la misma conversación. Después anda a Configuración → General y llena las tres personalizaciones: apodo, instrucciones e industria.",
+    "prompt": null,
+    "origen": "propuesto"
+  },
+  "assets": [
+    "01-formas-de-acceso.webp",
+    "03-pestanas-chrome.webp",
+    "04-app-escritorio.webp",
+    "02-personalizar.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/activacion-claude/01-formas-de-acceso.webp",
+    "https://reyesia.com/bloques/activacion-claude/03-pestanas-chrome.webp",
+    "https://reyesia.com/bloques/activacion-claude/04-app-escritorio.webp",
+    "https://reyesia.com/bloques/activacion-claude/02-personalizar.webp"
+  ],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Activación de Claude",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}
