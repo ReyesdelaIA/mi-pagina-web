@@ -233,16 +233,16 @@ const iniciales = nombre =>
 // La anon key no puede leer ni escribir las tablas directamente: solo
 // ejecutar estas dos funciones. Así los emails nunca quedan expuestos
 // a cualquiera que abra el código del portal.
-function rpc(fn, args){
+function rpc(fn, args, conRespuesta){
+  const headers = {
+    'apikey': SUPABASE_KEY,
+    'Authorization': `Bearer ${SUPABASE_KEY}`,
+    'Content-Type': 'application/json'
+  };
+  // Las escrituras no devuelven nada; la recuperación sí necesita el cuerpo.
+  if (!conRespuesta) headers['Prefer'] = 'return=minimal';
   return fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {
-    method: 'POST',
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'return=minimal'
-    },
-    body: JSON.stringify(args)
+    method: 'POST', headers, body: JSON.stringify(args)
   });
 }
 
@@ -413,7 +413,49 @@ function submitGate(){
   localStorage.setItem(USER_KEY, JSON.stringify(user));
   document.getElementById('gate').classList.remove('open');
   if (typeof onIdentidad === 'function') onIdentidad();
-  syncUser().then(resyncAll);
+  // Primero recuperamos lo que ya hizo (puede venir de otro dispositivo) y
+  // recién ahí registramos y reenviamos, para no partir de cero.
+  recuperarProgreso().then(recuperado => {
+    if (recuperado && typeof onProgresoRecuperado === 'function') onProgresoRecuperado();
+    else if (typeof onIdentidad === 'function') onIdentidad();
+    return syncUser().then(resyncAll);
+  });
+}
+
+// Trae el avance guardado en el servidor a partir del correo y lo mezcla con
+// lo que haya en este navegador. Nunca borra progreso local: solo suma.
+async function recuperarProgreso(){
+  if (!user || !user.email) return false;
+  let data;
+  try {
+    const r = await rpc('claude_recuperar', { p_email: user.email }, true);
+    if (!r.ok) return false;
+    data = await r.json();
+  } catch (e) { return false; }
+  if (!data || !data.id) return false;
+
+  // Adoptamos el id con el que ya estaba registrado: así el panel no lo
+  // cuenta dos veces por haber entrado desde el computador y el celular.
+  if (user.id !== data.id){
+    user.id = data.id;
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+
+  let nuevo = 0;
+  (data.progreso || []).forEach(p => {
+    const k = p.tipo === 'concepto' ? `c-${p.concepto}`
+            : p.tipo === 'ejercicio' ? `e-${p.concepto}`
+            : p.tipo === 'quiz'     ? `${p.taller}-quiz`
+            : p.tipo === 'desafio'  ? `${p.taller}-des` : null;
+    if (!k) return;
+    if (!st[k]) { st[k] = true; nuevo++; }
+    if (p.tipo === 'quiz'){
+      if (p.quiz_score != null) st[`${p.taller}-quizScore`] = p.quiz_score;
+      if (p.quiz_total != null) st[`${p.taller}-quizTotal`] = p.quiz_total;
+    }
+  });
+  if (nuevo) saveStars();
+  return nuevo > 0;
 }
 
 /* ---------------- Centro de habilidades ---------------- */
@@ -449,6 +491,11 @@ async function bootPortal(ids){
   loadStars();
   loadUser();
   if (!user) openGate(false);
-  else syncUser().then(resyncAll);
+  else {
+    // Esperamos la recuperación (con tope de 3s) para que la primera pantalla
+    // ya se dibuje con el avance real, venga del navegador o del servidor.
+    await Promise.race([recuperarProgreso(), new Promise(r => setTimeout(r, 3000))]);
+    syncUser().then(resyncAll);
+  }
   await cargarBloques(ids);
 }
