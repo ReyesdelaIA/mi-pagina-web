@@ -13,7 +13,7 @@ const TALLERES = [
     title: 'Activación y manejo de Claude',
     dur: '1.5 hrs · Presencial',
     resumen: 'Dejar Claude andando y aprender a manejarlo: la cuenta, la interfaz, qué recuerda, cómo hablarle y cuándo hacerlo pensar.',
-    conceptos: ['activacion-claude', 'claude-chat-tour', 'memoria-claude', 'dictado-claude', 'razonamiento-claude'],
+    conceptos: ['activacion-claude', 'claude-chat-tour', 'memoria-claude', 'dictado-claude'],
     desafio: 'Entra a Claude y toma una tarea real que hiciste esta semana (un correo difícil, un resumen, una minuta). Pídesela a Claude dos veces: primero con un prompt de una línea, y después con un prompt completo que incluya rol, contexto, tarea y formato. Compara los dos resultados y quédate con la diferencia. 🎯',
     quiz: [
       {

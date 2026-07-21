@@ -61,20 +61,6 @@
     {
       "texto": "Si tienes el plan Pro —los 20 o 25 dólares al mes—, mi recomendación es usar Sonnet el 97% del tiempo y dejar Opus para el 3%. Opus consume tus límites mucho más rápido, y para casi todo lo que haces en el día Sonnet rinde igual.",
       "img": "09-sonnet-opus.png"
-    },
-    {
-      "texto": "2 · Sidebar. A la izquierda vive todo tu trabajo: Chats y tareas, Proyectos, Artefactos, Programado y Personalizar. Abajo quedan los chats fijados y los recientes.",
-      "corte": true,
-      "titulo": "El sidebar y las herramientas"
-    },
-    {
-      "texto": "Fija los chats que usas seguido con el pin. Los recientes se van hundiendo solos, y lo que no está fijado termina perdiéndose."
-    },
-    {
-      "texto": "3 · Tools. El botón + abre las herramientas: adjuntar archivos o fotos, tomar una captura, agregar al proyecto, traer algo desde GitHub, y activar Habilidades, Conectores, Plugins, Investigación o Búsqueda web."
-    },
-    {
-      "texto": "Junto al + está el cambio entre Chat y Cowork. Chat conversa; Cowork actúa sobre tus archivos. Lo vas a usar en el Taller 3."
     }
   ],
   "pro_tip": "El modelo, el esfuerzo y el Pensamiento son los tres controles que más cambian el resultado, y son los que casi nadie toca. Si una respuesta te sale superficial, prueba ahí antes de reescribir el prompt.",
