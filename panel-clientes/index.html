@@ -54,6 +54,38 @@
   .badge-pausado{background:var(--amberbg);color:#92400E;}
   .badge-completado{background:#EEF2FF;color:#3730A3;}
 
+  .page-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+  .btn-nuevo{flex-shrink:0;background:linear-gradient(135deg,var(--navy2),var(--navy3));color:#fff;border:none;
+    border-radius:11px;padding:10px 16px;font-size:13px;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;}
+  .btn-nuevo:hover{filter:brightness(1.08);}
+  .barra-ficha{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;}
+  .barra-ficha .back-btn{margin-bottom:0;}
+  .btn-duplicar{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:7px 13px;
+    font-size:12.5px;font-weight:600;font-family:'Poppins',sans-serif;color:var(--navy2);cursor:pointer;}
+  .btn-duplicar:hover{border-color:var(--navy3);}
+
+  /* Modal de nuevo cliente */
+  .modal-bg{position:fixed;inset:0;background:rgba(4,44,83,.45);z-index:500;padding:20px;
+    display:none;align-items:center;justify-content:center;}
+  .modal-bg.show{display:flex;}
+  .modal{background:#fff;border-radius:18px;padding:24px 24px 22px;width:100%;max-width:440px;
+    box-shadow:0 20px 50px rgba(4,44,83,.28);}
+  .modal h3{margin:0 0 16px;font-size:18px;font-weight:800;color:var(--navy1);}
+  .campo{margin-bottom:13px;flex:1;min-width:0;}
+  .campo label{display:block;font-size:11.5px;font-weight:700;color:var(--navy2);margin-bottom:5px;}
+  .campo input,.campo select{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;
+    font-family:'Poppins',sans-serif;font-size:13.5px;color:var(--text);background:#fff;outline:none;}
+  .campo input:focus,.campo select:focus{border-color:var(--navy3);}
+  .campo-fila{display:flex;gap:10px;}
+  .campo-corto{max-width:110px;}
+  .check-linea{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--sub);cursor:pointer;}
+  .modal-acciones{display:flex;gap:10px;margin-top:20px;}
+  .btn-primario{flex:1;background:linear-gradient(135deg,var(--navy2),var(--navy3));color:#fff;border:none;
+    border-radius:11px;padding:12px;font-size:13.5px;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;}
+  .btn-primario:disabled{opacity:.6;cursor:default;}
+  .btn-secundario{background:#f2f2f0;color:var(--sub);border:none;border-radius:11px;padding:12px 18px;
+    font-size:13.5px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;}
+
   .empty{color:var(--sub);font-size:14px;padding:20px;text-align:center;background:var(--card);border-radius:14px;border:1.5px dashed var(--border);}
 
   /* DETAIL */
@@ -182,6 +214,40 @@
 
 <div class="save-pill" id="savePill">Guardado ✓</div>
 
+<div class="modal-bg" id="modalNuevo" onclick="if(event.target===this) cerrarNuevoCliente()">
+  <div class="modal">
+    <h3 id="nc-titulo">Nuevo cliente</h3>
+    <div class="campo">
+      <label for="nc-nombre">Nombre del cliente</label>
+      <input type="text" id="nc-nombre" placeholder="Ej: Peñuelas" autocomplete="off">
+    </div>
+    <div class="campo-fila">
+      <div class="campo">
+        <label for="nc-tipo">Tipo de programa</label>
+        <select id="nc-tipo">
+          <option value="empresa">Adopción Profunda — Empresa</option>
+          <option value="mentoria_1a1">Mentoría 1:1</option>
+        </select>
+      </div>
+      <div class="campo campo-corto">
+        <label for="nc-total">Sesiones</label>
+        <input type="number" id="nc-total" min="1" max="20" value="4">
+      </div>
+    </div>
+    <div class="campo">
+      <label for="nc-plantilla">Copiar el temario de…</label>
+      <select id="nc-plantilla" onchange="plantillaElegida()">
+        <option value="">Empezar en blanco</option>
+      </select>
+    </div>
+    <label class="check-linea"><input type="checkbox" id="nc-avance"> Copiar también los checks y comentarios</label>
+    <div class="modal-acciones">
+      <button class="btn-secundario" onclick="cerrarNuevoCliente()">Cancelar</button>
+      <button class="btn-primario" id="nc-crear" onclick="crearCliente()">Crear cliente</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const SUPABASE_URL = "https://lzrhpmwrbcrprsnpuadh.supabase.co";
 const SUPABASE_KEY = "sb_publishable_oak2a-feuA_tdZxbyqufCw_XpqWGgTZ";
@@ -281,8 +347,11 @@ async function renderLanding(){
 
   app.innerHTML = `
     <div class="page-header">
-      <h1>Panel de Clientes</h1>
-      <p>Selecciona una empresa o una mentoría para ver la bitácora y el temario en vivo.</p>
+      <div>
+        <h1>Panel de Clientes</h1>
+        <p>Selecciona una empresa o una mentoría para ver la bitácora y el temario en vivo.</p>
+      </div>
+      <button class="btn-nuevo" onclick="abrirNuevoCliente()">+ Nuevo cliente</button>
     </div>
     ${empresas.length ? `<div class="group-label">🏢 Adopción Profunda — Empresas</div><div class="grid">${empresas.map(cardHtml).join('')}</div>` : ''}
     ${mentorias.length ? `<div class="group-label">🎯 Mentorías 1:1</div><div class="grid">${mentorias.map(cardHtml).join('')}</div>` : ''}
@@ -394,7 +463,10 @@ async function renderDetail(programaId){
   }
 
   app.innerHTML = `
-    <div class="back-btn" onclick="location.hash='#/'">← Volver al panel</div>
+    <div class="barra-ficha">
+      <div class="back-btn" onclick="location.hash='#/'">← Volver al panel</div>
+      <button class="btn-duplicar" onclick="abrirNuevoCliente('${programaId}')">⧉ Duplicar este programa</button>
+    </div>
     <div class="client-header">
       <div class="name">${esc(programa.cliente)}</div>
       <div class="meta">${programa.tipo === 'mentoria_1a1' ? 'Mentoría 1:1' : 'Adopción Profunda de IA'}${programa.contacto ? ' · ' + esc(programa.contacto) : ''}${programa.fecha_inicio ? ' · Inicio: ' + programa.fecha_inicio : ''}</div>
@@ -594,6 +666,93 @@ async function addTema(programaId, numeroSesion, inputEl){
   await sb.from('temario_temas').insert({ programa_id: programaId, numero_sesion: numeroSesion, tema: val, orden: 999 });
   inputEl.value = '';
   route();
+}
+
+// ---------- NUEVO CLIENTE / DUPLICAR ----------
+// El temario se copia tema por tema: el cliente nuevo queda independiente
+// del original, así que editarlo no toca al que sirvió de molde.
+let PLANTILLAS = [];
+
+async function abrirNuevoCliente(plantillaId){
+  const { data, error } = await sb.from('programas_clientes')
+    .select('id,cliente,tipo,total_sesiones,sesiones_completadas').order('cliente');
+  if (error){ alert('No se pudo cargar la lista de clientes: ' + error.message); return; }
+  PLANTILLAS = data || [];
+
+  const molde = plantillaId ? PLANTILLAS.find(p => p.id === plantillaId) : null;
+  document.getElementById('nc-titulo').textContent = molde ? 'Duplicar programa' : 'Nuevo cliente';
+  document.getElementById('nc-nombre').value = molde ? molde.cliente + ' (copia)' : '';
+  document.getElementById('nc-tipo').value = molde ? (molde.tipo || 'empresa') : 'empresa';
+  document.getElementById('nc-total').value = molde ? (molde.total_sesiones || 4) : 4;
+  document.getElementById('nc-avance').checked = false;
+
+  const sel = document.getElementById('nc-plantilla');
+  sel.innerHTML = '<option value="">Empezar en blanco</option>' +
+    PLANTILLAS.map(p => `<option value="${p.id}">${esc(p.cliente)}</option>`).join('');
+  sel.value = plantillaId || '';
+
+  document.getElementById('modalNuevo').classList.add('show');
+  document.getElementById('nc-nombre').focus();
+  document.getElementById('nc-nombre').select();
+}
+
+function cerrarNuevoCliente(){
+  document.getElementById('modalNuevo').classList.remove('show');
+}
+
+// Al elegir un molde, el número de sesiones se ajusta al del original.
+function plantillaElegida(){
+  const molde = PLANTILLAS.find(p => p.id === document.getElementById('nc-plantilla').value);
+  if (molde) document.getElementById('nc-total').value = molde.total_sesiones || 4;
+}
+
+async function crearCliente(){
+  const nombre = document.getElementById('nc-nombre').value.trim();
+  if (!nombre){ alert('Ponle un nombre al cliente.'); return; }
+
+  const tipo      = document.getElementById('nc-tipo').value;
+  const total     = parseInt(document.getElementById('nc-total').value, 10) || 4;
+  const moldeId   = document.getElementById('nc-plantilla').value;
+  const conAvance = document.getElementById('nc-avance').checked;
+  const molde     = PLANTILLAS.find(p => p.id === moldeId);
+
+  const btn = document.getElementById('nc-crear');
+  btn.disabled = true; btn.textContent = 'Creando…';
+  const soltar = () => { btn.disabled = false; btn.textContent = 'Crear cliente'; };
+
+  const { data: nuevo, error } = await sb.from('programas_clientes').insert({
+    cliente: nombre,
+    tipo,
+    estado: 'activo',
+    total_sesiones: total,
+    sesiones_completadas: (conAvance && molde) ? (molde.sesiones_completadas || 0) : 0
+  }).select('id').single();
+
+  if (error){ alert('No se pudo crear el cliente: ' + error.message); soltar(); return; }
+
+  if (moldeId){
+    const { data: temas, error: e2 } = await sb.from('temario_temas')
+      .select('numero_sesion,orden,tema,estado,comentario')
+      .eq('programa_id', moldeId).order('numero_sesion').order('orden');
+
+    if (e2){ alert('El cliente se creó, pero no se pudo leer el temario a copiar: ' + e2.message); }
+    else if (temas && temas.length){
+      const { error: e3 } = await sb.from('temario_temas').insert(temas.map(t => ({
+        programa_id: nuevo.id,
+        numero_sesion: t.numero_sesion,
+        orden: t.orden,
+        tema: t.tema,
+        estado: conAvance ? t.estado : 'pendiente',
+        comentario: conAvance ? t.comentario : null
+      })));
+      if (e3) alert('El cliente se creó, pero el temario no se copió: ' + e3.message);
+    }
+  }
+
+  soltar();
+  cerrarNuevoCliente();
+  flashSaved();
+  location.hash = '#/cliente/' + nuevo.id;
 }
 
 async function addSession(programaId, numeroSesion){
