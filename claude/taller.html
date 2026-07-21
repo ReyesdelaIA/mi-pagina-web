@@ -108,7 +108,7 @@
     .fin-acc { display:flex; flex-direction:column; gap:9px; max-width:340px; margin:0 auto; }
     .fin-acc .btn { padding:14px; font-size:14px; }
 
-    .navrow { display:flex; justify-content:space-between; align-items:center; max-width:900px; margin:28px auto 0; }
+    .navrow { display:flex; justify-content:flex-end; align-items:center; max-width:900px; margin:28px auto 0; }
     .prev { background:none; border:none; color:var(--muted); font-size:12.5px; font-weight:700; font-family:inherit; cursor:pointer; padding:8px 0; }
     .prev:hover { color:var(--ink); }
     .prev:disabled { opacity:.3; cursor:default; }
@@ -150,7 +150,6 @@
 <main>
   <div class="escena" id="escena"></div>
   <div class="navrow">
-    <button class="prev" id="btn-prev">← Anterior</button>
     <span class="contador" id="contador"></span>
   </div>
 </main>
@@ -280,16 +279,15 @@
     }).join('');
 
     // El pro tip y el check solo al final del concepto
-    const cierre = r.ultima
-      ? `${b.pro_tip ? `<div class="tip"><b>💡 Pro tip:</b> ${esc(b.pro_tip)}</div>` : ''}
-         <div class="acciones">
-           ${marcado
-             ? `<div class="marcado">✓ Ya marcaste que entendiste esto</div>
-                <button class="btn btn-amber" id="a-sig">Continuar →</button>`
-             : `<button class="btn btn-green" id="a-ok">Entendí ${esc(b.nombre)} · Continuar →</button>
-                <button class="btn btn-ghost" id="a-no">Continuar sin marcar →</button>`}
-         </div>`
-      : `<div class="acciones"><button class="btn btn-amber" id="a-sig">Continuar →</button></div>`;
+    // Un solo botón: el avance registra el concepto. Pedirle a la gente que
+    // se autoevalúe agrega fricción y devuelve un dato poco confiable.
+    const cierre = `
+      ${r.ultima && b.pro_tip ? `<div class="tip"><b>💡 Pro tip:</b> ${esc(b.pro_tip)}</div>` : ''}
+      ${r.ultima && marcado ? '<div class="marcado">✓ Ya recorriste este concepto</div>' : ''}
+      <div class="acciones">
+        <button class="btn btn-amber" id="a-sig">Continuar →</button>
+        <button class="btn btn-ghost" id="a-atras">← Volver atrás</button>
+      </div>`;
 
     return `${!hayImgs && r.parte === 1 ? visualHTML(r.id, b.emoji) : ''}${encabezado}
       <div class="lista">${cuerpo}</div>${cierre}`;
@@ -418,7 +416,6 @@
     else                              cont.innerHTML = pantallaFin();
 
     pintarStepper();
-    document.getElementById('btn-prev').disabled = paso === 0;
     document.getElementById('contador').textContent =
       r.tipo === 'fin' ? 'Fin del taller' : `Pantalla ${paso + 1} de ${iFin()}`;
     conectar();
@@ -426,32 +423,40 @@
   }
 
   function avanzar(){
+    const r = RUTA[paso];
+    // Salir de la última pantalla de un concepto lo da por recorrido
+    if (r && r.tipo === 'concepto' && r.ultima && !st[`c-${r.id}`]){
+      st[`c-${r.id}`] = true; saveStars();
+      syncProgreso(N, 'concepto', r.id);
+      const b = BLOQUES[r.id];
+      toast(`🧠 Habilidad desbloqueada: ${b ? b.nombre : r.id}`);
+      renderSkills(r.id);
+      if (isComplete(N)) { irAlFin(); return; }
+    }
     paso = Math.min(paso + 1, iFin());
     desbloquear(paso);
     reiniciarQuiz();
     pintar();
   }
 
+  function retroceder(){ paso = Math.max(paso - 1, 0); reiniciarQuiz(); pintar(); }
+
   function conectar(){
     const sig = document.getElementById('a-sig');
     if (sig) sig.onclick = avanzar;
 
+    const atras = document.getElementById('a-atras');
+    if (atras){ atras.disabled = paso === 0; atras.onclick = retroceder; }
+
     const no = document.getElementById('a-no');
     if (no) no.onclick = () => { toast('Sin problema, puedes volver cuando quieras'); avanzar(); };
 
+    // El desafío sí es una declaración: ahí la elección tiene sentido.
     const ok = document.getElementById('a-ok');
     if (ok) ok.onclick = () => {
-      const r = RUTA[paso];
-      if (r.tipo === 'concepto'){
-        const b = BLOQUES[r.id];
-        st[`c-${r.id}`] = true; saveStars();
-        syncProgreso(N, 'concepto', r.id);
-        toast(`🧠 Habilidad desbloqueada: ${b ? b.nombre : r.id}`);
-      } else if (r.tipo === 'desafio'){
-        st[`${N}-des`] = true; saveStars();
-        syncProgreso(N, 'desafio', '');
-        toast('🎯 ¡Desafío completado!');
-      }
+      st[`${N}-des`] = true; saveStars();
+      syncProgreso(N, 'desafio', '');
+      toast('🎯 ¡Desafío completado!');
       if (isComplete(N)) { irAlFin(); return; }
       avanzar();
     };
@@ -518,7 +523,6 @@
     };
   }
 
-  document.getElementById('btn-prev').onclick   = () => { paso = Math.max(paso - 1, 0); reiniciarQuiz(); pintar(); };
   document.getElementById('btn-skills').onclick = () => openSkills();
   document.getElementById('nav-hub').href = urlHub();
 

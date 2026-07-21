@@ -35,13 +35,13 @@
       "texto": "El apodo: cómo quieres que Claude te llame. Suena menor, pero ordena el trato desde el primer mensaje."
     },
     {
-      "texto": "Las instrucciones para Claude: es tu system prompt. Lo que escribas ahí lo tiene en cuenta en todos los chats y también en Cowork. Es el lugar para poner tu rol, tu contexto y cómo prefieres que te responda."
+      "texto": "Las instrucciones para Claude: es tu system prompt global. Aplica en todos los chats y también en Cowork. Cuidado con poner ahí el contexto de un cliente o un proyecto: se te va a colar en conversaciones que no tienen nada que ver."
     },
     {
       "texto": "La industria: al decirle a qué te dedicas, ajusta el vocabulario y los ejemplos a tu mundo en vez de darte respuestas genéricas."
     }
   ],
-  "pro_tip": "Las instrucciones para Claude son lo que más rinde de los tres. Escribe ahí quién eres y cómo trabajas, y dejas de repetir el mismo párrafo de contexto en cada conversación.",
+  "pro_tip": "El estilo va arriba, el contexto va en el proyecto. En las instrucciones globales pon solo lo que no cambia nunca —tono, idioma, formato, nivel de detalle— y deja el \"quién soy y de qué se trata este trabajo\" para las instrucciones de cada Proyecto. Si trabajas con varios clientes, esto te evita que el contexto de uno contamine el chat de otro.",
   "desafio": {
     "enunciado": "Deja tu cuenta operativa en las tres puertas: entra desde el celular, desde el navegador y desde la app de escritorio con la misma cuenta, y comprueba que ves la misma conversación. Después anda a Configuración → General y llena las tres personalizaciones: apodo, instrucciones e industria.",
     "prompt": null,
