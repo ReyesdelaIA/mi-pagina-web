@@ -10,10 +10,10 @@ const TALLERES = [
   {
     n: 1,
     label: 'Taller 1 · Introductorio',
-    title: 'Introducción a la IA + Tour por Claude',
+    title: 'Activación y manejo de Claude',
     dur: '1.5 hrs · Presencial',
-    resumen: 'Qué es realmente la IA generativa, cómo pedirle bien las cosas y qué cuidados tomar antes de pegarle información de tu empresa.',
-    conceptos: ['3-esferas', 'fundamentos-prompt', 'modelos-fast-vs-razonamiento', 'memoria-claude', 'confidencialidad-ia'],
+    resumen: 'Dejar Claude andando y aprender a manejarlo: la cuenta, la interfaz, qué recuerda, cómo hablarle y cuándo hacerlo pensar.',
+    conceptos: ['activacion-claude', 'claude-chat-tour', 'memoria-claude', 'dictado-claude', 'razonamiento-claude'],
     desafio: 'Entra a Claude y toma una tarea real que hiciste esta semana (un correo difícil, un resumen, una minuta). Pídesela a Claude dos veces: primero con un prompt de una línea, y después con un prompt completo que incluya rol, contexto, tarea y formato. Compara los dos resultados y quédate con la diferencia. 🎯',
     quiz: [
       {
@@ -54,7 +54,7 @@ const TALLERES = [
     title: 'Dominio de la App de Claude',
     dur: '1.5 hrs · Presencial · Hands-On',
     resumen: 'Sacarle todo a la aplicación: Proyectos, conectores, Office y las prácticas que hacen la diferencia entre usarla y dominarla.',
-    conceptos: ['claude-chat-tour', 'proyectos-claude', 'mcp-conectores', 'claude-en-office', 'formatos-md-tokens'],
+    conceptos: ['proyectos-claude', 'mcp-conectores', 'claude-en-office', 'formatos-md-tokens'],
     desafio: 'Crea tu primer Proyecto en Claude para tu área de trabajo. Súbele 2 o 3 documentos que uses seguido (un instructivo, una plantilla, un informe tipo) y escríbele instrucciones fijas: quién eres, qué hace tu equipo y cómo quieres que te responda. Después hazle una pregunta real de tu trabajo y nota la diferencia contra un chat en blanco. 📁',
     quiz: [
       {
@@ -135,7 +135,7 @@ const TALLERES = [
 // Una habilidad por concepto: marcar el check la desbloquea.
 const COLORES = {
   1: ['#B45309', '#92400E', '#78350F', '#A16207', '#854D0E'],
-  2: ['#D97706', '#C2410C', '#EA580C', '#9A3412', '#B45309'],
+  2: ['#D97706', '#C2410C', '#EA580C', '#9A3412'],
   3: ['#7C3AED', '#6D28D9', '#5B21B6', '#4C1D95', '#9333EA'],
 };
 const SKILLS = TALLERES.flatMap(t =>

@@ -1,0 +1,34 @@
+{
+  "id": "dictado-claude",
+  "nombre": "Dictado y modelo de voz",
+  "emoji": "🎙️",
+  "descripcion": "Hablarle a Claude en vez de escribirle: prompts más largos, más naturales y en una fracción del tiempo.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "anthropic"
+  ],
+  "pasos": [
+    "Activa el dictado desde el ícono de micrófono en el campo de escritura. La primera vez el navegador o el sistema te va a pedir permiso.",
+    "Habla como le explicarías a una persona: con contexto, sin miedo a extenderte. Dictar rinde mucho más que escribir porque no editas mientras hablas.",
+    "No te preocupes por la puntuación ni por corregir sobre la marcha: revisa el texto antes de enviarlo, ahí arreglas lo que quedó mal.",
+    "El modo de voz permite conversar de ida y vuelta, sin teclado. Sirve para pensar en voz alta mientras caminas o manejas.",
+    "Combínalo con el celular: dictar una idea en el momento en que se te ocurre vale más que anotarla para después."
+  ],
+  "pro_tip": "El mejor prompt que vas a escribir hoy probablemente no lo escribas: lo dictes. Un prompt hablado de 60 segundos tiene más contexto que uno tecleado de 10 líneas.",
+  "desafio": {
+    "enunciado": "Toma una tarea que ibas a escribir y díctala completa, con contexto y todo, sin corregir mientras hablas. Compara el resultado con lo que habrías tecleado.",
+    "prompt": null,
+    "origen": "propuesto"
+  },
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Dictado y modelo de voz",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

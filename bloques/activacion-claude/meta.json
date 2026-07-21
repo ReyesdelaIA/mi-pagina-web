@@ -1,0 +1,34 @@
+{
+  "id": "activacion-claude",
+  "nombre": "Activación de Claude",
+  "emoji": "🔑",
+  "descripcion": "Crear la cuenta, elegir el plan y dejar Claude listo para trabajar: es el paso cero de todo lo demás.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "anthropic"
+  ],
+  "pasos": [
+    "Entra a claude.ai y crea tu cuenta con el correo con el que vas a trabajar. Si es un uso corporativo, usa el correo de la empresa desde el principio.",
+    "Elige el plan. El gratuito sirve para probar; los de pago desbloquean los modelos de razonamiento profundo, más uso diario y las funciones que veremos en los siguientes talleres.",
+    "Instala la aplicación de escritorio y la del celular con la misma cuenta: el historial se sincroniza y puedes seguir una conversación donde la dejaste.",
+    "Revisa la configuración de privacidad y de datos antes de subir cualquier documento de tu trabajo.",
+    "Deja el acceso a mano: ancla la app en tu barra de tareas o en la pantalla de inicio. Lo que cuesta abrir, no se usa."
+  ],
+  "pro_tip": "Usa desde el día uno el correo definitivo. Migrar el historial y los Proyectos después es más lata de lo que parece.",
+  "desafio": {
+    "enunciado": "Deja tu cuenta operativa: entra desde el computador y desde el celular con la misma cuenta, y comprueba que ves la misma conversación en los dos.",
+    "prompt": null,
+    "origen": "propuesto"
+  },
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Activación de Claude",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

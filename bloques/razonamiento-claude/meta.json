@@ -1,0 +1,34 @@
+{
+  "id": "razonamiento-claude",
+  "nombre": "Razonamiento",
+  "emoji": "🧩",
+  "descripcion": "Cuándo dejar que Claude piense antes de responder, y por qué eso cambia la calidad en tareas difíciles.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "anthropic"
+  ],
+  "pasos": [
+    "Claude tiene modelos rápidos y modelos de razonamiento profundo. La diferencia no es velocidad: es cuánto analiza antes de contestar.",
+    "Los rápidos rinden en volumen y tareas simples: reformular, traducir, resumir algo breve, clasificar.",
+    "Los de razonamiento profundo se toman su tiempo porque descomponen el problema: análisis, decisiones, revisión de documentos largos, problemas de varios pasos.",
+    "Cambias de modelo en el selector, arriba del campo de escritura. Puedes cambiarlo a media conversación.",
+    "Regla práctica: si te equivocas y no pasa nada, usa el rápido. Si te equivocas y hay consecuencias, usa el de razonamiento profundo."
+  ],
+  "pro_tip": "Cuando una respuesta te salga superficial, antes de reescribir el prompt prueba subiendo el modelo. Muchas veces el problema no era cómo pediste, sino con qué.",
+  "desafio": {
+    "enunciado": "Toma una pregunta compleja de tu área. Hazla primero con un modelo rápido y después con uno de razonamiento profundo. Compara las dos respuestas y decide con cuál te habrías quedado.",
+    "prompt": null,
+    "origen": "reciclado · Hands-on 07 (adaptado de Copilot a Claude)"
+  },
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "claude/index.html",
+      "title": "Razonamiento",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

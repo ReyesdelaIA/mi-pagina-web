@@ -1,6 +1,6 @@
 {
   "id": "claude-chat-tour",
-  "nombre": "Tour por Claude Chat",
+  "nombre": "Tour por Claude",
   "emoji": "💬",
   "descripcion": "La interfaz de Claude, el sidebar, el historial y cómo elegir el modelo correcto según la tarea que tienes entre manos.",
   "categoria": "claude",
