@@ -2,7 +2,7 @@
   "id": "claude-chat-tour",
   "nombre": "Tour por Claude",
   "emoji": "💬",
-  "descripcion": "La interfaz de Claude, el sidebar, el historial y cómo elegir el modelo correcto según la tarea que tienes entre manos.",
+  "descripcion": "Las tres zonas de Claude: dónde eliges el modelo, dónde vive todo tu trabajo y dónde están las herramientas.",
   "categoria": "claude",
   "tags": [
     "claude",
@@ -11,20 +11,44 @@
     "modelos"
   ],
   "pasos": [
-    "Entra a claude.ai e identifica las tres zonas: el sidebar (historial, proyectos, más opciones), el área de conversación y el selector de modelo.",
-    "El selector de modelo es la decisión más importante: los modelos rápidos rinden en volumen y tareas simples; los de razonamiento profundo, en análisis delicado.",
-    "El historial guarda todas tus conversaciones. Ponles nombre a las importantes: en un mes vas a agradecerlo.",
-    "Abre una conversación nueva por tema. Un hilo eterno arrastra todo el historial en cada respuesta: sale más caro y confunde al modelo con contexto viejo.",
-    "Explora el menú \"Más\" del sidebar: ahí viven Proyectos, Artefactos y el resto de las funciones que vas a usar en los siguientes talleres."
+    {
+      "titulo": "Las tres zonas",
+      "texto": "La pantalla de Claude tiene tres zonas que conviene distinguir desde el principio: el selector de razonamiento, el sidebar y el menú de herramientas.",
+      "img": "01-interfaz.png"
+    },
+    {
+      "texto": "1 · Razonamiento. Arriba a la derecha del campo de escritura eliges el modelo. Cada uno dice para qué sirve: el más capaz para trabajo ambicioso, el equilibrado para el día a día, el más rápido para tareas simples. En \"Más modelos\" están las versiones anteriores."
+    },
+    {
+      "texto": "Ahí mismo está el Pensamiento adaptativo: al activarlo, Claude se toma más tiempo para pensar en las tareas complejas. Es el interruptor que más cambia la calidad de una respuesta difícil."
+    },
+    {
+      "texto": "2 · Sidebar. A la izquierda vive todo tu trabajo: Chats y tareas, Proyectos, Artefactos, Programado y Personalizar. Abajo quedan los chats fijados y los recientes."
+    },
+    {
+      "texto": "Fija los chats que usas seguido con el pin. Los recientes se van hundiendo solos, y lo que no está fijado termina perdiéndose."
+    },
+    {
+      "texto": "3 · Tools. El botón + abre las herramientas: adjuntar archivos o fotos, tomar una captura, agregar al proyecto, traer algo desde GitHub, y activar Habilidades, Conectores, Plugins, Investigación o Búsqueda web."
+    },
+    {
+      "texto": "Junto al + está el cambio entre Chat y Cowork. Chat conversa; Cowork actúa sobre tus archivos. Lo vas a usar en el Taller 3."
+    }
   ],
-  "pro_tip": "Usar razonamiento profundo para reformular un correo es gastar de más; usar el modelo más rápido para revisar un contrato es quedarse corto. Elegir bien el modelo es parte del oficio.",
+  "pro_tip": "El selector de modelo y el Pensamiento adaptativo son los dos controles que más cambian el resultado, y son los que casi nadie toca. Si una respuesta te sale superficial, prueba ahí antes de reescribir el prompt.",
   "desafio": {
     "enunciado": "Activa la Investigación profunda en Claude (botón + → Investigación) y pídele un estudio de tu propio sector. Fíjate en cuánto se demora y en si las fuentes son verificables.",
     "prompt": "Realiza un estudio de mercado de [TU SECTOR] en Chile: tendencias 2026-2027, principales actores, tecnologías emergentes e impacto de la IA en las operaciones. Incluye fuentes verificables y presenta el informe en secciones con conclusiones accionables.",
     "origen": "reciclado · bloque deep-research"
   },
-  "assets": [],
-  "assets_github": [],
+  "assets": [
+    "01-interfaz.png",
+    "portada.png"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/claude-chat-tour/01-interfaz.png",
+    "https://reyesia.com/bloques/claude-chat-tour/portada.png"
+  ],
   "sources": [
     {
       "file": "claude/index.html",
@@ -32,5 +56,6 @@
       "imgs": 0,
       "variant": 0
     }
-  ]
+  ],
+  "portada": "portada.png"
 }

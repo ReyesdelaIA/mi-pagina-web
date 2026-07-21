@@ -289,7 +289,13 @@
         <button class="btn btn-ghost" id="a-atras">← Volver atrás</button>
       </div>`;
 
-    return `${!hayImgs && r.parte === 1 ? visualHTML(r.id, b.emoji) : ''}${encabezado}
+    // Portada explícita del bloque; si no hay y tampoco imágenes en los pasos,
+    // cae al recuadro con emoji.
+    const portada = (r.parte === 1 && b.portada)
+      ? `<div class="visual"><img src="/bloques/${r.id}/${b.portada}" alt="" /></div>`
+      : (!hayImgs && r.parte === 1 ? visualHTML(r.id, b.emoji) : '');
+
+    return `${portada}${encabezado}
       <div class="lista">${cuerpo}</div>${cierre}`;
   }
 
