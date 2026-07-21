@@ -2,27 +2,54 @@
   "id": "activacion-claude",
   "nombre": "Activación de Claude",
   "emoji": "🔑",
-  "descripcion": "Crear la cuenta, elegir el plan y dejar Claude listo para trabajar: es el paso cero de todo lo demás.",
+  "descripcion": "Dejar Claude andando: por dónde entrar, por qué conviene la misma cuenta en todas partes, y las tres cosas que puedes personalizar desde el principio.",
   "categoria": "claude",
   "tags": [
     "claude",
     "anthropic"
   ],
   "pasos": [
-    "Entra a claude.ai y crea tu cuenta con el correo con el que vas a trabajar. Si es un uso corporativo, usa el correo de la empresa desde el principio.",
-    "Elige el plan. El gratuito sirve para probar; los de pago desbloquean los modelos de razonamiento profundo, más uso diario y las funciones que veremos en los siguientes talleres.",
-    "Instala la aplicación de escritorio y la del celular con la misma cuenta: el historial se sincroniza y puedes seguir una conversación donde la dejaste.",
-    "Revisa la configuración de privacidad y de datos antes de subir cualquier documento de tu trabajo.",
-    "Deja el acceso a mano: ancla la app en tu barra de tareas o en la pantalla de inicio. Lo que cuesta abrir, no se usa."
+    {
+      "img": "01-formas-de-acceso.png",
+      "texto": "Hay tres formas de entrar a Claude: la app del celular, la página web desde cualquier navegador, y la app de escritorio."
+    },
+    {
+      "texto": "En las tres tienes que entrar con la misma cuenta. Así quedan sincronizadas y conversan entre ellas: tu historial, tus proyectos y tus preferencias te siguen estés donde estés."
+    },
+    {
+      "texto": "La ventaja de entrar por la página web es que puedes tener varias pestañas de Chrome con Claude abiertas al mismo tiempo, cada una en una conversación distinta."
+    },
+    {
+      "texto": "La ventaja de la app de escritorio es Cowork, que solo funciona ahí. Si vas a llegar al Taller 3, esta es la que vas a necesitar."
+    },
+    {
+      "img": "02-personalizar.png",
+      "texto": "En Configuración → General puedes personalizar tres cosas que cambian cómo te responde Claude en todos tus chats."
+    },
+    {
+      "texto": "El apodo: cómo quieres que Claude te llame. Suena menor, pero ordena el trato desde el primer mensaje."
+    },
+    {
+      "texto": "Las instrucciones para Claude: es tu system prompt. Lo que escribas ahí lo tiene en cuenta en todos los chats y también en Cowork. Es el lugar para poner tu rol, tu contexto y cómo prefieres que te responda."
+    },
+    {
+      "texto": "La industria: al decirle a qué te dedicas, ajusta el vocabulario y los ejemplos a tu mundo en vez de darte respuestas genéricas."
+    }
   ],
-  "pro_tip": "Usa desde el día uno el correo definitivo. Migrar el historial y los Proyectos después es más lata de lo que parece.",
+  "pro_tip": "Las instrucciones para Claude son lo que más rinde de los tres. Escribe ahí quién eres y cómo trabajas, y dejas de repetir el mismo párrafo de contexto en cada conversación.",
   "desafio": {
-    "enunciado": "Deja tu cuenta operativa: entra desde el computador y desde el celular con la misma cuenta, y comprueba que ves la misma conversación en los dos.",
+    "enunciado": "Deja tu cuenta operativa en las tres puertas: entra desde el celular, desde el navegador y desde la app de escritorio con la misma cuenta, y comprueba que ves la misma conversación. Después anda a Configuración → General y llena las tres personalizaciones: apodo, instrucciones e industria.",
     "prompt": null,
     "origen": "propuesto"
   },
-  "assets": [],
-  "assets_github": [],
+  "assets": [
+    "01-formas-de-acceso.png",
+    "02-personalizar.png"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/activacion-claude/01-formas-de-acceso.png",
+    "https://reyesia.com/bloques/activacion-claude/02-personalizar.png"
+  ],
   "sources": [
     {
       "file": "claude/index.html",

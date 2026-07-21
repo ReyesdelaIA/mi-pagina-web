@@ -71,7 +71,7 @@ _Total: 51 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 
 | id | nombre | imgs | pasos | pro tip |
 |---|---|---|---|---|
-| `activacion-claude` | Activación de Claude | 0 ⚠️ | 5 | ✓ |
+| `activacion-claude` | Activación de Claude | 2 | 8 | ✓ |
 | `agentes-claude` | Agentes con Claude | 0 ⚠️ | 5 | ✓ |
 | `claude-chat-tour` | Tour por Claude | 0 ⚠️ | 5 | ✓ |
 | `claude-code` | Claude Code | 0 ⚠️ | 5 | ✓ |
@@ -86,6 +86,6 @@ _Total: 51 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 
 ---
 
-**⚠️ Bloques sin imágenes (21)** — necesitan capturas antes de quedar visuales: `3-esferas`, `activacion-claude`, `agentes-claude`, `analisis-documentos`, `claude-chat-tour`, `claude-code`, `claude-en-office`, `confidencialidad-ia`, `dictado-claude`, `dictado-voz`, `formatos-md-tokens`, `fundamentos-prompt`, `internet-avanzada`, `mcp-conectores`, `memoria-claude`, `memoria-ia`, `modelos-fast-vs-razonamiento`, `proyectos-claude`, `razonamiento-claude`, `redaccion-avanzada`, `skills-claude`.
+**⚠️ Bloques sin imágenes (20)** — necesitan capturas antes de quedar visuales: `3-esferas`, `agentes-claude`, `analisis-documentos`, `claude-chat-tour`, `claude-code`, `claude-en-office`, `confidencialidad-ia`, `dictado-claude`, `dictado-voz`, `formatos-md-tokens`, `fundamentos-prompt`, `internet-avanzada`, `mcp-conectores`, `memoria-claude`, `memoria-ia`, `modelos-fast-vs-razonamiento`, `proyectos-claude`, `razonamiento-claude`, `redaccion-avanzada`, `skills-claude`.
 
 **Cómo pedir una sesión:** _"hagamos la S[N] de [empresa] con [id1], [id2], [id3]..."_ → yo verifico cada bloque en `bloques_sesion`, armo el resumen ejecutivo `/sesion[NN]-[empresa]`, actualizo el portal `/[empresa]` (`company_sessions` + quiz/thumbnails/desafío) y hago push.

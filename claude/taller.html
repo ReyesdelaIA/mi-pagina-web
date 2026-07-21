@@ -23,6 +23,8 @@
     .step-dot.now  i { background:var(--amber-light); }
     .step-dot span { font-size:8.5px; font-weight:700; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.3px; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .step-dot.now span { color:#fff; }
+    .step-dot.lock { cursor:not-allowed; opacity:.42; }
+    .step-dot:not([disabled]):hover i { background:rgba(255,255,255,.45); }
 
     /* Escenario */
     main { flex:1; padding: 28px 20px 40px; }
@@ -38,11 +40,14 @@
     .c-nombre { font-size:30px; font-weight:800; color:var(--ink); line-height:1.15; margin-bottom:12px; letter-spacing:-.4px; }
     .c-desc { font-size:16px; color:#4B5563; line-height:1.7; margin-bottom:30px; max-width:70ch; }
 
-    .lista { list-style:none; display:flex; flex-direction:column; gap:14px; margin-bottom:26px; }
-    .lista li { display:flex; gap:16px; background:#fff; border:1px solid var(--border); border-radius:16px;
+    .lista { display:flex; flex-direction:column; gap:14px; margin-bottom:26px; }
+    .paso-item { display:flex; gap:16px; background:#fff; border:1px solid var(--border); border-radius:16px;
       padding:18px 20px; font-size:14.5px; color:#374151; line-height:1.7;
       box-shadow:0 2px 10px rgba(26,37,55,.04); transition:box-shadow .2s, transform .2s; }
-    .lista li:hover { box-shadow:0 6px 20px rgba(26,37,55,.09); transform:translateY(-1px); }
+    .paso-item:hover { box-shadow:0 6px 20px rgba(26,37,55,.09); transform:translateY(-1px); }
+    .paso-img { margin:18px 0 6px; border-radius:20px; overflow:hidden; border:1px solid var(--border);
+      background:#fff; box-shadow:0 12px 38px rgba(26,37,55,.14); }
+    .paso-img img { width:100%; display:block; }
     .num { flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#FEF3C7; color:var(--amber-dark);
       font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px; }
 
@@ -119,7 +124,8 @@
       .acciones .btn { width:auto; min-width:280px; }
       .acciones .btn.btn-ghost { min-width:auto; }
       .visual-emoji { height:280px; font-size:104px; }
-      .lista li { font-size:15px; padding:20px 24px; }
+      .paso-item { font-size:15px; padding:20px 24px; }
+      .paso-img { margin:26px 0 10px; }
       .tip { font-size:15px; padding:20px 26px; }
     }
   </style>
@@ -193,16 +199,29 @@
       { i: iEjer, txt: '🔨 Ejercicios' },
       { i: iDes,  txt: '🎯 Desafío' },
     ];
-    document.getElementById('stepper').innerHTML = items.map(it => `
-      <button class="step-dot ${pasoHecho(it.i) ? 'done' : ''} ${paso === it.i ? 'now' : ''}" data-i="${it.i}">
-        <i></i><span>${it.txt}</span>
-      </button>`).join('');
-    document.querySelectorAll('.step-dot').forEach(b => {
+    const tope = maxAlcanzado();
+    document.getElementById('stepper').innerHTML = items.map(it => {
+      const bloqueado = it.i > tope;
+      return `
+      <button class="step-dot ${pasoHecho(it.i) ? 'done' : ''} ${paso === it.i ? 'now' : ''} ${bloqueado ? 'lock' : ''}"
+              data-i="${it.i}" ${bloqueado ? 'disabled' : ''}
+              title="${bloqueado ? 'Todavía no llegas a este paso' : 'Volver a este paso'}">
+        <i></i><span>${bloqueado ? '🔒' : ''} ${it.txt}</span>
+      </button>`;
+    }).join('');
+    document.querySelectorAll('.step-dot:not([disabled])').forEach(b => {
       b.onclick = () => { paso = parseInt(b.dataset.i, 10); reiniciarQuiz(); pintar(); };
     });
   }
 
   function reiniciarQuiz(){ qIdx = 0; qAciertos = 0; qRespondida = false; }
+
+  // Recorrido guiado: no se puede saltar hacia adelante. Se avanza paso a
+  // paso, pero siempre puedes volver a cualquiera que ya viste.
+  const maxAlcanzado = () => Math.max(0, parseInt(st[`${N}-max`] || 0, 10));
+  function desbloquear(i){
+    if (i > maxAlcanzado()){ st[`${N}-max`] = i; saveStars(); }
+  }
 
   /* ---------------- Pantallas ---------------- */
 
@@ -221,21 +240,31 @@
     const b  = BLOQUES[id];
     if (!b) return `<div class="c-nombre">Cargando…</div>`;
     const marcado = !!st[`c-${id}`];
+    // Si los pasos ya traen imágenes, la portada sobra: el recorrido las va mostrando.
+    const pasosConImg = b.pasos.some(p => typeof p === 'object' && p.img);
     return `
-      ${visualHTML(id, b.emoji)}
+      ${pasosConImg ? '' : visualHTML(id, b.emoji)}
       <div class="paso-n">Concepto ${i + 1} de ${taller.conceptos.length}</div>
       <h1 class="c-nombre">${esc(b.nombre)}</h1>
       <p class="c-desc">${esc(b.descripcion)}</p>
-      <ul class="lista">
-        ${b.pasos.map((p, k) => `<li><span class="num">${k + 1}</span><span>${esc(p)}</span></li>`).join('')}
-      </ul>
+      <div class="lista">
+        ${(() => {
+          let n = 0;
+          return b.pasos.map(p => {
+            const o = (typeof p === 'string') ? { texto: p } : p;
+            const img = o.img ? `<figure class="paso-img"><img src="/bloques/${id}/${o.img}" alt="" /></figure>` : '';
+            n++;
+            return `${img}<div class="paso-item"><span class="num">${n}</span><span>${esc(o.texto)}</span></div>`;
+          }).join('');
+        })()}
+      </div>
       ${b.pro_tip ? `<div class="tip"><b>💡 Pro tip:</b> ${esc(b.pro_tip)}</div>` : ''}
       <div class="acciones">
         ${marcado
           ? `<div class="marcado">✓ Ya marcaste que entendiste esto</div>
-             <button class="btn btn-amber" id="a-sig">Siguiente →</button>`
-          : `<button class="btn btn-green" id="a-ok">Entendí la lógica de ${esc(b.nombre)} →</button>
-             <button class="btn btn-ghost" id="a-no">Todavía no me queda claro →</button>`}
+             <button class="btn btn-amber" id="a-sig">Continuar →</button>`
+          : `<button class="btn btn-green" id="a-ok">Entendí ${esc(b.nombre)} · Continuar →</button>
+             <button class="btn btn-ghost" id="a-no">Continuar sin marcar →</button>`}
       </div>`;
   }
 
@@ -247,7 +276,7 @@
         <div class="paso-n">Quiz del taller</div>
         <h1 class="c-nombre">Quiz completado</h1>
         <p class="c-desc">${s != null ? `Respondiste <b>${s} de ${t}</b> correctamente.` : 'Ya rendiste este quiz.'}</p>
-        <div class="acciones"><button class="btn btn-amber" id="a-sig">Siguiente →</button></div>`;
+        <div class="acciones"><button class="btn btn-amber" id="a-sig">Continuar →</button></div>`;
     }
     const q = taller.quiz[qIdx];
     return `
@@ -267,7 +296,7 @@
         <div class="paso-n">Ejercicios</div>
         <h1 class="c-nombre">Sin ejercicios en este taller</h1>
         <p class="c-desc">Este taller no trae ejercicios hands-on.</p>
-        <div class="acciones"><button class="btn btn-amber" id="a-sig">Siguiente →</button></div>`;
+        <div class="acciones"><button class="btn btn-amber" id="a-sig">Continuar →</button></div>`;
     }
     const hechos = ejerciciosOk(N);
     return `
@@ -318,7 +347,7 @@
       <div class="acciones">
         ${hecho
           ? `<div class="marcado">✓ Declaraste que completaste el desafío</div>
-             <button class="btn btn-amber" id="a-sig">Siguiente →</button>`
+             <button class="btn btn-amber" id="a-sig">Continuar →</button>`
           : `<button class="btn btn-green" id="a-ok">Sí, lo completé con compromiso ✓</button>
              <button class="btn btn-ghost" id="a-no">Todavía no lo hago →</button>`}
       </div>`;
@@ -369,7 +398,12 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function avanzar(){ paso = Math.min(paso + 1, iFin); reiniciarQuiz(); pintar(); }
+  function avanzar(){
+    paso = Math.min(paso + 1, iFin);
+    desbloquear(paso);
+    reiniciarQuiz();
+    pintar();
+  }
 
   function conectar(){
     const sig = document.getElementById('a-sig');
@@ -474,7 +508,8 @@
     // Retoma donde iba: primer paso pendiente
     let p = 0;
     while (p < iFin && pasoHecho(p)) p++;
-    paso = p;
+    paso = Math.min(p, maxAlcanzado() || p);
+    desbloquear(paso);
     pintar();
     renderSkills();
   })();
