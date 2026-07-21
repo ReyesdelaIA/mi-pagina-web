@@ -17,11 +17,15 @@
       "img": "01-interfaz.png"
     },
     {
-      "texto": "Lo básico de Claude Chat: cada vez que cambies de tema, abre un Nuevo chat. Arrastrar temas distintos en la misma conversación la ensucia y confunde al modelo.",
+      "texto": "Lo básico de Claude Chat: cada vez que cambies de tema, abre un Nuevo chat. Arrastrar temas distintos en la misma conversación la ensucia y confunde al modelo."
+    },
+    {
+      "texto": "Para volver a algo que ya conversaste está el buscador, la lupa arriba del sidebar. Busca entre todos tus chats y proyectos, así que no necesitas acordarte de dónde lo dejaste.",
       "img": "02-buscador.png"
     },
     {
-      "texto": "Para volver a algo que ya conversaste está el buscador, la lupa arriba del sidebar. Busca entre todos tus chats y proyectos, así que no necesitas acordarte de dónde lo dejaste."
+      "texto": "El fantasmita, arriba a la derecha, abre una conversación que no se guarda. No queda en tu historial y Claude no aprende nada de ti a partir de ella: son conversaciones que nacen destinadas a desaparecer.",
+      "img": "03-chat-temporal.png"
     },
     {
       "texto": "1 · Razonamiento. Arriba a la derecha del campo de escritura eliges el modelo. Cada uno dice para qué sirve: el más capaz para trabajo ambicioso, el equilibrado para el día a día, el más rápido para tareas simples. En \"Más modelos\" están las versiones anteriores."
@@ -51,12 +55,14 @@
   "assets": [
     "01-interfaz.png",
     "portada.png",
-    "02-buscador.png"
+    "02-buscador.png",
+    "03-chat-temporal.png"
   ],
   "assets_github": [
     "https://reyesia.com/bloques/claude-chat-tour/01-interfaz.png",
     "https://reyesia.com/bloques/claude-chat-tour/portada.png",
-    "https://reyesia.com/bloques/claude-chat-tour/02-buscador.png"
+    "https://reyesia.com/bloques/claude-chat-tour/02-buscador.png",
+    "https://reyesia.com/bloques/claude-chat-tour/03-chat-temporal.png"
   ],
   "sources": [
     {
