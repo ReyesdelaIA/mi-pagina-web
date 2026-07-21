@@ -354,7 +354,7 @@
       <h1 class="headline">Prompts que <span class="grad">valen la pena.</span></h1>
       <p class="subhead">Acá tienes un repositorio de prompts que me funcionan bien a mi. Espero te sirvan.</p>
       <div class="hero-chips">
-        <span class="chip"><span class="dotk"></span><b id="chip-total">4</b>&nbsp;prompts listos</span>
+        <span class="chip"><span class="dotk"></span><b id="chip-total">5</b>&nbsp;prompts listos</span>
         <span class="chip">4 categorías</span>
         <span class="chip">copia en 1 clic</span>
       </div>
@@ -420,6 +420,40 @@ Formato de entrega: un único bloque bash (```bash ... ```) con todo el resumen 
     </div>
 
 
+
+    <!-- PROMPT 2 -->
+    <div class="card" data-cat="claude" data-title="Crear instrucciones de proyecto en Markdown">
+      <div class="card-top">
+        <div class="card-head">
+          <div class="card-title">Crear instrucciones de proyecto en Markdown</div>
+          <span class="tag tag-claude"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9.5 3.5C8.6 2.3 7.4 1.5 6 1.5C3.5 1.5 1.5 3.5 1.5 6C1.5 8.5 3.5 10.5 6 10.5C7.4 10.5 8.6 9.7 9.5 8.5"/></svg>Claude</span>
+        </div>
+      </div>
+      <div class="prompt-win">
+        <div class="win-bar"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-name">prompt.txt</span><span class="win-chars"></span></div>
+        <div class="prompt-preview" id="prev-2">Vas a ayudarme a crear el archivo de instrucciones (en formato Markdown) para un nuevo proyecto de Claude. Este archivo será el contexto permanente que Claude leerá en TODOS los chats de este proyecto, así que debe ser claro y completo.
+
+El proyecto se llama "[nombre del proyecto]". Te lo explico: [describe tu proyecto].
+
+Antes de escribir nada, hazme entre 3 y 5 preguntas clave para entender bien qué necesito. Cuando responda, redacta el MD con estas secciones:
+- Rol (quién debe ser Claude en este proyecto)
+- Objetivo (para qué existe el proyecto)
+- Contexto relevante
+- Tono y estilo de las respuestas
+- Restricciones y qué evitar
+- Formato de salida esperado
+
+Al final, sugiéreme 2 mejoras que yo no haya considerado.</div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('prev-2', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copiar
+        </button>
+        <button class="btn btn-ghost" onclick="toggleExpand('prev-2', this)">Ver completo</button>
+        <span class="use-tip">Al crear un proyecto nuevo en Claude</span>
+      </div>
+    </div>
 
     <!-- PROMPT 3 -->
     <div class="card" data-cat="contenido" data-title="Post de Instagram desde una idea">
