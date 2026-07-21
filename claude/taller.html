@@ -177,6 +177,9 @@
   let qIdx = 0, qAciertos = 0, qRespondida = false;
 
   function onIdentidad(){ pintar(); }
+  // Si al identificarse recuperamos avance del servidor, hay que recalcular
+  // en qué pantalla retomar: puede venir con conceptos ya recorridos.
+  function onProgresoRecuperado(){ retomar(); }
 
   /* ---------------- Ruta: un concepto puede ocupar varias pantallas ---------------- */
 
@@ -208,6 +211,15 @@
   const idxDe = tipo => RUTA.findIndex(r => r.tipo === tipo);
 
   // Recorrido guiado: no se salta hacia adelante, pero siempre puedes volver.
+  // Retoma en la primera pantalla pendiente, sin pasarse de lo ya alcanzado
+  function retomar(){
+    let p = 0;
+    while (p < iFin() && grupoHecho(RUTA[p])) p++;
+    paso = Math.min(p, Math.max(maxAlcanzado(), p));
+    desbloquear(paso);
+    pintar();
+  }
+
   const maxAlcanzado = () => Math.max(0, parseInt(st[`${N}-max`] || 0, 10));
   function desbloquear(i){ if (i > maxAlcanzado()){ st[`${N}-max`] = i; saveStars(); } }
 
@@ -339,7 +351,7 @@
     return `
       <div class="paso-n">Ejercicios hands-on · ${hechos} de ${lista.length}</div>
       <h1 class="c-nombre">Manos a la obra</h1>
-      <p class="c-desc">Estos son para hacer durante el taller. Si alguno no alcanzas, déjalo sin marcar: sirve para saber dónde apretar.</p>
+      <p class="c-desc">Estos son para hacer durante la sesión. Si alguno no alcanzas, déjalo sin marcar: sirve para saber dónde apretar.</p>
       <div class="ejercicios">
         ${lista.map((e, i) => {
           const ok = !!st[`e-${e.id}`];
@@ -561,12 +573,7 @@
   (async () => {
     await bootPortal(taller.conceptos);
     construirRuta();
-    // Retoma en la primera pantalla pendiente, sin pasarse de lo ya alcanzado
-    let p = 0;
-    while (p < iFin() && grupoHecho(RUTA[p])) p++;
-    paso = Math.min(p, Math.max(maxAlcanzado(), p));
-    desbloquear(paso);
-    pintar();
+    retomar();
     renderSkills();
   })();
 </script>
