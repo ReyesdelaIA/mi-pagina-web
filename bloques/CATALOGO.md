@@ -76,7 +76,7 @@ _Total: 51 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 | `claude-chat-tour` | Tour por Claude | 10 | 13 | ✓ |
 | `claude-code` | Claude Code | 0 ⚠️ | 5 | ✓ |
 | `claude-en-office` | Claude en el Office | 0 ⚠️ | 5 | ✓ |
-| `dictado-claude` | Dictado y modelo de voz | 1 | 5 | ✓ |
+| `dictado-claude` | Dictado y modelo de voz | 2 | 5 | ✓ |
 | `formatos-md-tokens` | Formato Markdown y uso de tokens | 0 ⚠️ | 5 | ✓ |
 | `mcp-conectores` | MCP y conectores | 0 ⚠️ | 5 | ✓ |
 | `memoria-claude` | Memorización de Claude | 2 | 5 | ✓ |

@@ -14,7 +14,10 @@
       "img": "01-herramienta-dictado.png"
     },
     "Habla como le explicarías a una persona: con contexto, sin miedo a extenderte. Dictar rinde mucho más que escribir porque no editas mientras hablas.",
-    "No te preocupes por la puntuación ni por corregir sobre la marcha: revisa el texto antes de enviarlo, ahí arreglas lo que quedó mal.",
+    {
+      "texto": "Recuerda que es importante que modules para que la herramienta agarre bien tus palabras y tus frases. Y cuando terminas, tienes que apretar el botón Check para que el dictado pase a texto.",
+      "img": "02-boton-check.png"
+    },
     "El modo de voz permite conversar de ida y vuelta, sin teclado. Sirve para pensar en voz alta mientras caminas o manejas.",
     "Combínalo con el celular: dictar una idea en el momento en que se te ocurre vale más que anotarla para después."
   ],
@@ -25,10 +28,12 @@
     "origen": "propuesto"
   },
   "assets": [
-    "01-herramienta-dictado.png"
+    "01-herramienta-dictado.png",
+    "02-boton-check.png"
   ],
   "assets_github": [
-    "https://reyesia.com/bloques/dictado-claude/01-herramienta-dictado.png"
+    "https://reyesia.com/bloques/dictado-claude/01-herramienta-dictado.png",
+    "https://reyesia.com/bloques/dictado-claude/02-boton-check.png"
   ],
   "sources": [
     {
