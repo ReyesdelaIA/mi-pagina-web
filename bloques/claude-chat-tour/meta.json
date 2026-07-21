@@ -55,7 +55,17 @@
       "texto": "El Pensamiento: es un interruptor aparte que le permite razonar en tareas más complejas. Actívalo cuando el problema tenga varios pasos y la respuesta rápida no te sirva."
     },
     {
-      "texto": "2 · Sidebar. A la izquierda vive todo tu trabajo: Chats y tareas, Proyectos, Artefactos, Programado y Personalizar. Abajo quedan los chats fijados y los recientes."
+      "texto": "Mi recomendación de qué modelo ocupar: piénsalo como el octanaje del combustible. Haiku es el liviano para lo simple, Sonnet el intermedio para el día a día, y Opus el máximo, para cuando la tarea de verdad lo pide.",
+      "img": "08-octanaje.png"
+    },
+    {
+      "texto": "Si tienes el plan Pro —los 20 o 25 dólares al mes—, mi recomendación es usar Sonnet el 97% del tiempo y dejar Opus para el 3%. Opus consume tus límites mucho más rápido, y para casi todo lo que haces en el día Sonnet rinde igual.",
+      "img": "09-sonnet-opus.png"
+    },
+    {
+      "texto": "2 · Sidebar. A la izquierda vive todo tu trabajo: Chats y tareas, Proyectos, Artefactos, Programado y Personalizar. Abajo quedan los chats fijados y los recientes.",
+      "corte": true,
+      "titulo": "El sidebar y las herramientas"
     },
     {
       "texto": "Fija los chats que usas seguido con el pin. Los recientes se van hundiendo solos, y lo que no está fijado termina perdiéndose."
@@ -81,7 +91,9 @@
     "04-adjuntar.png",
     "05-razonamiento.png",
     "06-instantaneo-vs-thinking.png",
-    "07-esfuerzo.png"
+    "07-esfuerzo.png",
+    "08-octanaje.png",
+    "09-sonnet-opus.png"
   ],
   "assets_github": [
     "https://reyesia.com/bloques/claude-chat-tour/01-interfaz.png",
@@ -91,7 +103,9 @@
     "https://reyesia.com/bloques/claude-chat-tour/04-adjuntar.png",
     "https://reyesia.com/bloques/claude-chat-tour/05-razonamiento.png",
     "https://reyesia.com/bloques/claude-chat-tour/06-instantaneo-vs-thinking.png",
-    "https://reyesia.com/bloques/claude-chat-tour/07-esfuerzo.png"
+    "https://reyesia.com/bloques/claude-chat-tour/07-esfuerzo.png",
+    "https://reyesia.com/bloques/claude-chat-tour/08-octanaje.png",
+    "https://reyesia.com/bloques/claude-chat-tour/09-sonnet-opus.png"
   ],
   "sources": [
     {

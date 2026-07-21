@@ -73,7 +73,7 @@ _Total: 51 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 |---|---|---|---|---|
 | `activacion-claude` | Activación de Claude | 4 | 8 | ✓ |
 | `agentes-claude` | Agentes con Claude | 0 ⚠️ | 5 | ✓ |
-| `claude-chat-tour` | Tour por Claude | 8 | 15 | ✓ |
+| `claude-chat-tour` | Tour por Claude | 10 | 17 | ✓ |
 | `claude-code` | Claude Code | 0 ⚠️ | 5 | ✓ |
 | `claude-en-office` | Claude en el Office | 0 ⚠️ | 5 | ✓ |
 | `dictado-claude` | Dictado y modelo de voz | 0 ⚠️ | 5 | ✓ |
