@@ -17,7 +17,8 @@
     },
     "Dentro de una conversación sí recuerda: cada respuesta considera todo lo que se dijo antes en ese chat. Por eso puedes corregir sobre la marcha.",
     {
-      "texto": "Con la memoria apagada, cada chat nuevo parte en blanco: lo que contaste en una conversación no existe en la siguiente. Encenderla es lo que le permite reconocerte entre conversaciones distintas."
+      "texto": "Recuerda que la herramienta va a memorizar lo que considere trascendente de memorizar. Ahora, además de eso, tú puedes forzarlo a memorizar, diciéndole literalmente: «Memoriza lo siguiente:».",
+      "img": "02-forzar-memoria.png"
     },
     "Para memoria persistente están los Proyectos: documentos e instrucciones fijas que se cargan solas en cada conversación de ese proyecto.",
     "Cuando una conversación se vuelve muy larga, el contexto se satura y empieza a olvidar detalles del principio. Ahí conviene abrir un chat nuevo con lo esencial."
@@ -30,11 +31,11 @@
   },
   "assets": [
     "01-memoria-encendida.png",
-    "portada.png"
+    "02-forzar-memoria.png"
   ],
   "assets_github": [
     "https://reyesia.com/bloques/memoria-claude/01-memoria-encendida.png",
-    "https://reyesia.com/bloques/memoria-claude/portada.png"
+    "https://reyesia.com/bloques/memoria-claude/02-forzar-memoria.png"
   ],
   "sources": [
     {
