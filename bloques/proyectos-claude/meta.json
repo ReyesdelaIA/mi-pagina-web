@@ -18,7 +18,11 @@
     "Comparte el proyecto con tu equipo para que todos trabajen con el mismo contexto y las mismas instrucciones. Ahí es donde deja de ser productividad personal y pasa a ser estándar de equipo."
   ],
   "pro_tip": "El mejor primer proyecto no es el más ambicioso: es esa tarea que haces todas las semanas y en la que siempre escribes el mismo párrafo de contexto.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Crea un Proyecto con el nombre de tu área y súbele tus manuales, plantillas y guías internas. Después hazle una pregunta que sin ese contexto no podría responder bien.",
+    "prompt": null,
+    "origen": "reciclado · pro tip Rosen"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

@@ -188,8 +188,9 @@
     PROG.forEach(p => {
       idx[p.participante_id] = idx[p.participante_id] || {};
       const t = idx[p.participante_id][p.taller] = idx[p.participante_id][p.taller]
-        || { conceptos: new Set() };
-      if (p.tipo === 'concepto') t.conceptos.add(p.concepto);
+        || { conceptos: new Set(), ejercicios: new Set() };
+      if (p.tipo === 'concepto')      t.conceptos.add(p.concepto);
+      else if (p.tipo === 'ejercicio') t.ejercicios.add(p.concepto);
       else t[p.tipo] = p;
     });
     return idx;
@@ -253,6 +254,8 @@
       const filas = [
         barra('Quiz',    vis.filter(p => idx[p.id]?.[t]?.quiz).length),
         barra('Desafío', vis.filter(p => idx[p.id]?.[t]?.desafio).length),
+        barra('Ejercicios hands-on',
+              vis.filter(p => (idx[p.id]?.[t]?.ejercicios?.size || 0) === CONCEPTOS[t].length).length),
         ...CONCEPTOS[t].map(c => barra(nom(c), vis.filter(p => idx[p.id]?.[t]?.conceptos?.has(c)).length)),
       ].join('');
       const qs = míos.filter(g => g.taller===t && g.tipo==='quiz' && g.quiz_total > 0);

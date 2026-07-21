@@ -18,7 +18,11 @@
     "Revisa lo que propone antes de aceptar. Claude Code pide permiso para las acciones sensibles: úsalo, no lo apruebes en automático."
   ],
   "pro_tip": "Si alguna vez pensaste \"esto lo haría rápido si supiera programar\", ese es exactamente el trabajo para Claude Code. Descríbelo en español y deja que él escriba el código.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Pídele a Claude Code que ordene una carpeta desordenada tuya: que renombre los archivos con un criterio claro y los agrupe por tipo o por fecha. Trabaja sobre una copia.",
+    "prompt": null,
+    "origen": "reciclado · sesion07-k7x9 nivel 5"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

@@ -158,7 +158,8 @@ const T = n => TALLERES.find(t => t.n === n);
 const RUTA_PLANA = location.pathname.endsWith('.html');
 const urlTaller  = n => RUTA_PLANA ? `/claude/taller.html?n=${n}` : `/claude/taller-${n}`;
 const urlHub     = ()  => RUTA_PLANA ? '/claude/index.html' : '/claude';
-const totalPasos = () => TALLERES.reduce((a, t) => a + t.conceptos.length + 2, 0);
+// conceptos + ejercicios + quiz + desafío
+const totalPasos = () => TALLERES.reduce((a, t) => a + t.conceptos.length + ejerciciosDe(t.n).length + 2, 0);
 
 /* ---------------- Utilidades ---------------- */
 
@@ -185,7 +186,9 @@ function loadStars(){ try { st = JSON.parse(localStorage.getItem(STARS_KEY)) || 
 function saveStars(){ localStorage.setItem(STARS_KEY, JSON.stringify(st)); }
 
 const conceptosOk = n => T(n).conceptos.filter(id => st[`c-${id}`]).length;
-const isComplete  = n => !!(st[`${n}-quiz`] && st[`${n}-des`] && conceptosOk(n) === T(n).conceptos.length);
+const isComplete  = n => !!(st[`${n}-quiz`] && st[`${n}-des`]
+  && conceptosOk(n) === T(n).conceptos.length
+  && ejerciciosOk(n) === ejerciciosDe(n).length);
 const countStars  = () => TALLERES.filter(t => isComplete(t.n)).length;
 const skillsOk    = () => SKILLS.filter(s => st[`c-${s.id}`]).length;
 
@@ -194,7 +197,7 @@ function pasosHechos(){
   TALLERES.forEach(t => {
     if (st[`${t.n}-quiz`]) p++;
     if (st[`${t.n}-des`])  p++;
-    p += conceptosOk(t.n);
+    p += conceptosOk(t.n) + ejerciciosOk(t.n);
   });
   return p;
 }
@@ -259,6 +262,7 @@ async function resyncAll(){
     if (st[`${t.n}-quiz`]) await syncProgreso(t.n, 'quiz', '', st[`${t.n}-quizScore`], st[`${t.n}-quizTotal`]);
     if (st[`${t.n}-des`])  await syncProgreso(t.n, 'desafio', '');
     for (const id of t.conceptos) if (st[`c-${id}`]) await syncProgreso(t.n, 'concepto', id);
+    for (const e of ejerciciosDe(t.n)) if (st[`e-${e.id}`]) await syncProgreso(t.n, 'ejercicio', e.id);
   }
 }
 
@@ -273,6 +277,20 @@ async function cargarBloques(ids){
     } catch (e) { /* la pantalla muestra un aviso en vez de romperse */ }
   }));
 }
+
+// Ejercicios hands-on del taller: salen del campo `desafio` de cada bloque,
+// así el mismo ejercicio sirve para armar sesiones de cualquier cliente.
+function ejerciciosDe(n){
+  return T(n).conceptos
+    .filter(id => BLOQUES[id] && BLOQUES[id].desafio)
+    .map(id => {
+      const d = BLOQUES[id].desafio;
+      const obj = (typeof d === 'string') ? { enunciado: d } : d;
+      return Object.assign({ id: id, bloque: BLOQUES[id] }, obj);
+    });
+}
+
+const ejerciciosOk = n => ejerciciosDe(n).filter(e => st[`e-${e.id}`]).length;
 
 // Primera imagen del bloque, si la tiene. Los bloques nuevos aún no traen.
 function imagenDe(id){

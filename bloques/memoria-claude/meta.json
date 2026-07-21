@@ -18,7 +18,11 @@
     "Cuando una conversación se vuelve muy larga, el contexto se satura y empieza a olvidar detalles del principio. Ahí conviene abrir un chat nuevo con lo esencial."
   ],
   "pro_tip": "Si te sorprende que la IA \"olvidó\" algo, casi siempre es que nunca lo supo: estaba en otro chat, o en tu cabeza. El contexto hay que dárselo explícitamente.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Cuéntale a Claude en un chat cómo trabaja tu equipo. Abre un chat nuevo y hazle una pregunta que dependa de eso, sin repetir el contexto. Comprueba que no se acuerda: eso es lo que vienen a resolver los Proyectos.",
+    "prompt": null,
+    "origen": "propuesto"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

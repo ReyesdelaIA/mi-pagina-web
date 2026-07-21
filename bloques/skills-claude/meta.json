@@ -18,7 +18,11 @@
     "Los Plugins agrupan Skills y otras capacidades en un paquete instalable: así una buena práctica de una persona se vuelve el estándar de todo el equipo."
   ],
   "pro_tip": "El mejor candidato a Skill es esa tarea donde el resultado depende de quién la haga. Estandarizarla no solo ahorra tiempo: sube el piso de calidad de todo el equipo.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Descarga una Skill del repositorio de Reyes IA e instálala: en Claude entra a Configuración → Capacidades → Skills y sube el .zip. Después úsala con un caso real tuyo.",
+    "prompt": null,
+    "origen": "reciclado · repo-skills"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

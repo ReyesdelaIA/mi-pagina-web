@@ -18,7 +18,11 @@
     "Buena práctica: un chat por tema. Cuando cambies de asunto, abre uno nuevo. Si necesitas continuidad, usa un Proyecto en vez de estirar el hilo."
   ],
   "pro_tip": "Si una conversación empezó a dar respuestas raras o a olvidar cosas que le dijiste, casi siempre es contexto saturado. Abre un chat nuevo y pega solo lo que importa.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Al final de un chat largo de verdad, pídele el resumen denso de abajo y pégalo en un chat nuevo. Comprueba que puedes seguir trabajando sin haber perdido el hilo.",
+    "prompt": "Haz un resumen denso de este chat para que yo lo pueda pegar en un nuevo chat y continuar sin perder contexto. Incluye: el objetivo principal de la conversación, las decisiones tomadas, los archivos o configuraciones relevantes con detalles exactos, los pendientes o próximos pasos, y cualquier dato clave. Entrégalo en un único bloque de código listo para copiar y pegar.",
+    "origen": "reciclado · repo-prompts"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

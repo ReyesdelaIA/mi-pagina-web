@@ -18,7 +18,11 @@
     "Los artefactos se guardan en tu biblioteca para reutilizar en futuras conversaciones."
   ],
   "pro_tip": "Pide un artefacto tipo \"tablero de seguimiento de tareas de mi equipo\" — Claude crea una mini-app interactiva que puedes compartir con tu equipo con un solo link.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Sube una planilla tuya y pídele a Claude que la convierta en un tablero visual. Ábrelo, cámbiale algo y compártelo por link con alguien de tu equipo.",
+    "prompt": "Genera un archivo HTML interactivo y descargable a partir del archivo que te adjunto. Debe verse bien en el celular y permitir filtrar los datos.",
+    "origen": "reciclado · sesion07-k7x9 nivel 1 + pro tip"
+  },
   "assets": [
     "cover.jpg"
   ],

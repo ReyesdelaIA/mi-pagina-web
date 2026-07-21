@@ -18,7 +18,11 @@
     "La responsabilidad del resultado es tuya. La IA acelera el borrador; la revisión y la firma siguen siendo humanas."
   ],
   "pro_tip": "Antes de pegar algo, hazte una sola pregunta: ¿esto aparecería en un diario mañana y sería un problema? Si dudas, anonimiza los datos antes de pegarlos.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Toma un documento real de tu trabajo y prepáralo para pegarlo en una IA: reemplaza nombres de clientes, RUT, montos y datos personales por marcadores tipo [CLIENTE] o [MONTO]. Después pídele el análisis sobre la versión anonimizada.",
+    "prompt": null,
+    "origen": "propuesto"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

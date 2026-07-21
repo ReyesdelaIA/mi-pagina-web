@@ -19,7 +19,11 @@
     "Para presentaciones: pídele la estructura y el contenido de cada lámina antes de armarla. Es mucho más rápido corregir un esquema que rehacer un PPT."
   ],
   "pro_tip": "No le pidas \"analiza este Excel\". Pídele \"compara la columna de gasto real contra el presupuesto y dime las tres desviaciones más grandes con su explicación probable\". La especificidad es todo.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Sube dos documentos distintos del mismo tema (dos informes, dos contratos, dos propuestas) y pídele un consolidado con una mirada específica, no un resumen genérico.",
+    "prompt": "Compara estos dos documentos y dime: en qué coinciden, en qué se contradicen, y qué preguntas debería hacer antes de tomar una decisión. Preséntalo en una tabla.",
+    "origen": "reciclado · Hands-on 06 + pro tip Excel"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

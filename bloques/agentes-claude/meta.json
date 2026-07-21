@@ -18,7 +18,11 @@
     "Define de antemano cómo vas a saber si el agente lo hizo bien. Si no puedes verificar el resultado, todavía no es candidato a automatizarse."
   ],
   "pro_tip": "Piensa en un agente como un practicante digital: dale tareas acotadas y verificables primero, y sube la complejidad a medida que demuestra que entendió.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Define en una frase una tarea repetitiva y verificable de tu semana. Escríbele a Claude el objetivo, qué puede tocar y cómo sabrás si lo hizo bien. Ejecútala una vez y anota qué salió distinto a lo que esperabas.",
+    "prompt": null,
+    "origen": "propuesto"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

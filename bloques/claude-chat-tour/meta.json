@@ -18,7 +18,11 @@
     "Explora el menú \"Más\" del sidebar: ahí viven Proyectos, Artefactos y el resto de las funciones que vas a usar en los siguientes talleres."
   ],
   "pro_tip": "Usar razonamiento profundo para reformular un correo es gastar de más; usar el modelo más rápido para revisar un contrato es quedarse corto. Elegir bien el modelo es parte del oficio.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Activa la Investigación profunda en Claude (botón + → Investigación) y pídele un estudio de tu propio sector. Fíjate en cuánto se demora y en si las fuentes son verificables.",
+    "prompt": "Realiza un estudio de mercado de [TU SECTOR] en Chile: tendencias 2026-2027, principales actores, tecnologías emergentes e impacto de la IA en las operaciones. Incluye fuentes verificables y presenta el informe en secciones con conclusiones accionables.",
+    "origen": "reciclado · bloque deep-research"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

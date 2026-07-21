@@ -18,7 +18,11 @@
     "Revisa siempre los permisos que otorgas: un conector con acceso de escritura puede modificar cosas. Empieza con acceso de solo lectura y sube desde ahí."
   ],
   "pro_tip": "El valor de MCP no es técnico, es de fricción: cada copiar-y-pegar que eliminas es una tarea que pasa de \"cuando tenga tiempo\" a \"ya está hecha\".",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Activa un conector de los que ya usas (tu repositorio de documentos o el calendario) y pídele a Claude una tarea que cruce dos fuentes, sin copiar ni pegar nada.",
+    "prompt": "Revisa mis reuniones de esta semana y los documentos relacionados que tengo guardados, y arma una lista de compromisos pendientes con responsable y fecha.",
+    "origen": "propuesto"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

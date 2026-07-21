@@ -60,6 +60,28 @@
     .fb.ok  { background:#ECFDF5; color:var(--green-dark); border:1px solid #A7F3D0; display:block; }
     .fb.no  { background:#FEF2F2; color:#7F1D1D; border:1px solid #FECACA; display:block; }
 
+    /* Ejercicios hands-on */
+    .ejercicios { display:flex; flex-direction:column; gap:12px; }
+    .ej { background:#fff; border:1.5px solid var(--border); border-radius:14px; padding:14px 15px; transition:border-color .2s; }
+    .ej.done { border-color:#A7F3D0; background:#F7FDFA; }
+    .ej-head { display:flex; gap:12px; align-items:flex-start; }
+    .ej-n { flex-shrink:0; width:24px; height:24px; border-radius:50%; background:var(--amber); color:#fff; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+    .ej.done .ej-n { background:var(--green); }
+    .ej-t { flex:1; min-width:0; }
+    .ej-tema { font-size:12px; font-weight:800; color:var(--amber-dark); margin-bottom:4px; }
+    .ej.done .ej-tema { color:var(--green-dark); }
+    .ej-enun { font-size:13.5px; color:#374151; line-height:1.6; }
+    .ej-tick { flex-shrink:0; width:22px; height:22px; border-radius:50%; border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:12px; color:transparent; }
+    .ej.done .ej-tick { background:var(--green); border-color:var(--green); color:#fff; }
+    .ej-prompt { margin-top:12px; background:#1a2537; border-radius:10px; overflow:hidden; }
+    .ej-prompt-top { display:flex; align-items:center; justify-content:space-between; padding:7px 12px; background:rgba(255,255,255,.06); font-size:10.5px; font-weight:700; color:rgba(255,255,255,.6); text-transform:uppercase; letter-spacing:.5px; }
+    .ej-copy { background:rgba(255,255,255,.15); border:none; color:#fff; border-radius:6px; padding:4px 10px; font-size:10.5px; font-weight:700; font-family:inherit; cursor:pointer; }
+    .ej-copy:hover { background:rgba(255,255,255,.28); }
+    .ej-prompt code { display:block; padding:12px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; color:#E5E7EB; line-height:1.6; white-space:pre-wrap; }
+    .ej-acc { margin-top:12px; }
+    .ej-acc .btn { padding:9px 16px; font-size:12.5px; }
+    .ej-listo { font-size:12.5px; font-weight:700; color:var(--green-dark); }
+
     /* Desafío */
     .des-box { background:linear-gradient(135deg,#FFF8EC,#FFF3DC); border:1.5px solid #F5CC7A; border-radius:16px; padding:20px; margin-bottom:20px; }
     .des-txt { font-size:14.5px; color:#5C3D00; line-height:1.65; }
@@ -131,7 +153,8 @@
   const taller = T(N);
   let paso = 0;                 // 0..conceptos-1 = conceptos; luego quiz; luego desafío; luego fin
   const iQuiz = taller.conceptos.length;
-  const iDes  = iQuiz + 1;
+  const iEjer = iQuiz + 1;
+  const iDes  = iEjer + 1;
   const iFin  = iDes + 1;
 
   // Estado del quiz
@@ -144,6 +167,7 @@
   function pasoHecho(i){
     if (i < iQuiz) return !!st[`c-${taller.conceptos[i]}`];
     if (i === iQuiz) return !!st[`${N}-quiz`];
+    if (i === iEjer) { const e = ejerciciosDe(N); return e.length > 0 && ejerciciosOk(N) === e.length; }
     if (i === iDes)  return !!st[`${N}-des`];
     return isComplete(N);
   }
@@ -156,6 +180,7 @@
     const items = [
       ...etiquetas.map((e, i) => ({ i, txt: `${e}` })),
       { i: iQuiz, txt: '🧠 Quiz' },
+      { i: iEjer, txt: '🔨 Ejercicios' },
       { i: iDes,  txt: '🎯 Desafío' },
     ];
     document.getElementById('stepper').innerHTML = items.map(it => `
@@ -225,6 +250,54 @@
       <div class="acciones" id="acc-q"></div>`;
   }
 
+  function pantallaEjercicios(){
+    const lista = ejerciciosDe(N);
+    if (!lista.length){
+      return `${visualHTML(null,'🔨')}
+        <div class="paso-n">Ejercicios</div>
+        <h1 class="c-nombre">Sin ejercicios en este taller</h1>
+        <p class="c-desc">Este taller no trae ejercicios hands-on.</p>
+        <div class="acciones"><button class="btn btn-amber" id="a-sig">Siguiente →</button></div>`;
+    }
+    const hechos = ejerciciosOk(N);
+    return `
+      <div class="paso-n">Ejercicios hands-on · ${hechos} de ${lista.length}</div>
+      <h1 class="c-nombre">Manos a la obra</h1>
+      <p class="c-desc">Estos son para hacer durante el taller. Si alguno no alcanzas, déjalo sin marcar: sirve para saber dónde apretar.</p>
+      <div class="ejercicios">
+        ${lista.map((e, i) => {
+          const ok = !!st[`e-${e.id}`];
+          return `
+          <div class="ej ${ok ? 'done' : ''}" id="ej-${e.id}">
+            <div class="ej-head">
+              <span class="ej-n">${i + 1}</span>
+              <div class="ej-t">
+                <div class="ej-tema">${e.bloque.emoji} ${esc(e.bloque.nombre)}</div>
+                <div class="ej-enun">${esc(e.enunciado)}</div>
+              </div>
+              <span class="ej-tick">✓</span>
+            </div>
+            ${e.prompt ? `
+              <div class="ej-prompt">
+                <div class="ej-prompt-top">
+                  <span>Prompt sugerido</span>
+                  <button class="ej-copy" data-copy="${esc(e.prompt)}">Copiar</button>
+                </div>
+                <code>${esc(e.prompt)}</code>
+              </div>` : ''}
+            <div class="ej-acc">
+              ${ok
+                ? '<span class="ej-listo">✓ Lo hiciste</span>'
+                : `<button class="btn btn-green ej-ok" data-ej="${e.id}">Lo hice ✓</button>`}
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="acciones" style="margin-top:20px">
+        <button class="btn btn-amber" id="a-sig">${hechos === lista.length ? 'Siguiente →' : 'Seguir sin marcar todos →'}</button>
+      </div>`;
+  }
+
   function pantallaDesafio(){
     const hecho = !!st[`${N}-des`];
     return `
@@ -246,6 +319,8 @@
     const hab = taller.conceptos.filter(id => st[`c-${id}`]).map(id => BLOQUES[id]);
     const falta = [];
     if (conceptosOk(N) < taller.conceptos.length) falta.push(`${taller.conceptos.length - conceptosOk(N)} concepto(s) por marcar`);
+    const ej = ejerciciosDe(N);
+    if (ejerciciosOk(N) < ej.length) falta.push(`${ej.length - ejerciciosOk(N)} ejercicio(s)`);
     if (!st[`${N}-quiz`]) falta.push('el quiz');
     if (!st[`${N}-des`])  falta.push('el desafío');
     return `
@@ -270,8 +345,9 @@
     document.getElementById('t-title').textContent = taller.title;
 
     const esc_ = document.getElementById('escena');
-    if (paso < iQuiz)       esc_.innerHTML = pantallaConcepto(paso);
+    if (paso < iQuiz)        esc_.innerHTML = pantallaConcepto(paso);
     else if (paso === iQuiz) esc_.innerHTML = pantallaQuiz();
+    else if (paso === iEjer) esc_.innerHTML = pantallaEjercicios();
     else if (paso === iDes)  esc_.innerHTML = pantallaDesafio();
     else                     esc_.innerHTML = pantallaFin();
 
@@ -316,6 +392,18 @@
     const volver = document.getElementById('a-volver');
     if (volver) volver.onclick = () => { paso = 0; reiniciarQuiz(); pintar(); };
 
+    // Ejercicios
+    document.querySelectorAll('.ej-ok').forEach(b => {
+      b.onclick = () => marcarEjercicio(b.dataset.ej);
+    });
+    document.querySelectorAll('.ej-copy').forEach(b => {
+      b.onclick = async () => {
+        try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = 'Copiado ✓'; }
+        catch (e) { b.textContent = 'Copia manual'; }
+        setTimeout(() => { b.textContent = 'Copiar'; }, 1500);
+      };
+    });
+
     // Quiz
     const opts = document.getElementById('opts');
     if (opts){
@@ -323,6 +411,16 @@
         btn.onclick = () => responder(parseInt(btn.dataset.i, 10));
       });
     }
+  }
+
+  function marcarEjercicio(id){
+    if (st[`e-${id}`]) return;
+    st[`e-${id}`] = true; saveStars();
+    syncProgreso(N, 'ejercicio', id);
+    const b = BLOQUES[id];
+    toast(`🔨 Ejercicio completado: ${b ? b.nombre : id}`);
+    if (isComplete(N)) { paso = iFin; reiniciarQuiz(); pintar(); toast('⭐ ¡Taller dominado!'); return; }
+    pintar();
   }
 
   function responder(i){

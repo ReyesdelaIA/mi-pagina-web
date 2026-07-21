@@ -18,7 +18,11 @@
     "La mayoría del valor en el trabajo de oficina está en la esfera de texto y la de datos. Lo visual llama más la atención, pero rinde menos horas."
   ],
   "pro_tip": "Antes de abrir la IA, pregúntate: ¿esto es redactar algo , buscar algo en internet , o analizar algo que ya tengo ? La respuesta te dice el prompt y la herramienta.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Toma tres tareas tuyas de esta semana y clasifícalas: ¿cuál es de texto, cuál de datos y cuál de imagen? Después haz la de texto con Claude y compara el tiempo que te tomó contra la vez anterior que la hiciste a mano.",
+    "prompt": null,
+    "origen": "propuesto"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [

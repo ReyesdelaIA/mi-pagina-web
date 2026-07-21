@@ -17,7 +17,11 @@
     "Itera: casi nunca sale perfecto a la primera. Corrige sobre la respuesta anterior en vez de empezar de cero."
   ],
   "pro_tip": "Prueba el mismo pedido dos veces: una con un prompt de una línea y otra con rol, contexto, tarea y formato. La diferencia entre ambos resultados es exactamente lo que te estabas perdiendo.",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Hazle a Claude una pregunta técnica de tu área, primero normal. Después repítela agregando el prompt defensivo de abajo y compara: fíjate si en la segunda te reconoce lo que no sabe.",
+    "prompt": "Responde solo si tienes al menos 90% de seguridad. Si no estás seguro, dímelo claramente en vez de inventar.",
+    "origen": "reciclado · sesion05-castilla"
+  },
   "assets": [],
   "assets_github": [],
   "sources": [
