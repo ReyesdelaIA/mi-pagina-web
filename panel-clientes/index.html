@@ -98,11 +98,23 @@
   .tema-comment::placeholder{color:#c4c4c4;}
   .comment-wrap{display:flex;align-items:flex-start;gap:8px;}
   .comment-wrap .tema-comment{flex:1;}
-  .btn-guardar{flex-shrink:0;background:var(--navy3);color:#fff;border:none;border-radius:8px;
-    padding:6px 12px;font-size:11.5px;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;
-    transition:background .15s;align-self:flex-start;}
-  .btn-guardar:hover{filter:brightness(1.1);}
-  .btn-guardar.ok{background:var(--green);}
+  .drag-handle{flex-shrink:0;cursor:grab;color:#d5d9de;font-size:15px;line-height:1;letter-spacing:-2px;
+    padding:3px 1px;margin-top:2px;user-select:none;}
+  .drag-handle:hover{color:var(--navy3);}
+  .drag-handle:active{cursor:grabbing;}
+  .tema-row.dragging{opacity:.35;}
+
+  /* Temas arrastrados desde una sesión anterior */
+  .pendientes-box{background:var(--amberbg);border:1.5px solid #FCD9A0;border-radius:12px;
+    padding:4px 14px 8px;margin:12px 0 6px;}
+  .pendientes-title{font-size:11.5px;font-weight:700;color:#92400E;letter-spacing:.02em;
+    padding:8px 0 2px;}
+  .pendientes-box .tema-row{border-bottom-color:#F6E4C8;}
+  .pendientes-box .tema-comment::placeholder{color:#C9A87C;}
+  .pend-origen{flex-shrink:0;background:var(--amber);color:#fff;font-size:10px;font-weight:800;
+    border-radius:6px;padding:3px 6px;margin-top:2px;line-height:1;}
+  .pend-count{color:#B45309;font-weight:700;}
+  .temas-list.dragging-on .tema-comment{pointer-events:none;}
   .fecha-chip{display:inline-flex;margin-left:8px;vertical-align:middle;}
   .fecha-input{border:1px solid var(--border);border-radius:7px;padding:3px 7px;font-size:11px;
     font-family:'Poppins',sans-serif;color:var(--sub);background:#fff;cursor:pointer;}
@@ -276,6 +288,31 @@ async function renderLanding(){
   `;
 }
 
+// Una fila de tema. `arrastrado` = viene de una sesión anterior sin terminar:
+// se muestra destacado, sin manilla de arrastre y con la sesión de origen.
+function temaRowHtml(t, arrastrado){
+  const visto = t.estado === 'visto';
+  return `
+  <div class="tema-row ${arrastrado ? 'arrastrado' : ''}" data-tema-id="${t.id}"
+       ${arrastrado ? '' : 'ondragstart="temaDragStart(event, this)" ondragend="temaDragEnd(event, this)"'}>
+    ${arrastrado
+      ? `<div class="pend-origen" title="Viene de la sesión ${t.numero_sesion}">S${t.numero_sesion}</div>`
+      : `<div class="drag-handle" title="Arrastrar para reordenar"
+              onmousedown="this.closest('.tema-row').draggable = true">⠿</div>`}
+    <div class="checkbox ${visto?'checked':''}" onclick="toggleTema('${t.id}', this)"></div>
+    <div class="tema-content">
+      <div class="tema-nombre ${visto?'done':''}">${esc(t.tema)}</div>
+      <div class="comment-wrap">
+        <textarea class="tema-comment" rows="1" placeholder="Agregar comentario…"
+          onfocus="this.rows=2"
+          oninput="autoSaveComentario('${t.id}', this)"
+          onblur="saveComentario('${t.id}', this.value); if(!this.value) this.rows=1">${esc(t.comentario||'')}</textarea>
+      </div>
+    </div>
+    <div class="tema-del" onclick="deleteTema('${t.id}')">✕</div>
+  </div>`;
+}
+
 // ---------- DETAIL ----------
 async function renderDetail(programaId){
   app.innerHTML = '<div class="loading">Cargando cliente…</div>';
@@ -302,11 +339,17 @@ async function renderDetail(programaId){
   const sesionesNums = Object.keys(bySesion).map(Number).sort((a,b)=>a-b);
   const maxNum = Math.max(total, ...sesionesNums, 0);
 
+  // Un tema sin check de una sesión anterior se arrastra a la sesión en curso.
+  const pendientesPrevios = n => (temas || [])
+    .filter(t => t.numero_sesion < n && t.estado !== 'visto')
+    .sort((a,b) => a.numero_sesion - b.numero_sesion || a.orden - b.orden);
+
   let sessionsHtml = '';
   for (let n = 1; n <= maxNum; n++){
     const list = bySesion[n] || [];
     const allDone = list.length > 0 && list.every(t => t.estado === 'visto');
     const isCurrent = n === done + 1;
+    const arrastrados = isCurrent ? pendientesPrevios(n) : [];
     const stateClass = allDone ? 'done' : isCurrent ? 'current' : 'future';
     const stateLabel = allDone ? 'Completada' : isCurrent ? 'En curso' : 'Próxima';
     const openAttr = isCurrent ? 'open' : '';
@@ -324,29 +367,20 @@ async function renderDetail(programaId){
                        onchange="saveFecha('${programaId}', ${n}, this.value)">
               </span>
             </div>
-            <div class="session-date">${fechaLegible(fechas[n]?.fecha_hora)}${list.length} tema${list.length===1?'':'s'} · ${stateLabel}</div>
+            <div class="session-date">${fechaLegible(fechas[n]?.fecha_hora)}${list.length} tema${list.length===1?'':'s'}${arrastrados.length ? ` · <span class="pend-count">${arrastrados.length} arrastrado${arrastrados.length===1?'':'s'}</span>` : ''} · ${stateLabel}</div>
           </div>
         </div>
         <div class="chev ${openAttr}">▼</div>
       </div>
       <div class="session-body ${openAttr}">
-        ${list.map(t => `
-          <div class="tema-row" data-tema-id="${t.id}">
-            <div class="checkbox ${t.estado==='visto'?'checked':''}" onclick="toggleTema('${t.id}', this)"></div>
-            <div class="tema-content">
-              <div class="tema-nombre ${t.estado==='visto'?'done':''}">${esc(t.tema)}</div>
-              <div class="comment-wrap">
-                <textarea class="tema-comment" rows="1" placeholder="Agregar comentario…"
-                  onfocus="this.rows=2; this.closest('.comment-wrap').classList.add('editing')"
-                  oninput="this.closest('.comment-wrap').classList.add('editing')"
-                  onblur="saveComentario('${t.id}', this.value, this); if(!this.value) this.rows=1">${esc(t.comentario||'')}</textarea>
-                <button class="btn-guardar" onmousedown="event.preventDefault()"
-                  onclick="saveComentario('${t.id}', this.previousElementSibling.value, this.previousElementSibling)">Guardar</button>
-              </div>
-            </div>
-            <div class="tema-del" onclick="deleteTema('${t.id}')">✕</div>
-          </div>
-        `).join('')}
+        ${arrastrados.length ? `
+        <div class="pendientes-box">
+          <div class="pendientes-title">⚠️ Quedó pendiente de sesiones anteriores</div>
+          ${arrastrados.map(t => temaRowHtml(t, true)).join('')}
+        </div>` : ''}
+        <div class="temas-list" ondragover="temaDragOver(event, this)">
+        ${list.map(t => temaRowHtml(t, false)).join('')}
+        </div>
         <div class="add-tema-row">
           <input type="text" placeholder="+ agregar tema a la sesión ${n}" onkeydown="if(event.key==='Enter'){addTema('${programaId}', ${n}, this); event.preventDefault();}">
           <button onclick="addTema('${programaId}', ${n}, this.previousElementSibling)">Agregar</button>
@@ -371,9 +405,12 @@ async function renderDetail(programaId){
 // ---------- ACTIONS ----------
 async function toggleTema(id, el){
   const nowChecked = !el.classList.contains('checked');
-  el.classList.toggle('checked', nowChecked);
-  const nombreEl = el.parentElement.querySelector('.tema-nombre');
-  nombreEl.classList.toggle('done', nowChecked);
+  // Un tema arrastrado aparece dos veces en pantalla (su sesión y la sesión
+  // en curso): las dos filas tienen que reflejar el mismo check.
+  document.querySelectorAll(`.tema-row[data-tema-id="${id}"]`).forEach(row => {
+    row.querySelector('.checkbox').classList.toggle('checked', nowChecked);
+    row.querySelector('.tema-nombre').classList.toggle('done', nowChecked);
+  });
   await sb.from('temario_temas').update({ estado: nowChecked ? 'visto' : 'pendiente', fecha_actualizacion: new Date().toISOString() }).eq('id', id);
   flashSaved();
 }
@@ -407,30 +444,82 @@ async function saveFecha(programaId, numeroSesion, valor){
   renderDetail(programaId);
 }
 
-async function saveComentario(id, valor, el){
-  const wrap = el && el.closest ? el.closest('.comment-wrap') : null;
-  const btn  = wrap ? wrap.querySelector('.btn-guardar') : null;
+// Los comentarios se guardan solos: 800 ms después de dejar de escribir,
+// y también al salir del campo por si el timer aún no alcanzó a correr.
+const timersComentario = {};
+let ultimoGuardado = {};
+
+function autoSaveComentario(id, el){
+  clearTimeout(timersComentario[id]);
+  timersComentario[id] = setTimeout(() => saveComentario(id, el.value), 800);
+}
+
+async function saveComentario(id, valor){
+  clearTimeout(timersComentario[id]);
+  if (ultimoGuardado[id] === valor) return;
+  ultimoGuardado[id] = valor;
 
   const { error } = await sb.from('temario_temas')
     .update({ comentario: valor, fecha_actualizacion: new Date().toISOString() })
     .eq('id', id);
 
   if (error){
-    if (btn) btn.textContent = 'Error';
+    delete ultimoGuardado[id];
     alert('No se pudo guardar el comentario: ' + error.message);
     return;
   }
-
+  // Espeja el texto en la otra copia de la fila (tema arrastrado).
+  document.querySelectorAll(`.tema-row[data-tema-id="${id}"] .tema-comment`).forEach(ta => {
+    if (ta !== document.activeElement) ta.value = valor;
+  });
   flashSaved();
-  if (btn){
-    btn.textContent = 'Guardado ✓';
-    btn.classList.add('ok');
-    setTimeout(() => {
-      btn.textContent = 'Guardar';
-      btn.classList.remove('ok');
-      if (wrap) wrap.classList.remove('editing');
-    }, 1200);
+}
+
+// ---------- ARRASTRAR TEMAS (reordenar dentro de la sesión) ----------
+let temaArrastrado = null;
+
+function temaDragStart(e, row){
+  temaArrastrado = row;
+  row.classList.add('dragging');
+  row.parentElement.classList.add('dragging-on');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', row.dataset.temaId);
+}
+
+function temaDragOver(e, lista){
+  if (!temaArrastrado || temaArrastrado.parentElement !== lista) return;
+  e.preventDefault();
+  const siguiente = temaDespuesDe(lista, e.clientY);
+  if (siguiente) lista.insertBefore(temaArrastrado, siguiente);
+  else lista.appendChild(temaArrastrado);
+}
+
+function temaDespuesDe(lista, y){
+  const filas = [...lista.querySelectorAll('.tema-row:not(.dragging)')];
+  let mejor = { dist: Number.NEGATIVE_INFINITY, el: null };
+  for (const fila of filas){
+    const caja = fila.getBoundingClientRect();
+    const dist = y - caja.top - caja.height / 2;
+    if (dist < 0 && dist > mejor.dist) mejor = { dist, el: fila };
   }
+  return mejor.el;
+}
+
+async function temaDragEnd(e, row){
+  const lista = row.parentElement;
+  row.draggable = false;
+  row.classList.remove('dragging');
+  lista.classList.remove('dragging-on');
+  temaArrastrado = null;
+
+  const ids = [...lista.querySelectorAll('.tema-row')].map(r => r.dataset.temaId);
+  const ahora = new Date().toISOString();
+  const res = await Promise.all(ids.map((id, i) =>
+    sb.from('temario_temas').update({ orden: i + 1, fecha_actualizacion: ahora }).eq('id', id)
+  ));
+  const fallo = res.find(r => r.error);
+  if (fallo){ alert('No se pudo guardar el orden: ' + fallo.error.message); return; }
+  flashSaved();
 }
 
 async function deleteTema(id){
