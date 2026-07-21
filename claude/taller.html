@@ -167,46 +167,82 @@
   })();
 
   const taller = T(N);
-  let paso = 0;                 // 0..conceptos-1 = conceptos; luego quiz; luego desafío; luego fin
-  const iQuiz = taller.conceptos.length;
-  const iEjer = iQuiz + 1;
-  const iDes  = iEjer + 1;
-  const iFin  = iDes + 1;
+  let paso = 0;          // índice dentro de RUTA
+  let RUTA = [];         // pantallas del recorrido, en orden
 
-  // Estado del quiz
   let qIdx = 0, qAciertos = 0, qRespondida = false;
 
   function onIdentidad(){ pintar(); }
 
-  /* ---------------- Stepper ---------------- */
+  /* ---------------- Ruta: un concepto puede ocupar varias pantallas ---------------- */
 
-  function pasoHecho(i){
-    if (i < iQuiz) return !!st[`c-${taller.conceptos[i]}`];
-    if (i === iQuiz) return !!st[`${N}-quiz`];
-    if (i === iEjer) { const e = ejerciciosDe(N); return e.length > 0 && ejerciciosOk(N) === e.length; }
-    if (i === iDes)  return !!st[`${N}-des`];
-    return isComplete(N);
+  function construirRuta(){
+    RUTA = [];
+    taller.conceptos.forEach((id, ci) => {
+      const b = BLOQUES[id];
+      const pasos = (b && Array.isArray(b.pasos)) ? b.pasos : [];
+      const grupos = [[]];
+      let n = 0;
+      pasos.forEach(p => {
+        const o = (typeof p === 'string') ? { texto: p } : Object.assign({}, p);
+        if (o.corte && grupos[grupos.length - 1].length) grupos.push([]);
+        o._n = ++n;                       // numeración continua entre pantallas
+        grupos[grupos.length - 1].push(o);
+      });
+      grupos.forEach((g, gi) => RUTA.push({
+        tipo: 'concepto', id, ci, pasos: g,
+        parte: gi + 1, partes: grupos.length, ultima: gi === grupos.length - 1
+      }));
+    });
+    RUTA.push({ tipo: 'quiz' });
+    RUTA.push({ tipo: 'ejercicios' });
+    RUTA.push({ tipo: 'desafio' });
+    RUTA.push({ tipo: 'fin' });
+  }
+
+  const iFin = () => RUTA.length - 1;
+  const idxDe = tipo => RUTA.findIndex(r => r.tipo === tipo);
+
+  // Recorrido guiado: no se salta hacia adelante, pero siempre puedes volver.
+  const maxAlcanzado = () => Math.max(0, parseInt(st[`${N}-max`] || 0, 10));
+  function desbloquear(i){ if (i > maxAlcanzado()){ st[`${N}-max`] = i; saveStars(); } }
+
+  /* ---------------- Stepper: un punto por concepto, no por pantalla ---------------- */
+
+  function grupoHecho(g){
+    if (g.tipo === 'concepto')   return !!st[`c-${g.id}`];
+    if (g.tipo === 'quiz')       return !!st[`${N}-quiz`];
+    if (g.tipo === 'ejercicios'){ const e = ejerciciosDe(N); return e.length > 0 && ejerciciosOk(N) === e.length; }
+    if (g.tipo === 'desafio')    return !!st[`${N}-des`];
+    return false;
+  }
+
+  function grupos(){
+    const out = [];
+    taller.conceptos.forEach((id, ci) => {
+      const b = BLOQUES[id];
+      out.push({ tipo:'concepto', id, ci, txt: b ? b.emoji : (ci + 1),
+                 i: RUTA.findIndex(r => r.tipo === 'concepto' && r.ci === ci) });
+    });
+    out.push({ tipo:'quiz',       txt:'🧠 Quiz',       i: idxDe('quiz') });
+    out.push({ tipo:'ejercicios', txt:'🔨 Ejercicios', i: idxDe('ejercicios') });
+    out.push({ tipo:'desafio',    txt:'🎯 Desafío',    i: idxDe('desafio') });
+    return out;
   }
 
   function pintarStepper(){
-    const etiquetas = taller.conceptos.map((id, i) => {
-      const b = BLOQUES[id];
-      return b ? b.emoji : (i + 1);
-    });
-    const items = [
-      ...etiquetas.map((e, i) => ({ i, txt: `${e}` })),
-      { i: iQuiz, txt: '🧠 Quiz' },
-      { i: iEjer, txt: '🔨 Ejercicios' },
-      { i: iDes,  txt: '🎯 Desafío' },
-    ];
     const tope = maxAlcanzado();
-    document.getElementById('stepper').innerHTML = items.map(it => {
-      const bloqueado = it.i > tope;
+    const actual = RUTA[paso] || {};
+    document.getElementById('stepper').innerHTML = grupos().map(g => {
+      const bloqueado = g.i > tope;
+      const ahora = (g.tipo === 'concepto')
+        ? (actual.tipo === 'concepto' && actual.ci === g.ci)
+        : actual.tipo === g.tipo;
       return `
-      <button class="step-dot ${pasoHecho(it.i) ? 'done' : ''} ${paso === it.i ? 'now' : ''} ${bloqueado ? 'lock' : ''}"
-              data-i="${it.i}" ${bloqueado ? 'disabled' : ''}
+      <button class="step-dot ${grupoHecho(g) ? 'done' : ''} ${ahora ? 'now' : ''} ${bloqueado ? 'lock' : ''}"
+              data-i="${g.i}" ${bloqueado ? 'disabled' : ''}
               title="${bloqueado ? 'Todavía no llegas a este paso' : 'Volver a este paso'}">
-        <i></i><span>${bloqueado ? '🔒' : ''} ${it.txt}</span>
+        <i></i><span>${bloqueado ? '🔒' : ''} ${g.txt}</span>
       </button>`;
     }).join('');
     document.querySelectorAll('.step-dot:not([disabled])').forEach(b => {
@@ -216,18 +252,8 @@
 
   function reiniciarQuiz(){ qIdx = 0; qAciertos = 0; qRespondida = false; }
 
-  // Recorrido guiado: no se puede saltar hacia adelante. Se avanza paso a
-  // paso, pero siempre puedes volver a cualquiera que ya viste.
-  const maxAlcanzado = () => Math.max(0, parseInt(st[`${N}-max`] || 0, 10));
-  function desbloquear(i){
-    if (i > maxAlcanzado()){ st[`${N}-max`] = i; saveStars(); }
-  }
-
   /* ---------------- Pantallas ---------------- */
 
-  // Muestra la imagen del bloque si la tiene declarada en su meta.json.
-  // Para agregarla: deja el archivo en /bloques/<id>/ y corre
-  // `node scripts/bloques/sync-assets.js`, que la registra sola.
   function visualHTML(id, emoji){
     const img = id ? imagenDe(id) : null;
     return img
@@ -235,38 +261,38 @@
       : `<div class="visual"><div class="visual-emoji">${emoji || '💡'}</div></div>`;
   }
 
-  function pantallaConcepto(i){
-    const id = taller.conceptos[i];
-    const b  = BLOQUES[id];
+  function pantallaConcepto(r){
+    const b = BLOQUES[r.id];
     if (!b) return `<div class="c-nombre">Cargando…</div>`;
-    const marcado = !!st[`c-${id}`];
-    // Si los pasos ya traen imágenes, la portada sobra: el recorrido las va mostrando.
-    const pasosConImg = b.pasos.some(p => typeof p === 'object' && p.img);
-    return `
-      ${pasosConImg ? '' : visualHTML(id, b.emoji)}
-      <div class="paso-n">Concepto ${i + 1} de ${taller.conceptos.length}</div>
-      <h1 class="c-nombre">${esc(b.nombre)}</h1>
-      <p class="c-desc">${esc(b.descripcion)}</p>
-      <div class="lista">
-        ${(() => {
-          let n = 0;
-          return b.pasos.map(p => {
-            const o = (typeof p === 'string') ? { texto: p } : p;
-            // El texto explica primero; la imagen lo ilustra abajo.
-            const img = o.img ? `<figure class="paso-img"><img src="/bloques/${id}/${o.img}" alt="" /></figure>` : '';
-            n++;
-            return `<div class="paso-item"><span class="num">${n}</span><span>${esc(o.texto)}</span></div>${img}`;
-          }).join('');
-        })()}
-      </div>
-      ${b.pro_tip ? `<div class="tip"><b>💡 Pro tip:</b> ${esc(b.pro_tip)}</div>` : ''}
-      <div class="acciones">
-        ${marcado
-          ? `<div class="marcado">✓ Ya marcaste que entendiste esto</div>
-             <button class="btn btn-amber" id="a-sig">Continuar →</button>`
-          : `<button class="btn btn-green" id="a-ok">Entendí ${esc(b.nombre)} · Continuar →</button>
-             <button class="btn btn-ghost" id="a-no">Continuar sin marcar →</button>`}
-      </div>`;
+    const marcado = !!st[`c-${r.id}`];
+    const tituloPantalla = r.pasos[0] && r.pasos[0].titulo;
+    const hayImgs = r.pasos.some(p => p.img);
+
+    const encabezado = `
+      <div class="paso-n">Concepto ${r.ci + 1} de ${taller.conceptos.length}${
+        r.partes > 1 ? ` · parte ${r.parte} de ${r.partes}` : ''}</div>
+      <h1 class="c-nombre">${esc(tituloPantalla || b.nombre)}</h1>
+      ${r.parte === 1 ? `<p class="c-desc">${esc(b.descripcion)}</p>` : ''}`;
+
+    const cuerpo = r.pasos.map(o => {
+      const img = o.img ? `<figure class="paso-img"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>` : '';
+      return `<div class="paso-item"><span class="num">${o._n}</span><span>${esc(o.texto)}</span></div>${img}`;
+    }).join('');
+
+    // El pro tip y el check solo al final del concepto
+    const cierre = r.ultima
+      ? `${b.pro_tip ? `<div class="tip"><b>💡 Pro tip:</b> ${esc(b.pro_tip)}</div>` : ''}
+         <div class="acciones">
+           ${marcado
+             ? `<div class="marcado">✓ Ya marcaste que entendiste esto</div>
+                <button class="btn btn-amber" id="a-sig">Continuar →</button>`
+             : `<button class="btn btn-green" id="a-ok">Entendí ${esc(b.nombre)} · Continuar →</button>
+                <button class="btn btn-ghost" id="a-no">Continuar sin marcar →</button>`}
+         </div>`
+      : `<div class="acciones"><button class="btn btn-amber" id="a-sig">Continuar →</button></div>`;
+
+    return `${!hayImgs && r.parte === 1 ? visualHTML(r.id, b.emoji) : ''}${encabezado}
+      <div class="lista">${cuerpo}</div>${cierre}`;
   }
 
   function pantallaQuiz(){
@@ -326,15 +352,14 @@
                 <code>${esc(e.prompt)}</code>
               </div>` : ''}
             <div class="ej-acc">
-              ${ok
-                ? '<span class="ej-listo">✓ Lo hiciste</span>'
-                : `<button class="btn btn-green ej-ok" data-ej="${e.id}">Lo hice ✓</button>`}
+              ${ok ? '<span class="ej-listo">✓ Lo hiciste</span>'
+                   : `<button class="btn btn-green ej-ok" data-ej="${e.id}">Lo hice ✓</button>`}
             </div>
           </div>`;
         }).join('')}
       </div>
       <div class="acciones" style="margin-top:20px">
-        <button class="btn btn-amber" id="a-sig">${hechos === lista.length ? 'Siguiente →' : 'Seguir sin marcar todos →'}</button>
+        <button class="btn btn-amber" id="a-sig">${hechos === lista.length ? 'Continuar →' : 'Continuar sin marcar todos →'}</button>
       </div>`;
   }
 
@@ -356,10 +381,10 @@
 
   function pantallaFin(){
     const done = isComplete(N);
-    const hab = taller.conceptos.filter(id => st[`c-${id}`]).map(id => BLOQUES[id]);
+    const hab = taller.conceptos.filter(id => st[`c-${id}`]).map(id => BLOQUES[id]).filter(Boolean);
     const falta = [];
-    if (conceptosOk(N) < taller.conceptos.length) falta.push(`${taller.conceptos.length - conceptosOk(N)} concepto(s) por marcar`);
     const ej = ejerciciosDe(N);
+    if (conceptosOk(N) < taller.conceptos.length) falta.push(`${taller.conceptos.length - conceptosOk(N)} concepto(s) por marcar`);
     if (ejerciciosOk(N) < ej.length) falta.push(`${ej.length - ejerciciosOk(N)} ejercicio(s)`);
     if (!st[`${N}-quiz`]) falta.push('el quiz');
     if (!st[`${N}-des`])  falta.push('el desafío');
@@ -368,7 +393,7 @@
         <div class="fin-star">${done ? '⭐' : '🚧'}</div>
         <div class="fin-h">${done ? '¡Taller dominado!' : 'Vas avanzando'}</div>
         <p class="fin-p">${done
-          ? 'Completaste los conceptos, el quiz y el desafío. Tu estrella ya está en el programa.'
+          ? 'Completaste los conceptos, el quiz, los ejercicios y el desafío. Tu estrella ya está en el programa.'
           : `Para ganar la estrella de este taller te falta: ${esc(falta.join(', '))}.`}</p>
         ${hab.length ? `<div class="fin-hab">${hab.map(b => `<span class="fin-chip">${b.emoji} ${esc(b.nombre)}</span>`).join('')}</div>` : ''}
         <div class="fin-acc">
@@ -384,23 +409,24 @@
     document.getElementById('t-label').textContent = taller.label;
     document.getElementById('t-title').textContent = taller.title;
 
-    const esc_ = document.getElementById('escena');
-    if (paso < iQuiz)        esc_.innerHTML = pantallaConcepto(paso);
-    else if (paso === iQuiz) esc_.innerHTML = pantallaQuiz();
-    else if (paso === iEjer) esc_.innerHTML = pantallaEjercicios();
-    else if (paso === iDes)  esc_.innerHTML = pantallaDesafio();
-    else                     esc_.innerHTML = pantallaFin();
+    const r = RUTA[paso] || { tipo: 'fin' };
+    const cont = document.getElementById('escena');
+    if (r.tipo === 'concepto')        cont.innerHTML = pantallaConcepto(r);
+    else if (r.tipo === 'quiz')       cont.innerHTML = pantallaQuiz();
+    else if (r.tipo === 'ejercicios') cont.innerHTML = pantallaEjercicios();
+    else if (r.tipo === 'desafio')    cont.innerHTML = pantallaDesafio();
+    else                              cont.innerHTML = pantallaFin();
 
     pintarStepper();
     document.getElementById('btn-prev').disabled = paso === 0;
     document.getElementById('contador').textContent =
-      paso >= iFin ? 'Fin del taller' : `Paso ${paso + 1} de ${iFin}`;
+      r.tipo === 'fin' ? 'Fin del taller' : `Pantalla ${paso + 1} de ${iFin()}`;
     conectar();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function avanzar(){
-    paso = Math.min(paso + 1, iFin);
+    paso = Math.min(paso + 1, iFin());
     desbloquear(paso);
     reiniciarQuiz();
     pintar();
@@ -411,36 +437,29 @@
     if (sig) sig.onclick = avanzar;
 
     const no = document.getElementById('a-no');
-    if (no) no.onclick = () => {
-      // Avanza sin marcar. Es dato útil: sabemos qué concepto no quedó claro.
-      toast('Sin problema, puedes volver cuando quieras');
-      avanzar();
-    };
+    if (no) no.onclick = () => { toast('Sin problema, puedes volver cuando quieras'); avanzar(); };
 
     const ok = document.getElementById('a-ok');
     if (ok) ok.onclick = () => {
-      if (paso < iQuiz){
-        const id = taller.conceptos[paso];
-        const b  = BLOQUES[id];
-        st[`c-${id}`] = true; saveStars();
-        syncProgreso(N, 'concepto', id);
-        toast(`🧠 Habilidad desbloqueada: ${b ? b.nombre : id}`);
-      } else if (paso === iDes){
+      const r = RUTA[paso];
+      if (r.tipo === 'concepto'){
+        const b = BLOQUES[r.id];
+        st[`c-${r.id}`] = true; saveStars();
+        syncProgreso(N, 'concepto', r.id);
+        toast(`🧠 Habilidad desbloqueada: ${b ? b.nombre : r.id}`);
+      } else if (r.tipo === 'desafio'){
         st[`${N}-des`] = true; saveStars();
         syncProgreso(N, 'desafio', '');
         toast('🎯 ¡Desafío completado!');
       }
-      if (isComplete(N)) { paso = iFin; reiniciarQuiz(); pintar(); toast('⭐ ¡Taller dominado!'); return; }
+      if (isComplete(N)) { irAlFin(); return; }
       avanzar();
     };
 
     const volver = document.getElementById('a-volver');
     if (volver) volver.onclick = () => { paso = 0; reiniciarQuiz(); pintar(); };
 
-    // Ejercicios
-    document.querySelectorAll('.ej-ok').forEach(b => {
-      b.onclick = () => marcarEjercicio(b.dataset.ej);
-    });
+    document.querySelectorAll('.ej-ok').forEach(b => { b.onclick = () => marcarEjercicio(b.dataset.ej); });
     document.querySelectorAll('.ej-copy').forEach(b => {
       b.onclick = async () => {
         try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = 'Copiado ✓'; }
@@ -449,13 +468,13 @@
       };
     });
 
-    // Quiz
     const opts = document.getElementById('opts');
-    if (opts){
-      opts.querySelectorAll('.opt').forEach(btn => {
-        btn.onclick = () => responder(parseInt(btn.dataset.i, 10));
-      });
-    }
+    if (opts) opts.querySelectorAll('.opt').forEach(b => { b.onclick = () => responder(parseInt(b.dataset.i, 10)); });
+  }
+
+  function irAlFin(){
+    paso = iFin(); desbloquear(paso); reiniciarQuiz(); pintar();
+    toast('⭐ ¡Taller dominado!');
   }
 
   function marcarEjercicio(id){
@@ -464,7 +483,7 @@
     syncProgreso(N, 'ejercicio', id);
     const b = BLOQUES[id];
     toast(`🔨 Ejercicio completado: ${b ? b.nombre : id}`);
-    if (isComplete(N)) { paso = iFin; reiniciarQuiz(); pintar(); toast('⭐ ¡Taller dominado!'); return; }
+    if (isComplete(N)) { irAlFin(); return; }
     pintar();
   }
 
@@ -474,7 +493,6 @@
     const q = taller.quiz[qIdx];
     const ok = i === q.correct;
     if (ok) qAciertos++;
-
     document.querySelectorAll('.opt').forEach((b, idx) => {
       b.disabled = true;
       if (idx === q.correct) b.classList.add('correct');
@@ -495,7 +513,7 @@
       saveStars();
       syncProgreso(N, 'quiz', '', qAciertos, taller.quiz.length);
       toast(`🧠 Quiz completado · ${qAciertos}/${taller.quiz.length} correctas`);
-      if (isComplete(N)) { paso = iFin; reiniciarQuiz(); pintar(); toast('⭐ ¡Taller dominado!'); return; }
+      if (isComplete(N)) { irAlFin(); return; }
       avanzar();
     };
   }
@@ -506,10 +524,11 @@
 
   (async () => {
     await bootPortal(taller.conceptos);
-    // Retoma donde iba: primer paso pendiente
+    construirRuta();
+    // Retoma en la primera pantalla pendiente, sin pasarse de lo ya alcanzado
     let p = 0;
-    while (p < iFin && pasoHecho(p)) p++;
-    paso = Math.min(p, maxAlcanzado() || p);
+    while (p < iFin() && grupoHecho(RUTA[p])) p++;
+    paso = Math.min(p, Math.max(maxAlcanzado(), p));
     desbloquear(paso);
     pintar();
     renderSkills();
