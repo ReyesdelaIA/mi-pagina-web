@@ -47,32 +47,55 @@
     .barra-fill { height:100%; background:linear-gradient(90deg,var(--amber-dark),var(--amber-light)); border-radius:99px; transition:width .8s ease; }
     .hex { width:100%; max-width:96px; margin:0 auto; display:block; }
 
-    .sec-title { font-size:12px; font-weight:800; color:var(--ink); text-transform:uppercase; letter-spacing:.7px; margin:26px 0 12px; }
+    .sec-title { display:flex; align-items:center; gap:8px; font-size:16px; font-weight:800; color:var(--ink); letter-spacing:-.2px; margin:30px 0 14px; }
+    .sec-title .sec-ico { width:26px; height:26px; border-radius:8px; background:#FEF3E2; display:flex; align-items:center; justify-content:center; font-size:14px; }
 
-    .talleres { display:grid; grid-template-columns:1fr; gap:12px; padding-bottom:8px; }
-    .tcard { background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:0 3px 14px rgba(26,37,55,.06); display:flex; flex-direction:column; transition:transform .15s, box-shadow .15s; }
-    .tcard:hover { transform:translateY(-2px); box-shadow:0 8px 22px rgba(26,37,55,.12); }
-    .tcard-bar { height:5px; background:linear-gradient(90deg,var(--amber-dark),var(--amber-light)); }
-    .tcard.done .tcard-bar { background:linear-gradient(90deg,#059669,#34D399); }
-    .tcard-body { padding:17px 18px 16px; flex:1; display:flex; flex-direction:column; }
-    .tcard-head { display:flex; align-items:flex-start; gap:13px; margin-bottom:11px; }
-    .tnum { width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg,var(--amber-dark),var(--amber-light)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:800; flex-shrink:0; box-shadow:0 4px 12px rgba(217,119,6,.3); }
+    .talleres { display:grid; grid-template-columns:1fr; gap:14px; padding-bottom:8px; }
+    .tcard { position:relative; background:#fff; border:1.5px solid var(--border); border-radius:18px; box-shadow:0 3px 14px rgba(26,37,55,.06); display:flex; flex-direction:column; transition:transform .15s, box-shadow .15s; }
+    .tcard:hover { transform:translateY(-2px); box-shadow:0 10px 26px rgba(26,37,55,.11); }
+    /* La sesión activa es la única que se ve encendida; el resto queda en reposo */
+    .tcard.activa { border-color:var(--amber); box-shadow:0 6px 24px rgba(217,119,6,.16); }
+    .tcard.locked { background:#FCFBF9; }
+    .tcard.locked:hover { transform:none; box-shadow:0 3px 14px rgba(26,37,55,.06); }
+    .tcard-body { padding:22px 22px 20px; flex:1; display:flex; flex-direction:column; }
+    .tcard-head { display:flex; align-items:flex-start; gap:14px; margin-bottom:13px; }
+    .tnum { width:46px; height:46px; border-radius:14px; background:linear-gradient(135deg,var(--amber-dark),var(--amber-light)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; flex-shrink:0; box-shadow:0 5px 14px rgba(217,119,6,.3); }
+    .tcard.locked .tnum { background:#FDEBD3; color:#C8853A; box-shadow:none; }
     .tcard.done .tnum { background:linear-gradient(135deg,#065F46,#10B981); box-shadow:0 4px 12px rgba(16,185,129,.3); }
-    .tlabel { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--amber); margin-bottom:2px; }
+    .tlabel { padding-right:30px; font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--amber); margin-bottom:4px; }
+    .tcard.locked .tlabel { color:#B99263; padding-right:112px; }
     .tcard.done .tlabel { color:#059669; }
-    .ttitle { font-size:15.5px; font-weight:800; color:var(--ink); line-height:1.25; }
-    .tdur { font-size:10.5px; color:var(--muted); margin-top:3px; }
-    .tstar { margin-left:auto; font-size:19px; filter:grayscale(1) opacity(.2); flex-shrink:0; }
+    .ttitle { font-size:17px; font-weight:800; color:var(--ink); line-height:1.25; letter-spacing:-.2px; }
+    .tcard.locked .ttitle { color:#6B7280; }
+    .tdur { display:flex; flex-wrap:wrap; align-items:center; gap:5px; font-size:11.5px; color:var(--muted); margin-top:6px; }
+    .tstar { position:absolute; top:16px; right:18px; font-size:19px; filter:grayscale(1) opacity(.2); flex-shrink:0; }
     .tcard.done .tstar { filter:none; }
-    .tresumen { font-size:12.5px; color:#4B5563; line-height:1.55; margin-bottom:14px; }
+    .tpronto { position:absolute; top:16px; right:16px; background:#F3F1EC; color:#8A8577; font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:5px 10px; border-radius:99px; }
+    .tresumen { font-size:13.5px; color:#4B5563; line-height:1.6; margin-bottom:18px; }
+    .tcard.locked .tresumen { color:#8A8577; }
 
-    .pasos { display:flex; gap:6px; margin-bottom:14px; }
-    .paso { flex:1; display:flex; flex-direction:column; align-items:center; gap:5px; }
-    .paso-bar { width:100%; height:5px; border-radius:99px; background:#e6e1d7; overflow:hidden; }
-    .paso-bar i { display:block; height:100%; background:var(--amber); border-radius:99px; transition:width .5s ease; }
-    .paso-l { font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.3px; }
+    .pasos { display:flex; gap:10px; margin-bottom:16px; padding-top:16px; border-top:1px solid #F0EDE6; }
+    .paso { flex:1; display:flex; flex-direction:column; align-items:center; gap:7px; }
+    .paso-bar { width:100%; height:4px; border-radius:99px; background:#EDE9E0; overflow:hidden; }
+    .paso-bar i { display:block; height:100%; background:linear-gradient(90deg,var(--amber-dark),var(--amber-light)); border-radius:99px; transition:width .5s ease; }
+    .paso-l { font-size:9.5px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; }
 
-    .tcta { margin-top:auto; width:100%; padding:12px; font-size:13.5px; }
+    .tcta { margin-top:auto; width:100%; padding:13px; font-size:13.5px; border-radius:12px; }
+    .tcta.pronto { background:#F5F3EE; color:#9A9488; cursor:default; font-weight:700; text-align:center; border:none; }
+
+    /* Avance del programa: número grande a la izquierda, barra larga a la derecha */
+    .avance { display:flex; align-items:center; gap:16px; padding:18px 20px; }
+    .av-ico { width:44px; height:44px; border-radius:50%; background:#FEF3E2; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+    .av-t { flex-shrink:0; }
+    .av-lbl { font-size:12.5px; font-weight:700; color:var(--ink); margin-bottom:2px; }
+    .av-n { display:flex; align-items:baseline; gap:7px; }
+    .av-pct { font-size:26px; font-weight:800; color:var(--amber-dark); line-height:1; }
+    .av-txt { font-size:11.5px; color:var(--muted); }
+    .av-bar { flex:1; min-width:60px; height:9px; background:#EDE9E0; border-radius:99px; overflow:hidden; }
+    .av-bar i { display:block; height:100%; background:linear-gradient(90deg,var(--amber-dark),var(--amber-light)); border-radius:99px; transition:width .8s ease; }
+    .av-trofeo { font-size:24px; filter:grayscale(1) opacity(.3); flex-shrink:0; }
+    .av-trofeo.on { filter:none; }
+    @media(max-width:620px){ .avance { flex-wrap:wrap; } .av-bar { order:3; flex-basis:100%; } }
 
     footer { margin-top: 10px; }
 
@@ -107,7 +130,7 @@
       <div class="hero-badge">🎓 Pack de 3 talleres</div>
     </div>
     <div class="hero-title">Programa Claude</div>
-    <div class="hero-sub">De cero a agentes · 3 talleres presenciales · 4.5 hrs</div>
+    <div class="hero-sub">De cero a agentes · 3 sesiones presenciales · 4.5 hrs</div>
   </div>
 </div>
 
@@ -126,7 +149,7 @@
       <div class="card-b metrica">
         <span class="m-label">Tus estrellas</span>
         <div class="estrellas" id="estrellas"></div>
-        <div class="m-big"><span class="m-n" id="stars-n">0</span><span class="m-de">de 3 talleres dominados</span></div>
+        <div class="m-big"><span class="m-n" id="stars-n">0</span><span class="m-de">de 3 sesiones dominadas</span></div>
       </div>
 
       <div class="card-b metrica click" id="btn-skills">
@@ -147,13 +170,17 @@
     </div>
   </div>
 
-  <div class="sec-title">Los 3 talleres</div>
+  <div class="sec-title"><span class="sec-ico">📚</span>Las 3 sesiones</div>
   <div class="talleres" id="talleres"></div>
 
-  <div class="card-b metrica" style="margin-top:4px;">
-    <span class="m-label">Avance del programa</span>
-    <div class="barra"><div class="barra-fill" id="barra" style="width:0%"></div></div>
-    <div class="m-big"><span class="m-n" id="pct">0%</span><span class="m-de" id="pasos-txt">0 de 21 pasos completados</span></div>
+  <div class="card-b avance" style="margin-top:6px;">
+    <div class="av-ico">📈</div>
+    <div class="av-t">
+      <div class="av-lbl">Avance del programa</div>
+      <div class="av-n"><span class="av-pct" id="pct">0%</span><span class="av-txt" id="pasos-txt">0 de 21 pasos</span></div>
+    </div>
+    <div class="av-bar"><i id="barra" style="width:0%"></i></div>
+    <div class="av-trofeo" id="trofeo">🏆</div>
   </div>
 </div>
 
@@ -174,8 +201,8 @@
     const c = conceptosOk(t.n), total = t.conceptos.length;
     const q = st[`${t.n}-quiz`] ? 1 : 0, d = st[`${t.n}-des`] ? 1 : 0;
     const hechos = c + q + d;
-    if (isComplete(t.n)) return { txt: 'Repasar el taller', clase: 'btn-ghost', hechos };
-    if (hechos === 0)    return { txt: 'Empezar el taller →', clase: 'btn-amber', hechos };
+    if (isComplete(t.n)) return { txt: 'Repasar la sesión', clase: 'btn-ghost', hechos };
+    if (hechos === 0)    return { txt: 'Empezar la sesión →', clase: 'btn-amber', hechos };
     return { txt: 'Continuar donde ibas →', clase: 'btn-amber', hechos };
   }
 
@@ -191,7 +218,8 @@
     document.getElementById('barra').style.width = avancePct() + '%';
     document.getElementById('pct').textContent   = avancePct() + '%';
     document.getElementById('pasos-txt').textContent =
-      `${pasosHechos()} de ${totalPasos()} pasos completados`;
+      `${pasosHechos()} de ${totalPasos()} pasos`;
+    document.getElementById('trofeo').classList.toggle('on', avancePct() >= 100);
 
     // Tarjetas de taller
     document.getElementById('talleres').innerHTML = TALLERES.map(t => {
@@ -203,18 +231,21 @@
           <div class="paso-bar"><i style="width:${de ? (hecho / de) * 100 : 0}%"></i></div>
           <span class="paso-l">${label}</span>
         </div>`;
+      // Las sesiones marcadas `proximamente` se ven pero no se entra a ellas
+      const pronto = !!t.proximamente;
       return `
-      <div class="tcard ${done ? 'done' : ''}">
-        <div class="tcard-bar"></div>
+      <div class="tcard ${done ? 'done' : ''} ${pronto ? 'locked' : 'activa'}">
         <div class="tcard-body">
           <div class="tcard-head">
             <div class="tnum">${t.n}</div>
             <div style="flex:1;min-width:0">
               <div class="tlabel">${esc(t.label)}</div>
               <div class="ttitle">${esc(t.title)}</div>
-              <div class="tdur">${esc(t.dur)}</div>
+              <div class="tdur">🕐 ${esc(t.dur)}</div>
             </div>
-            <span class="tstar" title="${done ? 'Taller dominado' : 'Aún no dominado'}">⭐</span>
+            ${pronto
+              ? '<span class="tpronto">Próximamente</span>'
+              : `<span class="tstar" title="${done ? 'Sesión dominada' : 'Aún no dominada'}">⭐</span>`}
           </div>
           <div class="tresumen">${esc(t.resumen)}</div>
           <div class="pasos">
@@ -222,7 +253,9 @@
             ${barra('Quiz', st[`${t.n}-quiz`] ? 1 : 0, 1)}
             ${barra('Desafío', st[`${t.n}-des`] ? 1 : 0, 1)}
           </div>
-          <a class="btn ${e.clase} tcta" href="${urlTaller(t.n)}" style="text-align:center;text-decoration:none;display:block;">${e.txt}</a>
+          ${pronto
+            ? '<div class="tcta pronto">Disponible próximamente</div>'
+            : `<a class="btn ${e.clase} tcta" href="${urlTaller(t.n)}" style="text-align:center;text-decoration:none;display:block;">${e.txt}</a>`}
         </div>
       </div>`;
     }).join('');

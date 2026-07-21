@@ -11,12 +11,12 @@
   "pasos": [
     {
       "texto": "El dictado está en el ícono de micrófono, dentro del campo de escritura. Lo tienes igual en el celular y en el computador. La primera vez el navegador o el sistema te va a pedir permiso para usar el micrófono.",
-      "img": "01-herramienta-dictado.png"
+      "img": "01-herramienta-dictado.webp"
     },
     "Habla como le explicarías a una persona: con contexto, sin miedo a extenderte. Dictar rinde mucho más que escribir porque no editas mientras hablas.",
     {
       "texto": "Recuerda que es importante que modules para que la herramienta agarre bien tus palabras y tus frases. Y cuando terminas, tienes que apretar el botón Check para que el dictado pase a texto.",
-      "img": "02-boton-check.png"
+      "img": "02-boton-check.webp"
     },
     "El modo de voz permite conversar de ida y vuelta, sin teclado. Sirve para pensar en voz alta mientras caminas o manejas.",
     "Combínalo con el celular: dictar una idea en el momento en que se te ocurre vale más que anotarla para después."
@@ -28,12 +28,12 @@
     "origen": "propuesto"
   },
   "assets": [
-    "01-herramienta-dictado.png",
-    "02-boton-check.png"
+    "01-herramienta-dictado.webp",
+    "02-boton-check.webp"
   ],
   "assets_github": [
-    "https://reyesia.com/bloques/dictado-claude/01-herramienta-dictado.png",
-    "https://reyesia.com/bloques/dictado-claude/02-boton-check.png"
+    "https://reyesia.com/bloques/dictado-claude/01-herramienta-dictado.webp",
+    "https://reyesia.com/bloques/dictado-claude/02-boton-check.webp"
   ],
   "sources": [
     {
@@ -43,5 +43,5 @@
       "variant": 0
     }
   ],
-  "portada": "portada.png"
+  "portada": "portada.webp"
 }

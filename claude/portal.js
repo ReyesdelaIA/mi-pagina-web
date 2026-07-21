@@ -9,14 +9,14 @@
 const TALLERES = [
   {
     n: 1,
-    label: 'Taller 1 · Introductorio',
+    label: 'Sesión 1 · Introductorio',
     title: 'Activación y manejo de Claude',
     dur: '1.5 hrs · Presencial',
     resumen: 'Dejar Claude andando y aprender a manejarlo: la cuenta, la interfaz, qué recuerda, cómo hablarle y cuándo hacerlo pensar.',
     conceptos: ['activacion-claude', 'claude-chat-tour', 'memoria-claude', 'dictado-claude'],
     desafio: {
       titulo: 'El consolidado de dos documentos',
-      intro: 'Los ejercicios eran para probar cada cosa por separado. Este junta todo lo del taller en una sola tarea real: chat nuevo, modelo y esfuerzo, archivos adjuntos, memoria y dictado.',
+      intro: 'Los ejercicios eran para probar cada cosa por separado. Este junta todo lo de la sesión en una sola tarea real: chat nuevo, modelo y esfuerzo, archivos adjuntos, memoria y dictado.',
       pasos: [
         'Abre un chat nuevo, para no arrastrar el contexto de otra conversación.',
         'Elige el modelo Sonnet 5 y súbele el esfuerzo a Extra. Esta no es una tarea de responder rápido: es de comparar y razonar.',
@@ -26,7 +26,7 @@ const TALLERES = [
         'Cuando te entregue el consolidado, pídele una vuelta más: «¿qué contradicciones entre los dos documentos dejaste fuera del consolidado?». Ahí aparece lo bueno.'
       ],
       prompt: 'Lee los dos documentos que te adjunté. No quiero un resumen de cada uno: quiero un documento consolidado. Identifica qué dicen igual, en qué se contradicen y qué está en uno y falta en el otro. Ordénalo por lo que más impacta a mi trabajo y ciérralo con las 3 decisiones que tengo que tomar. Usa lo que ya sabes de mí y de mi cargo para priorizar.',
-      cierre: 'Guárdate el resultado y llévalo al Taller 2: esa tarea es exactamente la que vas a convertir en un Proyecto para no repetir el contexto nunca más.'
+      cierre: 'Guárdate el resultado y llévalo a la Sesión 2: esa tarea es exactamente la que vas a convertir en un Proyecto para no repetir el contexto nunca más.'
     },
     quiz: [
       {
@@ -63,7 +63,8 @@ const TALLERES = [
   },
   {
     n: 2,
-    label: 'Taller 2 · Claude App',
+    label: 'Sesión 2 · Claude App',
+    proximamente: true,
     title: 'Dominio de la App de Claude',
     dur: '1.5 hrs · Presencial · Hands-On',
     resumen: 'Sacarle todo a la aplicación: Proyectos, conectores, Office y las prácticas que hacen la diferencia entre usarla y dominarla.',
@@ -104,7 +105,8 @@ const TALLERES = [
   },
   {
     n: 3,
-    label: 'Taller 3 · Claude Avanzado',
+    label: 'Sesión 3 · Claude Avanzado',
+    proximamente: true,
     title: 'Cowork, Artefactos & Plugins',
     dur: '1.5 hrs · Presencial · Hands-On',
     resumen: 'El salto de conversar a delegar: estandarizar procedimientos, generar entregables vivos y dar los primeros pasos con agentes.',

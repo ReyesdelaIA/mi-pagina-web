@@ -11,7 +11,7 @@
   "pasos": [
     {
       "texto": "Hay tres formas de entrar a Claude: la app del celular, la página web desde cualquier navegador, y la app de escritorio.",
-      "img": "01-formas-de-acceso.png",
+      "img": "01-formas-de-acceso.webp",
       "titulo": "Por dónde entrar"
     },
     {
@@ -19,15 +19,15 @@
     },
     {
       "texto": "La ventaja de entrar por la página web es que puedes tener varias pestañas de Chrome con Claude abiertas al mismo tiempo, cada una en una conversación distinta.",
-      "img": "03-pestanas-chrome.png"
+      "img": "03-pestanas-chrome.webp"
     },
     {
       "texto": "La ventaja de la app de escritorio es Cowork, que solo funciona ahí. Si vas a llegar al Taller 3, esta es la que vas a necesitar.",
-      "img": "04-app-escritorio.png"
+      "img": "04-app-escritorio.webp"
     },
     {
       "texto": "En Configuración → General puedes personalizar tres cosas que cambian cómo te responde Claude en todos tus chats.",
-      "img": "02-personalizar.png",
+      "img": "02-personalizar.webp",
       "corte": true,
       "titulo": "Personaliza tu Claude"
     },
@@ -48,16 +48,16 @@
     "origen": "propuesto"
   },
   "assets": [
-    "01-formas-de-acceso.png",
-    "03-pestanas-chrome.png",
-    "04-app-escritorio.png",
-    "02-personalizar.png"
+    "01-formas-de-acceso.webp",
+    "03-pestanas-chrome.webp",
+    "04-app-escritorio.webp",
+    "02-personalizar.webp"
   ],
   "assets_github": [
-    "https://reyesia.com/bloques/activacion-claude/01-formas-de-acceso.png",
-    "https://reyesia.com/bloques/activacion-claude/03-pestanas-chrome.png",
-    "https://reyesia.com/bloques/activacion-claude/04-app-escritorio.png",
-    "https://reyesia.com/bloques/activacion-claude/02-personalizar.png"
+    "https://reyesia.com/bloques/activacion-claude/01-formas-de-acceso.webp",
+    "https://reyesia.com/bloques/activacion-claude/03-pestanas-chrome.webp",
+    "https://reyesia.com/bloques/activacion-claude/04-app-escritorio.webp",
+    "https://reyesia.com/bloques/activacion-claude/02-personalizar.webp"
   ],
   "sources": [
     {
