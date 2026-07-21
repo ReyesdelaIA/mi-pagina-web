@@ -11,9 +11,14 @@
     "fundamentos"
   ],
   "pasos": [
-    "La IA no \"sabe\" cosas de ti: predice la continuación más probable del texto que tiene delante. Todo lo que no esté en ese texto, no existe para ella.",
+    {
+      "texto": "Para que Claude memorice cosas de ti, la memoria tiene que estar encendida. Está en Configuración → Personalizar → Memoria, y son dos interruptores: uno le permite buscar y referenciar tus conversaciones pasadas, y el otro le permite generar memoria a partir de tus chats. Los dos tienen que estar prendidos.",
+      "img": "01-memoria-encendida.png"
+    },
     "Dentro de una conversación sí recuerda: cada respuesta considera todo lo que se dijo antes en ese chat. Por eso puedes corregir sobre la marcha.",
-    "Entre conversaciones distintas, por defecto no arrastra nada. Un chat nuevo parte en blanco salvo que uses un Proyecto o la memoria del asistente.",
+    {
+      "texto": "Con la memoria apagada, cada chat nuevo parte en blanco: lo que contaste en una conversación no existe en la siguiente. Encenderla es lo que le permite reconocerte entre conversaciones distintas."
+    },
     "Para memoria persistente están los Proyectos: documentos e instrucciones fijas que se cargan solas en cada conversación de ese proyecto.",
     "Cuando una conversación se vuelve muy larga, el contexto se satura y empieza a olvidar detalles del principio. Ahí conviene abrir un chat nuevo con lo esencial."
   ],
@@ -23,8 +28,14 @@
     "prompt": null,
     "origen": "propuesto"
   },
-  "assets": [],
-  "assets_github": [],
+  "assets": [
+    "01-memoria-encendida.png",
+    "portada.png"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/memoria-claude/01-memoria-encendida.png",
+    "https://reyesia.com/bloques/memoria-claude/portada.png"
+  ],
   "sources": [
     {
       "file": "claude/index.html",
@@ -32,5 +43,6 @@
       "imgs": 0,
       "variant": 0
     }
-  ]
+  ],
+  "portada": "portada.png"
 }

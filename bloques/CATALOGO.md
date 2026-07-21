@@ -79,13 +79,13 @@ _Total: 51 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 | `dictado-claude` | Dictado y modelo de voz | 0 ⚠️ | 5 | ✓ |
 | `formatos-md-tokens` | Formato Markdown y uso de tokens | 0 ⚠️ | 5 | ✓ |
 | `mcp-conectores` | MCP y conectores | 0 ⚠️ | 5 | ✓ |
-| `memoria-claude` | Memorización de Claude | 0 ⚠️ | 5 | ✓ |
+| `memoria-claude` | Memorización de Claude | 2 | 5 | ✓ |
 | `proyectos-claude` | Proyectos en Claude | 0 ⚠️ | 5 | ✓ |
 | `razonamiento-claude` | Razonamiento | 0 ⚠️ | 5 | ✓ |
 | `skills-claude` | Skills y Plugins | 0 ⚠️ | 5 | ✓ |
 
 ---
 
-**⚠️ Bloques sin imágenes (19)** — necesitan capturas antes de quedar visuales: `3-esferas`, `agentes-claude`, `analisis-documentos`, `claude-code`, `claude-en-office`, `confidencialidad-ia`, `dictado-claude`, `dictado-voz`, `formatos-md-tokens`, `fundamentos-prompt`, `internet-avanzada`, `mcp-conectores`, `memoria-claude`, `memoria-ia`, `modelos-fast-vs-razonamiento`, `proyectos-claude`, `razonamiento-claude`, `redaccion-avanzada`, `skills-claude`.
+**⚠️ Bloques sin imágenes (18)** — necesitan capturas antes de quedar visuales: `3-esferas`, `agentes-claude`, `analisis-documentos`, `claude-code`, `claude-en-office`, `confidencialidad-ia`, `dictado-claude`, `dictado-voz`, `formatos-md-tokens`, `fundamentos-prompt`, `internet-avanzada`, `mcp-conectores`, `memoria-ia`, `modelos-fast-vs-razonamiento`, `proyectos-claude`, `razonamiento-claude`, `redaccion-avanzada`, `skills-claude`.
 
 **Cómo pedir una sesión:** _"hagamos la S[N] de [empresa] con [id1], [id2], [id3]..."_ → yo verifico cada bloque en `bloques_sesion`, armo el resumen ejecutivo `/sesion[NN]-[empresa]`, actualizo el portal `/[empresa]` (`company_sessions` + quiz/thumbnails/desafío) y hago push.

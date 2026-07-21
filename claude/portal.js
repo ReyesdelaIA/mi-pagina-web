@@ -272,7 +272,9 @@ async function cargarBloques(ids){
   const lista = [...new Set(ids || TALLERES.flatMap(t => t.conceptos))];
   await Promise.all(lista.map(async id => {
     try {
-      const r = await fetch(`/bloques/${id}/meta.json`);
+      // no-cache revalida contra el servidor: al editar un bloque, el cambio
+      // se ve de inmediato en vez de quedar servido desde la caché del navegador.
+      const r = await fetch(`/bloques/${id}/meta.json`, { cache: 'no-cache' });
       if (r.ok) BLOQUES[id] = await r.json();
     } catch (e) { /* la pantalla muestra un aviso en vez de romperse */ }
   }));
