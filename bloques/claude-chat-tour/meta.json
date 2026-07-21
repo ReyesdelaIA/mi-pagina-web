@@ -12,7 +12,7 @@
   ],
   "pasos": [
     {
-      "titulo": "Las tres zonas",
+      "titulo": "Lo básico del chat",
       "texto": "La pantalla de Claude tiene tres zonas que conviene distinguir desde el principio: el selector de razonamiento, el sidebar y el menú de herramientas.",
       "img": "01-interfaz.png"
     },
@@ -28,7 +28,19 @@
       "img": "03-chat-temporal.png"
     },
     {
-      "texto": "1 · Razonamiento. Arriba a la derecha del campo de escritura eliges el modelo. Cada uno dice para qué sirve: el más capaz para trabajo ambicioso, el equilibrado para el día a día, el más rápido para tareas simples. En \"Más modelos\" están las versiones anteriores."
+      "texto": "Para adjuntar archivos usa el botón + → «Agregar archivos o fotos», o simplemente arrástralos al chat. También puedes traerlos desde Drive o desde GitHub, sin descargarlos antes.",
+      "img": "04-adjuntar.png"
+    },
+    {
+      "texto": "Puedes subir hasta 10 archivos por chat, y pueden ser de formatos distintos entre sí: PDF, Word, PowerPoint, Excel, capturas de pantalla, texto plano."
+    },
+    {
+      "texto": "Lo que no acepta son formatos específicos de programas: AutoCAD, Illustrator o archivos de video. Si necesitas trabajar con algo así, exporta antes a PDF o a imagen."
+    },
+    {
+      "texto": "1 · Razonamiento. Arriba a la derecha del campo de escritura eliges el modelo. Cada uno dice para qué sirve: el más capaz para trabajo ambicioso, el equilibrado para el día a día, el más rápido para tareas simples. En \"Más modelos\" están las versiones anteriores.",
+      "corte": true,
+      "titulo": "Los controles"
     },
     {
       "texto": "Ahí mismo está el Pensamiento adaptativo: al activarlo, Claude se toma más tiempo para pensar en las tareas complejas. Es el interruptor que más cambia la calidad de una respuesta difícil."
@@ -56,13 +68,15 @@
     "01-interfaz.png",
     "portada.png",
     "02-buscador.png",
-    "03-chat-temporal.png"
+    "03-chat-temporal.png",
+    "04-adjuntar.png"
   ],
   "assets_github": [
     "https://reyesia.com/bloques/claude-chat-tour/01-interfaz.png",
     "https://reyesia.com/bloques/claude-chat-tour/portada.png",
     "https://reyesia.com/bloques/claude-chat-tour/02-buscador.png",
-    "https://reyesia.com/bloques/claude-chat-tour/03-chat-temporal.png"
+    "https://reyesia.com/bloques/claude-chat-tour/03-chat-temporal.png",
+    "https://reyesia.com/bloques/claude-chat-tour/04-adjuntar.png"
   ],
   "sources": [
     {
