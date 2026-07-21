@@ -38,12 +38,20 @@
       "texto": "Lo que no acepta son formatos específicos de programas: AutoCAD, Illustrator o archivos de video. Si necesitas trabajar con algo así, exporta antes a PDF o a imagen."
     },
     {
-      "texto": "1 · Razonamiento. Arriba a la derecha del campo de escritura eliges el modelo. Cada uno dice para qué sirve: el más capaz para trabajo ambicioso, el equilibrado para el día a día, el más rápido para tareas simples. En \"Más modelos\" están las versiones anteriores.",
       "corte": true,
-      "titulo": "Los controles"
+      "titulo": "Los controles",
+      "texto": "1 · Razonamiento. Al lado del campo de escritura está el selector. Ahí no eliges una cosa sino tres: el modelo, el esfuerzo y si quiere pensar antes de responder.",
+      "img": "05-razonamiento.png"
     },
     {
-      "texto": "Ahí mismo está el Pensamiento adaptativo: al activarlo, Claude se toma más tiempo para pensar en las tareas complejas. Es el interruptor que más cambia la calidad de una respuesta difícil."
+      "texto": "El modelo: cada uno dice para qué sirve. El más capaz para los desafíos difíciles, el más eficiente para las tareas cotidianas, el más rápido para respuestas inmediatas. En «Más modelos» quedan las versiones anteriores.",
+      "img": "06-instantaneo-vs-thinking.png"
+    },
+    {
+      "texto": "El esfuerzo: Bajo viene por defecto, y puedes subirlo a Medio, Alto o Max. Más esfuerzo son respuestas más detalladas, pero tarda más y consume tus límites más rápido."
+    },
+    {
+      "texto": "El Pensamiento: es un interruptor aparte que le permite razonar en tareas más complejas. Actívalo cuando el problema tenga varios pasos y la respuesta rápida no te sirva."
     },
     {
       "texto": "2 · Sidebar. A la izquierda vive todo tu trabajo: Chats y tareas, Proyectos, Artefactos, Programado y Personalizar. Abajo quedan los chats fijados y los recientes."
@@ -58,7 +66,7 @@
       "texto": "Junto al + está el cambio entre Chat y Cowork. Chat conversa; Cowork actúa sobre tus archivos. Lo vas a usar en el Taller 3."
     }
   ],
-  "pro_tip": "El selector de modelo y el Pensamiento adaptativo son los dos controles que más cambian el resultado, y son los que casi nadie toca. Si una respuesta te sale superficial, prueba ahí antes de reescribir el prompt.",
+  "pro_tip": "El modelo, el esfuerzo y el Pensamiento son los tres controles que más cambian el resultado, y son los que casi nadie toca. Si una respuesta te sale superficial, prueba ahí antes de reescribir el prompt.",
   "desafio": {
     "enunciado": "Activa la Investigación profunda en Claude (botón + → Investigación) y pídele un estudio de tu propio sector. Fíjate en cuánto se demora y en si las fuentes son verificables.",
     "prompt": "Realiza un estudio de mercado de [TU SECTOR] en Chile: tendencias 2026-2027, principales actores, tecnologías emergentes e impacto de la IA en las operaciones. Incluye fuentes verificables y presenta el informe en secciones con conclusiones accionables.",
@@ -69,14 +77,18 @@
     "portada.png",
     "02-buscador.png",
     "03-chat-temporal.png",
-    "04-adjuntar.png"
+    "04-adjuntar.png",
+    "05-razonamiento.png",
+    "06-instantaneo-vs-thinking.png"
   ],
   "assets_github": [
     "https://reyesia.com/bloques/claude-chat-tour/01-interfaz.png",
     "https://reyesia.com/bloques/claude-chat-tour/portada.png",
     "https://reyesia.com/bloques/claude-chat-tour/02-buscador.png",
     "https://reyesia.com/bloques/claude-chat-tour/03-chat-temporal.png",
-    "https://reyesia.com/bloques/claude-chat-tour/04-adjuntar.png"
+    "https://reyesia.com/bloques/claude-chat-tour/04-adjuntar.png",
+    "https://reyesia.com/bloques/claude-chat-tour/05-razonamiento.png",
+    "https://reyesia.com/bloques/claude-chat-tour/06-instantaneo-vs-thinking.png"
   ],
   "sources": [
     {
