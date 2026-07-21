@@ -71,7 +71,7 @@ _Total: 51 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 
 | id | nombre | imgs | pasos | pro tip |
 |---|---|---|---|---|
-| `activacion-claude` | Activación de Claude | 3 | 8 | ✓ |
+| `activacion-claude` | Activación de Claude | 4 | 8 | ✓ |
 | `agentes-claude` | Agentes con Claude | 0 ⚠️ | 5 | ✓ |
 | `claude-chat-tour` | Tour por Claude | 0 ⚠️ | 5 | ✓ |
 | `claude-code` | Claude Code | 0 ⚠️ | 5 | ✓ |

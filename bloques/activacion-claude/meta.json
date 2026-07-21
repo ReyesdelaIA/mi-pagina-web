@@ -21,7 +21,8 @@
       "img": "03-pestanas-chrome.png"
     },
     {
-      "texto": "La ventaja de la app de escritorio es Cowork, que solo funciona ahí. Si vas a llegar al Taller 3, esta es la que vas a necesitar."
+      "texto": "La ventaja de la app de escritorio es Cowork, que solo funciona ahí. Si vas a llegar al Taller 3, esta es la que vas a necesitar.",
+      "img": "04-app-escritorio.png"
     },
     {
       "texto": "En Configuración → General puedes personalizar tres cosas que cambian cómo te responde Claude en todos tus chats.",
@@ -46,11 +47,13 @@
   "assets": [
     "01-formas-de-acceso.png",
     "03-pestanas-chrome.png",
+    "04-app-escritorio.png",
     "02-personalizar.png"
   ],
   "assets_github": [
     "https://reyesia.com/bloques/activacion-claude/01-formas-de-acceso.png",
     "https://reyesia.com/bloques/activacion-claude/03-pestanas-chrome.png",
+    "https://reyesia.com/bloques/activacion-claude/04-app-escritorio.png",
     "https://reyesia.com/bloques/activacion-claude/02-personalizar.png"
   ],
   "sources": [
