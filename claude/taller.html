@@ -252,9 +252,10 @@
           let n = 0;
           return b.pasos.map(p => {
             const o = (typeof p === 'string') ? { texto: p } : p;
+            // El texto explica primero; la imagen lo ilustra abajo.
             const img = o.img ? `<figure class="paso-img"><img src="/bloques/${id}/${o.img}" alt="" /></figure>` : '';
             n++;
-            return `${img}<div class="paso-item"><span class="num">${n}</span><span>${esc(o.texto)}</span></div>`;
+            return `<div class="paso-item"><span class="num">${n}</span><span>${esc(o.texto)}</span></div>${img}`;
           }).join('');
         })()}
       </div>
