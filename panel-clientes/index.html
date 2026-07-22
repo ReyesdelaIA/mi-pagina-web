@@ -132,8 +132,12 @@
   .checkbox.checked{background:var(--green);border-color:var(--green);}
   .checkbox.checked::after{content:'✓';color:#fff;font-size:13px;font-weight:800;}
   .tema-content{flex:1;min-width:0;}
-  .tema-nombre{font-size:14px;font-weight:500;line-height:1.4;}
+  .tema-nombre{font-size:14px;font-weight:500;line-height:1.4;cursor:text;}
   .tema-nombre.done{color:#166534;}
+  .lapiz-tema{font-size:12px;opacity:0;margin-left:6px;color:var(--sub);transition:opacity .15s;}
+  .tema-row:hover .lapiz-tema{opacity:.5;}
+  .tema-nombre-input{width:100%;border:1.5px solid var(--navy3);border-radius:7px;padding:3px 8px;
+    font-family:'Poppins',sans-serif;font-size:14px;font-weight:500;color:var(--text);background:#fff;outline:none;}
   .tema-comment{width:100%;border:1px solid transparent;background:transparent;font-family:'Poppins',sans-serif;
     font-size:12.5px;color:var(--sub);padding:4px 0;margin-top:2px;resize:none;outline:none;}
   .tema-comment:focus{color:var(--text);}
@@ -382,7 +386,8 @@ function temaRowHtml(t, arrastrado){
               onmousedown="this.closest('.tema-row').draggable = true">⠿</div>`}
     <div class="checkbox ${visto?'checked':''}" onclick="toggleTema('${t.id}', this)"></div>
     <div class="tema-content">
-      <div class="tema-nombre ${visto?'done':''}">${esc(t.tema)}</div>
+      <div class="tema-nombre ${visto?'done':''}" data-tema="${esc(t.tema)}" title="Clic para editar el título"
+           onclick="editarTema('${t.id}', this)">${esc(t.tema)}<span class="lapiz-tema">✎</span></div>
       <div class="comment-wrap">
         <textarea class="tema-comment" rows="1" placeholder="Agregar comentario…"
           onfocus="this.rows=2"
@@ -392,6 +397,38 @@ function temaRowHtml(t, arrastrado){
     </div>
     <div class="tema-del" onclick="deleteTema('${t.id}')">✕</div>
   </div>`;
+}
+
+// Editar el título de un tema con un clic. Enter guarda, Escape cancela.
+function pintarTema(caja, texto){
+  caja.dataset.tema = texto;
+  caja.innerHTML = esc(texto) + '<span class="lapiz-tema">✎</span>';
+}
+
+function editarTema(id, caja){
+  if (caja.querySelector('input')) return;
+  caja.innerHTML = `<input class="tema-nombre-input" value="${esc(caja.dataset.tema)}"
+    onclick="event.stopPropagation()"
+    onkeydown="if(event.key==='Enter'){this.blur();} if(event.key==='Escape'){this.dataset.cancelar='1';this.blur();}"
+    onblur="guardarTema('${id}', this)">`;
+  const inp = caja.querySelector('input');
+  inp.focus(); inp.select();
+}
+
+async function guardarTema(id, inp){
+  const caja  = inp.closest('.tema-nombre');
+  const antes = caja.dataset.tema;
+  const nuevo = inp.value.trim();
+
+  if (inp.dataset.cancelar || !nuevo || nuevo === antes){ pintarTema(caja, antes); return; }
+
+  const { error } = await sb.from('temario_temas')
+    .update({ tema: nuevo, fecha_actualizacion: new Date().toISOString() }).eq('id', id);
+
+  if (error){ alert('No se pudo renombrar el tema: ' + error.message); pintarTema(caja, antes); return; }
+  // El tema puede aparecer varias veces (su fila y las copias en amarillo).
+  document.querySelectorAll(`.tema-row[data-tema-id="${id}"] .tema-nombre`).forEach(el => pintarTema(el, nuevo));
+  flashSaved();
 }
 
 // ---------- DETAIL ----------
