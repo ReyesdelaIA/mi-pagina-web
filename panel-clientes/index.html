@@ -420,11 +420,22 @@ async function renderDetail(programaId){
   const sesionesNums = Object.keys(bySesion).map(Number).sort((a,b)=>a-b);
   const maxNum = Math.max(total, ...sesionesNums, 0);
 
-  // Cualquier tema sin check de una sesión anterior se muestra destacado en
-  // TODAS las sesiones siguientes, hasta que se marque. No depende del
-  // contador de sesiones completadas: si no lo viste, sigue apareciendo.
+  // Una sesión "ya se hizo" si tiene al menos un tema marcado o si su fecha ya
+  // pasó. Solo desde una sesión ya realizada tiene sentido arrastrar pendientes:
+  // los temas de una sesión que aún no ocurre no están "pendientes", solo esperan
+  // su turno.
+  const ahora = Date.now();
+  const sesionRealizada = n => {
+    const list = bySesion[n] || [];
+    if (list.some(t => t.estado === 'visto')) return true;
+    const f = fechas[n]?.fecha_hora;
+    return !!f && new Date(f).getTime() < ahora;
+  };
+
+  // Un tema sin check de una sesión YA REALIZADA se muestra destacado en todas
+  // las sesiones siguientes, hasta que se marque.
   const pendientesPrevios = n => (temas || [])
-    .filter(t => t.numero_sesion < n && t.estado !== 'visto')
+    .filter(t => t.numero_sesion < n && t.estado !== 'visto' && sesionRealizada(t.numero_sesion))
     .sort((a,b) => a.numero_sesion - b.numero_sesion || a.orden - b.orden);
 
   let sessionsHtml = '';
