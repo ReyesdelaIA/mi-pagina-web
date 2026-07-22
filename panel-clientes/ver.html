@@ -7,7 +7,6 @@
 <title>Reporte de avance — Reyes IA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root{
     --navy1:#042C53; --navy2:#0C447C; --navy3:#185FA5;
@@ -120,9 +119,6 @@
 </div>
 
 <script>
-const SUPABASE_URL = "https://lzrhpmwrbcrprsnpuadh.supabase.co";
-const SUPABASE_KEY = "sb_publishable_oak2a-feuA_tdZxbyqufCw_XpqWGgTZ";
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const app = document.getElementById('app');
 const ID = new URLSearchParams(location.search).get('id');
 
@@ -151,20 +147,24 @@ let firmaPrevia = null;
 async function cargar(){
   if (!ID){ app.innerHTML = '<div class="empty">Enlace inválido.</div>'; return; }
 
-  const [{ data: programa }, { data: temas }, { data: sesInfo }] = await Promise.all([
-    sb.from('programas_clientes').select('cliente,tipo,total_sesiones,sesiones_completadas').eq('id', ID).single(),
-    sb.from('temario_temas').select('numero_sesion,orden,tema,estado,comentario').eq('programa_id', ID).order('numero_sesion').order('orden'),
-    sb.from('sesiones_cliente').select('numero_sesion,fecha_hora').eq('programa_id', ID)
-  ]);
-
-  if (!programa){ app.innerHTML = '<div class="empty">No se encontró el programa.</div>'; return; }
+  let datos;
+  try {
+    const r = await fetch(`/api/reporte?id=${encodeURIComponent(ID)}`);
+    if (r.status === 404){ app.innerHTML = '<div class="empty">No se encontró el programa.</div>'; return; }
+    if (!r.ok) throw new Error('http ' + r.status);
+    datos = await r.json();
+  } catch (e) {
+    // Si ya hay un reporte dibujado, se conserva; si no, se avisa.
+    if (firmaPrevia === null) app.innerHTML = '<div class="empty">No se pudo cargar el reporte. Reintenta en un momento.</div>';
+    return;
+  }
 
   // Evita re-dibujar (y el parpadeo) si nada cambió desde el último refresco.
-  const firma = JSON.stringify({ programa, temas, sesInfo });
+  const firma = JSON.stringify(datos);
   if (firma === firmaPrevia) return;
   firmaPrevia = firma;
 
-  render(programa, temas || [], sesInfo || []);
+  render(datos.programa, datos.temas || [], datos.sesiones || []);
 }
 
 function render(programa, temas, sesInfo){
