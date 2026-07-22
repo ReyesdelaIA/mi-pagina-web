@@ -420,7 +420,9 @@ async function renderDetail(programaId){
   const sesionesNums = Object.keys(bySesion).map(Number).sort((a,b)=>a-b);
   const maxNum = Math.max(total, ...sesionesNums, 0);
 
-  // Un tema sin check de una sesión anterior se arrastra a la sesión en curso.
+  // Cualquier tema sin check de una sesión anterior se muestra destacado en
+  // TODAS las sesiones siguientes, hasta que se marque. No depende del
+  // contador de sesiones completadas: si no lo viste, sigue apareciendo.
   const pendientesPrevios = n => (temas || [])
     .filter(t => t.numero_sesion < n && t.estado !== 'visto')
     .sort((a,b) => a.numero_sesion - b.numero_sesion || a.orden - b.orden);
@@ -430,7 +432,7 @@ async function renderDetail(programaId){
     const list = bySesion[n] || [];
     const allDone = list.length > 0 && list.every(t => t.estado === 'visto');
     const isCurrent = n === done + 1;
-    const arrastrados = isCurrent ? pendientesPrevios(n) : [];
+    const arrastrados = pendientesPrevios(n);
     const stateClass = allDone ? 'done' : isCurrent ? 'current' : 'future';
     const stateLabel = allDone ? 'Completada' : isCurrent ? 'En curso' : 'Próxima';
     const openAttr = isCurrent ? 'open' : '';
@@ -461,7 +463,7 @@ async function renderDetail(programaId){
           <div class="pendientes-title">⚠️ Quedó pendiente de sesiones anteriores</div>
           ${arrastrados.map(t => temaRowHtml(t, true)).join('')}
         </div>` : ''}
-        <div class="temas-list" ondragover="temaDragOver(event, this)">
+        <div class="temas-list" data-sesion="${n}" data-programa="${programaId}" ondragover="temaDragOver(event, this)">
         ${list.map(t => temaRowHtml(t, false)).join('')}
         </div>
         <div class="add-tema-row">
@@ -501,29 +503,31 @@ async function toggleTema(id, el){
     row.querySelector('.checkbox').classList.toggle('checked', nowChecked);
     row.querySelector('.tema-nombre').classList.toggle('done', nowChecked);
   });
-  // La caja ámbar solo muestra lo que sigue pendiente: al marcarlo, se va.
-  const filaPendiente = document.querySelector(`.pendientes-box .tema-row[data-tema-id="${id}"]`);
-  if (filaPendiente && nowChecked) sacarDePendientes(filaPendiente);
+  // Las cajas ámbar solo muestran lo que sigue pendiente: al marcarlo, se va de
+  // todas las sesiones donde aparecía como recordatorio.
+  if (nowChecked) sacarDePendientes(id);
 
   await sb.from('temario_temas').update({ estado: nowChecked ? 'visto' : 'pendiente', fecha_actualizacion: new Date().toISOString() }).eq('id', id);
   flashSaved();
 }
 
-function sacarDePendientes(fila){
-  const caja = fila.closest('.pendientes-box');
-  const bloque = caja.closest('.session-block');
-  fila.classList.add('saliendo');
-  setTimeout(() => {
-    fila.remove();
-    const quedan = caja.querySelectorAll('.tema-row').length;
-    const chip = bloque.querySelector('.pend-count');
-    if (!quedan){
-      caja.remove();
-      if (chip) chip.remove();
-    } else if (chip){
-      chip.textContent = ` · ${quedan} pendiente${quedan===1?'':'s'}`;
-    }
-  }, 300);
+function sacarDePendientes(id){
+  document.querySelectorAll(`.pendientes-box .tema-row[data-tema-id="${id}"]`).forEach(fila => {
+    const caja = fila.closest('.pendientes-box');
+    const bloque = caja.closest('.session-block');
+    fila.classList.add('saliendo');
+    setTimeout(() => {
+      fila.remove();
+      const quedan = caja.querySelectorAll('.tema-row').length;
+      const chip = bloque.querySelector('.pend-count');
+      if (!quedan){
+        caja.remove();
+        if (chip) chip.remove();
+      } else if (chip){
+        chip.textContent = ` · ${quedan} pendiente${quedan===1?'':'s'}`;
+      }
+    }, 300);
+  });
 }
 
 // --- Bitácora: fecha y hora de cada sesión ---
@@ -621,20 +625,24 @@ async function saveComentario(id, valor){
   flashSaved();
 }
 
-// ---------- ARRASTRAR TEMAS (reordenar dentro de la sesión) ----------
-let temaArrastrado = null;
+// ---------- ARRASTRAR TEMAS (reordenar dentro de la sesión y entre sesiones) ----------
+// Se puede soltar un tema en la lista de otra sesión: cambia su numero_sesion
+// y se reordenan las dos sesiones afectadas.
+let temaArrastrado = null, listaOrigen = null;
 
 function temaDragStart(e, row){
   temaArrastrado = row;
+  listaOrigen = row.parentElement;
   row.classList.add('dragging');
-  row.parentElement.classList.add('dragging-on');
+  listaOrigen.classList.add('dragging-on');
   e.dataTransfer.effectAllowed = 'move';
   e.dataTransfer.setData('text/plain', row.dataset.temaId);
 }
 
 function temaDragOver(e, lista){
-  if (!temaArrastrado || temaArrastrado.parentElement !== lista) return;
+  if (!temaArrastrado) return;
   e.preventDefault();
+  lista.classList.add('dragging-on');
   const siguiente = temaDespuesDe(lista, e.clientY);
   if (siguiente) lista.insertBefore(temaArrastrado, siguiente);
   else lista.appendChild(temaArrastrado);
@@ -652,20 +660,40 @@ function temaDespuesDe(lista, y){
 }
 
 async function temaDragEnd(e, row){
-  const lista = row.parentElement;
+  const destino = row.parentElement;
+  const origen  = listaOrigen;
   row.draggable = false;
   row.classList.remove('dragging');
-  lista.classList.remove('dragging-on');
-  temaArrastrado = null;
+  document.querySelectorAll('.temas-list.dragging-on').forEach(l => l.classList.remove('dragging-on'));
+  temaArrastrado = null; listaOrigen = null;
 
-  const ids = [...lista.querySelectorAll('.tema-row')].map(r => r.dataset.temaId);
+  const cambioSesion = origen && origen !== destino;
   const ahora = new Date().toISOString();
-  const res = await Promise.all(ids.map((id, i) =>
-    sb.from('temario_temas').update({ orden: i + 1, fecha_actualizacion: ahora }).eq('id', id)
-  ));
+  const programaId = destino.dataset.programa;
+  const sesDestino = Number(destino.dataset.sesion);
+
+  // La lista destino: reasigna sesión (por si el tema vino de otra) y reordena.
+  const ops = [...destino.querySelectorAll('.tema-row')].map((r, i) =>
+    sb.from('temario_temas').update({ numero_sesion: sesDestino, orden: i + 1, fecha_actualizacion: ahora }).eq('id', r.dataset.temaId));
+
+  // La lista de origen solo necesita recompactar su orden.
+  if (cambioSesion){
+    [...origen.querySelectorAll('.tema-row')].forEach((r, i) =>
+      ops.push(sb.from('temario_temas').update({ orden: i + 1, fecha_actualizacion: ahora }).eq('id', r.dataset.temaId)));
+  }
+
+  const res = await Promise.all(ops);
   const fallo = res.find(r => r.error);
-  if (fallo){ alert('No se pudo guardar el orden: ' + fallo.error.message); return; }
+  if (fallo){ alert('No se pudo guardar el cambio: ' + fallo.error.message); }
   flashSaved();
+
+  // Mover entre sesiones cambia conteos y el amarillo: se redibuja sin perder
+  // la posición de scroll. Reordenar dentro de una sesión no necesita redibujo.
+  if (cambioSesion && programaId){
+    const y = window.scrollY;
+    await renderDetail(programaId);
+    window.scrollTo(0, y);
+  }
 }
 
 async function deleteTema(id){
