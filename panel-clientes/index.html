@@ -63,7 +63,10 @@
   .btn-duplicar{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:7px 13px;
     font-size:12.5px;font-weight:600;font-family:'Poppins',sans-serif;color:var(--navy2);cursor:pointer;}
   .btn-duplicar:hover{border-color:var(--navy3);}
-  .acciones-ficha{display:flex;gap:8px;}
+  .acciones-ficha{display:flex;gap:8px;flex-wrap:wrap;}
+  .btn-compartir{background:var(--greenbg);border:1.5px solid #A7E3BF;border-radius:10px;padding:7px 13px;
+    font-size:12.5px;font-weight:700;font-family:'Poppins',sans-serif;color:#166534;cursor:pointer;}
+  .btn-compartir:hover{border-color:var(--green);}
   .btn-eliminar{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:7px 13px;
     font-size:12.5px;font-weight:600;font-family:'Poppins',sans-serif;color:#B91C1C;cursor:pointer;}
   .btn-eliminar:hover{border-color:#EF4444;background:#FEF2F2;}
@@ -526,6 +529,7 @@ async function renderDetail(programaId){
     <div class="barra-ficha">
       <div class="back-btn" onclick="location.hash='#/'">← Volver al panel</div>
       <div class="acciones-ficha">
+        <button class="btn-compartir" onclick="compartirVista('${programaId}', this)">🔗 Compartir con el cliente</button>
         <button class="btn-duplicar" onclick="abrirNuevoCliente('${programaId}')">⧉ Duplicar este programa</button>
         <button class="btn-eliminar" onclick="eliminarPrograma('${programaId}', ${JSON.stringify(programa.cliente).replace(/"/g,'&quot;')}, ${temas.length})">🗑 Eliminar</button>
       </div>
@@ -756,6 +760,19 @@ async function addTema(programaId, numeroSesion, inputEl){
   await sb.from('temario_temas').insert({ programa_id: programaId, numero_sesion: numeroSesion, tema: val, orden: 999 });
   inputEl.value = '';
   route();
+}
+
+// ---------- COMPARTIR (vista de solo lectura) ----------
+async function compartirVista(programaId, btn){
+  const url = `${location.origin}/panel-clientes/ver.html?id=${programaId}`;
+  const original = btn.textContent;
+  try {
+    await navigator.clipboard.writeText(url);
+    btn.textContent = '✓ Enlace copiado';
+    setTimeout(() => { btn.textContent = original; }, 1800);
+  } catch (e) {
+    prompt('Copia este enlace de solo lectura para el cliente:', url);
+  }
 }
 
 // ---------- RENOMBRAR / ELIMINAR ----------
