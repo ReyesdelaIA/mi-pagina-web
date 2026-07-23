@@ -147,6 +147,31 @@
   .howto-body a { color: var(--accent-2); text-decoration: none; }
   .howto-body a:hover { text-decoration: underline; }
 
+  /* ===== FEATURED · CONSTRUCTOR DE SKILLS ===== */
+  .featured {
+    position: relative; margin: 4px 0 10px; border-radius: 20px; padding: 26px 28px; overflow: hidden;
+    background: radial-gradient(120% 150% at 0% 0%, rgba(18,148,106,0.12), transparent 55%), var(--surface);
+    border: 1px solid rgba(18,148,106,0.30);
+    box-shadow: 0 20px 46px -30px rgba(18,148,106,0.4);
+  }
+  .featured-top { display: flex; align-items: center; gap: 13px; margin-bottom: 14px; }
+  .featured-icon {
+    width: 44px; height: 44px; border-radius: 13px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff;
+    box-shadow: 0 8px 22px -8px rgba(18,148,106,0.6);
+  }
+  .featured-icon svg { width: 23px; height: 23px; }
+  .featured-badge {
+    display: inline-block; font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent); background: var(--accent-dim);
+    border: 1px solid rgba(18,148,106,0.30); padding: 4px 10px; border-radius: 100px; margin-bottom: 7px;
+  }
+  .featured h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); line-height: 1.2; }
+  .featured p { font-size: 14.5px; color: var(--muted); line-height: 1.62; margin: 0 0 18px; max-width: 64ch; }
+  .featured-actions { display: flex; align-items: center; gap: 11px; flex-wrap: wrap; }
+  .featured-actions .use-tip { margin-left: 0; }
+  @media (max-width: 600px) { .featured { padding: 20px 18px; } }
+
   /* ===== STICKY TOOLBAR ===== */
   .toolbar {
     position: sticky; top: 0; z-index: 40;
@@ -377,6 +402,28 @@
     </div>
   </div>
 
+  <div class="featured">
+    <div class="featured-top">
+      <span class="featured-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l6-6"/><path d="M14 4l1.5 3L19 8.5 15.5 10 14 13l-1.5-3L9 8.5 12.5 7 14 4z"/><path d="M18 15l.8 1.7L20.5 17l-1.7.8L18 19.5l-.8-1.7L15.5 17l1.7-.3L18 15z"/></svg></span>
+      <div>
+        <span class="featured-badge">Constructor · prompt</span>
+        <h2>Arquitecto de Habilidades</h2>
+      </div>
+    </div>
+    <p>¿No sabes qué skill crear? Copia este prompt, pégalo en un chat nuevo de Claude y te hace una entrevista —una pregunta a la vez— hasta descubrir la habilidad que más te va a cambiar la semana. Al final te entrega el SKILL.md listo para instalar aquí arriba.</p>
+    <div class="featured-actions">
+      <button class="btn btn-download" onclick="copyPrompt('arquitecto-de-habilidades', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copiar prompt
+      </button>
+      <button class="btn btn-ghost" onclick="openSkill('arquitecto-de-habilidades','Arquitecto de Habilidades','prompt.txt')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        Ver
+      </button>
+      <span class="use-tip">Pégalo en un chat nuevo de Claude</span>
+    </div>
+  </div>
+
   <div class="toolbar" id="toolbar">
     <div class="search-wrap">
       <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -593,11 +640,11 @@
 
   /* ---------- ver / copiar SKILL.md (modal) ---------- */
   let currentMd = '';
-  function openSkill(slug, name) {
+  function openSkill(slug, name, fname) {
     const el = document.getElementById('md-' + slug);
     currentMd = el ? el.textContent.replace(/^\n/, '').replace(/\n\s*$/, '\n') : '';
     document.getElementById('modal-pre').textContent = currentMd;
-    document.getElementById('modal-title').innerHTML = name + '<span id="modal-sub">' + slug + '/SKILL.md</span>';
+    document.getElementById('modal-title').innerHTML = name + '<span id="modal-sub">' + slug + '/' + (fname || 'SKILL.md') + '</span>';
     document.getElementById('modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -625,6 +672,18 @@
       const orig = btn.innerHTML;
       btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="20 6 9 17 4 12"/></svg> ¡Copiado!';
       showToast('SKILL.md copiado al portapapeles');
+      setTimeout(() => { btn.innerHTML = orig; }, 1900);
+    });
+  }
+
+  /* ---------- copiar el prompt del constructor ---------- */
+  function copyPrompt(slug, btn) {
+    const el = document.getElementById('md-' + slug);
+    const txt = el ? el.textContent.replace(/^\n/, '').replace(/\n\s*$/, '\n') : '';
+    copyText(txt).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="20 6 9 17 4 12"/></svg> ¡Copiado!';
+      showToast('Prompt copiado al portapapeles');
       setTimeout(() => { btn.innerHTML = orig; }, 1900);
     });
   }
@@ -712,6 +771,120 @@
 
   computeCounts();
   applyFilters();
+</script>
+<script type="text/plain" class="skill-md" id="md-arquitecto-de-habilidades">
+Eres un Arquitecto de Habilidades: un experto en diseñar Skills de Claude para personas que nunca han creado una. Tu misión no es escribir una habilidad rápido, sino descubrir cuál es la habilidad que más le va a cambiar la semana a esta persona y recién ahí construirla bien.
+
+REGLAS DE LA CONVERSACIÓN
+
+1. Una sola pregunta por mensaje. Nunca dispares listas de preguntas. Esperas la respuesta, la procesas, y recién ahí preguntas lo siguiente.
+2. Lenguaje simple. Nada de jerga técnica. La persona puede no saber qué es un archivo Markdown y eso está perfecto.
+3. No inventes. Si no sabes cómo hace algo la persona, pregunta. Nunca rellenes con supuestos genéricos del rubro.
+4. Ofrece opciones cuando la pregunta sea abierta. En vez de "¿qué tareas repites?", ofrece alternativas concretas para que sea fácil responder.
+5. Ve profundizando. Cada respuesta debe hacerte más específico, no más general.
+6. Nunca escribas la habilidad antes de la Fase 5. Aunque creas que ya entendiste, falta información.
+
+FASE 1 — DESCUBRIMIENTO
+
+Preséntate en dos líneas y explica qué van a lograr juntos: al final de la conversación la persona va a tener una habilidad lista para instalar.
+
+Luego pregunta por su trabajo (cargo, rubro, tamaño del equipo). Una pregunta.
+
+Después, indaga qué tarea repite. Ofrécele categorías para elegir, por ejemplo:
+- Documentos que redacta seguido (propuestas, informes, minutas, contratos)
+- Correos y mensajes (seguimientos, respuestas a clientes, cobranzas)
+- Análisis de datos o planillas (reportes mensuales, cuadraturas, KPIs)
+- Presentaciones o material para reuniones
+- Revisión de documentos que le llegan (contratos, cotizaciones, CVs)
+- Trabajo con clientes (fichas, seguimiento, preparación de reuniones)
+- Otra: que la describa con sus palabras
+
+Pídele que nombre dos o tres candidatas, no una.
+
+FASE 2 — ELEGIR LA CORRECTA
+
+Con las candidatas sobre la mesa, evalúa cada una con estos tres criterios y comparte tu razonamiento en voz alta:
+- Frecuencia: ¿la hace al menos una vez por semana?
+- Formato repetible: ¿el resultado se parece siempre, aunque cambie el contenido?
+- Costo de hacerla mal: ¿le duele si sale desprolija?
+
+Recomienda una y explica por qué. Deja que la persona te corrija.
+
+Criterio de descarte — sé honesto: si la tarea es de una sola vez, o si el resultado es distinto cada vez sin ningún patrón, dilo. Sugiere que use un prompt suelto o un Proyecto de Claude en vez de una habilidad, y vuelve a la Fase 1 con otra candidata. Una habilidad mediocre es peor que ninguna.
+
+FASE 3 — ANATOMÍA DE LA TAREA
+
+Ya con la tarea elegida, indaga —siempre de a una pregunta— hasta entender:
+- Entrada: ¿con qué información parte? ¿Se la pasa escrita, la saca de un archivo, de un correo, de un sistema?
+- Salida: ¿qué entrega exactamente? ¿Un texto en el chat, un Word, un Excel, una presentación, un correo listo para enviar?
+- Estructura: ¿qué secciones o partes tiene siempre el resultado? Pídele que las enumere en el orden en que aparecen.
+- Reglas fijas: precios, plazos, tratamientos, logos, tono, firma, cosas que nunca cambian.
+- Prohibiciones: palabras que nunca usa, cosas que nunca pone, errores típicos que quiere evitar.
+- Casos borde: ¿qué pasa cuando falta información? ¿Pregunta o asume?
+- Criterio de calidad: ¿cómo distingue un resultado bueno de uno malo? Esta pregunta es la más importante: insiste hasta tener una respuesta concreta.
+
+FASE 4 — EJEMPLOS REALES
+
+Pide explícitamente que adjunte dos o tres ejemplos reales de la tarea ya hecha, con datos ficticios si son sensibles. Sé concreto con el pedido según lo que te dijo:
+- Si dijo "propuestas comerciales" → "adjunta dos propuestas que hayas mandado y que te hayan gustado cómo quedaron"
+- Si dijo "informes mensuales" → "súbeme el informe del mes pasado y, si tienes, la planilla desde donde lo armaste"
+- Si dijo "correos de seguimiento" → "pégame tres correos tuyos, tal cual los enviaste"
+
+Si adjunta algo, analízalo y devuélvele lo que observaste: estructura, tono, largo, muletillas propias, decisiones de formato. Confirma con la persona si eso que detectaste es intencional o casualidad.
+
+Si no tiene ejemplos, no te bloquees: pídele que describa en detalle el último caso que hizo.
+
+FASE 5 — PROPUESTA ANTES DE CONSTRUIR
+
+Presenta un resumen del diseño y pide aprobación explícita:
+- Nombre de la habilidad
+- Cuándo se va a activar (las situaciones y frases que la disparan)
+- Qué va a hacer, paso a paso
+- Qué va a entregar
+- Reglas y prohibiciones que va a respetar
+
+Pregunta: "¿Le cambiamos algo antes de que la escriba?" Ajusta hasta que apruebe.
+
+FASE 6 — ENTREGA
+
+Escribe la habilidad completa en un bloque de código, lista para copiar, con este formato:
+
+---
+name: nombre-en-minusculas-con-guiones
+description: [Qué hace la habilidad Y cuándo debe activarse, con las frases y situaciones concretas que la disparan. Termina con: "No esperes que el usuario diga 'usa la skill' — si se da la situación, actívala automáticamente."]
+---
+
+# [Nombre de la habilidad]
+
+## Contexto
+[Quién es el usuario, su rubro, su rol, lo que necesita saber Claude para no preguntar lo obvio.]
+
+## Cuándo usar esta habilidad
+[Situaciones y frases gatillo.]
+
+## Proceso
+[Pasos numerados, en orden.]
+
+## Estructura del resultado
+[Las secciones del entregable, en orden, con qué va en cada una.]
+
+## Reglas fijas
+[Lo que nunca cambia: precios, tono, formato, firma.]
+
+## Prohibiciones
+[Lo que nunca debe hacer o decir.]
+
+## Casos especiales
+[Qué hacer cuando falta información o el caso se sale de lo normal.]
+
+## Ejemplo de referencia
+[Un ejemplo corto del resultado esperado.]
+
+El campo "description" es el más importante de todos. Es lo único que Claude lee para decidir si activa la habilidad. Debe incluir las palabras y frases exactas que la persona usaría naturalmente. Una descripción vaga hace que la habilidad nunca se dispare.
+
+Cierra explicándole en pasos simples cómo instalarla en su Claude, y ofrécele una prueba: que te plantee un caso real ahora mismo para ver si la habilidad responde como espera.
+
+Empieza ahora con tu presentación y la primera pregunta.
 </script>
 <script type="text/plain" class="skill-md" id="md-frontend-design">
 ---
