@@ -19,13 +19,13 @@
     --text: #f2efe9;
     --muted: #8a8a84;
     --faint: #55554f;
-    --accent: #c8f064;
-    --accent-2: #5dcaa5;
-    --accent-dim: rgba(200,240,100,0.12);
-    --accent-text: #0a0a0a;
-    --tag-bg: rgba(200,240,100,0.09);
-    --tag-text: #c8f064;
-    --copied: #5dcaa5;
+    --accent: #12946a;
+    --accent-2: #0d8a8a;
+    --accent-dim: rgba(18,148,106,0.16);
+    --accent-text: #ffffff;
+    --tag-bg: rgba(18,148,106,0.12);
+    --tag-text: #3fbd8f;
+    --copied: #12a37a;
     --radius: 16px;
     --font-display: 'Space Grotesk', sans-serif;
     --font-mono: 'DM Mono', monospace;
@@ -38,8 +38,8 @@
   .bg-aurora {
     position: fixed; inset: -20% -10% auto -10%; height: 80vh;
     background:
-      radial-gradient(50% 60% at 20% 0%, rgba(200,240,100,0.10), transparent 70%),
-      radial-gradient(45% 55% at 85% 10%, rgba(93,202,165,0.08), transparent 70%);
+      radial-gradient(50% 60% at 20% 0%, rgba(18,148,106,0.12), transparent 70%),
+      radial-gradient(45% 55% at 85% 10%, rgba(13,138,138,0.10), transparent 70%);
     filter: blur(20px);
     pointer-events: none; z-index: 0;
     animation: aurora 18s ease-in-out infinite alternate;
@@ -69,7 +69,7 @@
   .topnav .brand { display: flex; align-items: center; gap: 11px; }
   .topnav .logo-dot {
     width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
-    box-shadow: 0 0 0 0 rgba(200,240,100,0.5); animation: pulse 2.6s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(18,148,106,0.5); animation: pulse 2.6s ease-in-out infinite;
   }
   .topnav .brand-text { font-size: 12.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
   .tabs { display: inline-flex; gap: 4px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 100px; padding: 4px; }
@@ -87,8 +87,8 @@
   .header-left { display: flex; flex-direction: column; gap: 18px; flex: 1; min-width: 0; }
 
   @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(200,240,100,0.5); transform: scale(1); }
-    50% { box-shadow: 0 0 0 7px rgba(200,240,100,0); transform: scale(0.82); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(18,148,106,0.5); transform: scale(1); }
+    50% { box-shadow: 0 0 0 7px rgba(18,148,106,0); transform: scale(0.82); }
   }
 
   .headline { font-size: clamp(24px, 4.4vw, 44px); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; color: var(--text); }
@@ -130,12 +130,12 @@
     width: 112px; height: 112px; border-radius: 50%; flex-shrink: 0;
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
     padding: 3px; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 28px rgba(200,240,100,0.22);
+    box-shadow: 0 0 28px rgba(18,148,106,0.30);
   }
 
   /* ===== HOW-TO BANNER ===== */
   .howto {
-    background: rgba(93,202,165,0.06); border: 1px solid rgba(93,202,165,0.18);
+    background: rgba(13,138,138,0.08); border: 1px solid rgba(13,138,138,0.20);
     border-radius: 14px; padding: 16px 20px; margin-bottom: 26px;
     display: flex; gap: 14px; align-items: flex-start;
   }
@@ -166,7 +166,7 @@
     padding: 13px 44px 13px 44px; outline: none; transition: border-color .18s, box-shadow .18s;
   }
   .search::placeholder { color: var(--faint); }
-  .search:focus { border-color: rgba(200,240,100,0.4); box-shadow: 0 0 0 4px rgba(200,240,100,0.07); }
+  .search:focus { border-color: rgba(18,148,106,0.5); box-shadow: 0 0 0 4px rgba(18,148,106,0.12); }
   .search-clear {
     position: absolute; right: 12px; width: 24px; height: 24px; display: none;
     align-items: center; justify-content: center; border: none; cursor: pointer;
@@ -186,7 +186,7 @@
   .filter-btn .cnt { font-family: var(--font-mono); font-size: 11px; color: var(--faint); transition: color .16s; }
   .filter-btn:hover { border-color: var(--border-hover); color: var(--text); }
   .filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
-  .filter-btn.active .cnt { color: rgba(10,10,10,0.55); }
+  .filter-btn.active .cnt { color: rgba(255,255,255,0.68); }
 
   .count-label { margin-left: auto; font-family: var(--font-mono); font-size: 12px; color: var(--faint); white-space: nowrap; }
 
@@ -204,7 +204,7 @@
 
   .card::after {
     content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-    background: radial-gradient(440px circle at var(--mx) var(--my), rgba(200,240,100,0.08), transparent 42%);
+    background: radial-gradient(440px circle at var(--mx) var(--my), rgba(18,148,106,0.10), transparent 42%);
     opacity: 0; transition: opacity .3s ease;
   }
   .card:hover::after { opacity: 1; }
@@ -223,7 +223,7 @@
 
   .skill-icon {
     flex-shrink: 0; width: 46px; height: 46px; border-radius: 12px;
-    background: var(--accent-dim); border: 1px solid rgba(200,240,100,0.18);
+    background: var(--accent-dim); border: 1px solid rgba(18,148,106,0.28);
     display: flex; align-items: center; justify-content: center; color: var(--accent);
   }
   .skill-icon svg { width: 22px; height: 22px; }
@@ -235,7 +235,7 @@
   .tag {
     flex-shrink: 0; font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--tag-text); background: var(--tag-bg);
-    border: 1px solid rgba(200,240,100,0.18); padding: 4px 10px; border-radius: 100px;
+    border: 1px solid rgba(18,148,106,0.28); padding: 4px 10px; border-radius: 100px;
     display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
   }
 
@@ -251,7 +251,7 @@
   .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 
   .btn-download { background: var(--accent); color: var(--accent-text); font-size: 13px; letter-spacing: 0.02em; padding: 10px 18px; }
-  .btn-download:hover { background: #d4f570; transform: translateY(-1px); box-shadow: 0 8px 22px -10px rgba(200,240,100,0.6); }
+  .btn-download:hover { background: #16a97a; transform: translateY(-1px); box-shadow: 0 8px 22px -10px rgba(18,148,106,0.55); }
   .btn-download:active { transform: translateY(0) scale(0.97); }
   .btn-download.done { background: var(--copied); color: #04342c; }
 
@@ -302,7 +302,7 @@
     background: var(--copied); color: #04342c; font-family: var(--font-display);
     font-size: 14px; font-weight: 700; padding: 12px 22px; border-radius: 100px;
     opacity: 0; transition: all .28s ease; pointer-events: none; z-index: 80;
-    display: flex; align-items: center; gap: 8px; box-shadow: 0 16px 40px -16px rgba(93,202,165,0.5);
+    display: flex; align-items: center; gap: 8px; box-shadow: 0 16px 40px -16px rgba(18,163,122,0.5);
   }
   .toast svg { width: 16px; height: 16px; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
