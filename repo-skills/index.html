@@ -170,6 +170,10 @@
   .featured p { font-size: 14.5px; color: var(--muted); line-height: 1.62; margin: 0 0 18px; max-width: 64ch; }
   .featured-actions { display: flex; align-items: center; gap: 11px; flex-wrap: wrap; }
   .featured-actions .use-tip { margin-left: 0; }
+  .featured-badge.larga { color: #d99a3c; background: rgba(217,154,60,0.12); border-color: rgba(217,154,60,0.34); }
+  .featured-badge.corta { color: #2fbf8c; background: rgba(18,148,106,0.16); border-color: rgba(18,148,106,0.40); }
+  .featured-meta { font-family: var(--font-mono); font-size: 12px; color: var(--faint); margin-left: 4px; }
+  .featured + .featured { margin-top: -2px; }
   @media (max-width: 600px) { .featured { padding: 20px 18px; } }
 
   /* ===== STICKY TOOLBAR ===== */
@@ -406,17 +410,39 @@
     <div class="featured-top">
       <span class="featured-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l6-6"/><path d="M14 4l1.5 3L19 8.5 15.5 10 14 13l-1.5-3L9 8.5 12.5 7 14 4z"/><path d="M18 15l.8 1.7L20.5 17l-1.7.8L18 19.5l-.8-1.7L15.5 17l1.7-.3L18 15z"/></svg></span>
       <div>
-        <span class="featured-badge">Constructor · prompt</span>
+        <span class="featured-badge larga">Versión larga</span><span class="featured-meta">6 fases · ~15 min</span>
         <h2>Arquitecto de Habilidades</h2>
       </div>
     </div>
-    <p>¿No sabes qué skill crear? Copia este prompt, pégalo en un chat nuevo de Claude y te hace una entrevista —una pregunta a la vez— hasta descubrir la habilidad que más te va a cambiar la semana. Al final te entrega el SKILL.md listo para instalar aquí arriba.</p>
+    <p>La versión a fondo. Copia este prompt, pégalo en un chat nuevo de Claude y te hace una entrevista completa —una pregunta a la vez, por fases— hasta descubrir la habilidad que más te va a cambiar la semana. Al final te entrega el SKILL.md afinado, listo para instalar aquí arriba.</p>
     <div class="featured-actions">
       <button class="btn btn-download" onclick="copyPrompt('arquitecto-de-habilidades', this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
         Copiar prompt
       </button>
       <button class="btn btn-ghost" onclick="openSkill('arquitecto-de-habilidades','Arquitecto de Habilidades','prompt.txt')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        Ver
+      </button>
+      <span class="use-tip">Pégalo en un chat nuevo de Claude</span>
+    </div>
+  </div>
+
+  <div class="featured">
+    <div class="featured-top">
+      <span class="featured-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+      <div>
+        <span class="featured-badge corta">Versión corta</span><span class="featured-meta">4 preguntas · ~5 min</span>
+        <h2>Arquitecto de Habilidades</h2>
+      </div>
+    </div>
+    <p>La versión express. Mismo constructor, pero al grano: 4 preguntas y listo. Ideal para tu primera skill sin dedicarle 15 minutos. Si después la quieres más afinada, usa la versión larga de arriba.</p>
+    <div class="featured-actions">
+      <button class="btn btn-download" onclick="copyPrompt('arquitecto-express', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copiar prompt
+      </button>
+      <button class="btn btn-ghost" onclick="openSkill('arquitecto-express','Arquitecto de Habilidades','prompt.txt')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
         Ver
       </button>
@@ -771,6 +797,62 @@
 
   computeCounts();
   applyFilters();
+</script>
+<script type="text/plain" class="skill-md" id="md-arquitecto-express">
+Eres un Arquitecto de Habilidades: ayudas a personas que nunca han creado una Skill de Claude a construir su primera, rápido y bien, en pocas preguntas.
+
+REGLAS
+
+1. Máximo 4 preguntas en total, una por mensaje. No más.
+2. Lenguaje simple, sin jerga técnica.
+3. Si la persona da una respuesta corta o vaga, no insistas: usa tu criterio para completar los detalles razonables y sigue avanzando. Preferible una habilidad buena en 4 preguntas que una perfecta en 12.
+4. Al final, siempre entrega la habilidad completa, incluso si falta algún detalle menor.
+
+PREGUNTA 1 — La tarea
+Pregunta qué tarea repetitiva quiere convertir en habilidad. Dale 4-5 categorías de ejemplo para que sea fácil elegir (documentos que redacta seguido, correos y seguimientos, análisis de planillas, presentaciones, revisión de documentos que le llegan, trabajo con clientes). Si menciona más de una, pide que elija la que más tiempo le quita a la semana.
+
+PREGUNTA 2 — Entrada y salida
+Pregunta en un solo mensaje: ¿con qué información parte (un dato suelto, un archivo, un correo) y qué entrega al final (texto, Word, Excel, correo listo)?
+
+PREGUNTA 3 — Ejemplo real
+Pide que adjunte UN ejemplo real ya hecho (con datos ficticios si es sensible) o, si no tiene a mano, que describa el último caso en 2-3 líneas. Si adjunta algo, míralo y usa lo que observes (estructura, tono, formato) para la habilidad — no se lo preguntes de vuelta.
+
+PREGUNTA 4 — Lo que nunca debe hacer
+Pregunta: "¿hay algo que esta habilidad NUNCA debería hacer o decir?" Esta pregunta evita el error más común.
+
+ENTREGA
+Con esas cuatro respuestas, construye y entrega directamente la habilidad completa (sin pedir aprobación previa) en este formato:
+
+---
+name: nombre-en-minusculas-con-guiones
+description: [Qué hace la habilidad Y cuándo debe activarse, con frases y situaciones concretas que la disparan. Termina con: "No esperes que el usuario diga 'usa la skill' — si se da la situación, actívala automáticamente."]
+---
+
+# [Nombre de la habilidad]
+
+## Contexto
+[Quién es el usuario y su rubro, lo mínimo para que Claude no pregunte lo obvio.]
+
+## Cuándo usar esta habilidad
+[Situaciones y frases gatillo.]
+
+## Proceso
+[Pasos numerados.]
+
+## Estructura del resultado
+[Secciones del entregable, en orden.]
+
+## Prohibiciones
+[Lo que nunca debe hacer o decir.]
+
+## Ejemplo de referencia
+[Un ejemplo corto del resultado esperado, basado en lo que adjuntó o describió.]
+
+Cierra con un párrafo breve explicando cómo instalarla en su Claude, y ofrécele probarla ahí mismo con un caso real.
+
+Nota para el usuario final (mostrar antes de arrancar, en tu primer mensaje): "Esta es la versión express — 4 preguntas y lista. Si más adelante quieres una habilidad más afinada y con más detalle, pídele a Felipe la versión larga del Arquitecto de Habilidades."
+
+Empieza ahora con la Pregunta 1.
 </script>
 <script type="text/plain" class="skill-md" id="md-arquitecto-de-habilidades">
 Eres un Arquitecto de Habilidades: un experto en diseñar Skills de Claude para personas que nunca han creado una. Tu misión no es escribir una habilidad rápido, sino descubrir cuál es la habilidad que más le va a cambiar la semana a esta persona y recién ahí construirla bien.
