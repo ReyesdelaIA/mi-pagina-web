@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Programa de IA con Claude · Lucas Maq</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy1:#042C53; --navy2:#0C447C; --navy3:#185FA5;
+    --amber:#E8883A; --amber-d:#C56B1E;
+    --green:#16A34A; --greenbg:#EAF7EF;
+    --bg:#f4f5f7; --card:#ffffff; --border:#e6e8ec;
+    --text:#16202e; --sub:#64717f; --faint:#9aa4b0;
+  }
+  html{-webkit-font-smoothing:antialiased;}
+  body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 18px 70px;}
+
+  /* ===== POSTER / AFICHE ===== */
+  .poster{
+    position:relative;overflow:hidden;border-radius:0 0 26px 26px;
+    background:linear-gradient(135deg,var(--navy1) 0%,var(--navy2) 55%,var(--navy3) 100%);
+    color:#fff;padding:26px 26px 30px;
+  }
+  .poster::after{content:'';position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;
+    background:radial-gradient(circle,rgba(232,136,58,0.22),transparent 68%);pointer-events:none;}
+  .poster-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;}
+  .brand-row{display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap;}
+  .brand-logo{height:26px;width:auto;display:block;}
+  .brand-sep{width:1px;height:22px;background:rgba(255,255,255,0.22);}
+  .brand-claude{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.85);}
+  .brand-claude img{width:18px;height:18px;border-radius:5px;}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:0.11em;
+    text-transform:uppercase;color:#F4B77E;background:rgba(232,136,58,0.16);border:1px solid rgba(232,136,58,0.34);
+    padding:5px 12px;border-radius:100px;margin-bottom:15px;}
+  .poster h1{font-size:clamp(24px,5vw,34px);font-weight:800;line-height:1.12;letter-spacing:-0.02em;margin-bottom:8px;}
+  .poster h1 span{color:#F4B77E;}
+  .poster-sub{font-size:14.5px;color:rgba(255,255,255,0.82);max-width:52ch;}
+
+  .client-row{display:flex;align-items:center;gap:14px;margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.14);}
+  .client-badge{width:52px;height:52px;border-radius:14px;flex-shrink:0;background:#fff;color:var(--navy1);
+    display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;letter-spacing:-0.02em;
+    box-shadow:0 8px 20px -8px rgba(0,0,0,0.4);}
+  .client-t .cl-label{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+  .client-t .cl-name{font-size:19px;font-weight:800;letter-spacing:-0.01em;}
+
+  /* próxima sesión destacada */
+  .next{margin-top:22px;background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.16);
+    border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    backdrop-filter:blur(6px);}
+  .next-cal{width:60px;height:64px;border-radius:12px;flex-shrink:0;overflow:hidden;background:#fff;
+    display:flex;flex-direction:column;text-align:center;box-shadow:0 8px 20px -10px rgba(0,0,0,0.5);}
+  .next-cal .m{background:var(--amber);color:#fff;font-size:10px;font-weight:800;letter-spacing:0.1em;padding:3px 0;text-transform:uppercase;}
+  .next-cal .d{flex:1;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:var(--navy1);}
+  .next-body{flex:1;min-width:160px;}
+  .next-tag{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#F4B77E;margin-bottom:3px;}
+  .next-title{font-size:16px;font-weight:700;line-height:1.25;}
+  .next-when{font-size:13px;color:rgba(255,255,255,0.82);margin-top:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .next-when b{font-weight:600;color:#fff;}
+  .next-when .dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.5);}
+
+  /* ===== MIRROR / PROGRESO ===== */
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:30px 0 4px;flex-wrap:wrap;}
+  .section-head h2{font-size:19px;font-weight:800;color:var(--navy1);letter-spacing:-0.01em;}
+  .live-pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--green);
+    background:var(--greenbg);border:1px solid #cfe6d6;border-radius:100px;padding:4px 11px;}
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(22,163,74,0.5);animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(22,163,74,0.5);}50%{box-shadow:0 0 0 6px rgba(22,163,74,0);}}
+  .section-sub{font-size:13px;color:var(--sub);margin-bottom:16px;}
+
+  .overview{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 2px 14px rgba(16,32,55,0.05);}
+  .ov-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+  .ov-pct{font-size:30px;font-weight:800;color:var(--navy2);line-height:1;}
+  .ov-meta{font-size:13px;color:var(--sub);text-align:right;}
+  .ov-meta b{color:var(--text);font-weight:700;}
+  .track{height:10px;background:#e9ecf1;border-radius:100px;overflow:hidden;}
+  .track i{display:block;height:100%;background:linear-gradient(90deg,var(--navy3),var(--green));border-radius:100px;transition:width 1s cubic-bezier(.2,.7,.2,1);}
+
+  .ses{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden;
+    box-shadow:0 2px 12px rgba(16,32,55,0.04);}
+  .ses-head{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;user-select:none;}
+  .ses-num{width:38px;height:38px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    font-size:15px;font-weight:800;background:#eef1f6;color:var(--navy2);}
+  .ses.done .ses-num{background:var(--green);color:#fff;}
+  .ses.curso .ses-num{background:var(--amber);color:#fff;}
+  .ses-t{flex:1;min-width:0;}
+  .ses-name{font-size:14.5px;font-weight:700;color:var(--text);line-height:1.25;}
+  .ses-date{font-size:12px;color:var(--sub);margin-top:2px;}
+  .ses-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+  .badge{font-size:10.5px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;padding:4px 10px;border-radius:100px;white-space:nowrap;}
+  .badge.done{background:var(--greenbg);color:#15803d;}
+  .badge.curso{background:#FEF1E2;color:var(--amber-d);}
+  .badge.prox{background:#eef1f6;color:var(--navy2);}
+  .ses-count{font-size:12px;color:var(--faint);font-weight:600;font-variant-numeric:tabular-nums;}
+  .chev{width:16px;height:16px;color:var(--faint);transition:transform .25s;}
+  .ses.open .chev{transform:rotate(180deg);}
+
+  .ses-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .ses.open .ses-body{max-height:900px;}
+  .temas{padding:2px 18px 16px;border-top:1px solid var(--border);}
+  .tema{display:flex;align-items:flex-start;gap:11px;padding:9px 0;font-size:13.5px;line-height:1.4;}
+  .tema+.tema{border-top:1px solid #f2f4f7;}
+  .tick{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    font-size:11px;margin-top:1px;}
+  .tick.v{background:var(--green);color:#fff;}
+  .tick.p{background:#fff;border:1.6px solid #d4d9e0;color:transparent;}
+  .tema.v .tx{color:var(--text);}
+  .tema.p .tx{color:var(--sub);}
+
+  footer{text-align:center;margin-top:34px;padding-top:22px;border-top:1px solid var(--border);}
+  .foot-brand{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:var(--navy1);}
+  .foot-brand img{width:26px;height:26px;border-radius:7px;}
+  .foot-sub{font-size:12px;color:var(--faint);margin-top:8px;}
+  .foot-sub a{color:var(--navy3);text-decoration:none;}
+
+  @media(max-width:520px){
+    .poster{padding:22px 18px 26px;border-radius:0 0 20px 20px;}
+    .next{padding:15px;}
+    .ov-meta{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+  <div class="poster-inner">
+    <div class="brand-row">
+      <img class="brand-logo" src="/logo%20reyes%20IA%20horizontal%20blanco.png" alt="Reyes IA">
+      <div class="brand-sep"></div>
+      <span class="brand-claude"><img src="/talleres/icon-claude.png" alt="Claude">Programa Claude</span>
+    </div>
+
+    <span class="eyebrow">✦ Comunicación interna · <span id="eb-cliente">Peñuelas</span></span>
+    <h1>Programa de <span>Adopción de IA</span><br>con Claude</h1>
+    <p class="poster-sub">Un acompañamiento en vivo con Felipe Reyes para que el equipo aprenda a trabajar con Claude — de los fundamentos a los agentes.</p>
+
+    <div class="client-row">
+      <div class="client-badge" id="cli-badge">P</div>
+      <div class="client-t">
+        <div class="cl-label">Programa para</div>
+        <div class="cl-name" id="cli-name">Peñuelas</div>
+      </div>
+    </div>
+
+    <div class="next" id="next"></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="section-head">
+    <h2>Así vamos</h2>
+    <span class="live-pill"><span class="live-dot"></span>Progreso en vivo</span>
+  </div>
+  <p class="section-sub" id="sec-sub">El mismo avance que Felipe registra en cada sesión, reflejado aquí para tu equipo.</p>
+
+  <div class="overview">
+    <div class="ov-top">
+      <div class="ov-pct" id="ov-pct">0%</div>
+      <div class="ov-meta" id="ov-meta"></div>
+    </div>
+    <div class="track"><i id="ov-bar" style="width:0"></i></div>
+  </div>
+
+  <div id="sesiones"></div>
+
+  <footer>
+    <div class="foot-brand"><img src="/icon-felipe.png" alt="Felipe Reyes">Reyes IA · Felipe Reyes</div>
+    <div class="foot-sub">reyesia.com · Programa de Adopción Profunda de IA</div>
+  </footer>
+</div>
+
+<script>
+/* =========================================================================
+   DATOS — en la versión real esto se reemplaza por una llamada segura
+   (una sola línea): const DATA = await fetch('/api/panel-publico?t=TOKEN').
+   Aquí van los datos REALES de Peñuelas para que veas el resultado.
+   Nota: la sesión 5 lleva una fecha de EJEMPLO (en el panel aún está por agendar).
+   ========================================================================= */
+const DATA = {
+  cliente: "Lucas Maq",
+  programa: "Programa de Adopción de IA con Claude",
+  sesiones: [
+    { n:1, nombre:"Fundamentos de IA y primeros pasos con Claude", fecha:"2026-07-27T13:00:00Z", temas:[
+      ["Intro a la Inteligencia Artificial",0],["3 verdades sobre el uso de IA",0],["Intro al mundo LLM",0],
+      ["Fundamentos del prompt",0],["Ejemplos de uso cotidiano",0],["Intro a Claude",0],["Activación de modelos",0],
+      ["4 esferas de la IA generativa",0],["Concepto: memorización",0],["Herramienta de dictado",0],
+      ["Confidencialidad",0],["Regulaciones actuales de IA",0],["Uso responsable",0],["La IA en los próximos años",0] ]},
+    { n:2, nombre:"Claude a fondo: razonamiento, proyectos y conectores", fecha:"2026-07-28T15:00:00Z", temas:[
+      ["Recap general y tour por Claude",0],["Los 3 mundos dentro de Claude",0],["Claude Chat",0],
+      ["Razonamiento (Sonnet / Opus)",0],["Tools / herramientas",0],["MCP: conexiones clave para el trabajo",0],
+      ["Formatos MD",0],["Proyectos en Claude",0],["Claude en Office",0],["Optimización del uso de tokens",0],["HTMLs",0] ]},
+    { n:3, nombre:"Skills, Cowork y agentes", fecha:"2026-07-29T13:00:00Z", temas:[
+      ["Skills",0],["Artefactos",0],["Claude Cowork",0],["Cowork: acciones reactivas",0],
+      ["Cowork: acciones programadas",0],["Cowork: acciones en vivo",0],["HTMLs con Claude",0],
+      ["Live Artifacts",0],["Introducción a Agentes",0],["Agentes optimizados",0] ]}
+  ]
+};
+
+/* ---------- helpers ---------- */
+const MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const TZ = 'America/Santiago'; // el afiche siempre muestra hora de Chile, sin importar el dispositivo
+function fechaLarga(iso){
+  if(!iso) return null;
+  const d = new Date(iso);
+  let txt = d.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long',timeZone:TZ});
+  txt = txt.charAt(0).toUpperCase()+txt.slice(1);
+  const hora = d.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:TZ});
+  const dia = d.toLocaleDateString('es-CL',{day:'numeric',timeZone:TZ});
+  const mes = MESES[+d.toLocaleDateString('en-CA',{month:'numeric',timeZone:TZ})-1];
+  return { txt, hora, dia, mes };
+}
+function estadoSesion(s){
+  const v = s.temas.filter(t=>t[1]).length, t = s.temas.length;
+  if(t && v===t) return 'done';
+  if(v>0) return 'curso';
+  return 'prox';
+}
+
+/* ---------- poster: próxima sesión ---------- */
+function pintarNext(){
+  const ahora = new Date();
+  // primera sesión no completa (la que "se viene")
+  const prox = DATA.sesiones.find(s => estadoSesion(s)!=='done') || DATA.sesiones[DATA.sesiones.length-1];
+  const f = fechaLarga(prox.fecha);
+  const cal = f ? `<div class="next-cal"><div class="m">${f.mes}</div><div class="d">${f.dia}</div></div>` : '';
+  const cuando = f
+    ? `<span><b>${f.txt}</b></span><span class="dot"></span><span><b>${f.hora} hrs</b></span>`
+    : `<span><b>Por agendar</b></span>`;
+  document.getElementById('next').innerHTML = `
+    ${cal}
+    <div class="next-body">
+      <div class="next-tag">Próxima sesión</div>
+      <div class="next-title">Sesión ${prox.n} · ${prox.nombre}</div>
+      <div class="next-when">${cuando}</div>
+    </div>`;
+}
+
+/* ---------- overview ---------- */
+function pintarOverview(){
+  let tot=0, done=0, sesDone=0;
+  DATA.sesiones.forEach(s=>{
+    tot += s.temas.length; done += s.temas.filter(t=>t[1]).length;
+    if(estadoSesion(s)==='done') sesDone++;
+  });
+  const pct = tot ? Math.round(done/tot*100) : 0;
+  document.getElementById('ov-pct').textContent = pct+'%';
+  document.getElementById('ov-meta').innerHTML =
+    `<b>${done} de ${tot}</b> temas · <b>${sesDone} de ${DATA.sesiones.length}</b> sesiones completas`;
+  setTimeout(()=>document.getElementById('ov-bar').style.width = pct+'%', 120);
+  if(done===0)
+    document.getElementById('sec-sub').textContent =
+      'El programa recién parte. Aquí van las ' + tot + ' temáticas del recorrido — se irán marcando ✓ a medida que las veamos en cada sesión.';
+}
+
+/* ---------- sesiones ---------- */
+function pintarSesiones(){
+  const cont = document.getElementById('sesiones');
+  // la sesión "que viene" (primera no completa) arranca abierta
+  const iProx = DATA.sesiones.findIndex(s => estadoSesion(s)!=='done');
+  cont.innerHTML = DATA.sesiones.map((s,i)=>{
+    const est = estadoSesion(s);
+    const v = s.temas.filter(t=>t[1]).length, t = s.temas.length;
+    const f = fechaLarga(s.fecha);
+    const badge = est==='done' ? '<span class="badge done">Completa</span>'
+                : est==='curso' ? '<span class="badge curso">En curso</span>'
+                : '<span class="badge prox">Próxima</span>';
+    const fechaTxt = f ? (f.txt + ' · ' + f.hora + ' hrs' + (s.ejemplo?' (por agendar)':'')) : 'Por agendar';
+    const abierta = (i === iProx); // la sesión que viene arranca abierta
+    const temas = s.temas.map(([nombre,visto])=>`
+      <div class="tema ${visto?'v':'p'}">
+        <span class="tick ${visto?'v':'p'}">${visto?'✓':''}</span>
+        <span class="tx">${nombre}</span>
+      </div>`).join('');
+    return `
+    <div class="ses ${est} ${abierta?'open':''}" data-i="${i}">
+      <div class="ses-head" onclick="this.parentNode.classList.toggle('open')">
+        <div class="ses-num">${s.n}</div>
+        <div class="ses-t">
+          <div class="ses-name">${s.nombre}</div>
+          <div class="ses-date">${fechaTxt}</div>
+        </div>
+        <div class="ses-right">
+          ${badge}
+          <span class="ses-count">${v}/${t}</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="ses-body"><div class="temas">${temas}</div></div>
+    </div>`;
+  }).join('');
+}
+
+/* ---------- init ---------- */
+document.getElementById('eb-cliente').textContent = DATA.cliente;
+document.getElementById('cli-name').textContent = DATA.cliente;
+document.getElementById('cli-badge').textContent = DATA.cliente.trim().charAt(0).toUpperCase();
+pintarNext(); pintarOverview(); pintarSesiones();
+</script>
+</body>
+</html>
