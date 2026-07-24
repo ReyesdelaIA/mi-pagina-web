@@ -30,14 +30,34 @@
   .poster::after{content:'';position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;
     background:radial-gradient(circle,rgba(232,136,58,0.22),transparent 68%);pointer-events:none;}
   .poster-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;}
-  .brand-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px;}
+  .brand-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px;}
+  .brand-left{padding-top:6px;}
   .brand-left{display:flex;align-items:center;gap:14px;min-width:0;flex-wrap:wrap;}
   .brand-logo{height:40px;width:auto;display:block;}
   .brand-sep{width:1px;height:28px;background:rgba(255,255,255,0.22);}
   .brand-claude{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.85);}
   .brand-claude img{width:20px;height:20px;border-radius:5px;}
-  .brand-icon{width:48px;height:48px;border-radius:50%;flex-shrink:0;object-fit:cover;
-    border:2px solid rgba(255,255,255,0.5);box-shadow:0 6px 18px -6px rgba(0,0,0,0.5);}
+  .brand-icon{width:120px;height:120px;border-radius:50%;flex-shrink:0;object-fit:cover;
+    border:3px solid rgba(255,255,255,0.55);box-shadow:0 10px 28px -8px rgba(0,0,0,0.55);}
+
+  /* fila superior: intro (izq) + presentador (der) */
+  .hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;}
+  .hero-intro{flex:1;min-width:0;}
+  .presenter{width:210px;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;text-align:right;}
+  .presenter .brand-icon{margin-bottom:13px;}
+  .p-name{font-size:17px;font-weight:800;letter-spacing:-0.01em;}
+  .p-role{font-size:12px;color:rgba(255,255,255,0.72);line-height:1.5;margin-top:5px;}
+  .p-stats{margin-top:12px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+  .p-stat{font-size:11.5px;color:rgba(255,255,255,0.88);background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);padding:4px 11px;border-radius:100px;white-space:nowrap;}
+  .p-stat b{color:#F4B77E;font-weight:700;}
+  @media(max-width:720px){
+    .hero-top{flex-direction:column;gap:22px;}
+    .presenter{width:auto;flex-direction:row;align-items:center;text-align:left;gap:15px;flex-wrap:wrap;
+      background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:14px;}
+    .presenter .brand-icon{width:76px;height:76px;margin-bottom:0;}
+    .p-stats{flex-direction:row;flex-wrap:wrap;align-items:flex-start;margin-top:8px;}
+  }
 
   .eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:0.11em;
     text-transform:uppercase;color:#F4B77E;background:rgba(232,136,58,0.16);border:1px solid rgba(232,136,58,0.34);
@@ -55,6 +75,13 @@
   .client-logo img{height:30px;width:auto;display:block;}
   .client-t .cl-label{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
   .client-t .cl-name{font-size:19px;font-weight:800;letter-spacing:-0.01em;}
+
+  /* lugar destacado */
+  .lugar{display:inline-flex;align-items:center;gap:10px;margin-top:16px;
+    background:rgba(232,136,58,0.15);border:1px solid rgba(232,136,58,0.42);color:#F7C79B;
+    border-radius:13px;padding:11px 16px;font-size:14px;font-weight:600;line-height:1.35;}
+  .lugar .pin{font-size:17px;line-height:1;}
+  .lugar b{color:#fff;font-weight:700;}
 
   /* las 3 fechas */
   .fechas-label{margin-top:22px;margin-bottom:11px;font-size:11px;font-weight:700;letter-spacing:0.1em;
@@ -127,6 +154,14 @@
   .tema.v .tx{color:var(--text);}
   .tema.p .tx{color:var(--sub);}
 
+  /* empresas que confían */
+  .clientes{margin-top:38px;text-align:center;}
+  .clientes-label{font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--faint);margin-bottom:18px;}
+  .logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:22px 34px;}
+  .logos img{height:27px;width:auto;filter:grayscale(1);opacity:0.55;transition:opacity .2s,filter .2s;}
+  .logos img:hover{filter:none;opacity:1;}
+  .logos .mas{font-size:13px;font-weight:700;color:var(--navy2);background:#eef1f6;border:1px solid var(--border);border-radius:100px;padding:7px 15px;}
+
   footer{text-align:center;margin-top:34px;padding-top:22px;border-top:1px solid var(--border);}
   .foot-brand{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:var(--navy1);}
   .foot-brand img{width:26px;height:26px;border-radius:7px;}
@@ -150,14 +185,26 @@
         <div class="brand-sep"></div>
         <span class="brand-claude"><img src="/talleres/icon-claude.png" alt="Claude">Pack de 3 Talleres</span>
       </div>
-      <img class="brand-icon" src="/icon-felipe.png" alt="Felipe Reyes">
     </div>
 
-    <span class="eyebrow">✦ Comunicación interna · <span id="eb-cliente">Lucas Maq</span></span>
-    <h1>Los <span>3 Talleres</span><br>de Claude</h1>
-    <p class="poster-sub">Tres talleres en vivo con Felipe Reyes para que el equipo aprenda a trabajar con Claude — de los fundamentos a los agentes.</p>
-
-    <div class="client-row" id="client-row"></div>
+    <div class="hero-top">
+      <div class="hero-intro">
+        <span class="eyebrow">✦ Comunicación interna · <span id="eb-cliente">Lucas Maq</span></span>
+        <h1>Los <span>3 Talleres</span><br>de Claude</h1>
+        <p class="poster-sub">Tres talleres en vivo con Felipe Reyes para que el equipo aprenda a trabajar con Claude — de los fundamentos a los agentes.</p>
+        <div class="client-row" id="client-row"></div>
+        <div class="lugar" id="lugar"></div>
+      </div>
+      <aside class="presenter">
+        <img class="brand-icon" src="/icon-felipe.png" alt="Felipe Reyes">
+        <div class="p-name">Felipe Reyes · Reyes IA 👑</div>
+        <div class="p-role">Referente en IA aplicada · Consultor en IA · Profesor universitario de IA · Cofundador de Reyes IA / LAP / Vekka</div>
+        <div class="p-stats">
+          <span class="p-stat"><b>+3.000</b> personas capacitadas</span>
+          <span class="p-stat"><b>+160</b> empresas asesoradas</span>
+        </div>
+      </aside>
+    </div>
 
     <div class="fechas-label">Las 3 fechas</div>
     <div class="fechas" id="fechas"></div>
@@ -182,6 +229,19 @@
 
   <div id="sesiones"></div>
 
+  <div class="clientes">
+    <div class="clientes-label">Algunas empresas que ya se capacitaron con Reyes IA</div>
+    <div class="logos">
+      <img src="/panel-clientes/logos/clientes/copec.png" alt="Copec">
+      <img src="/panel-clientes/logos/clientes/enel.png" alt="Enel">
+      <img src="/panel-clientes/logos/clientes/falabella.png" alt="Falabella">
+      <img src="/panel-clientes/logos/clientes/embonor.png" alt="Coca-Cola Embonor">
+      <img src="/panel-clientes/logos/clientes/skc.png" alt="SKC">
+      <img src="/panel-clientes/logos/clientes/pcfactory.png" alt="PC Factory">
+      <span class="mas">+150 más</span>
+    </div>
+  </div>
+
   <footer>
     <div class="foot-brand"><img src="/icon-felipe.png" alt="Felipe Reyes">Reyes IA · Felipe Reyes</div>
     <div class="foot-sub">reyesia.com · Pack de 3 Talleres de Claude</div>
@@ -199,6 +259,7 @@ const DATA = {
   cliente: "Lucas Maq",
   logo: "/panel-clientes/logos/lucas-maq.png",
   unidad: "taller",   // 'taller' (pack de 3) o 'sesión' (adopción profunda)
+  lugar: "En oficinas de Lucas Maq",
   programa: "Los 3 Talleres de Claude",
   sesiones: [
     { n:1, nombre:"Fundamentos de IA y primeros pasos con Claude", fecha:"2026-07-27T13:00:00Z", temas:[
@@ -339,6 +400,9 @@ function pintarCliente(){
 
 /* ---------- init ---------- */
 document.getElementById('eb-cliente').textContent = DATA.cliente;
+const lugEl = document.getElementById('lugar');
+if(DATA.lugar) lugEl.innerHTML = `<span class="pin">📍</span><span><b>Dónde:</b> ${DATA.lugar}</span>`;
+else lugEl.style.display = 'none';
 pintarCliente(); pintarFechas(); pintarOverview(); pintarSesiones();
 </script>
 </body>
