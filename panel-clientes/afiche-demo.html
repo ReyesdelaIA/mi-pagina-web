@@ -47,6 +47,9 @@
   .client-badge{width:52px;height:52px;border-radius:14px;flex-shrink:0;background:#fff;color:var(--navy1);
     display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;letter-spacing:-0.02em;
     box-shadow:0 8px 20px -8px rgba(0,0,0,0.4);}
+  .client-logo{background:#fff;border-radius:13px;padding:12px 18px;flex-shrink:0;
+    box-shadow:0 8px 22px -8px rgba(0,0,0,0.45);display:flex;align-items:center;}
+  .client-logo img{height:30px;width:auto;display:block;}
   .client-t .cl-label{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
   .client-t .cl-name{font-size:19px;font-weight:800;letter-spacing:-0.01em;}
 
@@ -134,20 +137,14 @@
     <div class="brand-row">
       <img class="brand-logo" src="/logo%20reyes%20IA%20horizontal%20blanco.png" alt="Reyes IA">
       <div class="brand-sep"></div>
-      <span class="brand-claude"><img src="/talleres/icon-claude.png" alt="Claude">Programa Claude</span>
+      <span class="brand-claude"><img src="/talleres/icon-claude.png" alt="Claude">Pack de 3 Talleres</span>
     </div>
 
-    <span class="eyebrow">✦ Comunicación interna · <span id="eb-cliente">Peñuelas</span></span>
-    <h1>Programa de <span>Adopción de IA</span><br>con Claude</h1>
-    <p class="poster-sub">Un acompañamiento en vivo con Felipe Reyes para que el equipo aprenda a trabajar con Claude — de los fundamentos a los agentes.</p>
+    <span class="eyebrow">✦ Comunicación interna · <span id="eb-cliente">Lucas Maq</span></span>
+    <h1>Los <span>3 Talleres</span><br>de Claude</h1>
+    <p class="poster-sub">Tres talleres en vivo con Felipe Reyes para que el equipo aprenda a trabajar con Claude — de los fundamentos a los agentes.</p>
 
-    <div class="client-row">
-      <div class="client-badge" id="cli-badge">P</div>
-      <div class="client-t">
-        <div class="cl-label">Programa para</div>
-        <div class="cl-name" id="cli-name">Peñuelas</div>
-      </div>
-    </div>
+    <div class="client-row" id="client-row"></div>
 
     <div class="next" id="next"></div>
   </div>
@@ -173,7 +170,7 @@
 
   <footer>
     <div class="foot-brand"><img src="/icon-felipe.png" alt="Felipe Reyes">Reyes IA · Felipe Reyes</div>
-    <div class="foot-sub">reyesia.com · Programa de Adopción Profunda de IA</div>
+    <div class="foot-sub">reyesia.com · Pack de 3 Talleres de Claude</div>
   </footer>
 </div>
 
@@ -186,7 +183,9 @@
    ========================================================================= */
 const DATA = {
   cliente: "Lucas Maq",
-  programa: "Programa de Adopción de IA con Claude",
+  logo: "/panel-clientes/logos/lucas-maq.png",
+  unidad: "taller",   // 'taller' (pack de 3) o 'sesión' (adopción profunda)
+  programa: "Los 3 Talleres de Claude",
   sesiones: [
     { n:1, nombre:"Fundamentos de IA y primeros pasos con Claude", fecha:"2026-07-27T13:00:00Z", temas:[
       ["Intro a la Inteligencia Artificial",0],["3 verdades sobre el uso de IA",0],["Intro al mundo LLM",0],
@@ -203,6 +202,11 @@ const DATA = {
       ["Live Artifacts",0],["Introducción a Agentes",0],["Agentes optimizados",0] ]}
   ]
 };
+
+/* ---------- unidad (taller / sesión) ---------- */
+const U = (DATA.unidad === 'taller')
+  ? { sing:'taller', Sing:'Taller', plural:'talleres', prox:'Próximo taller', doneLbl:'Completo', proxLbl:'Próximo', complAdj:'completos' }
+  : { sing:'sesión', Sing:'Sesión', plural:'sesiones', prox:'Próxima sesión', doneLbl:'Completa', proxLbl:'Próxima', complAdj:'completas' };
 
 /* ---------- helpers ---------- */
 const MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
@@ -237,8 +241,8 @@ function pintarNext(){
   document.getElementById('next').innerHTML = `
     ${cal}
     <div class="next-body">
-      <div class="next-tag">Próxima sesión</div>
-      <div class="next-title">Sesión ${prox.n} · ${prox.nombre}</div>
+      <div class="next-tag">${U.prox}</div>
+      <div class="next-title">${U.Sing} ${prox.n} · ${prox.nombre}</div>
       <div class="next-when">${cuando}</div>
     </div>`;
 }
@@ -253,7 +257,7 @@ function pintarOverview(){
   const pct = tot ? Math.round(done/tot*100) : 0;
   document.getElementById('ov-pct').textContent = pct+'%';
   document.getElementById('ov-meta').innerHTML =
-    `<b>${done} de ${tot}</b> temas · <b>${sesDone} de ${DATA.sesiones.length}</b> sesiones completas`;
+    `<b>${done} de ${tot}</b> temas · <b>${sesDone} de ${DATA.sesiones.length}</b> ${U.plural} ${U.complAdj}`;
   setTimeout(()=>document.getElementById('ov-bar').style.width = pct+'%', 120);
   if(done===0)
     document.getElementById('sec-sub').textContent =
@@ -269,9 +273,9 @@ function pintarSesiones(){
     const est = estadoSesion(s);
     const v = s.temas.filter(t=>t[1]).length, t = s.temas.length;
     const f = fechaLarga(s.fecha);
-    const badge = est==='done' ? '<span class="badge done">Completa</span>'
+    const badge = est==='done' ? `<span class="badge done">${U.doneLbl}</span>`
                 : est==='curso' ? '<span class="badge curso">En curso</span>'
-                : '<span class="badge prox">Próxima</span>';
+                : `<span class="badge prox">${U.proxLbl}</span>`;
     const fechaTxt = f ? (f.txt + ' · ' + f.hora + ' hrs' + (s.ejemplo?' (por agendar)':'')) : 'Por agendar';
     const abierta = (i === iProx); // la sesión que viene arranca abierta
     const temas = s.temas.map(([nombre,visto])=>`
@@ -298,11 +302,23 @@ function pintarSesiones(){
   }).join('');
 }
 
+/* ---------- cliente (logo o inicial) ---------- */
+function pintarCliente(){
+  const ini = DATA.cliente.trim().charAt(0).toUpperCase();
+  const marca = DATA.logo
+    ? `<div class="client-logo"><img src="${DATA.logo}" alt="${DATA.cliente}"></div>`
+    : `<div class="client-badge">${ini}</div>`;
+  document.getElementById('client-row').innerHTML = `
+    ${marca}
+    <div class="client-t">
+      <div class="cl-label">Programa para</div>
+      <div class="cl-name">${DATA.cliente}</div>
+    </div>`;
+}
+
 /* ---------- init ---------- */
 document.getElementById('eb-cliente').textContent = DATA.cliente;
-document.getElementById('cli-name').textContent = DATA.cliente;
-document.getElementById('cli-badge').textContent = DATA.cliente.trim().charAt(0).toUpperCase();
-pintarNext(); pintarOverview(); pintarSesiones();
+pintarCliente(); pintarNext(); pintarOverview(); pintarSesiones();
 </script>
 </body>
 </html>
