@@ -111,6 +111,7 @@
   .live-pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--green);
     background:var(--greenbg);border:1px solid #cfe6d6;border-radius:100px;padding:4px 11px;}
   .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(22,163,74,0.5);animation:pulse 2.4s infinite;}
+  .live-pill.static{color:var(--sub);background:#eef1f6;border-color:var(--border);}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(22,163,74,0.5);}50%{box-shadow:0 0 0 6px rgba(22,163,74,0);}}
   .section-sub{font-size:13px;color:var(--sub);margin-bottom:16px;}
 
@@ -215,7 +216,7 @@
 
   <div class="section-head">
     <h2>Así vamos</h2>
-    <span class="live-pill"><span class="live-dot"></span>Progreso en vivo</span>
+    <span class="live-pill" id="live-pill"><span class="live-dot"></span>Progreso en vivo</span>
   </div>
   <p class="section-sub" id="sec-sub">El mismo avance que Felipe registra en cada sesión, reflejado aquí para tu equipo.</p>
 
@@ -255,7 +256,7 @@
    Aquí van los datos REALES de Peñuelas para que veas el resultado.
    Nota: la sesión 5 lleva una fecha de EJEMPLO (en el panel aún está por agendar).
    ========================================================================= */
-const DATA = {
+const BAKED = {
   cliente: "Lucas Maq",
   logo: "/panel-clientes/logos/lucas-maq.png",
   unidad: "taller",   // 'taller' (pack de 3) o 'sesión' (adopción profunda)
@@ -278,10 +279,16 @@ const DATA = {
   ]
 };
 
-/* ---------- unidad (taller / sesión) ---------- */
-const U = (DATA.unidad === 'taller')
-  ? { sing:'taller', Sing:'Taller', plural:'talleres', prox:'Próximo taller', doneLbl:'Completo', proxLbl:'Próximo', complAdj:'completos' }
-  : { sing:'sesión', Sing:'Sesión', plural:'sesiones', prox:'Próxima sesión', doneLbl:'Completa', proxLbl:'Próxima', complAdj:'completas' };
+/* ---------- estado global (se llena en arranca) ---------- */
+let DATA = null, U = null;
+function unidadDe(u){
+  return (u === 'taller')
+    ? { sing:'taller', Sing:'Taller', plural:'talleres', prox:'Próximo taller', doneLbl:'Completo', proxLbl:'Próximo', complAdj:'completos' }
+    : { sing:'sesión', Sing:'Sesión', plural:'sesiones', prox:'Próxima sesión', doneLbl:'Completa', proxLbl:'Próxima', complAdj:'completas' };
+}
+const sesNombre = s => s.nombre || (U.Sing + ' ' + s.n);
+const esc = str => String(str == null ? '' : str)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
 /* ---------- helpers ---------- */
 const MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
@@ -363,14 +370,14 @@ function pintarSesiones(){
     const temas = s.temas.map(([nombre,visto])=>`
       <div class="tema ${visto?'v':'p'}">
         <span class="tick ${visto?'v':'p'}">${visto?'✓':''}</span>
-        <span class="tx">${nombre}</span>
+        <span class="tx">${esc(nombre)}</span>
       </div>`).join('');
     return `
     <div class="ses ${est} ${abierta?'open':''}" data-i="${i}">
       <div class="ses-head" onclick="this.parentNode.classList.toggle('open')">
         <div class="ses-num">${s.n}</div>
         <div class="ses-t">
-          <div class="ses-name">${s.nombre}</div>
+          <div class="ses-name">${esc(sesNombre(s))}</div>
           <div class="ses-date">${fechaTxt}</div>
         </div>
         <div class="ses-right">
@@ -388,22 +395,63 @@ function pintarSesiones(){
 function pintarCliente(){
   const ini = DATA.cliente.trim().charAt(0).toUpperCase();
   const marca = DATA.logo
-    ? `<div class="client-logo"><img src="${DATA.logo}" alt="${DATA.cliente}"></div>`
+    ? `<div class="client-logo"><img id="cli-logo-img" src="${DATA.logo}" alt="${esc(DATA.cliente)}"></div>`
     : `<div class="client-badge">${ini}</div>`;
   document.getElementById('client-row').innerHTML = `
     ${marca}
     <div class="client-t">
       <div class="cl-label">Programa para</div>
-      <div class="cl-name">${DATA.cliente}</div>
+      <div class="cl-name">${esc(DATA.cliente)}</div>
     </div>`;
+  // si el cliente no tiene logo cargado, caemos a la inicial
+  const im = document.getElementById('cli-logo-img');
+  if (im) im.onerror = () => {
+    const box = im.closest('.client-logo');
+    if (box) box.outerHTML = `<div class="client-badge">${ini}</div>`;
+  };
 }
 
-/* ---------- init ---------- */
-document.getElementById('eb-cliente').textContent = DATA.cliente;
-const lugEl = document.getElementById('lugar');
-if(DATA.lugar) lugEl.innerHTML = `<span class="pin">📍</span><span><b>Dónde:</b> ${DATA.lugar}</span>`;
-else lugEl.style.display = 'none';
-pintarCliente(); pintarFechas(); pintarOverview(); pintarSesiones();
+/* ---------- pintar todo ---------- */
+function arranca(data, live){
+  DATA = data;
+  U = unidadDe(DATA.unidad);
+  document.title = `${DATA.cliente} · Los 3 Talleres de Claude`;
+  document.getElementById('eb-cliente').textContent = DATA.cliente;
+
+  const lugEl = document.getElementById('lugar');
+  if (DATA.lugar){
+    lugEl.style.display = '';
+    lugEl.innerHTML = `<span class="pin">📍</span><span><b>Dónde:</b> ${esc(DATA.lugar)}</span>`;
+  } else { lugEl.style.display = 'none'; }
+
+  // La etiqueta "en vivo" solo se muestra si los datos vienen del servidor.
+  const pill = document.getElementById('live-pill');
+  if (pill && !live){ pill.textContent = 'Al día de hoy'; pill.classList.add('static'); }
+
+  pintarCliente(); pintarFechas(); pintarOverview(); pintarSesiones();
+}
+
+/* ---------- bootstrap: con token = en vivo; sin token = demo horneada ---------- */
+(async () => {
+  const params = new URLSearchParams(location.search);
+  const token = params.get('c') || params.get('t');
+  if (token){
+    try {
+      const r = await fetch('/api/afiche?c=' + encodeURIComponent(token));
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error || ('HTTP ' + r.status));
+      arranca(j, true);
+    } catch (e){
+      arranca(BAKED, false); // algo mínimo mientras
+      document.getElementById('sesiones').insertAdjacentHTML('beforebegin',
+        `<div style="background:#FEF2F2;border:1px solid #FECACA;color:#991B1B;border-radius:12px;padding:14px 16px;margin-bottom:12px;font-size:13px">
+           No pudimos cargar el progreso en vivo (${esc(String(e.message))}). Recarga en un momento.
+         </div>`);
+    }
+  } else {
+    arranca(BAKED, false);
+  }
+})();
 </script>
 </body>
 </html>
