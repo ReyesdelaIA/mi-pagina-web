@@ -30,11 +30,14 @@
   .poster::after{content:'';position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;
     background:radial-gradient(circle,rgba(232,136,58,0.22),transparent 68%);pointer-events:none;}
   .poster-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;}
-  .brand-row{display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap;}
-  .brand-logo{height:26px;width:auto;display:block;}
-  .brand-sep{width:1px;height:22px;background:rgba(255,255,255,0.22);}
-  .brand-claude{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.85);}
-  .brand-claude img{width:18px;height:18px;border-radius:5px;}
+  .brand-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px;}
+  .brand-left{display:flex;align-items:center;gap:14px;min-width:0;flex-wrap:wrap;}
+  .brand-logo{height:40px;width:auto;display:block;}
+  .brand-sep{width:1px;height:28px;background:rgba(255,255,255,0.22);}
+  .brand-claude{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.85);}
+  .brand-claude img{width:20px;height:20px;border-radius:5px;}
+  .brand-icon{width:48px;height:48px;border-radius:50%;flex-shrink:0;object-fit:cover;
+    border:2px solid rgba(255,255,255,0.5);box-shadow:0 6px 18px -6px rgba(0,0,0,0.5);}
 
   .eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:0.11em;
     text-transform:uppercase;color:#F4B77E;background:rgba(232,136,58,0.16);border:1px solid rgba(232,136,58,0.34);
@@ -53,20 +56,27 @@
   .client-t .cl-label{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
   .client-t .cl-name{font-size:19px;font-weight:800;letter-spacing:-0.01em;}
 
-  /* próxima sesión destacada */
-  .next{margin-top:22px;background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.16);
-    border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
-    backdrop-filter:blur(6px);}
-  .next-cal{width:60px;height:64px;border-radius:12px;flex-shrink:0;overflow:hidden;background:#fff;
-    display:flex;flex-direction:column;text-align:center;box-shadow:0 8px 20px -10px rgba(0,0,0,0.5);}
-  .next-cal .m{background:var(--amber);color:#fff;font-size:10px;font-weight:800;letter-spacing:0.1em;padding:3px 0;text-transform:uppercase;}
-  .next-cal .d{flex:1;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:var(--navy1);}
-  .next-body{flex:1;min-width:160px;}
-  .next-tag{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#F4B77E;margin-bottom:3px;}
-  .next-title{font-size:16px;font-weight:700;line-height:1.25;}
-  .next-when{font-size:13px;color:rgba(255,255,255,0.82);margin-top:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .next-when b{font-weight:600;color:#fff;}
-  .next-when .dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.5);}
+  /* las 3 fechas */
+  .fechas-label{margin-top:22px;margin-bottom:11px;font-size:11px;font-weight:700;letter-spacing:0.1em;
+    text-transform:uppercase;color:rgba(255,255,255,0.62);}
+  .fechas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .fecha{display:flex;align-items:center;gap:13px;background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:14px 15px;position:relative;}
+  .fecha.next{background:rgba(232,136,58,0.15);border-color:rgba(232,136,58,0.5);
+    box-shadow:0 8px 26px -12px rgba(232,136,58,0.6);}
+  .f-cal{width:50px;height:56px;border-radius:11px;flex-shrink:0;overflow:hidden;background:#fff;
+    display:flex;flex-direction:column;text-align:center;box-shadow:0 6px 16px -8px rgba(0,0,0,0.5);}
+  .f-cal .m{background:var(--navy2);color:#fff;font-size:9.5px;font-weight:800;letter-spacing:0.1em;padding:3px 0;text-transform:uppercase;}
+  .fecha.next .f-cal .m{background:var(--amber);}
+  .f-cal .d{flex:1;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:var(--navy1);}
+  .f-body{min-width:0;}
+  .f-tag{font-size:11.5px;font-weight:800;letter-spacing:0.02em;color:#fff;margin-bottom:3px;}
+  .fecha.next .f-tag{color:#F7C79B;}
+  .f-when{font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.35;}
+  .f-when b{color:#fff;font-weight:600;}
+  .f-prox{position:absolute;top:-8px;right:12px;background:var(--amber);color:#fff;font-size:9px;font-weight:800;
+    letter-spacing:0.08em;text-transform:uppercase;padding:3px 9px;border-radius:100px;box-shadow:0 4px 10px -3px rgba(0,0,0,0.4);}
+  @media(max-width:640px){ .fechas{grid-template-columns:1fr;} }
 
   /* ===== MIRROR / PROGRESO ===== */
   .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:30px 0 4px;flex-wrap:wrap;}
@@ -135,9 +145,12 @@
 <div class="poster">
   <div class="poster-inner">
     <div class="brand-row">
-      <img class="brand-logo" src="/logo%20reyes%20IA%20horizontal%20blanco.png" alt="Reyes IA">
-      <div class="brand-sep"></div>
-      <span class="brand-claude"><img src="/talleres/icon-claude.png" alt="Claude">Pack de 3 Talleres</span>
+      <div class="brand-left">
+        <img class="brand-logo" src="/logo%20reyes%20IA%20horizontal%20blanco.png" alt="Reyes IA">
+        <div class="brand-sep"></div>
+        <span class="brand-claude"><img src="/talleres/icon-claude.png" alt="Claude">Pack de 3 Talleres</span>
+      </div>
+      <img class="brand-icon" src="/icon-felipe.png" alt="Felipe Reyes">
     </div>
 
     <span class="eyebrow">✦ Comunicación interna · <span id="eb-cliente">Lucas Maq</span></span>
@@ -146,7 +159,8 @@
 
     <div class="client-row" id="client-row"></div>
 
-    <div class="next" id="next"></div>
+    <div class="fechas-label">Las 3 fechas</div>
+    <div class="fechas" id="fechas"></div>
   </div>
 </div>
 
@@ -219,7 +233,11 @@ function fechaLarga(iso){
   const hora = d.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:TZ});
   const dia = d.toLocaleDateString('es-CL',{day:'numeric',timeZone:TZ});
   const mes = MESES[+d.toLocaleDateString('en-CA',{month:'numeric',timeZone:TZ})-1];
-  return { txt, hora, dia, mes };
+  // corta: "Lun 27 jul"
+  let corta = d.toLocaleDateString('es-CL',{weekday:'short',day:'numeric',month:'short',timeZone:TZ})
+                .replace('.','').replace(/ de /,' ');
+  corta = corta.charAt(0).toUpperCase()+corta.slice(1);
+  return { txt, hora, dia, mes, corta };
 }
 function estadoSesion(s){
   const v = s.temas.filter(t=>t[1]).length, t = s.temas.length;
@@ -228,23 +246,26 @@ function estadoSesion(s){
   return 'prox';
 }
 
-/* ---------- poster: próxima sesión ---------- */
-function pintarNext(){
-  const ahora = new Date();
-  // primera sesión no completa (la que "se viene")
-  const prox = DATA.sesiones.find(s => estadoSesion(s)!=='done') || DATA.sesiones[DATA.sesiones.length-1];
-  const f = fechaLarga(prox.fecha);
-  const cal = f ? `<div class="next-cal"><div class="m">${f.mes}</div><div class="d">${f.dia}</div></div>` : '';
-  const cuando = f
-    ? `<span><b>${f.txt}</b></span><span class="dot"></span><span><b>${f.hora} hrs</b></span>`
-    : `<span><b>Por agendar</b></span>`;
-  document.getElementById('next').innerHTML = `
-    ${cal}
-    <div class="next-body">
-      <div class="next-tag">${U.prox}</div>
-      <div class="next-title">${U.Sing} ${prox.n} · ${prox.nombre}</div>
-      <div class="next-when">${cuando}</div>
-    </div>`;
+/* ---------- poster: las 3 fechas (la próxima resaltada) ---------- */
+function pintarFechas(){
+  const iProx = DATA.sesiones.findIndex(s => estadoSesion(s)!=='done');
+  document.getElementById('fechas').innerHTML = DATA.sesiones.map((s,i)=>{
+    const f = fechaLarga(s.fecha);
+    const esNext = (i === iProx);
+    const cal = f
+      ? `<div class="f-cal"><div class="m">${f.mes}</div><div class="d">${f.dia}</div></div>`
+      : `<div class="f-cal"><div class="m">—</div><div class="d">·</div></div>`;
+    const when = f ? `<b>${f.corta}</b> · ${f.hora} hrs` : 'Por agendar';
+    return `
+      <div class="fecha ${esNext?'next':''}">
+        ${esNext?'<span class="f-prox">Próximo</span>':''}
+        ${cal}
+        <div class="f-body">
+          <div class="f-tag">${U.Sing} ${s.n}</div>
+          <div class="f-when">${when}</div>
+        </div>
+      </div>`;
+  }).join('');
 }
 
 /* ---------- overview ---------- */
@@ -261,7 +282,7 @@ function pintarOverview(){
   setTimeout(()=>document.getElementById('ov-bar').style.width = pct+'%', 120);
   if(done===0)
     document.getElementById('sec-sub').textContent =
-      'El programa recién parte. Aquí van las ' + tot + ' temáticas del recorrido — se irán marcando ✓ a medida que las veamos en cada sesión.';
+      'El programa recién parte. Aquí van las ' + tot + ' temáticas del recorrido — se irán marcando ✓ a medida que las veamos en cada ' + U.sing + '.';
 }
 
 /* ---------- sesiones ---------- */
@@ -318,7 +339,7 @@ function pintarCliente(){
 
 /* ---------- init ---------- */
 document.getElementById('eb-cliente').textContent = DATA.cliente;
-pintarCliente(); pintarNext(); pintarOverview(); pintarSesiones();
+pintarCliente(); pintarFechas(); pintarOverview(); pintarSesiones();
 </script>
 </body>
 </html>
