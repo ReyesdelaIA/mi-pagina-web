@@ -614,7 +614,7 @@ async function renderDetail(programaId){
     <div class="barra-ficha">
       <div class="back-btn" onclick="location.hash='#/'">← Volver al panel</div>
       <div class="acciones-ficha">
-        <button class="btn-compartir" onclick="compartirVista('${programaId}', this)">🔗 Compartir con el cliente</button>
+        <button class="btn-compartir" onclick="compartirVista('${programa.share_token || ''}', this)">🔗 Compartir afiche con el cliente</button>
         <button class="btn-duplicar" onclick="abrirNuevoCliente('${programaId}')">⧉ Duplicar este programa</button>
         <button class="btn-eliminar" onclick="eliminarPrograma('${programaId}', ${JSON.stringify(programa.cliente).replace(/"/g,'&quot;')}, ${temas.length})">🗑 Eliminar</button>
       </div>
@@ -873,19 +873,25 @@ async function addTema(programaId, numeroSesion, inputEl){
 // Arma el enlace del reporte para CUALQUIER cliente (el id lo genera la base
 // al crearlo). Muestra el link en pantalla para copiar o abrir; no depende
 // de nada externo.
-function compartirVista(programaId, btn){
+function compartirVista(token, btn){
   const panel = document.getElementById('sharePanel');
   if (panel.classList.contains('show')){ panel.classList.remove('show'); panel.innerHTML = ''; return; }
 
-  const url = `${location.origin}/panel-clientes/ver.html?id=${programaId}`;
+  if (!token){
+    panel.innerHTML = `<div class="sp-title">Este cliente aún no tiene link. Recarga la página e inténtalo de nuevo.</div>`;
+    panel.classList.add('show');
+    return;
+  }
+
+  const url = `${location.origin}/taller/${token}`;
   panel.innerHTML = `
-    <div class="sp-title">🔗 Enlace de reporte para el cliente <span class="sp-badge">solo lectura</span></div>
+    <div class="sp-title">🔗 Afiche del cliente <span class="sp-badge">solo lectura · en vivo</span></div>
     <div class="sp-row">
       <input class="sp-url" readonly value="${url}" onclick="this.select()">
       <button class="sp-copy" onclick="copiarUrl(${JSON.stringify(url)}, this)">Copiar</button>
       <a class="sp-open" href="${url}" target="_blank" rel="noopener">Abrir ↗</a>
     </div>
-    <div class="sp-hint">Compártelo una sola vez: el reporte se actualiza solo cada vez que marcas avances.</div>`;
+    <div class="sp-hint">Mándaselo una sola vez: el afiche muestra las fechas, el lugar y el avance, y se actualiza solo cada vez que marcas temas acá. No incluye tus comentarios internos.</div>`;
   panel.classList.add('show');
   panel.querySelector('.sp-url').select();
 }
