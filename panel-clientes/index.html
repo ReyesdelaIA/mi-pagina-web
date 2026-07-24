@@ -48,6 +48,7 @@
   .client-card .name{font-weight:700;font-size:16px;letter-spacing:-.01em;margin-bottom:3px;}
   .client-card .meta{font-size:12px;color:var(--sub);margin-bottom:15px;}
   .progress-track{height:7px;background:#edeeec;border-radius:6px;overflow:hidden;margin-bottom:8px;}
+  .client-card.completado .progress-fill{background:linear-gradient(90deg,#16A34A,#22C55E);}
   .progress-fill{height:100%;background:linear-gradient(90deg,var(--navy3),var(--navy1));border-radius:6px;
     transition:width .9s cubic-bezier(.22,1,.36,1);}
   .progress-text{font-size:11.5px;color:var(--sub);font-weight:600;display:flex;justify-content:space-between;letter-spacing:.01em;}
@@ -409,15 +410,19 @@ async function renderLanding(){
   const mentorias = programas.filter(p => p.tipo === 'mentoria_1a1');
 
   const cardHtml = p => {
+    const completado = p.estado === 'completado';
     const total = p.total_sesiones || 8;
     const g = prog[p.id] || { total: 0, listos: 0, ses: {} };
-    const pct = g.total ? Math.round(g.listos / g.total * 100) : 0;
+    const pct = completado ? 100 : (g.total ? Math.round(g.listos / g.total * 100) : 0);
     const done = Object.values(g.ses).filter(s => s.t > 0 && s.v === s.t).length;
-    return `<a class="client-card" onclick="location.hash='#/cliente/${p.id}'">
+    const pie = completado
+      ? `<span>Programa completado</span><span>✓</span>`
+      : `<span>${done}/${total} sesiones</span><span>${pct}%</span>`;
+    return `<a class="client-card ${completado ? 'completado' : ''}" onclick="location.hash='#/cliente/${p.id}'">
       <div class="name">${esc(p.cliente)}</div>
       <div class="meta">${esc(p.contacto || '')} ${p.contacto ? '· ' : ''}<span class="badge badge-${p.estado}">${p.estado}</span></div>
       <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <div class="progress-text"><span>${done}/${total} sesiones</span><span>${pct}%</span></div>
+      <div class="progress-text">${pie}</div>
     </a>`;
   };
 
