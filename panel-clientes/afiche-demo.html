@@ -434,7 +434,12 @@ function arranca(data, live){
 /* ---------- bootstrap: con token = en vivo; sin token = demo horneada ---------- */
 (async () => {
   const params = new URLSearchParams(location.search);
-  const token = params.get('c') || params.get('t');
+  let token = params.get('c') || params.get('t');
+  // La ruta bonita /taller/<token> no deja query en el navegador: leerlo del path.
+  if (!token){
+    const m = location.pathname.match(/\/taller\/([^\/?#]+)/);
+    if (m) token = decodeURIComponent(m[1]);
+  }
   if (token){
     try {
       const r = await fetch('/api/afiche?c=' + encodeURIComponent(token));
