@@ -307,9 +307,10 @@ function fechaLarga(iso){
   corta = corta.charAt(0).toUpperCase()+corta.slice(1);
   return { txt, hora, dia, mes, corta };
 }
+function fechaPaso(s){ return s.fecha && new Date(s.fecha).getTime() < Date.now(); }
 function estadoSesion(s){
   const v = s.temas.filter(t=>t[1]).length, t = s.temas.length;
-  if(t && v===t) return 'done';
+  if((t && v===t) || fechaPaso(s)) return 'done'; // hecha si todo marcado o la fecha ya pasó
   if(v>0) return 'curso';
   return 'prox';
 }
@@ -340,13 +341,16 @@ function pintarFechas(){
 function pintarOverview(){
   let tot=0, done=0, sesDone=0;
   DATA.sesiones.forEach(s=>{
-    tot += s.temas.length; done += s.temas.filter(t=>t[1]).length;
+    tot += s.temas.length;
+    done += fechaPaso(s) ? s.temas.length : s.temas.filter(t=>t[1]).length; // cubierto: marcado o fecha pasada
     if(estadoSesion(s)==='done') sesDone++;
   });
-  const pct = tot ? Math.round(done/tot*100) : 0;
+  const totSes = DATA.sesiones.length;
+  // El avance se mide por SESIONES completas, no por temas.
+  const pct = totSes ? Math.round(sesDone/totSes*100) : 0;
   document.getElementById('ov-pct').textContent = pct+'%';
   document.getElementById('ov-meta').innerHTML =
-    `<b>${done} de ${tot}</b> temas · <b>${sesDone} de ${DATA.sesiones.length}</b> ${U.plural} ${U.complAdj}`;
+    `<b>${sesDone} de ${totSes}</b> ${U.plural} ${U.complAdj} · <b>${done} de ${tot}</b> temas`;
   setTimeout(()=>document.getElementById('ov-bar').style.width = pct+'%', 120);
   if(done===0)
     document.getElementById('sec-sub').textContent =

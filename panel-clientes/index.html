@@ -396,14 +396,23 @@ async function renderLanding(){
 
   if (error){ app.innerHTML = '<div class="empty">Error cargando datos: '+esc(error.message)+'</div>'; return; }
 
-  // Progreso real de cada tarjeta desde los checks (una sola consulta liviana).
-  const { data: temas } = await sb.from('temario_temas').select('programa_id,numero_sesion,estado');
+  // Progreso de cada tarjeta por SESIONES (una sesión cuenta como hecha si todos
+  // sus temas están marcados o si su fecha ya pasó). Dos consultas livianas.
+  const [{ data: temas }, { data: ses }] = await Promise.all([
+    sb.from('temario_temas').select('programa_id,numero_sesion,estado'),
+    sb.from('sesiones_cliente').select('programa_id,numero_sesion,fecha_hora')
+  ]);
+  const ahoraL = Date.now();
   const prog = {};
+  const gDe = id => (prog[id] ||= { ses: {} });
   (temas || []).forEach(t => {
-    const g = (prog[t.programa_id] ||= { total: 0, listos: 0, ses: {} });
-    g.total++; if (t.estado === 'visto') g.listos++;
-    const s = (g.ses[t.numero_sesion] ||= { t: 0, v: 0 });
+    const s = (gDe(t.programa_id).ses[t.numero_sesion] ||= { t: 0, v: 0, paso: false });
     s.t++; if (t.estado === 'visto') s.v++;
+  });
+  (ses || []).forEach(r => {
+    if (!r.fecha_hora) return;
+    const s = (gDe(r.programa_id).ses[r.numero_sesion] ||= { t: 0, v: 0, paso: false });
+    if (new Date(r.fecha_hora).getTime() < ahoraL) s.paso = true;
   });
 
   const empresas = programas.filter(p => (p.tipo || 'empresa') === 'empresa');
@@ -412,9 +421,9 @@ async function renderLanding(){
   const cardHtml = p => {
     const completado = p.estado === 'completado';
     const total = p.total_sesiones || 8;
-    const g = prog[p.id] || { total: 0, listos: 0, ses: {} };
-    const pct = completado ? 100 : (g.total ? Math.round(g.listos / g.total * 100) : 0);
-    const done = Object.values(g.ses).filter(s => s.t > 0 && s.v === s.t).length;
+    const g = prog[p.id] || { ses: {} };
+    const done = Object.values(g.ses).filter(s => (s.t > 0 && s.v === s.t) || s.paso).length;
+    const pct = completado ? 100 : (total ? Math.round(done / total * 100) : 0);
     const pie = completado
       ? `<span>Programa completado</span><span>✓</span>`
       : `<span>${done}/${total} sesiones</span><span>${pct}%</span>`;
@@ -539,9 +548,10 @@ async function renderDetail(programaId){
 
   const totalTemas = temas.length;
   const temasCubiertos = temas.filter(temaCubierto).length;
-  const pct = totalTemas ? Math.round(temasCubiertos / totalTemas * 100) : 0;
   let done = 0;
   for (let n = 1; n <= maxNum; n++){ if ((bySesion[n] || []).length && sesionCompleta(n)) done++; }
+  // El avance se mide por SESIONES completas sobre el total, no por temas.
+  const pct = total ? Math.round(done / total * 100) : 0;
 
   // Para arrastrar pendientes: una sesión "ya se hizo" si tiene algún tema
   // marcado o su fecha ya pasó.
