@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Programa de IA con Claude · Lucas Maq</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy1:#042C53; --navy2:#0C447C; --navy3:#185FA5;
+    --amber:#E8883A; --amber-d:#C56B1E;
+    --green:#16A34A; --greenbg:#EAF7EF;
+    --bg:#f4f5f7; --card:#ffffff; --border:#e6e8ec;
+    --text:#16202e; --sub:#64717f; --faint:#9aa4b0;
+  }
+  html{-webkit-font-smoothing:antialiased;}
+  body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 18px 70px;}
+
+  /* ===== POSTER / AFICHE ===== */
+  .poster{
+    position:relative;overflow:hidden;border-radius:0 0 26px 26px;
+    background:linear-gradient(135deg,var(--navy1) 0%,var(--navy2) 55%,var(--navy3) 100%);
+    color:#fff;padding:26px 26px 30px;
+  }
+  .poster::after{content:'';position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;
+    background:radial-gradient(circle,rgba(232,136,58,0.22),transparent 68%);pointer-events:none;}
+  .poster-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;}
+  .brand-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px;}
+  .brand-left{padding-top:6px;}
+  .brand-left{display:flex;align-items:center;gap:14px;min-width:0;flex-wrap:wrap;}
+  .brand-logo{height:40px;width:auto;display:block;}
+  .brand-sep{width:1px;height:28px;background:rgba(255,255,255,0.22);}
+  .brand-claude{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.85);}
+  .brand-claude img{width:20px;height:20px;border-radius:5px;}
+  .brand-icon{width:120px;height:120px;border-radius:50%;flex-shrink:0;object-fit:cover;
+    border:3px solid rgba(255,255,255,0.55);box-shadow:0 10px 28px -8px rgba(0,0,0,0.55);}
+
+  /* fila superior: intro (izq) + presentador (der) */
+  .hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;}
+  .hero-intro{flex:1;min-width:0;}
+  .presenter{width:210px;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;text-align:right;}
+  .presenter .brand-icon{margin-bottom:13px;}
+  .p-name{font-size:17px;font-weight:800;letter-spacing:-0.01em;}
+  .p-role{font-size:12px;color:rgba(255,255,255,0.72);line-height:1.5;margin-top:5px;}
+  .p-stats{margin-top:12px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+  .p-stat{font-size:11.5px;color:rgba(255,255,255,0.88);background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);padding:4px 11px;border-radius:100px;white-space:nowrap;}
+  .p-stat b{color:#F4B77E;font-weight:700;}
+  @media(max-width:720px){
+    .hero-top{flex-direction:column;gap:22px;}
+    .presenter{width:auto;flex-direction:row;align-items:center;text-align:left;gap:15px;flex-wrap:wrap;
+      background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:14px;}
+    .presenter .brand-icon{width:76px;height:76px;margin-bottom:0;}
+    .p-stats{flex-direction:row;flex-wrap:wrap;align-items:flex-start;margin-top:8px;}
+  }
+
+  .eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:0.11em;
+    text-transform:uppercase;color:#F4B77E;background:rgba(232,136,58,0.16);border:1px solid rgba(232,136,58,0.34);
+    padding:5px 12px;border-radius:100px;margin-bottom:15px;}
+  .poster h1{font-size:clamp(24px,5vw,34px);font-weight:800;line-height:1.12;letter-spacing:-0.02em;margin-bottom:8px;}
+  .poster h1 span{color:#F4B77E;}
+  .poster-sub{font-size:14.5px;color:rgba(255,255,255,0.82);max-width:52ch;}
+
+  .client-row{display:flex;align-items:center;gap:14px;margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.14);}
+  .client-badge{width:52px;height:52px;border-radius:14px;flex-shrink:0;background:#fff;color:var(--navy1);
+    display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;letter-spacing:-0.02em;
+    box-shadow:0 8px 20px -8px rgba(0,0,0,0.4);}
+  .client-logo{background:#fff;border-radius:13px;padding:12px 18px;flex-shrink:0;
+    box-shadow:0 8px 22px -8px rgba(0,0,0,0.45);display:flex;align-items:center;}
+  .client-logo img{height:30px;width:auto;display:block;}
+  .client-t .cl-label{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+  .client-t .cl-name{font-size:19px;font-weight:800;letter-spacing:-0.01em;}
+
+  /* lugar destacado */
+  .lugar{display:inline-flex;align-items:center;gap:10px;margin-top:16px;
+    background:rgba(232,136,58,0.15);border:1px solid rgba(232,136,58,0.42);color:#F7C79B;
+    border-radius:13px;padding:11px 16px;font-size:14px;font-weight:600;line-height:1.35;}
+  .lugar .pin{font-size:17px;line-height:1;}
+  .lugar b{color:#fff;font-weight:700;}
+
+  /* las 3 fechas */
+  .fechas-label{margin-top:22px;margin-bottom:11px;font-size:11px;font-weight:700;letter-spacing:0.1em;
+    text-transform:uppercase;color:rgba(255,255,255,0.62);}
+  .fechas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .fecha{display:flex;align-items:center;gap:13px;background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:14px 15px;position:relative;}
+  .fecha.next{background:rgba(232,136,58,0.15);border-color:rgba(232,136,58,0.5);
+    box-shadow:0 8px 26px -12px rgba(232,136,58,0.6);}
+  .f-cal{width:50px;height:56px;border-radius:11px;flex-shrink:0;overflow:hidden;background:#fff;
+    display:flex;flex-direction:column;text-align:center;box-shadow:0 6px 16px -8px rgba(0,0,0,0.5);}
+  .f-cal .m{background:var(--navy2);color:#fff;font-size:9.5px;font-weight:800;letter-spacing:0.1em;padding:3px 0;text-transform:uppercase;}
+  .fecha.next .f-cal .m{background:var(--amber);}
+  .f-cal .d{flex:1;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:var(--navy1);}
+  .f-body{min-width:0;}
+  .f-tag{font-size:11.5px;font-weight:800;letter-spacing:0.02em;color:#fff;margin-bottom:3px;}
+  .fecha.next .f-tag{color:#F7C79B;}
+  .f-when{font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.35;}
+  .f-when b{color:#fff;font-weight:600;}
+  .f-prox{position:absolute;top:-8px;right:12px;background:var(--amber);color:#fff;font-size:9px;font-weight:800;
+    letter-spacing:0.08em;text-transform:uppercase;padding:3px 9px;border-radius:100px;box-shadow:0 4px 10px -3px rgba(0,0,0,0.4);}
+  @media(max-width:640px){ .fechas{grid-template-columns:1fr;} }
+
+  /* ===== MIRROR / PROGRESO ===== */
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:30px 0 4px;flex-wrap:wrap;}
+  .section-head h2{font-size:19px;font-weight:800;color:var(--navy1);letter-spacing:-0.01em;}
+  .live-pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--green);
+    background:var(--greenbg);border:1px solid #cfe6d6;border-radius:100px;padding:4px 11px;}
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(22,163,74,0.5);animation:pulse 2.4s infinite;}
+  .live-pill.static{color:var(--sub);background:#eef1f6;border-color:var(--border);}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(22,163,74,0.5);}50%{box-shadow:0 0 0 6px rgba(22,163,74,0);}}
+  .section-sub{font-size:13px;color:var(--sub);margin-bottom:16px;}
+
+  .overview{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 2px 14px rgba(16,32,55,0.05);}
+  .ov-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+  .ov-pct{font-size:30px;font-weight:800;color:var(--navy2);line-height:1;}
+  .ov-meta{font-size:13px;color:var(--sub);text-align:right;}
+  .ov-meta b{color:var(--text);font-weight:700;}
+  .track{height:10px;background:#e9ecf1;border-radius:100px;overflow:hidden;}
+  .track i{display:block;height:100%;background:linear-gradient(90deg,var(--navy3),var(--green));border-radius:100px;transition:width 1s cubic-bezier(.2,.7,.2,1);}
+
+  .ses{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden;
+    box-shadow:0 2px 12px rgba(16,32,55,0.04);}
+  .ses-head{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;user-select:none;}
+  .ses-num{width:38px;height:38px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    font-size:15px;font-weight:800;background:#eef1f6;color:var(--navy2);}
+  .ses.done .ses-num{background:var(--green);color:#fff;}
+  .ses.curso .ses-num{background:var(--amber);color:#fff;}
+  .ses-t{flex:1;min-width:0;}
+  .ses-name{font-size:14.5px;font-weight:700;color:var(--text);line-height:1.25;}
+  .ses-date{font-size:12px;color:var(--sub);margin-top:2px;}
+  .ses-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+  .badge{font-size:10.5px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;padding:4px 10px;border-radius:100px;white-space:nowrap;}
+  .badge.done{background:var(--greenbg);color:#15803d;}
+  .badge.curso{background:#FEF1E2;color:var(--amber-d);}
+  .badge.prox{background:#eef1f6;color:var(--navy2);}
+  .ses-count{font-size:12px;color:var(--faint);font-weight:600;font-variant-numeric:tabular-nums;}
+  .chev{width:16px;height:16px;color:var(--faint);transition:transform .25s;}
+  .ses.open .chev{transform:rotate(180deg);}
+
+  .ses-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .ses.open .ses-body{max-height:900px;}
+  .temas{padding:2px 18px 16px;border-top:1px solid var(--border);}
+  .tema{display:flex;align-items:flex-start;gap:11px;padding:9px 0;font-size:13.5px;line-height:1.4;}
+  .tema+.tema{border-top:1px solid #f2f4f7;}
+  .tick{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    font-size:11px;margin-top:1px;}
+  .tick.v{background:var(--green);color:#fff;}
+  .tick.p{background:#fff;border:1.6px solid #d4d9e0;color:transparent;}
+  .tema.v .tx{color:var(--text);}
+  .tema.p .tx{color:var(--sub);}
+
+  /* empresas que confían */
+  .clientes{margin-top:38px;text-align:center;}
+  .clientes-label{font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--faint);margin-bottom:18px;}
+  .logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:22px 34px;}
+  .logos img{height:27px;width:auto;filter:grayscale(1);opacity:0.55;transition:opacity .2s,filter .2s;}
+  .logos img:hover{filter:none;opacity:1;}
+  .logos .mas{font-size:13px;font-weight:700;color:var(--navy2);background:#eef1f6;border:1px solid var(--border);border-radius:100px;padding:7px 15px;}
+
+  footer{text-align:center;margin-top:34px;padding-top:22px;border-top:1px solid var(--border);}
+  .foot-brand{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:var(--navy1);}
+  .foot-brand img{width:26px;height:26px;border-radius:7px;}
+  .foot-sub{font-size:12px;color:var(--faint);margin-top:8px;}
+  .foot-sub a{color:var(--navy3);text-decoration:none;}
+
+  @media(max-width:520px){
+    .poster{padding:22px 18px 26px;border-radius:0 0 20px 20px;}
+    .next{padding:15px;}
+    .ov-meta{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+  <div class="poster-inner">
+    <div class="brand-row">
+      <div class="brand-left">
+        <img class="brand-logo" src="/logo%20reyes%20IA%20horizontal%20blanco.png" alt="Reyes IA">
+        <div class="brand-sep"></div>
+        <span class="brand-claude"><img src="/talleres/icon-claude.png" alt="Claude">Pack de 3 Talleres</span>
+      </div>
+    </div>
+
+    <div class="hero-top">
+      <div class="hero-intro">
+        <span class="eyebrow">✦ Comunicación interna · <span id="eb-cliente">Lucas Maq</span></span>
+        <h1>Los <span>3 Talleres</span><br>de Claude</h1>
+        <p class="poster-sub">Tres talleres en vivo con Felipe Reyes para que el equipo aprenda a trabajar con Claude — de los fundamentos a los agentes.</p>
+        <div class="client-row" id="client-row"></div>
+        <div class="lugar" id="lugar"></div>
+      </div>
+      <aside class="presenter">
+        <img class="brand-icon" src="/icon-felipe.png" alt="Felipe Reyes">
+        <div class="p-name">Felipe Reyes · Reyes IA 👑</div>
+        <div class="p-role">Referente en IA aplicada · Consultor en IA · Profesor universitario de IA · Cofundador de Reyes IA / LAP / Vekka</div>
+        <div class="p-stats">
+          <span class="p-stat"><b>+3.000</b> personas capacitadas</span>
+          <span class="p-stat"><b>+160</b> empresas asesoradas</span>
+        </div>
+      </aside>
+    </div>
+
+    <div class="fechas-label">Las 3 fechas</div>
+    <div class="fechas" id="fechas"></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="section-head">
+    <h2>Así vamos</h2>
+    <span class="live-pill" id="live-pill"><span class="live-dot"></span>Progreso en vivo</span>
+  </div>
+  <p class="section-sub" id="sec-sub">El mismo avance que Felipe registra en cada sesión, reflejado aquí para tu equipo.</p>
+
+  <div class="overview">
+    <div class="ov-top">
+      <div class="ov-pct" id="ov-pct">0%</div>
+      <div class="ov-meta" id="ov-meta"></div>
+    </div>
+    <div class="track"><i id="ov-bar" style="width:0"></i></div>
+  </div>
+
+  <div id="sesiones"></div>
+
+  <div class="clientes">
+    <div class="clientes-label">Algunas empresas que ya se capacitaron con Reyes IA</div>
+    <div class="logos">
+      <img src="/panel-clientes/logos/clientes/copec.png" alt="Copec">
+      <img src="/panel-clientes/logos/clientes/enel.png" alt="Enel">
+      <img src="/panel-clientes/logos/clientes/falabella.png" alt="Falabella">
+      <img src="/panel-clientes/logos/clientes/embonor.png" alt="Coca-Cola Embonor">
+      <img src="/panel-clientes/logos/clientes/skc.png" alt="SKC">
+      <img src="/panel-clientes/logos/clientes/pcfactory.png" alt="PC Factory">
+      <span class="mas">+150 más</span>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-brand"><img src="/icon-felipe.png" alt="Felipe Reyes">Reyes IA · Felipe Reyes</div>
+    <div class="foot-sub">reyesia.com · Pack de 3 Talleres de Claude</div>
+  </footer>
+</div>
+
+<script>
+/* =========================================================================
+   DATOS — en la versión real esto se reemplaza por una llamada segura
+   (una sola línea): const DATA = await fetch('/api/panel-publico?t=TOKEN').
+   Aquí van los datos REALES de Peñuelas para que veas el resultado.
+   Nota: la sesión 5 lleva una fecha de EJEMPLO (en el panel aún está por agendar).
+   ========================================================================= */
+const BAKED = {
+  cliente: "Lucas Maq",
+  logo: "/panel-clientes/logos/lucas-maq.png",
+  unidad: "taller",   // 'taller' (pack de 3) o 'sesión' (adopción profunda)
+  lugar: "En oficinas de Lucas Maq",
+  programa: "Los 3 Talleres de Claude",
+  sesiones: [
+    { n:1, nombre:"Fundamentos de IA y primeros pasos con Claude", fecha:"2026-07-27T13:00:00Z", temas:[
+      ["Intro a la Inteligencia Artificial",0],["3 verdades sobre el uso de IA",0],["Intro al mundo LLM",0],
+      ["Fundamentos del prompt",0],["Ejemplos de uso cotidiano",0],["Intro a Claude",0],["Activación de modelos",0],
+      ["4 esferas de la IA generativa",0],["Concepto: memorización",0],["Herramienta de dictado",0],
+      ["Confidencialidad",0],["Regulaciones actuales de IA",0],["Uso responsable",0],["La IA en los próximos años",0] ]},
+    { n:2, nombre:"Claude a fondo: razonamiento, proyectos y conectores", fecha:"2026-07-28T15:00:00Z", temas:[
+      ["Recap general y tour por Claude",0],["Los 3 mundos dentro de Claude",0],["Claude Chat",0],
+      ["Razonamiento (Sonnet / Opus)",0],["Tools / herramientas",0],["MCP: conexiones clave para el trabajo",0],
+      ["Formatos MD",0],["Proyectos en Claude",0],["Claude en Office",0],["Optimización del uso de tokens",0],["HTMLs",0] ]},
+    { n:3, nombre:"Skills, Cowork y agentes", fecha:"2026-07-29T13:00:00Z", temas:[
+      ["Skills",0],["Artefactos",0],["Claude Cowork",0],["Cowork: acciones reactivas",0],
+      ["Cowork: acciones programadas",0],["Cowork: acciones en vivo",0],["HTMLs con Claude",0],
+      ["Live Artifacts",0],["Introducción a Agentes",0],["Agentes optimizados",0] ]}
+  ]
+};
+
+/* ---------- estado global (se llena en arranca) ---------- */
+let DATA = null, U = null;
+function unidadDe(u){
+  return (u === 'taller')
+    ? { sing:'taller', Sing:'Taller', plural:'talleres', prox:'Próximo taller', doneLbl:'Completo', proxLbl:'Próximo', complAdj:'completos' }
+    : { sing:'sesión', Sing:'Sesión', plural:'sesiones', prox:'Próxima sesión', doneLbl:'Completa', proxLbl:'Próxima', complAdj:'completas' };
+}
+const sesNombre = s => s.nombre || (U.Sing + ' ' + s.n);
+const esc = str => String(str == null ? '' : str)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+/* ---------- helpers ---------- */
+const MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const TZ = 'America/Santiago'; // el afiche siempre muestra hora de Chile, sin importar el dispositivo
+function fechaLarga(iso){
+  if(!iso) return null;
+  const d = new Date(iso);
+  let txt = d.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long',timeZone:TZ});
+  txt = txt.charAt(0).toUpperCase()+txt.slice(1);
+  const hora = d.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:TZ});
+  const dia = d.toLocaleDateString('es-CL',{day:'numeric',timeZone:TZ});
+  const mes = MESES[+d.toLocaleDateString('en-CA',{month:'numeric',timeZone:TZ})-1];
+  // corta: "Lun 27 jul"
+  let corta = d.toLocaleDateString('es-CL',{weekday:'short',day:'numeric',month:'short',timeZone:TZ})
+                .replace('.','').replace(/ de /,' ');
+  corta = corta.charAt(0).toUpperCase()+corta.slice(1);
+  return { txt, hora, dia, mes, corta };
+}
+function fechaPaso(s){ return s.fecha && new Date(s.fecha).getTime() < Date.now(); }
+function estadoSesion(s){
+  const v = s.temas.filter(t=>t[1]).length, t = s.temas.length;
+  if((t && v===t) || fechaPaso(s)) return 'done'; // hecha si todo marcado o la fecha ya pasó
+  if(v>0) return 'curso';
+  return 'prox';
+}
+
+/* ---------- poster: las 3 fechas (la próxima resaltada) ---------- */
+function pintarFechas(){
+  const iProx = DATA.sesiones.findIndex(s => estadoSesion(s)!=='done');
+  document.getElementById('fechas').innerHTML = DATA.sesiones.map((s,i)=>{
+    const f = fechaLarga(s.fecha);
+    const esNext = (i === iProx);
+    const cal = f
+      ? `<div class="f-cal"><div class="m">${f.mes}</div><div class="d">${f.dia}</div></div>`
+      : `<div class="f-cal"><div class="m">—</div><div class="d">·</div></div>`;
+    const when = f ? `<b>${f.corta}</b> · ${f.hora} hrs` : 'Por agendar';
+    return `
+      <div class="fecha ${esNext?'next':''}">
+        ${esNext?'<span class="f-prox">Próximo</span>':''}
+        ${cal}
+        <div class="f-body">
+          <div class="f-tag">${U.Sing} ${s.n}</div>
+          <div class="f-when">${when}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+/* ---------- overview ---------- */
+function pintarOverview(){
+  let tot=0, done=0, sesDone=0;
+  DATA.sesiones.forEach(s=>{
+    tot += s.temas.length;
+    done += fechaPaso(s) ? s.temas.length : s.temas.filter(t=>t[1]).length; // cubierto: marcado o fecha pasada
+    if(estadoSesion(s)==='done') sesDone++;
+  });
+  const totSes = DATA.sesiones.length;
+  // El avance se mide por SESIONES completas, no por temas.
+  const pct = totSes ? Math.round(sesDone/totSes*100) : 0;
+  document.getElementById('ov-pct').textContent = pct+'%';
+  document.getElementById('ov-meta').innerHTML =
+    `<b>${sesDone} de ${totSes}</b> ${U.plural} ${U.complAdj} · <b>${done} de ${tot}</b> temas`;
+  setTimeout(()=>document.getElementById('ov-bar').style.width = pct+'%', 120);
+  if(done===0)
+    document.getElementById('sec-sub').textContent =
+      'El programa recién parte. Aquí van las ' + tot + ' temáticas del recorrido — se irán marcando ✓ a medida que las veamos en cada ' + U.sing + '.';
+}
+
+/* ---------- sesiones ---------- */
+function pintarSesiones(){
+  const cont = document.getElementById('sesiones');
+  // la sesión "que viene" (primera no completa) arranca abierta
+  const iProx = DATA.sesiones.findIndex(s => estadoSesion(s)!=='done');
+  cont.innerHTML = DATA.sesiones.map((s,i)=>{
+    const est = estadoSesion(s);
+    const v = s.temas.filter(t=>t[1]).length, t = s.temas.length;
+    const f = fechaLarga(s.fecha);
+    const badge = est==='done' ? `<span class="badge done">${U.doneLbl}</span>`
+                : est==='curso' ? '<span class="badge curso">En curso</span>'
+                : `<span class="badge prox">${U.proxLbl}</span>`;
+    const fechaTxt = f ? (f.txt + ' · ' + f.hora + ' hrs' + (s.ejemplo?' (por agendar)':'')) : 'Por agendar';
+    const abierta = (i === iProx); // la sesión que viene arranca abierta
+    const temas = s.temas.map(([nombre,visto])=>`
+      <div class="tema ${visto?'v':'p'}">
+        <span class="tick ${visto?'v':'p'}">${visto?'✓':''}</span>
+        <span class="tx">${esc(nombre)}</span>
+      </div>`).join('');
+    return `
+    <div class="ses ${est} ${abierta?'open':''}" data-i="${i}">
+      <div class="ses-head" onclick="this.parentNode.classList.toggle('open')">
+        <div class="ses-num">${s.n}</div>
+        <div class="ses-t">
+          <div class="ses-name">${esc(sesNombre(s))}</div>
+          <div class="ses-date">${fechaTxt}</div>
+        </div>
+        <div class="ses-right">
+          ${badge}
+          <span class="ses-count">${v}/${t}</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="ses-body"><div class="temas">${temas}</div></div>
+    </div>`;
+  }).join('');
+}
+
+/* ---------- cliente (logo o inicial) ---------- */
+function pintarCliente(){
+  const ini = DATA.cliente.trim().charAt(0).toUpperCase();
+  const marca = DATA.logo
+    ? `<div class="client-logo"><img id="cli-logo-img" src="${DATA.logo}" alt="${esc(DATA.cliente)}"></div>`
+    : `<div class="client-badge">${ini}</div>`;
+  document.getElementById('client-row').innerHTML = `
+    ${marca}
+    <div class="client-t">
+      <div class="cl-label">Programa para</div>
+      <div class="cl-name">${esc(DATA.cliente)}</div>
+    </div>`;
+  // si el cliente no tiene logo cargado, caemos a la inicial
+  const im = document.getElementById('cli-logo-img');
+  if (im) im.onerror = () => {
+    const box = im.closest('.client-logo');
+    if (box) box.outerHTML = `<div class="client-badge">${ini}</div>`;
+  };
+}
+
+/* ---------- pintar todo ---------- */
+function arranca(data, live){
+  DATA = data;
+  U = unidadDe(DATA.unidad);
+  document.title = `${DATA.cliente} · Los 3 Talleres de Claude`;
+  document.getElementById('eb-cliente').textContent = DATA.cliente;
+
+  const lugEl = document.getElementById('lugar');
+  if (DATA.lugar){
+    lugEl.style.display = '';
+    lugEl.innerHTML = `<span class="pin">📍</span><span><b>Dónde:</b> ${esc(DATA.lugar)}</span>`;
+  } else { lugEl.style.display = 'none'; }
+
+  // La etiqueta "en vivo" solo se muestra si los datos vienen del servidor.
+  const pill = document.getElementById('live-pill');
+  if (pill && !live){ pill.textContent = 'Al día de hoy'; pill.classList.add('static'); }
+
+  pintarCliente(); pintarFechas(); pintarOverview(); pintarSesiones();
+}
+
+/* ---------- bootstrap: con token = en vivo; sin token = demo horneada ---------- */
+(async () => {
+  const params = new URLSearchParams(location.search);
+  let token = params.get('c') || params.get('t');
+  // La ruta bonita /taller/<token> no deja query en el navegador: leerlo del path.
+  if (!token){
+    const m = location.pathname.match(/\/taller\/([^\/?#]+)/);
+    if (m) token = decodeURIComponent(m[1]);
+  }
+  if (token){
+    try {
+      const r = await fetch('/api/afiche?c=' + encodeURIComponent(token));
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error || ('HTTP ' + r.status));
+      arranca(j, true);
+    } catch (e){
+      arranca(BAKED, false); // algo mínimo mientras
+      document.getElementById('sesiones').insertAdjacentHTML('beforebegin',
+        `<div style="background:#FEF2F2;border:1px solid #FECACA;color:#991B1B;border-radius:12px;padding:14px 16px;margin-bottom:12px;font-size:13px">
+           No pudimos cargar el progreso en vivo (${esc(String(e.message))}). Recarga en un momento.
+         </div>`);
+    }
+  } else {
+    arranca(BAKED, false);
+  }
+})();
+</script>
+</body>
+</html>

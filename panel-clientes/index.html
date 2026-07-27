@@ -48,6 +48,7 @@
   .client-card .name{font-weight:700;font-size:16px;letter-spacing:-.01em;margin-bottom:3px;}
   .client-card .meta{font-size:12px;color:var(--sub);margin-bottom:15px;}
   .progress-track{height:7px;background:#edeeec;border-radius:6px;overflow:hidden;margin-bottom:8px;}
+  .client-card.completado .progress-fill{background:linear-gradient(90deg,#16A34A,#22C55E);}
   .progress-fill{height:100%;background:linear-gradient(90deg,var(--navy3),var(--navy1));border-radius:6px;
     transition:width .9s cubic-bezier(.22,1,.36,1);}
   .progress-text{font-size:11.5px;color:var(--sub);font-weight:600;display:flex;justify-content:space-between;letter-spacing:.01em;}
@@ -400,29 +401,42 @@ async function renderLanding(){
 
   if (error){ app.innerHTML = '<div class="empty">Error cargando datos: '+esc(error.message)+'</div>'; return; }
 
-  // Progreso real de cada tarjeta desde los checks (una sola consulta liviana).
-  const { data: temas } = await sb.from('temario_temas').select('programa_id,numero_sesion,estado');
+  // Progreso de cada tarjeta por SESIONES (una sesión cuenta como hecha si todos
+  // sus temas están marcados o si su fecha ya pasó). Dos consultas livianas.
+  const [{ data: temas }, { data: ses }] = await Promise.all([
+    sb.from('temario_temas').select('programa_id,numero_sesion,estado'),
+    sb.from('sesiones_cliente').select('programa_id,numero_sesion,fecha_hora')
+  ]);
+  const ahoraL = Date.now();
   const prog = {};
+  const gDe = id => (prog[id] ||= { ses: {} });
   (temas || []).forEach(t => {
-    const g = (prog[t.programa_id] ||= { total: 0, listos: 0, ses: {} });
-    g.total++; if (t.estado === 'visto') g.listos++;
-    const s = (g.ses[t.numero_sesion] ||= { t: 0, v: 0 });
+    const s = (gDe(t.programa_id).ses[t.numero_sesion] ||= { t: 0, v: 0, paso: false });
     s.t++; if (t.estado === 'visto') s.v++;
+  });
+  (ses || []).forEach(r => {
+    if (!r.fecha_hora) return;
+    const s = (gDe(r.programa_id).ses[r.numero_sesion] ||= { t: 0, v: 0, paso: false });
+    if (new Date(r.fecha_hora).getTime() < ahoraL) s.paso = true;
   });
 
   const empresas = programas.filter(p => (p.tipo || 'empresa') === 'empresa');
   const mentorias = programas.filter(p => p.tipo === 'mentoria_1a1');
 
   const cardHtml = p => {
+    const completado = p.estado === 'completado';
     const total = p.total_sesiones || 8;
-    const g = prog[p.id] || { total: 0, listos: 0, ses: {} };
-    const pct = g.total ? Math.round(g.listos / g.total * 100) : 0;
-    const done = Object.values(g.ses).filter(s => s.t > 0 && s.v === s.t).length;
-    return `<a class="client-card" onclick="location.hash='#/cliente/${p.id}'">
+    const g = prog[p.id] || { ses: {} };
+    const done = Object.values(g.ses).filter(s => (s.t > 0 && s.v === s.t) || s.paso).length;
+    const pct = completado ? 100 : (total ? Math.round(done / total * 100) : 0);
+    const pie = completado
+      ? `<span>Programa completado</span><span>✓</span>`
+      : `<span>${done}/${total} sesiones</span><span>${pct}%</span>`;
+    return `<a class="client-card ${completado ? 'completado' : ''}" onclick="location.hash='#/cliente/${p.id}'">
       <div class="name">${esc(p.cliente)}</div>
       <div class="meta">${esc(p.contacto || '')} ${p.contacto ? '· ' : ''}<span class="badge badge-${p.estado}">${p.estado}</span></div>
       <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <div class="progress-text"><span>${done}/${total} sesiones</span><span>${pct}%</span></div>
+      <div class="progress-text">${pie}</div>
     </a>`;
   };
 
@@ -539,9 +553,10 @@ async function renderDetail(programaId){
 
   const totalTemas = temas.length;
   const temasCubiertos = temas.filter(temaCubierto).length;
-  const pct = totalTemas ? Math.round(temasCubiertos / totalTemas * 100) : 0;
   let done = 0;
   for (let n = 1; n <= maxNum; n++){ if ((bySesion[n] || []).length && sesionCompleta(n)) done++; }
+  // El avance se mide por SESIONES completas sobre el total, no por temas.
+  const pct = total ? Math.round(done / total * 100) : 0;
 
   // Para arrastrar pendientes: una sesión "ya se hizo" si tiene algún tema
   // marcado o su fecha ya pasó.
@@ -619,7 +634,7 @@ async function renderDetail(programaId){
     <div class="barra-ficha">
       <div class="back-btn" onclick="location.hash='#/'">← Volver al panel</div>
       <div class="acciones-ficha">
-        <button class="btn-compartir" onclick="compartirVista('${programaId}', this)">🔗 Compartir con el cliente</button>
+        <button class="btn-compartir" onclick="compartirVista('${programa.share_token || ''}', this)">🔗 Compartir afiche con el cliente</button>
         <button class="btn-duplicar" onclick="abrirNuevoCliente('${programaId}')">⧉ Duplicar este programa</button>
         <button class="btn-eliminar" onclick="eliminarPrograma('${programaId}', ${JSON.stringify(programa.cliente).replace(/"/g,'&quot;')}, ${temas.length})">🗑 Eliminar</button>
       </div>
@@ -878,19 +893,25 @@ async function addTema(programaId, numeroSesion, inputEl){
 // Arma el enlace del reporte para CUALQUIER cliente (el id lo genera la base
 // al crearlo). Muestra el link en pantalla para copiar o abrir; no depende
 // de nada externo.
-function compartirVista(programaId, btn){
+function compartirVista(token, btn){
   const panel = document.getElementById('sharePanel');
   if (panel.classList.contains('show')){ panel.classList.remove('show'); panel.innerHTML = ''; return; }
 
-  const url = `${location.origin}/panel-clientes/ver.html?id=${programaId}`;
+  if (!token){
+    panel.innerHTML = `<div class="sp-title">Este cliente aún no tiene link. Recarga la página e inténtalo de nuevo.</div>`;
+    panel.classList.add('show');
+    return;
+  }
+
+  const url = `${location.origin}/taller/${token}`;
   panel.innerHTML = `
-    <div class="sp-title">🔗 Enlace de reporte para el cliente <span class="sp-badge">solo lectura</span></div>
+    <div class="sp-title">🔗 Afiche del cliente <span class="sp-badge">solo lectura · en vivo</span></div>
     <div class="sp-row">
       <input class="sp-url" readonly value="${url}" onclick="this.select()">
       <button class="sp-copy" onclick="copiarUrl(${JSON.stringify(url)}, this)">Copiar</button>
       <a class="sp-open" href="${url}" target="_blank" rel="noopener">Abrir ↗</a>
     </div>
-    <div class="sp-hint">Compártelo una sola vez: el reporte se actualiza solo cada vez que marcas avances.</div>`;
+    <div class="sp-hint">Mándaselo una sola vez: el afiche muestra las fechas, el lugar y el avance, y se actualiza solo cada vez que marcas temas acá. No incluye tus comentarios internos.</div>`;
   panel.classList.add('show');
   panel.querySelector('.sp-url').select();
 }
