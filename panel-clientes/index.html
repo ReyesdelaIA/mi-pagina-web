@@ -263,6 +263,7 @@
     <div class="lock-ico">🔒</div>
     <div class="lock-title">Panel de Clientes</div>
     <div class="lock-sub">Panel interno de Reyes IA.</div>
+    <input type="email" id="lock-email" placeholder="Correo" autocomplete="username" inputmode="email">
     <input type="password" id="lock-pw" placeholder="Contraseña" autocomplete="current-password">
     <button id="lock-btn">Entrar</button>
     <div class="lock-err" id="lock-err"></div>
@@ -271,7 +272,7 @@
 
 <div class="navbar">
   <div class="navbar-title" onclick="location.hash='#/'"><span class="dot"></span> Panel de Clientes — Reyes IA</div>
-  <div class="navbar-links"><a href="https://reyesia.com" target="_blank">reyesia.com</a></div>
+  <div class="navbar-links"><a href="#" onclick="event.preventDefault(); salir();">Salir</a></div>
 </div>
 
 <div class="wrap" id="app">
@@ -332,37 +333,40 @@ function esc(s){ return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;
 
 window.addEventListener('hashchange', () => { if (desbloqueado) route(); });
 
-/* ---- Acceso ----
-   Ojo: esto evita que alguien que llegue a la URL vea el panel, pero la
-   publishable key va en el HTML y las tablas tienen RLS abierto, así que
-   no reemplaza cerrar las políticas en Supabase. */
+/* ---- Acceso con Supabase Auth ----
+   Solo una sesión con login (rol authenticated) puede leer y escribir. Las
+   tablas quedan cerradas por RLS: la publishable key sin sesión no ve nada.
+   El afiche del cliente (/taller) va por /api/afiche con service key, no por
+   esta llave. */
 let desbloqueado = false;
 const lock = document.getElementById('lock');
+const lockEmail = document.getElementById('lock-email');
 const lockPw = document.getElementById('lock-pw');
 const lockErr = document.getElementById('lock-err');
 
 async function entrar(){
+  const email = lockEmail.value.trim();
   const pw = lockPw.value;
   lockErr.classList.remove('show');
-  if (!pw){ lockErr.textContent = 'Escribe la contraseña.'; lockErr.classList.add('show'); return; }
-  try {
-    const r = await fetch('/api/panel-clientes-auth', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: pw })
-    });
-    if (!r.ok){
-      const d = await r.json().catch(() => ({}));
-      lockErr.textContent = d.error || 'Contraseña incorrecta.';
-      lockErr.classList.add('show');
-      return;
-    }
-    sessionStorage.setItem('panel_clientes_ok', '1');
-    abrir();
-  } catch (e) {
-    lockErr.textContent = 'Error de conexión. Intenta de nuevo.';
+  if (!email || !pw){ lockErr.textContent = 'Escribe tu correo y contraseña.'; lockErr.classList.add('show'); return; }
+
+  const btn = document.getElementById('lock-btn');
+  btn.disabled = true; const t = btn.textContent; btn.textContent = 'Entrando…';
+
+  const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+
+  btn.disabled = false; btn.textContent = t;
+  if (error){
+    lockErr.textContent = /invalid/i.test(error.message) ? 'Correo o contraseña incorrectos.' : error.message;
     lockErr.classList.add('show');
+    return;
   }
+  abrir();
+}
+
+async function salir(){
+  await sb.auth.signOut();
+  location.reload();
 }
 
 function abrir(){
@@ -373,10 +377,12 @@ function abrir(){
 
 document.getElementById('lock-btn').onclick = entrar;
 lockPw.addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
+lockEmail.addEventListener('keydown', e => { if (e.key === 'Enter') lockPw.focus(); });
 
-window.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('panel_clientes_ok') === '1') abrir();
-  else lockPw.focus();
+window.addEventListener('DOMContentLoaded', async () => {
+  const { data } = await sb.auth.getSession();
+  if (data.session) abrir();
+  else lockEmail.focus();
 });
 
 function route(){
