@@ -906,7 +906,7 @@ function compartirVista(token, btn){
       <button class="sp-copy" onclick="copiarUrl(${JSON.stringify(url)}, this)">Copiar</button>
       <a class="sp-open" href="${url}" target="_blank" rel="noopener">Abrir ↗</a>
     </div>
-    <div class="sp-hint">Mándaselo una sola vez: el afiche muestra las fechas, el lugar y el avance, y se actualiza solo cada vez que marcas temas acá. No incluye tus comentarios internos.</div>`;
+    <div class="sp-hint">Mándaselo una sola vez: el afiche muestra las fechas, el lugar, el avance y tus comentarios (como contexto para el cliente), y se actualiza solo cada vez que marcas temas acá.</div>`;
   panel.classList.add('show');
   panel.querySelector('.sp-url').select();
 }

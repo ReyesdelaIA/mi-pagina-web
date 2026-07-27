@@ -35,9 +35,9 @@ module.exports = async (req, res) => {
     const prog = progs[0];
     if (!prog) return res.status(404).json({ error: 'Programa no encontrado' });
 
-    // 2) Temario (SIN comentario) y sesiones, en paralelo
+    // 2) Temario (con comentario, que es contexto útil para el cliente) y sesiones
     const [tRes, sRes] = await Promise.all([
-      q(`temario_temas?programa_id=eq.${prog.id}&select=numero_sesion,orden,tema,estado` +
+      q(`temario_temas?programa_id=eq.${prog.id}&select=numero_sesion,orden,tema,estado,comentario` +
         `&order=numero_sesion.asc,orden.asc`),
       q(`sesiones_cliente?programa_id=eq.${prog.id}&select=numero_sesion,fecha_hora,lugar` +
         `&order=numero_sesion.asc`),
@@ -64,7 +64,7 @@ module.exports = async (req, res) => {
     const sesiones = nums.map(n => ({
       n,
       fecha: fechaDe[n] || null,
-      temas: (bySes[n] || []).map(t => [t.tema, t.estado === 'visto' ? 1 : 0]),
+      temas: (bySes[n] || []).map(t => [t.tema, t.estado === 'visto' ? 1 : 0, t.comentario || '']),
     }));
 
     const unidad = (prog.tipo === 'mentoria_1a1' || (prog.total_sesiones || 0) > 3) ? 'sesión' : 'taller';

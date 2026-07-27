@@ -154,6 +154,9 @@
   .tick.p{background:#fff;border:1.6px solid #d4d9e0;color:transparent;}
   .tema.v .tx{color:var(--text);}
   .tema.p .tx{color:var(--sub);}
+  .tx-wrap{flex:1;min-width:0;}
+  .tema-nota{font-size:12px;color:var(--sub);line-height:1.45;margin-top:4px;white-space:pre-wrap;
+    border-left:2px solid #dfe3ea;padding-left:9px;}
 
   /* empresas que confían */
   .clientes{margin-top:38px;text-align:center;}
@@ -371,10 +374,13 @@ function pintarSesiones(){
                 : `<span class="badge prox">${U.proxLbl}</span>`;
     const fechaTxt = f ? (f.txt + ' · ' + f.hora + ' hrs' + (s.ejemplo?' (por agendar)':'')) : 'Por agendar';
     const abierta = (i === iProx); // la sesión que viene arranca abierta
-    const temas = s.temas.map(([nombre,visto])=>`
+    const temas = s.temas.map(([nombre,visto,coment])=>`
       <div class="tema ${visto?'v':'p'}">
         <span class="tick ${visto?'v':'p'}">${visto?'✓':''}</span>
-        <span class="tx">${esc(nombre)}</span>
+        <div class="tx-wrap">
+          <span class="tx">${esc(nombre)}</span>
+          ${coment?`<div class="tema-nota">${esc(coment)}</div>`:''}
+        </div>
       </div>`).join('');
     return `
     <div class="ses ${est} ${abierta?'open':''}" data-i="${i}">
