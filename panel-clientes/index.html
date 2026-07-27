@@ -457,7 +457,7 @@ async function renderLanding(){
 
 // Una fila de tema. `arrastrado` = viene de una sesión anterior sin terminar:
 // se muestra destacado, sin manilla de arrastre y con la sesión de origen.
-function temaRowHtml(t, arrastrado){
+function temaRowHtml(t, arrastrado, sesActual, programaId){
   const visto = t.estado === 'visto';
   return `
   <div class="tema-row ${arrastrado ? 'arrastrado' : ''}" data-tema-id="${t.id}"
@@ -466,7 +466,9 @@ function temaRowHtml(t, arrastrado){
       ? `<div class="pend-origen" title="Viene de la sesión ${t.numero_sesion}">S${t.numero_sesion}</div>`
       : `<div class="drag-handle" title="Arrastrar para reordenar"
               onmousedown="this.closest('.tema-row').draggable = true">⠿</div>`}
-    <div class="checkbox ${visto?'checked':''}" onclick="toggleTema('${t.id}', this)"></div>
+    ${arrastrado
+      ? `<div class="checkbox ${visto?'checked':''}" title="Marcar como hecho en esta sesión" onclick="marcarPendienteAqui('${t.id}', ${sesActual}, '${programaId}', this)"></div>`
+      : `<div class="checkbox ${visto?'checked':''}" onclick="toggleTema('${t.id}', this)"></div>`}
     <div class="tema-content">
       <div class="tema-nombre ${visto?'done':''}" data-tema="${esc(t.tema)}" title="Clic para editar el título"
            onclick="editarTema('${t.id}', this)">${esc(t.tema)}<span class="lapiz-tema">✎</span></div>
@@ -608,7 +610,7 @@ async function renderDetail(programaId){
         ${arrastrados.length ? `
         <div class="pendientes-box">
           <div class="pendientes-title">⚠️ Quedó pendiente de sesiones anteriores</div>
-          ${arrastrados.map(t => temaRowHtml(t, true)).join('')}
+          ${arrastrados.map(t => temaRowHtml(t, true, n, programaId)).join('')}
         </div>` : ''}
         <div class="temas-list" data-sesion="${n}" data-programa="${programaId}" ondragover="temaDragOver(event, this)">
         ${list.map(t => temaRowHtml(t, false)).join('')}
@@ -679,6 +681,29 @@ async function toggleTema(id, el){
 
   await sb.from('temario_temas').update({ estado: nowChecked ? 'visto' : 'pendiente', fecha_actualizacion: new Date().toISOString() }).eq('id', id);
   flashSaved();
+}
+
+// Marcar un pendiente desde la caja ámbar lo MUEVE a la sesión donde realmente
+// se vio (la actual) y lo deja como hecho ahí. Se va de su sesión original y
+// del recordatorio amarillo.
+async function marcarPendienteAqui(id, sesActual, programaId, el){
+  el.classList.add('checked');
+  // orden al final de la sesión destino
+  const { data: enDestino } = await sb.from('temario_temas')
+    .select('orden').eq('programa_id', programaId).eq('numero_sesion', sesActual)
+    .order('orden', { ascending: false }).limit(1);
+  const nuevoOrden = ((enDestino && enDestino[0]) ? enDestino[0].orden : 0) + 1;
+
+  const { error } = await sb.from('temario_temas').update({
+    estado: 'visto',
+    numero_sesion: sesActual,
+    orden: nuevoOrden,
+    fecha_actualizacion: new Date().toISOString()
+  }).eq('id', id);
+
+  if (error){ alert('No se pudo mover el tema: ' + error.message); return; }
+  flashSaved();
+  renderDetail(programaId);
 }
 
 function sacarDePendientes(id){
