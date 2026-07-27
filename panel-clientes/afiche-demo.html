@@ -345,7 +345,7 @@ function pintarOverview(){
   let tot=0, done=0, sesDone=0;
   DATA.sesiones.forEach(s=>{
     tot += s.temas.length;
-    done += fechaPaso(s) ? s.temas.length : s.temas.filter(t=>t[1]).length; // cubierto: marcado o fecha pasada
+    done += s.temas.filter(t=>t[1]).length; // temas marcados (espeja el panel)
     if(estadoSesion(s)==='done') sesDone++;
   });
   const totSes = DATA.sesiones.length;

@@ -548,14 +548,16 @@ async function renderDetail(programaId){
     const f = fechas[n]?.fecha_hora;
     return !!f && new Date(f).getTime() < ahora;
   };
-  const temaCubierto = t => t.estado === 'visto' || fechaPaso(t.numero_sesion);
+  // La fecha pasada marca la SESIÓN como hecha (para el % y el estado), pero a
+  // nivel de tema solo cuenta el check: un tema sin marcar sigue pendiente
+  // aunque su sesión ya haya ocurrido, hasta que lo marques o lo muevas.
   const sesionCompleta = n => {
     const l = bySesion[n] || [];
     return (l.length > 0 && l.every(t => t.estado === 'visto')) || fechaPaso(n);
   };
 
   const totalTemas = temas.length;
-  const temasCubiertos = temas.filter(temaCubierto).length;
+  const temasMarcados = temas.filter(t => t.estado === 'visto').length;
   let done = 0;
   for (let n = 1; n <= maxNum; n++){ if ((bySesion[n] || []).length && sesionCompleta(n)) done++; }
   // El avance se mide por SESIONES completas sobre el total, no por temas.
@@ -565,11 +567,10 @@ async function renderDetail(programaId){
   // marcado o su fecha ya pasó.
   const sesionRealizada = n => (bySesion[n] || []).some(t => t.estado === 'visto') || fechaPaso(n);
 
-  // Un tema NO cubierto (sin check y cuya sesión no tiene fecha pasada) de una
-  // sesión ya realizada se arrastra destacado a las siguientes. Si la sesión ya
-  // tiene fecha pasada cuenta como hecha, así que no deja pendientes.
+  // Un tema SIN MARCAR de una sesión ya realizada se arrastra destacado a las
+  // siguientes, hasta que se marque o se mueva — aunque la fecha ya haya pasado.
   const pendientesPrevios = n => (temas || [])
-    .filter(t => t.numero_sesion < n && !temaCubierto(t) && sesionRealizada(t.numero_sesion))
+    .filter(t => t.numero_sesion < n && t.estado !== 'visto' && sesionRealizada(t.numero_sesion))
     .sort((a,b) => a.numero_sesion - b.numero_sesion || a.orden - b.orden);
 
   let sessionsHtml = '';
@@ -627,9 +628,11 @@ async function renderDetail(programaId){
   let segHtml = '';
   for (let n = 1; n <= maxNum; n++){
     const l = bySesion[n] || [];
-    const cub = l.filter(temaCubierto).length;
-    const p = l.length ? Math.round(cub / l.length * 100) : 0;
-    segHtml += `<div class="seg" title="Sesión ${n}: ${cub}/${l.length} temas"><div class="seg-fill" style="width:${p}%"></div></div>`;
+    const marc = l.filter(x => x.estado === 'visto').length;
+    // La barra sigue el avance de la sesión: llena si la sesión está hecha
+    // (todo marcado o fecha pasada), si no, la proporción de temas marcados.
+    const p = sesionCompleta(n) ? 100 : (l.length ? Math.round(marc / l.length * 100) : 0);
+    segHtml += `<div class="seg" title="Sesión ${n}: ${marc}/${l.length} temas marcados"><div class="seg-fill" style="width:${p}%"></div></div>`;
   }
   const Rc = 46, RCirc = 2 * Math.PI * Rc, Roff = RCirc * (1 - pct / 100);
 
@@ -650,7 +653,7 @@ async function renderDetail(programaId){
                onclick="editarNombre('${programaId}', this)">${esc(programa.cliente)} <span class="lapiz">✎</span></div>
           <div class="meta">${programa.tipo === 'mentoria_1a1' ? 'Mentoría 1:1' : 'Adopción Profunda de IA'}${programa.contacto ? ' · ' + esc(programa.contacto) : ''}${programa.fecha_inicio ? ' · Inicio: ' + programa.fecha_inicio : ''}</div>
           <div class="prog-seg">${segHtml}</div>
-          <div class="progress-text"><span>${done}/${total} sesiones completas · ${temasCubiertos}/${totalTemas} temas cubiertos</span></div>
+          <div class="progress-text"><span>${done}/${total} sesiones completas · ${temasMarcados}/${totalTemas} temas marcados</span></div>
         </div>
         <div class="hring" title="${pct}% de los contenidos">
           <svg width="112" height="112" viewBox="0 0 112 112">
