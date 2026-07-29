@@ -113,6 +113,12 @@
   .btn-eliminar{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:7px 13px;
     font-size:12.5px;font-weight:600;font-family:'Poppins',sans-serif;color:#B91C1C;cursor:pointer;}
   .btn-eliminar:hover{border-color:#EF4444;background:#FEF2F2;}
+  .btn-completar,.btn-reactivar{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:7px 13px;
+    font-size:12.5px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;}
+  .btn-completar{color:#166534;}
+  .btn-completar:hover{border-color:var(--green);background:var(--greenbg);}
+  .btn-reactivar{color:var(--navy2);}
+  .btn-reactivar:hover{border-color:var(--navy3);background:#EAF2FB;}
   .client-header .name{cursor:pointer;}
   .lapiz{font-size:14px;opacity:.35;}
   .client-header .name:hover .lapiz{opacity:.9;}
@@ -687,6 +693,9 @@ async function renderDetail(programaId){
       <div class="back-btn" onclick="location.hash='#/'">← Volver al panel</div>
       <div class="acciones-ficha">
         <button class="btn-compartir" onclick="compartirVista('${programa.share_token || ''}', this)">🔗 Compartir afiche con el cliente</button>
+        ${programa.estado === 'completado'
+          ? `<button class="btn-reactivar" onclick="cambiarEstado('${programaId}', 'activo')">↩ Reactivar programa</button>`
+          : `<button class="btn-completar" onclick="cambiarEstado('${programaId}', 'completado')">✓ Marcar completado</button>`}
         <button class="btn-duplicar" onclick="abrirNuevoCliente('${programaId}')">⧉ Duplicar este programa</button>
         <button class="btn-eliminar" onclick="eliminarPrograma('${programaId}', ${JSON.stringify(programa.cliente).replace(/"/g,'&quot;')}, ${temas.length})">🗑 Eliminar</button>
       </div>
@@ -962,6 +971,16 @@ async function addTema(programaId, numeroSesion, inputEl){
   await sb.from('temario_temas').insert({ programa_id: programaId, numero_sesion: numeroSesion, tema: val, orden: 999 });
   inputEl.value = '';
   route();
+}
+
+// Marca un programa como completado (baja a la sección Completados) o lo reactiva.
+async function cambiarEstado(programaId, nuevoEstado){
+  const { error } = await sb.from('programas_clientes')
+    .update({ estado: nuevoEstado, updated_at: new Date().toISOString() }).eq('id', programaId);
+  if (error){ alert('No se pudo cambiar el estado: ' + error.message); return; }
+  flashSaved();
+  if (nuevoEstado === 'completado') location.hash = '#/';   // volver al panel a verlo abajo
+  else renderDetail(programaId);
 }
 
 // ---------- COMPARTIR (vista de solo lectura) ----------
