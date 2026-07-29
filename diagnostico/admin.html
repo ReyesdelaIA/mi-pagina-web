@@ -84,6 +84,7 @@
     .split-legend span::before { content: ''; width: 11px; height: 11px; border-radius: 3px; }
     .lg-emp::before { background: var(--navy); }
     .lg-per::before { background: var(--gold); }
+    .lg-free::before { background: #1baf7a; }
     .dist-empty { font-size: 12px; color: var(--muted); padding: 8px 0; }
 
     /* Layout */
@@ -175,7 +176,7 @@
           <thead>
             <tr>
               <th>Fecha</th><th>Empresa</th><th>Nombre</th><th>Área</th>
-              <th>Ecosistema</th><th>Herramientas IA</th><th>Nivel</th><th>Interés</th>
+              <th>Ecosistema</th><th>Herramientas IA</th><th>Nivel</th><th>Quiere aprender</th>
             </tr>
           </thead>
           <tbody id="tbody"><tr><td colspan="8" class="loading">Cargando…</td></tr></tbody>
@@ -193,18 +194,17 @@
   </div>
 </div>
 
+<script src="/diagnostico/labels.js"></script>
 <script>
 const SB_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
 
-const MAIL_L  = {outlook:'Outlook / Office 365',gmail:'Gmail / Workspace',mix:'Mix',otro:'Otro'};
-const REPO_L  = {sharepoint:'SharePoint / OneDrive',drive:'Google Drive',dropbox:'Dropbox u otro',mix:'Mix',no_seguro:'No estoy seguro'};
-const REUN_L  = {teams:'Microsoft Teams',zoom:'Zoom',meet:'Google Meet',mix:'Mix'};
-const TRAB_L  = {finanzas:'Finanzas',rrhh:'Recursos Humanos',ventas:'Ventas',operaciones:'Operaciones',marketing:'Marketing',programacion_ti:'Programación & TI',gerencia_general:'Gerencia General',otra:'Otra'};
-const NIVEL_L = {cero:'Foja cero',basico:'Básico',frecuente:'Recurrente',avanzado:'Avanzado'};
-const IA_L    = {copilot:'Copilot',chatgpt:'ChatGPT',claude:'Claude',gemini:'Gemini',gamma:'Gamma',granola:'Granola / Notas',imagen:'IA de imagen',ninguna:'Ninguna'};
-const AREA_L  = {finanzas:'Finanzas',marketing:'Marketing',operaciones:'Operaciones',comercial:'Comercial',rrhh:'RRHH',ti:'TI / Tecnología',legal:'Legal',todas:'Todas las áreas',otra:'Otra'};
-const RES_L   = {no:'Apertura total',algo:'Algo de escepticismo',si:'Hay resistencia',no_se:'No lo sé aún'};
+// Etiquetas centralizadas en /diagnostico/labels.js (las comparte el mail y el panel)
+const _L = window.DIAG_LABELS;
+const MAIL_L = _L.MAIL, REPO_L = _L.REPO, TRAB_L = _L.TRABAJO, NIVEL_L = _L.NIVEL_CORTO;
+const IA_L = _L.TOOLS, USOS_L = _L.USOS, CAP_L = _L.CAPACITACION, APR_L = _L.APRENDER, TEM_L = _L.TEMORES;
+// Preguntas retiradas del formulario, se mantienen para leer el histórico
+const REUN_L = _L.REUNIONES, RES_L = _L.RESISTENCIAS, AREA_L = _L.AREAS_INTERES;
 
 let allData = [];
 let selectedId = null;
@@ -267,9 +267,17 @@ function topKey(obj) { const e = Object.entries(obj).sort((a,b)=>b[1]-a[1])[0]; 
 const COL = {
   plataforma_mail: { outlook:'#2a78d6', gmail:'#e34948', mix:'#4a3aa7', otro:'#eb6834' },
   nivel_equipo:    { cero:'#e87ba4', basico:'#eda100', frecuente:'#1baf7a', avanzado:'#2a78d6' },
-  area_trabajo:    { finanzas:'#2a78d6', rrhh:'#1baf7a', ventas:'#eda100', operaciones:'#4a3aa7', marketing:'#e34948', programacion_ti:'#eb6834', gerencia_general:'#e87ba4', otra:'#898781' },
+  area_trabajo:    { finanzas:'#2a78d6', rrhh:'#1baf7a', ventas:'#eda100', operaciones:'#4a3aa7', marketing:'#e34948', programacion_ti:'#eb6834', gerencia_general:'#e87ba4', otra:'#898781',
+                     ccu_compras_directas:'#2a78d6', ccu_comercio_exterior:'#1baf7a', ccu_control_gestion:'#4a3aa7',
+                     ccu_compras_servicios:'#eda100', ccu_compras_industriales:'#e34948', ccu_gerencia_abastecimiento:'#eb6834' },
   areas_interes:   { finanzas:'#2a78d6', marketing:'#e34948', operaciones:'#4a3aa7', comercial:'#1baf7a', rrhh:'#eda100', ti:'#eb6834', legal:'#e87ba4', todas:'#008300', otra:'#898781' },
   resistencias:    { no:'#0ca30c', algo:'#fab219', si:'#d03b3b', no_se:'#898781' }, // semáforo
+  quiere_capacitacion: { si:'#0ca30c', si_pero:'#1baf7a', no_se:'#fab219', no:'#d03b3b' },
+  usos_ia:         { ninguna:'#898781' },   // el resto queda en el azul por defecto
+  areas_aprender:  { todo:'#008300' },
+  temores:         { ninguno:'#0ca30c', confidencialidad:'#d03b3b', alucinaciones:'#eb6834',
+                     calidad:'#fab219', empleo:'#e34948', dependencia:'#4a3aa7',
+                     tiempo:'#eda100', etica:'#e87ba4' },
 };
 
 // Una fila de barra: etiqueta + barra coloreada (ancho = relativo al máximo) + valor·%
@@ -309,28 +317,36 @@ function chartArray(title, ico, data, field, labelMap) {
   return card(title, ico, body);
 }
 
-// Herramientas IA: barra apilada empresa (navy) + personal (dorado)
+// Herramientas IA: barra apilada gratis (verde) + de pago empresa (navy) + de pago propia (dorado)
 function chartTools(data) {
-  const emp = freq(data.flatMap(d => d.herramientas_empresa || []));
-  const per = freq(data.flatMap(d => d.herramientas_personal || []));
-  const keys = [...new Set([...Object.keys(emp), ...Object.keys(per)])]
-    .sort((a,b) => ((emp[b]||0)+(per[b]||0)) - ((emp[a]||0)+(per[a]||0)));
-  const legend = '<div class="split-legend"><span class="lg-emp">Paga la empresa</span><span class="lg-per">Pagas tú</span></div>';
-  if (!keys.length) return card('Herramientas IA · quién paga', '🤖', legend + '<div class="dist-empty">Nadie declaró herramientas de IA aún.</div>', true);
-  const max = Math.max(...keys.map(k => (emp[k]||0)+(per[k]||0)), 1);
+  const gratis = {}, pagoEmp = {}, pagoYo = {}, pagoSD = {};
+  const add = (m, k) => { m[k] = (m[k]||0) + 1; };
+  data.forEach(d => {
+    (d.herramientas_gratis || []).forEach(k => add(gratis, k));
+    const emp = d.herramientas_empresa || [], per = d.herramientas_personal || [];
+    emp.forEach(k => add(pagoEmp, k));
+    per.forEach(k => add(pagoYo, k));
+    // De pago sin dueño declarado (o respuestas antiguas sin el dato de versión)
+    (d.herramientas_pago || []).filter(k => !emp.includes(k) && !per.includes(k)).forEach(k => add(pagoSD, k));
+  });
+  const tot = k => (gratis[k]||0) + (pagoEmp[k]||0) + (pagoYo[k]||0) + (pagoSD[k]||0);
+  const keys = [...new Set([...Object.keys(gratis), ...Object.keys(pagoEmp), ...Object.keys(pagoYo), ...Object.keys(pagoSD)])]
+    .sort((a,b) => tot(b) - tot(a));
+  const legend = '<div class="split-legend"><span class="lg-free">Versión gratis</span><span class="lg-emp">De pago · la empresa</span><span class="lg-per">De pago · la persona</span></div>';
+  if (!keys.length) return card('Herramientas IA · versión y quién paga', '🤖', legend + '<div class="dist-empty">Nadie declaró herramientas de IA aún.</div>', true);
+  const max = Math.max(...keys.map(tot), 1);
+  const seg = (n, color) => n ? `<span class="cbar-fill seg" style="width:${Math.round(n/max*100)}%;background:${color}"></span>` : '';
   const body = keys.map(k => {
-    const e = emp[k]||0, p = per[k]||0;
-    const eW = Math.round(e/max*100), pW = Math.round(p/max*100);
+    const g = gratis[k]||0, e = pagoEmp[k]||0, p = pagoYo[k]||0, s = pagoSD[k]||0;
     return `<div class="cbar-row">
       <span class="cbar-label" title="${esc(IA_L[k]||k)}">${esc(IA_L[k]||k)}</span>
       <span class="cbar-track stack">
-        ${e?`<span class="cbar-fill seg" style="width:${eW}%;background:var(--navy)"></span>`:''}
-        ${p?`<span class="cbar-fill seg" style="width:${pW}%;background:var(--gold)"></span>`:''}
+        ${seg(g, '#1baf7a')}${seg(e, 'var(--navy)')}${seg(p, 'var(--gold)')}${seg(s, '#898781')}
       </span>
-      <span class="cbar-val">${e}<span class="pct">/${p}</span></span>
+      <span class="cbar-val">${tot(k)}<span class="pct"> ${g}/${e}/${p}</span></span>
     </div>`;
   }).join('');
-  return card('Herramientas IA · quién paga', '🤖', legend + body, true);
+  return card('Herramientas IA · versión y quién paga', '🤖', legend + body, true);
 }
 
 function card(title, ico, body, wide) {
@@ -360,14 +376,22 @@ function renderHero() {
 
 function renderCharts() {
   const data = filtered();
-  document.getElementById('charts').innerHTML = [
+  const cards = [
     chartSimple('Ecosistema de correo', '📧', data, 'plataforma_mail', MAIL_L, Object.keys(MAIL_L)),
-    chartSimple('Nivel de conocimiento con IA', '📊', data, 'nivel_equipo', NIVEL_L, ['cero','basico','frecuente','avanzado']),
+    chartSimple('Cuánto usan la IA hoy', '📊', data, 'nivel_equipo', NIVEL_L, ['cero','basico','frecuente','avanzado']),
     chartTools(data),
-    chartArray('Áreas de interés priorizadas', '🎯', data, 'areas_interes', AREA_L),
-    chartSimple('Apertura a la IA', '🚦', data, 'resistencias', RES_L, ['no','algo','si','no_se']),
+    chartArray('Para qué usan la IA', '🛠️', data, 'usos_ia', USOS_L),
+    chartArray('Qué quieren aprender a hacer', '🎯', data, 'areas_aprender', APR_L),
+    chartArray('Principales temores con la IA', '⚠️', data, 'temores', TEM_L),
+    chartSimple('¿Quieren capacitarse?', '🙌', data, 'quiere_capacitacion', CAP_L, ['si','si_pero','no_se','no']),
     chartSimple('Quién respondió · por área', '👥', data, 'area_trabajo', TRAB_L, Object.keys(TRAB_L)),
-  ].join('');
+  ];
+  // Preguntas retiradas del formulario: se muestran solo si hay respuestas históricas
+  if (data.some(d => (d.areas_interes || []).length))
+    cards.push(chartArray('Áreas de interés · histórico', '🗂️', data, 'areas_interes', AREA_L));
+  if (data.some(d => d.resistencias))
+    cards.push(chartSimple('Apertura a la IA · histórico', '🚦', data, 'resistencias', RES_L, ['no','algo','si','no_se']));
+  document.getElementById('charts').innerHTML = cards.join('');
 }
 
 function renderTable() {
@@ -384,7 +408,10 @@ function renderTable() {
       ? iaList.slice(0,2).map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('') + (iaList.length>2?`<span class="chip">+${iaList.length-2}</span>`:'')
       : '<span class="td-eco">Ninguna</span>';
     const nivel = `<span class="chip gold">${NIVEL_L[d.nivel_equipo]||d.nivel_equipo||'—'}</span>`;
-    const areas = (d.areas_interes||[]).map(a=>AREA_L[a]||a).join(', ');
+    // Respuestas nuevas traen areas_aprender; las antiguas solo areas_interes
+    const areas = (d.areas_aprender||[]).length
+      ? d.areas_aprender.map(a=>APR_L[a]||a).join(', ')
+      : (d.areas_interes||[]).map(a=>AREA_L[a]||a).join(', ');
     const active = selectedId === d.id ? ' class="active"' : '';
     return `<tr${active} onclick="selectRow('${d.id}')">
       <td>${fecha}</td>
@@ -407,31 +434,54 @@ function selectRow(id) {
   const panel = document.getElementById('side-panel');
   panel.classList.add('open');
   const fecha = new Date(d.created_at).toLocaleString('es-CL');
+  const gratis = d.herramientas_gratis || [];
   const emp = d.herramientas_empresa || [];
   const per = d.herramientas_personal || [];
+  const pagoSD = (d.herramientas_pago || []).filter(h => !emp.includes(h) && !per.includes(h));
   const sinIA = (d.herramientas_ia||[]).length === 1 && d.herramientas_ia[0] === 'ninguna';
+  const grupo = (titulo, arr, cls) => arr.length
+    ? `<div class="detail-chips" style="margin-bottom:6px"><span class="detail-key" style="width:100%">${titulo}</span>${arr.map(h=>`<span class="chip${cls}">${IA_L[h]||h}</span>`).join('')}</div>`
+    : '';
   const toolsBlock = sinIA
     ? `<div class="detail-chips"><span class="chip">Ninguna aún</span></div>`
-    : `${emp.length ? `<div class="detail-chips" style="margin-bottom:6px"><span class="detail-key" style="width:100%">Paga la empresa</span>${emp.map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('')}</div>` : ''}
-       ${per.length ? `<div class="detail-chips"><span class="detail-key" style="width:100%">Paga la persona</span>${per.map(h=>`<span class="chip gold">${IA_L[h]||h}</span>`).join('')}</div>` : ''}
-       ${(!emp.length && !per.length) ? `<div class="detail-chips">${(d.herramientas_ia||[]).map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('')||'—'}</div>` : ''}`;
+    : (grupo('Versión gratis', gratis, '') +
+       grupo('De pago · la paga la empresa', emp, '') +
+       grupo('De pago · la paga la persona', per, ' gold') +
+       grupo('De pago', pagoSD, '')) ||
+      `<div class="detail-chips">${(d.herramientas_ia||[]).map(h=>`<span class="chip">${IA_L[h]||h}</span>`).join('')||'—'}</div>`;
+
+  // Bloque de chips para un campo array, solo si tiene datos
+  const chips = (titulo, arr, dict, cls) => (arr||[]).length
+    ? `<div class="detail-row"><div class="detail-key">${titulo}</div>
+       <div class="detail-chips">${arr.map(v=>`<span class="chip${cls||''}">${dict[v]||v}</span>`).join('')}</div></div>`
+    : '';
+  // Preguntas propias del clon de un cliente
+  const extra = d.respuestas_extra || {};
+  const extraRows = Object.keys(extra).map(k => {
+    const v = Array.isArray(extra[k]) ? extra[k].join(', ') : extra[k];
+    return row(k.replace(/_/g,' ').replace(/^./, c=>c.toUpperCase()), v);
+  }).join('');
+
   document.getElementById('side-body').innerHTML = `
     ${row('Empresa', d.empresa)}
     ${row('Nombre y cargo', d.nombre_contacto)}
     ${row('Área de trabajo', TRAB_L[d.area_trabajo]||d.area_trabajo)}
+    ${d.variante ? row('Formulario', d.variante) : ''}
     ${row('Correo', MAIL_L[d.plataforma_mail]||d.plataforma_mail)}
     ${row('Repositorio', REPO_L[d.repositorio]||d.repositorio)}
-    ${row('Reuniones', REUN_L[d.reuniones]||d.reuniones)}
-    ${row('Nivel con IA', NIVEL_L[d.nivel_equipo]||d.nivel_equipo)}
-    ${row('Apertura a la IA', RES_L[d.resistencias]||d.resistencias)}
+    ${row('Cuánto usa la IA', NIVEL_L[d.nivel_equipo]||d.nivel_equipo)}
+    ${chips('Para qué usa la IA', d.usos_ia, USOS_L)}
     <div class="detail-row">
       <div class="detail-key">Herramientas IA</div>
       ${toolsBlock}
     </div>
-    <div class="detail-row">
-      <div class="detail-key">Áreas de interés</div>
-      <div class="detail-chips">${(d.areas_interes||[]).map(a=>`<span class="chip gold">${AREA_L[a]||a}</span>`).join('')}</div>
-    </div>
+    ${d.quiere_capacitacion ? row('¿Quiere capacitarse?', CAP_L[d.quiere_capacitacion]||d.quiere_capacitacion) : ''}
+    ${chips('Quiere aprender', d.areas_aprender, APR_L, ' gold')}
+    ${chips('Temores', d.temores, TEM_L)}
+    ${extraRows}
+    ${d.reuniones ? row('Reuniones (histórico)', REUN_L[d.reuniones]||d.reuniones) : ''}
+    ${d.resistencias ? row('Apertura a la IA (histórico)', RES_L[d.resistencias]||d.resistencias) : ''}
+    ${chips('Áreas de interés (histórico)', d.areas_interes, AREA_L)}
     ${d.comentario ? `<div class="detail-row"><div class="detail-key">Comentarios</div><div class="detail-comment">${d.comentario}</div></div>` : ''}
     <div class="detail-date">${fecha}</div>`;
 }
@@ -440,12 +490,19 @@ function row(k,v) { return `<div class="detail-row"><div class="detail-key">${k}
 function closeSide() { selectedId=null; document.getElementById('side-panel').classList.remove('open'); renderTable(); }
 
 function exportCSV() {
-  const cols = ['fecha','empresa','nombre_contacto','area_trabajo','plataforma_mail','repositorio','reuniones','herramientas_ia','herramientas_empresa','herramientas_personal','nivel_equipo','areas_interes','resistencias','comentario'];
+  const cols = ['fecha','empresa','variante','nombre_contacto','area_trabajo','plataforma_mail','repositorio',
+    'nivel_equipo','usos_ia','herramientas_ia','herramientas_gratis','herramientas_pago','herramientas_empresa','herramientas_personal',
+    'quiere_capacitacion','areas_aprender','temores','comentario','respuestas_extra',
+    'reuniones_hist','areas_interes_hist','resistencias_hist'];
   const rows = filtered().map(d => [
     new Date(d.created_at).toLocaleDateString('es-CL'),
-    d.empresa, d.nombre_contacto, d.area_trabajo, d.plataforma_mail, d.repositorio, d.reuniones,
-    (d.herramientas_ia||[]).join('|'), (d.herramientas_empresa||[]).join('|'), (d.herramientas_personal||[]).join('|'),
-    d.nivel_equipo, (d.areas_interes||[]).join('|'), d.resistencias, d.comentario||''
+    d.empresa, d.variante, d.nombre_contacto, d.area_trabajo, d.plataforma_mail, d.repositorio,
+    d.nivel_equipo, (d.usos_ia||[]).join('|'),
+    (d.herramientas_ia||[]).join('|'), (d.herramientas_gratis||[]).join('|'), (d.herramientas_pago||[]).join('|'),
+    (d.herramientas_empresa||[]).join('|'), (d.herramientas_personal||[]).join('|'),
+    d.quiere_capacitacion, (d.areas_aprender||[]).join('|'), (d.temores||[]).join('|'),
+    d.comentario||'', d.respuestas_extra ? JSON.stringify(d.respuestas_extra) : '',
+    d.reuniones, (d.areas_interes||[]).join('|'), d.resistencias
   ].map(v=>`"${String(v==null?'':v).replace(/"/g,'""')}"`).join(','));
   const csv = [cols.join(','),...rows].join('\n');
   const emp = document.getElementById('empresa-filter').value;

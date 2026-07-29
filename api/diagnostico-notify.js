@@ -1,55 +1,64 @@
 const { Resend } = require('resend');
+const L = require('../diagnostico/labels.js');
 
-const MAIL_L  = { outlook:'Outlook / Office 365', gmail:'Gmail / Google Workspace', mix:'Mix', otro:'Otro' };
-const REPO_L  = { sharepoint:'SharePoint / OneDrive', drive:'Google Drive', dropbox:'Dropbox u otro', mix:'Mix', no_seguro:'No estoy seguro' };
-const REUN_L  = { teams:'Microsoft Teams', zoom:'Zoom', meet:'Google Meet', mix:'Mix' };
-const NIVEL_L = { cero:'Partiendo desde cero', basico:'Algunos usan de forma básica', frecuente:'Uso frecuente sin estructura', avanzado:'Hay usuarios avanzados' };
-const RES_L   = { no:'No, hay apertura total', algo:'Algo de escepticismo', si:'Sí, hay resistencia concreta', no_se:'No lo sé' };
-const IA_L    = { copilot:'Copilot', chatgpt:'ChatGPT', claude:'Claude', gemini:'Gemini', gamma:'Gamma', granola:'Granola / Transcriptor', imagen:'Midjourney / Imagen IA', ninguna:'Ninguna aún' };
-const AREA_L  = { finanzas:'Finanzas', marketing:'Marketing', operaciones:'Operaciones', comercial:'Comercial', rrhh:'RRHH', ti:'TI / Tecnología', legal:'Legal', todas:'Todas las áreas', otra:'Otra' };
-const TRAB_L  = { finanzas:'Finanzas', rrhh:'Recursos Humanos', ventas:'Ventas', operaciones:'Operaciones', marketing:'Marketing', programacion_ti:'Programación & TI', gerencia_general:'Gerencia General' };
-const NIVEL_PERSONA_L = { cero:'Foja cero, casi no la usa', basico:'La usa de forma básica', frecuente:'La usa de forma recurrente', avanzado:'Usuario avanzado' };
-const RES_PERSONA_L   = { no:'Apertura total', algo:'Algo de escepticismo', si:'Le cuesta engancharse', no_se:'No lo sabe aún' };
+const map = (dict, v) => dict[v] || v || '—';
+const list = (dict, arr) => (arr || []).map(v => map(dict, v)).join(', ') || '—';
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).end();
   if (!process.env.RESEND_API_KEY) return res.status(200).json({ skipped: true });
 
   const b = req.body || {};
-  const nombre_contacto = b.cargo ? `${b.nombre} · ${b.cargo}` : b.nombre;
-  const areas = (b.areas_interes  || []).map(a => (a === 'otra' && b.areas_otra ? `Otra: ${b.areas_otra}` : AREA_L[a] || a)).join(', ');
-  const area_trabajo = TRAB_L[b.area_trabajo] || b.area_trabajo || '—';
+  const nombre_contacto = b.cargo ? `${b.nombre} · ${b.cargo}` : (b.nombre || b.nombre_contacto || '—');
 
-  // Herramientas IA: quién paga cada una
-  const empIas = (b.herramientas_empresa  || []).map(h => IA_L[h] || h);
-  const perIas = (b.herramientas_personal || []).map(h => IA_L[h] || h);
+  // Herramientas: versión gratis / de pago y, en las de pago, quién las paga
+  const gratis = (b.herramientas_gratis || []).map(h => map(L.TOOLS, h));
+  const emp    = (b.herramientas_empresa || []).map(h => map(L.TOOLS, h));
+  const per    = (b.herramientas_personal || []).map(h => map(L.TOOLS, h));
+  const pagoSinDueno = (b.herramientas_pago || [])
+    .filter(h => !(b.herramientas_empresa || []).includes(h) && !(b.herramientas_personal || []).includes(h))
+    .map(h => map(L.TOOLS, h));
+
   let ias = [
-    empIas.length ? `<b>Empresa:</b> ${empIas.join(', ')}` : '',
-    perIas.length ? `<b>Pagada personalmente:</b> ${perIas.join(', ')}` : '',
+    gratis.length ? `<b>Versión gratuita:</b> ${gratis.join(', ')}` : '',
+    emp.length    ? `<b>De pago · la paga la empresa:</b> ${emp.join(', ')}` : '',
+    per.length    ? `<b>De pago · la paga él/ella:</b> ${per.join(', ')}` : '',
+    pagoSinDueno.length ? `<b>De pago:</b> ${pagoSinDueno.join(', ')}` : '',
   ].filter(Boolean).join('<br>');
-  if (!ias) ias = (b.herramientas_ia || []).map(h => IA_L[h] || h).join(', ') || 'Ninguna aún';
+  // Respuestas antiguas (antes de gratis/pago) o "ninguna aún"
+  if (!ias) ias = list(L.TOOLS, b.herramientas_ia);
 
   const rows = [
     ['Nombre y cargo', nombre_contacto],
-    ['Empresa', b.empresa],
-    ['Área de trabajo', area_trabajo],
-    ['Plataforma de correo', MAIL_L[b.plataforma_mail] || b.plataforma_mail],
-    ['Repositorio', REPO_L[b.repositorio] || b.repositorio],
-    ['Reuniones', REUN_L[b.reuniones] || b.reuniones],
-    ['Herramientas IA', ias],
-    ['Nivel con IA (persona)', NIVEL_PERSONA_L[b.nivel_equipo] || NIVEL_L[b.nivel_equipo] || b.nivel_equipo],
-    ['Áreas de interés', areas],
-    ['Apertura a la IA', RES_PERSONA_L[b.resistencias] || RES_L[b.resistencias] || b.resistencias],
+    ['Empresa', b.empresa || '—'],
+    ['Área de trabajo', map(L.TRABAJO, b.area_trabajo)],
+    ['Plataforma de correo', map(L.MAIL, b.plataforma_mail)],
+    ['Repositorio', map(L.REPO, b.repositorio)],
+    ['Cuánto usa la IA hoy', map(L.NIVEL, b.nivel_equipo)],
+    ['Para qué usa la IA', list(L.USOS, b.usos_ia)],
+    ['Herramientas', ias],
+    ['¿Quiere capacitarse?', map(L.CAPACITACION, b.quiere_capacitacion)],
+    ['Qué quiere aprender', list(L.APRENDER, b.areas_aprender)],
+    ['Principales temores', list(L.TEMORES, b.temores)],
     ['Comentarios', b.comentario || '—'],
   ];
+
+  // Preguntas propias del clon de un cliente
+  const extra = b.respuestas_extra || {};
+  Object.keys(extra).forEach(k => {
+    const v = Array.isArray(extra[k]) ? extra[k].join(', ') : extra[k];
+    rows.push([k.replace(/_/g, ' '), v || '—']);
+  });
+
+  const origen = b.variante ? ` · formulario ${b.variante}` : '';
 
   const html = `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
     <div style="background:#2C3E6B;border-radius:12px;padding:20px 24px;margin-bottom:24px;">
       <h1 style="color:#C9973A;margin:0;font-size:20px;">🔍 Nuevo Diagnóstico IA</h1>
-      <p style="color:rgba(255,255,255,.7);margin:6px 0 0;font-size:13px;">${b.empresa} · ${new Date().toLocaleDateString('es-CL')}</p>
+      <p style="color:rgba(255,255,255,.7);margin:6px 0 0;font-size:13px;">${b.empresa} · ${new Date().toLocaleDateString('es-CL')}${origen}</p>
     </div>
     <table style="width:100%;border-collapse:collapse;font-size:14px;">
-      ${rows.map(([k,v],i)=>`<tr style="background:${i%2===0?'#f9f9f9':'#fff'}">
+      ${rows.map(([k, v], i) => `<tr style="background:${i % 2 === 0 ? '#f9f9f9' : '#fff'}">
         <td style="padding:10px 14px;font-weight:600;color:#2C3E6B;width:40%;border-bottom:1px solid #eee;">${k}</td>
         <td style="padding:10px 14px;color:#333;border-bottom:1px solid #eee;">${v}</td>
       </tr>`).join('')}

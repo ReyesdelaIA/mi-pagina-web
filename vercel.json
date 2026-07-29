@@ -38,6 +38,10 @@
       "destination": "/diagnostico/penuelas.html"
     },
     {
+      "source": "/diagnostico/ccu",
+      "destination": "/diagnostico/ccu.html"
+    },
+    {
       "source": "/diagnostico/resultados",
       "destination": "/diagnostico/panel.html"
     },

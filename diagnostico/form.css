@@ -1,0 +1,147 @@
+/* Diagnóstico IA · Reyes IA — estilos compartidos por el formulario genérico y sus clones */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #2C3E6B;
+  --gold:  #C9973A;
+  --bg:    #F5F5F3;
+  --white: #ffffff;
+  --border: #E2E2E2;
+  --muted: #6B7280;
+  --r: 16px;
+}
+body { font-family: 'Poppins', sans-serif; background: var(--bg); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px 60px; }
+
+.wrap { width: 100%; max-width: 520px; }
+
+/* Brand */
+.brand { display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 32px; }
+.brand-reyes { font-size: 28px; font-weight: 800; color: var(--navy); letter-spacing: -.5px; }
+.brand-ia    { font-size: 28px; font-weight: 800; color: var(--gold); letter-spacing: -.5px; }
+/* Co-branding: logo del cliente al lado del de Reyes IA */
+.brand-sep  { width: 1px; height: 26px; background: var(--border); margin: 0 14px; }
+.brand-logo { max-height: 34px; max-width: 130px; object-fit: contain; display: block; }
+.brand-cliente { font-size: 17px; font-weight: 700; color: var(--navy); }
+
+/* Card */
+.card { background: var(--white); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.05); }
+
+/* Progress */
+.progress-bar { height: 5px; background: #E8E8E8; }
+.progress-fill { height: 100%; background: var(--gold); transition: width .5s ease; border-radius: 99px; }
+
+/* Step header */
+.step-head { padding: 24px 28px 4px; }
+.step-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.step-tag  { font-size: 11px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .6px; }
+.step-pct  { font-size: 11px; color: var(--muted); }
+.step-title { font-size: 18px; font-weight: 700; color: var(--navy); margin-top: 2px; }
+.step-sub   { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+/* Content */
+.step-body { padding: 20px 28px 8px; min-height: 280px; }
+
+/* Text inputs */
+.input-group { margin-bottom: 16px; }
+.input-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 6px; }
+.input-field { width: 100%; border: 2px solid var(--border); border-radius: 12px; padding: 12px 16px; font-size: 14px; font-family: 'Poppins', sans-serif; outline: none; transition: border-color .2s; color: #1a1a1a; background: var(--white); }
+.input-field:focus { border-color: var(--navy); }
+textarea.input-field { resize: none; height: 130px; }
+
+/* Radio / Checkbox cards */
+.options { display: flex; flex-direction: column; gap: 10px; }
+.options.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.opt-card {
+  display: flex; align-items: center; gap: 12px;
+  border: 2px solid var(--border); border-radius: 12px;
+  padding: 13px 16px; cursor: pointer;
+  transition: all .15s; font-size: 13px; font-weight: 500;
+  color: #333; background: var(--white); user-select: none;
+}
+.opt-card:hover { border-color: rgba(44,62,107,.4); background: #F9F9F9; }
+.opt-card.selected { border-color: var(--navy); background: var(--navy); color: var(--white); }
+.opt-card.check-selected { border-color: var(--gold); background: rgba(201,151,58,.08); color: var(--navy); }
+.opt-label { flex: 1; line-height: 1.3; }
+.opt-mark { font-size: 13px; font-weight: 800; flex-shrink: 0; }
+.check-box {
+  width: 20px; height: 20px; border-radius: 5px; border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all .15s; font-size: 11px; font-weight: 800;
+}
+.check-selected .check-box { background: var(--gold); border-color: var(--gold); color: white; }
+
+/* Herramientas: versión gratis / pago y, si es de pago, quién la paga */
+.tool-list { display: flex; flex-direction: column; gap: 8px; }
+.tool-row {
+  border: 2px solid var(--border); border-radius: 12px;
+  padding: 10px 14px; background: var(--white); transition: all .15s;
+}
+.tool-row.active { border-color: var(--gold); background: rgba(201,151,58,.06); }
+.tool-main { display: flex; align-items: center; gap: 10px; }
+.tool-name { flex: 1; font-size: 13px; font-weight: 600; color: var(--navy); }
+.ver-group { display: flex; gap: 6px; flex-shrink: 0; }
+.ver-chk {
+  cursor: pointer; user-select: none;
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  border: 1.5px solid var(--border); border-radius: 9px; padding: 6px 12px;
+  transition: all .15s; text-align: center; white-space: nowrap;
+}
+.ver-chk:hover { border-color: rgba(201,151,58,.5); color: var(--navy); }
+.ver-chk.on { color: var(--white); border-color: var(--gold); background: var(--gold); }
+
+/* Sub-fila: quién paga (solo aparece si la versión es de pago) */
+.pay-sub {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-top: 9px; padding-top: 9px; border-top: 1px dashed rgba(201,151,58,.35);
+}
+.pay-q { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; }
+.pay-chk {
+  cursor: pointer; user-select: none; font-size: 11px; font-weight: 600; color: var(--muted);
+  border: 1.5px solid var(--border); border-radius: 9px; padding: 5px 11px;
+  transition: all .15s; background: var(--white);
+}
+.pay-chk:hover { border-color: rgba(44,62,107,.45); color: var(--navy); }
+.pay-chk.on { color: var(--white); border-color: var(--navy); background: var(--navy); }
+
+/* Native select styled like input */
+select.input-field { appearance: none; -webkit-appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+
+/* Navigation */
+.step-nav { padding: 16px 28px 24px; display: flex; align-items: center; justify-content: space-between; }
+.btn-back { background: none; border: none; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; padding: 0 4px; transition: color .2s; }
+.btn-back:hover { color: var(--navy); }
+.btn-next {
+  background: var(--navy); color: white; border: none; border-radius: 12px;
+  padding: 12px 28px; font-size: 13px; font-weight: 700; font-family: 'Poppins', sans-serif;
+  cursor: pointer; transition: all .2s; box-shadow: 0 4px 12px rgba(44,62,107,.25);
+}
+.btn-next:hover { background: #233260; box-shadow: 0 6px 16px rgba(44,62,107,.3); }
+.btn-next:disabled { background: #D1D5DB; box-shadow: none; cursor: not-allowed; }
+.btn-submit {
+  background: var(--gold); color: white; border: none; border-radius: 12px;
+  padding: 12px 28px; font-size: 13px; font-weight: 700; font-family: 'Poppins', sans-serif;
+  cursor: pointer; transition: all .2s; box-shadow: 0 4px 12px rgba(201,151,58,.3);
+}
+.btn-submit:hover { background: #b8862e; }
+.btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+
+/* Thank you */
+.gracias { text-align: center; padding: 52px 28px 56px; }
+.gracias-title { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+.gracias-text  { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* Error */
+.err { background: #FEF2F2; border: 1px solid #FECACA; border-radius: 10px; padding: 10px 14px; font-size: 12px; color: #991B1B; margin-top: 10px; }
+
+.foot { text-align: center; font-size: 11px; color: #bbb; margin-top: 20px; }
+.foot a { color: var(--navy); font-weight: 600; text-decoration: none; }
+
+@media(max-width: 430px) {
+  body { padding: 24px 12px 40px; }
+  .options.grid { grid-template-columns: 1fr; }
+  .step-head, .step-body, .step-nav { padding-left: 20px; padding-right: 20px; }
+  .tool-main { flex-wrap: wrap; }
+  .ver-group { width: 100%; }
+  .ver-chk { flex: 1; }
+}

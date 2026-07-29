@@ -132,8 +132,11 @@
     <div class="grid">
       <div class="card"><h3>Nivel de madurez en IA</h3><div class="sub" id="nivel-sub"></div><div class="donut-wrap"><div class="donut" id="nivel-donut"><div class="donut-c"><b id="nivel-total">0</b><span>respuestas</span></div></div><div class="legend" id="nivel-legend"></div></div></div>
       <div class="card"><h3>Herramientas de IA en uso</h3><div class="sub">Nº de personas que ya la usan</div><div class="bars" id="tools"></div></div>
-      <div class="card"><h3>Áreas donde quieren aplicar IA</h3><div class="sub">Interés declarado</div><div class="bars" id="areas"></div></div>
+      <div class="card"><h3>Para qué usan la IA hoy</h3><div class="sub">Usos declarados</div><div class="bars" id="usos"></div></div>
+      <div class="card"><h3>Qué quieren aprender a hacer</h3><div class="sub">Capacidades priorizadas</div><div class="bars" id="areas"></div></div>
+      <div class="card"><h3>Principales temores con la IA</h3><div class="sub">Lo que hay que abordar en la jornada</div><div class="bars" id="temores"></div></div>
       <div class="card"><h3>Rol / área de los encuestados</h3><div class="sub">Área de trabajo</div><div class="bars" id="roles"></div></div>
+      <div class="card" id="card-legacy" style="display:none"><h3>Áreas de interés</h3><div class="sub">Pregunta retirada · respuestas anteriores a agosto 2026</div><div class="bars" id="legacy-areas"></div></div>
     </div>
 
     <div class="sec-label">Infraestructura del equipo</div>
@@ -143,13 +146,15 @@
     <div class="quotes" id="quotes"></div>
 
     <div class="sec-label">Detalle de respuestas</div>
-    <div class="tbl-scroll"><table><thead><tr><th>Persona</th><th>Rol</th><th>Nivel IA</th><th>Herramientas</th><th>Interés</th></tr></thead><tbody id="tbody"></tbody></table></div>
+    <div class="tbl-scroll"><table><thead><tr><th>Persona</th><th>Rol</th><th>Nivel IA</th><th>Herramientas</th><th>Quiere aprender</th></tr></thead><tbody id="tbody"></tbody></table></div>
   </div>
   <div class="foot">Panel confidencial · lee en vivo desde la base de datos · <strong>Reyes IA</strong> · @reyesdelaIA</div>
 </div>
 
 <div id="tip"></div>
+<script src="/diagnostico/labels.js"></script>
 <script>
+const DL = window.DIAG_LABELS || {};
 const SB_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
 
@@ -164,6 +169,9 @@ const LBL = {chatgpt:'ChatGPT',copilot:'Copilot',claude:'Claude',gemini:'Gemini'
 
 function titleCase(s){ if(!s) return '—'; s=String(s).trim(); return s.charAt(0).toUpperCase()+s.slice(1).toLowerCase(); }
 function nice(v){ if(v==null) return '—'; const k=String(v).trim().toLowerCase(); return LBL[k] || titleCase(v); }
+// Etiqueta desde un diccionario específico: la misma clave significa cosas
+// distintas según la pregunta (ej. "ninguna" en usos vs. en herramientas).
+function lblOf(dict){ return (v)=> (dict && dict[String(v).trim().toLowerCase()]) || nice(v); }
 function noAccents(s){ s=(s||'').toLowerCase(); const m={'á':'a','é':'e','í':'i','ó':'o','ú':'u','ñ':'n','ü':'u'}; return s.replace(/[áéíóúñü]/g,c=>m[c]).trim(); }
 
 function normCompany(raw){
@@ -206,7 +214,7 @@ function render(companyKey){
   document.getElementById('countPill').textContent = total + (total===1?' respuesta':' respuestas');
 
   // KPIs
-  const areaCounts = countBy(rows, r=>nice(r.area_trabajo));
+  const areaCounts = countBy(rows, r=>lblOf(DL.TRABAJO)(r.area_trabajo));
   const topArea = sortEntries(areaCounts)[0];
   const outlookN = rows.filter(r=>noAccents(r.plataforma_mail)==='outlook').length;
   const nivelC = countBy(rows, r=>r.nivel_equipo);
@@ -232,19 +240,31 @@ function render(companyKey){
   donut.style.background = segs.length? `conic-gradient(${segs.join(',')})` : 'var(--track)';
   document.getElementById('nivel-legend').innerHTML = legend.join('');
 
-  // Tools / Areas / Roles
-  renderBars('tools', sortEntries(freqArr(rows,'herramientas_ia')).map(e=>[nice(e[0]),e[1]]).map((e,i,a)=>e), (e)=> e[0]==='Ninguna'?'var(--muted)':null);
-  renderBars('areas', sortEntries(freqArr(rows,'areas_interes')).map(e=>[nice(e[0]),e[1]]));
-  renderBars('roles', sortEntries(areaCounts).map(e=>[e[0],e[1]]));
+  // Barras: herramientas, usos, capacidades a aprender, temores, roles
+  const T=lblOf(DL.TOOLS), U=lblOf(DL.USOS), A=lblOf(DL.APRENDER), M=lblOf(DL.TEMORES);
+  renderBars('tools',   sortEntries(freqArr(rows,'herramientas_ia')).map(e=>[T(e[0]),e[1]]), (e)=> /^Ninguna/.test(e[0])?'var(--muted)':null);
+  renderBars('usos',    sortEntries(freqArr(rows,'usos_ia')).map(e=>[U(e[0]),e[1]]),         (e)=> /^Todavía/.test(e[0])?'var(--muted)':null);
+  renderBars('areas',   sortEntries(freqArr(rows,'areas_aprender')).map(e=>[A(e[0]),e[1]]));
+  renderBars('temores', sortEntries(freqArr(rows,'temores')).map(e=>[M(e[0]),e[1]]),         (e)=> /^Ningún/.test(e[0])?'var(--green)':null);
+  renderBars('roles',   sortEntries(areaCounts).map(e=>[e[0],e[1]]));
+
+  // Histórico: "áreas de interés" salió del formulario, pero las respuestas viejas siguen ahí
+  const legacy = sortEntries(freqArr(rows,'areas_interes')).map(e=>[lblOf(DL.AREAS_INTERES)(e[0]),e[1]]);
+  document.getElementById('card-legacy').style.display = legacy.length ? '' : 'none';
+  if (legacy.length) renderBars('legacy-areas', legacy);
 
   // Infra tiles
-  function topOf(field, map){
+  function topOf(field, dict){
     const c=countBy(rows, r=>noAccents(r[field])); const t=sortEntries(c)[0];
     if(!t) return {nm:'—',pct:0,ds:'sin dato'};
-    return {nm: nice(t[0]), pct: pct(t[1]), ds: t[1]+' de '+total};
+    return {nm: (dict && dict[t[0]]) || nice(t[0]), pct: pct(t[1]), ds: t[1]+' de '+total};
   }
-  const infra=[['plataforma_mail','Correo'],['reuniones','Reuniones'],['repositorio','Repositorio']].map(([f,cap])=>{
-    const t=topOf(f); return `<div class="itile"><div class="pct">${t.pct}%</div><div class="nm">${t.nm}</div><div class="ds">${cap} · ${t.ds}</div><div class="ibar"><span style="width:${t.pct}%"></span></div></div>`;
+  const infra=[
+    ['plataforma_mail','Correo', DL.MAIL],
+    ['repositorio','Repositorio', DL.REPO],
+    ['quiere_capacitacion','Capacitación', DL.CAPACITACION],
+  ].map(([f,cap,dict])=>{
+    const t=topOf(f,dict); return `<div class="itile"><div class="pct">${t.pct}%</div><div class="nm">${t.nm}</div><div class="ds">${cap} · ${t.ds}</div><div class="ibar"><span style="width:${t.pct}%"></span></div></div>`;
   });
   document.getElementById('infra').innerHTML = infra.join('');
 
@@ -259,9 +279,14 @@ function render(companyKey){
 
   // Table
   document.getElementById('tbody').innerHTML = rows.map(r=>{
-    const parts=(r.nombre_contacto||'').split('·'); const nm=(parts[0]||'').trim()||'—'; const rol=(parts[1]||'').trim()||nice(r.area_trabajo);
-    const lv=r.nivel_equipo||''; const tools=(r.herramientas_ia||[]).map(nice).join(', ')||'—'; const ints=(r.areas_interes||[]).map(nice).join(', ')||'—';
-    return `<tr><td><b>${nm}</b></td><td>${rol}</td><td><span class="lvl ${lv}">${NIVEL_LABEL[lv]||'—'}</span></td><td>${tools}</td><td>${ints}</td></tr>`;
+    const parts=(r.nombre_contacto||'').split('·'); const nm=(parts[0]||'').trim()||'—'; const rol=(parts[1]||'').trim()||lblOf(DL.TRABAJO)(r.area_trabajo);
+    const lv=r.nivel_equipo||'';
+    const tools=(r.herramientas_ia||[]).map(lblOf(DL.TOOLS)).join(', ')||'—';
+    // Respuestas nuevas traen areas_aprender; las antiguas solo areas_interes
+    const quiere=(r.areas_aprender||[]).length
+      ? (r.areas_aprender).map(lblOf(DL.APRENDER)).join(', ')
+      : ((r.areas_interes||[]).map(lblOf(DL.AREAS_INTERES)).join(', ')||'—');
+    return `<tr><td><b>${nm}</b></td><td>${rol}</td><td><span class="lvl ${lv}">${NIVEL_LABEL[lv]||'—'}</span></td><td>${tools}</td><td>${quiere}</td></tr>`;
   }).join('');
 
   bindTips();

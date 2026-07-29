@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Diagnóstico IA · CCU · Reyes IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/diagnostico/form.css"/>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand" id="brand"></div>
+
+  <div class="card">
+    <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+    <div id="app"></div>
+  </div>
+
+  <div class="foot">Diagnóstico confidencial · <a href="https://reyesia.com">reyesia.com</a></div>
+</div>
+
+<!-- Clon para CCU. Las preguntas viven en form.js: acá solo va lo propio del cliente.
+     Ver la documentación al inicio de /diagnostico/form.js. -->
+<script>
+window.DIAG_CONFIG = {
+  variante: 'ccu',
+  empresa: 'CCU',                    // precargada: se salta el paso 1
+  cliente: 'CCU',
+  logo: '/diagnostico/logos/ccu.png',
+  patch: {
+    // Áreas reales de las personas convocadas en CCU
+    persona: {
+      areas: [
+        ['ccu_compras_directas',      'Compras Directas'],
+        ['ccu_comercio_exterior',     'Comercio Exterior'],
+        ['ccu_control_gestion',       'Control de Gestión y Transformación Digital'],
+        ['ccu_compras_servicios',     'Compras de Servicios'],
+        ['ccu_compras_industriales',  'Compras Industriales y Marketing'],
+        ['ccu_gerencia_abastecimiento','Gerente de Abastecimiento'],
+        ['otra',                      'Otra'],
+      ],
+    },
+  },
+};
+</script>
+<script src="/diagnostico/form.js"></script>
+</body>
+</html>
