@@ -32,30 +32,53 @@
   .wrap{max-width:960px;margin:0 auto;padding:28px 20px 80px;}
 
   /* LANDING */
-  .page-header{margin-bottom:24px;}
-  .page-header h1{font-size:22px;font-weight:800;margin:0 0 4px;color:var(--navy1);}
-  .page-header p{color:var(--sub);font-size:14px;margin:0;}
+  .page-header{margin-bottom:6px;}
+  .page-header h1{font-size:21px;font-weight:700;letter-spacing:-.01em;margin:0 0 3px;color:var(--navy1);}
+  .page-header p{color:var(--sub);font-size:13.5px;font-weight:400;margin:0;}
 
-  .group-label{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy2);
-    margin:28px 0 12px;display:flex;align-items:center;gap:8px;}
+  /* Buscador */
+  .buscador{position:relative;margin:20px 0 6px;}
+  .buscador input{width:100%;border:1.5px solid var(--border);border-radius:14px;padding:12px 16px 12px 42px;
+    font-family:'Poppins',sans-serif;font-size:14px;color:var(--text);outline:none;background:#fff;
+    transition:border-color .15s, box-shadow .15s;}
+  .buscador input::placeholder{color:#a8adb5;}
+  .buscador input:focus{border-color:var(--navy3);box-shadow:0 0 0 3px rgba(24,95,165,0.10);}
+  .buscador .lupa{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:14px;opacity:.5;pointer-events:none;}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+  /* Secciones */
+  .sec-cli{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--navy2);margin:26px 0 13px;}
+  .sec-cli.sec-comp{color:#9aa1ab;margin-top:34px;}
+  .sec-cli .cuenta{font-size:11px;font-weight:700;color:var(--sub);background:#eaecef;padding:2px 8px;border-radius:20px;letter-spacing:0;}
 
-  .client-card{background:var(--card);border:1px solid #ececea;border-radius:18px;padding:19px 21px;cursor:pointer;
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:14px;}
+  .grid-comp{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:11px;}
+
+  /* Tarjeta activa */
+  .client-card{background:#fff;border:1px solid #ececea;border-radius:18px;padding:19px 20px;cursor:pointer;display:block;
     box-shadow:0 2px 10px rgba(4,44,83,0.04);
     transition:transform .18s cubic-bezier(.22,1,.36,1), box-shadow .18s, border-color .18s;}
-  .client-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(4,44,83,0.12);border-color:#d6e0ea;}
-  .client-card .name{font-weight:700;font-size:16px;letter-spacing:-.01em;margin-bottom:3px;}
-  .client-card .meta{font-size:12px;color:var(--sub);margin-bottom:15px;}
-  .progress-track{height:7px;background:#edeeec;border-radius:6px;overflow:hidden;margin-bottom:8px;}
-  .client-card.completado .progress-fill{background:linear-gradient(90deg,#16A34A,#22C55E);}
-  .progress-fill{height:100%;background:linear-gradient(90deg,var(--navy3),var(--navy1));border-radius:6px;
+  .client-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(4,44,83,0.13);border-color:#d6e0ea;}
+  .cc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:15px;}
+  .cc-name{font-size:15.5px;font-weight:600;letter-spacing:-.01em;color:var(--text);line-height:1.3;
+    display:flex;align-items:baseline;gap:8px;min-width:0;}
+  .cc-name .cc-tipo{font-size:12.5px;opacity:.5;flex-shrink:0;}
+  .cc-pct{font-size:19px;font-weight:700;letter-spacing:-.02em;color:var(--navy2);flex-shrink:0;line-height:1;}
+  .cc-pct span{font-size:12px;font-weight:600;opacity:.65;margin-left:1px;}
+  .cc-bar{height:6px;background:#eef0f2;border-radius:100px;overflow:hidden;margin-bottom:10px;}
+  .cc-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy3),var(--navy1));border-radius:100px;
     transition:width .9s cubic-bezier(.22,1,.36,1);}
-  .progress-text{font-size:11.5px;color:var(--sub);font-weight:600;display:flex;justify-content:space-between;letter-spacing:.01em;}
-  .badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.03em;}
-  .badge-activo{background:var(--greenbg);color:#166534;}
-  .badge-pausado{background:var(--amberbg);color:#92400E;}
-  .badge-completado{background:#EEF2FF;color:#3730A3;}
+  .cc-meta{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--sub);font-weight:500;}
+  .cc-estado{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--navy2);}
+  .cc-estado::before{content:'';width:7px;height:7px;border-radius:50%;background:#2FA36B;}
+
+  /* Tarjeta completada (apagada, compacta) */
+  .client-card.completado{background:#f6f7f8;border-color:#ececef;box-shadow:none;opacity:.62;padding:15px 17px;}
+  .client-card.completado:hover{opacity:1;transform:translateY(-2px);box-shadow:0 8px 20px rgba(4,44,83,0.08);}
+  .client-card.completado .cc-name{font-size:14px;font-weight:600;color:var(--sub);margin-bottom:11px;}
+  .cc-done{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#166534;}
+  .cc-done .check{width:18px;height:18px;border-radius:50%;background:var(--green);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:10.5px;flex-shrink:0;}
 
   .page-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
   .btn-nuevo{flex-shrink:0;background:linear-gradient(135deg,var(--navy2),var(--navy3));color:#fff;border:none;
@@ -402,57 +425,81 @@ async function renderLanding(){
 
   if (error){ app.innerHTML = '<div class="empty">Error cargando datos: '+esc(error.message)+'</div>'; return; }
 
-  // Progreso de cada tarjeta por SESIONES (una sesión cuenta como hecha si todos
-  // sus temas están marcados o si su fecha ya pasó). Dos consultas livianas.
-  const [{ data: temas }, { data: ses }] = await Promise.all([
-    sb.from('temario_temas').select('programa_id,numero_sesion,estado'),
-    sb.from('sesiones_cliente').select('programa_id,numero_sesion,fecha_hora')
-  ]);
-  const ahoraL = Date.now();
+  // Avance por SESIONES: una sesión cuenta como hecha cuando todos sus temas
+  // están marcados (la fecha es solo el calendario, no completa la sesión sola).
+  const { data: temas } = await sb.from('temario_temas').select('programa_id,numero_sesion,estado');
   const prog = {};
-  const gDe = id => (prog[id] ||= { ses: {} });
   (temas || []).forEach(t => {
-    const s = (gDe(t.programa_id).ses[t.numero_sesion] ||= { t: 0, v: 0, paso: false });
+    const g = (prog[t.programa_id] ||= {});
+    const s = (g[t.numero_sesion] ||= { t: 0, v: 0 });
     s.t++; if (t.estado === 'visto') s.v++;
   });
-  (ses || []).forEach(r => {
-    if (!r.fecha_hora) return;
-    const s = (gDe(r.programa_id).ses[r.numero_sesion] ||= { t: 0, v: 0, paso: false });
-    if (new Date(r.fecha_hora).getTime() < ahoraL) s.paso = true;
-  });
+  const doneDe = id => Object.values(prog[id] || {}).filter(s => s.t > 0 && s.v === s.t).length;
+  const tipoIcono = p => p.tipo === 'mentoria_1a1' ? '🎯' : '🏢';
 
-  const empresas = programas.filter(p => (p.tipo || 'empresa') === 'empresa');
-  const mentorias = programas.filter(p => p.tipo === 'mentoria_1a1');
-
-  const cardHtml = p => {
-    const completado = p.estado === 'completado';
+  const cardActivo = p => {
     const total = p.total_sesiones || 8;
-    const g = prog[p.id] || { ses: {} };
-    const done = Object.values(g.ses).filter(s => (s.t > 0 && s.v === s.t) || s.paso).length;
-    const pct = completado ? 100 : (total ? Math.round(done / total * 100) : 0);
-    const pie = completado
-      ? `<span>Programa completado</span><span>✓</span>`
-      : `<span>${done}/${total} sesiones</span><span>${pct}%</span>`;
-    return `<a class="client-card ${completado ? 'completado' : ''}" onclick="location.hash='#/cliente/${p.id}'">
-      <div class="name">${esc(p.cliente)}</div>
-      <div class="meta">${esc(p.contacto || '')} ${p.contacto ? '· ' : ''}<span class="badge badge-${p.estado}">${p.estado}</span></div>
-      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <div class="progress-text">${pie}</div>
+    const done = doneDe(p.id);
+    const pct = total ? Math.round(done / total * 100) : 0;
+    return `<a class="client-card" data-nombre="${esc((p.cliente||'').toLowerCase())}" onclick="location.hash='#/cliente/${p.id}'">
+      <div class="cc-top">
+        <div class="cc-name"><span class="cc-tipo">${tipoIcono(p)}</span>${esc(p.cliente)}</div>
+        <div class="cc-pct">${pct}<span>%</span></div>
+      </div>
+      <div class="cc-bar"><i style="width:${pct}%"></i></div>
+      <div class="cc-meta"><span class="cc-estado">${done>0?'En curso':'Por empezar'}</span><span>${done} de ${total} sesiones</span></div>
     </a>`;
   };
+
+  const cardCompletado = p => `<a class="client-card completado" data-nombre="${esc((p.cliente||'').toLowerCase())}" onclick="location.hash='#/cliente/${p.id}'">
+      <div class="cc-name"><span class="cc-tipo">${tipoIcono(p)}</span>${esc(p.cliente)}</div>
+      <div class="cc-done"><span class="check">✓</span> Completado</div>
+    </a>`;
+
+  const activos = programas.filter(p => p.estado !== 'completado');
+  const completados = programas.filter(p => p.estado === 'completado');
 
   app.innerHTML = `
     <div class="page-header">
       <div>
         <h1>Panel de Clientes</h1>
-        <p>Selecciona una empresa o una mentoría para ver la bitácora y el temario en vivo.</p>
+        <p>Tus programas de acompañamiento, en vivo.</p>
       </div>
       <button class="btn-nuevo" onclick="abrirNuevoCliente()">+ Nuevo cliente</button>
     </div>
-    ${empresas.length ? `<div class="group-label">🏢 Adopción Profunda — Empresas</div><div class="grid">${empresas.map(cardHtml).join('')}</div>` : ''}
-    ${mentorias.length ? `<div class="group-label">🎯 Mentorías 1:1</div><div class="grid">${mentorias.map(cardHtml).join('')}</div>` : ''}
+    <div class="buscador">
+      <span class="lupa">🔍</span>
+      <input type="text" placeholder="Buscar cliente…" oninput="filtrarClientes(this.value)" autocomplete="off" spellcheck="false">
+    </div>
+    <div id="sinResultados" class="empty" style="display:none">Ningún cliente coincide con la búsqueda.</div>
+    ${activos.length ? `
+      <div class="cli-seccion">
+        <div class="sec-cli">En curso <span class="cuenta">${activos.length}</span></div>
+        <div class="grid">${activos.map(cardActivo).join('')}</div>
+      </div>` : ''}
+    ${completados.length ? `
+      <div class="cli-seccion">
+        <div class="sec-cli sec-comp">✓ Completados <span class="cuenta">${completados.length}</span></div>
+        <div class="grid grid-comp">${completados.map(cardCompletado).join('')}</div>
+      </div>` : ''}
     ${!programas.length ? '<div class="empty">Aún no hay programas registrados.</div>' : ''}
   `;
+}
+
+function filtrarClientes(q){
+  q = (q || '').trim().toLowerCase();
+  let algo = false;
+  document.querySelectorAll('.client-card').forEach(c => {
+    const ok = !q || (c.dataset.nombre || '').includes(q);
+    c.style.display = ok ? '' : 'none';
+    if (ok) algo = true;
+  });
+  document.querySelectorAll('.cli-seccion').forEach(sec => {
+    const vis = [...sec.querySelectorAll('.client-card')].some(c => c.style.display !== 'none');
+    sec.style.display = vis ? '' : 'none';
+  });
+  const sr = document.getElementById('sinResultados');
+  if (sr) sr.style.display = algo ? 'none' : '';
 }
 
 // Una fila de tema. `arrastrado` = viene de una sesión anterior sin terminar:
@@ -548,24 +595,23 @@ async function renderDetail(programaId){
     const f = fechas[n]?.fecha_hora;
     return !!f && new Date(f).getTime() < ahora;
   };
-  // La fecha pasada marca la SESIÓN como hecha (para el % y el estado), pero a
-  // nivel de tema solo cuenta el check: un tema sin marcar sigue pendiente
-  // aunque su sesión ya haya ocurrido, hasta que lo marques o lo muevas.
+  // Una sesión cuenta como HECHA solo cuando marcaste todos sus temas (o usaste
+  // "Marcar completa"). La fecha es el calendario, no completa la sesión sola.
   const sesionCompleta = n => {
     const l = bySesion[n] || [];
-    return (l.length > 0 && l.every(t => t.estado === 'visto')) || fechaPaso(n);
+    return l.length > 0 && l.every(t => t.estado === 'visto');
   };
 
   const totalTemas = temas.length;
   const temasMarcados = temas.filter(t => t.estado === 'visto').length;
   let done = 0;
-  for (let n = 1; n <= maxNum; n++){ if ((bySesion[n] || []).length && sesionCompleta(n)) done++; }
+  for (let n = 1; n <= maxNum; n++){ if (sesionCompleta(n)) done++; }
   // El avance se mide por SESIONES completas sobre el total, no por temas.
   const pct = total ? Math.round(done / total * 100) : 0;
 
-  // Para arrastrar pendientes: una sesión "ya se hizo" si tiene algún tema
-  // marcado o su fecha ya pasó.
-  const sesionRealizada = n => (bySesion[n] || []).some(t => t.estado === 'visto') || fechaPaso(n);
+  // Para arrastrar pendientes: una sesión "ya se empezó" si tiene algún tema
+  // marcado. Sus temas sin marcar se arrastran a las siguientes.
+  const sesionRealizada = n => (bySesion[n] || []).some(t => t.estado === 'visto');
 
   // Un tema SIN MARCAR de una sesión ya realizada se arrastra destacado a las
   // siguientes, hasta que se marque o se mueva — aunque la fecha ya haya pasado.
@@ -577,7 +623,7 @@ async function renderDetail(programaId){
   for (let n = 1; n <= maxNum; n++){
     const list = bySesion[n] || [];
     const todosMarcados = list.length > 0 && list.every(t => t.estado === 'visto');
-    const completa = todosMarcados || fechaPaso(n);
+    const completa = todosMarcados;
     const isCurrent = n === done + 1;
     const arrastrados = pendientesPrevios(n);
     const stateClass = completa ? 'done' : isCurrent ? 'current' : 'future';

@@ -310,10 +310,9 @@ function fechaLarga(iso){
   corta = corta.charAt(0).toUpperCase()+corta.slice(1);
   return { txt, hora, dia, mes, corta };
 }
-function fechaPaso(s){ return s.fecha && new Date(s.fecha).getTime() < Date.now(); }
 function estadoSesion(s){
   const v = s.temas.filter(t=>t[1]).length, t = s.temas.length;
-  if((t && v===t) || fechaPaso(s)) return 'done'; // hecha si todo marcado o la fecha ya pasó
+  if(t && v===t) return 'done'; // hecha solo cuando todos sus temas están marcados
   if(v>0) return 'curso';
   return 'prox';
 }
