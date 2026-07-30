@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>El Ranking de la Legalidad</title>
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -369,14 +370,146 @@
     .row{ grid-template-columns: 48px 1fr auto; padding: 0.85rem 1rem; gap:0.7rem;}
     .name{ font-size:1.15rem; }
   }
+
+  /* ===== COMENTARIO DE LA COMISIÓN ===== */
+  .comentario{
+    display:block;
+    margin-top:0.35rem;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1rem;
+    line-height:1.45;
+    color: var(--bone-dim);
+    max-width: 48ch;
+  }
+  .row.dead .comentario{ color: rgba(255,255,255,0.75); }
+  .row.free .comentario{ color: rgba(255,245,230,0.78); }
+
+  /* ===== ACCESO / MODO COMISIÓN ===== */
+  .acceso{ text-align:center; padding: 0 1.4rem 3rem; position:relative; z-index:3; }
+  .btn-acceso{
+    font-family:'Space Mono', monospace;
+    font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase;
+    color: rgba(43,33,23,0.6);
+    background:none; border:1px solid rgba(43,33,23,0.25);
+    border-radius:999px; padding:0.5rem 1.2rem; cursor:pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-acceso:hover{ color:#2b2117; border-color:rgba(43,33,23,0.55); }
+  .acceso-hint{
+    display:none; margin-top:0.9rem;
+    font-family:'Space Mono', monospace; font-size:0.62rem;
+    letter-spacing:0.16em; text-transform:uppercase; color:rgba(43,33,23,0.65);
+  }
+  .acceso-hint.on{ display:block; }
+
+  .badge-comision{
+    display:none; position:fixed; top:1rem; right:1rem; z-index:40;
+    font-family:'Space Mono', monospace; font-size:0.6rem;
+    letter-spacing:0.2em; text-transform:uppercase;
+    color: var(--gold); background: rgba(10,9,8,0.85);
+    border:1px solid rgba(201,162,75,0.45); border-radius:999px;
+    padding:0.45rem 0.9rem; backdrop-filter: blur(4px);
+  }
+  .badge-comision.on{ display:block; }
+
+  .row.editable{ cursor:pointer; }
+  .row.editable::after{
+    content:"editar";
+    position:absolute; top:0.45rem; right:0.7rem;
+    font-family:'Space Mono', monospace; font-size:0.5rem;
+    letter-spacing:0.18em; text-transform:uppercase;
+    color: var(--gold); opacity:0; transition: opacity 0.2s ease;
+  }
+  .row.editable:hover{ border-color: rgba(201,162,75,0.6); }
+  .row.editable:hover::after{ opacity:0.9; }
+
+  /* ===== MODALES ===== */
+  .modal-bg{
+    position:fixed; inset:0; z-index:70;
+    background: rgba(5,4,3,0.86); backdrop-filter: blur(5px);
+    display:none; align-items:center; justify-content:center; padding:1.4rem;
+  }
+  .modal-bg.on{ display:flex; }
+  .modal{
+    background: linear-gradient(180deg, #191410, #0d0b09);
+    border:1px solid rgba(201,162,75,0.32);
+    border-radius:16px; padding:2rem 1.7rem 1.6rem;
+    width:100%; max-width:430px;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.7);
+    text-align:center;
+  }
+  .modal .eyebrow{ animation:none; }
+  .modal-t{
+    font-family:'Cinzel Decorative', serif; font-weight:700;
+    font-size:1.35rem; color:var(--bone); margin-bottom:0.4rem;
+  }
+  .modal-p{ font-size:0.98rem; font-style:italic; color:var(--bone-dim); margin-bottom:1.4rem; }
+  .campo-lbl{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'Space Mono', monospace; font-size:0.58rem;
+    letter-spacing:0.18em; text-transform:uppercase; color:var(--bone-dim);
+    margin: 0.9rem 0 0.4rem; text-align:left;
+  }
+  .contador{ letter-spacing:0.1em; opacity:0.8; }
+  .contador.pasado{ color: var(--blood-bright); opacity:1; }
+  .campo{
+    width:100%; background: rgba(232,226,212,0.05);
+    border:1px solid rgba(232,226,212,0.16); border-radius:10px;
+    padding:0.75rem 0.9rem; color:var(--bone);
+    font-family:'Space Mono', monospace; font-size:0.9rem;
+    outline:none; transition: border-color 0.2s ease; margin-bottom:0.55rem;
+  }
+  .campo:focus{ border-color: var(--gold); }
+  .campo.area{
+    font-family:'Cormorant Garamond', serif; font-style:italic;
+    font-size:1.02rem; resize:vertical; line-height:1.45;
+  }
+  .modal-err{
+    display:none; font-family:'Space Mono', monospace; font-size:0.68rem;
+    color: var(--blood-bright); margin:0.5rem 0 0; text-align:left;
+  }
+  .modal-err.on{ display:block; }
+  .modal-acciones{ display:flex; gap:0.7rem; justify-content:flex-end; margin-top:1.3rem; }
+  .btn-oro, .btn-fantasma{
+    font-family:'Space Mono', monospace; font-size:0.66rem;
+    letter-spacing:0.18em; text-transform:uppercase;
+    border-radius:999px; padding:0.7rem 1.4rem; cursor:pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-oro{ background: var(--gold); color:#1a1409; border:1px solid var(--gold); font-weight:700; }
+  .btn-oro:hover{ background:#dcb35c; }
+  .btn-oro:disabled{ opacity:0.5; cursor:not-allowed; }
+  .btn-fantasma{ background:none; color:var(--bone-dim); border:1px solid rgba(232,226,212,0.2); }
+  .btn-fantasma:hover{ color:var(--bone); border-color:rgba(232,226,212,0.45); }
+
+  /* ===== TOAST ===== */
+  .toast{
+    position:fixed; left:50%; bottom:2rem; transform:translate(-50%, 1.5rem);
+    z-index:80; opacity:0; pointer-events:none;
+    font-family:'Space Mono', monospace; font-size:0.66rem;
+    letter-spacing:0.2em; text-transform:uppercase;
+    background: rgba(10,9,8,0.94); color: var(--gold);
+    border:1px solid rgba(201,162,75,0.45); border-radius:999px;
+    padding:0.7rem 1.3rem; transition: all 0.3s ease;
+  }
+  .toast.on{ opacity:1; transform:translate(-50%, 0); }
+
+  .cargando, .fallo{
+    text-align:center; font-family:'Space Mono', monospace;
+    font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase;
+    color: var(--bone-dim); padding:3rem 1rem;
+  }
+  .fallo{ color: var(--blood-bright); }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
 <div class="stage">
 
   <header>
-    <span class="eyebrow">Edición N° 1 &middot; Actualización manual</span>
+    <span class="eyebrow">Edición N° 1 &middot; Actualización en vivo</span>
     <h1>El Ranking<br>de la Legalidad</h1>
     <p class="subhead">
     La Comisión actúa siempre con la verdad por delante, no conoce favoritos ni acepta favores:<br>
@@ -424,59 +557,276 @@
 
   <footer>El ranking se actualiza cuando alguien comete un acto de legalidad flagrante</footer>
 
+  <div class="acceso">
+    <button class="btn-acceso" id="btn-acceso">Comisión</button>
+    <div class="acceso-hint" id="acceso-hint">Toca a cualquiera para dictar su veredicto</div>
+  </div>
+
 </div>
 
+<!-- Acceso de la Comisión -->
+<div class="modal-bg" id="modal-login">
+  <div class="modal">
+    <span class="eyebrow">Acceso restringido</span>
+    <h3 class="modal-t">Sesión de la Comisión</h3>
+    <p class="modal-p">El ranking solo se modifica desde el Libro de Actas.</p>
+    <input class="campo" id="login-email" type="email" placeholder="Correo" autocomplete="username"/>
+    <input class="campo" id="login-pw" type="password" placeholder="Contraseña" autocomplete="current-password"/>
+    <div class="modal-err" id="login-err"></div>
+    <div class="modal-acciones">
+      <button class="btn-fantasma" id="login-cancelar">Cancelar</button>
+      <button class="btn-oro" id="login-entrar">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Veredicto sobre un miembro -->
+<div class="modal-bg" id="modal-edit">
+  <div class="modal">
+    <span class="eyebrow">Veredicto</span>
+    <h3 class="modal-t" id="edit-nombre"></h3>
+    <label class="campo-lbl">Puntos de legalidad</label>
+    <input class="campo" id="edit-puntos" type="number" min="0" step="5" inputmode="numeric"/>
+    <label class="campo-lbl">
+      <span>Comentario de la Comisión</span>
+      <span class="contador" id="edit-contador">0/20 palabras</span>
+    </label>
+    <textarea class="campo area" id="edit-comentario" rows="3"
+      placeholder="Ej: Lleva muy buenos meses. Recordar que se robó la fiesta en Salinas."></textarea>
+    <div class="modal-err" id="edit-err"></div>
+    <div class="modal-acciones">
+      <button class="btn-fantasma" id="edit-cancelar">Cancelar</button>
+      <button class="btn-oro" id="edit-guardar">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="badge-comision" id="badge-comision">Modo Comisión</div>
+<div class="toast" id="toast"></div>
+
 <script>
-const data = [
-  {r:1, name:"Alvarito Valdes", tag:"El más legal de todos", pts:3200},
-  {r:2, name:"Negro Garcia", pts:2545},
-  {r:3, name:"Euge Zegers", pts:2310},
-  {r:4, name:"Nacho Bezanilla", pts:2100},
-  {r:5, name:"Monito Paut", pts:1890},
-  {r:6, name:"Pipo Cosmelli", pts:1720},
-  {r:7, name:"Nico GH", pts:1580},
-  {r:8, name:"Tio", pts:1455},
-  {r:9, name:"Obeja", pts:1340},
-  {r:10, name:"Vicho", pts:1220},
-  {r:11, name:"Juan Obach", pts:1105},
-  {r:12, name:"Mateo", pts:995},
-  {r:13, name:"Tomás Bravo", pts:890},
-  {r:14, name:"Raul Lagos", pts:790},
-  {r:15, name:"Chico Villaseca", pts:695},
-  {r:16, name:"Jarita", pts:605},
-  {r:17, name:"Roto Reyes", pts:520},
-  {r:18, name:"Turco Manzur", pts:440},
-  {r:19, name:"Rod Palacios", pts:365},
-  {r:20, name:"Agustín Baldrich", pts:295},
-  {r:21, name:"Pelu Montes", pts:230},
-];
+/* ============================================================================
+   El Ranking de la Legalidad — datos en Supabase (tabla legalidad_ranking)
+   ----------------------------------------------------------------------------
+   Lectura: pública (cualquiera que abra la página).
+   Escritura: solo con sesión iniciada. Lo garantiza RLS en la base, no esta
+   página — aunque alguien lea este código, sin sesión no puede modificar nada.
+   El orden del ranking lo manda el puntaje (mayor a menor); los puestos y las
+   zonas se recalculan solos.
+   ========================================================================== */
+const SB_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
+const sb = supabase.createClient(SB_URL, SB_KEY);
 
-const list = document.getElementById('list');
+const MAX_PALABRAS = 20;
 
-data.forEach((p, i) => {
-  // block separators before 6, 11 and 16
-  if(p.r === 6 || p.r === 11 || p.r === 16){
-    const gap = document.createElement('div');
-    gap.className = 'block-gap';
-    list.appendChild(gap);
+let data = [];
+let sesion = null;
+let editandoId = null;
+
+const $ = (id) => document.getElementById(id);
+const esc = (t) => String(t == null ? '' : t)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const palabras = (t) => (t || '').trim().split(/\s+/).filter(Boolean).length;
+
+/* ─────────────────────────────── Datos ─────────────────────────────────── */
+
+async function cargar() {
+  const { data: rows, error } = await sb
+    .from('legalidad_ranking')
+    .select('id,nombre,puntos,comentario')
+    .eq('activo', true)
+    .order('puntos', { ascending: false })
+    .order('nombre', { ascending: true });
+
+  if (error) {
+    $('list').innerHTML = '<div class="fallo">No se pudo cargar el ranking</div>';
+    return;
+  }
+  data = rows || [];
+  render();
+}
+
+/* ─────────────────────────────── Render ────────────────────────────────── */
+
+function render() {
+  const list = $('list');
+  list.innerHTML = '';
+
+  if (!data.length) {
+    list.innerHTML = '<div class="cargando">Sin registros</div>';
+    return;
   }
 
-  const row = document.createElement('div');
-  row.className = 'row';
-  if(p.r <= 5) row.classList.add('dead');
-  if(p.r >= 16) row.classList.add('free');
-  row.style.animationDelay = (i * 0.045) + 's';
+  data.forEach((p, i) => {
+    const r = i + 1;
 
-  row.innerHTML = `
-    <div class="rank">${p.r}</div>
-    <div>
-      <div class="name">${p.name}</div>
-      ${p.tag ? `<span class="tags">${p.tag}</span>` : ''}
-    </div>
-    <div class="score"><span class="num">${p.pts.toLocaleString('es-CL')}</span><span class="unit">pts legalidad</span></div>
-  `;
-  list.appendChild(row);
+    // separadores de bloque antes del 6, 11 y 16
+    if (r === 6 || r === 11 || r === 16) {
+      const gap = document.createElement('div');
+      gap.className = 'block-gap';
+      list.appendChild(gap);
+    }
+
+    const row = document.createElement('div');
+    row.className = 'row'
+      + (r <= 5 ? ' dead' : '')
+      + (r >= 16 ? ' free' : '')
+      + (sesion ? ' editable' : '');
+    row.style.animationDelay = (i * 0.045) + 's';
+    row.innerHTML = `
+      <div class="rank">${r}</div>
+      <div>
+        <div class="name">${esc(p.nombre)}</div>
+        ${p.comentario ? `<span class="comentario">${esc(p.comentario)}</span>` : ''}
+      </div>
+      <div class="score"><span class="num">${p.puntos.toLocaleString('es-CL')}</span><span class="unit">pts legalidad</span></div>
+    `;
+    if (sesion) row.addEventListener('click', () => abrirEditor(p.id));
+    list.appendChild(row);
+  });
+}
+
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  setTimeout(() => t.classList.remove('on'), 2600);
+}
+
+/* ────────────────────────────── Sesión ─────────────────────────────────── */
+
+function pintarAcceso() {
+  const dentro = !!sesion;
+  $('btn-acceso').textContent = dentro ? 'Cerrar sesión' : 'Comisión';
+  $('acceso-hint').classList.toggle('on', dentro);
+  $('badge-comision').classList.toggle('on', dentro);
+}
+
+function abrirLogin() {
+  $('login-err').classList.remove('on');
+  $('login-pw').value = '';
+  $('modal-login').classList.add('on');
+  $('login-email').focus();
+}
+function cerrarLogin() { $('modal-login').classList.remove('on'); }
+
+async function entrar() {
+  const email = $('login-email').value.trim();
+  const pw = $('login-pw').value;
+  const err = $('login-err');
+  if (!email || !pw) { err.textContent = 'Faltan el correo o la contraseña.'; err.classList.add('on'); return; }
+
+  const btn = $('login-entrar');
+  btn.disabled = true; btn.textContent = 'Entrando…';
+  const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+  btn.disabled = false; btn.textContent = 'Entrar';
+
+  if (error) {
+    err.textContent = 'No se pudo entrar. Revisa el correo y la contraseña.';
+    err.classList.add('on');
+    return;
+  }
+  cerrarLogin();
+  toast('Sesión de la Comisión abierta');
+}
+
+async function salir() {
+  await sb.auth.signOut();
+  toast('Sesión cerrada');
+}
+
+/* ────────────────────────────── Veredicto ──────────────────────────────── */
+
+function abrirEditor(id) {
+  const p = data.find(x => x.id === id);
+  if (!p) return;
+  editandoId = id;
+  $('edit-nombre').textContent = p.nombre;
+  $('edit-puntos').value = p.puntos;
+  $('edit-comentario').value = p.comentario || '';
+  $('edit-err').classList.remove('on');
+  contarPalabras();
+  $('modal-edit').classList.add('on');
+  $('edit-puntos').focus();
+}
+function cerrarEditor() { $('modal-edit').classList.remove('on'); editandoId = null; }
+
+function contarPalabras() {
+  const n = palabras($('edit-comentario').value);
+  const c = $('edit-contador');
+  c.textContent = n + '/' + MAX_PALABRAS + ' palabras';
+  const pasado = n > MAX_PALABRAS;
+  c.classList.toggle('pasado', pasado);
+  $('edit-guardar').disabled = pasado;
+}
+
+async function guardar() {
+  if (!editandoId) return;
+  const err = $('edit-err');
+  const puntos = parseInt($('edit-puntos').value, 10);
+  const comentario = $('edit-comentario').value.trim();
+
+  if (!Number.isFinite(puntos) || puntos < 0) {
+    err.textContent = 'Los puntos tienen que ser un número igual o mayor que cero.';
+    err.classList.add('on'); return;
+  }
+  if (palabras(comentario) > MAX_PALABRAS) {
+    err.textContent = 'El comentario no puede pasar de ' + MAX_PALABRAS + ' palabras.';
+    err.classList.add('on'); return;
+  }
+
+  const btn = $('edit-guardar');
+  btn.disabled = true; btn.textContent = 'Guardando…';
+  // El .select() es clave: si RLS bloquea la escritura (por ejemplo si venció la
+  // sesión), Supabase NO devuelve error, devuelve cero filas. Sin esto la página
+  // diría "guardado" sin haber guardado nada.
+  const { data: filas, error } = await sb.from('legalidad_ranking')
+    .update({ puntos, comentario: comentario || null, actualizado_en: new Date().toISOString() })
+    .eq('id', editandoId)
+    .select('id');
+  btn.disabled = false; btn.textContent = 'Guardar';
+
+  if (error || !filas || !filas.length) {
+    err.textContent = 'No se guardó: la sesión no es válida. Cierra sesión y vuelve a entrar.';
+    err.classList.add('on'); return;
+  }
+  cerrarEditor();
+  await cargar();
+  toast('Veredicto registrado');
+}
+
+/* ─────────────────────────────── Arranque ──────────────────────────────── */
+
+$('btn-acceso').addEventListener('click', () => sesion ? salir() : abrirLogin());
+$('login-cancelar').addEventListener('click', cerrarLogin);
+$('login-entrar').addEventListener('click', entrar);
+$('login-pw').addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
+$('edit-cancelar').addEventListener('click', cerrarEditor);
+$('edit-guardar').addEventListener('click', guardar);
+$('edit-comentario').addEventListener('input', contarPalabras);
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  cerrarLogin(); cerrarEditor();
 });
+// Clic en el fondo oscuro cierra el modal
+['modal-login','modal-edit'].forEach(id => {
+  $(id).addEventListener('click', e => { if (e.target.id === id) e.target.classList.remove('on'); });
+});
+
+sb.auth.onAuthStateChange((_evento, s) => {
+  sesion = s;
+  pintarAcceso();
+  render();
+});
+
+(async () => {
+  $('list').innerHTML = '<div class="cargando">Consultando el Libro de Actas…</div>';
+  const { data: { session } } = await sb.auth.getSession();
+  sesion = session;
+  pintarAcceso();
+  await cargar();
+})();
 </script>
 
 </body>
