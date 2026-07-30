@@ -193,7 +193,7 @@
   .row{
     position:relative;
     display:grid;
-    grid-template-columns: 64px 1fr auto;
+    grid-template-columns: 34px 64px 1fr auto;
     align-items:center;
     gap: 1.1rem;
     padding: 1rem 1.3rem;
@@ -211,6 +211,30 @@
     from{ opacity:0; transform: translateY(14px); }
     to{ opacity:1; transform: translateY(0); }
   }
+
+  /* ===== MOVIMIENTO RESPECTO DE LA EDICIÓN ANTERIOR ===== */
+  .mov{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    font-family:'Space Mono', monospace; font-weight:700; line-height:1; gap:2px;
+  }
+  .mov .flecha{ font-size:1.05rem; }
+  .mov .cuantos{ font-size:0.7rem; opacity:0.92; }
+  .mov.sube{ color:#25c98a; }
+  .mov.baja{ color:#ff5f56; }
+  .mov.igual{ color: rgba(232,226,212,0.25); }
+
+  .mov-legenda{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+    gap:0.5rem 1.1rem;
+    max-width:760px; margin:0 auto; padding:0 1.4rem;
+    font-family:'Space Mono', monospace; font-size:0.6rem;
+    letter-spacing:0.14em; text-transform:uppercase;
+    position:relative; z-index:2;
+  }
+  .mov-legenda .sube{ color:#25c98a; }
+  .mov-legenda .baja{ color:#ff5f56; }
+  .mov-legenda .igual{ color: rgba(232,226,212,0.4); }
+  .mov-legenda .ref{ color: rgba(43,33,23,0.6); letter-spacing:0.1em; }
 
   .rank{
     font-family:'Cinzel Decorative', serif;
@@ -392,7 +416,7 @@
   .seat.lead .who{ font-size:1.5rem; color:#fff; }
 
   @media (max-width:480px){
-    .row{ grid-template-columns: 48px 1fr auto; padding: 0.85rem 1rem; gap:0.7rem;}
+    .row{ grid-template-columns: 24px 44px 1fr auto; padding: 0.85rem 1rem; gap:0.55rem;}
     .name{ font-size:1.15rem; }
   }
 
@@ -534,7 +558,7 @@
 <div class="stage">
 
   <header>
-    <span class="eyebrow">Edición N° 1 &middot; Actualización en vivo</span>
+    <span class="eyebrow" id="eyebrow-edicion">Actualización en vivo</span>
     <h1>El Ranking<br>de la Legalidad</h1>
     <p class="subhead">
     La Comisión actúa siempre con la verdad por delante, no conoce favoritos ni acepta favores:<br>
@@ -550,6 +574,13 @@
 
   <div class="list" id="list">
     <!-- rows injected by JS -->
+  </div>
+
+  <div class="mov-legenda" id="mov-legenda" style="display:none">
+    <span class="sube">▲ subió</span>
+    <span class="baja">▼ bajó</span>
+    <span class="igual">▬ mantuvo</span>
+    <span class="ref">respecto de la edición anterior</span>
   </div>
 
   <section class="commission">
@@ -587,6 +618,7 @@
 
   <div class="acceso">
     <button class="btn-acceso" id="btn-acceso">Comisión</button>
+    <button class="btn-acceso" id="btn-nueva-edicion" style="display:none">Abrir nueva edición</button>
     <div class="acceso-hint" id="acceso-hint">Toca a cualquiera para dictar su veredicto</div>
   </div>
 
@@ -629,6 +661,20 @@
   </div>
 </div>
 
+<!-- Confirmación para abrir una edición nueva -->
+<div class="modal-bg" id="modal-edicion">
+  <div class="modal">
+    <span class="eyebrow">Sesión de la Comisión</span>
+    <h3 class="modal-t" id="edicion-t">Abrir nueva edición</h3>
+    <p class="modal-p" id="edicion-p"></p>
+    <div class="modal-err" id="edicion-err"></div>
+    <div class="modal-acciones">
+      <button class="btn-fantasma" id="edicion-cancelar">Cancelar</button>
+      <button class="btn-oro" id="edicion-confirmar">Abrir edición</button>
+    </div>
+  </div>
+</div>
+
 <div class="badge-comision" id="badge-comision">Modo Comisión</div>
 <div class="toast" id="toast"></div>
 
@@ -651,6 +697,7 @@ const MAX_PALABRAS = 20;
 let data = [];
 let sesion = null;
 let editandoId = null;
+let edicion = null;
 
 const $ = (id) => document.getElementById(id);
 const esc = (t) => String(t == null ? '' : t)
@@ -662,7 +709,7 @@ const palabras = (t) => (t || '').trim().split(/\s+/).filter(Boolean).length;
 async function cargar() {
   const { data: rows, error } = await sb
     .from('legalidad_ranking')
-    .select('id,nombre,puntos,comentario,actualizado_en')
+    .select('id,nombre,puntos,comentario,actualizado_en,posicion_anterior')
     .eq('activo', true)
     .order('puntos', { ascending: false })
     .order('nombre', { ascending: true });
@@ -674,6 +721,21 @@ async function cargar() {
   data = rows || [];
   render();
   pintarFecha();
+  cargarEdicion();
+}
+
+// Número de edición, para el rótulo de arriba
+async function cargarEdicion() {
+  const { data: meta } = await sb.from('legalidad_meta').select('edicion').limit(1).maybeSingle();
+  edicion = meta ? meta.edicion : null;
+  const el = $('eyebrow-edicion');
+  if (el) el.innerHTML = (edicion ? 'Edición N° ' + edicion + ' &middot; ' : '') + 'Actualización en vivo';
+}
+
+// Cuántos puestos se movió respecto de la edición anterior
+function movimiento(p, puestoActual) {
+  if (p.posicion_anterior == null) return 0;
+  return p.posicion_anterior - puestoActual;
 }
 
 // Etiqueta diagonal: mes y año del último veredicto guardado
@@ -718,7 +780,17 @@ function render() {
       + (r >= 16 ? ' free' : '')
       + (sesion ? ' editable' : '');
     row.style.animationDelay = (i * 0.045) + 's';
+
+    const mov = movimiento(p, r);
+    const movCls = mov > 0 ? 'sube' : mov < 0 ? 'baja' : 'igual';
+    const flecha = mov > 0 ? '▲' : mov < 0 ? '▼' : '▬';
+    const cuantos = mov !== 0 ? `<span class="cuantos">${Math.abs(mov)}</span>` : '';
+    const titulo = mov > 0 ? `Subió ${mov} ${mov === 1 ? 'puesto' : 'puestos'}`
+                 : mov < 0 ? `Bajó ${Math.abs(mov)} ${Math.abs(mov) === 1 ? 'puesto' : 'puestos'}`
+                 : 'Mantuvo su puesto';
+
     row.innerHTML = `
+      <div class="mov ${movCls}" title="${titulo}"><span class="flecha">${flecha}</span>${cuantos}</div>
       <div class="rank">${r}</div>
       <div>
         <div class="name">${esc(p.nombre)}</div>
@@ -729,6 +801,10 @@ function render() {
     if (sesion) row.addEventListener('click', () => abrirEditor(p.id));
     list.appendChild(row);
   });
+
+  // La leyenda solo tiene sentido si hay algún movimiento que explicar
+  const hayMovimiento = data.some((p, i) => movimiento(p, i + 1) !== 0);
+  $('mov-legenda').style.display = hayMovimiento ? '' : 'none';
 }
 
 function toast(msg) {
@@ -745,6 +821,38 @@ function pintarAcceso() {
   $('btn-acceso').textContent = dentro ? 'Cerrar sesión' : 'Comisión';
   $('acceso-hint').classList.toggle('on', dentro);
   $('badge-comision').classList.toggle('on', dentro);
+  $('btn-nueva-edicion').style.display = dentro ? '' : 'none';
+}
+
+/* ─────────────────────── Abrir una edición nueva ───────────────────────── */
+
+function abrirModalEdicion() {
+  $('edicion-err').classList.remove('on');
+  $('edicion-p').textContent = edicion
+    ? `Los puestos de la Edición N° ${edicion} quedan como referencia y las flechas vuelven a cero. `
+      + `Los cambios que guardes después se contarán como movimientos de la Edición N° ${edicion + 1}.`
+    : 'Los puestos actuales quedan como referencia y las flechas vuelven a cero.';
+  $('edicion-confirmar').textContent = edicion ? `Abrir Edición N° ${edicion + 1}` : 'Abrir edición';
+  $('modal-edicion').classList.add('on');
+}
+function cerrarModalEdicion() { $('modal-edicion').classList.remove('on'); }
+
+async function confirmarNuevaEdicion() {
+  const btn = $('edicion-confirmar');
+  const err = $('edicion-err');
+  const texto = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Abriendo…';
+  const { data: nueva, error } = await sb.rpc('legalidad_nueva_edicion');
+  btn.disabled = false; btn.textContent = texto;
+
+  if (error || nueva == null) {
+    err.textContent = 'No se pudo abrir la edición. ¿Sigue abierta la sesión?';
+    err.classList.add('on');
+    return;
+  }
+  cerrarModalEdicion();
+  await cargar();
+  toast('Edición N° ' + nueva + ' abierta');
 }
 
 function abrirLogin() {
@@ -849,12 +957,15 @@ $('login-pw').addEventListener('keydown', e => { if (e.key === 'Enter') entrar()
 $('edit-cancelar').addEventListener('click', cerrarEditor);
 $('edit-guardar').addEventListener('click', guardar);
 $('edit-comentario').addEventListener('input', contarPalabras);
+$('btn-nueva-edicion').addEventListener('click', abrirModalEdicion);
+$('edicion-cancelar').addEventListener('click', cerrarModalEdicion);
+$('edicion-confirmar').addEventListener('click', confirmarNuevaEdicion);
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
-  cerrarLogin(); cerrarEditor();
+  cerrarLogin(); cerrarEditor(); cerrarModalEdicion();
 });
 // Clic en el fondo oscuro cierra el modal
-['modal-login','modal-edit'].forEach(id => {
+['modal-login','modal-edit','modal-edicion'].forEach(id => {
   $(id).addEventListener('click', e => { if (e.target.id === id) e.target.classList.remove('on'); });
 });
 
