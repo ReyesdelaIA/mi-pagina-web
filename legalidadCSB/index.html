@@ -137,6 +137,11 @@
 
   /* ===== ZONE LABELS ===== */
   .zone-label{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap: 0.4rem 1rem;
     text-align:center;
     font-family:'Space Mono', monospace;
     font-size:0.72rem;
@@ -145,6 +150,23 @@
     padding: 3.2rem 0 1.2rem;
     position:relative;
     z-index:2;
+  }
+
+  /* Etiqueta diagonal con el mes de la última actualización.
+     Es un div, no un span, para que no la alcance la regla .zone-label.dead span */
+  .fecha-ribbon{
+    transform: rotate(-7deg);
+    font-family:'Space Mono', monospace;
+    font-size:0.6rem;
+    font-weight:700;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:#1a1409;
+    background: linear-gradient(180deg, #e0be6d, var(--gold));
+    border-radius:4px;
+    padding:0.32rem 0.8rem;
+    white-space:nowrap;
+    box-shadow: 0 3px 14px rgba(201,162,75,0.35);
   }
   .zone-label.dead{ color: var(--blood-bright); }
   .zone-label span{
@@ -518,7 +540,10 @@
     <div class="divider"><span class="line"></span><span class="skull">💀</span><span class="line"></span></div>
   </header>
 
-  <div class="zone-label dead"><span>☠ Zona de máxima legalidad ☠</span></div>
+  <div class="zone-label dead">
+    <span>☠ Zona de máxima legalidad ☠</span>
+    <div class="fecha-ribbon" id="fecha-ribbon" style="display:none"></div>
+  </div>
 
   <div class="list" id="list">
     <!-- rows injected by JS -->
@@ -634,7 +659,7 @@ const palabras = (t) => (t || '').trim().split(/\s+/).filter(Boolean).length;
 async function cargar() {
   const { data: rows, error } = await sb
     .from('legalidad_ranking')
-    .select('id,nombre,puntos,comentario')
+    .select('id,nombre,puntos,comentario,actualizado_en')
     .eq('activo', true)
     .order('puntos', { ascending: false })
     .order('nombre', { ascending: true });
@@ -645,6 +670,22 @@ async function cargar() {
   }
   data = rows || [];
   render();
+  pintarFecha();
+}
+
+// Etiqueta diagonal: mes y año del último veredicto guardado
+const MESES = ['enero','febrero','marzo','abril','mayo','junio',
+               'julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+function pintarFecha() {
+  const el = $('fecha-ribbon');
+  if (!el) return;
+  const fechas = data.map(p => p.actualizado_en).filter(Boolean).map(f => new Date(f).getTime())
+    .filter(t => !isNaN(t));
+  if (!fechas.length) { el.style.display = 'none'; return; }
+  const ultima = new Date(Math.max.apply(null, fechas));
+  el.textContent = MESES[ultima.getMonth()] + ' ' + ultima.getFullYear();
+  el.style.display = '';
 }
 
 /* ─────────────────────────────── Render ────────────────────────────────── */
