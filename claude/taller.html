@@ -37,6 +37,9 @@
       background:linear-gradient(135deg,#FFFBEB,#FDE68A); }
 
     .paso-n { font-size:11.5px; font-weight:800; color:var(--amber); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+    /* Cintillo del bloque: arte propio que va bajo el título, sin recuadro */
+    .c-banner { margin:0 0 20px; max-width:560px; }
+    .c-banner img { width:100%; display:block; }
     .c-nombre { font-size:30px; font-weight:800; color:var(--ink); line-height:1.15; margin-bottom:12px; letter-spacing:-.4px; }
     .c-desc { font-size:16px; color:#4B5563; line-height:1.7; margin-bottom:30px; max-width:70ch; }
 
@@ -48,6 +51,41 @@
     .paso-img { margin:18px 0 6px; border-radius:20px; overflow:hidden; border:1px solid var(--border);
       background:#fff; box-shadow:0 12px 38px rgba(26,37,55,.14); }
     .paso-img img { width:100%; display:block; }
+    /* Capturas verticales: a todo el ancho se verían estiradas */
+    .paso-img.angosta { max-width:420px; margin-left:auto; margin-right:auto; }
+
+    /* Paso de instrucción puntual: la captura chica al lado del texto, no a
+       pantalla completa. Para el «anda acá y aprieta esto» que no merece
+       una imagen gigante. */
+    .paso-instr { display:flex; gap:16px; align-items:center; }
+    .paso-instr .pi-img { flex:0 0 280px; margin:0; border-radius:14px; overflow:hidden;
+      border:1px solid var(--border); background:#fff; box-shadow:0 6px 20px rgba(26,37,55,.12); }
+    .paso-instr .pi-img img { width:100%; display:block; }
+    .pi-box { flex:1; display:flex; gap:14px; align-items:flex-start;
+      background:#EFF6FF; border:1.5px solid #BFDBFE; border-radius:16px;
+      padding:18px 20px; font-size:14.5px; color:#1E3A5F; line-height:1.7; }
+    .pi-box .num { background:#DBEAFE; color:#1D4ED8; }
+    @media(max-width:819px){
+      .paso-instr { flex-direction:column; align-items:stretch; }
+      .paso-instr .pi-img { flex:none; max-width:280px; }
+    }
+
+    /* Paso de recurso: manda a algo que está fuera del portal (un prompt
+       listo, una herramienta). Va en verde para que se note que es un link. */
+    .paso-recurso {
+      display:flex; gap:16px; align-items:flex-start;
+      background:linear-gradient(135deg,#F0FDF4,#DCFCE7);
+      border:1.5px solid #A7F3D0; border-radius:16px;
+      padding:18px 20px; font-size:14.5px; color:#14532D; line-height:1.7;
+    }
+    .paso-recurso .num { background:#D1FAE5; color:#047857; }
+    .pr-link {
+      display:inline-flex; align-items:center; gap:8px; margin-top:13px;
+      background:var(--green); color:#fff; text-decoration:none;
+      font-weight:700; font-size:13.5px; padding:11px 18px; border-radius:11px;
+      transition:filter .15s;
+    }
+    .pr-link:hover { filter:brightness(1.07); }
     .num { flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#FEF3C7; color:var(--amber-dark);
       font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px; }
 
@@ -288,10 +326,27 @@
       <div class="paso-n">Concepto ${r.ci + 1} de ${taller.conceptos.length}${
         r.partes > 1 ? ` · parte ${r.parte} de ${r.partes}` : ''}</div>
       <h1 class="c-nombre">${esc(tituloPantalla || b.nombre)}</h1>
+      ${r.parte === 1 && b.banner ? `<figure class="c-banner"><img src="/bloques/${r.id}/${b.banner}" alt="" /></figure>` : ''}
       ${r.parte === 1 ? `<p class="c-desc">${esc(b.descripcion)}</p>` : ''}`;
 
     const cuerpo = r.pasos.map(o => {
-      const img = o.img ? `<figure class="paso-img"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>` : '';
+      // `recurso` es un paso que manda afuera: cuadro verde con su botón
+      if (o.recurso) return `
+        <div class="paso-recurso">
+          <span class="num">${o._n}</span>
+          <div>
+            <span>${esc(o.texto)}</span>
+            ${o.url ? `<a class="pr-link" href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.url_texto || 'Abrir')} →</a>` : ''}
+          </div>
+        </div>${o.img ? `<figure class="paso-img"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>` : ''}`;
+
+      // `instr` deja la captura chica al lado del texto, en vez de a lo ancho
+      if (o.instr && o.img) return `
+        <div class="paso-instr">
+          <figure class="pi-img"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>
+          <div class="pi-box"><span class="num">${o._n}</span><span>${esc(o.texto)}</span></div>
+        </div>`;
+      const img = o.img ? `<figure class="paso-img${o.angosta ? ' angosta' : ''}"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>` : '';
       return `<div class="paso-item"><span class="num">${o._n}</span><span>${esc(o.texto)}</span></div>${img}`;
     }).join('');
 

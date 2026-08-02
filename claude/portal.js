@@ -64,42 +64,54 @@ const TALLERES = [
   {
     n: 2,
     label: 'Sesión 2 · Claude App',
-    proximamente: true,
     title: 'Dominio de la App de Claude',
     dur: '1.5 hrs · Presencial · Hands-On',
-    resumen: 'Sacarle todo a la aplicación: Proyectos, conectores, Office y las prácticas que hacen la diferencia entre usarla y dominarla.',
-    conceptos: ['proyectos-claude', 'mcp-conectores', 'claude-en-office', 'formatos-md-tokens'],
-    desafio: 'Crea tu primer Proyecto en Claude para tu área de trabajo. Súbele 2 o 3 documentos que uses seguido (un instructivo, una plantilla, un informe tipo) y escríbele instrucciones fijas: quién eres, qué hace tu equipo y cómo quieres que te responda. Después hazle una pregunta real de tu trabajo y nota la diferencia contra un chat en blanco. 📁',
+    resumen: 'Dejar de gastar contexto innecesariamente: tokens, Markdown, Proyectos con instrucciones propias y Claude metido dentro del Office.',
+    conceptos: ['tokens-claude', 'markdown-claude', 'proyectos-claude', 'claude-en-office'],
+    desafio: {
+      titulo: 'El proyecto de tu área, armado de punta a punta',
+      intro: 'Los cuatro bloques de hoy son en realidad un solo camino: entiendes cómo se gasta el contexto, aprendes a convertir tus documentos al formato que menos pesa, montas con ellos un Proyecto con instrucciones propias, y lo pones a trabajar sobre un archivo real de tu Office. Este desafío los junta en una sola tarea.',
+      pasos: [
+        'Elige el proceso de tu área que más repites. Si en la Sesión 1 hiciste el consolidado de dos documentos, ese mismo sirve: hoy vas a dejar de repetirle el contexto para siempre.',
+        'Busca el instructivo, manual o plantilla que ocupas para ese proceso, súbelo a un chat y pídele que te lo convierta a Markdown limpio, dentro de un bloque de código. Cópialo.',
+        'Crea un Proyecto nuevo con el nombre de tu área y pégale ese MD como conocimiento. Súbele también un par de ejemplos de trabajos bien hechos.',
+        'Escríbele las instrucciones en Markdown, con las cuatro secciones: Quién soy, Qué hacemos acá, Cómo quiero que me respondas y Reglas. Si te cuesta partir, pídeselas a Claude en otro chat y después las ajustas.',
+        'Abre una conversación dentro del proyecto y lánzale el encargo de abajo, adjuntando un archivo de verdad —una planilla, un informe, una presentación— sin explicarle ningún contexto.',
+        'Compara el resultado contra lo que te habría dado un chat en blanco. Y cuando algo salga torcido, no lo corrijas solo en el chat: vuelve a las instrucciones y agrega la regla que faltaba.'
+      ],
+      prompt: 'Te adjunto un archivo real de mi trabajo. Sin que yo te explique nada de contexto —para eso están las instrucciones y el conocimiento de este proyecto—, quiero que hagas la tarea que corresponde según nuestro procedimiento: revísalo, dime qué está bien, qué está mal y qué falta, y entrégamelo en el formato que definimos. Al final, dime qué información te faltó del proyecto para hacerlo mejor: eso lo voy a agregar a las instrucciones.',
+      cierre: 'Ese último punto es el que importa: lo que te responda es la lista de mejoras de tu propio proyecto. Guarda el proyecto andando y llévalo a la Sesión 3, donde el procedimiento que hoy escribiste como instrucciones lo vamos a convertir en algo que se ejecuta solo.'
+    },
     quiz: [
       {
-        q: '¿Cuál es la principal ventaja de un Proyecto frente a un chat suelto?',
-        opts: ['Guarda el contexto y las instrucciones una sola vez, y todas las conversaciones del Proyecto parten desde ahí', 'Permite hacer videollamadas con el equipo', 'Hace que las respuestas sean más cortas', 'Es la única forma de subir archivos'],
-        correct: 0,
-        explain: 'El Proyecto es memoria de trabajo persistente: documentos base más instrucciones fijas. Dejas de reexplicar tu contexto en cada conversación.'
-      },
-      {
-        q: '¿Para qué sirven los conectores y MCP en el trabajo diario?',
-        opts: ['Para cambiar el color de la interfaz', 'Para conectar Claude con tus herramientas y datos (archivos, correo, sistemas) sin copiar y pegar', 'Para descargar la app en el celular', 'Para traducir la interfaz a otro idioma'],
+        q: '¿Por qué la respuesta número 40 de un hilo largo consume mucho más que la primera?',
+        opts: ['Porque el modelo se cansa y necesita más recursos', 'Porque en cada mensaje nuevo vuelve a leer toda la conversación desde el principio', 'Porque después de 30 mensajes cambia automáticamente a un modelo más caro', 'Porque el precio sube según la hora del día'],
         correct: 1,
-        explain: 'MCP es el estándar que permite a Claude leer y actuar sobre herramientas externas. Es lo que lo lleva de "chat que aconseja" a "asistente que trabaja con tus datos reales".'
+        explain: 'El hilo no se lee una vez: se relee entero en cada turno. Por eso una conversación eterna se pone lenta y cara, y por eso un chat por tema es el hábito que más rinde.'
       },
       {
-        q: 'Tienes que analizar un contrato largo y detectar riesgos legales. ¿Qué modelo conviene?',
-        opts: ['El más rápido, porque el tiempo es lo que importa', 'Da exactamente lo mismo cuál elijas', 'Uno de razonamiento profundo, porque la tarea exige análisis cuidadoso y no volumen', 'Ninguno: eso no se puede hacer con IA'],
+        q: '¿Cuál de estas prácticas NO te ahorra contexto?',
+        opts: ['Pedir salidas acotadas ("solo el párrafo corregido, no el documento entero")', 'Abrir un chat nuevo cuando cambias de tema', 'Dejar siempre el esfuerzo en Extra, por si acaso', 'Subir el archivo y decirle qué parte te importa'],
         correct: 2,
-        explain: 'Tareas de análisis delicado justifican el modelo de razonamiento profundo. Los modelos rápidos brillan en volumen y tareas simples, no en juicio fino.'
+        explain: 'El esfuerzo se ajusta a la tarea. Reformular un correo no necesita razonamiento profundo; comparar dos contratos sí. Gastar de más y quedarse corto cuestan los dos.'
       },
       {
-        q: '¿Por qué conviene pedirle a Claude que responda en formato Markdown (tablas, listas, encabezados)?',
-        opts: ['Porque es el único formato que Claude entiende', 'Porque acorta las respuestas a la mitad', 'Porque estructura la respuesta y se pega limpia en Word, Notion, correo o donde la necesites', 'Porque activa el modo avanzado'],
+        q: 'Tienes un instructivo en Word y lo quieres dejar como base de un Proyecto. ¿Por qué conviene convertirlo antes a Markdown?',
+        opts: ['Porque Claude no puede leer archivos de Word', 'Porque el MD queda protegido con contraseña', 'Porque en MD el contenido pesa una fracción de los tokens y queda editable y comparable', 'Porque Markdown traduce el documento automáticamente'],
         correct: 2,
-        explain: 'Markdown le da estructura a la salida. Una respuesta bien estructurada es más fácil de revisar, de reutilizar y de pegar donde la necesitas.'
+        explain: 'Claude lee el Word perfectamente, pero arrastra toda la maquetación. En MD el mismo contenido ocupa mucho menos contexto, se edita línea a línea y puedes ver exactamente qué cambió.'
       },
       {
-        q: '¿Cuál es una buena práctica para no desperdiciar tokens ni ensuciar el contexto?',
-        opts: ['Usar un solo chat gigante para todo el año', 'Abrir una conversación nueva por tema, en vez de arrastrar un hilo eterno', 'Escribir siempre en mayúsculas', 'Repetir la pregunta tres veces'],
+        q: 'En un Proyecto, ¿cuál es la diferencia entre el conocimiento y las instrucciones?',
+        opts: ['Son lo mismo, solo cambia dónde se escriben', 'El conocimiento son los archivos que consulta; las instrucciones definen cómo debe comportarse', 'El conocimiento es privado y las instrucciones son públicas', 'Las instrucciones se borran al cerrar la conversación'],
         correct: 1,
-        explain: 'Un hilo muy largo arrastra todo el historial en cada respuesta: sale más caro y confunde al modelo con contexto viejo. Un chat por tema es más limpio y más barato.'
+        explain: 'Los documentos son lo que sabe; las instrucciones son quién es. Por eso las instrucciones se escriben en Markdown y estructuradas: separan identidad, formato y reglas en vez de mezclarlas en un párrafo.'
+      },
+      {
+        q: 'Con el complemento de Claude en Excel, ¿qué le puedes pedir?',
+        opts: ['Solo que observe lo que le entregas: los productos con más ventas, el estado del inventario', 'Solo que te explique cómo se crea una fórmula', 'Solo que te arme gráficos a partir de los datos', 'Muchas cosas: que te cree las fórmulas, te revise posibles errores, te haga los gráficos, te cambie los formatos condicionales, y bastante más'],
+        correct: 3,
+        explain: 'Claude en Excel no se queda en mirar ni en explicar: crea, corrige y da formato dentro de la planilla. Por eso conviene pedirle tareas concretas en vez de un «analiza este Excel» a secas.'
       }
     ]
   },

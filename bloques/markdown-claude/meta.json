@@ -1,0 +1,53 @@
+{
+  "id": "markdown-claude",
+  "nombre": "Markdown: el idioma en que la IA escribe",
+  "emoji": "📝",
+  "descripcion": "Qué es un archivo MD, por qué la IA piensa y responde en ese formato, y cómo convertir tus documentos de siempre a Markdown para reutilizarlos.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "markdown",
+    "formatos",
+    "documentos"
+  ],
+  "pasos": [
+    "Markdown (o MD) es texto plano con marcas simples. No es un programa que tengas que instalar ni un formato raro: es un .txt con reglas.",
+    "¿Por qué te importa? Porque es el idioma en que la IA estructura su salida. Cuando ves una respuesta con títulos, viñetas y tablas ordenadas, por debajo eso es Markdown. Y como es texto plano, se pega limpio donde quieras —Word, correo, Notion, PowerPoint— sin arrastrar formato basura.",
+    {
+      "texto": "Así se ven visualmente.",
+      "img": "01-md-ejemplo.webp"
+    },
+    "Práctica inmediata: pide el formato explícitamente. «Respóndeme en una tabla con estas tres columnas», «dame 5 bullets de máximo 20 palabras», «entrégamelo con títulos y subtítulos». Lo que no pides, no lo estructura.",
+    "Para convertir tus archivos a MD: sube el Word, el PDF o el instructivo escaneado y pídele que te lo devuelva como Markdown limpio, respetando la jerarquía de títulos. Pide siempre que sea «dentro de un bloque de código», así aparece con el botón de copiar. Lo guardas pegándolo en el Bloc de notas y grabando con extensión .md.",
+    "¿Para qué te sirve? Por tres razones: pesa una fracción de los tokens que ocupa el Word original con toda su maquetación; es lo que vas a pegar como instrucciones de un Proyecto; y queda editable y comparable, cosa que con un Word lleno de formato es una pesadilla.",
+    {
+      "texto": "Y por último: cómo generar documentos en MD. Además de pedírselo a Claude, puedes transformar un PDF a Markdown con páginas como markitdown.online",
+      "img": "02-markitdown.webp"
+    }
+  ],
+  "pro_tip": "Cuando le pidas cualquier cosa que después vas a copiar y pegar, agrégale «entrégamelo en un bloque de código». Es la diferencia entre copiar limpio de una vez y andar peleando con el formato al pegarlo.",
+  "desafio": {
+    "enunciado": "Toma un instructivo, manual o procedimiento de tu área —de esos en Word que nadie ha actualizado hace años— y conviértelo a Markdown limpio. Guárdalo: lo vas a usar en el bloque de Proyectos.",
+    "prompt": "Convierte el documento que te adjunté a Markdown limpio. Respeta la jerarquía de títulos y subtítulos, transforma las enumeraciones en listas y cualquier cuadro en una tabla Markdown. No resumas ni reinterpretes el contenido: quiero el mismo documento, bien estructurado. Entrégamelo dentro de un único bloque de código, listo para copiar.",
+    "origen": "propuesto"
+  },
+  "portada": "portada.webp",
+  "assets": [
+    "portada.webp",
+    "01-md-ejemplo.webp",
+    "02-markitdown.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/markdown-claude/portada.webp",
+    "https://reyesia.com/bloques/markdown-claude/01-md-ejemplo.webp",
+    "https://reyesia.com/bloques/markdown-claude/02-markitdown.webp"
+  ],
+  "sources": [
+    {
+      "file": "bloques/formatos-md-tokens/meta.json",
+      "title": "Formato Markdown y uso de tokens",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

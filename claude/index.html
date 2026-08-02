@@ -6,262 +6,535 @@
   <meta name="robots" content="noindex, nofollow" />
   <title>Portal Claude · Pack de 3 Talleres · Reyes IA</title>
   <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/claude/portal.css" />
   <style>
-    .hero { background: linear-gradient(135deg,#92400E 0%,#B45309 50%,#D97706 100%); color:#fff; padding: 30px 20px 28px; position: relative; overflow: hidden; }
-    .hero::after { content:''; position:absolute; bottom:-70px; left:-30px; width:180px; height:180px; border-radius:50%; background:rgba(255,255,255,.05); }
-    .hero-inner { max-width: 1040px; margin: 0 auto; position: relative; z-index: 1; }
-    .hero-top { display:flex; align-items:center; gap:13px; margin-bottom:13px; }
-    .hero-logo { width:50px; height:50px; border-radius:14px; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 6px 18px rgba(0,0,0,.22); }
-    .hero-logo img { width:32px; height:32px; object-fit:contain; display:block; }
-    .hero-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.25); border-radius:20px; padding:4px 12px; font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
-    .hero-title { font-size:27px; font-weight:800; line-height:1.1; margin-bottom:5px; }
-    .hero-sub { font-size:13.5px; opacity:.85; }
+    /* ==================================================================
+       Hub del Portal Claude · interfaz oscura
+       El resto del portal (gate, toast, talleres) sigue en claro: acá se
+       sobrescribe portal.css solo para esta página.
+       ================================================================== */
 
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
-
-    /* Tira de estado: identidad + estrellas + habilidades + avance */
-    .estado { display:grid; grid-template-columns: 1fr; gap:10px; margin-top:-18px; position:relative; z-index:2; }
-    .card-b { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:0 3px 14px rgba(26,37,55,.07); }
-
-    .who { display:flex; align-items:center; gap:11px; padding:12px 15px; }
-    .who-av { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--amber),var(--amber-dark)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; flex-shrink:0; }
-    .who-t { flex:1; min-width:0; }
-    .who-name { font-size:13.5px; font-weight:700; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .who-org { font-size:11px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .who-edit { background:none; border:none; color:var(--amber); font-size:11.5px; font-weight:700; cursor:pointer; font-family:inherit; flex-shrink:0; }
-
-    .metricas { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    .metrica { padding:14px 16px; display:flex; flex-direction:column; gap:7px; cursor:default; }
-    .metrica.click { cursor:pointer; transition:border-color .15s; }
-    .metrica.click:hover { border-color:var(--amber); }
-    .m-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.6px; color:var(--muted); }
-    .m-big { display:flex; align-items:baseline; gap:5px; }
-    .m-n { font-size:24px; font-weight:800; color:var(--amber-dark); line-height:1; }
-    .m-de { font-size:12px; font-weight:600; color:var(--muted); }
-    .estrellas { display:flex; gap:5px; }
-    .s-icon { font-size:23px; filter:grayscale(1) opacity(.22); transition:filter .3s; }
-    .s-icon.on { filter:none; }
-    .barra { height:7px; background:#e6e1d7; border-radius:99px; overflow:hidden; }
-    .barra-fill { height:100%; background:linear-gradient(90deg,var(--amber-dark),var(--amber-light)); border-radius:99px; transition:width .8s ease; }
-    .hex { width:100%; max-width:96px; margin:0 auto; display:block; }
-
-    .sec-title { display:flex; align-items:center; gap:8px; font-size:16px; font-weight:800; color:var(--ink); letter-spacing:-.2px; margin:30px 0 14px; }
-    .sec-title .sec-ico { width:26px; height:26px; border-radius:8px; background:#FEF3E2; display:flex; align-items:center; justify-content:center; font-size:14px; }
-
-    .talleres { display:grid; grid-template-columns:1fr; gap:14px; padding-bottom:8px; }
-    .tcard { position:relative; background:#fff; border:1.5px solid var(--border); border-radius:18px; box-shadow:0 3px 14px rgba(26,37,55,.06); display:flex; flex-direction:column; transition:transform .15s, box-shadow .15s; }
-    .tcard:hover { transform:translateY(-2px); box-shadow:0 10px 26px rgba(26,37,55,.11); }
-    /* La sesión activa es la única que se ve encendida; el resto queda en reposo */
-    .tcard.activa { border-color:var(--amber); box-shadow:0 6px 24px rgba(217,119,6,.16); }
-    .tcard.locked { background:#FCFBF9; }
-    .tcard.locked:hover { transform:none; box-shadow:0 3px 14px rgba(26,37,55,.06); }
-    .tcard-body { padding:22px 22px 20px; flex:1; display:flex; flex-direction:column; }
-    .tcard-head { display:flex; align-items:flex-start; gap:14px; margin-bottom:13px; }
-    .tnum { width:46px; height:46px; border-radius:14px; background:linear-gradient(135deg,var(--amber-dark),var(--amber-light)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; flex-shrink:0; box-shadow:0 5px 14px rgba(217,119,6,.3); }
-    .tcard.locked .tnum { background:#FDEBD3; color:#C8853A; box-shadow:none; }
-    .tcard.done .tnum { background:linear-gradient(135deg,#065F46,#10B981); box-shadow:0 4px 12px rgba(16,185,129,.3); }
-    .tlabel { padding-right:30px; font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--amber); margin-bottom:4px; }
-    .tcard.locked .tlabel { color:#B99263; padding-right:112px; }
-    .tcard.done .tlabel { color:#059669; }
-    .ttitle { font-size:17px; font-weight:800; color:var(--ink); line-height:1.25; letter-spacing:-.2px; }
-    .tcard.locked .ttitle { color:#6B7280; }
-    .tdur { display:flex; flex-wrap:wrap; align-items:center; gap:5px; font-size:11.5px; color:var(--muted); margin-top:6px; }
-    .tstar { position:absolute; top:16px; right:18px; font-size:19px; filter:grayscale(1) opacity(.2); flex-shrink:0; }
-    .tcard.done .tstar { filter:none; }
-    .tpronto { position:absolute; top:16px; right:16px; background:#F3F1EC; color:#8A8577; font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:5px 10px; border-radius:99px; }
-    .tresumen { font-size:13.5px; color:#4B5563; line-height:1.6; margin-bottom:18px; }
-    .tcard.locked .tresumen { color:#8A8577; }
-
-    .pasos { display:flex; gap:10px; margin-bottom:16px; padding-top:16px; border-top:1px solid #F0EDE6; }
-    .paso { flex:1; display:flex; flex-direction:column; align-items:center; gap:7px; }
-    .paso-bar { width:100%; height:4px; border-radius:99px; background:#EDE9E0; overflow:hidden; }
-    .paso-bar i { display:block; height:100%; background:linear-gradient(90deg,var(--amber-dark),var(--amber-light)); border-radius:99px; transition:width .5s ease; }
-    .paso-l { font-size:9.5px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; }
-
-    .tcta { margin-top:auto; width:100%; padding:13px; font-size:13.5px; border-radius:12px; }
-    .tcta.pronto { background:#F5F3EE; color:#9A9488; cursor:default; font-weight:700; text-align:center; border:none; }
-
-    /* Avance del programa: número grande a la izquierda, barra larga a la derecha */
-    .avance { display:flex; align-items:center; gap:16px; padding:18px 20px; }
-    .av-ico { width:44px; height:44px; border-radius:50%; background:#FEF3E2; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-    .av-t { flex-shrink:0; }
-    .av-lbl { font-size:12.5px; font-weight:700; color:var(--ink); margin-bottom:2px; }
-    .av-n { display:flex; align-items:baseline; gap:7px; }
-    .av-pct { font-size:26px; font-weight:800; color:var(--amber-dark); line-height:1; }
-    .av-txt { font-size:11.5px; color:var(--muted); }
-    .av-bar { flex:1; min-width:60px; height:9px; background:#EDE9E0; border-radius:99px; overflow:hidden; }
-    .av-bar i { display:block; height:100%; background:linear-gradient(90deg,var(--amber-dark),var(--amber-light)); border-radius:99px; transition:width .8s ease; }
-    .av-trofeo { font-size:24px; filter:grayscale(1) opacity(.3); flex-shrink:0; }
-    .av-trofeo.on { filter:none; }
-    @media(max-width:620px){ .avance { flex-wrap:wrap; } .av-bar { order:3; flex-basis:100%; } }
-
-    footer { margin-top: 10px; }
-
-    @media(min-width:760px){
-      .estado { grid-template-columns: 1.1fr 1fr 1fr; align-items:stretch; }
-      .metricas { display:contents; }
-      .who { padding:14px 16px; }
+    body {
+      font-family: 'Space Grotesk', Helvetica, sans-serif;
+      background: #07090C; color: #E9EAEE; min-height: 100vh;
     }
-    @media(min-width:1000px){
-      .hero { padding: 40px 20px 42px; }
-      .hero-title { font-size:34px; }
+    a { color: #E8A87C; text-decoration: none; }
+    a:hover { color: #F5C9A8; }
+
+    .shell {
+      min-height: 100vh; position: relative; overflow: hidden; padding-bottom: 8px;
+      background:
+        radial-gradient(1100px 620px at 12% -8%, rgba(214,110,54,.20), transparent 60%),
+        radial-gradient(900px 520px at 88% 4%, rgba(70,110,160,.16), transparent 62%),
+        linear-gradient(180deg,#0A0D12 0%, #07090C 45%, #06080B 100%);
+    }
+    /* Grilla decorativa, desvanecida hacia los bordes */
+    .shell::before {
+      content:''; position:absolute; inset:0; pointer-events:none; opacity:.35;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      -webkit-mask-image: radial-gradient(900px 600px at 50% 0%, #000 20%, transparent 78%);
+      mask-image: radial-gradient(900px 600px at 50% 0%, #000 20%, transparent 78%);
+    }
+
+    /* ---------- Header ---------- */
+    .hd {
+      position: relative; display:flex; align-items:center; justify-content:space-between;
+      gap:24px; padding:12px 40px; border-bottom:1px solid rgba(255,255,255,.07);
+      backdrop-filter: blur(12px);
+    }
+    .hd-logo img { height:26px; width:auto; opacity:.95; display:block; }
+    .hd-right { display:flex; align-items:center; gap:10px; }
+    .hd-pill {
+      font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em;
+      color:rgba(233,234,238,.62); border:1px solid rgba(255,255,255,.10);
+      padding:8px 14px; border-radius:999px; transition:color .2s, border-color .2s;
+    }
+    .hd-mail {
+      display:flex; align-items:center; justify-content:center; width:34px; height:34px;
+      border-radius:999px; border:1px solid rgba(255,255,255,.10);
+      color:rgba(233,234,238,.62); font-size:13px; transition:color .2s, border-color .2s;
+    }
+    .hd-pill:hover, .hd-mail:hover { color:#fff; border-color:rgba(255,255,255,.24); }
+
+    main { position:relative; max-width:1260px; margin:0 auto; padding:0 40px; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+      gap:44px; align-items:end; padding:20px 0 16px;
+    }
+    .hero-chip { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+    .hero-chip-box {
+      width:38px; height:38px; border-radius:12px; flex-shrink:0;
+      background:linear-gradient(150deg, rgba(214,110,54,.22), rgba(255,255,255,.04));
+      border:1px solid rgba(214,110,54,.35);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .hero-chip-box img { width:21px; height:21px; display:block; }
+    .mono {
+      font-family:'IBM Plex Mono',monospace; text-transform:uppercase;
+      color:rgba(233,234,238,.50);
+    }
+    .hero-chip .mono { font-size:11px; letter-spacing:.22em; }
+    h1 {
+      margin:0; font-size:42px; line-height:1.04; font-weight:500;
+      letter-spacing:-.035em; color:#F4F5F7; text-wrap:balance;
+    }
+    h1 span {
+      background:linear-gradient(100deg,#F0A46A,#D66E36 45%,#E9C9A8);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .hero-sub {
+      margin:12px 0 0; max-width:520px; font-size:15.5px; line-height:1.5;
+      color:rgba(233,234,238,.58); text-wrap:pretty;
+    }
+    .hero-acc { display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; }
+
+    .cta {
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:13px 24px; border-radius:12px; font-size:15px; font-weight:600;
+      font-family:inherit; cursor:pointer; border:none;
+      color:#160B04; background:linear-gradient(100deg,#F0A46A,#D66E36);
+      box-shadow:0 14px 34px -14px rgba(214,110,54,.85); transition:filter .15s;
+    }
+    .cta:hover { filter:brightness(1.06); color:#160B04; }
+    .ghost {
+      display:inline-flex; align-items:center; gap:10px; padding:13px 20px;
+      border-radius:12px; font-size:15px; font-weight:500; cursor:pointer;
+      color:rgba(233,234,238,.82); background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.12); font-family:inherit;
+      transition:background .2s, color .2s;
+    }
+    .ghost:hover { background:rgba(255,255,255,.07); color:#fff; }
+
+    /* ---------- Tarjeta de estado del alumno ---------- */
+    .estado {
+      position:relative; border:1px solid rgba(255,255,255,.09); border-radius:20px;
+      padding:20px 22px; backdrop-filter:blur(14px);
+      background:linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+    }
+    .est-top { display:flex; align-items:center; gap:14px; }
+    .est-av {
+      width:42px; height:42px; border-radius:12px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.04em;
+      color:#F0A46A; background:rgba(214,110,54,.14); border:1px solid rgba(214,110,54,.28);
+    }
+    .est-name { font-size:15px; font-weight:600; color:#F4F5F7; }
+    .est-role { font-size:12.5px; color:rgba(233,234,238,.48); }
+    .est-name, .est-role { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .est-cambiar {
+      background:none; border:none; cursor:pointer; flex-shrink:0;
+      font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em;
+      text-transform:uppercase; color:rgba(233,234,238,.42); transition:color .2s;
+    }
+    .est-cambiar:hover { color:#F0A46A; }
+    .est-sep { height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
+    .est-fila { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px; }
+    .lbl { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.2em;
+      text-transform:uppercase; color:rgba(233,234,238,.42); }
+    .est-pasos { font-size:13px; color:rgba(233,234,238,.55); }
+    .est-bar { position:relative; height:6px; border-radius:99px; background:rgba(255,255,255,.07); overflow:hidden; }
+    .est-bar i {
+      position:absolute; inset:0 auto 0 0; display:block; border-radius:99px;
+      background:linear-gradient(90deg,#D66E36,#F0A46A);
+      box-shadow:0 0 18px rgba(240,164,106,.45); transition:width .8s ease;
+    }
+    .est-pie { display:flex; align-items:center; justify-content:space-between; margin-top:16px; gap:16px; }
+    .rombos { display:flex; gap:7px; margin-top:8px; }
+    .rombo { width:10px; height:10px; border-radius:3px; transform:rotate(45deg);
+      background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.12); }
+    .rombo.on { background:linear-gradient(140deg,#F0A46A,#D66E36); border-color:transparent;
+      box-shadow:0 0 12px rgba(240,164,106,.6); }
+    .est-hab { text-align:right; }
+    .est-hab-n { font-size:20px; font-weight:600; color:#F4F5F7; margin-top:8px; }
+
+    /* ---------- Título de sección ---------- */
+    .sec { display:flex; align-items:center; gap:16px; margin-bottom:12px; }
+    .sec .mono { font-size:11px; letter-spacing:.2em; }
+    .sec i { flex:1; height:1px; background:linear-gradient(90deg, rgba(255,255,255,.14), transparent); }
+
+    /* ---------- Tarjetas de sesión ---------- */
+    .sesiones { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; align-items:start; }
+    .ses {
+      position:relative; border-radius:20px; padding:20px; overflow:hidden;
+      border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.022);
+    }
+    .ses.activa {
+      border-color:rgba(214,110,54,.38);
+      background:linear-gradient(165deg, rgba(214,110,54,.13), rgba(255,255,255,.02) 55%);
+      box-shadow:0 30px 70px -40px rgba(214,110,54,.7);
+    }
+    /* Línea de luz sobre la sesión en curso */
+    .ses.activa::before {
+      content:''; position:absolute; top:-1px; left:24px; right:24px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(240,164,106,.9), transparent);
+    }
+    .ses-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px; }
+    .ses-id { display:flex; align-items:center; gap:12px; min-width:0; }
+    .ses-n { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; color:rgba(233,234,238,.45); }
+    .ses.activa .ses-n, .ses.done .ses-n { color:#F0A46A; }
+    .ses-nivel { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.16em;
+      text-transform:uppercase; color:rgba(233,234,238,.32); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .ses.activa .ses-nivel, .ses.done .ses-nivel { color:rgba(233,234,238,.42); }
+    .badge {
+      display:flex; align-items:center; gap:7px; flex-shrink:0; padding:6px 12px; border-radius:99px;
+      font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+      color:rgba(233,234,238,.42); border:1px solid rgba(255,255,255,.10);
+    }
+    .badge.on { color:#F0A46A; background:rgba(240,164,106,.12); border-color:rgba(240,164,106,.28); }
+    .badge.on i { width:5px; height:5px; border-radius:99px; background:#F0A46A; display:block; }
+    .ses h2 { margin:0 0 9px; font-size:21px; line-height:1.18; font-weight:500;
+      letter-spacing:-.02em; color:rgba(244,245,247,.82); }
+    .ses.activa h2, .ses.done h2 { color:#F4F5F7; }
+    .ses-dur { font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+      color:rgba(233,234,238,.34); margin-bottom:11px; }
+    .ses.activa .ses-dur, .ses.done .ses-dur { color:rgba(233,234,238,.40); }
+    /* El resumen se corta en 3 líneas: la tarjeta es un adelanto, no el detalle */
+    .ses-res { margin:0 0 14px; font-size:14px; line-height:1.5;
+      color:rgba(233,234,238,.48); text-wrap:pretty;
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    .ses.activa .ses-res, .ses.done .ses-res { color:rgba(233,234,238,.62); }
+    .medidores { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:13px; }
+    .med-bar { height:3px; border-radius:99px; background:rgba(255,255,255,.08); margin-bottom:9px; overflow:hidden; }
+    .ses.activa .med-bar, .ses.done .med-bar { background:rgba(255,255,255,.10); }
+    .med-bar i { display:block; height:100%; border-radius:99px;
+      background:linear-gradient(90deg,#D66E36,#F0A46A); transition:width .5s ease; }
+    .med-l { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.12em;
+      text-transform:uppercase; color:rgba(233,234,238,.28); }
+    .med.hecho .med-l { color:rgba(233,234,238,.55); }
+    .ses-cta {
+      display:flex; align-items:center; justify-content:center; gap:8px; padding:12px;
+      border-radius:12px; font-size:14.5px; font-weight:600;
+      color:#160B04; background:linear-gradient(100deg,#F0A46A,#D66E36); transition:filter .15s;
+    }
+    .ses-cta:hover { filter:brightness(1.06); color:#160B04; }
+    .ses-cta.repasar {
+      color:#F5D9C3; background:rgba(240,164,106,.10);
+      border:1px solid rgba(240,164,106,.35); font-weight:500;
+    }
+    .ses-cta.repasar:hover { background:rgba(240,164,106,.18); color:#fff; }
+    .ses-lock {
+      display:flex; align-items:center; justify-content:center; gap:8px; padding:12px;
+      border-radius:12px; font-size:14px; color:rgba(233,234,238,.34);
+      border:1px dashed rgba(255,255,255,.12); text-align:center;
+    }
+
+    /* ---------- Centro de habilidades (panel desplegable) ---------- */
+    .hab {
+      display:none; border:1px solid rgba(255,255,255,.09); border-radius:20px;
+      padding:26px 28px; margin-top:20px; background:rgba(255,255,255,.028);
+    }
+    .hab.open { display:block; }
+    .hab-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
+    .hab-x { background:none; border:none; cursor:pointer; color:rgba(233,234,238,.42);
+      font-size:16px; font-family:inherit; transition:color .2s; }
+    .hab-x:hover { color:#fff; }
+    .hab-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
+    .hab-i {
+      display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:11px;
+      font-size:13.5px; border:1px solid rgba(255,255,255,.07);
+      background:rgba(255,255,255,.02); color:rgba(233,234,238,.34);
+    }
+    .hab-i b { font-weight:400; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .hab-i i { width:6px; height:6px; border-radius:99px; flex-shrink:0; background:rgba(255,255,255,.18); }
+    .hab-i.on { border-color:rgba(214,110,54,.30); background:rgba(214,110,54,.10); color:#F5D9C3; }
+    .hab-i.on i { background:#F0A46A; box-shadow:0 0 10px #F0A46A; }
+
+    /* ---------- Lo que sigue ahora ---------- */
+    .sigue {
+      margin-top:14px; border:1px solid rgba(255,255,255,.08); border-radius:20px;
+      padding:18px 24px; background:linear-gradient(120deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      display:grid; grid-template-columns:minmax(0,1fr) auto; gap:28px; align-items:center;
+    }
+    .sigue-t { font-size:18px; font-weight:500; color:#F4F5F7; letter-spacing:-.01em; }
+    .sigue-h { font-size:13.5px; color:rgba(233,234,238,.52); margin-top:4px; }
+    .sigue .lbl { display:block; margin-bottom:7px; }
+    .sigue-btn {
+      display:inline-flex; align-items:center; gap:10px; padding:12px 22px; border-radius:12px;
+      font-size:14.5px; font-weight:500; white-space:nowrap; color:#F5D9C3;
+      border:1px solid rgba(240,164,106,.35); background:rgba(240,164,106,.10);
+      transition:background .2s, color .2s;
+    }
+    .sigue-btn:hover { background:rgba(240,164,106,.18); color:#fff; }
+
+    /* ---------- Pie ---------- */
+    .pie {
+      margin-top:12px; padding:10px 0 0; border-top:1px solid rgba(255,255,255,.07);
+      display:flex; justify-content:center; gap:8px; flex-wrap:wrap;
+      font-size:13px; color:rgba(233,234,238,.38); text-align:center;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media(max-width:1000px){
+      .hero { grid-template-columns:1fr; gap:30px; align-items:stretch; padding:36px 0 30px; }
+      .sesiones { grid-template-columns:1fr; }
+      main, .hd { padding-left:28px; padding-right:28px; }
+      h1 { font-size:46px; }
+    }
+    @media(max-width:640px){
+      main, .hd { padding-left:20px; padding-right:20px; }
+      .hd { padding-top:16px; padding-bottom:16px; }
+      h1 { font-size:38px; }
       .hero-sub { font-size:15px; }
-      .talleres { grid-template-columns: repeat(3,1fr); gap:16px; }
-      .sec-title { margin:30px 0 14px; }
+      .cta, .ghost { width:100%; justify-content:center; min-height:48px; }
+      .estado, .ses, .hab, .sigue { padding:22px 20px; }
+      .sigue { grid-template-columns:1fr; gap:18px; }
+      .sigue-btn { justify-content:center; min-height:48px; }
+      .est-pie { flex-wrap:wrap; }
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <a href="https://reyesia.com" class="logo"><img src="/logo reyes IA horizontal blanco.png" alt="Reyes IA" /></a>
-  <div class="nav-right">
-    <a href="https://reyesia.com" target="_blank" rel="noopener">reyesia.com</a>
-    <a href="mailto:felipe@reyesia.com" title="Escríbeme">✉️</a>
-  </div>
-</nav>
+<div class="shell">
 
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-top">
-      <div class="hero-logo"><img src="/talleres/icon-claude.png" alt="Claude" /></div>
-      <div class="hero-badge">🎓 Pack de 3 talleres</div>
+  <header class="hd">
+    <a href="https://reyesia.com" class="hd-logo"><img src="/logo reyes IA horizontal blanco.png" alt="Reyes IA" /></a>
+    <div class="hd-right">
+      <a href="https://reyesia.com" class="hd-pill" target="_blank" rel="noopener">reyesia.com</a>
+      <a href="mailto:felipe@reyesia.com" class="hd-mail" title="Escríbeme">✉</a>
     </div>
-    <div class="hero-title">Programa Claude</div>
-  </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div>
+        <div class="hero-chip">
+          <div class="hero-chip-box"><img src="/talleres/icon-claude.png" alt="Claude" /></div>
+          <span class="mono">Pack de 3 talleres</span>
+        </div>
+        <h1>Programa <span>Claude</span></h1>
+        <p class="hero-sub">Tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado.</p>
+        <div class="hero-acc">
+          <a class="cta" id="cta-seguir" href="#sesiones">Continuar donde ibas →</a>
+          <button class="ghost" id="btn-hab">Centro de habilidades</button>
+        </div>
+      </div>
+
+      <div class="estado">
+        <div class="est-top">
+          <div class="est-av" id="est-av">?</div>
+          <div style="flex:1;min-width:0">
+            <div class="est-name" id="est-name">—</div>
+            <div class="est-role" id="est-role">—</div>
+          </div>
+          <button class="est-cambiar" id="est-cambiar">Cambiar</button>
+        </div>
+
+        <div class="est-sep"></div>
+
+        <div class="est-fila">
+          <span class="lbl">Avance del programa</span>
+          <span class="est-pasos" id="est-pasos">—</span>
+        </div>
+        <div class="est-bar"><i id="est-barra" style="width:0%"></i></div>
+
+        <div class="est-pie">
+          <div>
+            <div class="lbl">Sesiones dominadas</div>
+            <div class="rombos" id="rombos"></div>
+          </div>
+          <div class="est-hab">
+            <div class="lbl">Habilidades</div>
+            <div class="est-hab-n" id="est-hab-n">0 / 0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sec" id="sesiones">
+      <span class="mono">Las 3 sesiones</span>
+      <i></i>
+    </div>
+
+    <section class="sesiones" id="grid-sesiones"></section>
+
+    <section class="hab" id="panel-hab">
+      <div class="hab-top">
+        <span class="lbl" id="hab-sub">Centro de habilidades</span>
+        <button class="hab-x" id="hab-cerrar" title="Cerrar">✕</button>
+      </div>
+      <div class="hab-grid" id="hab-grid"></div>
+    </section>
+
+    <section class="sigue">
+      <div>
+        <span class="lbl">Lo que sigue ahora</span>
+        <div class="sigue-t" id="sigue-t">—</div>
+        <div class="sigue-h" id="sigue-h">—</div>
+      </div>
+      <a class="sigue-btn" id="sigue-btn" href="#sesiones">Ir al paso →</a>
+    </section>
+
+    <footer class="pie">
+      <span>Programa facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes</span>
+    </footer>
+  </main>
 </div>
-
-<div class="wrap">
-  <div class="estado">
-    <div class="card-b who">
-      <div class="who-av" id="who-av">?</div>
-      <div class="who-t">
-        <div class="who-name" id="who-name">—</div>
-        <div class="who-org" id="who-org">—</div>
-      </div>
-      <button class="who-edit" id="who-edit">Cambiar</button>
-    </div>
-
-    <div class="metricas">
-      <div class="card-b metrica">
-        <span class="m-label">Tus estrellas</span>
-        <div class="estrellas" id="estrellas"></div>
-        <div class="m-big"><span class="m-n" id="stars-n">0</span><span class="m-de">de 3 sesiones dominadas</span></div>
-      </div>
-
-      <div class="card-b metrica click" id="btn-skills">
-        <span class="m-label">Centro de habilidades</span>
-        <svg class="hex" viewBox="0 0 130 108" aria-hidden="true">
-          <defs>
-            <linearGradient id="hexG" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#92400E"/>
-            </linearGradient>
-          </defs>
-          <circle cx="65" cy="54" r="47" fill="#FFFBEB"/>
-          <circle cx="65" cy="54" r="41" fill="none" stroke="#FCD34D" stroke-width="1.2" stroke-dasharray="4,3"/>
-          <polygon points="65,21 89,36 89,64 65,79 41,64 41,36" fill="url(#hexG)"/>
-          <text x="65" y="54" text-anchor="middle" dominant-baseline="middle" font-size="26">🧠</text>
-        </svg>
-        <div class="m-big"><span class="m-n" id="hab-n">0</span><span class="m-de">de 15 desbloqueadas · ver todas</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-title"><span class="sec-ico">📚</span>Las 3 sesiones</div>
-  <div class="talleres" id="talleres"></div>
-
-  <div class="card-b avance" style="margin-top:6px;">
-    <div class="av-ico">📈</div>
-    <div class="av-t">
-      <div class="av-lbl">Avance del programa</div>
-      <div class="av-n"><span class="av-pct" id="pct">0%</span><span class="av-txt" id="pasos-txt">0 de 21 pasos</span></div>
-    </div>
-    <div class="av-bar"><i id="barra" style="width:0%"></i></div>
-    <div class="av-trofeo" id="trofeo">🏆</div>
-  </div>
-</div>
-
-<footer>Programa facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes</footer>
 
 <script src="/claude/portal.js"></script>
 <script>
+  /* Los niveles salen del label del taller ("Sesión 1 · Introductorio") */
+  const nivelDe = t => (t.label.split('·')[1] || '').trim() || '—';
+
   function renderUser(){
     if (!user) return;
-    document.getElementById('who-av').textContent   = iniciales(user.nombre);
-    document.getElementById('who-name').textContent = user.nombre;
-    document.getElementById('who-org').textContent  = user.cargo ? `${user.cargo} · ${user.empresa}` : user.empresa;
+    document.getElementById('est-av').textContent   = iniciales(user.nombre);
+    document.getElementById('est-name').textContent = user.nombre;
+    document.getElementById('est-role').textContent = user.cargo ? `${user.cargo} · ${user.empresa}` : user.empresa;
   }
   // portal.js la llama al guardar la identidad
   function onIdentidad(){ renderUser(); render(); }
 
-  function estadoTaller(t){
-    const c = conceptosOk(t.n), total = t.conceptos.length;
-    const q = st[`${t.n}-quiz`] ? 1 : 0, d = st[`${t.n}-des`] ? 1 : 0;
-    const hechos = c + q + d;
-    if (isComplete(t.n)) return { txt: 'Repasar la sesión', clase: 'btn-ghost', hechos };
-    if (hechos === 0)    return { txt: 'Empezar la sesión →', clase: 'btn-amber', hechos };
-    return { txt: 'Continuar donde ibas →', clase: 'btn-amber', hechos };
+  /* La sesión "en curso" es la primera abierta que todavía no está dominada */
+  function sesionActiva(){
+    const abiertas = TALLERES.filter(t => !t.proximamente);
+    return abiertas.find(t => !isComplete(t.n)) || abiertas[abiertas.length - 1] || null;
+  }
+
+  function textoCta(t){
+    if (isComplete(t.n)) return 'Repasar la sesión →';
+    const hechos = conceptosOk(t.n) + (st[`${t.n}-quiz`] ? 1 : 0) + (st[`${t.n}-des`] ? 1 : 0);
+    return hechos === 0 ? 'Empezar la sesión →' : 'Continuar donde ibas →';
+  }
+
+  /* Primer paso pendiente del programa, en el mismo orden del recorrido:
+     conceptos → quiz → ejercicios → desafío. Alimenta la barra de abajo. */
+  function proximoPaso(){
+    for (const t of TALLERES){
+      if (t.proximamente) continue;
+      const pendiente = t.conceptos.find(id => !st[`c-${id}`]);
+      if (pendiente){
+        const b = BLOQUES[pendiente];
+        return { t, titulo: `${b ? b.nombre : pendiente} · sesión ${t.n}`,
+                 hint: `Concepto ${t.conceptos.indexOf(pendiente) + 1} de ${t.conceptos.length} · ${t.title}` };
+      }
+      if (!st[`${t.n}-quiz`]){
+        return { t, titulo: `Quiz de la sesión ${t.n} · ${t.title}`,
+                 hint: `${t.quiz.length} preguntas · te toma 3 minutos y desbloquea el desafío.` };
+      }
+      const ej = ejerciciosDe(t.n);
+      const faltan = ej.length - ejerciciosOk(t.n);
+      if (faltan > 0){
+        return { t, titulo: `Ejercicios hands-on · sesión ${t.n}`,
+                 hint: `Te quedan ${faltan} de ${ej.length} por marcar.` };
+      }
+      if (!st[`${t.n}-des`]){
+        const d = t.desafio;
+        return { t, titulo: `Desafío de la sesión ${t.n}`,
+                 hint: (typeof d === 'object' && d.titulo) ? d.titulo : 'El desafío que llevas a tu trabajo real.' };
+      }
+    }
+    const proxima = TALLERES.find(t => t.proximamente);
+    if (proxima) return { t: null, titulo: 'Vas al día con lo que está abierto',
+                          hint: `La ${proxima.label.split('·')[0].trim()} se abre más adelante.` };
+    return { t: null, titulo: '¡Programa completo!', hint: 'Dominaste las tres sesiones.' };
+  }
+
+  function renderHabilidades(){
+    document.getElementById('hab-grid').innerHTML = SKILLS.map(sk => {
+      const b = BLOQUES[sk.id];
+      const on = !!st[`c-${sk.id}`];
+      return `<div class="hab-i ${on ? 'on' : ''}" title="${esc(b ? b.nombre : sk.id)}">
+        <i></i><b>${esc(b ? b.nombre : sk.id)}</b>
+      </div>`;
+    }).join('');
+    document.getElementById('hab-sub').textContent =
+      `Centro de habilidades · ${skillsOk()} de ${SKILLS.length}`;
   }
 
   function render(){
-    // Estrellas
+    // Tarjeta de estado
     const n = countStars();
-    document.getElementById('estrellas').innerHTML =
-      TALLERES.map((_, i) => `<span class="s-icon ${i < n ? 'on' : ''}">⭐</span>`).join('');
-    document.getElementById('stars-n').textContent = n;
-    document.getElementById('hab-n').textContent   = skillsOk();
+    document.getElementById('rombos').innerHTML =
+      TALLERES.map((_, i) => `<span class="rombo ${i < n ? 'on' : ''}"></span>`).join('');
+    document.getElementById('est-hab-n').textContent = `${skillsOk()} / ${SKILLS.length}`;
+    document.getElementById('est-barra').style.width = avancePct() + '%';
+    document.getElementById('est-pasos').textContent =
+      `${avancePct()}% · ${pasosHechos()} de ${totalPasos()} pasos`;
 
-    // Avance
-    document.getElementById('barra').style.width = avancePct() + '%';
-    document.getElementById('pct').textContent   = avancePct() + '%';
-    document.getElementById('pasos-txt').textContent =
-      `${pasosHechos()} de ${totalPasos()} pasos`;
-    document.getElementById('trofeo').classList.toggle('on', avancePct() >= 100);
+    // Botón del hero: lleva a la sesión en curso
+    const activa = sesionActiva();
+    const cta = document.getElementById('cta-seguir');
+    if (activa){ cta.href = urlTaller(activa.n); cta.textContent = textoCta(activa); }
 
-    // Tarjetas de taller
-    document.getElementById('talleres').innerHTML = TALLERES.map(t => {
-      const done = isComplete(t.n);
-      const c = conceptosOk(t.n), total = t.conceptos.length;
-      const e = estadoTaller(t);
-      const barra = (label, hecho, de) => `
-        <div class="paso">
-          <div class="paso-bar"><i style="width:${de ? (hecho / de) * 100 : 0}%"></i></div>
-          <span class="paso-l">${label}</span>
-        </div>`;
-      // Las sesiones marcadas `proximamente` se ven pero no se entra a ellas
+    // Tarjetas de sesión
+    document.getElementById('grid-sesiones').innerHTML = TALLERES.map(t => {
       const pronto = !!t.proximamente;
+      const done   = isComplete(t.n);
+      const esActiva = activa && activa.n === t.n && !done;
+      const c = conceptosOk(t.n), total = t.conceptos.length;
+      const quiz = st[`${t.n}-quiz`] ? 1 : 0, des = st[`${t.n}-des`] ? 1 : 0;
+
+      const med = (label, hecho, de) => `
+        <div class="med ${hecho >= de ? 'hecho' : ''}">
+          <div class="med-bar"><i style="width:${de ? (hecho / de) * 100 : 0}%"></i></div>
+          <div class="med-l">${label}</div>
+        </div>`;
+
+      const badge = done
+        ? '<span class="badge on"><i></i>Dominada</span>'
+        : esActiva
+          ? '<span class="badge on"><i></i>En curso</span>'
+          : pronto
+            ? '<span class="badge">Próximamente</span>'
+            : '<span class="badge">Disponible</span>';
+
+      // Las bloqueadas explican la condición, en vez de solo decir que no se puede
+      const pie = pronto
+        ? `<div class="ses-lock">Se abre al terminar la sesión ${t.n - 1}</div>`
+        : `<a class="ses-cta ${done ? 'repasar' : ''}" href="${urlTaller(t.n)}">${textoCta(t)}</a>`;
+
       return `
-      <div class="tcard ${done ? 'done' : ''} ${pronto ? 'locked' : 'activa'}">
-        <div class="tcard-body">
-          <div class="tcard-head">
-            <div class="tnum">${t.n}</div>
-            <div style="flex:1;min-width:0">
-              <div class="tlabel">${esc(t.label)}</div>
-              <div class="ttitle">${esc(t.title)}</div>
-              <div class="tdur">🕐 ${esc(t.dur)}</div>
-            </div>
-            ${pronto
-              ? '<span class="tpronto">Próximamente</span>'
-              : `<span class="tstar" title="${done ? 'Sesión dominada' : 'Aún no dominada'}">⭐</span>`}
+      <article class="ses ${esActiva ? 'activa' : ''} ${done ? 'done' : ''}">
+        <div class="ses-top">
+          <div class="ses-id">
+            <span class="ses-n">${String(t.n).padStart(2,'0')}</span>
+            <span class="ses-nivel">${esc(nivelDe(t))}</span>
           </div>
-          <div class="tresumen">${esc(t.resumen)}</div>
-          <div class="pasos">
-            ${barra(`Conceptos ${c}/${total}`, c, total)}
-            ${barra('Quiz', st[`${t.n}-quiz`] ? 1 : 0, 1)}
-            ${barra('Desafío', st[`${t.n}-des`] ? 1 : 0, 1)}
-          </div>
-          ${pronto
-            ? '<div class="tcta pronto">Disponible próximamente</div>'
-            : `<a class="btn ${e.clase} tcta" href="${urlTaller(t.n)}" style="text-align:center;text-decoration:none;display:block;">${e.txt}</a>`}
+          ${badge}
         </div>
-      </div>`;
+        <h2>${esc(t.title)}</h2>
+        <div class="ses-dur">${esc(t.dur)}</div>
+        <p class="ses-res">${esc(t.resumen)}</p>
+        <div class="medidores">
+          ${med(`Conceptos ${c}/${total}`, c, total)}
+          ${med('Quiz', quiz, 1)}
+          ${med('Desafío', des, 1)}
+        </div>
+        ${pie}
+      </article>`;
     }).join('');
+
+    // Lo que sigue ahora
+    const p = proximoPaso();
+    document.getElementById('sigue-t').textContent = p.titulo;
+    document.getElementById('sigue-h').textContent = p.hint;
+    const sb = document.getElementById('sigue-btn');
+    if (p.t){ sb.href = urlTaller(p.t.n); sb.style.display = ''; }
+    else { sb.style.display = 'none'; }
+
+    renderHabilidades();
   }
 
-  document.getElementById('who-edit').onclick  = () => openGate(true);
-  document.getElementById('btn-skills').onclick = () => openSkills();
+  /* El panel de habilidades vive en la página, no en el modal compartido */
+  const panelHab = document.getElementById('panel-hab');
+  function toggleHab(){
+    const abierto = panelHab.classList.toggle('open');
+    if (abierto) panelHab.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+
+  document.getElementById('est-cambiar').onclick = () => openGate(true);
+  document.getElementById('btn-hab').onclick     = toggleHab;
+  document.getElementById('hab-cerrar').onclick  = () => panelHab.classList.remove('open');
 
   (async () => {
     await bootPortal();

@@ -2,30 +2,60 @@
   "id": "claude-en-office",
   "nombre": "Claude en el Office",
   "emoji": "📊",
-  "descripcion": "Llevar Claude a Word, Excel, PowerPoint y el correo: dónde se integra, qué le puedes pedir y cómo pegar los resultados sin romper el formato.",
+  "descripcion": "El complemento que lo mete dentro de Excel, Word y PowerPoint: qué le puedes pedir en cada uno y dónde conviene seguir trabajando en el chat.",
   "categoria": "claude",
   "tags": [
     "claude",
     "office",
     "excel",
     "word",
+    "powerpoint",
     "documentos"
   ],
   "pasos": [
-    "Sube el archivo directamente a la conversación: Claude lee Word, Excel, PowerPoint, PDF y CSV, y puede analizar el contenido sin que tengas que transcribirlo.",
-    "Para planillas: pídele que identifique tendencias, detecte inconsistencias o proponga las fórmulas, en vez de pedirle que \"analice el Excel\" sin más.",
-    "Para documentos largos: pídele un resumen ejecutivo, los puntos de riesgo o una comparación contra otro documento que le subas en el mismo chat.",
-    "Pide las salidas en formato tabla o lista para que se peguen limpias en Word o Excel sin tener que reformatear a mano.",
-    "Para presentaciones: pídele la estructura y el contenido de cada lámina antes de armarla. Es mucho más rápido corregir un esquema que rehacer un PPT."
+    "Estos complementos son oficiales y los instalas tú mismo. Ojo con una cosa: solo están disponibles en la versión de pago de Claude. Los puedes instalar en Excel, PowerPoint y Word, y también en Outlook. Instalarlos es muy fácil: basta con seguir el camino guiado que te entrega la misma plataforma.",
+    {
+      "texto": "Partamos con Excel. Instala el complemento y, una vez que lo ocupes, recuerda que Claude es muy bueno planillando con IA. Le puedes pedir lo que quieras: la fórmula, un gráfico, que te cambie los formatos, que te analice las celdas o que te cree planillas desde cero.",
+      "img": "01-claude-en-excel.webp"
+    },
+    "También pídele que audite antes de que audite otro: «revisa esta planilla y dime qué fórmulas están rotas, qué celdas tienen valores escritos a mano donde debería haber cálculo, y qué inconsistencias ves entre las hojas».",
+    "En Word se gana el sueldo en la revisión: selecciona un párrafo y pídele que lo reescriba con otro tono, que lo acorte a la mitad o que lo endurezca. Para documentos largos, pídele el resumen ejecutivo, los puntos de riesgo, o que revise que los montos, fechas y nombres coincidan a lo largo de todo el texto.",
+    {
+      "texto": "Y recuerda que dentro de Word puedes apretar el signo + y adjuntarle documentos, para que Claude te ayude a redactar mejor. Por ejemplo: le adjuntas un Excel y le pides el resumen ejecutivo de esa planilla de ventas. Es espectacular.",
+      "img": "02-claude-en-word.webp"
+    },
+    {
+      "texto": "En PowerPoint también es muy bueno para, literalmente, hacerte las presentaciones. Puedes pedirle una desde cero: «hazme una PPT sobre el impacto de la inteligencia artificial en el mundo». Y le vas definiendo todo tú: que genere infografías y gráficos bien visuales, si quieres mucho o poco texto, cuántas láminas. Ojo con una cosa: si la corres en Opus en vez de Sonnet gasta más tokens, pero te hace una presentación más visual todavía.",
+      "img": "03-claude-en-powerpoint.webp"
+    },
+    "También puedes pasarle una presentación ya hecha, tuya o de tu empresa, y pedirle que ocupe ese mismo formato para un contenido nuevo sobre otro tema. Te mantiene los logos, los colores, la paleta y las tipografías.",
+    {
+      "texto": "Y también puedes pasarle un Excel, por ejemplo, y pedirle que te arme la presentación a partir de esa planilla, como se ve en la imagen.",
+      "img": "04-ppt-desde-excel.webp",
+      "angosta": true
+    }
   ],
-  "pro_tip": "No le pidas \"analiza este Excel\". Pídele \"compara la columna de gasto real contra el presupuesto y dime las tres desviaciones más grandes con su explicación probable\". La especificidad es todo.",
+  "pro_tip": "No le pidas «analiza este Excel». Pídele «compara la columna de gasto real contra el presupuesto y dime las tres desviaciones más grandes con su explicación probable». La especificidad es todo, y en Office se nota el doble.",
   "desafio": {
-    "enunciado": "Sube dos documentos distintos del mismo tema (dos informes, dos contratos, dos propuestas) y pídele un consolidado con una mirada específica, no un resumen genérico.",
-    "prompt": "Compara estos dos documentos y dime: en qué coinciden, en qué se contradicen, y qué preguntas debería hacer antes de tomar una decisión. Preséntalo en una tabla.",
-    "origen": "reciclado · Hands-on 06 + pro tip Excel"
+    "enunciado": "Abre una planilla real de tu trabajo y pídele que la audite antes de que lo haga otro. No le pidas que la analice: pídele que le busque los errores.",
+    "prompt": "Revisa esta planilla y dime, en una tabla: qué fórmulas están rotas o dan error, qué celdas tienen un valor escrito a mano donde debería haber un cálculo, qué inconsistencias hay entre hojas, y qué supuestos están implícitos y no declarados en ninguna parte. Ordénalo por el riesgo que tiene cada hallazgo de pasar inadvertido.",
+    "origen": "propuesto · reemplaza el consolidado que ya se usa en el desafío de la S1"
   },
-  "assets": [],
-  "assets_github": [],
+  "portada": "portada.webp",
+  "assets": [
+    "portada.webp",
+    "01-claude-en-excel.webp",
+    "02-claude-en-word.webp",
+    "03-claude-en-powerpoint.webp",
+    "04-ppt-desde-excel.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/claude-en-office/portada.webp",
+    "https://reyesia.com/bloques/claude-en-office/01-claude-en-excel.webp",
+    "https://reyesia.com/bloques/claude-en-office/02-claude-en-word.webp",
+    "https://reyesia.com/bloques/claude-en-office/03-claude-en-powerpoint.webp",
+    "https://reyesia.com/bloques/claude-en-office/04-ppt-desde-excel.webp"
+  ],
   "sources": [
     {
       "file": "claude/index.html",

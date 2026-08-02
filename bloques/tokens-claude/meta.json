@@ -1,0 +1,70 @@
+{
+  "id": "tokens-claude",
+  "nombre": "Ahorro y optimización de tokens",
+  "emoji": "🪙",
+  "descripcion": "Mientras más ocupas Claude, más común es chocar con los límites del plan. Acá vas a aprender a cuidar y optimizar tus tokens, para sacarle provecho a la herramienta sin sufrir en el intento.",
+  "categoria": "claude",
+  "tags": [
+    "claude",
+    "tokens",
+    "contexto",
+    "eficiencia",
+    "costo"
+  ],
+  "pasos": [
+    "Partamos por lo primero: mirar el uso que estás teniendo de tokens. Esto es como manejar un auto. Si manejas un auto, tienes que ir viendo la aguja de la bencina para no quedarte en pana, ¿cierto? O si es eléctrico, mirar cómo va la batería. Acá es lo mismo: hay que familiarizarse con cuántos tokens has gastado y cuántos te quedan. No te digo que todo el día, pero cada cierto rato hay que ir mirándolo.",
+    {
+      "texto": "Para ver tu uso, selecciona tu usuario (tu nombre) abajo a la izquierda. Se abre esta vista, y ahí le das a «Configuración».",
+      "img": "01-menu-configuracion.webp",
+      "instr": true
+    },
+    {
+      "texto": "Dentro de Configuración, entra a «Uso». Ahí tienes tu aguja de la bencina.",
+      "img": "02-uso-tokens.webp"
+    },
+    "Como puedes ver, hay dos barras importantes: la de arriba, «Sesión actual», y la de abajo, «Límites semanales». La primera va midiendo tu uso y se renueva cada 5 horas: son slots de 5 horas. Si lo ocupas mucho, te podrías quedar sin tokens esperando que pasen esas 5 horas. Así no suena tan grave, ¿cierto? Pero la de abajo, cuando se llena del todo, te deja sin tokens hasta que se renueve, y eso puede ser una semana después. Ahí sí ya es más grave. Por eso vamos a aprender a cuidar estos tokens.",
+    "Un token es un pedacito de texto: aproximadamente 3/4 de una palabra. «Presupuesto» son unos 3 tokens; una carilla de Word, cerca de 500. Y consume tokens todo: lo que tú escribes, los archivos que adjuntas, las instrucciones del proyecto, lo que la herramienta razona por dentro y lo que finalmente te responde.",
+    {
+      "texto": "Ahora, ¿en qué se te van realmente los tokens? Esto es lo que más devora tu plan, ordenado de mayor a menor consumo.",
+      "img": "03-ranking-tokens.webp"
+    },
+    {
+      "texto": "Y lo más importante de todo: cuida tu razonamiento. Lo que más te gasta es ocupar Opus en vez de Sonnet, o incluso de Haiku. Esto tienes que estar mirándolo siempre. Imagínatelos como distintos tipos de bencina, o como el tiraje que le das a la chimenea.",
+      "img": "04-surtidores-modelos.webp"
+    },
+    {
+      "texto": "Por eso mi recomendación, sobre todo si tienes la cuenta Pro de 20 dólares: ocupa Opus muy excepcionalmente y vive el día a día en Sonnet. Deja Opus para cuando la situación realmente lo amerite.",
+      "img": "05-sonnet-vs-opus.webp"
+    }
+  ],
+  "pro_tip": "Si una conversación empezó a dar respuestas raras, a repetirse o a olvidar cosas que sí le dijiste, no insistas ni la retes: es contexto saturado. Pide el resumen denso, abre un chat nuevo y pega solo lo que importa.",
+  "desafio": {
+    "enunciado": "Busca un chat tuyo largo de verdad —uno de esos que arrastras hace días—. Pídele el resumen denso de abajo, abre un chat nuevo y pégalo. Comprueba que puedes seguir trabajando sin haber perdido el hilo, pero partiendo liviano.",
+    "prompt": "Haz un resumen denso de este chat para que yo lo pueda pegar en un nuevo chat y continuar sin perder contexto. Incluye: el objetivo principal de la conversación, las decisiones tomadas, los archivos o configuraciones relevantes con detalles exactos, los pendientes o próximos pasos, y cualquier dato clave. Entrégalo en un único bloque de código listo para copiar y pegar.",
+    "origen": "reciclado · repo-prompts + formatos-md-tokens"
+  },
+  "banner": "banner.webp",
+  "assets": [
+    "banner.webp",
+    "01-menu-configuracion.webp",
+    "02-uso-tokens.webp",
+    "03-ranking-tokens.webp",
+    "04-surtidores-modelos.webp",
+    "05-sonnet-vs-opus.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/tokens-claude/01-menu-configuracion.webp",
+    "https://reyesia.com/bloques/tokens-claude/02-uso-tokens.webp",
+    "https://reyesia.com/bloques/tokens-claude/03-ranking-tokens.webp",
+    "https://reyesia.com/bloques/tokens-claude/04-surtidores-modelos.webp",
+    "https://reyesia.com/bloques/tokens-claude/05-sonnet-vs-opus.webp"
+  ],
+  "sources": [
+    {
+      "file": "bloques/formatos-md-tokens/meta.json",
+      "title": "Formato Markdown y uso de tokens",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

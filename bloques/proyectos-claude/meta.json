@@ -2,29 +2,60 @@
   "id": "proyectos-claude",
   "nombre": "Proyectos en Claude",
   "emoji": "📁",
-  "descripcion": "Memoria de trabajo persistente: cargas una vez el contexto de tu área y todas las conversaciones dentro parten sabiendo quién eres y cómo trabajas.",
+  "descripcion": "Los proyectos son una de las áreas que más eficiencia laboral te entregan. Le cargas las instrucciones en MD, le adjuntas los documentos vinculantes, y empiezas a ocuparlo cada vez que hablas de ese tema. El proyecto va acumulando memoria y contexto, hasta funcionar literalmente como un mini cerebro de cada uno de tus temas.",
   "categoria": "claude",
   "tags": [
     "claude",
     "proyectos",
     "contexto",
+    "markdown",
     "productividad"
   ],
   "pasos": [
-    "En el sidebar, entra a Proyectos y crea uno nuevo. Ponle el nombre de tu área o del proceso que quieres apoyar.",
-    "Sube al conocimiento del proyecto los documentos que usas seguido: un instructivo, una plantilla, un informe tipo, el glosario de tu industria.",
-    "Escribe las instrucciones fijas del proyecto: quién eres, qué hace tu equipo, qué tono quieres y qué formato de salida prefieres.",
-    "Conversa dentro del proyecto. Cada chat nuevo ya parte con todo ese contexto cargado: dejas de reexplicarte en cada conversación.",
-    "Comparte el proyecto con tu equipo para que todos trabajen con el mismo contexto y las mismas instrucciones. Ahí es donde deja de ser productividad personal y pasa a ser estándar de equipo."
+    "Un chat suelto empieza siempre de cero: no sabe quién eres, qué hace tu equipo ni cómo te gustan las cosas. Un Proyecto resuelve exactamente eso: dejas cargado el contexto una sola vez, y cada conversación que abras dentro parte ya sabiéndolo todo.",
+    {
+      "texto": "Puedes tener todos los proyectos que quieras, y deberías tener muchos: uno por cada tema, uno por cada sombrero que uses en tu vida, uno por cada asunto que se te repita. No pienses en proyectos grandes, piensa en lógica de subproyectos. En vez de un súper proyecto que acumule todos los temas, varios mini proyectos.",
+      "img": "01-lista-proyectos.webp"
+    },
+    {
+      "texto": "Sube al conocimiento los documentos que usas seguido: el instructivo del proceso, la plantilla oficial, un informe tipo que salió bien, el glosario de tu industria. Súbelos convertidos a MD: pesan una fracción y te dejan la ventana de contexto libre para lo que importa.",
+      "img": "02-vista-proyecto.webp"
+    },
+    "Ahora las instrucciones, que es donde la mayoría se queda corta. No escribas un párrafo suelto: escríbelas en Markdown, con cuatro secciones y su propio título. «## Quién soy» (tu cargo, tu empresa, qué hace tu equipo), «## Qué hacemos acá» (el proceso que cubre este proyecto), «## Cómo quiero que me respondas» (tono, extensión, formato) y «## Reglas» (lo que nunca debe hacer).",
+    "¿Por qué en MD y no en un párrafo corrido? Porque los títulos le dan jerarquía: separan lo que es identidad, de lo que es formato, de lo que es prohibición. Y no las escribas desde cero: pídeselas en un chat aparte y después las ajustas a tu pinta.",
+    {
+      "texto": "Para eso te dejo el prompt listo. Cópialo y pégalo en tu Claude: te va a hacer entre 3 y 5 preguntas y con tus respuestas redacta el archivo de instrucciones en Markdown, con todas las secciones.",
+      "url": "https://reyesia.com/repo-prompts",
+      "url_texto": "Ir al repositorio de prompts",
+      "img": "03-prompt-instrucciones.webp",
+      "recurso": true
+    },
+    {
+      "texto": "Y ahora el hábito, que es lo que hace toda la diferencia: una vez que ya cargaste las instrucciones en MD y el conocimiento, cada vez que hables de ese tema hazlo desde dentro del proyecto, no desde un chat suelto. Con eso vas armando un mini cerebro que ya entiende el contexto de cada uno de tus temas.",
+      "img": "04-hablar-desde-proyecto.webp"
+    }
   ],
-  "pro_tip": "El mejor primer proyecto no es el más ambicioso: es esa tarea que haces todas las semanas y en la que siempre escribes el mismo párrafo de contexto.",
+  "pro_tip": "El mejor primer proyecto no es el más ambicioso: es esa tarea que haces todas las semanas y en la que siempre terminas escribiendo el mismo párrafo de contexto. Si te escuchaste explicando lo mismo dos veces, ahí hay un proyecto.",
   "desafio": {
-    "enunciado": "Crea un Proyecto con el nombre de tu área y súbele tus manuales, plantillas y guías internas. Después hazle una pregunta que sin ese contexto no podría responder bien.",
-    "prompt": null,
-    "origen": "reciclado · pro tip Rosen"
+    "enunciado": "Crea un Proyecto con el nombre de tu área. Súbele el instructivo que convertiste a MD en el bloque anterior y escríbele las instrucciones estructuradas con las cuatro secciones. Después hazle una pregunta que sin ese contexto no podría responder bien.",
+    "prompt": "Soy [tu cargo] en [tu empresa] y mi equipo se dedica a [qué hacen]. Quiero armar un Proyecto que me ayude con [el proceso]. Escríbeme las instrucciones de ese proyecto en Markdown, con las secciones: Quién soy, Qué hacemos acá, Cómo quiero que me respondas y Reglas. Entrégalo en un bloque de código listo para copiar.",
+    "origen": "reciclado · pro tip Rosen + ampliado con instrucciones MD"
   },
-  "assets": [],
-  "assets_github": [],
+  "portada": "portada.webp",
+  "assets": [
+    "portada.webp",
+    "01-lista-proyectos.webp",
+    "02-vista-proyecto.webp",
+    "03-prompt-instrucciones.webp",
+    "04-hablar-desde-proyecto.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/proyectos-claude/portada.webp",
+    "https://reyesia.com/bloques/proyectos-claude/01-lista-proyectos.webp",
+    "https://reyesia.com/bloques/proyectos-claude/02-vista-proyecto.webp",
+    "https://reyesia.com/bloques/proyectos-claude/03-prompt-instrucciones.webp",
+    "https://reyesia.com/bloques/proyectos-claude/04-hablar-desde-proyecto.webp"
+  ],
   "sources": [
     {
       "file": "claude/index.html",

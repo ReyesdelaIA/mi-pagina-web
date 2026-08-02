@@ -1,7 +1,7 @@
 # Catálogo de bloques — Biblioteca de sesiones
 
 _Generado automáticamente desde `bloques/*/meta.json` con `node scripts/bloques/gen-catalogo.js`._
-_Total: 51 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
+_Total: 53 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 
 ## fundamentos (10)
 
@@ -67,7 +67,7 @@ _Total: 51 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 | `musica-gemini` | Música con IA (Gemini) | 2 | 4 | ✓ |
 | `videos-con-ia` | Generación de Videos con IA | 1 | 4 | ✓ |
 
-## claude (12)
+## claude (14)
 
 | id | nombre | imgs | pasos | pro tip |
 |---|---|---|---|---|
@@ -75,17 +75,19 @@ _Total: 51 bloques. Para armar una sesión: dime empresa + nº + lista de IDs._
 | `agentes-claude` | Agentes con Claude | 0 ⚠️ | 5 | ✓ |
 | `claude-chat-tour` | Tour por Claude | 10 | 13 | ✓ |
 | `claude-code` | Claude Code | 0 ⚠️ | 5 | ✓ |
-| `claude-en-office` | Claude en el Office | 0 ⚠️ | 5 | ✓ |
+| `claude-en-office` | Claude en el Office | 5 | 8 | ✓ |
 | `dictado-claude` | Dictado y modelo de voz | 2 | 5 | ✓ |
 | `formatos-md-tokens` | Formato Markdown y uso de tokens | 0 ⚠️ | 5 | ✓ |
+| `markdown-claude` | Markdown: el idioma en que la IA escribe | 3 | 7 | ✓ |
 | `mcp-conectores` | MCP y conectores | 0 ⚠️ | 5 | ✓ |
 | `memoria-claude` | Memorización de Claude | 2 | 5 | ✓ |
-| `proyectos-claude` | Proyectos en Claude | 0 ⚠️ | 5 | ✓ |
+| `proyectos-claude` | Proyectos en Claude | 5 | 7 | ✓ |
 | `razonamiento-claude` | Razonamiento | 0 ⚠️ | 5 | ✓ |
 | `skills-claude` | Skills y Plugins | 0 ⚠️ | 5 | ✓ |
+| `tokens-claude` | Ahorro y optimización de tokens | 5 | 8 | ✓ |
 
 ---
 
-**⚠️ Bloques sin imágenes (17)** — necesitan capturas antes de quedar visuales: `3-esferas`, `agentes-claude`, `analisis-documentos`, `claude-code`, `claude-en-office`, `confidencialidad-ia`, `dictado-voz`, `formatos-md-tokens`, `fundamentos-prompt`, `internet-avanzada`, `mcp-conectores`, `memoria-ia`, `modelos-fast-vs-razonamiento`, `proyectos-claude`, `razonamiento-claude`, `redaccion-avanzada`, `skills-claude`.
+**⚠️ Bloques sin imágenes (15)** — necesitan capturas antes de quedar visuales: `3-esferas`, `agentes-claude`, `analisis-documentos`, `claude-code`, `confidencialidad-ia`, `dictado-voz`, `formatos-md-tokens`, `fundamentos-prompt`, `internet-avanzada`, `mcp-conectores`, `memoria-ia`, `modelos-fast-vs-razonamiento`, `razonamiento-claude`, `redaccion-avanzada`, `skills-claude`.
 
 **Cómo pedir una sesión:** _"hagamos la S[N] de [empresa] con [id1], [id2], [id3]..."_ → yo verifico cada bloque en `bloques_sesion`, armo el resumen ejecutivo `/sesion[NN]-[empresa]`, actualizo el portal `/[empresa]` (`company_sessions` + quiz/thumbnails/desafío) y hago push.
