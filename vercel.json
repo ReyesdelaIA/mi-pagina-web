@@ -2,12 +2,12 @@
   "outputDirectory": ".",
   "rewrites": [
     {
-      "source": "/claude-jul26-k7x9",
-      "destination": "/claude-jul26-k7x9/index.html"
+      "source": "/panelclaude",
+      "destination": "/panelclaude/index.html"
     },
     {
-      "source": "/claude-jul26-k7x9/panel",
-      "destination": "/claude-jul26-k7x9/panel.html"
+      "source": "/claude-jul26-k7x9",
+      "destination": "/claude-jul26-k7x9/index.html"
     },
     {
       "source": "/claude-jul26-k7x9/taller-1",
