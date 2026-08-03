@@ -256,14 +256,15 @@
     .sigue-t { font-size:18px; font-weight:500; color:#F4F5F7; letter-spacing:-.01em; }
     .sigue-h { font-size:13.5px; color:rgba(233,234,238,.52); margin-top:4px; }
     .sigue .lbl { display:block; margin-bottom:7px; }
-    /* El botón se queda naranjo y sólido: dentro del panel azul, es la acción */
+    /* Azul como su panel: el naranjo es de las sesiones, y este botón no
+       lleva a una sesión sino al siguiente paso pendiente */
     .sigue-btn {
       display:inline-flex; align-items:center; gap:10px; padding:12px 24px; border-radius:12px;
-      font-size:14.5px; font-weight:600; white-space:nowrap; color:#160B04;
-      background:linear-gradient(100deg,#F0A46A,#D66E36);
-      box-shadow:0 12px 28px -14px rgba(214,110,54,.9); transition:filter .15s;
+      font-size:14.5px; font-weight:600; white-space:nowrap; color:#07111C;
+      background:linear-gradient(100deg,#8FBEEC,#4C82C4);
+      box-shadow:0 12px 28px -14px rgba(90,140,210,.95); transition:filter .15s;
     }
-    .sigue-btn:hover { filter:brightness(1.06); color:#160B04; }
+    .sigue-btn:hover { filter:brightness(1.07); color:#07111C; }
 
     /* ---------- Pie ---------- */
     .pie {
