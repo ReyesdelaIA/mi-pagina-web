@@ -38,6 +38,22 @@
     .fbtn { background:#fff; border:1.5px solid var(--border); border-radius:20px; padding:7px 14px; font-size:12px; font-weight:600; font-family:inherit; color:#374151; cursor:pointer; transition:all .15s; }
     .fbtn:hover { border-color:var(--amber); }
     .fbtn.on { background:var(--amber); border-color:var(--amber); color:#fff; }
+    .fbtn.alt { color:var(--muted); border-style:dashed; }
+    /* Cuántas formas de escribir se juntaron en ese botón */
+    .vcount { display:inline-flex; align-items:center; justify-content:center; min-width:15px; height:15px;
+      margin-left:6px; padding:0 4px; border-radius:99px; background:#EDE7DA; color:#7a7264;
+      font-size:9.5px; font-weight:800; }
+    .fbtn.on .vcount { background:rgba(255,255,255,.28); color:#fff; }
+
+    /* Sugerencias de unión */
+    .sug { display:flex; align-items:center; gap:8px; flex-wrap:wrap; background:#FFF8EC;
+      border:1px solid #F5CC7A; border-radius:12px; padding:11px 14px; margin-bottom:18px; }
+    .sug > b { font-size:11.5px; color:#7A5A14; font-weight:700; }
+    .sug-b { background:#fff; border:1.5px solid #F0D9A8; border-radius:20px; padding:6px 12px;
+      font-size:11.5px; font-weight:600; font-family:inherit; color:#5C3D00; cursor:pointer; }
+    .sug-b:hover { border-color:var(--amber); }
+    .sug-b span { color:var(--amber-dark); font-weight:800; }
+    .sug-b.off { color:var(--muted); border-style:dashed; }
 
     .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:24px; }
     .kpi { background:#fff; border:1px solid var(--border); border-radius:14px; padding:16px 18px; }
@@ -100,6 +116,7 @@
     </div>
     <div class="filters" id="filters"></div>
   </div>
+  <div id="sugerencias"></div>
 
   <div class="kpis" id="kpis"></div>
 
@@ -125,23 +142,22 @@
   </div>
 </div>
 
+<!-- El temario sale de portal.js, que es la fuente de verdad. Antes el panel
+     tenía su propia copia y quedó desfasada, midiendo mal el avance. -->
+<script src="/claude-jul26-k7x9/portal.js"></script>
 <script>
-  const TALLER_NOMBRE = {
-    1: 'T1 · Introductorio',
-    2: 'T2 · Claude App',
-    3: 'T3 · Claude Avanzado'
-  };
-  // Debe reflejar los conceptos de claude/index.html
-  const CONCEPTOS = {
-    1: ['3-esferas', 'fundamentos-prompt', 'modelos-fast-vs-razonamiento', 'memoria-claude', 'confidencialidad-ia'],
-    2: ['claude-chat-tour', 'proyectos-claude', 'mcp-conectores', 'claude-en-office', 'formatos-md-tokens'],
-    3: ['skills-claude', 'artefactos-claude', 'intro-cowork', 'claude-code', 'agentes-claude'],
-  };
+  const TALLER_NOMBRE = Object.fromEntries(
+    TALLERES.map(t => [t.n, `T${t.n} · ${(t.label.split('·')[1] || t.title).trim()}`])
+  );
+  const CONCEPTOS = Object.fromEntries(TALLERES.map(t => [t.n, t.conceptos]));
   const NOMBRES = {};   // id -> nombre legible, desde /bloques
 
-  let PART = [], PROG = [], filtro = '__all__';
+  let PART = [], PROG = [], filtro = '__all__', agrupar = true;
 
-  const totalPasos = () => [1,2,3].reduce((a,t) => a + CONCEPTOS[t].length + 2, 0);
+  // Nombre propio: portal.js ya define su totalPasos (que además cuenta los
+  // ejercicios hands-on). Acá medimos conceptos + quiz + desafío por taller.
+  const pasosPrograma = () => TALLERES.reduce((a,t) => a + t.conceptos.length + 2, 0);
+  const TIPOS_AVANCE = new Set(['concepto','quiz','desafio']);
   const nom = id => NOMBRES[id] || id;
 
   async function cargarNombres(){
@@ -196,16 +212,77 @@
     return idx;
   }
 
+  /* ---------------- Agrupación de empresas ----------------
+     La gente escribe el nombre a mano, así que la misma empresa llega como
+     «DT Peñuelas», «DT Peñuelas SpA» o «Penuelas» sin ñ. Se normaliza para
+     que caigan todas en el mismo grupo. */
+
+  // Formas societarias y palabras genéricas que no distinguen a una empresa
+  const RUIDO = new Set([
+    'sa','s','a','spa','sac','srl','ltda','limitada','ltd','inc','corp','corporacion',
+    'cia','compania','sociedad','eirl','llc','group','grupo','holding','empresa','empresas',
+    'comercial','servicios','consultora','consultores','de','del','la','el','los','las','y'
+  ]);
+
+  function claveEmpresa(nombre){
+    const base = String(nombre || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')   // Peñuelas = Penuelas
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .split(/\s+/).filter(Boolean);
+    const utiles = base.filter(w => !RUIDO.has(w));
+    // Si al sacar el ruido no queda nada (ej. «SpA»), vale el original
+    return (utiles.length ? utiles : base).join(' ') || '__sin-empresa';
+  }
+
+  // Uniones que hace Felipe a mano, para casos que la máquina no puede saber
+  // (por ejemplo si «DT Peñuelas» y «Family Office Peñuelas» son lo mismo).
+  let ALIAS = {};
+  try { ALIAS = JSON.parse(localStorage.getItem('claude_panel_alias')) || {}; } catch (e) { ALIAS = {}; }
+  const guardarAlias = () => localStorage.setItem('claude_panel_alias', JSON.stringify(ALIAS));
+  const grupoDe = p => agrupar ? (ALIAS[claveEmpresa(p.empresa)] || claveEmpresa(p.empresa)) : p.empresa_slug;
+
   function empresas(){
     const m = new Map();
     PART.forEach(p => {
-      const cur = m.get(p.empresa_slug);
-      m.set(p.empresa_slug, { slug: p.empresa_slug, nombre: p.empresa, n: (cur ? cur.n : 0) + 1 });
+      const k = grupoDe(p);
+      const cur = m.get(k) || { slug: k, variantes: new Map(), n: 0 };
+      cur.n++;
+      cur.variantes.set(p.empresa, (cur.variantes.get(p.empresa) || 0) + 1);
+      m.set(k, cur);
     });
-    return [...m.values()].sort((a,b) => b.n - a.n);
+    return [...m.values()].map(e => {
+      // Etiqueta: la forma más usada; a igualdad, la más corta
+      const vs = [...e.variantes.entries()].sort((a,b) => b[1]-a[1] || a[0].length-b[0].length);
+      return { ...e, nombre: vs[0][0], variantes: vs.map(v => v[0]) };
+    }).sort((a,b) => b.n - a.n);
   }
 
-  const visibles = () => filtro === '__all__' ? PART : PART.filter(p => p.empresa_slug === filtro);
+  // Grupos que comparten una palabra con peso: candidatos a ser la misma
+  // empresa, pero no lo bastante claros como para juntarlos sin preguntar.
+  function sugerencias(emps){
+    const out = [];
+    const palabras = e => new Set(e.slug.split(' ').filter(w => w.length >= 5));
+    for (let i = 0; i < emps.length; i++) for (let j = i + 1; j < emps.length; j++){
+      const a = emps[i], b = emps[j];
+      const pa = palabras(a), pb = palabras(b);
+      if ([...pa].some(w => pb.has(w))) out.push([a, b]);
+    }
+    return out.slice(0, 6);   // no llenar la pantalla de sugerencias
+  }
+
+  function unir(a, b){
+    // El grupo con más gente se queda como destino
+    const [dest, src] = a.n >= b.n ? [a, b] : [b, a];
+    ALIAS[src.slug] = dest.slug;
+    Object.keys(ALIAS).forEach(k => { if (ALIAS[k] === src.slug) ALIAS[k] = dest.slug; });
+    guardarAlias(); filtro = '__all__'; render();
+  }
+
+  function separarTodo(){ ALIAS = {}; guardarAlias(); filtro = '__all__'; render(); }
+  function toggleAgrupar(){ agrupar = !agrupar; filtro = '__all__'; render(); }
+
+  const visibles = () => filtro === '__all__' ? PART : PART.filter(p => grupoDe(p) === filtro);
 
   const tallerCompleto = (idx, p, t) =>
     !!(idx[p.id]?.[t]?.quiz && idx[p.id]?.[t]?.desafio &&
@@ -217,12 +294,32 @@
 
     document.getElementById('filters').innerHTML =
       [`<button class="fbtn ${filtro==='__all__'?'on':''}" onclick="setFiltro('__all__')">Todas (${PART.length})</button>`]
-      .concat(emps.map(e => `<button class="fbtn ${filtro===e.slug?'on':''}" onclick="setFiltro('${e.slug}')">${esc(e.nombre)} (${e.n})</button>`))
+      .concat(emps.map(e => {
+        // El título muestra bajo qué formas se escribió, para que se vea qué agrupó
+        const tit = e.variantes.length > 1 ? ` title="Agrupa: ${esc(e.variantes.join(' · '))}"` : '';
+        const marca = e.variantes.length > 1 ? `<span class="vcount">${e.variantes.length}</span>` : '';
+        return `<button class="fbtn ${filtro===e.slug?'on':''}"${tit} onclick="setFiltro('${esc(e.slug)}')">${esc(e.nombre)} (${e.n})${marca}</button>`;
+      }))
+      .concat([`<button class="fbtn alt" onclick="toggleAgrupar()" title="${agrupar?'Ver cada forma de escribir por separado':'Juntar las variantes de una misma empresa'}">${agrupar ? '⛓ Agrupadas' : '⛓‍💥 Sin agrupar'}</button>`])
       .join('');
 
+    // Grupos que podrían ser lo mismo pero la máquina no puede asegurarlo
+    const sug = agrupar ? sugerencias(emps) : [];
+    const hayAlias = Object.keys(ALIAS).length > 0;
+    document.getElementById('sugerencias').innerHTML = (!sug.length && !hayAlias) ? '' : `
+      <div class="sug">
+        <b>${sug.length ? '¿Son la misma empresa?' : 'Uniones aplicadas'}</b>
+        ${sug.map(([a,b]) => `<button class="sug-b" onclick="unirPorSlug('${esc(a.slug)}','${esc(b.slug)}')">
+            ${esc(a.nombre)} <span>+</span> ${esc(b.nombre)} <span>unir</span>
+          </button>`).join('')}
+        ${hayAlias ? `<button class="sug-b off" onclick="separarTodo()">deshacer uniones</button>` : ''}
+      </div>`;
+
     const vis = visibles();
+    const variantes = new Set(PART.map(p => p.empresa)).size;
     document.getElementById('sub').textContent =
-      `${vis.length} participante${vis.length===1?'':'s'} · ${emps.length} empresa${emps.length===1?'':'s'} registrada${emps.length===1?'':'s'}`;
+      `${vis.length} participante${vis.length===1?'':'s'} · ${emps.length} empresa${emps.length===1?'':'s'}`
+      + (agrupar && variantes > emps.length ? ` (agrupadas desde ${variantes} formas de escribirlas)` : '');
 
     const visIds = new Set(vis.map(p => p.id));
     const míos = PROG.filter(g => visIds.has(g.participante_id));
@@ -233,7 +330,10 @@
     const promedio = conNota.length
       ? Math.round(conNota.reduce((a,q) => a + (q.quiz_score / q.quiz_total), 0) / conNota.length * 100)
       : null;
-    const avance = vis.length ? Math.round(míos.length / (vis.length * totalPasos()) * 100) : 0;
+    // Numerador y denominador tienen que medir lo mismo: los ejercicios
+    // hands-on quedan fuera de ambos.
+    const míosAvance = míos.filter(g => TIPOS_AVANCE.has(g.tipo));
+    const avance = vis.length ? Math.round(míosAvance.length / (vis.length * pasosPrograma()) * 100) : 0;
 
     document.getElementById('kpis').innerHTML = `
       <div class="kpi"><div class="kpi-v">${vis.length}</div><div class="kpi-l">Participantes</div></div>
@@ -298,6 +398,11 @@
   }
 
   function setFiltro(f){ filtro = f; render(); }
+  function unirPorSlug(a, b){
+    const emps = empresas();
+    const ea = emps.find(e => e.slug === a), eb = emps.find(e => e.slug === b);
+    if (ea && eb) unir(ea, eb);
+  }
 
   function esc(s){
     return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
