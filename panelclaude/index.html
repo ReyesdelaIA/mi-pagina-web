@@ -412,12 +412,16 @@
      La pregunta real es dónde se cae la gente: cuántos entran, cuántos
      empiezan de verdad y cuántos llegan al final de cada sesión. */
   function etapas(idx, gente){
-    const out = [{ lbl:'Se registraron', n:gente.length, tipo:'base' }];
-    NS.forEach(t => {
-      out.push({ lbl:`Empezaron la sesión ${t}`, n:gente.filter(p => empezoTaller(idx,p,t)).length, tipo:'empezo' });
-      out.push({ lbl:`Dominaron la sesión ${t}`, n:gente.filter(p => dominoTaller(idx,p,t)).length, tipo:'domino' });
-    });
-    return out;
+    // Solo los hitos que importan: entrar y terminar cada sesión. «Empezaron
+    // la sesión N» sobraba: en la práctica coincide con haber terminado la
+    // anterior, porque la siguiente se abre al completarla.
+    return [{ lbl:'Se registraron', n:gente.length, tipo:'base' }].concat(
+      NS.map(t => ({
+        lbl: `Completaron la sesión ${t}`,
+        n: gente.filter(p => dominoTaller(idx,p,t)).length,
+        tipo: 'domino'
+      }))
+    );
   }
 
   function pintarEmbudo(idx, gente){
