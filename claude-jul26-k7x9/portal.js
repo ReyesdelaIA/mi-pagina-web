@@ -122,7 +122,7 @@ const TALLERES = [
     title: 'Cowork, Artefactos & Plugins',
     dur: '1.5 hrs · Presencial · Hands-On',
     resumen: 'El salto de conversar a delegar: estandarizar procedimientos, generar entregables vivos y dar los primeros pasos con agentes.',
-    conceptos: ['skills-claude', 'artefactos-claude', 'intro-cowork', 'claude-code', 'agentes-claude'],
+    conceptos: ['skills-claude', 'artefactos-claude', 'intro-cowork', 'agentes-claude'],
     desafio: 'Elige una tarea que tu equipo repite todas las semanas siempre igual (un reporte, una revisión, un consolidado). Descríbele a Claude el procedimiento paso a paso y pídele que lo deje como una Skill reutilizable. Después ejecútala con datos reales de esta semana y ajusta lo que salga torcido. Bonus: pídele que el resultado sea un Artefacto compartible. ⚡',
     quiz: [
       {
@@ -180,11 +180,18 @@ const BLOQUES = {};
 
 const T = n => TALLERES.find(t => t.n === n);
 
-// En Vercel las rutas son /claude y /claude/taller-1. Abriendo los archivos
-// directo (revisión local) no existen esos rewrites, así que caemos al .html.
+// El portal va versionado en la ruta: cada edición vive en su propia carpeta
+// y la anterior deja de existir. Para sacar una nueva basta con renombrar el
+// directorio, cambiar estas dos constantes y actualizar los rewrites.
+const BASE    = '/claude-jul26-k7x9';
+const VERSION = 'Julio 26';
+
+// En Vercel las rutas son /claude-jul26-k7x9 y /claude-jul26-k7x9/taller-1.
+// Abriendo los archivos directo (revisión local) no existen esos rewrites,
+// así que caemos al .html.
 const RUTA_PLANA = location.pathname.endsWith('.html');
-const urlTaller  = n => RUTA_PLANA ? `/claude/taller.html?n=${n}` : `/claude/taller-${n}`;
-const urlHub     = ()  => RUTA_PLANA ? '/claude/index.html' : '/claude';
+const urlTaller  = n => RUTA_PLANA ? `${BASE}/taller.html?n=${n}` : `${BASE}/taller-${n}`;
+const urlHub     = ()  => RUTA_PLANA ? `${BASE}/index.html` : BASE;
 // conceptos + ejercicios + quiz + desafío
 const totalPasos = () => TALLERES.reduce((a, t) => a + t.conceptos.length + ejerciciosDe(t.n).length + 2, 0);
 
@@ -268,6 +275,19 @@ async function syncUser(){
   } catch (e) { /* sin red: el progreso local sigue funcionando */ }
 }
 
+// Detalle del quiz: qué alternativa marcó en cada pregunta. Es lo que después
+// permite ver en qué se equivoca más la gente de una empresa.
+async function syncRespuesta(taller, pregunta, elegida, correcta){
+  if (!user) return;
+  try {
+    await rpc('claude_registrar_respuesta', {
+      p_participante_id: user.id, p_empresa_slug: user.empresa_slug,
+      p_taller: taller, p_pregunta: pregunta,
+      p_elegida: elegida, p_correcta: correcta
+    });
+  } catch (e) { /* idem: nunca bloquea el quiz */ }
+}
+
 async function syncProgreso(taller, tipo, concepto, score, total){
   if (!user) return;
   try {
@@ -337,14 +357,25 @@ function injectShell(){
 
   <div class="sk-overlay" id="sk-overlay">
     <div class="sk-sheet">
+      <button class="sk-close" id="sk-close">✕</button>
       <div class="sk-header">
-        <div class="sk-htop">
-          <div class="sk-title">🧠 Habilidades desbloqueadas</div>
-          <button class="sk-close" id="sk-close">✕</button>
+        <div class="sk-eyebrow">Centro de habilidades</div>
+        <div class="sk-score">
+          <div class="sk-ring" id="sk-ring">
+            <svg viewBox="0 0 120 120">
+              <circle class="sk-ring-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="sk-ring-fg" id="sk-ring-fg" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="sk-ring-n"><b id="sk-n">0</b><i id="sk-tot">/0</i></div>
+          </div>
+          <div class="sk-score-t">
+            <div class="sk-title" id="sk-title">Vas comenzando</div>
+            <div class="sk-sub" id="sk-sub"></div>
+            <div class="sk-rangos" id="sk-rangos"></div>
+          </div>
         </div>
-        <div class="sk-sub" id="sk-sub"></div>
       </div>
-      <div class="sk-grid" id="sk-grid"></div>
+      <div class="sk-body" id="sk-body"></div>
     </div>
   </div>
 
@@ -472,22 +503,75 @@ async function recuperarProgreso(){
 
 /* ---------------- Centro de habilidades ---------------- */
 
+// Los rangos le dan una meta intermedia a la colección: sin esto, ir de 4 a 13
+// es una cuesta larga sin nada que celebrar en el medio.
+const RANGOS = [
+  { min: 0,    nombre: 'Explorador',  icono: '🌱' },
+  { min: 0.25, nombre: 'Practicante', icono: '⚡' },
+  { min: 0.5,  nombre: 'Operador',    icono: '🔧' },
+  { min: 0.75, nombre: 'Estratega',   icono: '🎯' },
+  { min: 1,    nombre: 'Maestro',     icono: '👑' }
+];
+const rangoDe = pct => RANGOS.filter(r => pct >= r.min).pop();
+
 function renderSkills(animar){
-  const grid = document.getElementById('sk-grid');
-  if (!grid) return;
-  grid.innerHTML = SKILLS.map(sk => {
-    const b  = BLOQUES[sk.id];
-    const on = !!st[`c-${sk.id}`];
-    const pop = (animar === sk.id && on) ? ' pop' : '';
-    const nombre = b ? b.nombre : sk.id;
-    return `<div class="sk ${on ? 'on' : 'off'}${pop}" style="${on ? `background:${sk.color};` : ''}" title="${esc(nombre)}">
-      ${!on ? '<span class="sk-lock">🔒</span>' : ''}
-      <span class="sk-icon">${b ? b.emoji : '•'}</span>
-      <span class="sk-name">${esc(nombre)}</span>
-    </div>`;
+  const body = document.getElementById('sk-body');
+  if (!body) return;
+
+  const total = SKILLS.length, hechas = skillsOk();
+  const pct = total ? hechas / total : 0;
+
+  // Aro de progreso
+  const fg = document.getElementById('sk-ring-fg');
+  if (fg){
+    const largo = 2 * Math.PI * 52;
+    fg.style.strokeDasharray = largo;
+    fg.style.strokeDashoffset = largo * (1 - pct);
+  }
+  document.getElementById('sk-n').textContent   = hechas;
+  document.getElementById('sk-tot').textContent = `/${total}`;
+  document.getElementById('sk-ring').classList.toggle('full', hechas === total && total > 0);
+
+  const rango = rangoDe(pct);
+  document.getElementById('sk-title').textContent = `${rango.icono} ${rango.nombre}`;
+  const faltan = total - hechas;
+  document.getElementById('sk-sub').textContent = hechas === 0
+    ? `Desbloquea tu primera habilidad para empezar la colección.`
+    : faltan === 0
+      ? `Colección completa: dominaste las ${total} habilidades.`
+      : `Llevas ${hechas} de ${total}. Te faltan ${faltan} para completar la colección.`;
+
+  document.getElementById('sk-rangos').innerHTML = RANGOS.map(r =>
+    `<span class="sk-rango ${pct >= r.min ? 'on' : ''}" title="${esc(r.nombre)}">${r.icono}</span>`
+  ).join('');
+
+  // Las habilidades van agrupadas por sesión: se ve de dónde sale cada una
+  body.innerHTML = TALLERES.map(t => {
+    const dela = SKILLS.filter(s => s.taller === t.n);
+    const ok = dela.filter(s => st[`c-${s.id}`]).length;
+    return `
+    <section class="sk-grupo">
+      <div class="sk-gtop">
+        <span class="sk-glabel">${esc(t.label)}</span>
+        <span class="sk-gcount ${ok === dela.length ? 'full' : ''}">${ok}/${dela.length}</span>
+      </div>
+      <div class="sk-grid">
+        ${dela.map(sk => {
+          const b = BLOQUES[sk.id];
+          const on = !!st[`c-${sk.id}`];
+          const pop = (animar === sk.id && on) ? ' pop' : '';
+          // La medalla lleva el nombre corto; el largo queda en el tooltip
+          const nombre = b ? (b.habilidad || b.nombre) : sk.id;
+          return `<div class="sk ${on ? 'on' : 'off'}${pop}" style="${on ? `--sk-c:${sk.color};` : ''}" title="${esc(b ? b.nombre : sk.id)}">
+            <span class="sk-medalla">
+              <span class="sk-icon">${on ? (b ? b.emoji : '★') : '🔒'}</span>
+            </span>
+            <span class="sk-name">${esc(nombre)}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </section>`;
   }).join('');
-  const sub = document.getElementById('sk-sub');
-  if (sub) sub.textContent = `${skillsOk()} de ${SKILLS.length} habilidades desbloqueadas`;
 }
 
 function openSkills(){ renderSkills(); document.getElementById('sk-overlay').classList.add('open'); }

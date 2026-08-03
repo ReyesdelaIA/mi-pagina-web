@@ -1,6 +1,7 @@
 {
   "id": "claude-en-office",
   "nombre": "Claude en el Office",
+  "habilidad": "Claude en Office",
   "emoji": "📊",
   "descripcion": "El complemento que lo mete dentro de Excel, Word y PowerPoint: qué le puedes pedir en cada uno y dónde conviene seguir trabajando en el chat.",
   "categoria": "claude",

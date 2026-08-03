@@ -25,9 +25,10 @@ module.exports = async (req, res) => {
   const headers = { apikey: key, Authorization: `Bearer ${key}` };
 
   try {
-    const [pRes, gRes] = await Promise.all([
+    const [pRes, gRes, rRes] = await Promise.all([
       fetch(`${SUPABASE_URL}/rest/v1/claude_participantes?select=*&order=created_at.desc`, { headers }),
       fetch(`${SUPABASE_URL}/rest/v1/claude_progreso?select=*`, { headers }),
+      fetch(`${SUPABASE_URL}/rest/v1/claude_quiz_respuestas?select=*`, { headers }),
     ]);
 
     if (!pRes.ok || !gRes.ok) {
@@ -37,8 +38,10 @@ module.exports = async (req, res) => {
 
     const participantes = await pRes.json();
     const progreso = await gRes.json();
+    // El detalle del quiz es nuevo: si aún no existe la tabla, no rompemos el panel
+    const respuestas = rRes.ok ? await rRes.json() : [];
 
-    return res.status(200).json({ ok: true, participantes, progreso });
+    return res.status(200).json({ ok: true, participantes, progreso, respuestas });
   } catch (e) {
     return res.status(500).json({ error: 'Error inesperado', detail: String(e).slice(0, 300) });
   }

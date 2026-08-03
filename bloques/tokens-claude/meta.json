@@ -1,6 +1,7 @@
 {
   "id": "tokens-claude",
   "nombre": "Ahorro y optimización de tokens",
+  "habilidad": "Ahorro de tokens",
   "emoji": "🪙",
   "descripcion": "Mientras más ocupas Claude, más común es chocar con los límites del plan. Acá vas a aprender a cuidar y optimizar tus tokens, para sacarle provecho a la herramienta sin sufrir en el intento.",
   "categoria": "claude",

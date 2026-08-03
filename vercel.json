@@ -2,6 +2,26 @@
   "outputDirectory": ".",
   "rewrites": [
     {
+      "source": "/claude-jul26-k7x9",
+      "destination": "/claude-jul26-k7x9/index.html"
+    },
+    {
+      "source": "/claude-jul26-k7x9/panel",
+      "destination": "/claude-jul26-k7x9/panel.html"
+    },
+    {
+      "source": "/claude-jul26-k7x9/taller-1",
+      "destination": "/claude-jul26-k7x9/taller.html?n=1"
+    },
+    {
+      "source": "/claude-jul26-k7x9/taller-2",
+      "destination": "/claude-jul26-k7x9/taller.html?n=2"
+    },
+    {
+      "source": "/claude-jul26-k7x9/taller-3",
+      "destination": "/claude-jul26-k7x9/taller.html?n=3"
+    },
+    {
       "source": "/alfonsolobato",
       "destination": "/alfonsolobato/index.html"
     },
@@ -56,30 +76,6 @@
     {
       "source": "/vibecoding",
       "destination": "/ai-vibe-coding.html"
-    },
-    {
-      "source": "/claude",
-      "destination": "/claude/index.html"
-    },
-    {
-      "source": "/portal-claude",
-      "destination": "/claude/index.html"
-    },
-    {
-      "source": "/claude/panel",
-      "destination": "/claude/panel.html"
-    },
-    {
-      "source": "/claude/taller-1",
-      "destination": "/claude/taller.html?n=1"
-    },
-    {
-      "source": "/claude/taller-2",
-      "destination": "/claude/taller.html?n=2"
-    },
-    {
-      "source": "/claude/taller-3",
-      "destination": "/claude/taller.html?n=3"
     },
     {
       "source": "/pucobre",

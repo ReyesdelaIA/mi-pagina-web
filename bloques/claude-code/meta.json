@@ -1,6 +1,7 @@
 {
   "id": "claude-code",
   "nombre": "Claude Code",
+  "habilidad": "Claude Code",
   "emoji": "👨‍💻",
   "descripcion": "Claude trabajando directamente sobre tus archivos y tu terminal. No es solo para programadores: es para cualquiera que trabaje con muchos archivos.",
   "categoria": "claude",

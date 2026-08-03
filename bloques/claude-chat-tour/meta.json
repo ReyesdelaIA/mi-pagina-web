@@ -1,6 +1,7 @@
 {
   "id": "claude-chat-tour",
   "nombre": "Tour por Claude",
+  "habilidad": "Dominio del chat",
   "emoji": "💬",
   "descripcion": "Manejar el chat de verdad: nuevo chat, buscador, conversaciones que no se guardan, adjuntos y el selector de razonamiento.",
   "categoria": "claude",

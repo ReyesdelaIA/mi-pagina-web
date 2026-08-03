@@ -1,6 +1,7 @@
 {
   "id": "agentes-claude",
   "nombre": "Agentes con Claude",
+  "habilidad": "Agentes",
   "emoji": "🤖",
   "descripcion": "Del chat que responde al agente que actúa: qué es un agente, qué lo hace confiable y por qué el alcance acotado importa más que el modelo.",
   "categoria": "claude",

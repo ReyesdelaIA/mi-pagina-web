@@ -1,6 +1,7 @@
 {
   "id": "artefactos-claude",
   "nombre": "Artefactos de Claude",
+  "habilidad": "Artefactos",
   "emoji": "🪄",
   "descripcion": "Entregables vivos: visibles, interactivos, reutilizables y compartibles",
   "categoria": "herramientas-ia",

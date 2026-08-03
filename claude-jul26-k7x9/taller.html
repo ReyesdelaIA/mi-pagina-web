@@ -7,7 +7,7 @@
   <title>Sesión · Portal Claude · Reyes IA</title>
   <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/claude/portal.css" />
+  <link rel="stylesheet" href="/claude-jul26-k7x9/portal.css" />
   <style>
     body { display: flex; flex-direction: column; min-height: 100vh; }
 
@@ -176,7 +176,7 @@
 <body>
 
 <nav>
-  <a href="/claude" class="nav-back" id="nav-hub">← Volver al programa</a>
+  <a href="/claude-jul26-k7x9" class="nav-back" id="nav-hub">← Volver al programa</a>
   <div class="nav-right">
     <button class="nav-back" id="btn-skills">🧠 Habilidades</button>
   </div>
@@ -197,9 +197,9 @@
   </div>
 </main>
 
-<footer>Programa facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes</footer>
+<footer>Programa facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes · <span id="pie-ver"></span></footer>
 
-<script src="/claude/portal.js"></script>
+<script src="/claude-jul26-k7x9/portal.js"></script>
 <script>
   const N = (() => {
     const p = new URLSearchParams(location.search).get('n');
@@ -375,7 +375,7 @@
     if (st[`${N}-quiz`]){
       const s = st[`${N}-quizScore`], t = st[`${N}-quizTotal`];
       return `
-        <div class="visual"><img src="/claude/img/quiz-portada.webp" alt="" /></div>
+        <div class="visual"><img src="/claude-jul26-k7x9/img/quiz-portada.webp" alt="" /></div>
         <div class="paso-n">Quiz de la sesión</div>
         <h1 class="c-nombre">Quiz completado</h1>
         <p class="c-desc">${s != null ? `Respondiste <b>${s} de ${t}</b> correctamente.` : 'Ya rendiste este quiz.'}</p>
@@ -383,7 +383,7 @@
     }
     const q = taller.quiz[qIdx];
     return `
-      ${qIdx === 0 ? '<div class="visual"><img src="/claude/img/quiz-portada.webp" alt="" /></div>' : ''}
+      ${qIdx === 0 ? '<div class="visual"><img src="/claude-jul26-k7x9/img/quiz-portada.webp" alt="" /></div>' : ''}
       <div class="q-num">Pregunta ${qIdx + 1} de ${taller.quiz.length}</div>
       <h1 class="q-text">${esc(q.q)}</h1>
       <div class="opts" id="opts">
@@ -597,6 +597,7 @@
     const q = taller.quiz[qIdx];
     const ok = i === q.correct;
     if (ok) qAciertos++;
+    syncRespuesta(N, qIdx, i, ok);
     document.querySelectorAll('.opt').forEach((b, idx) => {
       b.disabled = true;
       if (idx === q.correct) b.classList.add('correct');
@@ -624,6 +625,7 @@
 
   document.getElementById('btn-skills').onclick = () => openSkills();
   document.getElementById('nav-hub').href = urlHub();
+  document.getElementById('pie-ver').textContent = `Versión ${VERSION}`;
 
   (async () => {
     await bootPortal(taller.conceptos);

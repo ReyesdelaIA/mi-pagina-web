@@ -1,6 +1,7 @@
 {
   "id": "skills-claude",
   "nombre": "Skills y Plugins",
+  "habilidad": "Skills",
   "emoji": "⚡",
   "descripcion": "Enseñarle un procedimiento una vez para que lo ejecute igual siempre. La forma de estandarizar cómo tu equipo hace una tarea recurrente.",
   "categoria": "claude",

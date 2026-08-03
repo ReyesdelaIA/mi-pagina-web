@@ -1,6 +1,7 @@
 {
   "id": "memoria-claude",
   "nombre": "Memorización de Claude",
+  "habilidad": "Memorización",
   "emoji": "🧠",
   "descripcion": "Qué recuerda la IA, qué olvida y por qué el contexto que le das cambia por completo la calidad de la respuesta.",
   "categoria": "claude",

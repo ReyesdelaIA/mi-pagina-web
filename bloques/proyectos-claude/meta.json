@@ -1,6 +1,7 @@
 {
   "id": "proyectos-claude",
   "nombre": "Proyectos en Claude",
+  "habilidad": "Proyectos",
   "emoji": "📁",
   "descripcion": "Los proyectos son una de las áreas que más eficiencia laboral te entregan. Le cargas las instrucciones en MD, le adjuntas los documentos vinculantes, y empiezas a ocuparlo cada vez que hablas de ese tema. El proyecto va acumulando memoria y contexto, hasta funcionar literalmente como un mini cerebro de cada uno de tus temas.",
   "categoria": "claude",

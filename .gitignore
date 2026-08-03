@@ -9,3 +9,5 @@ build/
 .vscode/
 *.log
 intranet.db
+# Respaldos del Portal Claude: llevan datos personales, no van al repo
+backups/

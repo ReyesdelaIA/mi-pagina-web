@@ -1,6 +1,7 @@
 {
   "id": "activacion-claude",
   "nombre": "Activación de Claude",
+  "habilidad": "Activación",
   "emoji": "🔑",
   "descripcion": "Dejar Claude andando: por dónde entrar, por qué conviene la misma cuenta en todas partes, y las tres cosas que puedes personalizar desde el principio.",
   "categoria": "claude",

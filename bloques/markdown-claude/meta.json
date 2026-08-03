@@ -1,6 +1,7 @@
 {
   "id": "markdown-claude",
   "nombre": "Markdown: el idioma en que la IA escribe",
+  "habilidad": "Manejo de MDs",
   "emoji": "📝",
   "descripcion": "Qué es un archivo MD, por qué la IA piensa y responde en ese formato, y cómo convertir tus documentos de siempre a Markdown para reutilizarlos.",
   "categoria": "claude",

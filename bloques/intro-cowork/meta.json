@@ -1,6 +1,7 @@
 {
   "id": "intro-cowork",
   "nombre": "Intro a Claude Cowork",
+  "habilidad": "Cowork",
   "emoji": "🤝",
   "descripcion": "El salto de un chat que responde a un agente que ACTÚA: Cowork se conecta a la terminal de tu computador y ejecuta tareas reales sobre tus archivos.",
   "categoria": "herramientas-ia",

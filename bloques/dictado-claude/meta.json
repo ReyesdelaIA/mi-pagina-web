@@ -1,6 +1,7 @@
 {
   "id": "dictado-claude",
   "nombre": "Dictado y modelo de voz",
+  "habilidad": "Dictado por voz",
   "emoji": "🎙️",
   "descripcion": "Hablarle a Claude en vez de escribirle: prompts más largos, más naturales y en una fracción del tiempo.",
   "categoria": "claude",

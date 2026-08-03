@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/claude/portal.css" />
+  <link rel="stylesheet" href="/claude-jul26-k7x9/portal.css" />
   <style>
     /* ==================================================================
        Hub del Portal Claude · interfaz oscura
@@ -82,6 +82,12 @@
       color:rgba(233,234,238,.50);
     }
     .hero-chip .mono { font-size:11px; letter-spacing:.22em; }
+    /* Sello de edición: el portal se renueva y esto lo deja explícito */
+    .ver {
+      font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em;
+      text-transform:uppercase; color:#F0A46A; padding:4px 10px; border-radius:999px;
+      background:rgba(240,164,106,.10); border:1px solid rgba(240,164,106,.28); white-space:nowrap;
+    }
     h1 {
       margin:0; font-size:42px; line-height:1.04; font-weight:500;
       letter-spacing:-.035em; color:#F4F5F7; text-wrap:balance;
@@ -113,11 +119,18 @@
     }
     .ghost:hover { background:rgba(255,255,255,.07); color:#fff; }
 
-    /* ---------- Tarjeta de estado del alumno ---------- */
+    /* ---------- Tarjeta de estado del alumno ----------
+       Va en frío (azul) a propósito: el naranjo es el lenguaje de las
+       sesiones, así que apilada en móvil no se confunde con una de ellas. */
     .estado {
-      position:relative; border:1px solid rgba(255,255,255,.09); border-radius:20px;
+      position:relative; border:1px solid rgba(125,165,215,.22); border-radius:20px;
       padding:20px 22px; backdrop-filter:blur(14px);
-      background:linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+      background:linear-gradient(160deg, rgba(90,130,180,.16), rgba(255,255,255,.02) 70%);
+    }
+    /* Filo de luz superior, como el de la sesión en curso pero en azul */
+    .estado::before {
+      content:''; position:absolute; top:-1px; left:22px; right:22px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(150,190,235,.75), transparent);
     }
     .est-top { display:flex; align-items:center; gap:14px; }
     .est-av {
@@ -226,43 +239,31 @@
       border:1px dashed rgba(255,255,255,.12); text-align:center;
     }
 
-    /* ---------- Centro de habilidades (panel desplegable) ---------- */
-    .hab {
-      display:none; border:1px solid rgba(255,255,255,.09); border-radius:20px;
-      padding:26px 28px; margin-top:20px; background:rgba(255,255,255,.028);
-    }
-    .hab.open { display:block; }
-    .hab-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
-    .hab-x { background:none; border:none; cursor:pointer; color:rgba(233,234,238,.42);
-      font-size:16px; font-family:inherit; transition:color .2s; }
-    .hab-x:hover { color:#fff; }
-    .hab-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
-    .hab-i {
-      display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:11px;
-      font-size:13.5px; border:1px solid rgba(255,255,255,.07);
-      background:rgba(255,255,255,.02); color:rgba(233,234,238,.34);
-    }
-    .hab-i b { font-weight:400; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .hab-i i { width:6px; height:6px; border-radius:99px; flex-shrink:0; background:rgba(255,255,255,.18); }
-    .hab-i.on { border-color:rgba(214,110,54,.30); background:rgba(214,110,54,.10); color:#F5D9C3; }
-    .hab-i.on i { background:#F0A46A; box-shadow:0 0 10px #F0A46A; }
 
-    /* ---------- Lo que sigue ahora ---------- */
+    /* ---------- Lo que sigue ahora ----------
+       Comparte el azul de la tarjeta de estado: las dos son «tu panel».
+       Así, apiladas en móvil, no se leen como una sesión más. */
     .sigue {
-      margin-top:14px; border:1px solid rgba(255,255,255,.08); border-radius:20px;
-      padding:18px 24px; background:linear-gradient(120deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      position:relative; margin-top:14px; border-radius:20px; overflow:hidden;
+      border:1px solid rgba(125,165,215,.22);
+      padding:18px 24px; background:linear-gradient(120deg, rgba(90,130,180,.16), rgba(255,255,255,.02) 70%);
       display:grid; grid-template-columns:minmax(0,1fr) auto; gap:28px; align-items:center;
+    }
+    .sigue::before {
+      content:''; position:absolute; top:0; left:24px; right:24px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(150,190,235,.75), transparent);
     }
     .sigue-t { font-size:18px; font-weight:500; color:#F4F5F7; letter-spacing:-.01em; }
     .sigue-h { font-size:13.5px; color:rgba(233,234,238,.52); margin-top:4px; }
     .sigue .lbl { display:block; margin-bottom:7px; }
+    /* El botón se queda naranjo y sólido: dentro del panel azul, es la acción */
     .sigue-btn {
-      display:inline-flex; align-items:center; gap:10px; padding:12px 22px; border-radius:12px;
-      font-size:14.5px; font-weight:500; white-space:nowrap; color:#F5D9C3;
-      border:1px solid rgba(240,164,106,.35); background:rgba(240,164,106,.10);
-      transition:background .2s, color .2s;
+      display:inline-flex; align-items:center; gap:10px; padding:12px 24px; border-radius:12px;
+      font-size:14.5px; font-weight:600; white-space:nowrap; color:#160B04;
+      background:linear-gradient(100deg,#F0A46A,#D66E36);
+      box-shadow:0 12px 28px -14px rgba(214,110,54,.9); transition:filter .15s;
     }
-    .sigue-btn:hover { background:rgba(240,164,106,.18); color:#fff; }
+    .sigue-btn:hover { filter:brightness(1.06); color:#160B04; }
 
     /* ---------- Pie ---------- */
     .pie {
@@ -273,7 +274,10 @@
 
     /* ---------- Responsive ---------- */
     @media(max-width:1000px){
-      .hero { grid-template-columns:1fr; gap:30px; align-items:stretch; padding:36px 0 30px; }
+      .hero { grid-template-columns:1fr; gap:24px; align-items:stretch; padding:24px 0 26px; }
+      /* Apilado, tu estado va arriba: es la cabecera de la página, no una
+         tarjeta más en la fila de sesiones */
+      .estado { order:-1; }
       .sesiones { grid-template-columns:1fr; }
       main, .hd { padding-left:28px; padding-right:28px; }
       h1 { font-size:46px; }
@@ -310,6 +314,7 @@
         <div class="hero-chip">
           <div class="hero-chip-box"><img src="/talleres/icon-claude.png" alt="Claude" /></div>
           <span class="mono">Pack de 3 talleres</span>
+          <span class="ver" id="ver">—</span>
         </div>
         <h1>Programa <span>Claude</span></h1>
         <p class="hero-sub">Tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado.</p>
@@ -357,14 +362,6 @@
 
     <section class="sesiones" id="grid-sesiones"></section>
 
-    <section class="hab" id="panel-hab">
-      <div class="hab-top">
-        <span class="lbl" id="hab-sub">Centro de habilidades</span>
-        <button class="hab-x" id="hab-cerrar" title="Cerrar">✕</button>
-      </div>
-      <div class="hab-grid" id="hab-grid"></div>
-    </section>
-
     <section class="sigue">
       <div>
         <span class="lbl">Lo que sigue ahora</span>
@@ -380,7 +377,7 @@
   </main>
 </div>
 
-<script src="/claude/portal.js"></script>
+<script src="/claude-jul26-k7x9/portal.js"></script>
 <script>
   /* Los niveles salen del label del taller ("Sesión 1 · Introductorio") */
   const nivelDe = t => (t.label.split('·')[1] || '').trim() || '—';
@@ -439,19 +436,8 @@
     return { t: null, titulo: '¡Programa completo!', hint: 'Dominaste las tres sesiones.' };
   }
 
-  function renderHabilidades(){
-    document.getElementById('hab-grid').innerHTML = SKILLS.map(sk => {
-      const b = BLOQUES[sk.id];
-      const on = !!st[`c-${sk.id}`];
-      return `<div class="hab-i ${on ? 'on' : ''}" title="${esc(b ? b.nombre : sk.id)}">
-        <i></i><b>${esc(b ? b.nombre : sk.id)}</b>
-      </div>`;
-    }).join('');
-    document.getElementById('hab-sub').textContent =
-      `Centro de habilidades · ${skillsOk()} de ${SKILLS.length}`;
-  }
-
   function render(){
+    document.getElementById('ver').textContent = `Versión ${VERSION}`;
     // Tarjeta de estado
     const n = countStars();
     document.getElementById('rombos').innerHTML =
@@ -522,19 +508,11 @@
     if (p.t){ sb.href = urlTaller(p.t.n); sb.style.display = ''; }
     else { sb.style.display = 'none'; }
 
-    renderHabilidades();
-  }
-
-  /* El panel de habilidades vive en la página, no en el modal compartido */
-  const panelHab = document.getElementById('panel-hab');
-  function toggleHab(){
-    const abierto = panelHab.classList.toggle('open');
-    if (abierto) panelHab.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    renderSkills();
   }
 
   document.getElementById('est-cambiar').onclick = () => openGate(true);
-  document.getElementById('btn-hab').onclick     = toggleHab;
-  document.getElementById('hab-cerrar').onclick  = () => panelHab.classList.remove('open');
+  document.getElementById('btn-hab').onclick     = () => openSkills();
 
   (async () => {
     await bootPortal();
