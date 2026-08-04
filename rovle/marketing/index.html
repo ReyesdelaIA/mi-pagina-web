@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rovle · Módulo de Marketing</title>
+<meta name="description" content="Una sola plataforma con IA que reemplaza las herramientas sueltas de tu área de marketing y, por primera vez, las hace conversar entre sí.">
+<meta name="theme-color" content="#111315">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rovle · Módulo de Marketing">
+<meta property="og:description" content="Todo tu marketing en un solo lugar. Radar de precios, email, chatbot con AI, CRM, cotizador, RRSS y métricas trabajando como un solo sistema.">
+<meta property="og:locale" content="es_CL">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111315'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%234ADE80' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!--
+  ─────────────────────────────────────────────────────────────
+  ROVLE · One-pager Módulo de Marketing
+  Editar en un solo lugar:
+    · CTA / agenda de demo  →  busca  data-cta  (hay 3)
+    · correo de contacto    →  busca  hola@rovle.ai
+  ─────────────────────────────────────────────────────────────
+-->
+
+<script>document.documentElement.className='js'</script>
+
+<style>
+/* ───────────────────────── base ───────────────────────── */
+:root{
+  --ink:#111315;
+  --ink-2:#4A4F52;
+  --ink-3:#6E7478;
+  --line:#E3E6E4;
+  --line-2:#EFF1EF;
+  --bg:#FFFFFF;
+  --bg-2:#F7F8F7;
+  --green:#4ADE80;
+  --green-ink:#127A45;
+  --green-soft:rgba(74,222,128,.16);
+  --sans:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'DM Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --pad:clamp(20px,5vw,40px);
+  --sec:clamp(84px,11vw,152px);
+  --ring-cycle:18s;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+
+.wrap{width:100%;max-width:1140px;margin:0 auto;padding-inline:var(--pad)}
+section{position:relative}
+.band{background:var(--bg-2)}
+
+/* ───────────────────────── tipografía ───────────────────────── */
+h1,h2,h3{
+  margin:0;
+  font-weight:700;
+  text-transform:lowercase;
+  letter-spacing:-.035em;
+  line-height:.98;
+}
+h1{font-size:clamp(2.65rem,7.2vw,5rem);letter-spacing:-.045em}
+h2{font-size:clamp(2rem,4.6vw,3.4rem)}
+h3{font-size:1.12rem;letter-spacing:-.02em;line-height:1.25}
+/* siglas que no se minusculizan (CRM, AI, PDF…) */
+.caps{text-transform:none}
+p{margin:0}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.735rem;
+  font-weight:500;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:26px;
+}
+.eyebrow::before{
+  content:'';
+  width:7px;height:7px;
+  border-radius:2px;
+  background:var(--green);
+  flex:none;
+}
+.lead{
+  font-size:clamp(1.06rem,1.9vw,1.3rem);
+  line-height:1.55;
+  color:var(--ink-2);
+  max-width:40ch;
+}
+
+/* ───────────────────────── botones ───────────────────────── */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:15px 26px;
+  border-radius:100px;
+  border:1.5px solid var(--ink);
+  background:var(--ink);
+  color:#fff;
+  font-family:var(--sans);
+  font-size:.97rem;
+  font-weight:600;
+  letter-spacing:-.01em;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .25s cubic-bezier(.34,1.4,.6,1),background .25s,box-shadow .25s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px -12px rgba(17,19,21,.55)}
+.btn:active{transform:translateY(0)}
+.btn .arw{transition:transform .3s cubic-bezier(.34,1.4,.6,1)}
+.btn:hover .arw{transform:translateX(4px)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink);box-shadow:none}
+.btn-green{background:var(--green);border-color:var(--green);color:#0B1F14}
+.btn-green:hover{box-shadow:0 12px 30px -12px rgba(74,222,128,.7)}
+.btn-sm{padding:10px 18px;font-size:.88rem}
+
+/* ───────────────────────── nav ───────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:60;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:saturate(1.6) blur(14px);
+  -webkit-backdrop-filter:saturate(1.6) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s;
+}
+.nav.stuck{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+.mark{
+  font-size:1.34rem;font-weight:700;letter-spacing:-.045em;
+  text-decoration:none;line-height:1;
+}
+.mark i{font-style:normal;color:var(--green-ink)}
+.nav-note{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+@media(max-width:620px){.nav-note{display:none}}
+
+/* ───────────────────────── hero ───────────────────────── */
+.hero{padding-top:clamp(62px,9vw,116px);padding-bottom:var(--sec);overflow:hidden}
+.hero h1{max-width:17ch;margin-bottom:30px}
+.hero h1 em{font-style:normal;color:var(--green-ink)}
+.hero .lead{max-width:47ch;font-size:clamp(1.08rem,2vw,1.35rem)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:42px}
+.hero-strip{
+  display:flex;flex-wrap:wrap;gap:10px 30px;
+  margin-top:clamp(56px,8vw,88px);
+  padding-top:24px;
+  border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;
+  color:var(--ink-3);text-transform:uppercase;
+}
+.hero-strip span{display:inline-flex;align-items:center;gap:9px}
+.hero-strip span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);flex:none}
+
+/* ───────────────────────── problema ───────────────────────── */
+.problem{padding-block:var(--sec)}
+.problem-grid{display:grid;grid-template-columns:1fr;gap:clamp(40px,6vw,84px);align-items:start}
+@media(min-width:900px){.problem-grid{grid-template-columns:1.05fr .95fr}}
+.problem h2{max-width:17ch;margin-bottom:26px}
+.problem .lead{max-width:46ch;margin-bottom:40px}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.plist li{
+  padding:19px 0 19px 32px;
+  position:relative;
+  border-bottom:1px solid var(--line);
+  color:var(--ink-2);
+  font-size:1.02rem;line-height:1.5;
+}
+.plist li:first-child{border-top:1px solid var(--line)}
+.plist li::before{
+  content:'';position:absolute;left:2px;top:29px;
+  width:14px;height:1.5px;background:var(--line);
+}
+.chips{display:flex;flex-wrap:wrap;gap:12px;max-width:440px}
+.chip{
+  font-family:var(--mono);font-size:.82rem;
+  padding:11px 17px;border-radius:8px;
+  border:1.5px dashed #D6DAD7;color:var(--ink-3);
+  background:var(--bg);
+  transform:rotate(var(--r,0deg));
+  transition:transform .5s cubic-bezier(.34,1.3,.6,1),border-color .4s,color .4s;
+}
+.chips:hover .chip{transform:rotate(0deg);border-color:var(--line);color:var(--ink-3)}
+.chips-cap{
+  margin-top:26px;font-size:.95rem;color:var(--ink-3);max-width:40ch;line-height:1.5;
+}
+.chips-cap b{color:var(--ink);font-weight:600}
+
+/* ───────────────────────── el circuito ───────────────────────── */
+.circuit{padding-block:var(--sec);overflow:hidden}
+.circuit-head{max-width:660px;margin-bottom:clamp(48px,7vw,76px)}
+.circuit-head h2{margin-bottom:26px;max-width:15ch}
+
+/* base = móvil: el mismo bucle cerrado, estirado en vertical */
+.ring{
+  position:relative;
+  width:100%;margin:0 auto;
+  display:flex;flex-direction:column;gap:26px;
+  padding:14px 0 14px 56px;
+}
+.ring::before{
+  content:'';position:absolute;left:8px;top:22px;bottom:22px;width:22px;
+  border:1.5px solid var(--line);border-radius:12px;
+  opacity:0;transition:opacity .9s;
+}
+.ring.in::before{opacity:1}
+.ring::after{
+  content:'';position:absolute;width:9px;height:9px;border-radius:50%;
+  background:var(--green);left:30px;top:22px;margin:-4.5px 0 0 -4.5px;
+  opacity:0;transition:opacity .8s .5s;
+  animation:railDot var(--ring-cycle) linear infinite;
+}
+.ring.in::after{opacity:1}
+@keyframes railDot{
+  0%  {left:30px;top:22px}
+  45% {left:30px;top:calc(100% - 22px)}
+  50% {left:8px;top:calc(100% - 22px)}
+  95% {left:8px;top:22px}
+  100%{left:30px;top:22px}
+}
+.ring svg.ring-svg{display:none;position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ring-path{
+  fill:none;stroke:var(--line);stroke-width:1.5;
+  stroke-dasharray:1446;stroke-dashoffset:1446;
+  transition:stroke-dashoffset 2.3s cubic-bezier(.42,0,.15,1) .25s;
+}
+.ring.in .ring-path{stroke-dashoffset:0}
+.ring-chev{stroke:#CFD4D0;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .9s 1.9s}
+.ring.in .ring-chev{opacity:1}
+
+.ring-trail{
+  fill:none;stroke:var(--green);stroke-width:2.5;stroke-linecap:round;
+  stroke-dasharray:150 1296;stroke-dashoffset:150;
+  opacity:0;transition:opacity 1s 1.7s;
+}
+.ring-dot{fill:var(--green);opacity:0;transition:opacity 1s 1.7s}
+.ring-dot-halo{fill:var(--green);opacity:0;transition:opacity 1s 1.7s}
+.ring.in .ring-trail{opacity:.9}
+.ring.in .ring-dot{opacity:1}
+.ring.in .ring-dot-halo{opacity:.22}
+.spin{
+  transform-box:view-box;transform-origin:450px 320px;
+  animation:spin var(--ring-cycle) linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.ring-center{
+  display:none;
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  text-align:center;width:190px;
+  opacity:0;transition:opacity .9s 1.5s;
+}
+.ring.in .ring-center{opacity:1}
+.ring-center .rc-mark{font-size:1.5rem;font-weight:700;letter-spacing:-.05em;line-height:1}
+.ring-center .rc-mark i{font-style:normal;color:var(--green-ink)}
+.ring-center .rc-sub{
+  margin-top:9px;font-family:var(--mono);font-size:.7rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
+}
+
+.node{position:relative;display:flex;align-items:flex-start;gap:16px}
+.disc{
+  position:relative;flex:none;
+  width:58px;height:58px;border-radius:50%;
+  background:var(--bg);border:1.5px solid var(--line);
+  display:grid;place-items:center;
+  color:var(--ink);
+  animation:discPulse var(--ring-cycle) linear infinite;
+  animation-delay:calc(var(--k) * (var(--ring-cycle) * .075));
+}
+.disc::after{
+  content:'';position:absolute;right:100%;top:50%;
+  width:26px;height:1.5px;background:var(--line);
+}
+@keyframes discPulse{
+  0%      {color:var(--green-ink);border-color:var(--green);box-shadow:0 0 0 0 var(--green-soft);transform:scale(1.09)}
+  7%      {color:var(--green-ink);border-color:var(--green);box-shadow:0 0 0 15px rgba(74,222,128,0);transform:scale(1)}
+  17%,100%{color:var(--ink);border-color:var(--line);box-shadow:0 0 0 0 rgba(74,222,128,0);transform:scale(1)}
+}
+.n-label{padding-top:5px}
+.n-label .n-t{font-size:.95rem;font-weight:600;letter-spacing:-.015em;line-height:1.25}
+.n-label .n-s{margin-top:5px;font-size:.86rem;line-height:1.4;color:var(--ink-3)}
+.n-step{
+  font-family:var(--mono);font-size:.68rem;color:var(--green-ink);
+  letter-spacing:.12em;display:block;margin-bottom:6px;
+}
+
+.circuit-punch{
+  max-width:620px;margin:clamp(52px,7vw,84px) auto 0;
+  text-align:center;
+  font-size:clamp(1.1rem,2.1vw,1.42rem);
+  line-height:1.45;letter-spacing:-.02em;
+}
+.circuit-punch b{font-weight:600}
+.circuit-punch span{color:var(--ink-3);display:block;margin-top:10px;font-size:1rem;letter-spacing:0;line-height:1.5}
+
+/* — desde tablet grande hacia arriba: el bucle vuelve a ser un anillo — */
+@media(min-width:960px){
+  .ring{
+    display:block;width:min(900px,100%);aspect-ratio:45/32;padding:0;gap:0;
+  }
+  .ring::before,.ring::after{display:none}
+  .ring svg.ring-svg,.ring-center{display:block}
+  .node{
+    position:absolute;left:var(--x);top:var(--y);
+    transform:translate(-50%,-50%);display:block;
+  }
+  .disc{animation-delay:calc(var(--k) * (var(--ring-cycle) / 6))}
+  .disc::after{display:none}
+  .n-label{position:absolute;width:186px;padding-top:0}
+  .lbl-top   {bottom:calc(100% + 15px);left:50%;transform:translateX(-50%);text-align:center}
+  .lbl-bottom{top:calc(100% + 15px);left:50%;transform:translateX(-50%);text-align:center}
+  .lbl-right {left:calc(100% + 16px);top:50%;transform:translateY(-50%);text-align:left}
+  .lbl-left  {right:calc(100% + 16px);top:50%;transform:translateY(-50%);text-align:right}
+}
+
+/* ───────────────────────── módulos ───────────────────────── */
+.mods{padding-block:var(--sec)}
+.mods-head{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between;margin-bottom:clamp(40px,6vw,64px)}
+.mods-head h2{max-width:12ch}
+.mods-head p{max-width:34ch;color:var(--ink-3);font-size:1rem}
+.grid{
+  display:grid;grid-template-columns:1fr;
+  border-top:1px solid var(--line);border-left:1px solid var(--line);
+}
+@media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.grid{grid-template-columns:repeat(4,1fr)}}
+.cell{
+  border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:32px 28px 36px;
+  background:var(--bg);
+  transition:background .35s;
+  position:relative;
+}
+.cell:hover{background:var(--bg-2)}
+.cell .ico{color:var(--ink);margin-bottom:26px;transition:color .35s,transform .45s cubic-bezier(.34,1.4,.6,1)}
+.cell:hover .ico{color:var(--green-ink);transform:translateY(-3px)}
+.cell h3{margin-bottom:12px}
+.cell h3::after{
+  content:'';display:block;width:0;height:2px;background:var(--green);
+  margin-top:9px;transition:width .45s cubic-bezier(.42,0,.15,1);
+}
+.cell:hover h3::after{width:34px}
+.cell p{font-size:.95rem;line-height:1.5;color:var(--ink-3)}
+
+/* ───────────────────────── diferencia ───────────────────────── */
+.diff{padding-block:var(--sec)}
+.diff h2{max-width:11ch;margin-bottom:clamp(44px,6vw,68px)}
+.diff-grid{display:grid;gap:0;grid-template-columns:1fr}
+@media(min-width:860px){.diff-grid{grid-template-columns:repeat(3,1fr);gap:clamp(28px,4vw,56px)}}
+.diff-item{padding:30px 0;border-top:1.5px solid var(--ink)}
+@media(max-width:859px){.diff-item{border-top:1px solid var(--line)}.diff-item:first-child{border-top:1.5px solid var(--ink)}}
+.diff-item .num{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;
+  color:var(--green-ink);display:block;margin-bottom:18px;
+}
+.diff-item h3{font-size:1.45rem;margin-bottom:14px;letter-spacing:-.03em}
+.diff-item p{color:var(--ink-2);font-size:.98rem;line-height:1.55}
+
+/* ───────────────────────── cierre ───────────────────────── */
+.close{background:var(--ink);color:#fff;padding-block:clamp(88px,12vw,150px);position:relative;overflow:hidden}
+.close::before{
+  content:'';position:absolute;left:50%;top:-40%;
+  width:min(900px,140vw);aspect-ratio:1;transform:translateX(-50%);
+  border-radius:50%;border:1px solid rgba(255,255,255,.06);
+  pointer-events:none;
+}
+.close::after{
+  content:'';position:absolute;left:50%;top:-25%;
+  width:min(620px,100vw);aspect-ratio:1;transform:translateX(-50%);
+  border-radius:50%;border:1px solid rgba(74,222,128,.10);
+  pointer-events:none;
+}
+.close .wrap{position:relative;text-align:center}
+.close .eyebrow{color:rgba(255,255,255,.5)}
+.close h2{font-size:clamp(2.1rem,5.4vw,3.9rem);max-width:16ch;margin:0 auto 26px}
+.close h2 em{font-style:normal;color:var(--green)}
+.close .lead{color:rgba(255,255,255,.62);margin:0 auto;max-width:42ch}
+.close .btn-wrap{margin-top:42px}
+.foot{
+  margin-top:clamp(66px,9vw,104px);padding-top:28px;
+  border-top:1px solid rgba(255,255,255,.12);
+  display:flex;flex-wrap:wrap;gap:16px 32px;
+  align-items:center;justify-content:space-between;
+  text-align:left;
+}
+.foot .mark{color:#fff}
+.foot .mark i{color:var(--green)}
+.foot-links{display:flex;flex-wrap:wrap;gap:14px 26px;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:rgba(255,255,255,.55)}
+.foot-links a{text-decoration:none;transition:color .25s}
+.foot-links a:hover{color:var(--green)}
+@media(max-width:620px){.foot{flex-direction:column;align-items:flex-start}}
+
+/* ───────────────────────── reveal ───────────────────────── */
+/* sólo se ocultan si hay JS: sin JS la página se ve completa igual */
+.js [data-reveal]{
+  opacity:0;transform:translateY(20px);
+  transition:opacity .85s cubic-bezier(.22,.8,.3,1),transform .85s cubic-bezier(.22,.8,.3,1);
+  transition-delay:var(--d,0s);
+}
+.js [data-reveal].in{opacity:1;transform:none}
+html:not(.js) .ring-path{stroke-dashoffset:0}
+html:not(.js) .ring-trail{opacity:.9}
+html:not(.js) .ring-dot,html:not(.js) .ring-chev,html:not(.js) .ring-center{opacity:1}
+html:not(.js) .ring-dot-halo{opacity:.22}
+html:not(.js) .ring::before,html:not(.js) .ring::after{opacity:1}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  [data-reveal]{opacity:1;transform:none}
+  .ring-path{stroke-dashoffset:0}
+  .ring-trail,.ring-dot,.ring-center,.ring-chev{opacity:1}
+  .ring-dot-halo{opacity:.22}
+  .ring::before,.ring::after{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ nav ══════════════════ -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="mark">rovle<i>.ai</i></a>
+    <span class="nav-note">módulo de marketing</span>
+    <a class="btn btn-sm" data-cta href="mailto:hola@rovle.ai?subject=Demo%20Rovle%20·%20M%C3%B3dulo%20de%20Marketing">
+      Agenda una demo
+    </a>
+  </div>
+</header>
+
+<!-- ══════════════════ hero ══════════════════ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>rovle · módulo de marketing</p>
+    <h1 data-reveal style="--d:.08s">todo tu marketing, en un solo lugar, en <em>rovle.ai</em></h1>
+    <p class="lead" data-reveal style="--d:.16s">
+      Rovle reemplaza las seis herramientas que hoy usa cualquier área de marketing
+      por una sola plataforma con IA integrada. Lo importante no es solo que estén
+      juntas: es que se hablan entre sí y optimizan tu marketing solas.
+    </p>
+    <div class="hero-cta" data-reveal style="--d:.24s">
+      <a class="btn" data-cta href="mailto:hola@rovle.ai?subject=Demo%20Rovle%20·%20M%C3%B3dulo%20de%20Marketing">
+        Agenda una demo
+        <svg class="arw" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8h11M9 3.5L13.5 8 9 12.5"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#circuito">Ver cómo funciona</a>
+    </div>
+    <div class="hero-strip" data-reveal style="--d:.32s">
+      <span>8 módulos, 1 plataforma</span>
+      <span>onboarding incluido</span>
+      <span>sin contratos de amarre</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ el problema ══════════════════ -->
+<section class="problem band">
+  <div class="wrap problem-grid">
+    <div>
+      <p class="eyebrow" data-reveal>el problema</p>
+      <h2 data-reveal style="--d:.06s">el marketing 360 suele estar repartido en múltiples plataformas.</h2>
+      <p class="lead" data-reveal style="--d:.1s">
+        Plataformas que, por un lado, no conversan entre ellas y, por otro,
+        no tienen inteligencia artificial realmente integrada.
+      </p>
+      <ul class="plist" data-reveal style="--d:.16s">
+        <li>El CRM por un lado, el mailing por otro y WhatsApp en el celular de alguien.</li>
+        <li>Los datos que importan viven en una planilla que actualiza una sola persona.</li>
+        <li>El contenido se arma a mano, pieza por pieza, y siempre sale tarde.</li>
+        <li>Y nadie se entera de lo que hace la competencia hasta que lo dice un cliente.</li>
+      </ul>
+    </div>
+    <div data-reveal style="--d:.22s">
+      <div class="chips">
+        <span class="chip" style="--r:-2.2deg">crm</span>
+        <span class="chip" style="--r:1.6deg">mailing</span>
+        <span class="chip" style="--r:-1.1deg">whatsapp</span>
+        <span class="chip" style="--r:2.4deg">planilla</span>
+        <span class="chip" style="--r:-1.8deg">diseño</span>
+        <span class="chip" style="--r:1.2deg">meta ads</span>
+        <span class="chip" style="--r:-2.6deg">google ads</span>
+        <span class="chip" style="--r:1.9deg">instagram</span>
+      </div>
+      <p class="chips-cap">
+        Ocho cuentas, ocho claves, ocho facturas.
+        <b>Cero conversación entre ellas</b>, y la IA —cuando existe— es
+        un botón pegado al costado.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ el circuito ══════════════════ -->
+<section class="circuit" id="circuito">
+  <div class="wrap">
+    <div class="circuit-head">
+      <p class="eyebrow" data-reveal>el circuito</p>
+      <h2 data-reveal style="--d:.06s">lo que ninguna herramienta suelta puede hacer.</h2>
+      <p class="lead" data-reveal style="--d:.12s">
+        Un competidor baja el precio. Eso no debería terminar en un correo que
+        alguien lee el lunes. En Rovle empieza una cadena, y la cadena no se corta.
+      </p>
+    </div>
+
+    <div class="ring" id="ring">
+      <svg class="ring-svg" viewBox="0 0 900 640" aria-hidden="true">
+        <!-- anillo -->
+        <path class="ring-path" d="M450,90 A230,230 0 1,1 450,550 A230,230 0 1,1 450,90"/>
+        <!-- chevrones de dirección -->
+        <g class="ring-chev">
+          <path d="M-4,-5 L4,0 L-4,5" transform="translate(565,120.8) rotate(30)"/>
+          <path d="M-4,-5 L4,0 L-4,5" transform="translate(680,320) rotate(90)"/>
+          <path d="M-4,-5 L4,0 L-4,5" transform="translate(565,519.2) rotate(150)"/>
+          <path d="M-4,-5 L4,0 L-4,5" transform="translate(335,519.2) rotate(210)"/>
+          <path d="M-4,-5 L4,0 L-4,5" transform="translate(220,320) rotate(270)"/>
+          <path d="M-4,-5 L4,0 L-4,5" transform="translate(335,120.8) rotate(330)"/>
+        </g>
+        <!-- estela + pulso que recorre el circuito -->
+        <path class="ring-trail spin" d="M450,90 A230,230 0 1,1 450,550 A230,230 0 1,1 450,90"/>
+        <circle class="ring-dot-halo spin" cx="450" cy="90" r="15"/>
+        <circle class="ring-dot spin" cx="450" cy="90" r="6"/>
+      </svg>
+
+      <div class="ring-center">
+        <div class="rc-mark">rovle<i>.ai</i></div>
+        <div class="rc-sub">circuito cerrado</div>
+      </div>
+
+      <!-- 01 -->
+      <div class="node" style="--k:0;--x:50%;--y:14.06%">
+        <div class="disc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><path d="M12 12l6-6"/>
+          </svg>
+        </div>
+        <div class="n-label lbl-top">
+          <span class="n-step">01</span>
+          <div class="n-t">el radar detecta</div>
+          <div class="n-s">un competidor baja el precio</div>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="node" style="--k:1;--x:72.13%;--y:32.03%">
+        <div class="disc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 9.5v5h3l7 4.5v-14L7 9.5H4z"/><path d="M17.5 9.6a4 4 0 0 1 0 4.8"/>
+          </svg>
+        </div>
+        <div class="n-label lbl-right">
+          <span class="n-step">02</span>
+          <div class="n-t">sale la campaña</div>
+          <div class="n-s">email y anuncios, sin esperar al lunes</div>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="node" style="--k:2;--x:72.13%;--y:67.97%">
+        <div class="disc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 12c0 3.6-3.4 6.5-7.6 6.5-1 0-2-.2-2.9-.5L5 19.5l1.3-3.4C5.1 15 4.4 13.6 4.4 12c0-3.6 3.4-6.5 7.6-6.5S20 8.4 20 12z"/>
+            <path d="M9.5 12h.01M12 12h.01M14.5 12h.01"/>
+          </svg>
+        </div>
+        <div class="n-label lbl-right">
+          <span class="n-step">03</span>
+          <div class="n-t">entra el lead</div>
+          <div class="n-s">por WhatsApp o Instagram</div>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="node" style="--k:3;--x:50%;--y:85.94%">
+        <div class="disc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3.5l1.9 4.6 4.6 1.9-4.6 1.9L12 16.5l-1.9-4.6L5.5 10l4.6-1.9z"/>
+            <path d="M18.5 16v3.5M16.75 17.75h3.5"/>
+          </svg>
+        </div>
+        <div class="n-label lbl-bottom">
+          <span class="n-step">04</span>
+          <div class="n-t">la IA lo atiende</div>
+          <div class="n-s">responde, califica y agenda</div>
+        </div>
+      </div>
+
+      <!-- 05 -->
+      <div class="node" style="--k:4;--x:27.87%;--y:67.97%">
+        <div class="disc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3.5 4.5h17l-6.6 8v7.2l-3.8-2.4V12.5z"/>
+          </svg>
+        </div>
+        <div class="n-label lbl-left">
+          <span class="n-step">05</span>
+          <div class="n-t">cae al embudo</div>
+          <div class="n-s">sin que nadie lo escriba a mano</div>
+        </div>
+      </div>
+
+      <!-- 06 -->
+      <div class="node" style="--k:5;--x:27.87%;--y:32.03%">
+        <div class="disc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 3.5H7.5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 3.5V8h4.5"/><path d="M9 14l1.9 1.9L14.5 12"/>
+          </svg>
+        </div>
+        <div class="n-label lbl-left">
+          <span class="n-step">06</span>
+          <div class="n-t">sale la cotización</div>
+          <div class="n-s">y la tarjeta se mueve sola</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="circuit-punch" data-reveal>
+      <b>Ninguna herramienta suelta hace esto.</b>
+      <span>No porque les falte una función, sino porque no se conocen entre sí.
+      El circuito no se compra por partes: se compra cerrado.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════ los módulos ══════════════════ -->
+<section class="mods band">
+  <div class="wrap">
+    <div class="mods-head">
+      <div>
+        <p class="eyebrow" data-reveal>los módulos</p>
+        <h2 data-reveal style="--d:.06s">ocho piezas, un solo sistema.</h2>
+      </div>
+      <p data-reveal style="--d:.12s">Cada una funciona por su cuenta. Juntas es donde recién aparece el negocio.</p>
+    </div>
+
+    <div class="grid" data-reveal style="--d:.16s">
+
+      <article class="cell">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="8.8"/><circle cx="12" cy="12" r="4.6"/><path d="M12 12l6.2-6.2"/><circle cx="16.6" cy="7.4" r="1.5" fill="currentColor" stroke="none"/>
+        </svg></div>
+        <h3>Radar de Precios</h3>
+        <p>Monitorea a tus competidores y te avisa cuando te dejan fuera de mercado.</p>
+      </article>
+
+      <article class="cell">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.6" y="6.4" width="16.4" height="12.6" rx="2.2"/><path d="M3.4 8.4L10.8 13.6 18.2 8.4"/><path d="M20.6 2.6v3.4M18.9 4.3h3.4"/>
+        </svg></div>
+        <h3>Email Marketing</h3>
+        <p>Envíos masivos con redacción asistida por IA y entregabilidad cuidada.</p>
+      </article>
+
+      <article class="cell">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19.4 12.4c0 3.6-3.3 6.6-7.4 6.6-1 0-2-.2-2.9-.5L4.6 20l1.3-3.5C4.7 15.4 4 14 4 12.4 4 8.8 7.3 5.8 11.4 5.8c1 0 1.9.2 2.8.5"/>
+          <path d="M8.7 12.4h.01M11.4 12.4h.01M14.1 12.4h.01"/>
+          <path d="M19.2 2.6v3.6M17.4 4.4h3.6"/>
+        </svg></div>
+        <h3>Chatbot con <span class="caps">AI</span></h3>
+        <p>WhatsApp e Instagram unificados, respuesta automática entrenada con tu negocio, y tú tomas el control cuando quieras.</p>
+      </article>
+
+      <article class="cell">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.6" y="4" width="5.4" height="16" rx="1.6"/><rect x="9.3" y="4" width="5.4" height="11.5" rx="1.6"/><rect x="16" y="4" width="5.4" height="7" rx="1.6"/>
+        </svg></div>
+        <h3><span class="caps">CRM</span></h3>
+        <p>Embudo comercial visual, con todo el historial del cliente en un solo lugar.</p>
+      </article>
+
+      <article class="cell">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.6" y="4.4" width="18.8" height="15.2" rx="2.4"/><circle cx="8.4" cy="10.6" r="2.1"/>
+          <path d="M5.2 16.2c.5-1.8 1.8-2.8 3.2-2.8s2.7 1 3.2 2.8"/><path d="M14.6 9.6h4.2M14.6 12.8h4.2"/>
+        </svg></div>
+        <h3>Ficha de Cliente</h3>
+        <p>Alertas y reglas automáticas de seguimiento y postventa.</p>
+      </article>
+
+      <article class="cell">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14.2 2.8H7a2.2 2.2 0 0 0-2.2 2.2v14a2.2 2.2 0 0 0 2.2 2.2h10a2.2 2.2 0 0 0 2.2-2.2V8z"/>
+          <path d="M14.2 2.8V8h5.2"/><path d="M8.4 14.4l2.1 2.1 4.3-4.3"/>
+        </svg></div>
+        <h3>Cotizador</h3>
+        <p>Propuestas y cotizaciones en PDF con un botón, conectadas al embudo.</p>
+      </article>
+
+      <article class="cell">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.8" y="4.8" width="18.4" height="16" rx="2.4"/><path d="M2.8 9.6h18.4M7.8 2.8v4M16.2 2.8v4"/>
+          <path d="M12 12.4l1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1 2.4-1z"/>
+        </svg></div>
+        <h3><span class="caps">RRSS</span> con <span class="caps">IA</span></h3>
+        <p>Calendario, generación de piezas con IA y publicación automática.</p>
+      </article>
+
+      <article class="cell">
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 20.4h18"/><path d="M7 20.4v-5.6M12 20.4v-9.2M17 20.4v-3.4"/><path d="M5.6 11.6l4.6-4.4 4.2 2.4 4.4-4.8"/>
+        </svg></div>
+        <h3>Métricas</h3>
+        <p>Meta y Google Ads en un solo tablero, con costo por contacto y retorno real.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ qué nos hace distintos ══════════════════ -->
+<section class="diff">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>por qué rovle</p>
+    <h2 data-reveal style="--d:.06s">cómo trabajamos.</h2>
+    <div class="diff-grid">
+      <div class="diff-item" data-reveal style="--d:.1s">
+        <span class="num">01</span>
+        <h3>Onboarding incluido</h3>
+        <p>No te entregamos un usuario y una clave. Dejamos la plataforma configurada, con tus datos cargados, tus canales conectados y tu equipo operando.</p>
+      </div>
+      <div class="diff-item" data-reveal style="--d:.18s">
+        <span class="num">02</span>
+        <h3>Reunión mensual</h3>
+        <p>Todos los meses nos sentamos contigo a mirar los números y decidir qué sigue. Somos tu socio de marketing, no un proveedor que desaparece después de la firma.</p>
+      </div>
+      <div class="diff-item" data-reveal style="--d:.26s">
+        <span class="num">03</span>
+        <h3>Sin amarre</h3>
+        <p>No hay contratos largos ni multas por salir. Te quedas porque te sirve, no porque firmaste.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ cierre ══════════════════ -->
+<section class="close">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>el siguiente paso</p>
+    <h2 data-reveal style="--d:.06s">¿lo vemos funcionando con <em>tus</em> datos?</h2>
+    <p class="lead" data-reveal style="--d:.12s">
+      Treinta minutos, con tu negocio arriba de la plataforma.
+      Sin presentación genérica y sin compromiso.
+    </p>
+    <div class="btn-wrap" data-reveal style="--d:.18s">
+      <a class="btn btn-green" data-cta href="mailto:hola@rovle.ai?subject=Demo%20Rovle%20·%20M%C3%B3dulo%20de%20Marketing">
+        Agenda una demo
+        <svg class="arw" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8h11M9 3.5L13.5 8 9 12.5"/></svg>
+      </a>
+    </div>
+
+    <div class="foot">
+      <span class="mark">rovle<i>.ai</i></span>
+      <div class="foot-links">
+        <a href="https://www.rovle.ai" target="_blank" rel="noopener">rovle.ai</a>
+        <a href="mailto:hola@rovle.ai">hola@rovle.ai</a>
+        <span>Software con IA · Chile</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var io = ('IntersectionObserver' in window)
+    ? new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin:'0px 0px -12% 0px', threshold:0.12 })
+    : null;
+
+  var targets = document.querySelectorAll('[data-reveal], #ring');
+  if(io){ targets.forEach(function(el){ io.observe(el); }); }
+  else  { targets.forEach(function(el){ el.classList.add('in'); }); }
+
+  var nav = document.getElementById('nav');
+  var onScroll = function(){ nav.classList.toggle('stuck', window.scrollY > 8); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive:true });
+})();
+</script>
+
+</body>
+</html>

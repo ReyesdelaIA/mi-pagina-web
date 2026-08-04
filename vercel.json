@@ -2,6 +2,14 @@
   "outputDirectory": ".",
   "rewrites": [
     {
+      "source": "/rovle/marketing",
+      "destination": "/rovle/marketing/index.html"
+    },
+    {
+      "source": "/rovle",
+      "destination": "/rovle/marketing/index.html"
+    },
+    {
       "source": "/panelclaude",
       "destination": "/panelclaude/index.html"
     },
