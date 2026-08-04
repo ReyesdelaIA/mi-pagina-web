@@ -32,8 +32,14 @@ module.exports = async (req, res) => {
     ]);
 
     if (!pRes.ok || !gRes.ok) {
-      const detail = await (pRes.ok ? gRes : pRes).text();
-      return res.status(502).json({ error: 'Error leyendo Supabase', detail: detail.slice(0, 300) });
+      const fallo = pRes.ok ? gRes : pRes;
+      const detail = await fallo.text();
+      // El 401 casi siempre es la service_role mal pegada o de otro proyecto
+      const pista = fallo.status === 401 ? ' (revisa SUPABASE_SERVICE_ROLE_KEY)' : '';
+      return res.status(502).json({
+        error: `Error leyendo Supabase [${fallo.status}]${pista}`,
+        detail: detail.slice(0, 300),
+      });
     }
 
     const participantes = await pRes.json();

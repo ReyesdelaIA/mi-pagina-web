@@ -305,7 +305,11 @@
         body: JSON.stringify({ password: pw })
       });
       const data = await r.json();
-      if (!r.ok) { err.textContent = data.error || 'No se pudo entrar.'; err.classList.add('show'); return; }
+      if (!r.ok) {
+        // El detalle importa para saber si falla la clave, la tabla o la red
+        err.textContent = (data.error || 'No se pudo entrar.') + (data.detail ? ` — ${data.detail}` : '');
+        err.classList.add('show'); return;
+      }
       PART = data.participantes || [];
       PROG = data.progreso || [];
       await cargarNombres();
