@@ -174,15 +174,37 @@ function nice(v){ if(v==null) return '—'; const k=String(v).trim().toLowerCase
 function lblOf(dict){ return (v)=> (dict && dict[String(v).trim().toLowerCase()]) || nice(v); }
 function noAccents(s){ s=(s||'').toLowerCase(); const m={'á':'a','é':'e','í':'i','ó':'o','ú':'u','ñ':'n','ü':'u'}; return s.replace(/[áéíóúñü]/g,c=>m[c]).trim(); }
 
+/* ---------------- Agrupación de empresas ----------------
+   Cada persona escribe la empresa a mano: llega «CCU», «ccu» y «CCU SA».
+   Primero mandan las reglas conocidas; lo que no calce en ninguna se limpia
+   igual (tildes, mayúsculas, formas societarias) para que «X SpA» y «X»
+   caigan juntas sin tener que acordarse de agregar una regla por empresa. */
+const EMPRESAS_CONOCIDAS = [
+  [/ccu/,                 'CCU'],
+  [/glencore/,            'Glencore'],
+  [/penuela/,             'Peñuelas'],
+  [/cintazul|cinta azul/, 'Cintazul'],
+  [/elite/,               'Elite'],
+  [/toco/,                'Avícola El Toco'],
+  [/kenoz/,               'Kenoz'],
+  [/reyes/,               'Reyes IA'],
+];
+// Formas societarias y palabras que no distinguen a una empresa de otra
+const RUIDO_EMPRESA = new Set([
+  'sa','s','a','spa','sac','srl','ltda','limitada','ltd','inc','corp','corporacion',
+  'cia','compania','sociedad','eirl','llc','group','grupo','holding','empresa','empresas',
+  'comercial','servicios','chile','de','del','la','el','los','las','y'
+]);
+
 function normCompany(raw){
   const s = noAccents(raw);
-  if(/penuela/.test(s)) return 'Peñuelas';
-  if(/cintazul|cinta azul/.test(s)) return 'Cintazul';
-  if(/elite/.test(s)) return 'Elite';
-  if(/toco/.test(s)) return 'Avícola El Toco';
-  if(/kenoz/.test(s)) return 'Kenoz';
-  if(/reyes/.test(s)) return 'Reyes IA';
-  return (raw||'Sin empresa').trim();
+  for (const [re, nombre] of EMPRESAS_CONOCIDAS) if (re.test(s)) return nombre;
+  const palabras = s.replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(Boolean);
+  const utiles = palabras.filter(w => !RUIDO_EMPRESA.has(w));
+  const clave = (utiles.length ? utiles : palabras).join(' ');
+  if (!clave) return 'Sin empresa';
+  // Se muestra con inicial mayúscula, para que no quede todo en minúsculas
+  return clave.replace(/\b[a-z]/g, c => c.toUpperCase());
 }
 
 let ALL = [];
