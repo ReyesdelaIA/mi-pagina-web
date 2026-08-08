@@ -13,7 +13,9 @@
     --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
     --grid:#e9e8e2; --track:#eef0f2; --border:rgba(11,11,11,0.10);
     --blue:#2a78d6; --aqua:#1baf7a; --yellow:#eda100; --green:#008300;
-    --o1:#a9ccf6; --o2:#5598e7; --o3:#2a78d6; --o4:#124a8f;
+    /* Escala de madurez: un solo azul, de claro a oscuro, con saltos parejos.
+       Los tonos anteriores dejaban «básico» y «frecuente» casi iguales. */
+    --o1:#86b6ef; --o2:#3987e5; --o3:#1c5cab; --o4:#042C53;
     --good:#0ca30c;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -30,6 +32,13 @@
   select#company{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;color:var(--navy);background:#fff;border:none;border-radius:10px;padding:11px 40px 11px 15px;cursor:pointer;appearance:none;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23042C53' stroke-width='3'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 14px center;min-width:230px;}
   .count-pill{font-size:12.5px;font-weight:700;color:#fff;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:8px 14px;}
+  .btn-pdf{font-family:inherit;font-size:12.5px;font-weight:700;color:#0B2C4F;background:#fff;
+    border:none;border-radius:20px;padding:9px 16px;cursor:pointer;transition:transform .15s,box-shadow .15s;}
+  .btn-pdf:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.22);}
+  .btn-pdf:active{transform:none;}
+
+  /* La portada del informe solo existe en el PDF */
+  .solo-pdf{display:none;}
 
   .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-22px;}
   .kpi{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:17px 17px 15px;box-shadow:0 6px 20px rgba(4,44,83,0.06);}
@@ -105,10 +114,44 @@
     th{background:#222220;} .kpi-val,.donut-c b,.itile .pct{color:#dCE9F8;}
     .lvl.cero{background:#3a1f1f;color:#f0a3a3;}.lvl.basico{background:#12314f;color:#9fc6ee;}.lvl.frecuente{background:#14392a;color:#6fd4a8;}.lvl.avanzado{background:#26234d;color:#b3aaf0;}
   }
-  @media print{body{background:#fff;}.card,.kpi,.itile,.quote,.tbl-scroll{box-shadow:none;}.filterbar{display:none;}}
+  /* ───────────────────── impresión / PDF ─────────────────────
+     El panel es una herramienta interactiva; el PDF es un entregable.
+     Se saca todo lo que no se puede clicar en papel y se cuida que las
+     tarjetas no queden cortadas entre una página y la siguiente. */
+  @media print{
+    @page{ margin:14mm 12mm; }
+    body{ background:#fff !important; }
+    /* Fuera lo interactivo y la cabecera de pantalla */
+    .filterbar, .btn-pdf, #loading, .top{ display:none !important; }
+
+    .solo-pdf{ display:block; margin-bottom:26px; padding-bottom:18px;
+      border-bottom:3px solid var(--brand, #0B4F8F); }
+    .pdf-marca{ font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
+      color:#5B7797; margin-bottom:10px; }
+    .pdf-empresa{ font-size:30px; font-weight:800; color:#0B2C4F; margin:0 0 6px; }
+    .pdf-meta{ font-size:13px; color:#5B7797; }
+
+    .wrap{ max-width:none; padding:0; }
+    /* Nada de tarjetas partidas a la mitad entre páginas */
+    .card, .kpi, .itile, .quote, tr{ break-inside:avoid; page-break-inside:avoid; }
+    .card, .kpi, .itile, .quote, .tbl-scroll{ box-shadow:none !important; }
+    .card, .kpi, .itile, .quote{ border-color:#D6DEE8 !important; }
+    /* Los navegadores omiten fondos por defecto: acá sí los queremos */
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    table{ font-size:10.5px; }
+    a[href]::after{ content:none !important; }
+  }
 </style>
 </head>
 <body>
+
+<!-- Portada que solo aparece en el PDF: sin esto el informe llega sin
+     decir de qué empresa es ni de cuándo. -->
+<div class="solo-pdf" id="portadaPdf">
+  <div class="pdf-marca">Reyes IA · Diagnóstico de adopción de IA</div>
+  <h1 class="pdf-empresa" id="pdfEmpresa">—</h1>
+  <div class="pdf-meta" id="pdfMeta">—</div>
+</div>
 
 <div class="top">
   <div class="wrap">
@@ -119,6 +162,7 @@
       <label for="company">Empresa</label>
       <select id="company"></select>
       <span class="count-pill" id="countPill">—</span>
+      <button class="btn-pdf" id="btnPdf" onclick="descargarPDF()">Descargar PDF</button>
     </div>
   </div>
 </div>
@@ -196,6 +240,17 @@ const RUIDO_EMPRESA = new Set([
   'comercial','servicios','chile','de','del','la','el','los','las','y'
 ]);
 
+/* El navegador ya sabe hacer PDF: «Guardar como PDF» en el diálogo de
+   impresión. Sale no editable y sin depender de ninguna librería. */
+function descargarPDF(){
+  const empresa = document.getElementById('pdfEmpresa').textContent || 'Diagnóstico';
+  const titulo = document.title;
+  // El nombre del archivo lo toma del <title>
+  document.title = `Diagnóstico IA · ${empresa}`;
+  window.print();
+  setTimeout(() => { document.title = titulo; }, 500);
+}
+
 function normCompany(raw){
   const s = noAccents(raw);
   for (const [re, nombre] of EMPRESAS_CONOCIDAS) if (re.test(s)) return nombre;
@@ -234,6 +289,16 @@ function render(companyKey){
   const total = rows.length;
   window._curTotal = total;
   document.getElementById('countPill').textContent = total + (total===1?' respuesta':' respuestas');
+
+  // Portada del PDF: sin esto el informe no dice de quién ni de cuándo es
+  const sel = document.getElementById('company');
+  const empresa = (companyKey === '__all__') ? 'Todas las empresas' : companyKey;
+  const fecha = new Date().toLocaleDateString('es-CL', { day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('pdfEmpresa').textContent = empresa;
+  document.getElementById('pdfMeta').textContent =
+    `${total} ${total===1?'respuesta':'respuestas'} · informe generado el ${fecha}`;
+  document.getElementById('btnPdf').textContent =
+    companyKey === '__all__' ? 'Descargar PDF' : `Descargar PDF · ${empresa}`;
 
   // KPIs
   const areaCounts = countBy(rows, r=>lblOf(DL.TRABAJO)(r.area_trabajo));
