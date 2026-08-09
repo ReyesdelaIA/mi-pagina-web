@@ -6,6 +6,25 @@
   <meta name="robots" content="noindex, nofollow" />
   <title>Portal Claude · Pack de 3 Talleres · Reyes IA</title>
   <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png" />
+
+  <!-- Vista previa al compartir el link (WhatsApp, LinkedIn, Slack, iMessage).
+       Sin esto, WhatsApp cae al favicon y manda la foto de perfil. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Reyes IA" />
+  <meta property="og:title" content="Programa Claude · Pack de 3 Talleres" />
+  <meta property="og:description" content="Tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado." />
+  <meta property="og:url" content="https://www.reyesia.com/claude-jul26-k7x9" />
+  <meta property="og:image" content="https://www.reyesia.com/claude-jul26-k7x9/img/og-portal.jpg" />
+  <meta property="og:image:secure_url" content="https://www.reyesia.com/claude-jul26-k7x9/img/og-portal.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="El Portal Claude abierto en un computador, con las tres sesiones del programa" />
+  <meta property="og:locale" content="es_CL" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Programa Claude · Pack de 3 Talleres" />
+  <meta name="twitter:description" content="Tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad." />
+  <meta name="twitter:image" content="https://www.reyesia.com/claude-jul26-k7x9/img/og-portal.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -102,14 +121,6 @@
     }
     .hero-acc { display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; }
 
-    .cta {
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:13px 24px; border-radius:12px; font-size:15px; font-weight:600;
-      font-family:inherit; cursor:pointer; border:none;
-      color:#160B04; background:linear-gradient(100deg,#F0A46A,#D66E36);
-      box-shadow:0 14px 34px -14px rgba(214,110,54,.85); transition:filter .15s;
-    }
-    .cta:hover { filter:brightness(1.06); color:#160B04; }
     .ghost {
       display:inline-flex; align-items:center; gap:10px; padding:13px 20px;
       border-radius:12px; font-size:15px; font-weight:500; cursor:pointer;
@@ -222,17 +233,33 @@
     .med-l { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.12em;
       text-transform:uppercase; color:rgba(233,234,238,.28); }
     .med.hecho .med-l { color:rgba(233,234,238,.55); }
+    /* Tres estados, tres colores. La lógica: naranjo = te toca a ti,
+       y mientras más sólido, más urgente. Azul = ya está hecho.
+         · sin empezar → naranjo delineado (te espera, sin apuro)
+         · en curso    → naranjo sólido con halo (acá ibas)
+         · dominada    → azul apagado con ✓ (cerrada, entras solo a repasar) */
     .ses-cta {
       display:flex; align-items:center; justify-content:center; gap:8px; padding:12px;
       border-radius:12px; font-size:14.5px; font-weight:600;
-      color:#160B04; background:linear-gradient(100deg,#F0A46A,#D66E36); transition:filter .15s;
+      border:1px solid transparent; transition:filter .15s, background .15s, box-shadow .15s;
     }
-    .ses-cta:hover { filter:brightness(1.06); color:#160B04; }
+    .ses-cta.empezar {
+      color:#F0A46A; background:rgba(240,164,106,.09);
+      border-color:rgba(240,164,106,.34); font-weight:500;
+    }
+    .ses-cta.empezar:hover { background:rgba(240,164,106,.16); color:#F5C9A8; }
+
+    .ses-cta.curso {
+      color:#160B04; background:linear-gradient(100deg,#F0A46A,#D66E36);
+      box-shadow:0 0 0 3px rgba(240,164,106,.14), 0 8px 22px rgba(214,110,54,.30);
+    }
+    .ses-cta.curso:hover { filter:brightness(1.06); color:#160B04; }
+
     .ses-cta.repasar {
-      color:#F5D9C3; background:rgba(240,164,106,.10);
-      border:1px solid rgba(240,164,106,.35); font-weight:500;
+      color:#8FBEEC; background:rgba(76,130,196,.10);
+      border-color:rgba(76,130,196,.32); font-weight:500;
     }
-    .ses-cta.repasar:hover { background:rgba(240,164,106,.18); color:#fff; }
+    .ses-cta.repasar:hover { background:rgba(76,130,196,.18); color:#C3DDF5; }
     .ses-lock {
       display:flex; align-items:center; justify-content:center; gap:8px; padding:12px;
       border-radius:12px; font-size:14px; color:rgba(233,234,238,.34);
@@ -288,7 +315,7 @@
       .hd { padding-top:16px; padding-bottom:16px; }
       h1 { font-size:38px; }
       .hero-sub { font-size:15px; }
-      .cta, .ghost { width:100%; justify-content:center; min-height:48px; }
+      .ghost { width:100%; justify-content:center; min-height:48px; }
       .estado, .ses, .hab, .sigue { padding:22px 20px; }
       .sigue { grid-template-columns:1fr; gap:18px; }
       .sigue-btn { justify-content:center; min-height:48px; }
@@ -320,7 +347,6 @@
         <h1>Programa <span>Claude</span></h1>
         <p class="hero-sub">Tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado.</p>
         <div class="hero-acc">
-          <a class="cta" id="cta-seguir" href="#sesiones">Continuar donde ibas →</a>
           <button class="ghost" id="btn-hab">Centro de habilidades</button>
         </div>
       </div>
@@ -399,7 +425,7 @@
   }
 
   function textoCta(t){
-    if (isComplete(t.n)) return 'Repasar la sesión →';
+    if (isComplete(t.n)) return '✓ Repasar la sesión';
     const hechos = conceptosOk(t.n) + (st[`${t.n}-quiz`] ? 1 : 0) + (st[`${t.n}-des`] ? 1 : 0);
     return hechos === 0 ? 'Empezar la sesión →' : 'Continuar donde ibas →';
   }
@@ -448,10 +474,9 @@
     document.getElementById('est-pasos').textContent =
       `${avancePct()}% · ${pasosHechos()} de ${totalPasos()} pasos`;
 
-    // Botón del hero: lleva a la sesión en curso
+    // La sesión en curso no tiene botón propio arriba: se distingue por el
+    // color de su botón en la tarjeta, que es donde la gente igual va a mirar.
     const activa = sesionActiva();
-    const cta = document.getElementById('cta-seguir');
-    if (activa){ cta.href = urlTaller(activa.n); cta.textContent = textoCta(activa); }
 
     // Tarjetas de sesión
     document.getElementById('grid-sesiones').innerHTML = TALLERES.map(t => {
@@ -478,7 +503,7 @@
       // Las bloqueadas explican la condición, en vez de solo decir que no se puede
       const pie = pronto
         ? `<div class="ses-lock">Se abre al terminar la sesión ${t.n - 1}</div>`
-        : `<a class="ses-cta ${done ? 'repasar' : ''}" href="${urlTaller(t.n)}">${textoCta(t)}</a>`;
+        : `<a class="ses-cta ${done ? 'repasar' : (esActiva ? 'curso' : 'empezar')}" href="${urlTaller(t.n)}">${textoCta(t)}</a>`;
 
       return `
       <article class="ses ${esActiva ? 'activa' : ''} ${done ? 'done' : ''}">
