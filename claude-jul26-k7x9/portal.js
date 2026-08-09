@@ -118,7 +118,7 @@ const TALLERES = [
   {
     n: 3,
     label: 'Sesión 3 · Claude Avanzado',
-    title: 'Conectores, Skills, Artefactos & Cowork',
+    title: 'MCP, Skills, Artefactos, Cowork',
     dur: '1.5 hrs · Presencial · Hands-On',
     resumen: 'El salto de conversar a delegar: conectar Claude a tus herramientas, estandarizar procedimientos, generar entregables vivos y ponerlo a trabajar sobre tus propios archivos.',
     conceptos: ['mcp-conectores', 'skills-claude', 'artefactos-claude', 'intro-cowork'],
