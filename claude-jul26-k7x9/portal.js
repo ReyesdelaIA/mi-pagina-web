@@ -118,42 +118,55 @@ const TALLERES = [
   {
     n: 3,
     label: 'Sesión 3 · Claude Avanzado',
-    proximamente: true,
-    title: 'Cowork, Artefactos & Plugins',
+    title: 'Conectores, Skills, Artefactos & Cowork',
     dur: '1.5 hrs · Presencial · Hands-On',
-    resumen: 'El salto de conversar a delegar: estandarizar procedimientos, generar entregables vivos y dar los primeros pasos con agentes.',
-    conceptos: ['skills-claude', 'artefactos-claude', 'intro-cowork', 'agentes-claude'],
-    desafio: 'Elige una tarea que tu equipo repite todas las semanas siempre igual (un reporte, una revisión, un consolidado). Descríbele a Claude el procedimiento paso a paso y pídele que lo deje como una Skill reutilizable. Después ejecútala con datos reales de esta semana y ajusta lo que salga torcido. Bonus: pídele que el resultado sea un Artefacto compartible. ⚡',
+    resumen: 'El salto de conversar a delegar: conectar Claude a tus herramientas, estandarizar procedimientos, generar entregables vivos y ponerlo a trabajar sobre tus propios archivos.',
+    conceptos: ['mcp-conectores', 'skills-claude', 'artefactos-claude', 'intro-cowork'],
+    desafio: {
+      titulo: 'El procedimiento que se ejecuta solo',
+      intro: 'En la Sesión 1 aprendiste a hablarle. En la Sesión 2 dejaste de repetirle el contexto. Hoy cierras el círculo: ese mismo procedimiento que escribiste como instrucciones se convierte en algo que se ejecuta sobre tus archivos de verdad. Los cuatro bloques de la sesión son las cuatro piezas de esta única tarea.',
+      pasos: [
+        'Abre el Proyecto que armaste en la Sesión 2 y copia sus instrucciones. Ese texto es el borrador de tu primera Skill: ya tiene quién eres, qué hacen, cómo quieres las respuestas y las reglas.',
+        'Cruza el puente. Activa el conector de donde viven de verdad esos documentos —Drive, Gmail, el calendario— y entra a sus permisos: deja las herramientas de solo lectura en «permitir siempre» y las de escritura/eliminación en «preguntar cada vez». No te saltes este paso: es el que te deja dormir tranquilo.',
+        'Pégale esas instrucciones a Claude y pídele que las deje como una Skill (tienes el prompt abajo). Súbele también los assets que esa tarea necesita: el logo, la plantilla, un ejemplo de trabajo bien hecho.',
+        'Ahora la parte que no se puede hacer desde el navegador: abre la aplicación de escritorio de Claude, entra a Cowork y préstale como sandbox una carpeta real con material de esa tarea. Cuando el computador te pida autorizar el acceso, dale Permitir.',
+        'Lánzale el encargo y déjalo trabajar. Vas a ver los subagentes avanzando en paralelo y los archivos apareciendo en tu carpeta mientras miras.',
+        'Pídele que el entregable final sea un Artefacto: un tablero o una ficha que puedas abrir, revisar y mandar por link.',
+        'Y el paso que casi todos se saltan: lee el reporte del final completo, sobre todo la parte de lo que NO pudo hacer. Ahí está la lista de lo que le falta a tu Skill.'
+      ],
+      prompt: 'Te voy a pasar las instrucciones de un proyecto mío. Quiero que las conviertas en una Skill reutilizable: define cuándo debe activarse, el procedimiento paso a paso, el formato exacto de salida y qué archivos de referencia necesita. Después ejecútala sobre los archivos de la carpeta que te di: haz la tarea completa, deja los resultados en una subcarpeta nueva sin tocar los originales, y entrégame el resumen final como un artefacto compartible. Al terminar, dime qué no pudiste hacer y qué te faltó saber.',
+      cierre: 'Si llegaste hasta acá, ya no tienes un chat que te aconseja: tienes un procedimiento tuyo, con tus datos, que se ejecuta sobre tus archivos y te entrega algo compartible. Eso es todo el programa en una sola tarea. Guarda la Skill y el conector: de ahí en adelante, cada tarea repetitiva que agregues es una hora que no vuelves a gastar.'
+    },
     quiz: [
       {
-        q: '¿Qué es una Skill en Claude?',
-        opts: ['Un procedimiento que le enseñas una vez y que después ejecuta igual cada vez que lo necesitas', 'Un curso en video dentro de la aplicación', 'Una insignia que ganas por usar la app', 'Un plan de suscripción más caro'],
-        correct: 0,
-        explain: 'Una Skill empaqueta un procedimiento repetible. Sirve justamente para estandarizar: la tarea sale igual de bien la haga quien la haga.'
-      },
-      {
-        q: '¿Qué distingue a un Artefacto de una respuesta normal de chat?',
-        opts: ['Que siempre es más largo', 'Que es un entregable funcional —dashboard, documento, herramienta— que puedes usar y compartir, no solo texto para leer', 'Que se borra a las 24 horas', 'Que solo funciona en el celular'],
-        correct: 1,
-        explain: 'El Artefacto convierte la respuesta en algo usable y compartible por link, en vez de dejarte texto que tienes que trasladar a mano a otra herramienta.'
-      },
-      {
-        q: '¿Cuál es el salto clave que introduce Claude Cowork?',
-        opts: ['Es un chat idéntico al anterior pero más rápido', 'Sirve solo para generar imágenes', 'Pasa de conversar a actuar: trabaja sobre tus archivos y ejecuta tareas reales, con tu supervisión', 'Es una app de mensajería interna'],
+        q: 'Quieres conectar Claude a tu Drive del trabajo y el botón de conectar te aparece bloqueado. ¿Qué está pasando?',
+        opts: ['Tu plan no incluye conectores y hay que comprar el complemento', 'Tienes que instalar un programa aparte antes de poder conectarlo', 'Tu cuenta de Claude es de la empresa, y quien administra la consola todavía no habilita ese conector', 'Los conectores se activan solos después de 24 horas de uso'],
         correct: 2,
-        explain: 'Cowork deja de solo aconsejar y empieza a hacer: lee archivos, crea documentos y ejecuta tareas por ti, siempre bajo tu supervisión.'
+        explain: 'Con una cuenta personal conectas y listo, sin pedirle permiso a nadie. Pero si tu cuenta es Team, Enterprise o parte de una organización, el conector puede venir bloqueado y hay que pedírselo a TI o a quien administre la consola. Nada de esto se instala ni se programa: el requisito de fondo es simplemente tener cuenta al otro lado del puente.'
       },
       {
-        q: '¿Cuál es un buen primer caso de uso para un agente?',
-        opts: ['Borrar sin respaldo los archivos del servidor', 'Consolidar una carpeta de planillas en un reporte, probando primero sobre una copia', 'Enviar correos masivos a clientes sin revisar', 'Publicar solo en redes sociales sin supervisión'],
+        q: 'Llevas un año armando propuestas comerciales y siempre terminas peleando con el mismo formato. ¿Qué te conviene hacer?',
+        opts: ['Escribir un prompt muy largo y guardarlo en un bloc de notas para pegarlo cada vez', 'Armar una Skill con el procedimiento, el formato de salida y tus assets: logo, plantilla y un par de ejemplos buenos', 'Abrir un chat nuevo cada vez y explicarle todo de cero, así no se contamina', 'Pedirle a un compañero que te mande su última propuesta y editarla a mano'],
         correct: 1,
-        explain: 'Alcance acotado, bajo riesgo y sobre una copia. La confianza en un agente se construye con resultados verificables antes de darle tareas críticas.'
+        explain: 'Ese es exactamente el caso que justifica una Skill: la construyes una sola vez —instrucciones, formato y archivos de referencia— y de ahí en adelante te entrega siempre el mismo output. El prompt guardado en un bloc de notas te ahorra tipeo, pero no te ahorra el trabajo de volver a explicar el contexto y los assets cada vez.'
       },
       {
-        q: '¿Qué caracteriza a un agente bien diseñado?',
-        opts: ['Tener el objetivo más amplio posible para que sirva para todo', 'Objetivo acotado, acceso limitado y un resultado que puedas verificar', 'No necesitar nunca supervisión humana', 'Usar la mayor cantidad de herramientas disponibles'],
+        q: 'Descargaste tu artefacto y quedó como un HTML en tu computador. ¿Qué es lo único que NO va a funcionar al mandárselo a otra persona?',
+        opts: ['Los colores y el diseño, que se pierden al descargar', 'Los datos que no quedaron incrustados dentro del código: esos necesitan otro tratamiento', 'Los botones, porque dejan de responder fuera de Claude', 'Nada: un artefacto descargado no se puede abrir en otro computador'],
         correct: 1,
-        explain: 'Los agentes fallan por alcance demasiado abierto. Objetivo estrecho, permisos mínimos y salida verificable es lo que los hace confiables.'
+        explain: 'El HTML descargado se lleva todo adentro —diseño, botones, interactividad— y se abre en cualquier navegador. Lo que no viaja son los datos que viven fuera del archivo: para eso hay que incrustarlos o conectarlos, que ya es harina de otro costal.'
+      },
+      {
+        q: 'Entras a claude.ai desde Chrome, aprietas el botón «Cowork» y le pides que te ordene una carpeta de tu computador. No pasa nada. ¿Por qué?',
+        opts: ['Porque Cowork solo funciona los días hábiles en horario de oficina', 'Porque primero hay que subir los archivos uno por uno', 'Porque el Cowork que se conecta con tu terminal existe solo en la aplicación de escritorio: el botón de la web es otra función', 'Porque Chrome bloquea el acceso y hay que usar Safari'],
+        correct: 2,
+        explain: 'Es la confusión más común: el botón «Cowork» también aparece en la página web, pero esa no es la función que se conecta con la terminal de tu computador. Para que trabaje sobre tus carpetas reales tiene que ser desde la app de escritorio instalada en tu máquina.'
+      },
+      {
+        q: 'Le vas a dar acceso a Cowork por primera vez. ¿Qué es lo que realmente le estás entregando?',
+        opts: ['El control de todo tu computador, así que conviene tener respaldo de todo', 'Un sandbox: la carpeta que tú elijas, y fuera de esa isla no existe nada para él', 'Solo permiso de lectura, porque nunca puede modificar archivos', 'Acceso a la nube de Claude, no a tu computador'],
+        correct: 1,
+        explain: 'No le abres el computador entero: le prestas una isla. Dentro de esa carpeta puede leer, crear, editar y eliminar —por eso el sistema te pide autorizar el acceso con Permitir—, y fuera de ella no llega. Tú eliges qué isla le prestas.'
       }
     ]
   }

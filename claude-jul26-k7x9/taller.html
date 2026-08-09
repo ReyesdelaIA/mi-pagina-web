@@ -54,6 +54,12 @@
     /* Capturas verticales: a todo el ancho se verían estiradas */
     .paso-img.angosta { max-width:420px; margin-left:auto; margin-right:auto; }
 
+    /* Dos capturas verticales al mismo nivel: la navegación de «anda acá y
+       después acá» se lee de un vistazo, sin obligar a bajar dos pantallas. */
+    .paso-duo { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0 6px; }
+    .paso-duo .paso-img { margin:0; }
+    .paso-duo .paso-img img { object-fit:contain; }
+
     /* Paso de instrucción puntual: la captura chica al lado del texto, no a
        pantalla completa. Para el «anda acá y aprieta esto» que no merece
        una imagen gigante. */
@@ -68,6 +74,8 @@
     @media(max-width:819px){
       .paso-instr { flex-direction:column; align-items:stretch; }
       .paso-instr .pi-img { flex:none; max-width:280px; }
+      /* En celular el par se apila: dos capturas en media pantalla no se leen */
+      .paso-duo { grid-template-columns:1fr; }
     }
 
     /* Paso de recurso: manda a algo que está fuera del portal (un prompt
@@ -320,7 +328,7 @@
     if (!b) return `<div class="c-nombre">Cargando…</div>`;
     const marcado = !!st[`c-${r.id}`];
     const tituloPantalla = r.pasos[0] && r.pasos[0].titulo;
-    const hayImgs = r.pasos.some(p => p.img);
+    const hayImgs = r.pasos.some(p => p.img || (p.imgs && p.imgs.length));
 
     const encabezado = `
       <div class="paso-n">Concepto ${r.ci + 1} de ${taller.conceptos.length}${
@@ -346,8 +354,13 @@
           <figure class="pi-img"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>
           <div class="pi-box"><span class="num">${o._n}</span><span>${esc(o.texto)}</span></div>
         </div>`;
+      // `imgs` es el par lado a lado; si además viene `img`, esa va abajo a lo ancho
+      const duo = (o.imgs && o.imgs.length)
+        ? `<div class="paso-duo">${o.imgs.map(f =>
+            `<figure class="paso-img"><img src="/bloques/${r.id}/${f}" alt="" /></figure>`).join('')}</div>`
+        : '';
       const img = o.img ? `<figure class="paso-img${o.angosta ? ' angosta' : ''}"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>` : '';
-      return `<div class="paso-item"><span class="num">${o._n}</span><span>${esc(o.texto)}</span></div>${img}`;
+      return `<div class="paso-item"><span class="num">${o._n}</span><span>${esc(o.texto)}</span></div>${duo}${img}`;
     }).join('');
 
     // El pro tip y el check solo al final del concepto

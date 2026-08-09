@@ -13,24 +13,55 @@
     "automatizacion"
   ],
   "pasos": [
-    "El salto clave: pasamos de un chat que solo responde, a un AGENTE que actúa sobre tu computador — lee archivos, crea documentos y ejecuta tareas reales desde tu terminal.",
-    "La familia Claude: Chat (conversa, colabora, crea) → Code (construye, automatiza, escala) → Cowork (conecta, comparte, crece). Cowork lleva el agente a tu entorno de trabajo real.",
-    "3 tipos de acciones: reactivas (responde a lo que le pides), programadas (tareas agendadas) e interactivas / en vivo (trabaja contigo en tiempo real).",
-    "Tú mandas: El agente pide permiso antes de acciones sensibles; tú supervisas, apruebas o corriges sobre la marcha."
+    {
+      "texto": "El salto clave: pasamos de un chat que solo responde, a un AGENTE que actúa sobre tu computador — lee archivos, crea documentos y ejecuta tareas reales desde tu terminal.",
+      "img": "01-que-es-cowork.webp"
+    },
+    {
+      "texto": "Ojo con esto, porque confunde a todo el mundo: el Cowork que se conecta con la terminal funciona única y exclusivamente a través de la aplicación de escritorio de Claude. Desde el navegador no —entrar a claude.ai por Chrome no sirve para esto. Y aunque en la página web también te aparezca el botón «Cowork», esa es otra función: no es la que se conecta con la terminal de tu computador. Para que trabaje sobre tus carpetas reales tiene que ser desde la app instalada en tu máquina.",
+      "img": "02-app-escritorio.webp"
+    },
+    {
+      "texto": "3 tipos de acciones: reactivas (responde a lo que le pides), programadas (tareas agendadas) e interactivas / en vivo (trabaja contigo en tiempo real).",
+      "img": "03-tipos-de-acciones.webp"
+    },
+    {
+      "texto": "Tú mandas, y lo primero que mandas es hasta dónde puede meterse. A Cowork no le das acceso a todo tu computador: le das permiso a un sandbox, que son como islas dentro de tu máquina —en la práctica, carpetas. Le abres la carpeta «contratos» y esa es su isla: ahí adentro puede leer, crear y ordenar archivos, y fuera de ahí no existe nada para él. Tú eliges qué isla le prestas, y de ahí en adelante supervisas, apruebas o corriges sobre la marcha.",
+      "img": "04-sandbox.webp"
+    },
+    {
+      "texto": "Y esto es obvio pero hay que decirlo: al darle acceso a una carpeta, tu propio computador te va a pedir que lo autorices. Va a aparecer el cartel de «Claude solicita acceso a los archivos de tu carpeta Escritorio», con No permitir y Permitir. Tienes que darle Permitir, porque sin esa autorización no puede hacer nada: para que trabaje de verdad necesita libertad dentro de esa isla —abrir los archivos, editarlos, crear nuevos, mover, eliminar. Si le dices que no, se queda mirando la puerta cerrada.",
+      "img": "05-permiso-carpeta.webp"
+    },
+    {
+      "texto": "Lo otro que sorprende es la velocidad. Cowork es muy rápido porque no trabaja solo: reparte el encargo entre muchos subagentes que avanzan en paralelo. Comparado con pedirle lo mismo a Claude Chat, archivo por archivo, la diferencia es enorme. Y cuando termina no te deja instrucciones para que las hagas tú: ejecuta los cambios directamente en tu carpeta. Lo que le pediste queda hecho —una presentación nueva, un Excel, un HTML, los archivos ordenados, renombrados, convertidos o eliminados— y te reporta qué hizo, incluido lo que no pudo hacer.",
+      "img": "06-resultado.webp"
+    }
   ],
   "pro_tip": "Piensa en Cowork como un practicante digital: dale tareas acotadas y de bajo riesgo primero, y sube la complejidad a medida que le tomas confianza.",
   "desafio": {
-    "enunciado": "Dale a Cowork acceso a una carpeta de prueba (una copia, no la original) y pídele una tarea de ordenamiento sobre varios archivos a la vez. Revisa lo que hizo antes de aceptar.",
-    "prompt": "Toma todos los documentos de esta carpeta, conviértelos a PDF y déjalos en una subcarpeta nueva llamada PDF, sin borrar los originales.",
+    "enunciado": "Ábrelo desde la aplicación de escritorio —desde el navegador no funciona— y préstale como sandbox una carpeta con varios archivos. Usa una copia para esta primera vez: la isla lo contiene, pero adentro de la isla igual puede equivocarse. Cuando el computador te pida autorizar, dale Permitir, y al terminar lee el reporte completo, sobre todo lo que dice que no pudo hacer.",
+    "prompt": "Toma todos los documentos de esta carpeta, conviértelos a PDF y déjalos en una subcarpeta nueva llamada PDF, sin borrar los originales. Al terminar dime qué hiciste, qué archivos quedaron y qué no pudiste hacer.",
     "origen": "reciclado · bloque ejemplos-cowork"
   },
+  "portada": "portada.webp",
   "assets": [
-    "cover.png",
-    "paso1.png"
+    "portada.webp",
+    "01-que-es-cowork.webp",
+    "02-app-escritorio.webp",
+    "03-tipos-de-acciones.webp",
+    "04-sandbox.webp",
+    "05-permiso-carpeta.webp",
+    "06-resultado.webp"
   ],
   "assets_github": [
-    "https://reyesia.com/bloques/intro-cowork/cover.png",
-    "https://reyesia.com/bloques/intro-cowork/paso1.png"
+    "https://reyesia.com/bloques/intro-cowork/portada.webp",
+    "https://reyesia.com/bloques/intro-cowork/01-que-es-cowork.webp",
+    "https://reyesia.com/bloques/intro-cowork/02-app-escritorio.webp",
+    "https://reyesia.com/bloques/intro-cowork/03-tipos-de-acciones.webp",
+    "https://reyesia.com/bloques/intro-cowork/04-sandbox.webp",
+    "https://reyesia.com/bloques/intro-cowork/05-permiso-carpeta.webp",
+    "https://reyesia.com/bloques/intro-cowork/06-resultado.webp"
   ],
   "sources": [
     {

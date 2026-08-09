@@ -12,23 +12,44 @@
     "apps"
   ],
   "pasos": [
-    "En Claude, ve al menú lateral → \"Más\" → \"Artefactos\" para ver tu biblioteca de artefactos creados.",
-    "Haz clic en \"Nuevo artefacto\" para crear uno desde cero. Elige la categoría: App/web, Documento, Juego, Herramienta de productividad, etc.",
-    "Describe lo que necesitas. Claude lo crea y lo muestra en el panel lateral interactivo , separado del chat.",
+    {
+      "texto": "En Claude, ve al menú lateral → «Más» → «Artefactos». Ahí no solo tienes la biblioteca con todos los artefactos que has creado: es también el lugar desde donde creas uno nuevo.",
+      "img": "01-donde-estan.webp"
+    },
+    {
+      "texto": "Haz clic en «Nuevo artefacto» para crear uno desde cero. Elige la categoría: App/web, Documento, Juego, Herramienta de productividad, etc.",
+      "img": "02-biblioteca.webp"
+    },
+    {
+      "texto": "Describe muy bien lo que necesitas. Es posible que Claude te haga preguntas si algo no quedó del todo claro: contéstalas, porque mientras más contexto le entregues, mejor va a quedar el artefacto. Y pídele cosas concretas: ciertos colores, ciertas formas, cierto estilo, un botón de drag and drop, uno para descargar, otro para imprimir la ficha al tiro. Básicamente lo que se te ocurra, y Claude lo va a hacer muy bien.",
+      "img": "03-preguntas.webp"
+    },
     "Puedes iterar el artefacto con mensajes adicionales, ver el código fuente, copiar y publicar con un enlace público.",
-    "Los artefactos se guardan en tu biblioteca para reutilizar en futuras conversaciones."
+    {
+      "texto": "Cuando el artefacto esté listo te lo va a mostrar de esta manera, con la conversación a la izquierda y una vista previa a la derecha, funcionando, como ves en la imagen a continuación. Con el botón «Descargar» te queda guardado en tu computador como un archivo HTML: de ahí lo compartes con quien quieras y haces con él lo que se te ocurra. La única excepción son los datos que no quedaron incrustados dentro del código —esos necesitan otro tratamiento, que es lo que vemos en clases.",
+      "img": "04-vista-previa.webp"
+    }
   ],
   "pro_tip": "Pide un artefacto tipo \"tablero de seguimiento de tareas de mi equipo\" — Claude crea una mini-app interactiva que puedes compartir con tu equipo con un solo link.",
   "desafio": {
-    "enunciado": "Sube una planilla tuya y pídele a Claude que la convierta en un tablero visual. Ábrelo, cámbiale algo y compártelo por link con alguien de tu equipo.",
-    "prompt": "Genera un archivo HTML interactivo y descargable a partir del archivo que te adjunto. Debe verse bien en el celular y permitir filtrar los datos.",
+    "enunciado": "Sube una planilla tuya y pídele que la convierta en un tablero visual. Cuando aparezca la vista previa a la derecha, no te quedes ahí: pídele un cambio concreto —otro color, un filtro más, un botón para imprimir—, descárgalo como HTML y ábrelo desde tu computador.",
+    "prompt": "Genera un artefacto interactivo a partir del archivo que te adjunto. Debe verse bien en el celular, permitir filtrar los datos y tener un botón para descargar e imprimir. Si algo de lo que te pido no te queda claro, pregúntame antes de construirlo.",
     "origen": "reciclado · sesion07-k7x9 nivel 1 + pro tip"
   },
+  "portada": "cover.jpg",
   "assets": [
-    "cover.jpg"
+    "cover.jpg",
+    "01-donde-estan.webp",
+    "02-biblioteca.webp",
+    "03-preguntas.webp",
+    "04-vista-previa.webp"
   ],
   "assets_github": [
-    "https://reyesia.com/bloques/artefactos-claude/cover.jpg"
+    "https://reyesia.com/bloques/artefactos-claude/cover.jpg",
+    "https://reyesia.com/bloques/artefactos-claude/01-donde-estan.webp",
+    "https://reyesia.com/bloques/artefactos-claude/02-biblioteca.webp",
+    "https://reyesia.com/bloques/artefactos-claude/03-preguntas.webp",
+    "https://reyesia.com/bloques/artefactos-claude/04-vista-previa.webp"
   ],
   "sources": [
     {

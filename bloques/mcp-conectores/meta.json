@@ -1,30 +1,60 @@
 {
   "id": "mcp-conectores",
-  "nombre": "MCP y conectores",
+  "nombre": "Conectores",
+  "habilidad": "Conectores",
   "emoji": "🔌",
-  "descripcion": "El salto de \"chat que aconseja\" a \"asistente que trabaja con tus datos reales\": conectar Claude a tus herramientas sin copiar y pegar.",
+  "descripcion": "Puentes prehechos entre tu cuenta de Claude y las herramientas donde ya trabajas. El requisito para cruzarlos es tener cuenta al otro lado.",
   "categoria": "claude",
   "tags": [
     "claude",
-    "mcp",
     "conectores",
+    "mcp",
     "integraciones"
   ],
   "pasos": [
-    "MCP (Model Context Protocol) es el estándar abierto que permite a Claude leer y actuar sobre herramientas externas: archivos, correo, calendario, bases de datos, sistemas internos.",
-    "En la configuración de Claude, revisa los conectores disponibles y activa los que uses de verdad. Menos es más: cada conector activo agrega opciones que el modelo debe considerar.",
-    "Conecta primero donde vive tu trabajo repetitivo: el repositorio de documentos, el correo o la herramienta de gestión que abres todos los días.",
-    "Pídele tareas que crucen fuentes: \"revisa los correos de esta semana sobre el proyecto X y arma un resumen con los pendientes\". Ahí se nota la diferencia contra copiar y pegar.",
-    "Revisa siempre los permisos que otorgas: un conector con acceso de escritura puede modificar cosas. Empieza con acceso de solo lectura y sube desde ahí."
+    "Un conector es un puente prehecho: une tu cuenta de Claude con diversas herramientas que ya usas —tu Drive, tu correo, tu calendario, tu Notion, tu base de datos— para que Claude trabaje directo sobre lo que hay ahí. Prehecho quiere decir que no lo tienes que construir tú: ya está listo, tú solo lo cruzas.",
+    {
+      "texto": "El requisito para cruzarlo es tener cuenta al otro lado del puente. No hay que programar nada ni instalar nada: si tienes tu cuenta de Google, el puente a Google está disponible para ti. Ahora, quién autoriza el cruce depende de qué cuenta de Claude tengas: si es personal, no le tienes que pedir permiso a nadie —conectas y listo. Si es una cuenta Team, Enterprise o que forma parte de tu organización, es probable que el conector venga bloqueado y tengas que pedírselo a TI o a quien administre la consola de las cuentas.",
+      "img": "01-mcp-diagrama.webp"
+    },
+    "Los activas desde el menú lateral: Personalizar → Conectores. Ahí ves los que ya tienes andando, y con el botón + de arriba entras a «Explorar conectores», que es el directorio completo de puentes disponibles. Al apretar conectar se abre la ventana de la otra herramienta, inicias sesión con tu cuenta de siempre y le das permiso: eso es todo el trámite.",
+    {
+      "texto": "Conecta solo los que de verdad ocupas, y parte por donde vive tu trabajo repetitivo: el repositorio de documentos, el correo o la herramienta de gestión que abres todos los días. Acá menos es más — cada conector que dejas activo es una opción más que Claude tiene que considerar en cada respuesta.",
+      "imgs": [
+        "02-menu-personalizar.webp",
+        "03-menu-conectores.webp"
+      ],
+      "img": "04-directorio-conectores.webp"
+    },
+    "Con el puente cruzado, el cambio se nota en que dejas de ser el mensajero. En vez de bajar el archivo, abrirlo, copiarlo y pegarlo en el chat, le pides la cosa por su nombre: «busca en mi Drive el informe de cierre de marzo y compáralo con lo que quedó en el acta de la última reunión». Claude va, lo busca y lo cruza.",
+    {
+      "texto": "Ahora los permisos, que es donde tú decides hasta dónde llega el puente. Al entrar a un conector conectado ves «Permisos de herramientas»: Claude te lista una por una las acciones que ese conector sabe hacer, agrupadas en las de solo lectura y las de escritura/eliminación. Cada acción tiene tres niveles, y son los tres iconos de la derecha. El ✓ es permitir siempre: esa acción en particular la ejecuta sin preguntarte nada. La ✋ es preguntar cada vez: antes de ejecutarla te pide confirmación, y tú decides en el momento. El 🚫 es no permitir: esa acción no la va a poder ejecutar nunca, aunque se la pidas. Ojo con que las capacidades cambian de un conector a otro: el de Google Calendar es de los más permisivos —crea, actualiza y elimina eventos, como ves en la captura—, mientras que el de Microsoft simplemente no trae esos permisos creados. Mi recomendación para partir: deja la lectura en permitir siempre y la escritura/eliminación en preguntar cada vez, hasta que le tomes el peso a lo que hace.",
+      "img": "05-permisos-herramientas.webp"
+    }
   ],
-  "pro_tip": "El valor de MCP no es técnico, es de fricción: cada copiar-y-pegar que eliminas es una tarea que pasa de \"cuando tenga tiempo\" a \"ya está hecha\".",
+  "pro_tip": "Esto es la puerta de entrada, no el techo. Un conector suelto te ahorra copiar y pegar; el salto de verdad viene cuando tienes varios andando al mismo tiempo, porque ahí recién se puede armar un agente que trabaje solo —que revise el correo, lo cruce con el calendario, busque el documento en el Drive y deje el resultado escrito— sin que tú estés encima de cada paso. Cada puente que cruzas es una cosa más que puede hacer sin ti. Por eso vale la pena dejar los permisos bien puestos ahora: es el piso sobre el que después se paran los agentes.",
   "desafio": {
-    "enunciado": "Activa un conector de los que ya usas (tu repositorio de documentos o el calendario) y pídele a Claude una tarea que cruce dos fuentes, sin copiar ni pegar nada.",
-    "prompt": "Revisa mis reuniones de esta semana y los documentos relacionados que tengo guardados, y arma una lista de compromisos pendientes con responsable y fecha.",
+    "enunciado": "Cruza tu primer puente. Activa un conector de una herramienta que ya uses —el calendario o el repositorio de documentos—, entra a sus permisos y deja la lectura en «permitir siempre» y la escritura/eliminación en «preguntar cada vez». Después pídele una tarea que cruce dos fuentes, sin copiar ni pegar nada.",
+    "prompt": "Revisa mis reuniones de esta semana y los documentos relacionados que tengo guardados, y arma una lista de compromisos pendientes con responsable y fecha. No me pidas que te suba nada: búscalo tú.",
     "origen": "propuesto"
   },
-  "assets": [],
-  "assets_github": [],
+  "portada": "portada.webp",
+  "assets": [
+    "portada.webp",
+    "01-mcp-diagrama.webp",
+    "02-menu-personalizar.webp",
+    "03-menu-conectores.webp",
+    "04-directorio-conectores.webp",
+    "05-permisos-herramientas.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/mcp-conectores/portada.webp",
+    "https://reyesia.com/bloques/mcp-conectores/01-mcp-diagrama.webp",
+    "https://reyesia.com/bloques/mcp-conectores/02-menu-personalizar.webp",
+    "https://reyesia.com/bloques/mcp-conectores/03-menu-conectores.webp",
+    "https://reyesia.com/bloques/mcp-conectores/04-directorio-conectores.webp",
+    "https://reyesia.com/bloques/mcp-conectores/05-permisos-herramientas.webp"
+  ],
   "sources": [
     {
       "file": "claude/index.html",

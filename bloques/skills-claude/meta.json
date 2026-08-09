@@ -1,31 +1,58 @@
 {
   "id": "skills-claude",
-  "nombre": "Skills y Plugins",
+  "nombre": "Skills (Habilidades)",
   "habilidad": "Skills",
   "emoji": "⚡",
-  "descripcion": "Enseñarle un procedimiento una vez para que lo ejecute igual siempre. La forma de estandarizar cómo tu equipo hace una tarea recurrente.",
+  "descripcion": "Enseñarle un procedimiento una vez para que lo ejecute igual siempre. La forma de estandarizar cómo haces —tú o tu equipo— una tarea recurrente. Son espectaculares para repetir siempre el mismo output y ahorrarse mucho tiempo en tareas repetitivas.",
   "categoria": "claude",
   "tags": [
     "claude",
     "skills",
-    "plugins",
     "estandarizacion"
   ],
   "pasos": [
-    "Una Skill empaqueta un procedimiento: las instrucciones, el formato de salida y los archivos de referencia que esa tarea necesita.",
-    "Identifica una tarea que tu equipo repite igual todas las semanas: un reporte, una revisión, un consolidado, una respuesta tipo.",
-    "Descríbele a Claude el procedimiento paso a paso y pídele que lo deje como una Skill reutilizable, con el formato de salida que ustedes usan.",
-    "Ejecútala con datos reales y ajusta lo que salga torcido. Una Skill se afina con uso, no se diseña perfecta desde el escritorio.",
-    "Los Plugins agrupan Skills y otras capacidades en un paquete instalable: así una buena práctica de una persona se vuelve el estándar de todo el equipo."
+    {
+      "texto": "Una Skill empaqueta un procedimiento: las instrucciones, el formato de salida y los archivos de referencia que esa tarea necesita. Son espectaculares para repetir siempre el mismo output: una Skill que te haga las propuestas comerciales, otra las presentaciones, otra las fichas técnicas, otra los informes ejecutivos. La construyes una sola vez —con las referencias, con un buen MD que son las instrucciones, con los assets y los templates— y de ahí en adelante te entrega siempre lo mismo. Para todo lo que sea tarea recurrente, es de lo más útil que hay. Dentro de Claude las encuentras en Personalizar → Habilidades: ahí viven todas las tuyas, y si abres una ves exactamente de qué está hecha —el SKILL.md con las instrucciones y la carpeta de assets con los complementos que esa tarea necesita: logos, firmas, plantillas, fotos, referencias.",
+      "img": "01-donde-estan.webp"
+    },
+    {
+      "texto": "Identifica una tarea que repitas igual todas las semanas: un reporte, una revisión, un consolidado, una respuesta tipo. Da lo mismo si trabajas solo o en un equipo de veinte —lo que manda es cuántas veces al mes te sientas a hacer eso mismo de nuevo.",
+      "img": "02-skills-que-son.webp"
+    },
+    "Descríbele a Claude el procedimiento paso a paso y pídele que lo deje como una Skill reutilizable, con el formato de salida que tú usas.",
+    {
+      "texto": "Hay dos tipos de Skills. Las genéricas vienen listas para usar y hay muchas que puedes descargar de internet: cubren tareas comunes —documentos, código, diseño, presentaciones— y ocuparlas es literalmente enchufarle una habilidad nueva a la herramienta. Las personalizadas son las que venimos conversando: las construyes tú para tus propias tareas, y replican exactamente cómo haces algo, con tu estilo y tu contexto.",
+      "img": "03-tipos-de-skills.webp"
+    },
+    {
+      "texto": "Sobre las habilidades genéricas: si bien son más abundantes en Claude Code, para programar, también hay varias para Claude Chat, que es la que te interesa en este momento. Hay una que recomiendo mucho, se llama Frontend Design: le da a Claude criterio visual de verdad —paleta, tipografía y layout con personalidad— en vez del look genérico de plantilla. Si te interesa, la puedes descargar del repositorio de Skills de Reyes IA.",
+      "recurso": true,
+      "url": "https://reyesia.com/repo-skills",
+      "url_texto": "reyesia.com/repo-skills",
+      "img": "04-skill-frontend-design.webp"
+    }
   ],
-  "pro_tip": "El mejor candidato a Skill es esa tarea donde el resultado depende de quién la haga. Estandarizarla no solo ahorra tiempo: sube el piso de calidad de todo el equipo.",
+  "pro_tip": "El mejor candidato a Skill es esa tarea que hoy te sale distinta cada vez, según el apuro que tengas o quién la haga. Estandarizarla no solo te ahorra tiempo: te sube el piso de calidad, porque la versión que dejaste escrita es siempre tu mejor versión, no la del viernes a las siete.",
   "desafio": {
-    "enunciado": "Descarga una Skill del repositorio de Reyes IA e instálala: en Claude entra a Configuración → Capacidades → Skills y sube el .zip. Después úsala con un caso real tuyo.",
-    "prompt": null,
+    "enunciado": "Hazlo en los dos sentidos. Primero descarga una Skill genérica del repositorio de Reyes IA e instálala: Personalizar → Habilidades, botón + y sube el .zip. Y después arma la tuya: toma la tarea que más repites y pídele a Claude que la deje como Skill, con el formato de salida que tú usas.",
+    "prompt": "Te voy a describir un procedimiento que hago todas las semanas. Déjamelo como una Skill reutilizable: define cuándo debe activarse, los pasos, el formato exacto de salida y qué archivos de referencia necesita para hacerlo bien. Si te falta información para que quede sólida, pregúntame antes de escribirla.",
     "origen": "reciclado · repo-skills"
   },
-  "assets": [],
-  "assets_github": [],
+  "portada": "portada.webp",
+  "assets": [
+    "portada.webp",
+    "01-donde-estan.webp",
+    "02-skills-que-son.webp",
+    "03-tipos-de-skills.webp",
+    "04-skill-frontend-design.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/skills-claude/portada.webp",
+    "https://reyesia.com/bloques/skills-claude/01-donde-estan.webp",
+    "https://reyesia.com/bloques/skills-claude/02-skills-que-son.webp",
+    "https://reyesia.com/bloques/skills-claude/03-tipos-de-skills.webp",
+    "https://reyesia.com/bloques/skills-claude/04-skill-frontend-design.webp"
+  ],
   "sources": [
     {
       "file": "claude/index.html",
