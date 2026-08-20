@@ -1,7 +1,7 @@
 {
   "id": "ia-mundo-real",
-  "nombre": "Lo que tienes que cuidar",
-  "habilidad": "Criterio y riesgos",
+  "nombre": "Consideraciones finales",
+  "habilidad": "Consideraciones",
   "emoji": "🛡️",
   "descripcion": "Confidencialidad, regulaciones, autoría, deepfakes — y cómo se viene el mundo de la mano de la IA.",
   "categoria": "fundamentos",
@@ -25,7 +25,8 @@
     },
     {
       "titulo": "Regulaciones y autoría",
-      "texto": "La tecnología avanza más rápido que las leyes, y con la IA pasa de forma extrema. Ni los propios fundadores logran comprender del todo lo que sus modelos son capaces de hacer."
+      "texto": "La tecnología avanza más rápido que las leyes, y con la IA pasa de forma extrema. Ni los propios fundadores logran comprender del todo lo que sus modelos son capaces de hacer.",
+      "img": "02-regulaciones.webp"
     },
     {
       "texto": "Caso Saint George (Chile, 2025): la Corte Suprema revocó la expulsión de estudiantes que habían generado fotos íntimas con IA. La ley simplemente no tenía cómo encuadrar el caso."
@@ -35,7 +36,8 @@
     },
     {
       "titulo": "Deepfakes — el riesgo más concreto",
-      "texto": "Caso Ferrari («Lo siento, Benedetto»): casi estafan al CEO de Ferrari con un deepfake de voz de su jefe. Se salvaron porque un dirigente le hizo una pregunta personal que solo el verdadero CEO sabría responder."
+      "texto": "Caso Ferrari («Lo siento, Benedetto»): casi estafan al CEO de Ferrari con un deepfake de voz de su jefe. Se salvaron porque un dirigente le hizo una pregunta personal que solo el verdadero CEO sabría responder.",
+      "img": "03-deepfake-ferrari.webp"
     },
     {
       "texto": "Una mujer francesa entregó US$850.000 a estafadores que se hacían pasar por Brad Pitt vía mensajes y voz clonada con IA. Una mujer argentina perdió US$15.000 con un falso George Clooney usando deepfake."
@@ -45,12 +47,8 @@
     },
     {
       "titulo": "Cómo se viene el mundo de la mano de la IA",
-      "texto": "Dario Amodei (Anthropic) dice que la IA podría comprimir 100 años de progreso en 5 a 10 años. Y ya hay casos concretos en uso.",
-      "img": "02-mundo-que-viene.webp"
-    },
-    {
-      "texto": "Un lápiz con IA que detecta Parkinson en etapas tempranas con más del 96% de precisión. El Hospital Chelsea & Westminster (Londres, NHS): IA aprobada para diagnosticar cáncer de piel sin necesidad de médico, con 99% de precisión en casos benignos.",
-      "img": "03-mundo-que-viene-2.webp"
+      "texto": "Estamos en un momento único en la historia de la humanidad, un momento sin precedentes. Nunca había ocurrido lo que está empezando a pasar: que el mundo fuera a cambiar tanto como va a cambiar ahora de la mano de la inteligencia artificial. Va a cambiar todo, pero especialmente la forma en que trabajamos, la forma en que destinamos nuestras horas a cumplir objetivos. Vamos a mantener lo que es meramente humano —la creatividad, decidir hacia dónde va una empresa, la empatía, el liderazgo—, pero todas las tareas monótonas, cotidianas y repetidas las va a hacer la inteligencia artificial, nos guste o no.",
+      "img": "04-estamos-aca.webp"
     },
     {
       "texto": "Y los que se resistan… Las empresas que se resistieron a tecnologías anteriores ya no existen: Compaq, BlackBerry, Blockbuster, Kodak, Nokia. En 1986 hubo huelgas de profesores contra las calculadoras en los colegios. En 2024, huelgas de guionistas contra la IA. Los ciclos se repiten — pero la tecnología siempre gana, porque entrega más valor."
@@ -59,18 +57,22 @@
       "texto": "El consejo final: empieza HOY mismo a usar IA. No esperes a sentir que «ya la dominas», no esperes a que tu empresa la implemente, no esperes a que sea más fácil. La curva de aprendizaje es de meses, y los que partan ahora van a estar 2 años adelante de los que esperen."
     }
   ],
-  "pro_tip": "Antes de pegar algo sensible en una IA, hazte una sola pregunta: ¿esto lo mandarías por correo a alguien fuera de la empresa? Si la respuesta es no, entonces va únicamente en la cuenta corporativa.",
+  "pro_tip": "Recuerda la frase que ocupan los americanos: «Nobody cares about AI». A nadie le importa si ocupaste o no ocupaste inteligencia artificial — al final del día, lo único que le importa a tu jefe, a tu jefa, a tu socio o socia es si hiciste o no hiciste la pega. Y para hacer la pega no existe hoy herramienta más eficiente que la inteligencia artificial, bien utilizada, de manera responsable y entendiendo sus limitaciones.",
   "desafio": null,
-  "portada": "01-confidencialidad.webp",
+  "portada": "portada.webp",
   "assets": [
+    "portada.webp",
     "01-confidencialidad.webp",
-    "02-mundo-que-viene.webp",
-    "03-mundo-que-viene-2.webp"
+    "02-regulaciones.webp",
+    "03-deepfake-ferrari.webp",
+    "04-estamos-aca.webp"
   ],
   "assets_github": [
+    "https://reyesia.com/bloques/ia-mundo-real/portada.webp",
     "https://reyesia.com/bloques/ia-mundo-real/01-confidencialidad.webp",
-    "https://reyesia.com/bloques/ia-mundo-real/02-mundo-que-viene.webp",
-    "https://reyesia.com/bloques/ia-mundo-real/03-mundo-que-viene-2.webp"
+    "https://reyesia.com/bloques/ia-mundo-real/02-regulaciones.webp",
+    "https://reyesia.com/bloques/ia-mundo-real/03-deepfake-ferrari.webp",
+    "https://reyesia.com/bloques/ia-mundo-real/04-estamos-aca.webp"
   ],
   "sources": [
     {

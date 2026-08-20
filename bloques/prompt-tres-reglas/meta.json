@@ -13,11 +13,12 @@
   ],
   "pasos": [
     {
-      "texto": "Hablar con la IA es como darle instrucciones a un junior superdotado: sabe muchísimo, aprende rápido, nunca se cansa — pero necesita que tú le digas exactamente qué hacer. Tres reglas resumen todo."
+      "texto": "Hablar con la IA es como darle instrucciones a un junior superdotado: sabe muchísimo, aprende rápido, nunca se cansa — pero necesita que tú le digas exactamente qué hacer. Y acá está lo que casi nadie dimensiona: un buen prompt te entrega un resultado 50 a 70 veces mejor que un mal prompt. La diferencia de calidad entre uno y otro es muchísimo más grande de lo que la gente cree.",
+      "img": "01-iceberg-prompt.webp"
     },
     {
       "texto": "REGLA 1 — DAR SUFICIENTE CONTEXTO. El contexto lo es todo. El prompt «una niña y un perro» genera resultados genéricos y sin alma. En cambio «una niña rubia con ojos azules de unos 7 años haciéndose una selfie con su perro salchicha color café claro, ambos sonríen entusiasmados, de fondo una casa mediterránea con maceteros y el mar a mediodía» entrega exactamente lo que querías.",
-      "img": "01-contexto.webp"
+      "img": "02-contexto.webp"
     },
     {
       "texto": "«Yo le he dado a ChatGPT instrucciones de más de 10 páginas» — Felipe Reyes, entrevista en Las Últimas Noticias. Quedarse corto en contexto es el error número uno."
@@ -25,7 +26,7 @@
     {
       "titulo": "Regla 2 — Dar cierta estructura",
       "texto": "Se le puede hablar mucho a la IA, pero ideal con cierto orden. El framework de OpenAI es el más recomendado y tiene cinco piezas.",
-      "img": "02-estructura.webp"
+      "img": "03-estructura.webp"
     },
     {
       "texto": "TAREA (obligatoria): qué tiene que hacer. CONTEXTO (obligatorio): el trasfondo del trabajo, por qué lo estás pidiendo y para quién."
@@ -36,11 +37,11 @@
     {
       "titulo": "Regla 3 — Insistir, iterar, pimponear",
       "texto": "Muchas personas creen que la IA es un solo punto de interacción: tiran una pregunta, leen la respuesta, y listo. Eso es ocuparla mal.",
-      "img": "03-iterar.webp"
+      "img": "04-iterar.webp"
     },
     {
       "texto": "El verdadero valor está en la conversación: pedir cambios, agregar archivos, refinar el output, contradecir, pedir versiones alternativas. Nunca te quedes con el primer resultado.",
-      "img": "04-pimponeo.webp"
+      "img": "05-pimponeo.webp"
     },
     {
       "texto": "Regla mental: si te quedaste con la primera respuesta de la IA, seguramente la estás ocupando mal. Itera al menos 2 o 3 veces siempre."
@@ -48,18 +49,22 @@
   ],
   "pro_tip": "Si te da lata escribir el contexto cada vez, escríbelo bien una sola vez y guárdalo. Ese mismo texto es el que después alimenta la memoria, los cuadernos y los agentes que vas a armar en las próximas sesiones.",
   "desafio": null,
-  "portada": "01-contexto.webp",
+  "portada": "portada.webp",
   "assets": [
-    "01-contexto.webp",
-    "02-estructura.webp",
-    "03-iterar.webp",
-    "04-pimponeo.webp"
+    "portada.webp",
+    "01-iceberg-prompt.webp",
+    "02-contexto.webp",
+    "03-estructura.webp",
+    "04-iterar.webp",
+    "05-pimponeo.webp"
   ],
   "assets_github": [
-    "https://reyesia.com/bloques/prompt-tres-reglas/01-contexto.webp",
-    "https://reyesia.com/bloques/prompt-tres-reglas/02-estructura.webp",
-    "https://reyesia.com/bloques/prompt-tres-reglas/03-iterar.webp",
-    "https://reyesia.com/bloques/prompt-tres-reglas/04-pimponeo.webp"
+    "https://reyesia.com/bloques/prompt-tres-reglas/portada.webp",
+    "https://reyesia.com/bloques/prompt-tres-reglas/01-iceberg-prompt.webp",
+    "https://reyesia.com/bloques/prompt-tres-reglas/02-contexto.webp",
+    "https://reyesia.com/bloques/prompt-tres-reglas/03-estructura.webp",
+    "https://reyesia.com/bloques/prompt-tres-reglas/04-iterar.webp",
+    "https://reyesia.com/bloques/prompt-tres-reglas/05-pimponeo.webp"
   ],
   "sources": [
     {

@@ -12,40 +12,55 @@ Estructura: `index.html` (hub) · `taller.html` (sesión) · `portal.js` (datos:
 
 | Sesión | Título | Conceptos | Estado |
 |---|---|---|---|
-| 1 | Iniciación al uso de IA | 5 | en revisión con Felipe |
+| 1 | Iniciación al uso de IA | 5 | revisada y aprobada |
 | 2 | Copilot en tu día a día | 8 | escrita, faltan capturas |
 | 3 | Copilot dentro de M365 | 7 | lista (bloques ya existían) |
 | 4 | Agentes y cierre del programa | 6 | escrita, falta revisar artefactos |
 
-## Sesión 1 — revisión bloque por bloque
+## Sesión 1 — REVISADA Y APROBADA POR FELIPE
 
-- [x] **1. `ia-panorama`** — Introducción a la IA e historia. LISTO Y APROBADO.
-- [x] **2. `ia-tres-verdades`** — Las 3 grandes verdades. LISTO Y APROBADO.
-- [ ] **3. `prompt-tres-reglas`** — Las 3 reglas de oro. ← RETOMAR ACÁ
-- [ ] **4. `ia-cuatro-esferas`** — Las 4 grandes esferas.
-- [ ] **5. `ia-mundo-real`** — La parte final (confidencialidad, riesgos, regulaciones).
+Los cinco bloques quedaron cerrados con él, con sus textos dictados y sus
+imágenes puestas una por una:
 
-Formato acordado para la S1: **un bloque = un solo scroll**, sin cortes de
-pantalla. Los subtítulos internos van en el campo `titulo` de un paso, que el
-renderer pinta como sección dentro del scroll (`.paso-sec`).
+| | Bloque | Puntos | Imágenes |
+|---|---|---|---|
+| 1 | `ia-panorama` · Introducción a la IA e historia | 13 | 8 |
+| 2 | `ia-tres-verdades` · Las 3 grandes verdades | 6 | 5 |
+| 3 | `prompt-tres-reglas` · Las 3 reglas de oro del prompt | 9 | 6 |
+| 4 | `ia-cuatro-esferas` · Las 4 grandes esferas | 9 | 5 |
+| 5 | `ia-mundo-real` · Consideraciones finales | 12 | 5 |
+
+Formato: **un bloque = un solo scroll**, sin cortes de pantalla. Los subtítulos
+internos van en el campo `titulo` de un paso, que el renderer pinta como sección
+dentro del scroll (`.paso-sec`).
 
 ## Pendientes conocidos
 
-1. **Quiz de la S01**: la pregunta sobre alucinaciones quedó huérfana — se borró
-   la sección VERIFICAR del bloque 2 y ese contenido ya no se enseña en la
-   sesión. Hay que cambiar la pregunta o reponer el contenido en el bloque 5.
-   El texto borrado: las IAs alucinan e inventan datos con seguridad · verifica
-   con fuentes confiables · las plataformas lo advierten al final del chat · tu
-   pensamiento crítico + la IA.
-2. **Faltan capturas** en 6 bloques de la S2 y S4: `activacion-copilot`,
+1. **Faltan capturas** en 6 bloques de la S2 y S4: `activacion-copilot`,
    `copilot-tour`, `memoria-copilot`, `dictado-copilot`,
    `voz-conversacional-movil` y `artefactos-copilot`. Hoy muestran la tarjeta
    con emoji.
-3. **Revisar `artefactos-copilot`**: es el único bloque escrito por inferencia.
+2. **Revisar `artefactos-copilot`**: es el único bloque escrito por inferencia.
    Está redactado sobre las Páginas de Copilot, el análogo de los artefactos de
    Claude. Falta que Felipe confirme si así lo enseña.
-4. **Deploy**: cuando esté aprobado, mergear a `main` y desplegar. El portal
-   quedaría en `reyesia.com/programa-copilot`.
+3. **Las sesiones 2, 3 y 4 no han pasado por revisión de contenido con Felipe.**
+   La S1 sí, bloque por bloque.
+4. **La S3 no tiene ningún ejercicio hands-on** (la S1 tiene 1, la S2 dos, la S4 uno).
+5. **Detalles menores de la S1**: la Regla 1 del bloque 3 no tiene subtítulo de
+   sección como sí lo tienen la 2 y la 3; y la portada del bloque 5 es la única
+   oscura de las cinco.
+
+## Cómo revisarlo en local
+
+    python3 programa-copilot/servidor-local.py
+
+y abrir `http://localhost:8902/programa-copilot/index.html`.
+
+Importante: **no usar `python3 -m http.server`**. No manda cabeceras de caché y
+Chrome se guarda el HTML y el JS por su cuenta, lo que hace parecer que los
+cambios no salen. El `servidor-local.py` manda `Cache-Control: no-store`.
+Además el `portal.js` se carga con un sello de versión (`?v=AAAAMMDDHHMM`) que
+hay que actualizar en los dos HTML cuando se edita el JS.
 
 ## Decisiones tomadas
 
