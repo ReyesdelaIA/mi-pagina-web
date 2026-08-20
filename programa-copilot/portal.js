@@ -42,6 +42,7 @@ const TALLERES = [
     dur: "2 hrs · Presencial · Hands-On",
     resumen: "Dejar Copilot andando y sacarle partido: activación, tour por la herramienta, memoria, voz, imágenes y cuadernos.",
     conceptos: ["intro-copilot", "activacion-copilot", "copilot-tour", "memoria-copilot", "dictado-copilot", "voz-conversacional-movil", "crear-con-copilot", "cuadernos-copilot"],
+    proximamente: true,
     desafio: {
       titulo: "Copilot como tu asistente personal",
       intro: "Deja Copilot configurado a tu medida y úsalo una vez de punta a punta.",
@@ -69,6 +70,7 @@ const TALLERES = [
     dur: "2 hrs · Presencial · Hands-On",
     resumen: "Copilot metido en las herramientas donde ya trabajas: Word, PowerPoint, Excel, Outlook, Teams y SharePoint.",
     conceptos: ["copilot-m365-hub", "copilot-word", "copilot-powerpoint", "copilot-excel", "copilot-outlook", "copilot-teams", "copilot-sharepoint"],
+    proximamente: true,
     desafio: {
       titulo: "El flujo Pro: de datos crudos a presentación lista",
       intro: "Sin salir de M365, haz el recorrido completo con datos reales de tu área.",
@@ -97,6 +99,7 @@ const TALLERES = [
     dur: "2 hrs · Presencial · Hands-On",
     resumen: "El salto de conversar a delegar: agentes propios, entregables vivos y el mapa completo de las cuatro sesiones.",
     conceptos: ["intro-agentes-copilot", "agentes-basicos", "html-con-copilot", "artefactos-copilot", "repaso-programa", "cierre-programa"],
+    proximamente: true,
     desafio: {
       titulo: "Tu primer agente propio",
       intro: "Piensa en una tarea o dolor recurrente de tu día a día y construye un agente para resolverlo.",
