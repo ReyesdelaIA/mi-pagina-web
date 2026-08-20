@@ -1,0 +1,24 @@
+{
+  "id": "dictado-copilot",
+  "nombre": "Herramienta de dictado",
+  "habilidad": "Dictado por voz",
+  "emoji": "🎙️",
+  "descripcion": "Hablarle a Copilot en vez de escribirle: prompts más largos, más naturales y en una fracción del tiempo.",
+  "categoria": "copilot",
+  "tags": ["copilot", "dictado", "voz", "productividad"],
+  "pasos": [
+    { "titulo": "Dónde está el dictado", "texto": "El dictado está en el ícono de micrófono, dentro del campo de escritura del chat. Lo tienes igual en el computador y en el celular. La primera vez el navegador te va a pedir permiso para usar el micrófono: acepta." },
+    { "texto": "Habla como le explicarías a una persona: con contexto, sin miedo a extenderte. Dictar rinde mucho más que escribir porque no editas mientras hablas — y el contexto largo es justamente lo que mejora la respuesta." },
+    { "texto": "Modula bien para que agarre tus palabras, sobre todo con nombres propios y términos técnicos. Cuando termines, revisa el texto antes de enviar: siempre se le escapa alguna palabra." },
+
+    { "corte": true, "titulo": "Dictado fuera del chat", "texto": "En Word tienes el botón Dictar en la cinta (ícono de micrófono): hablas directamente dentro del documento. Sirve para tirar un borrador largo en minutos y después pedirle a Copilot que lo ordene." },
+    { "texto": "En Google Docs el equivalente está en Herramientas → Escribir por voz (atajo ⌘+Mayús+S en Mac)." },
+    { "texto": "El flujo que más rinde: dictas el borrador crudo, sin preocuparte de la forma, y después le pides a Copilot que lo estructure, lo corrija y le dé el tono. Escribir bien a la primera es mucho más lento que dictar mal y corregir." },
+    { "texto": "Y combínalo con el celular: dictar una idea en el momento en que se te ocurre vale mucho más que anotarla para después." }
+  ],
+  "pro_tip": "Si tus prompts son cortos, es casi seguro que es por flojera de tipear. Dicta durante un minuto seguido explicando el contexto completo y compara el resultado con el prompt de una línea que hubieras escrito: la diferencia es evidente.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [{ "file": ".backups/bloques-newell/dictado-voz.copilot.json", "title": "Herramienta de Dictado (versión Copilot)", "imgs": 0, "variant": 0 }]
+}

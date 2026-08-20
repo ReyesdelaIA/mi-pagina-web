@@ -1,0 +1,66 @@
+{
+  "id": "ia-tres-verdades",
+  "nombre": "Las 3 grandes verdades respecto al uso de la IA",
+  "habilidad": "Las 3 verdades",
+  "emoji": "🤝",
+  "descripcion": "Complemento y no reemplazo, ahorro real de tiempo, y para cualquier persona: las tres verdades que sostienen todo lo demás.",
+  "categoria": "fundamentos",
+  "tags": [
+    "fundamentos",
+    "uso-responsable",
+    "complemento",
+    "productividad"
+  ],
+  "pasos": [
+    {
+      "texto": "A continuación les presento las tres grandes verdades para un uso responsable de la inteligencia artificial, según mi opinión."
+    },
+    {
+      "texto": "La inteligencia artificial es un complemento laboral impresionantemente bueno para las personas, pero es un pésimo reemplazo. A quienes la ocupan como reemplazo, con lógica de copiar y pegar, les pasan puras cosas malas: no aprenden y no evolucionan con estas herramientas.",
+      "titulo": "Verdad 1 · Complemento, no reemplazo",
+      "img": "01-complemento-no-reemplazo.webp"
+    },
+    {
+      "texto": "Con IA puedes demorar un quinto del tiempo que te tomaba hacer diversas tareas monótonas y cotidianas.",
+      "titulo": "Verdad 2 · Ahorro de tiempo",
+      "img": "02-ahorro-de-tiempo.webp"
+    },
+    {
+      "texto": "A modo de ejemplo de lo impresionantemente buena que es la inteligencia artificial para las tareas monótonas, cotidianas y repetitivas, les presento este estudio de la Universidad de Stanford: midieron cuánto se demoraban las personas en tareas del día a día con inteligencia artificial versus sin inteligencia artificial.",
+      "img": "03-estudio-stanford.webp"
+    },
+    {
+      "texto": "Desde una abuela hasta un niño pueden ocupar IA generativa. Ya no es solo para programadores — se le habla en español, como a una persona.",
+      "titulo": "Verdad 3 · Cualquiera la puede usar",
+      "img": "04-cualquiera-puede.webp"
+    },
+    {
+      "texto": "Y es verdad que acá hay un 80-20: hay un 20% de herramientas que son un poco más técnicas y requieren algo más de conocimiento tecnológico. Pero el 80% son fáciles, intuitivas, de interfaz amigable — y la mayoría además viene con tokens gratis para que partas probándolas sin tener que pagar."
+    }
+  ],
+  "pro_tip": "La prueba para saber si la estás usando como complemento o como reemplazo: si no puedes explicar con tus palabras lo que entregaste, la ocupaste como reemplazo. Ahí es donde empiezan los problemas.",
+  "desafio": null,
+  "portada": "portada.webp",
+  "assets": [
+    "portada.webp",
+    "01-complemento-no-reemplazo.webp",
+    "02-ahorro-de-tiempo.webp",
+    "03-estudio-stanford.webp",
+    "04-cualquiera-puede.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/ia-tres-verdades/portada.webp",
+    "https://reyesia.com/bloques/ia-tres-verdades/01-complemento-no-reemplazo.webp",
+    "https://reyesia.com/bloques/ia-tres-verdades/02-ahorro-de-tiempo.webp",
+    "https://reyesia.com/bloques/ia-tres-verdades/03-estudio-stanford.webp",
+    "https://reyesia.com/bloques/ia-tres-verdades/04-cualquiera-puede.webp"
+  ],
+  "sources": [
+    {
+      "file": "taller01-general/index.html",
+      "title": "Cards 3 y 6 del Taller 1 · Iniciación",
+      "imgs": 2,
+      "variant": 0
+    }
+  ]
+}

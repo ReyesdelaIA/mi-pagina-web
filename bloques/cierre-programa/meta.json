@@ -1,0 +1,37 @@
+{
+  "id": "cierre-programa",
+  "nombre": "Cierre del programa",
+  "habilidad": "Plan de adopción",
+  "emoji": "🚀",
+  "descripcion": "Qué hacer el lunes: los hábitos que sostienen lo aprendido y el plan para que esto no se quede en el taller.",
+  "categoria": "cierre",
+  "tags": ["cierre", "adopcion", "habitos"],
+  "pasos": [
+    { "titulo": "El problema real no es aprender", "texto": "Lo que hace que un programa como este se pierda no es la dificultad: es el olvido. A las dos semanas, quien no incorporó un hábito vuelve exactamente a como trabajaba antes." },
+    { "texto": "La curva de aprendizaje real es de meses, no de horas. Los que parten ahora van a estar dos años adelante de los que esperen a que «sea más fácil»." },
+    { "texto": "Por eso el cierre no es un resumen: es un compromiso concreto sobre qué vas a hacer distinto la próxima semana." },
+
+    { "corte": true, "titulo": "Los cinco hábitos que sostienen todo", "texto": "1. Abrir Copilot antes de empezar la tarea, no después de haber peleado media hora con ella. La barrera más grande no es aprender a usarlo: es acordarse de que existe cuando estás apurado." },
+    { "texto": "2. Un chat por tema, siempre en modo Work. Dos hábitos que no cuestan nada y explican la mitad de la diferencia entre quien dice «la IA no me sirve» y quien la usa todos los días." },
+    { "texto": "3. Dictar en vez de escribir cuando el contexto es largo. El prompt corto casi nunca es por falta de tiempo: es por flojera de tipear." },
+    { "texto": "4. Iterar mínimo dos veces. Si te quedaste con la primera respuesta, la estás ocupando mal." },
+    { "texto": "5. Verificar lo que importa. Cifras, nombres, fechas y normas se comprueban antes de mandarlas. Tu criterio profesional sigue siendo tuyo." },
+
+    { "corte": true, "titulo": "Tu plan para las próximas semanas", "texto": "Semana 1 — Elige UNA tarea recurrente tuya y hazla con Copilot todos los días de esa semana. Una sola. La tentación de cambiar todo a la vez es la razón número uno por la que no cambia nada." },
+    { "texto": "Semana 2 — Arma el cuaderno del proyecto en el que más trabajas, con sus documentos clave. Deja de buscar archivos y empieza a preguntarle al cuaderno." },
+    { "texto": "Semana 3 — Construye tu primer agente propio, con la tarea de la semana 1. Si ya la hiciste cinco veces, sabes exactamente qué instrucciones darle." },
+    { "texto": "Semana 4 — Muéstrale a alguien de tu equipo lo que armaste. Enseñar es lo que fija el aprendizaje, y es también como esto deja de ser tuyo y pasa a ser del área." },
+
+    { "corte": true, "titulo": "Dónde seguir", "texto": "Este portal queda disponible: puedes volver a cualquier sesión, repasar un concepto suelto o rehacer un desafío cuando lo necesites." },
+    { "texto": "El consejo final es el mismo del primer día: empieza HOY. No esperes a sentir que ya la dominas, no esperes a que la empresa la implemente, no esperes a que sea más fácil." },
+    { "texto": "Gracias por estas cuatro sesiones. — Felipe Reyes · Reyes IA" }
+  ],
+  "pro_tip": "Agenda ahora mismo, en tu calendario, 20 minutos a la semana llamados «probar algo con Copilot». Lo que no está en el calendario no ocurre, y esta es la diferencia entre haber hecho un taller y haber cambiado la forma en que trabajas.",
+  "desafio": {
+    "enunciado": "Escribe tu compromiso concreto: qué tarea vas a hacer con Copilot todos los días de la próxima semana, qué cuaderno vas a armar y qué agente vas a construir. Anótalo y ponle fecha en el calendario. Después compártelo con alguien de tu equipo — un compromiso dicho en voz alta se cumple mucho más que uno pensado.",
+    "prompt": "Ayúdame a armar mi plan de adopción de IA para las próximas 4 semanas. Mi cargo es [CARGO], trabajo en [ÁREA] y mis tareas más repetitivas son [TAREAS]. Propóneme: 1) la tarea que debería automatizar primero y por qué, 2) qué documentos debería agrupar en un cuaderno, 3) qué agente me conviene construir, con un borrador de sus instrucciones."
+  },
+  "assets": [],
+  "assets_github": [],
+  "sources": [{ "file": "programa-copilot · sesión 4", "title": "Cierre del programa", "imgs": 0, "variant": 0 }]
+}

@@ -1,0 +1,83 @@
+{
+  "id": "ia-mundo-real",
+  "nombre": "Lo que tienes que cuidar",
+  "habilidad": "Criterio y riesgos",
+  "emoji": "🛡️",
+  "descripcion": "Confidencialidad, regulaciones, autoría, deepfakes — y cómo se viene el mundo de la mano de la IA.",
+  "categoria": "fundamentos",
+  "tags": [
+    "confidencialidad",
+    "deepfakes",
+    "autoria",
+    "regulacion",
+    "futuro"
+  ],
+  "pasos": [
+    {
+      "texto": "La buena noticia: las versiones de pago y especialmente las cuentas corporativas son confidenciales. Puedes subir información sensible y trabajar con tranquilidad en Copilot Enterprise, Claude Enterprise, ChatGPT Enterprise, Perplexity Enterprise y Gemini Workspace — todas tienen políticas claras de no usar tu información para entrenar sus modelos.",
+      "img": "01-confidencialidad.webp"
+    },
+    {
+      "texto": "Las cuentas gratuitas tienen políticas más variables: si tienes dudas, revisa los términos o usa la versión de pago. Si tu empresa tiene una cuenta corporativa oficial, úsala siempre para temas sensibles — es la opción más protegida."
+    },
+    {
+      "texto": "En cualquier caso, el criterio profesional sigue siendo tuyo: la IA es una herramienta, no un reemplazo de tu juicio."
+    },
+    {
+      "titulo": "Regulaciones y autoría",
+      "texto": "La tecnología avanza más rápido que las leyes, y con la IA pasa de forma extrema. Ni los propios fundadores logran comprender del todo lo que sus modelos son capaces de hacer."
+    },
+    {
+      "texto": "Caso Saint George (Chile, 2025): la Corte Suprema revocó la expulsión de estudiantes que habían generado fotos íntimas con IA. La ley simplemente no tenía cómo encuadrar el caso."
+    },
+    {
+      "texto": "¿De quién es lo que crea la IA? Es una zona gris. Writers Guild of America (2023): huelga histórica de guionistas en Hollywood pidiendo regulación del uso de IA. Bad Bunny contra una canción hecha con su voz clonada, producida por un chileno y viral en TikTok. Scarlett Johansson contra OpenAI: la empresa tuvo que pausar la voz «Sky» de ChatGPT por su parecido con la actriz."
+    },
+    {
+      "titulo": "Deepfakes — el riesgo más concreto",
+      "texto": "Caso Ferrari («Lo siento, Benedetto»): casi estafan al CEO de Ferrari con un deepfake de voz de su jefe. Se salvaron porque un dirigente le hizo una pregunta personal que solo el verdadero CEO sabría responder."
+    },
+    {
+      "texto": "Una mujer francesa entregó US$850.000 a estafadores que se hacían pasar por Brad Pitt vía mensajes y voz clonada con IA. Una mujer argentina perdió US$15.000 con un falso George Clooney usando deepfake."
+    },
+    {
+      "texto": "Regla de oro anti-deepfake: si recibes un audio o video sospechoso de un familiar, jefe o conocido pidiéndote dinero o información sensible, haz una pregunta que solo esa persona pueda responder — un dato familiar, una broma interna, algo que no esté en redes. Es la forma más simple y efectiva de detectarlo."
+    },
+    {
+      "titulo": "Cómo se viene el mundo de la mano de la IA",
+      "texto": "Dario Amodei (Anthropic) dice que la IA podría comprimir 100 años de progreso en 5 a 10 años. Y ya hay casos concretos en uso.",
+      "img": "02-mundo-que-viene.webp"
+    },
+    {
+      "texto": "Un lápiz con IA que detecta Parkinson en etapas tempranas con más del 96% de precisión. El Hospital Chelsea & Westminster (Londres, NHS): IA aprobada para diagnosticar cáncer de piel sin necesidad de médico, con 99% de precisión en casos benignos.",
+      "img": "03-mundo-que-viene-2.webp"
+    },
+    {
+      "texto": "Y los que se resistan… Las empresas que se resistieron a tecnologías anteriores ya no existen: Compaq, BlackBerry, Blockbuster, Kodak, Nokia. En 1986 hubo huelgas de profesores contra las calculadoras en los colegios. En 2024, huelgas de guionistas contra la IA. Los ciclos se repiten — pero la tecnología siempre gana, porque entrega más valor."
+    },
+    {
+      "texto": "El consejo final: empieza HOY mismo a usar IA. No esperes a sentir que «ya la dominas», no esperes a que tu empresa la implemente, no esperes a que sea más fácil. La curva de aprendizaje es de meses, y los que partan ahora van a estar 2 años adelante de los que esperen."
+    }
+  ],
+  "pro_tip": "Antes de pegar algo sensible en una IA, hazte una sola pregunta: ¿esto lo mandarías por correo a alguien fuera de la empresa? Si la respuesta es no, entonces va únicamente en la cuenta corporativa.",
+  "desafio": null,
+  "portada": "01-confidencialidad.webp",
+  "assets": [
+    "01-confidencialidad.webp",
+    "02-mundo-que-viene.webp",
+    "03-mundo-que-viene-2.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/ia-mundo-real/01-confidencialidad.webp",
+    "https://reyesia.com/bloques/ia-mundo-real/02-mundo-que-viene.webp",
+    "https://reyesia.com/bloques/ia-mundo-real/03-mundo-que-viene-2.webp"
+  ],
+  "sources": [
+    {
+      "file": "taller01-general/index.html",
+      "title": "Card 8 del Taller 1 · Iniciación",
+      "imgs": 3,
+      "variant": 0
+    }
+  ]
+}

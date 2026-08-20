@@ -1,6 +1,7 @@
 {
   "id": "copilot-word",
   "nombre": "Copilot en Word",
+  "habilidad": "Word",
   "emoji": "📝",
   "descripcion": "Redacta, resume y mejora documentos con IA dentro de Word",
   "categoria": "copilot",

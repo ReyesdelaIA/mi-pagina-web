@@ -1,6 +1,7 @@
 {
   "id": "copilot-teams",
   "nombre": "Copilot en Teams",
+  "habilidad": "Teams",
   "emoji": "💬",
   "descripcion": "Resume reuniones, extrae tareas y participa en conversaciones con IA",
   "categoria": "copilot",

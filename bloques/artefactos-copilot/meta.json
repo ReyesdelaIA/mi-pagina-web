@@ -1,0 +1,25 @@
+{
+  "id": "artefactos-copilot",
+  "nombre": "Artefactos con Copilot",
+  "habilidad": "Artefactos",
+  "emoji": "🧩",
+  "descripcion": "Entregables vivos en vez de respuestas de chat: Páginas de Copilot, documentos que se editan a dos manos y piezas que se comparten con un link.",
+  "categoria": "copilot",
+  "tags": ["copilot", "artefactos", "paginas", "colaboracion"],
+  "pasos": [
+    { "titulo": "Qué es un artefacto", "texto": "Un artefacto es lo contrario de una respuesta de chat: en vez de un texto que se pierde al hacer scroll, es un entregable que queda — visible, editable, reutilizable y compartible." },
+    { "texto": "En Copilot esto vive en las Páginas: un lienzo que se abre al lado del chat, donde la respuesta deja de ser un mensaje y pasa a ser un documento con el que puedes seguir trabajando." },
+    { "texto": "Para crear una: cuando Copilot te entrega algo que vale la pena conservar —un plan, un análisis, una minuta— lo mandas a una Página. Desde ahí lo editas tú a mano, o le sigues pidiendo cambios a Copilot sobre el mismo documento." },
+    { "texto": "La diferencia con copiar y pegar en Word: la Página sigue conectada a Copilot. Puedes seguir pidiéndole que agregue una sección o reordene, sin volver a explicarle el contexto completo." },
+
+    { "corte": true, "titulo": "Compartir y trabajar en equipo", "texto": "Las Páginas se comparten como cualquier archivo de Microsoft 365: con un link y con permisos. Quien lo abre puede editar, comentar y seguir pidiéndole cosas a Copilot dentro del mismo documento." },
+    { "texto": "Ese es el punto de todo esto: el artefacto convierte una conversación individual con la IA en un entregable de equipo. Deja de ser «lo que le pregunté a Copilot» y pasa a ser un documento del proyecto." },
+    { "texto": "Casos que rinden: la minuta de una reunión que después todos completan, un plan de trabajo que se va ajustando, un borrador de propuesta que pasa por tres personas antes de salir." },
+    { "texto": "Y lo que sale de una Página se lleva a donde vive de verdad: exportar a Word, pasar a PowerPoint, o guardar en SharePoint para que quede en el repositorio del equipo." }
+  ],
+  "pro_tip": "La pregunta que decide si algo merece ser artefacto: ¿esto lo va a leer alguien más, o lo va a necesitar tu yo del mes que viene? Si la respuesta es sí a cualquiera de las dos, no lo dejes muriendo en un chat.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [{ "file": "programa-copilot · sesión 4", "title": "Artefactos / Páginas de Copilot", "imgs": 0, "variant": 0 }]
+}

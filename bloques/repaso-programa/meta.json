@@ -1,0 +1,36 @@
+{
+  "id": "repaso-programa",
+  "nombre": "Repaso final de las 4 sesiones",
+  "habilidad": "Mapa del programa",
+  "emoji": "🗺️",
+  "descripcion": "Juntar las piezas: qué vimos en cada sesión, qué herramienta para qué, y el mapa completo de lo recorrido.",
+  "categoria": "cierre",
+  "tags": ["repaso", "cierre", "mapa"],
+  "pasos": [
+    { "titulo": "Sesión 1 — Los fundamentos", "texto": "Por qué esto es serio y por qué los próximos 18 a 24 meses son decisivos. La IA no reemplaza personas: las personas que la ocupan reemplazan a las que no." },
+    { "texto": "Las 3 verdades: complemento y no reemplazo, ahorro real de tiempo, y cualquiera la puede usar. Más la regla que sostiene todo: verificar, porque la IA alucina con total seguridad." },
+    { "texto": "Las 3 reglas de oro del prompt: dar suficiente contexto, dar cierta estructura (tarea, contexto, ejemplos, rol, formato) e iterar 2 o 3 veces siempre. Y lo que hay que cuidar: confidencialidad, autoría y deepfakes." },
+
+    { "corte": true, "titulo": "Sesión 2 — Copilot en tu día a día", "texto": "El interruptor más importante: el modo Work, que conecta Copilot con tus archivos, tus correos y tus reuniones. Sin eso, es un chat cualquiera." },
+    { "texto": "La memoria encendida y bien alimentada, para no volver a explicar quién eres en cada conversación. El dictado y la voz conversacional, para que el contexto largo deje de darte lata." },
+    { "texto": "Crear, para el mundo visual. Y los Cuadernos, para conversar solo con las fuentes de un tema, con citas y sin ruido." },
+
+    { "corte": true, "titulo": "Sesión 3 — Copilot dentro de M365", "texto": "El mismo Copilot viviendo dentro de Word, PowerPoint, Excel, Outlook, Teams y SharePoint. La ventaja que ningún chat externo tiene: conoce tu contexto corporativo." },
+    { "texto": "Lo que hay que recordar de cada uno: en Word se puede partir de cero o mejorar lo existente; en Excel la planilla tiene que estar ordenada; en Teams hay que activar la transcripción para tener minuta; en SharePoint no hay límite de volumen." },
+    { "texto": "Y el flujo Pro que amarra todo: Excel analizado con el modelo Claude, gráficos, presentación ejecutiva armada en PowerPoint y el correo que la acompaña escrito en Outlook. De datos crudos a entregable sin salir de M365." },
+
+    { "corte": true, "titulo": "Sesión 4 — De conversar a delegar", "texto": "El salto final: los agentes. Un procedimiento que configuras una vez y que se repite solo, en vez de un prompt largo que reescribes cada semana." },
+    { "texto": "Los dos que vienen de fábrica —Investigador y Analista— y los que construyes tú, con instrucciones y conocimiento vinculante desde SharePoint, Teams u Outlook." },
+    { "texto": "Y los entregables: HTMLs que se exploran en vez de láminas que se miran, y artefactos que dejan de ser una respuesta de chat para convertirse en documentos del equipo." },
+
+    { "corte": true, "titulo": "El mapa: qué usar para qué", "texto": "Pregunta rápida o redacción corta → el chat de Copilot en modo Work. Documento largo o formal → Copilot dentro de Word." },
+    { "texto": "Números, tendencias y gráficos → Excel con Copilot, o el Agente Analista si son varios archivos. Investigación de mercado o de un cliente → el Agente Investigador." },
+    { "texto": "Varios documentos de un mismo tema que hay que consultar seguido → un Cuaderno. Algo que haces todas las semanas de la misma forma → un agente propio." },
+    { "texto": "Algo que otras personas van a leer y editar → un artefacto o una Página. Datos que hay que explorar y no solo mirar → un HTML." }
+  ],
+  "pro_tip": "Si te llevas una sola cosa del programa, que sea esta: el resultado depende mucho más del contexto que le das que de la herramienta que elijas. La misma pregunta, con tres líneas de contexto adicional, cambia por completo lo que recibes de vuelta.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [{ "file": "programa-copilot · sesión 4", "title": "Repaso final del programa", "imgs": 0, "variant": 0 }]
+}

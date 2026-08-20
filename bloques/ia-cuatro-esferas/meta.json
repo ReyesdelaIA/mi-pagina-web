@@ -1,0 +1,30 @@
+{
+  "id": "ia-cuatro-esferas",
+  "nombre": "Las 4 grandes esferas de la IA generativa",
+  "habilidad": "Las 4 esferas",
+  "emoji": "🌐",
+  "descripcion": "Las cuatro cosas que toda IA puede hacer por ti hoy: redactar, buscar, analizar y crear.",
+  "categoria": "fundamentos",
+  "tags": ["fundamentos", "esferas", "casos-de-uso"],
+  "pasos": [
+    { "texto": "Todo lo que hoy puedes pedirle a una IA cae en una de cuatro esferas: Redacción, Internet, Análisis y Multimedia. Tener este mapa en la cabeza es lo que te hace saber qué pedirle en cada situación.", "img": "01-cuatro-esferas.webp" },
+    { "titulo": "1. Redacción — documentos profesionales", "texto": "Le das contexto del trabajo y la IA redacta: correos, comunicados, propuestas, resúmenes, posts. Ejemplo del taller: «Imagina que soy corredor de propiedades y acabo de cerrar la venta del departamento 21 del siguiente link…» y la IA arma todo lo que necesites." },
+    { "texto": "Es la esfera más madura y donde casi todo el mundo empieza. También es donde más se nota la diferencia entre un prompt de una línea y uno con contexto de verdad." },
+
+    { "titulo": "2. Internet — buscar y comparar", "texto": "No todos los modelos tienen acceso a internet por defecto. Gemini, Perplexity, Copilot y ChatGPT sí buscan en tiempo real." },
+    { "texto": "Útil para datos recientes: precios, noticias, leyes vigentes, información de un proveedor o un competidor. Activa la investigación profunda cuando quieras una búsqueda más seria, con fuentes." },
+    { "texto": "Ojo: es justamente cuando sale a internet cuando más puede alucinar, mezclando fuentes o mezclando fechas. Acá es donde más hay que verificar." },
+
+    { "titulo": "3. Análisis — leer archivos por ti", "texto": "Puedes adjuntar PDFs, Word, Excel e imágenes, incluso varios a la vez. La IA los lee, los compara y te entrega el resumen o el análisis que pediste." },
+    { "texto": "Es la esfera que más horas ahorra en el trabajo de oficina y la que menos gente ocupa: revisar tres informes largos y sacar las diferencias pasa de una tarde a diez minutos." },
+
+    { "titulo": "4. Multimedia — crear contenido visual", "texto": "Generar imágenes, videos, voces y música. Es la esfera con más explosión en los últimos 12 meses: de un Will Smith caricaturesco en 2023 a video indistinguible de lo real en 2026." },
+    { "texto": "Llama mucho la atención, pero en el trabajo de oficina rinde menos horas que redacción y análisis. Úsala cuando el entregable sea visual de verdad, no por novedad." }
+  ],
+  "pro_tip": "Cuando no sepas cómo pedir algo, primero ubica en qué esfera estás. La mayoría de las veces que «la IA no me ayudó» es porque se le pidió una cosa de la esfera de análisis con un prompt de la esfera de redacción.",
+  "desafio": null,
+  "portada": "01-cuatro-esferas.webp",
+  "assets": ["01-cuatro-esferas.webp"],
+  "assets_github": ["https://reyesia.com/bloques/ia-cuatro-esferas/01-cuatro-esferas.webp"],
+  "sources": [{ "file": "taller01-general/index.html", "title": "Card 7 del Taller 1 · Iniciación", "imgs": 1, "variant": 0 }]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "activacion-copilot",
+  "nombre": "Activación de Copilot",
+  "habilidad": "Activación",
+  "emoji": "🔑",
+  "descripcion": "Dejar Copilot andando: por dónde entrar, el modo Work que lo cambia todo, y la misma cuenta en todas partes.",
+  "categoria": "copilot",
+  "tags": ["copilot", "activacion", "acceso", "microsoft"],
+  "pasos": [
+    { "titulo": "Por dónde entrar", "texto": "La dirección oficial es copilot.microsoft.com. Ahí entras con tu cuenta y ya estás dentro: no hay que instalar nada." },
+    { "texto": "Hay tres formas de acceder y conviene usar las tres: la página web desde cualquier navegador, la app de Microsoft 365 en el computador, y la app de Copilot en el celular." },
+    { "texto": "En las tres tienes que entrar con la misma cuenta corporativa. Así quedan sincronizadas y conversan entre ellas: tu historial, tus cuadernos y tus preferencias te siguen a donde vayas." },
+    { "texto": "La ventaja de entrar por el navegador es que puedes tener varias pestañas de Copilot abiertas al mismo tiempo, cada una con una conversación distinta. Un tema por pestaña." },
+
+    { "corte": true, "titulo": "El modo Work: lo más importante", "texto": "Arriba del chat hay un selector con dos modos: Web y Work. Es el interruptor más importante de Copilot y el que casi nadie mira." },
+    { "texto": "En modo Web, Copilot funciona como cualquier chat de IA: sabe de todo lo público, pero no sabe nada de ti ni de tu empresa." },
+    { "texto": "En modo Work, Copilot se conecta con tu cuenta corporativa: tus archivos de OneDrive y SharePoint, tus correos de Outlook, tus reuniones de Teams. Ahí es donde deja de ser un chat y pasa a ser una herramienta de trabajo." },
+    { "texto": "Regla simple: si la pregunta tiene que ver con tu trabajo, con un documento tuyo o con algo de la empresa, va en modo Work. Si no aparece el modo Work, es que tu licencia todavía no está activada — eso lo ve TI." },
+
+    { "corte": true, "titulo": "Confidencialidad y licencias", "texto": "Con la cuenta corporativa, lo que escribes en Copilot no se usa para entrenar modelos. Por eso el modo Work es también el modo seguro para información sensible." },
+    { "texto": "Dos versiones a distinguir: Copilot Chat viene incluido con Microsoft 365 y funciona en la web. Copilot Business (alrededor de USD 18 por usuario al mes) es el que se mete dentro de Word, Excel, PowerPoint, Outlook y Teams." },
+    { "texto": "Si no sabes cuál tienes, mira si aparece el botón de Copilot dentro de Word o Excel: si está, tienes la licencia completa; si solo funciona en el navegador, tienes Copilot Chat." }
+  ],
+  "pro_tip": "Deja Copilot fijado en la barra de tareas y en la pantalla de inicio del celular. La barrera más grande para usarlo no es aprender a usarlo: es acordarse de que existe cuando estás apurado.",
+  "desafio": {
+    "enunciado": "Entra a copilot.microsoft.com con tu cuenta corporativa, verifica que el selector diga Work e instala la app de Copilot en tu celular con la misma cuenta. Después hazle una pregunta sobre un documento tuyo para confirmar que efectivamente accede a tus archivos.",
+    "prompt": "Busca en mis archivos el último documento en el que trabajé sobre [TEMA] y hazme un resumen de una página con los puntos principales."
+  },
+  "assets": [],
+  "assets_github": [],
+  "sources": [{ "file": "programa-copilot · sesión 2", "title": "Activación de Copilot", "imgs": 0, "variant": 0 }]
+}

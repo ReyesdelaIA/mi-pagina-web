@@ -1,0 +1,25 @@
+{
+  "id": "voz-conversacional-movil",
+  "nombre": "Modelo de voz conversacional en la app del celular",
+  "habilidad": "Voz conversacional",
+  "emoji": "🗣️",
+  "descripcion": "Conversar de verdad con la IA: ida y vuelta hablado, sin teclado, mientras manejas o caminas.",
+  "categoria": "copilot",
+  "tags": ["copilot", "voz", "movil", "conversacion"],
+  "pasos": [
+    { "titulo": "No es lo mismo que dictar", "texto": "El dictado convierte tu voz en texto y ahí se acaba. El modo de voz conversacional es otra cosa: es una conversación real, de ida y vuelta, donde la IA te responde hablando." },
+    { "texto": "Se activa desde la app del celular, con el ícono de ondas de sonido al lado del micrófono. En Copilot está bajo el modo de voz; en ChatGPT es el mismo ícono de ondas." },
+    { "texto": "Puedes interrumpirla mientras habla, cambiar de tema a media frase y pedirle que se explique de otra manera. Se siente como hablar por teléfono con alguien que sabe mucho." },
+
+    { "corte": true, "titulo": "Para qué sirve de verdad", "texto": "Pensar en voz alta. Vas manejando o caminando y le cuentas un problema completo: ella pregunta, tú respondes, y llegas a la reunión con la idea ya ordenada." },
+    { "texto": "Preparar una conversación difícil. Pídele que haga de contraparte —el cliente molesto, el jefe escéptico— y ensaya el diálogo antes de tenerlo de verdad." },
+    { "texto": "Estudiar un tema en tiempos muertos: que te explique un concepto y le vas preguntando lo que no entiendes, sin pantalla de por medio." },
+    { "texto": "Practicar otro idioma: conversación libre, con corrección de pronunciación y vocabulario, a la hora que quieras." },
+    { "texto": "Al final de la conversación pídele el resumen por escrito. Así lo hablado no se pierde y te queda el texto en el historial." }
+  ],
+  "pro_tip": "El mejor uso es el trayecto de la casa al trabajo. Veinte minutos de conversación hablada con la IA sobre lo que tienes por delante rinden más que cualquier lista de tareas escrita a las apuradas.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [{ "file": "programa-copilot · sesión 2", "title": "Modelo de voz conversacional", "imgs": 0, "variant": 0 }]
+}

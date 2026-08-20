@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Programa Copilot · 4 Sesiones · Reyes IA</title>
+  <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png" />
+
+  <!-- Vista previa al compartir el link (WhatsApp, LinkedIn, Slack, iMessage).
+       Sin esto, WhatsApp cae al favicon y manda la foto de perfil. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Reyes IA" />
+  <meta property="og:title" content="Programa Copilot · 4 Sesiones" />
+  <meta property="og:description" content="Cuatro sesiones para dominar Microsoft Copilot: de los fundamentos de la IA a tener agentes trabajando por ti. Avanza a tu ritmo: cada paso queda guardado." />
+  <meta property="og:url" content="https://www.reyesia.com/programa-copilot" />
+  <meta property="og:locale" content="es_CL" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Programa Copilot · 4 Sesiones" />
+  <meta name="twitter:description" content="Cuatro sesiones para dominar Microsoft Copilot: de los fundamentos de la IA a tener agentes trabajando por ti." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/programa-copilot/portal.css" />
+  <style>
+    /* ==================================================================
+       Hub del Programa Copilot · interfaz oscura
+       El resto del portal (gate, toast, talleres) sigue en claro: acá se
+       sobrescribe portal.css solo para esta página.
+       ================================================================== */
+
+    body {
+      font-family: 'Space Grotesk', Helvetica, sans-serif;
+      background: #07090C; color: #E9EAEE; min-height: 100vh;
+    }
+    a { color: #8AC4F0; text-decoration: none; }
+    a:hover { color: #B4DCF8; }
+
+    .shell {
+      min-height: 100vh; position: relative; overflow: hidden; padding-bottom: 8px;
+      background:
+        radial-gradient(1100px 620px at 12% -8%, rgba(24,95,165,.20), transparent 60%),
+        radial-gradient(900px 520px at 88% 4%, rgba(56,189,248,.16), transparent 62%),
+        linear-gradient(180deg,#0A0D12 0%, #07090C 45%, #06080B 100%);
+    }
+    /* Grilla decorativa, desvanecida hacia los bordes */
+    .shell::before {
+      content:''; position:absolute; inset:0; pointer-events:none; opacity:.35;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      -webkit-mask-image: radial-gradient(900px 600px at 50% 0%, #000 20%, transparent 78%);
+      mask-image: radial-gradient(900px 600px at 50% 0%, #000 20%, transparent 78%);
+    }
+
+    /* ---------- Header ---------- */
+    .hd {
+      position: relative; display:flex; align-items:center; justify-content:space-between;
+      gap:24px; padding:12px 40px; border-bottom:1px solid rgba(255,255,255,.07);
+      backdrop-filter: blur(12px);
+    }
+    .hd-logo img { height:34px; width:auto; opacity:.95; display:block; }
+    .hd-right { display:flex; align-items:center; gap:10px; }
+    .hd-pill {
+      font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em;
+      color:rgba(233,234,238,.62); border:1px solid rgba(255,255,255,.10);
+      padding:8px 14px; border-radius:999px; transition:color .2s, border-color .2s;
+    }
+    .hd-mail {
+      display:flex; align-items:center; justify-content:center; width:34px; height:34px;
+      border-radius:999px; border:1px solid rgba(255,255,255,.10);
+      color:rgba(233,234,238,.62); font-size:13px; transition:color .2s, border-color .2s;
+    }
+    .hd-pill:hover, .hd-mail:hover { color:#fff; border-color:rgba(255,255,255,.24); }
+
+    main { position:relative; max-width:1260px; margin:0 auto; padding:0 40px; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+      gap:44px; align-items:end; padding:20px 0 16px;
+    }
+    .hero-chip { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+    /* El logo del cliente manda el ancho: la caja se adapta a él, no al revés.
+       Un logo apaisado metido en un cuadrado se ve aplastado. */
+    .hero-chip-box {
+      height:38px; border-radius:12px; flex-shrink:0; padding:0 12px;
+      background:linear-gradient(150deg, rgba(24,95,165,.22), rgba(255,255,255,.04));
+      border:1px solid rgba(24,95,165,.35);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .hero-chip-box img { height:22px; width:auto; display:block; }
+    .hero-chip-mark {
+      font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.16em;
+      text-transform:uppercase; font-weight:600;
+      background:linear-gradient(100deg,#38BDF8,#7DD3FC 60%,#C4B5FD);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .mono {
+      font-family:'IBM Plex Mono',monospace; text-transform:uppercase;
+      color:rgba(233,234,238,.50);
+    }
+    .hero-chip .mono { font-size:11px; letter-spacing:.22em; }
+    /* Sello de edición: el portal se renueva y esto lo deja explícito */
+    .ver {
+      font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em;
+      text-transform:uppercase; color:#5FA8E8; padding:4px 10px; border-radius:999px;
+      background:rgba(95,168,232,.10); border:1px solid rgba(95,168,232,.28); white-space:nowrap;
+    }
+    h1 {
+      margin:0; font-size:42px; line-height:1.04; font-weight:500;
+      letter-spacing:-.035em; color:#F4F5F7; text-wrap:balance;
+    }
+    h1 span {
+      background:linear-gradient(100deg,#38BDF8,#1B6FD0 45%,#D8ECFB);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .hero-sub {
+      margin:12px 0 0; max-width:520px; font-size:15.5px; line-height:1.5;
+      color:rgba(233,234,238,.58); text-wrap:pretty;
+    }
+    .hero-acc { display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; }
+
+    .ghost {
+      display:inline-flex; align-items:center; gap:10px; padding:13px 20px;
+      border-radius:12px; font-size:15px; font-weight:500; cursor:pointer;
+      color:rgba(233,234,238,.82); background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.12); font-family:inherit;
+      transition:background .2s, color .2s;
+    }
+    .ghost:hover { background:rgba(255,255,255,.07); color:#fff; }
+
+    /* ---------- Tarjeta de estado del alumno ----------
+       Va en frío (azul) a propósito: el naranjo es el lenguaje de las
+       sesiones, así que apilada en móvil no se confunde con una de ellas. */
+    .estado {
+      position:relative; border:1px solid rgba(125,165,215,.22); border-radius:20px;
+      padding:20px 22px; backdrop-filter:blur(14px);
+      background:linear-gradient(160deg, rgba(90,130,180,.16), rgba(255,255,255,.02) 70%);
+    }
+    /* Filo de luz superior, como el de la sesión en curso pero en azul */
+    .estado::before {
+      content:''; position:absolute; top:-1px; left:22px; right:22px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(150,190,235,.75), transparent);
+    }
+    .est-top { display:flex; align-items:center; gap:14px; }
+    .est-av {
+      width:42px; height:42px; border-radius:12px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.04em;
+      color:#5FA8E8; background:rgba(24,95,165,.14); border:1px solid rgba(24,95,165,.28);
+    }
+    .est-name { font-size:15px; font-weight:600; color:#F4F5F7; }
+    .est-role { font-size:12.5px; color:rgba(233,234,238,.48); }
+    .est-name, .est-role { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .est-cambiar {
+      background:none; border:none; cursor:pointer; flex-shrink:0;
+      font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em;
+      text-transform:uppercase; color:rgba(233,234,238,.42); transition:color .2s;
+    }
+    .est-cambiar:hover { color:#5FA8E8; }
+    .est-sep { height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
+    .est-fila { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px; }
+    .lbl { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.2em;
+      text-transform:uppercase; color:rgba(233,234,238,.42); }
+    .est-pasos { font-size:13px; color:rgba(233,234,238,.55); }
+    .est-bar { position:relative; height:6px; border-radius:99px; background:rgba(255,255,255,.07); overflow:hidden; }
+    .est-bar i {
+      position:absolute; inset:0 auto 0 0; display:block; border-radius:99px;
+      background:linear-gradient(90deg,#185FA5,#5FA8E8);
+      box-shadow:0 0 18px rgba(95,168,232,.45); transition:width .8s ease;
+    }
+    .est-pie { display:flex; align-items:center; justify-content:space-between; margin-top:16px; gap:16px; }
+    .rombos { display:flex; gap:7px; margin-top:8px; }
+    .rombo { width:10px; height:10px; border-radius:3px; transform:rotate(45deg);
+      background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.12); }
+    .rombo.on { background:linear-gradient(140deg,#5FA8E8,#185FA5); border-color:transparent;
+      box-shadow:0 0 12px rgba(95,168,232,.6); }
+    .est-hab { text-align:right; }
+    .est-hab-n { font-size:20px; font-weight:600; color:#F4F5F7; margin-top:8px; }
+
+    /* ---------- Título de sección ---------- */
+    .sec { display:flex; align-items:center; gap:16px; margin-bottom:12px; }
+    .sec .mono { font-size:11px; letter-spacing:.2em; }
+    .sec i { flex:1; height:1px; background:linear-gradient(90deg, rgba(255,255,255,.14), transparent); }
+
+    /* ---------- Tarjetas de sesión ---------- */
+    .sesiones { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; align-items:stretch; }
+    .ses {
+      position:relative; border-radius:20px; padding:20px; overflow:hidden;
+      border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.022);
+      display:flex; flex-direction:column;
+    }
+    /* En cuatro columnas los títulos de una y dos líneas descuadraban la fila:
+       el h2 reserva las dos líneas y el CTA se ancla al fondo de la tarjeta. */
+    .ses h2 { min-height:2.36em; }
+    .ses-cta, .ses-lock { margin-top:auto; }
+    .ses.activa {
+      border-color:rgba(24,95,165,.38);
+      background:linear-gradient(165deg, rgba(24,95,165,.13), rgba(255,255,255,.02) 55%);
+      box-shadow:0 30px 70px -40px rgba(24,95,165,.7);
+    }
+    /* Línea de luz sobre la sesión en curso */
+    .ses.activa::before {
+      content:''; position:absolute; top:-1px; left:24px; right:24px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(95,168,232,.9), transparent);
+    }
+    .ses-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px; }
+    .ses-id { display:flex; align-items:center; gap:12px; min-width:0; }
+    .ses-n { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; color:rgba(233,234,238,.45); }
+    .ses.activa .ses-n, .ses.done .ses-n { color:#5FA8E8; }
+    .ses-nivel { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.16em;
+      text-transform:uppercase; color:rgba(233,234,238,.32); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .ses.activa .ses-nivel, .ses.done .ses-nivel { color:rgba(233,234,238,.42); }
+    .badge {
+      display:flex; align-items:center; gap:7px; flex-shrink:0; padding:6px 12px; border-radius:99px;
+      font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+      color:rgba(233,234,238,.42); border:1px solid rgba(255,255,255,.10);
+    }
+    .badge.on { color:#5FA8E8; background:rgba(95,168,232,.12); border-color:rgba(95,168,232,.28); }
+    .badge.on i { width:5px; height:5px; border-radius:99px; background:#5FA8E8; display:block; }
+    .ses h2 { margin:0 0 9px; font-size:21px; line-height:1.18; font-weight:500;
+      letter-spacing:-.02em; color:rgba(244,245,247,.82); }
+    .ses.activa h2, .ses.done h2 { color:#F4F5F7; }
+    .ses-dur { font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+      color:rgba(233,234,238,.34); margin-bottom:11px; }
+    .ses.activa .ses-dur, .ses.done .ses-dur { color:rgba(233,234,238,.40); }
+    /* El resumen se corta en 3 líneas: la tarjeta es un adelanto, no el detalle */
+    .ses-res { margin:0 0 14px; font-size:14px; line-height:1.5;
+      color:rgba(233,234,238,.48); text-wrap:pretty;
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    .ses.activa .ses-res, .ses.done .ses-res { color:rgba(233,234,238,.62); }
+    .medidores { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:13px; }
+    .med-bar { height:3px; border-radius:99px; background:rgba(255,255,255,.08); margin-bottom:9px; overflow:hidden; }
+    .ses.activa .med-bar, .ses.done .med-bar { background:rgba(255,255,255,.10); }
+    .med-bar i { display:block; height:100%; border-radius:99px;
+      background:linear-gradient(90deg,#185FA5,#5FA8E8); transition:width .5s ease; }
+    .med-l { font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.06em;
+      text-transform:uppercase; color:rgba(233,234,238,.28);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .med.hecho .med-l { color:rgba(233,234,238,.55); }
+    /* Tres estados, tres colores. La lógica: naranjo = te toca a ti,
+       y mientras más sólido, más urgente. Azul = ya está hecho.
+         · sin empezar → naranjo delineado (te espera, sin apuro)
+         · en curso    → naranjo sólido con halo (acá ibas)
+         · dominada    → azul apagado con ✓ (cerrada, entras solo a repasar) */
+    .ses-cta {
+      display:flex; align-items:center; justify-content:center; gap:8px; padding:12px;
+      border-radius:12px; font-size:14.5px; font-weight:600;
+      border:1px solid transparent; transition:filter .15s, background .15s, box-shadow .15s;
+    }
+    .ses-cta.empezar {
+      color:#5FA8E8; background:rgba(95,168,232,.09);
+      border-color:rgba(95,168,232,.34); font-weight:500;
+    }
+    .ses-cta.empezar:hover { background:rgba(95,168,232,.16); color:#B4DCF8; }
+
+    .ses-cta.curso {
+      color:#04203E; background:linear-gradient(100deg,#5FA8E8,#185FA5);
+      box-shadow:0 0 0 3px rgba(95,168,232,.14), 0 8px 22px rgba(24,95,165,.30);
+    }
+    .ses-cta.curso:hover { filter:brightness(1.06); color:#04203E; }
+
+    .ses-cta.repasar {
+      color:#8FBEEC; background:rgba(76,130,196,.10);
+      border-color:rgba(76,130,196,.32); font-weight:500;
+    }
+    .ses-cta.repasar:hover { background:rgba(76,130,196,.18); color:#C3DDF5; }
+    .ses-lock {
+      display:flex; align-items:center; justify-content:center; gap:8px; padding:12px;
+      border-radius:12px; font-size:14px; color:rgba(233,234,238,.34);
+      border:1px dashed rgba(255,255,255,.12); text-align:center;
+    }
+
+
+    /* ---------- Lo que sigue ahora ----------
+       Comparte el azul de la tarjeta de estado: las dos son «tu panel».
+       Así, apiladas en móvil, no se leen como una sesión más. */
+    .sigue {
+      position:relative; margin-top:14px; border-radius:20px; overflow:hidden;
+      border:1px solid rgba(125,165,215,.22);
+      padding:18px 24px; background:linear-gradient(120deg, rgba(90,130,180,.16), rgba(255,255,255,.02) 70%);
+      display:grid; grid-template-columns:minmax(0,1fr) auto; gap:28px; align-items:center;
+    }
+    .sigue::before {
+      content:''; position:absolute; top:0; left:24px; right:24px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(150,190,235,.75), transparent);
+    }
+    .sigue-t { font-size:18px; font-weight:500; color:#F4F5F7; letter-spacing:-.01em; }
+    .sigue-h { font-size:13.5px; color:rgba(233,234,238,.52); margin-top:4px; }
+    .sigue .lbl { display:block; margin-bottom:7px; }
+    /* Azul como su panel: el naranjo es de las sesiones, y este botón no
+       lleva a una sesión sino al siguiente paso pendiente */
+    .sigue-btn {
+      display:inline-flex; align-items:center; gap:10px; padding:12px 24px; border-radius:12px;
+      font-size:14.5px; font-weight:600; white-space:nowrap; color:#07111C;
+      background:linear-gradient(100deg,#8FBEEC,#4C82C4);
+      box-shadow:0 12px 28px -14px rgba(90,140,210,.95); transition:filter .15s;
+    }
+    .sigue-btn:hover { filter:brightness(1.07); color:#07111C; }
+
+    /* ---------- Pie ---------- */
+    .pie {
+      margin-top:12px; padding:10px 0 0; border-top:1px solid rgba(255,255,255,.07);
+      display:flex; justify-content:center; gap:8px; flex-wrap:wrap;
+      font-size:13px; color:rgba(233,234,238,.38); text-align:center;
+    }
+
+    /* ---------- Responsive ---------- */
+    /* Entre medio, de a dos: cuatro columnas se aprietan demasiado */
+    @media(max-width:1180px){
+      .sesiones { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+    }
+    @media(max-width:1000px){
+      .hero { grid-template-columns:1fr; gap:24px; align-items:stretch; padding:24px 0 26px; }
+      /* Apilado, tu estado va arriba: es la cabecera de la página, no una
+         tarjeta más en la fila de sesiones */
+      .estado { order:-1; }
+      .sesiones { grid-template-columns:1fr; }
+      main, .hd { padding-left:28px; padding-right:28px; }
+      h1 { font-size:46px; }
+    }
+    @media(max-width:640px){
+      main, .hd { padding-left:20px; padding-right:20px; }
+      .hd { padding-top:16px; padding-bottom:16px; }
+      h1 { font-size:38px; }
+      .hero-sub { font-size:15px; }
+      .ghost { width:100%; justify-content:center; min-height:48px; }
+      .estado, .ses, .hab, .sigue { padding:22px 20px; }
+      .sigue { grid-template-columns:1fr; gap:18px; }
+      .sigue-btn { justify-content:center; min-height:48px; }
+      .est-pie { flex-wrap:wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="hd">
+    <a href="https://reyesia.com" class="hd-logo"><img src="/logo reyes IA horizontal blanco.png" alt="Reyes IA" /></a>
+    <div class="hd-right">
+      <a href="https://reyesia.com" class="hd-pill" target="_blank" rel="noopener">reyesia.com</a>
+      <a href="mailto:felipe@reyesia.com" class="hd-mail" title="Escríbeme">✉</a>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div>
+        <div class="hero-chip">
+          <div class="hero-chip-box"><span class="hero-chip-mark">Copilot</span></div>
+          <span class="mono">Pack de 4 sesiones</span>
+          <span class="ver" id="ver">—</span>
+        </div>
+        <h1>Programa <span>Copilot</span></h1>
+        <p class="hero-sub">Cuatro sesiones para dominar Microsoft Copilot: de los fundamentos de la IA a tener agentes trabajando por ti. Avanza a tu ritmo: cada paso queda guardado.</p>
+        <div class="hero-acc">
+          <button class="ghost" id="btn-hab">Centro de habilidades</button>
+        </div>
+      </div>
+
+      <div class="estado">
+        <div class="est-top">
+          <div class="est-av" id="est-av">?</div>
+          <div style="flex:1;min-width:0">
+            <div class="est-name" id="est-name">—</div>
+            <div class="est-role" id="est-role">—</div>
+          </div>
+          <button class="est-cambiar" id="est-cambiar">Cambiar</button>
+        </div>
+
+        <div class="est-sep"></div>
+
+        <div class="est-fila">
+          <span class="lbl">Avance del programa</span>
+          <span class="est-pasos" id="est-pasos">—</span>
+        </div>
+        <div class="est-bar"><i id="est-barra" style="width:0%"></i></div>
+
+        <div class="est-pie">
+          <div>
+            <div class="lbl">Sesiones dominadas</div>
+            <div class="rombos" id="rombos"></div>
+          </div>
+          <div class="est-hab">
+            <div class="lbl">Habilidades</div>
+            <div class="est-hab-n" id="est-hab-n">0 / 0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sec" id="sesiones">
+      <span class="mono">Las 4 sesiones</span>
+      <i></i>
+    </div>
+
+    <section class="sesiones" id="grid-sesiones"></section>
+
+    <section class="sigue">
+      <div>
+        <span class="lbl">Lo que sigue ahora</span>
+        <div class="sigue-t" id="sigue-t">—</div>
+        <div class="sigue-h" id="sigue-h">—</div>
+      </div>
+      <a class="sigue-btn" id="sigue-btn" href="#sesiones">Ir al paso →</a>
+    </section>
+
+    <footer class="pie">
+      <span>Programa facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes</span>
+    </footer>
+  </main>
+</div>
+
+<script src="/programa-copilot/portal.js"></script>
+<script>
+  /* Los niveles salen del label del taller ("Sesión 1 · Introductorio") */
+  const nivelDe = t => (t.label.split('·')[1] || '').trim() || '—';
+
+  function renderUser(){
+    if (!user) return;
+    document.getElementById('est-av').textContent   = iniciales(user.nombre);
+    document.getElementById('est-name').textContent = user.nombre;
+    document.getElementById('est-role').textContent = user.cargo ? `${user.cargo} · ${user.empresa}` : user.empresa;
+  }
+  // portal.js la llama al guardar la identidad
+  function onIdentidad(){ renderUser(); render(); }
+
+  /* La sesión "en curso" es la primera abierta que todavía no está dominada */
+  function sesionActiva(){
+    const abiertas = TALLERES.filter(t => !t.proximamente);
+    return abiertas.find(t => !isComplete(t.n)) || abiertas[abiertas.length - 1] || null;
+  }
+
+  function textoCta(t){
+    if (isComplete(t.n)) return '✓ Repasar la sesión';
+    const hechos = conceptosOk(t.n) + (st[`${t.n}-quiz`] ? 1 : 0) + (st[`${t.n}-des`] ? 1 : 0);
+    return hechos === 0 ? 'Empezar la sesión →' : 'Continuar donde ibas →';
+  }
+
+  /* Primer paso pendiente del programa, en el mismo orden del recorrido:
+     conceptos → quiz → ejercicios → desafío. Alimenta la barra de abajo. */
+  function proximoPaso(){
+    for (const t of TALLERES){
+      if (t.proximamente) continue;
+      const pendiente = t.conceptos.find(id => !st[`c-${id}`]);
+      if (pendiente){
+        const b = BLOQUES[pendiente];
+        return { t, titulo: `${b ? b.nombre : pendiente} · sesión ${t.n}`,
+                 hint: `Concepto ${t.conceptos.indexOf(pendiente) + 1} de ${t.conceptos.length} · ${t.title}` };
+      }
+      if (!st[`${t.n}-quiz`]){
+        return { t, titulo: `Quiz de la sesión ${t.n} · ${t.title}`,
+                 hint: `${t.quiz.length} preguntas · te toma 3 minutos y desbloquea el desafío.` };
+      }
+      const ej = ejerciciosDe(t.n);
+      const faltan = ej.length - ejerciciosOk(t.n);
+      if (faltan > 0){
+        return { t, titulo: `Ejercicios hands-on · sesión ${t.n}`,
+                 hint: `Te quedan ${faltan} de ${ej.length} por marcar.` };
+      }
+      if (!st[`${t.n}-des`]){
+        const d = t.desafio;
+        return { t, titulo: `Desafío de la sesión ${t.n}`,
+                 hint: (typeof d === 'object' && d.titulo) ? d.titulo : 'El desafío que llevas a tu trabajo real.' };
+      }
+    }
+    const proxima = TALLERES.find(t => t.proximamente);
+    if (proxima) return { t: null, titulo: 'Vas al día con lo que está abierto',
+                          hint: `La ${proxima.label.split('·')[0].trim()} se abre más adelante.` };
+    return { t: null, titulo: '¡Programa completo!', hint: 'Dominaste las cuatro sesiones.' };
+  }
+
+  function render(){
+    document.getElementById('ver').textContent = `Versión ${VERSION}`;
+    // Tarjeta de estado
+    const n = countStars();
+    document.getElementById('rombos').innerHTML =
+      TALLERES.map((_, i) => `<span class="rombo ${i < n ? 'on' : ''}"></span>`).join('');
+    document.getElementById('est-hab-n').textContent = `${skillsOk()} / ${SKILLS.length}`;
+    document.getElementById('est-barra').style.width = avancePct() + '%';
+    document.getElementById('est-pasos').textContent =
+      `${avancePct()}% · ${pasosHechos()} de ${totalPasos()} pasos`;
+
+    // La sesión en curso no tiene botón propio arriba: se distingue por el
+    // color de su botón en la tarjeta, que es donde la gente igual va a mirar.
+    const activa = sesionActiva();
+
+    // Tarjetas de sesión
+    document.getElementById('grid-sesiones').innerHTML = TALLERES.map(t => {
+      const pronto = !!t.proximamente;
+      const done   = isComplete(t.n);
+      const esActiva = activa && activa.n === t.n && !done;
+      const c = conceptosOk(t.n), total = t.conceptos.length;
+      const quiz = st[`${t.n}-quiz`] ? 1 : 0, des = st[`${t.n}-des`] ? 1 : 0;
+
+      const med = (label, hecho, de) => `
+        <div class="med ${hecho >= de ? 'hecho' : ''}">
+          <div class="med-bar"><i style="width:${de ? (hecho / de) * 100 : 0}%"></i></div>
+          <div class="med-l">${label}</div>
+        </div>`;
+
+      const badge = done
+        ? '<span class="badge on"><i></i>Dominada</span>'
+        : esActiva
+          ? '<span class="badge on"><i></i>En curso</span>'
+          : pronto
+            ? '<span class="badge">Próximamente</span>'
+            : '<span class="badge">Disponible</span>';
+
+      // Las bloqueadas explican la condición, en vez de solo decir que no se puede
+      const pie = pronto
+        ? `<div class="ses-lock">Se abre al terminar la sesión ${t.n - 1}</div>`
+        : `<a class="ses-cta ${done ? 'repasar' : (esActiva ? 'curso' : 'empezar')}" href="${urlTaller(t.n)}">${textoCta(t)}</a>`;
+
+      return `
+      <article class="ses ${esActiva ? 'activa' : ''} ${done ? 'done' : ''}">
+        <div class="ses-top">
+          <div class="ses-id">
+            <span class="ses-n">${String(t.n).padStart(2,'0')}</span>
+            <span class="ses-nivel">${esc(nivelDe(t))}</span>
+          </div>
+          ${badge}
+        </div>
+        <h2>${esc(t.title)}</h2>
+        <div class="ses-dur">${esc(t.dur)}</div>
+        <p class="ses-res">${esc(t.resumen)}</p>
+        <div class="medidores">
+          ${med(`Conceptos ${c}/${total}`, c, total)}
+          ${med('Quiz', quiz, 1)}
+          ${med('Desafío', des, 1)}
+        </div>
+        ${pie}
+      </article>`;
+    }).join('');
+
+    // Lo que sigue ahora
+    const p = proximoPaso();
+    document.getElementById('sigue-t').textContent = p.titulo;
+    document.getElementById('sigue-h').textContent = p.hint;
+    const sb = document.getElementById('sigue-btn');
+    if (p.t){ sb.href = urlTaller(p.t.n); sb.style.display = ''; }
+    else { sb.style.display = 'none'; }
+
+    renderSkills();
+  }
+
+  document.getElementById('est-cambiar').onclick = () => openGate(true);
+  document.getElementById('btn-hab').onclick     = () => openSkills();
+
+  (async () => {
+    await bootPortal();
+    renderUser();
+    render();
+    renderSkills();
+  })();
+</script>
+</body>
+</html>
