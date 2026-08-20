@@ -1,0 +1,34 @@
+{
+  "id": "html-con-copilot",
+  "nombre": "HTMLs con Copilot",
+  "habilidad": "Dashboards HTML",
+  "emoji": "📊",
+  "descripcion": "La escalera del HTML: de un dashboard local que lee un Excel, hasta uno publicado que se alimenta en vivo.",
+  "categoria": "copilot",
+  "tags": ["copilot", "html", "dashboard", "datos"],
+  "pasos": [
+    { "titulo": "Por qué un HTML y no un PowerPoint", "texto": "Un HTML es un archivo que se abre en cualquier navegador, en cualquier computador, sin instalar nada. A diferencia de una lámina, se puede filtrar, ordenar y explorar — y a diferencia de un Excel, se ve bien." },
+    { "texto": "No hay que saber programar. Le describes a Copilot qué quieres ver y con qué datos, y te devuelve el archivo. Tu trabajo es el contexto y la iteración, no el código." },
+    { "texto": "Hay cinco niveles, de menos a más. Empieza por el 1: la mayoría de la gente nunca necesita pasar del 3." },
+
+    { "corte": true, "titulo": "Nivel 1 — HTML local con el Excel aparte", "texto": "El dashboard es un archivo HTML en tu computador que lee un Excel que vive por separado. Simple, 100% local y sin depender de nada externo.", "img": "nivel1.webp" },
+    { "texto": "Nivel 2 — HTML local con carga de archivos (drag & drop): arrastras y sueltas tu Excel, CSV o Google Sheets sobre el dashboard y se actualiza solo, sin tocar el código. Es el nivel que más rinde para un reporte que se repite todos los meses.", "img": "nivel2.webp" },
+    { "texto": "Nivel 3 — HTML con datos incrustados: los datos quedan embebidos dentro del propio archivo. Es un único HTML autosuficiente que puedes mandar por correo o WhatsApp y se ve en cualquier lado, sin adjuntos ni instrucciones.", "img": "nivel3.webp" },
+
+    { "corte": true, "titulo": "Nivel 4 — Publicado en internet", "texto": "Publicas el dashboard con una URL propia, accesible desde computador, tablet o celular. Ya no mandas un archivo: mandas un link.", "img": "nivel4.webp" },
+    { "texto": "Nivel 5 — Con datos dinámicos: el dashboard se conecta en tiempo real a fuentes vivas (Google Sheets, SharePoint, una base de datos, una API) y se actualiza solo. Dejas de armar el reporte: el reporte se arma solo.", "img": "nivel5.webp" },
+    { "texto": "La regla para elegir nivel: sube un escalón solo cuando el anterior te quede chico. Un nivel 5 mal armado da mucho más trabajo que un nivel 2 que funciona." }
+  ],
+  "pro_tip": "Cuando le pidas el dashboard, dile primero qué decisión quieres tomar mirándolo. «Un dashboard de ventas» da un resultado genérico; «un dashboard para decidir en qué tres regiones enfoco el equipo el próximo trimestre» te define solo qué gráficos tienen que estar.",
+  "desafio": null,
+  "portada": "nivel1.webp",
+  "assets": ["nivel1.webp", "nivel2.webp", "nivel3.webp", "nivel4.webp", "nivel5.webp"],
+  "assets_github": [
+    "https://reyesia.com/bloques/html-con-copilot/nivel1.webp",
+    "https://reyesia.com/bloques/html-con-copilot/nivel2.webp",
+    "https://reyesia.com/bloques/html-con-copilot/nivel3.webp",
+    "https://reyesia.com/bloques/html-con-copilot/nivel4.webp",
+    "https://reyesia.com/bloques/html-con-copilot/nivel5.webp"
+  ],
+  "sources": [{ "file": "bloques/html-avanzado", "title": "La escalera del HTML (versión Copilot)", "imgs": 5, "variant": 0 }]
+}

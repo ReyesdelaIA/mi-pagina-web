@@ -1,6 +1,7 @@
 {
   "id": "intro-copilot",
   "nombre": "¿Qué es Microsoft Copilot?",
+  "habilidad": "Qué es Copilot",
   "emoji": "🤖",
   "descripcion": "La IA de Microsoft construida sobre GPT, integrada en todo el ecosistema M365",
   "categoria": "copilot",

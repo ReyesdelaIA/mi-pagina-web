@@ -1,0 +1,95 @@
+{
+  "id": "ia-panorama",
+  "nombre": "Introducción a la inteligencia artificial e historia",
+  "habilidad": "Panorama IA",
+  "emoji": "🌍",
+  "descripcion": "Por qué esto es serio, de dónde viene la IA y qué es un LLM — el piso común antes de tocar cualquier herramienta.",
+  "categoria": "fundamentos",
+  "tags": [
+    "fundamentos",
+    "introduccion",
+    "historia",
+    "llm"
+  ],
+  "pasos": [
+    {
+      "texto": "No es un tema más en la agenda tecnológica. Los líderes que más saben de IA en el mundo están dando plazos cada vez más cortos sobre el impacto que va a tener — y muchos coinciden en que los próximos 18 a 24 meses son decisivos.",
+      "img": "01-lideres.webp"
+    },
+    {
+      "texto": "Sundar Pichai (CEO de Google): «La IA tendrá un efecto más profundo en la humanidad que el fuego, la electricidad e internet». Demis Hassabis (CEO de Google DeepMind): «Esta es la Revolución Industrial, pero 10 veces más grande y 10 veces más rápida»."
+    },
+    {
+      "texto": "Mustafa Suleyman (CEO de Microsoft AI): «En 18 meses gran parte del trabajo administrativo va a estar automatizado por IA». Dario Amodei (CEO de Anthropic): «La IA acabará con el 50% de los trabajos administrativos de oficina —abogados, consultores, analistas financieros— y elevará el desempleo entre 10% y 20% en los próximos 1 a 5 años»."
+    },
+    {
+      "texto": "Sam Altman (CEO de OpenAI, India AI Impact Summit, 19 feb 2026): «Creemos que podemos estar a solo un par de años de la Súper Inteligencia Artificial». Y la frase que resume todo, de Tom Davenport: «La IA no te quitará tu trabajo, lo hará alguien que ocupe la IA mejor que tú».",
+      "img": "02-idea-de-fondo.webp"
+    },
+    {
+      "texto": "La idea de fondo: Harvard Business Review, Forbes y Fast Company lo resumen igual — la IA no reemplaza personas, pero las personas que ocupan IA sí reemplazan a las que no la ocupan. Empezar hoy es la única ventaja competitiva real."
+    },
+    {
+      "titulo": "Historia resumida de la IA",
+      "texto": "1943: se comienza a estudiar Inteligencia Artificial en el mundo, pero no hubo grandes avances durante 70 años.",
+      "img": "03-historia.webp"
+    },
+    {
+      "texto": "2015: las grandes apps empiezan a ocupar IA para entendernos mejor — Uber, Netflix, Amazon, Spotify. Pero todavía no había nada que impactara directamente a la humanidad."
+    },
+    {
+      "texto": "Noviembre 2022: aparece ChatGPT y rompe todos los récords. Llega a 1 millón de usuarios en solo 5 días (Netflix demoró 3,5 años, Facebook 10 meses, Instagram 2,5 meses).",
+      "img": "04-chatgpt-2022.webp"
+    },
+    {
+      "texto": "Y ojo con la escala de tiempo: la inteligencia artificial es un bebé que acaba de nacer, tiene menos de cuatro años de vida. En esos cuatro años ya evolucionó muchísimo — está más inteligente, pierde mucho menos contexto y entrega resultados que hace dos años eran impensables. Y esto no va a parar de crecer. Por eso hay que estar en la palestra ahora y no quedarse atrás.",
+      "img": "05-capacidad-vs-uso.webp"
+    },
+    {
+      "titulo": "¿Qué es un LLM y cuál conviene usar?",
+      "texto": "Un LLM (Large Language Model) es un tipo de inteligencia artificial diseñado para comprender y generar texto en lenguaje humano. Los más conocidos son ChatGPT, Copilot, Gemini, Claude, Perplexity, Meta AI, Grok, Qwen3, DeepSeek, Kimi, Hailuo y NVIDIA. Cada día mejoran más.",
+      "img": "06-que-es-un-llm.webp"
+    },
+    {
+      "texto": "En Chile y en Latinoamérica los que más se ven son Copilot y Gemini: son los más corporativos, porque vienen de Microsoft y de Google Workspace respectivamente. También se ocupa mucho ChatGPT y Claude. Existen muchos más —los asiáticos y varios otros estadounidenses— pero estos cuatro son los que más se utilizan hoy. Y todos son muy buenos: cuando recién empiezas a ocupar IA casi no se nota la diferencia entre uno y otro. Es con el uso más profundo cuando empiezas a notarle a cada uno sus ventajas y sus desventajas.",
+      "img": "07-mapa-de-llms.webp"
+    },
+    {
+      "texto": "Otros fuertes en EEUU: Perplexity (especializado en búsqueda), Grok (de Elon Musk, integrado a X) y Meta AI (en WhatsApp e Instagram). Otros fuertes en Asia: DeepSeek, Qwen3 (de Alibaba), Kimi y Hailuo — avanzan muy rápido y muchos son gratis."
+    },
+    {
+      "texto": "¿Cuál es el mejor? Depende del uso, y cambian mucho mes a mes. Todos funcionan tanto en navegador como en app móvil. En este programa el foco es Copilot, porque es el que vive dentro de las herramientas donde ya trabajas."
+    }
+  ],
+  "pro_tip": "No te quedes con una sola herramienta. Usa al menos dos best sellers en paralelo y cruza respuestas cuando el tema es importante: cada uno tiene fortalezas distintas y las diferencias entre sus respuestas te avisan dónde hay que verificar.",
+  "desafio": null,
+  "portada": "portada.webp",
+  "assets": [
+    "portada.webp",
+    "01-lideres.webp",
+    "02-idea-de-fondo.webp",
+    "03-historia.webp",
+    "04-chatgpt-2022.webp",
+    "05-capacidad-vs-uso.webp",
+    "06-que-es-un-llm.webp",
+    "07-mapa-de-llms.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/ia-panorama/portada.webp",
+    "https://reyesia.com/bloques/ia-panorama/01-lideres.webp",
+    "https://reyesia.com/bloques/ia-panorama/02-idea-de-fondo.webp",
+    "https://reyesia.com/bloques/ia-panorama/03-historia.webp",
+    "https://reyesia.com/bloques/ia-panorama/04-chatgpt-2022.webp",
+    "https://reyesia.com/bloques/ia-panorama/05-capacidad-vs-uso.webp",
+    "https://reyesia.com/bloques/ia-panorama/06-que-es-un-llm.webp",
+    "https://reyesia.com/bloques/ia-panorama/07-mapa-de-llms.webp"
+  ],
+  "sources": [
+    {
+      "file": "taller01-general/index.html",
+      "title": "Cards 1, 2 y 4 del Taller 1 · Iniciación",
+      "imgs": 5,
+      "variant": 0
+    }
+  ]
+}

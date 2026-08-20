@@ -1,0 +1,78 @@
+{
+  "id": "ia-cuatro-esferas",
+  "nombre": "Las 4 grandes esferas de la IA generativa",
+  "habilidad": "Las 4 esferas",
+  "emoji": "🌐",
+  "descripcion": "Las cuatro cosas que toda IA puede hacer por ti hoy: redactar, buscar, analizar y crear. Cuál rinde de verdad y cuál está sobrevalorada.",
+  "categoria": "fundamentos",
+  "tags": [
+    "fundamentos",
+    "esferas",
+    "casos-de-uso"
+  ],
+  "pasos": [
+    {
+      "texto": "Todo lo que hoy puedes pedirle a una IA cae en una de cuatro esferas: Redacción, Internet, Análisis y Multimedia. Tener este mapa en la cabeza es lo que te hace saber qué pedirle en cada situación."
+    },
+    {
+      "titulo": "1. Redacción",
+      "texto": "La redacción de la inteligencia artificial es sencillamente perfecta. Redacta impresionante y no comete una falta de ortografía. En esta esfera no le vas a encontrar debilidades."
+    },
+    {
+      "texto": "Lo que sí depende de ti es el tono. Que el texto salga divertido, agresivo, comercial, pasivo o docente no lo decide ella: lo decide el prompt que le entregas. Lo escribe tan coloquial o tan formal como tú se lo pidas.",
+      "img": "01-redaccion-contrato.webp"
+    },
+    {
+      "titulo": "2. Internet",
+      "texto": "Es la más aburrida de las cuatro. Sirve, por supuesto: pedirle que busque algo, que investigue un tema, que te arme el itinerario de un viaje. Pero es la menos poderosa de todas."
+    },
+    {
+      "texto": "Y acá está la paradoja: es la que más se usa. Según los propios datos de ChatGPT, cerca del 70% de lo que la gente le pide son búsquedas en internet. O sea, la mayoría está ocupando la IA en su esfera más débil.",
+      "img": "02-internet-gemini.webp"
+    },
+    {
+      "titulo": "3. Análisis",
+      "texto": "Para mí es lejos la más poderosa de las cuatro. Le cargas un documento —o varios a la vez— y en un minuto promedio te los analiza y te los resume con un nivel de prolijidad altísimo. Eso es infinitamente superior a lo que puede hacer un cerebro humano en ese mismo tiempo."
+    },
+    {
+      "texto": "Acá está lo más potente que tiene hoy la inteligencia artificial: que te ayude con tus PDF, tus Excel, tus PowerPoint y tus documentos de trabajo. Si tuvieras que quedarte con una sola esfera, sería esta.",
+      "img": "03-analisis-pdfs.webp"
+    },
+    {
+      "titulo": "4. Multimedia",
+      "texto": "Partió más lenta que las otras, pero últimamente se está poniendo muy buena. Le pides imágenes, videos, landing pages, HTML, canciones — y las hace bien."
+    },
+    {
+      "texto": "Es además la que crece más agresivamente de las cuatro. Cada día que pasa se pone más potente, así que lo que hoy todavía no le sale, en poco tiempo le va a salir.",
+      "img": "04-multimedia-render.webp"
+    }
+  ],
+  "pro_tip": "Si la mayoría de lo que le pides a la IA son búsquedas en internet, estás usándola en su esfera más débil. Prueba una semana subiéndole documentos en vez de hacerle preguntas: ahí es donde se siente el salto de verdad.",
+  "desafio": {
+    "enunciado": "Adjúntale dos documentos a tu herramienta de IA —dos informes, dos contratos, dos propuestas, lo que tengas a mano— y pídele que te haga un resumen comparando ambos archivos en 50 palabras. Ahí te vas a dar cuenta del poder que tiene la capacidad analítica de estas herramientas.",
+    "prompt": "Te adjunto dos documentos. Compáralos y entrégame en máximo 50 palabras las diferencias más importantes entre ambos."
+  },
+  "portada": "portada.webp",
+  "assets": [
+    "portada.webp",
+    "01-redaccion-contrato.webp",
+    "02-internet-gemini.webp",
+    "03-analisis-pdfs.webp",
+    "04-multimedia-render.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/ia-cuatro-esferas/portada.webp",
+    "https://reyesia.com/bloques/ia-cuatro-esferas/01-redaccion-contrato.webp",
+    "https://reyesia.com/bloques/ia-cuatro-esferas/02-internet-gemini.webp",
+    "https://reyesia.com/bloques/ia-cuatro-esferas/03-analisis-pdfs.webp",
+    "https://reyesia.com/bloques/ia-cuatro-esferas/04-multimedia-render.webp"
+  ],
+  "sources": [
+    {
+      "file": "taller01-general/index.html",
+      "title": "Card 7 del Taller 1 · Iniciación",
+      "imgs": 1,
+      "variant": 0
+    }
+  ]
+}

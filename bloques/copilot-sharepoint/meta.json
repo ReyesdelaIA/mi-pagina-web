@@ -1,6 +1,7 @@
 {
   "id": "copilot-sharepoint",
   "nombre": "Copilot + SharePoint & OneDrive",
+  "habilidad": "SharePoint",
   "emoji": "🗂️",
   "descripcion": "Conexión nativa para resumir y buscar documentos corporativos",
   "categoria": "copilot",

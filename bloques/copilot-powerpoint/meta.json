@@ -1,6 +1,7 @@
 {
   "id": "copilot-powerpoint",
   "nombre": "Copilot en PowerPoint",
+  "habilidad": "PowerPoint",
   "emoji": "📽️",
   "descripcion": "Crea presentaciones completas desde un prompt o a partir de documentos",
   "categoria": "copilot",

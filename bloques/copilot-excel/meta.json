@@ -1,6 +1,7 @@
 {
   "id": "copilot-excel",
   "nombre": "Copilot en Excel",
+  "habilidad": "Excel",
   "emoji": "📊",
   "descripcion": "Analiza datos, crea fórmulas y genera visualizaciones con lenguaje natural",
   "categoria": "copilot",

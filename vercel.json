@@ -2,6 +2,26 @@
   "outputDirectory": ".",
   "rewrites": [
     {
+      "source": "/programa-copilot",
+      "destination": "/programa-copilot/index.html"
+    },
+    {
+      "source": "/programa-copilot/taller-1",
+      "destination": "/programa-copilot/taller.html?n=1"
+    },
+    {
+      "source": "/programa-copilot/taller-2",
+      "destination": "/programa-copilot/taller.html?n=2"
+    },
+    {
+      "source": "/programa-copilot/taller-3",
+      "destination": "/programa-copilot/taller.html?n=3"
+    },
+    {
+      "source": "/programa-copilot/taller-4",
+      "destination": "/programa-copilot/taller.html?n=4"
+    },
+    {
       "source": "/rovle/marketing",
       "destination": "/rovle/marketing/index.html"
     },

@@ -1,0 +1,30 @@
+{
+  "id": "memoria-copilot",
+  "nombre": "Memorización",
+  "habilidad": "Memorización",
+  "emoji": "🧠",
+  "descripcion": "Que Copilot recuerde quién eres entre conversaciones: cómo se activa, cómo forzarla y cómo auditar lo que sabe de ti.",
+  "categoria": "copilot",
+  "tags": ["copilot", "memoria", "personalizacion"],
+  "pasos": [
+    { "titulo": "Encender la memoria", "texto": "Para que Copilot memorice cosas de ti, la memoria tiene que estar encendida: Configuración → Personalización → Memoria de Copilot → activa el interruptor. Desde ahí empieza a inferir y guardar datos de tus conversaciones." },
+    { "texto": "Dentro de una misma conversación siempre recuerda: cada respuesta considera todo lo que se dijo antes en ese chat. Por eso puedes corregir sobre la marcha sin repetir el contexto." },
+    { "texto": "La memoria es lo que hace que eso sobreviva al cerrar el chat. Sin ella, cada conversación parte de cero y le tienes que volver a explicar quién eres." },
+
+    { "corte": true, "titulo": "Forzar la memoria", "texto": "Copilot memoriza por su cuenta lo que considera trascendente. Pero tú puedes forzarlo, y ahí está la gracia: dile explícitamente «memoriza que…» y lo guarda." },
+    { "texto": "Ejemplo: «Memoriza que soy jefa de operaciones en una empresa de logística, que trabajo con reportes semanales de despacho y que prefiero respuestas cortas y directas, sin introducciones». Te va a confirmar con un aviso de memoria actualizada." },
+    { "texto": "Lo que más rinde memorizar: tu cargo y área, el tipo de tareas que haces, los nombres que ocupas internamente para las cosas, y cómo te gusta que te escriba (largo, tono, formato)." },
+
+    { "corte": true, "titulo": "Auditar y limpiar", "texto": "Pregúntale directamente «¿qué sabes de mí? dame el resultado en bullets». Es la forma más rápida de ver qué guardó y detectar datos incorrectos." },
+    { "texto": "Para administrarlas a mano: Configuración → Personalización → ahí ves las memorias una a una y puedes eliminar las que sobran o quedaron mal." },
+    { "texto": "Cuidado con el contexto de un cliente o proyecto puntual: eso no va en la memoria global, porque después se te cuela en todas las conversaciones. Para eso están los cuadernos." }
+  ],
+  "pro_tip": "Dedica cinco minutos, una sola vez, a presentarte bien: quién eres, qué haces, con qué trabajas y cómo quieres que te respondan. Es la inversión de mejor retorno de todo el programa — todas las conversaciones que vengan después parten desde ahí.",
+  "desafio": {
+    "enunciado": "Abre Copilot y logra que memorice 5 cosas relevantes de ti y de tu rol. Preséntate, cuéntale en qué área trabajas y qué tipo de tareas haces, y pídele que lo recuerde. Después pregúntale «¿qué sabes de mí?» y verifica que quedó bien guardado.",
+    "prompt": "Memoriza lo siguiente sobre mí: soy [CARGO] en [ÁREA] de una empresa de [RUBRO]. Mis tareas habituales son [TAREAS]. Trabajo principalmente con [HERRAMIENTAS/DOCUMENTOS]. Prefiero respuestas [LARGO Y TONO]. Cuando te pida un documento, entrégamelo en [FORMATO]."
+  },
+  "assets": [],
+  "assets_github": [],
+  "sources": [{ "file": ".backups/bloques-newell/memoria-ia.copilot.json", "title": "Memoria en IA (versión Copilot)", "imgs": 0, "variant": 0 }]
+}

@@ -1,6 +1,7 @@
 {
   "id": "agentes-basicos",
   "nombre": "Agentes básicos en Copilot",
+  "habilidad": "Crear agentes",
   "emoji": "🛠️",
   "descripcion": "Cómo construirlos, cargarles conocimiento y darles instrucciones",
   "categoria": "agentes",

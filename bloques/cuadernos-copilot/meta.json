@@ -1,6 +1,7 @@
 {
   "id": "cuadernos-copilot",
   "nombre": "Cuadernos de Copilot",
+  "habilidad": "Cuadernos",
   "emoji": "📔",
   "descripcion": "La respuesta de Copilot a NotebookLM: agrupa archivos, páginas y notas en un cuaderno y Copilot responde aterrizado solo en ese contenido.",
   "categoria": "copilot",

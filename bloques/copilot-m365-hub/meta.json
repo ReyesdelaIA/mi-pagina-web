@@ -1,6 +1,7 @@
 {
   "id": "copilot-m365-hub",
   "nombre": "Copilot en M365",
+  "habilidad": "Copilot en M365",
   "emoji": "🏢",
   "descripcion": "El hub central de IA integrado en todas tus apps de Microsoft",
   "categoria": "copilot",

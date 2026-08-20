@@ -1,0 +1,36 @@
+{
+  "id": "intro-agentes-copilot",
+  "nombre": "Intro a agentes Copilot",
+  "habilidad": "Qué es un agente",
+  "emoji": "🤖",
+  "descripcion": "El salto de conversar a delegar: qué es un agente, en qué se distingue de un chat, y los dos que Copilot ya trae de fábrica.",
+  "categoria": "copilot",
+  "tags": ["copilot", "agentes", "investigador", "analista"],
+  "pasos": [
+    { "titulo": "¿Qué es un agente?", "texto": "Un agente es un asistente de IA que configuras una sola vez —con un propósito, instrucciones y conocimiento— y que después repite esa lógica automáticamente cada vez que lo usas." },
+    { "texto": "La diferencia con un chat es simple: el chat empieza de cero cada vez y tú le explicas todo. El agente ya sabe quién es, qué formato tiene que entregar y de dónde sacar la información." },
+    { "texto": "La lógica es siempre input → output. El agente recibe documentos, correos o datos, los procesa según su configuración y entrega algo listo: un resumen, un reporte, una tabla, una respuesta." },
+    { "texto": "La señal de que necesitas un agente: si llevas semanas escribiendo el mismo prompt largo con las mismas instrucciones, eso ya no es un chat, es un procedimiento. Y los procedimientos se configuran una vez." },
+
+    { "corte": true, "titulo": "El Agente Investigador", "texto": "Copilot trae dos agentes de fábrica, sin que tengas que construir nada. El primero es el Investigador.", "img": "cover-investigador.jpg" },
+    { "texto": "Sirve para buscar, recopilar y sintetizar información desde múltiples fuentes a la vez: la web, tus documentos internos, reuniones, correos y datos corporativos. Navega de forma autónoma, no solo responde." },
+    { "texto": "Se activa desde el panel de agentes de Copilot: lo seleccionas y escribes tu pregunta de investigación. Puede razonar sobre todos tus datos de trabajo simultáneamente." },
+    { "texto": "Casos que rinden: preparar una reunión con inteligencia de cliente, actualizar el estado de un proyecto, analizar la posición de mercado de una compañía, hacer seguimiento de compromisos pendientes." },
+    { "texto": "Entrega un informe estructurado con citas y fuentes, combinando lo interno con lo externo. Es el punto de partida ideal para alimentar después una presentación, un documento o a otro agente." },
+
+    { "corte": true, "titulo": "El Agente Analista", "texto": "El segundo agente de fábrica trabaja con datos: analiza, interpreta y genera conclusiones a partir de archivos que tú ya tienes.", "img": "cover-analista.jpg" },
+    { "texto": "Cargas tus Excel, reportes o métricas y le preguntas por tendencias, patrones o anomalías. Por ejemplo: «¿Cuáles son las tendencias que ves en los archivos cargados?»." },
+    { "texto": "Pídele conclusiones ejecutivas directamente: sintetiza los datos y te presenta los hallazgos relevantes en un formato legible, no una lista de números." },
+    { "texto": "También visualiza: tablas comparativas, gráficos de tendencia y resúmenes visuales generados directamente desde tus datos." },
+    { "texto": "El combo que más rinde: el Investigador levanta el contexto de mercado, el Analista cruza tus números internos, y con las dos salidas armas la presentación. Ese es el flujo completo de un análisis serio." }
+  ],
+  "pro_tip": "Antes de construir un agente propio, prueba si el Investigador o el Analista ya resuelven tu caso. La mitad de los agentes que la gente arma en el primer entusiasmo son una versión peor de uno que ya venía incluido.",
+  "desafio": null,
+  "portada": "cover-investigador.jpg",
+  "assets": ["cover-investigador.jpg", "cover-analista.jpg"],
+  "assets_github": [
+    "https://reyesia.com/bloques/intro-agentes-copilot/cover-investigador.jpg",
+    "https://reyesia.com/bloques/intro-agentes-copilot/cover-analista.jpg"
+  ],
+  "sources": [{ "file": "bloques/agente-investigador + bloques/agente-analista", "title": "Agentes de fábrica de Copilot", "imgs": 2, "variant": 0 }]
+}

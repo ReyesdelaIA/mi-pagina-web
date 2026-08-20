@@ -1,6 +1,7 @@
 {
   "id": "crear-con-copilot",
   "nombre": "Crear con Copilot",
+  "habilidad": "Crear con IA",
   "emoji": "✨",
   "descripcion": "Genera imágenes, videos, infografías y pósters con IA generativa",
   "categoria": "copilot",

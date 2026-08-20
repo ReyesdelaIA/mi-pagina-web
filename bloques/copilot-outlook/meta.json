@@ -1,6 +1,7 @@
 {
   "id": "copilot-outlook",
   "nombre": "Copilot en Outlook",
+  "habilidad": "Outlook",
   "emoji": "📧",
   "descripcion": "Resume correos, redacta respuestas y configura tu estilo de escritura",
   "categoria": "copilot",
