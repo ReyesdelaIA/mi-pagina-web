@@ -42,7 +42,6 @@ const TALLERES = [
     dur: "2 hrs · Presencial · Hands-On",
     resumen: "Dejar Copilot andando y sacarle partido: activación, tour por la herramienta, memoria, voz, imágenes y cuadernos.",
     conceptos: ["intro-copilot", "activacion-copilot", "copilot-tour", "memoria-copilot", "dictado-copilot", "voz-conversacional-movil", "crear-con-copilot", "cuadernos-copilot"],
-    proximamente: true,
     desafio: {
       titulo: "Copilot como tu asistente personal",
       intro: "Deja Copilot configurado a tu medida y úsalo una vez de punta a punta.",
