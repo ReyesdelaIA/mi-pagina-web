@@ -557,7 +557,12 @@ async function bootPortal(ids){
   injectShell();
   loadStars();
   loadUser();
-  if (!user) openGate(false);
+  // El taller suelto se reparte por QR al cierre de cualquier taller: se entra
+  // directo, sin pedir datos. El avance queda solo en el navegador, que para un
+  // material de consulta es suficiente. En los programas la identidad sí se pide,
+  // porque ahí el avance se reporta a la empresa.
+  if (SUELTO) { /* sin gate */ }
+  else if (!user) openGate(false);
   else {
     // Esperamos la recuperación (con tope de 3s) para que la primera pantalla
     // ya se dibuje con el avance real, venga del navegador o del servidor.
