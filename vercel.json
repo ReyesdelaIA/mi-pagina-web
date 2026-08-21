@@ -2,6 +2,10 @@
   "outputDirectory": ".",
   "rewrites": [
     {
+      "source": "/taller01-general",
+      "destination": "/programa-copilot/taller.html"
+    },
+    {
       "source": "/programa-copilot",
       "destination": "/programa-copilot/index.html"
     },

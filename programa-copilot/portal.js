@@ -41,7 +41,7 @@ const TALLERES = [
     title: "Copilot en tu día a día",
     dur: "2 hrs · Presencial · Hands-On",
     resumen: "Dejar Copilot andando y sacarle partido: activación, tour por la herramienta, memoria, voz, imágenes y cuadernos.",
-    conceptos: ["intro-copilot", "activacion-copilot", "copilot-tour", "memoria-copilot", "dictado-copilot", "voz-conversacional-movil", "crear-con-copilot", "cuadernos-copilot"],
+    conceptos: ["copilot-intro-activacion", "copilot-tour", "memoria-copilot", "copilot-voz", "copilot-crear-cuadernos"],
     desafio: {
       titulo: "Copilot como tu asistente personal",
       intro: "Deja Copilot configurado a tu medida y úsalo una vez de punta a punta.",
@@ -126,7 +126,7 @@ const TALLERES = [
 // Una rampa por sesión, con al menos tantos colores como conceptos tenga.
 const COLORES = {
   "1": ["#334155", "#475569", "#64748B", "#7C8CA1", "#94A3B8"],
-  "2": ["#08508F", "#0B78D0", "#1B8FE0", "#2E9AE3", "#4FA8F5", "#6BB8E8", "#8ACAF0", "#A9DCF8"],
+  "2": ["#08508F", "#0B78D0", "#2E9AE3", "#4FA8F5", "#8ACAF0"],
   "3": ["#0F766E", "#0D9488", "#14B8A6", "#2DD4BF", "#5EEAD4", "#7FEDDD", "#99F6E4"],
   "4": ["#6D28D9", "#7C3AED", "#8B5CF6", "#A78BFA", "#C4B5FD", "#C34AC6"]
 };
@@ -136,8 +136,14 @@ const SKILLS = TALLERES.flatMap(t =>
 
 const SUPABASE_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
-const STARS_KEY = 'copilot_pack_v1';
-const USER_KEY  = 'copilot_pack_user_v1';
+// El taller 1 es transversal: el mismo contenido sirve para el programa de
+// Copilot, el de Gemini y el de Claude. En /taller01-general se sirve suelto,
+// sin envoltorio de programa y con su propio avance, para poder repartirlo por
+// QR al cierre de cualquier taller.
+const SUELTO = location.pathname.replace(/\/$/,'').endsWith('/taller01-general');
+
+const STARS_KEY = SUELTO ? 'taller_general_v1'      : 'copilot_pack_v1';
+const USER_KEY  = SUELTO ? 'taller_general_user_v1' : 'copilot_pack_user_v1';
 
 let st = {};
 let user = null;

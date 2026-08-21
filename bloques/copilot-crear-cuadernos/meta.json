@@ -1,0 +1,72 @@
+{
+  "id": "copilot-crear-cuadernos",
+  "nombre": "Crear y Cuadernos",
+  "habilidad": "Crear y Cuadernos",
+  "emoji": "✨",
+  "descripcion": "Las dos secciones de Copilot que más rinden y que casi nadie abre: Crear, para el mundo visual, y Cuadernos, para conversar solo con tus documentos.",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "crear",
+    "imagenes",
+    "cuadernos"
+  ],
+  "pasos": [
+    {
+      "texto": "Al lado del chat, el panel de Copilot tiene dos secciones que casi nadie abre y que son donde está buena parte del valor: Crear, para todo el mundo visual, y Cuadernos, para conversar solo con los documentos de un tema."
+    },
+    {
+      "titulo": "Crear: el mundo de las imágenes",
+      "texto": "Ve a Copilot (web o app M365) y haz clic en \"Crear\" en el menú lateral izquierdo.",
+      "img": "01-crear.jpg"
+    },
+    {
+      "texto": "Selecciona el tipo de contenido: Crear una imagen, Crear un video, Diseñar una infografía, Crear una historia, Diseñar un póster y más.",
+      "img": "02-crear-opciones.jpg"
+    },
+    {
+      "texto": "Describe lo que quieres. Para imágenes con logo: selecciona \"Insertar un logotipo en una escena\" y sube el logo de tu empresa — Copilot lo integra naturalmente en la imagen generada."
+    },
+    {
+      "texto": "Usa opciones avanzadas: Estilo, Marca y color, Tamaño para afinar el resultado. También puedes usar \"Transformar con IA\" para editar una imagen ya generada."
+    },
+    {
+      "titulo": "Cuadernos: conversar solo con tus fuentes",
+      "texto": "¿Qué es? Es la respuesta de Copilot a NotebookLM: un espacio donde agrupas archivos, páginas, notas y links sobre un tema, y Copilot responde SOLO en base a ese contenido.",
+      "img": "03-cuadernos.png"
+    },
+    {
+      "texto": "Cómo crearlo: En Copilot entra a la sección Cuadernos (Notebooks), crea uno nuevo y agrégale tus fuentes desde SharePoint, OneDrive, documentos o notas.",
+      "img": "04-cuadernos-fuentes.png"
+    },
+    {
+      "texto": "Cómo usarlo: Hazle preguntas al cuaderno y responderá aterrizado en esas fuentes, con citas — sin inventar ni traer ruido de otros lados."
+    },
+    {
+      "texto": "Qué obtienes: Resúmenes, preguntas frecuentes y análisis precisos de un set acotado de documentos, ideal para un proyecto o tema puntual."
+    }
+  ],
+  "pro_tip": "Los Cuadernos son la respuesta de Copilot a NotebookLM: acotas las fuentes a un tema y las respuestas salen con citas, sin ruido. Si tienes un proyecto con varios documentos que consultas seguido, ese es el primer cuaderno que deberías armar.",
+  "desafio": null,
+  "portada": "01-crear.jpg",
+  "assets": [
+    "01-crear.jpg",
+    "02-crear-opciones.jpg",
+    "03-cuadernos.png",
+    "04-cuadernos-fuentes.png"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-crear-cuadernos/01-crear.jpg",
+    "https://reyesia.com/bloques/copilot-crear-cuadernos/02-crear-opciones.jpg",
+    "https://reyesia.com/bloques/copilot-crear-cuadernos/03-cuadernos.png",
+    "https://reyesia.com/bloques/copilot-crear-cuadernos/04-cuadernos-fuentes.png"
+  ],
+  "sources": [
+    {
+      "file": "bloques/crear-con-copilot + bloques/cuadernos-copilot",
+      "title": "Crear y Cuadernos",
+      "imgs": 4,
+      "variant": 0
+    }
+  ]
+}

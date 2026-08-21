@@ -5,28 +5,66 @@
   "emoji": "🧭",
   "descripcion": "La pantalla de Copilot por dentro: nuevo chat, historial, modelos, adjuntos y los cuatro botones que casi nadie usa.",
   "categoria": "copilot",
-  "tags": ["copilot", "interfaz", "chat", "modelos"],
+  "tags": [
+    "copilot",
+    "interfaz",
+    "chat",
+    "modelos"
+  ],
   "pasos": [
-    { "titulo": "Lo básico del chat", "texto": "La pantalla de Copilot tiene tres zonas: el panel lateral izquierdo con tus conversaciones y secciones, el chat al centro, y el selector de modo (Web / Work) arriba." },
-    { "texto": "Cada vez que cambies de tema, abre un Nuevo chat. Arrastrar temas distintos en la misma conversación la ensucia, la vuelve lenta y confunde al modelo." },
-    { "texto": "Todo lo que conversaste queda en el historial del panel izquierdo, y hay un buscador para volver a algo sin acordarte de dónde lo dejaste." },
-
-    { "corte": true, "titulo": "Los modelos: GPT y Claude", "texto": "Copilot no usa un solo modelo. Microsoft integra tanto GPT (de OpenAI) como Claude (de Anthropic), y en varias partes de la interfaz puedes elegir cuál quieres que trabaje." },
-    { "texto": "Por defecto está en automático y Copilot decide. Pero cuando la tarea es delicada —un análisis largo, una redacción con mucho matiz— vale la pena elegir a mano y comparar." },
-    { "texto": "El caso más útil: dentro de Excel y PowerPoint puedes cambiar el modelo automático a Claude. Para análisis de planillas y armado de presentaciones suele dar mejores resultados." },
-
-    { "corte": true, "titulo": "Las secciones del panel", "texto": "Chat es lo que ya conoces. Pero al lado hay tres secciones que son donde está el verdadero valor de Copilot." },
-    { "texto": "Crear: el mundo de las imágenes, videos, pósters e infografías. Lo vemos en detalle más adelante en esta misma sesión." },
-    { "texto": "Agentes: el Investigador, el Analista y los agentes que tú mismo puedes construir. Eso es materia de la Sesión 3." },
-    { "texto": "Cuadernos: agrupar documentos sobre un tema y conversar solo con ellos. Cierra esta sesión." },
-
-    { "corte": true, "titulo": "Adjuntar y buscar", "texto": "El clip permite subir archivos: PDF, Word, Excel, imágenes. Copilot los lee y responde sobre ellos — es la esfera de Análisis en acción." },
-    { "texto": "En modo Work no siempre necesitas adjuntar: puedes pedirle directamente «busca el archivo de presupuesto 2026 en mi SharePoint» y él lo encuentra." },
-    { "texto": "Copilot también busca en internet en tiempo real, así que sirve para datos actuales. Ojo: es justamente cuando sale a internet cuando más puede alucinar, mezclando fuentes. Verifica lo importante." }
+    {
+      "texto": "La pantalla de Copilot tiene tres zonas: el panel lateral izquierdo con tus conversaciones y secciones, el chat al centro, y el selector de modo (Web / Work) arriba."
+    },
+    {
+      "texto": "Cada vez que cambies de tema, abre un Nuevo chat. Arrastrar temas distintos en la misma conversación la ensucia, la vuelve lenta y confunde al modelo."
+    },
+    {
+      "texto": "Todo lo que conversaste queda en el historial del panel izquierdo, y hay un buscador para volver a algo sin acordarte de dónde lo dejaste."
+    },
+    {
+      "titulo": "Los modelos: GPT y Claude",
+      "texto": "Copilot no usa un solo modelo. Microsoft integra tanto GPT (de OpenAI) como Claude (de Anthropic), y en varias partes de la interfaz puedes elegir cuál quieres que trabaje."
+    },
+    {
+      "texto": "Por defecto está en automático y Copilot decide. Pero cuando la tarea es delicada —un análisis largo, una redacción con mucho matiz— vale la pena elegir a mano y comparar."
+    },
+    {
+      "texto": "El caso más útil: dentro de Excel y PowerPoint puedes cambiar el modelo automático a Claude. Para análisis de planillas y armado de presentaciones suele dar mejores resultados."
+    },
+    {
+      "titulo": "Las secciones del panel",
+      "texto": "Chat es lo que ya conoces. Pero al lado hay tres secciones que son donde está el verdadero valor de Copilot."
+    },
+    {
+      "texto": "Crear: el mundo de las imágenes, videos, pósters e infografías. Lo vemos en detalle más adelante en esta misma sesión."
+    },
+    {
+      "texto": "Agentes: el Investigador, el Analista y los agentes que tú mismo puedes construir. Eso es materia de la Sesión 3."
+    },
+    {
+      "texto": "Cuadernos: agrupar documentos sobre un tema y conversar solo con ellos. Cierra esta sesión."
+    },
+    {
+      "titulo": "Adjuntar y buscar",
+      "texto": "El clip permite subir archivos: PDF, Word, Excel, imágenes. Copilot los lee y responde sobre ellos — es la esfera de Análisis en acción."
+    },
+    {
+      "texto": "En modo Work no siempre necesitas adjuntar: puedes pedirle directamente «busca el archivo de presupuesto 2026 en mi SharePoint» y él lo encuentra."
+    },
+    {
+      "texto": "Copilot también busca en internet en tiempo real, así que sirve para datos actuales. Ojo: es justamente cuando sale a internet cuando más puede alucinar, mezclando fuentes. Verifica lo importante."
+    }
   ],
   "pro_tip": "Un chat por tema y el modo correcto arriba. Esos dos hábitos, que no cuestan nada, explican la mitad de la diferencia entre alguien que dice «la IA no me sirve» y alguien que la usa todos los días.",
   "desafio": null,
   "assets": [],
   "assets_github": [],
-  "sources": [{ "file": "programa-copilot · sesión 2", "title": "Tour por Copilot", "imgs": 0, "variant": 0 }]
+  "sources": [
+    {
+      "file": "programa-copilot · sesión 2",
+      "title": "Tour por Copilot",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
 }

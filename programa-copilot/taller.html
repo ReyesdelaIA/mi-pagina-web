@@ -216,14 +216,17 @@
 
 <footer>Programa facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes · <span id="pie-ver"></span></footer>
 
-<script src="/programa-copilot/portal.js?v=202608210928"></script>
+<script src="/programa-copilot/portal.js?v=202608211333"></script>
 <script>
   const N = (() => {
+    if (SUELTO) return 1;                    // el taller suelto es siempre el 1
     const p = new URLSearchParams(location.search).get('n');
     const m = location.pathname.match(/taller-(\d)/);
     const n = parseInt(p || (m && m[1]) || '1', 10);
     return [1,2,3,4].includes(n) ? n : 1;
   })();
+
+  if (SUELTO) document.title = 'Taller · Iniciación al uso de IA · Reyes IA';
 
   const taller = T(N);
   let paso = 0;          // índice dentro de RUTA
@@ -340,7 +343,7 @@
     const hayImgs = r.pasos.some(p => p.img || (p.imgs && p.imgs.length));
 
     const encabezado = `
-      <div class="paso-n">Concepto ${r.ci + 1} de ${taller.conceptos.length}${
+      <div class="paso-n">${SUELTO ? 'Bloque' : 'Concepto'} ${r.ci + 1} de ${taller.conceptos.length}${
         r.partes > 1 ? ` · parte ${r.parte} de ${r.partes}` : ''}</div>
       <h1 class="c-nombre">${esc(tituloPantalla || b.nombre)}</h1>
       ${r.parte === 1 && b.banner ? `<figure class="c-banner"><img src="/bloques/${r.id}/${b.banner}" alt="" /></figure>` : ''}
@@ -401,7 +404,7 @@
       const s = st[`${N}-quizScore`], t = st[`${N}-quizTotal`];
       return `
         ${visualHTML(null, '🧠')}
-        <div class="paso-n">Quiz de la sesión</div>
+        <div class="paso-n">${SUELTO ? 'Quiz del taller' : 'Quiz de la sesión'}</div>
         <h1 class="c-nombre">Quiz completado</h1>
         <p class="c-desc">${s != null ? `Respondiste <b>${s} de ${t}</b> correctamente.` : 'Ya rendiste este quiz.'}</p>
         <div class="acciones"><button class="btn btn-acc" id="a-sig">Continuar →</button></div>`;
@@ -431,7 +434,7 @@
     return `
       <div class="paso-n">Ejercicios hands-on · ${hechos} de ${lista.length}</div>
       <h1 class="c-nombre">Manos a la obra</h1>
-      <p class="c-desc">Estos son para hacer durante la sesión. Si alguno no alcanzas, déjalo sin marcar: sirve para saber dónde apretar.</p>
+      <p class="c-desc">Estos son para hacer durante ${SUELTO ? 'el taller' : 'la sesión'}. Si alguno no alcanzas, déjalo sin marcar: sirve para saber dónde apretar.</p>
       <div class="ejercicios">
         ${lista.map((e, i) => {
           const ok = !!st[`e-${e.id}`];
@@ -490,7 +493,7 @@
     const hecho = !!st[`${N}-des`];
     return `
       ${visualHTML(null, '🎯')}
-      <div class="paso-n">Desafío entre sesiones</div>
+      <div class="paso-n">${SUELTO ? 'Tu desafío' : 'Desafío entre sesiones'}</div>
       <h1 class="c-nombre">Tu desafío</h1>
       ${desafioHTML(taller.desafio)}
       <div class="acciones">
@@ -520,7 +523,7 @@
           : `Para ganar la estrella de esta sesión te falta: ${esc(falta.join(', '))}.`}</p>
         ${hab.length ? `<div class="fin-hab">${hab.map(b => `<span class="fin-chip">${b.emoji} ${esc(b.nombre)}</span>`).join('')}</div>` : ''}
         <div class="fin-acc">
-          <a class="btn btn-acc" href="${urlHub()}" style="text-align:center;text-decoration:none;display:block;">Volver al programa →</a>
+          <a class="btn btn-acc" href="${SUELTO ? 'https://reyesia.com' : urlHub()}" style="text-align:center;text-decoration:none;display:block;">${SUELTO ? 'Ir a reyesia.com →' : 'Volver al programa →'}</a>
           ${!done ? `<button class="btn btn-ghost" id="a-volver">Revisar lo que falta</button>` : ''}
         </div>
       </div>`;
@@ -529,7 +532,7 @@
   /* ---------------- Pintado y acciones ---------------- */
 
   function pintar(){
-    document.getElementById('t-label').textContent = taller.label;
+    document.getElementById('t-label').textContent = SUELTO ? 'Reyes IA · Taller de Iniciación' : taller.label;
     document.getElementById('t-title').textContent = taller.title;
 
     const r = RUTA[paso] || { tipo: 'fin' };
@@ -650,8 +653,18 @@
   }
 
   document.getElementById('btn-skills').onclick = () => openSkills();
-  document.getElementById('nav-hub').href = urlHub();
   document.getElementById('pie-ver').textContent = `Versión ${VERSION}`;
+
+  // Suelto: se lee como un taller independiente, no como la sesión de un programa
+  const navHub = document.getElementById('nav-hub');
+  if (SUELTO) {
+    navHub.href = 'https://reyesia.com';
+    navHub.textContent = '← reyesia.com';
+    document.querySelector('footer').innerHTML =
+      'Taller facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes';
+  } else {
+    navHub.href = urlHub();
+  }
 
   (async () => {
     await bootPortal(taller.conceptos);
