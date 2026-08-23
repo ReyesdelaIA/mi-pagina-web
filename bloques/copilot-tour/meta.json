@@ -3,7 +3,7 @@
   "nombre": "Tour por Copilot",
   "habilidad": "Dominio del chat",
   "emoji": "🧭",
-  "descripcion": "La pantalla de Copilot por dentro: nuevo chat, historial, modelos, adjuntos y los cuatro botones que casi nadie usa.",
+  "descripcion": "La pantalla de Copilot por dentro: el hábito del nuevo chat, el océano de conversaciones y el signo más, que es donde están las herramientas.",
   "categoria": "copilot",
   "tags": [
     "copilot",
@@ -16,37 +16,18 @@
       "texto": "La pantalla de Copilot tiene tres zonas: el panel lateral izquierdo con tus conversaciones y secciones, el chat al centro, y el selector de modo (Web / Work) arriba."
     },
     {
-      "texto": "Cada vez que cambies de tema, abre un Nuevo chat. Arrastrar temas distintos en la misma conversación la ensucia, la vuelve lenta y confunde al modelo."
+      "texto": "Cada vez que cambies de tema, aprieta Nuevo chat. Y ojo: aunque en tu cabeza ya cambiaste de tema, la herramienta no se enteró — sigue arrastrando todo lo anterior. Agarra el sano hábito de apretar Nuevo chat cada vez, para que cada tema empiece limpio y no venga contaminado con lo que estabas conversando antes. Un hilo que mezcla temas se ensucia, se pone lento y confunde al modelo.",
+      "img": "01-nuevo-chat.webp"
     },
     {
-      "texto": "Todo lo que conversaste queda en el historial del panel izquierdo, y hay un buscador para volver a algo sin acordarte de dónde lo dejaste."
+      "texto": "Cada vez que aprietas Nuevo chat, empiezas otra conversación o cierras la página, el chat anterior se guarda solo en la pestaña «Chats», abajo a la izquierda. Yo le llamo el océano de chats: ahí quedan todos y no desaparecen, así que no hay que andar eliminándolos — no es necesario. Sobre cada uno, en los tres puntitos, puedes cambiarle el nombre, moverlo a un cuaderno (eso lo vemos más adelante) o eliminarlo. Pero eliminar chats no tiene mucha utilidad. Y si necesitas volver a algo, para eso está el buscador: no tienes que acordarte de dónde lo dejaste.",
+      "img": "02-oceano-de-chats.webp",
+      "angosta": true
     },
     {
-      "titulo": "Los modelos: GPT y Claude",
-      "texto": "Copilot no usa un solo modelo. Microsoft integra tanto GPT (de OpenAI) como Claude (de Anthropic), y en varias partes de la interfaz puedes elegir cuál quieres que trabaje."
-    },
-    {
-      "texto": "Por defecto está en automático y Copilot decide. Pero cuando la tarea es delicada —un análisis largo, una redacción con mucho matiz— vale la pena elegir a mano y comparar."
-    },
-    {
-      "texto": "El caso más útil: dentro de Excel y PowerPoint puedes cambiar el modelo automático a Claude. Para análisis de planillas y armado de presentaciones suele dar mejores resultados."
-    },
-    {
-      "titulo": "Las secciones del panel",
-      "texto": "Chat es lo que ya conoces. Pero al lado hay tres secciones que son donde está el verdadero valor de Copilot."
-    },
-    {
-      "texto": "Crear: el mundo de las imágenes, videos, pósters e infografías. Lo vemos en detalle más adelante en esta misma sesión."
-    },
-    {
-      "texto": "Agentes: el Investigador, el Analista y los agentes que tú mismo puedes construir. Eso es materia de la Sesión 3."
-    },
-    {
-      "texto": "Cuadernos: agrupar documentos sobre un tema y conversar solo con ellos. Cierra esta sesión."
-    },
-    {
-      "titulo": "Adjuntar y buscar",
-      "texto": "El clip permite subir archivos: PDF, Word, Excel, imágenes. Copilot los lee y responde sobre ellos — es la esfera de Análisis en acción."
+      "titulo": "El signo más: adjuntar y herramientas",
+      "texto": "Abajo, al lado del campo donde escribes, está el signo más. Ahí es donde se abre todo lo que Copilot puede hacer además de conversar: subir archivos —PDF, Word, Excel, imágenes— para que los lea y responda sobre ellos, y activar las herramientas que vienen adentro.",
+      "img": "03-signo-mas.webp"
     },
     {
       "texto": "En modo Work no siempre necesitas adjuntar: puedes pedirle directamente «busca el archivo de presupuesto 2026 en mi SharePoint» y él lo encuentra."
@@ -57,8 +38,18 @@
   ],
   "pro_tip": "Un chat por tema y el modo correcto arriba. Esos dos hábitos, que no cuestan nada, explican la mitad de la diferencia entre alguien que dice «la IA no me sirve» y alguien que la usa todos los días.",
   "desafio": null,
-  "assets": [],
-  "assets_github": [],
+  "assets": [
+    "portada.webp",
+    "01-nuevo-chat.webp",
+    "02-oceano-de-chats.webp",
+    "03-signo-mas.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-tour/portada.webp",
+    "https://reyesia.com/bloques/copilot-tour/01-nuevo-chat.webp",
+    "https://reyesia.com/bloques/copilot-tour/02-oceano-de-chats.webp",
+    "https://reyesia.com/bloques/copilot-tour/03-signo-mas.webp"
+  ],
   "sources": [
     {
       "file": "programa-copilot · sesión 2",
@@ -66,5 +57,6 @@
       "imgs": 0,
       "variant": 0
     }
-  ]
+  ],
+  "portada": "portada.webp"
 }

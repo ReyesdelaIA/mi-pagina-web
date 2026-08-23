@@ -3,7 +3,7 @@
   "nombre": "Memorización",
   "habilidad": "Memorización",
   "emoji": "🧠",
-  "descripcion": "Que Copilot recuerde quién eres entre conversaciones: cómo se activa, cómo forzarla y cómo auditar lo que sabe de ti.",
+  "descripcion": "Qué recuerda Copilot, qué olvida y por qué el contexto que le das cambia por completo la calidad de la respuesta.",
   "categoria": "copilot",
   "tags": [
     "copilot",
@@ -12,42 +12,44 @@
   ],
   "pasos": [
     {
-      "texto": "Para que Copilot memorice cosas de ti, la memoria tiene que estar encendida: Configuración → Personalización → Memoria de Copilot → activa el interruptor. Desde ahí empieza a inferir y guardar datos de tus conversaciones."
+      "texto": "Para que esto funcione, el botón «Recuerdos guardados» tiene que estar encendido. Lo encuentras en el engranaje de abajo a la izquierda → Configuración → Personalización. Cuando el interruptor está hacia la derecha, como en la imagen, está activo. Ojo con la expectativa: no va a memorizar el 100% de tus conversaciones, tus ideas y tus proyectos, pero sí va a ir guardando slots de memoria con las cosas que considere más relevantes.",
+      "imgs": [
+        "01-abrir-configuracion.webp",
+        "02-recuerdos-guardados.webp"
+      ]
     },
     {
-      "texto": "Dentro de una misma conversación siempre recuerda: cada respuesta considera todo lo que se dijo antes en ese chat. Por eso puedes corregir sobre la marcha sin repetir el contexto."
-    },
-    {
-      "texto": "La memoria es lo que hace que eso sobreviva al cerrar el chat. Sin ella, cada conversación parte de cero y le tienes que volver a explicar quién eres."
+      "texto": "Dentro de una misma conversación sí recuerda: cada respuesta considera todo lo que se dijo antes en ese chat. Por eso puedes corregir sobre la marcha sin repetir el contexto."
     },
     {
       "titulo": "Forzar la memoria",
-      "texto": "Copilot memoriza por su cuenta lo que considera trascendente. Pero tú puedes forzarlo, y ahí está la gracia: dile explícitamente «memoriza que…» y lo guarda."
+      "texto": "La herramienta va a memorizar por su cuenta lo que considere trascendente. Además de eso, tú puedes forzarla: dile literalmente «Memoriza lo siguiente:» y lo guarda. Pero para saber si realmente lo memorizó, tiene que aparecerte el cuadrito de «Memoria actualizada», el que está marcado en azul en la imagen. A veces Copilot te dice que lo va a recordar y ese cuadro no sale: ahí no lo memorizó, o ya lo tenía guardado de antes. Si es algo nuevo, insiste hasta que aparezca. Si no sale, no te confíes.",
+      "img": "03-memoria-actualizada.webp"
     },
     {
-      "texto": "Ejemplo: «Memoriza que soy jefa de operaciones en una empresa de logística, que trabajo con reportes semanales de despacho y que prefiero respuestas cortas y directas, sin introducciones». Te va a confirmar con un aviso de memoria actualizada."
+      "texto": "Lo que más rinde memorizar: tu cargo y área, el tipo de tareas que haces, los nombres que ocupan internamente para las cosas, y cómo te gusta que te escriba — largo, tono y formato."
     },
     {
-      "texto": "Lo que más rinde memorizar: tu cargo y área, el tipo de tareas que haces, los nombres que ocupas internamente para las cosas, y cómo te gusta que te escriba (largo, tono, formato)."
-    },
-    {
-      "titulo": "Auditar y limpiar",
-      "texto": "Pregúntale directamente «¿qué sabes de mí? dame el resultado en bullets». Es la forma más rápida de ver qué guardó y detectar datos incorrectos."
-    },
-    {
-      "texto": "Para administrarlas a mano: Configuración → Personalización → ahí ves las memorias una a una y puedes eliminar las que sobran o quedaron mal."
-    },
-    {
-      "texto": "Cuidado con el contexto de un cliente o proyecto puntual: eso no va en la memoria global, porque después se te cuela en todas las conversaciones. Para eso están los cuadernos."
+      "texto": "Pregúntale directamente «¿qué sabes de mí? dame el resultado en bullets». Es la forma más rápida de ver qué guardó y detectar datos incorrectos. Para administrarlas a mano, vuelves a Configuración → Personalización y las ves una a una."
     }
   ],
-  "pro_tip": "Dedica cinco minutos, una sola vez, a presentarte bien: quién eres, qué haces, con qué trabajas y cómo quieres que te respondan. Es la inversión de mejor retorno de todo el programa — todas las conversaciones que vengan después parten desde ahí.",
+  "pro_tip": "Si te sorprende que la IA «olvidó» algo, casi siempre es que nunca lo supo: estaba en otro chat, o estaba en tu cabeza. El contexto hay que dárselo explícitamente.",
   "desafio": {
     "enunciado": "Abre Copilot y logra que memorice 5 cosas relevantes de ti y de tu rol. Preséntate, cuéntale en qué área trabajas y qué tipo de tareas haces, y pídele que lo recuerde. Después pregúntale «¿qué sabes de mí?» y verifica que quedó bien guardado.",
     "prompt": "Memoriza lo siguiente sobre mí: soy [CARGO] en [ÁREA] de una empresa de [RUBRO]. Mis tareas habituales son [TAREAS]. Trabajo principalmente con [HERRAMIENTAS/DOCUMENTOS]. Prefiero respuestas [LARGO Y TONO]. Cuando te pida un documento, entrégamelo en [FORMATO]."
   },
-  "assets": [],
-  "assets_github": [],
+  "assets": [
+    "portada.webp",
+    "01-abrir-configuracion.webp",
+    "02-recuerdos-guardados.webp",
+    "03-memoria-actualizada.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/memoria-copilot/portada.webp",
+    "https://reyesia.com/bloques/memoria-copilot/01-abrir-configuracion.webp",
+    "https://reyesia.com/bloques/memoria-copilot/02-recuerdos-guardados.webp",
+    "https://reyesia.com/bloques/memoria-copilot/03-memoria-actualizada.webp"
+  ],
   "sources": [
     {
       "file": ".backups/bloques-newell/memoria-ia.copilot.json",
@@ -55,5 +57,6 @@
       "imgs": 0,
       "variant": 0
     }
-  ]
+  ],
+  "portada": "portada.webp"
 }

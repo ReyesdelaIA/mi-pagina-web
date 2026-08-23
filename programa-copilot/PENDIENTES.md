@@ -34,21 +34,45 @@ Formato: **un bloque = un solo scroll**, sin cortes de pantalla. Los subtítulos
 internos van en el campo `titulo` de un paso, que el renderer pinta como sección
 dentro del scroll (`.paso-sec`).
 
+## Sesión 2 — REVISADA Y APROBADA POR FELIPE
+
+Reestructurada de 8 bloques a 5 módulos de un solo scroll, igual que la 1, y
+recorrida módulo por módulo con él:
+
+| | Módulo | Puntos | Imágenes |
+|---|---|---|---|
+| 1 | `copilot-intro-activacion` · Intro y activación | 11 | 5 |
+| 2 | `copilot-tour` · Tour por Copilot | 6 | 4 |
+| 3 | `memoria-copilot` · Memorización | 5 | 4 |
+| 4 | `copilot-voz` · Dictado y voz | 7 | 5 |
+| 5 | `copilot-crear-cuadernos` · Crear y Cuadernos | 9 | 4 |
+
+Los módulos 3 y 4 se armaron sobre la base del programa de Claude
+(`memoria-claude` y `dictado-claude`) y después se reemplazaron TODAS sus
+capturas por las de Copilot. Ya no queda ninguna imagen de Claude.
+
 ## Pendientes conocidos
 
-1. **Faltan capturas** en 6 bloques de la S2 y S4: `activacion-copilot`,
-   `copilot-tour`, `memoria-copilot`, `dictado-copilot`,
-   `voz-conversacional-movil` y `artefactos-copilot`. Hoy muestran la tarjeta
-   con emoji.
-2. **Revisar `artefactos-copilot`**: es el único bloque escrito por inferencia.
-   Está redactado sobre las Páginas de Copilot, el análogo de los artefactos de
-   Claude. Falta que Felipe confirme si así lo enseña.
-3. **Las sesiones 2, 3 y 4 no han pasado por revisión de contenido con Felipe.**
-   La S1 sí, bloque por bloque.
-4. **La S3 no tiene ningún ejercicio hands-on** (la S1 tiene 1, la S2 dos, la S4 uno).
-5. **Detalles menores de la S1**: la Regla 1 del bloque 3 no tiene subtítulo de
+1. **El quiz de la S2 está desactualizado.** Sus 5 preguntas se escribieron
+   para los 8 temas viejos. La de los modelos GPT/Claude ya no tiene respaldo
+   —ese contenido salió del Tour, va con razonamiento más adelante— y las de
+   memoria y dictado hay que revisarlas contra lo que quedó.
+2. **El punto 4 del Tour** solo anuncia el signo más. Las seis opciones del
+   menú (Agregar contenido, Cargar imágenes y archivos, Adjuntar archivos en la
+   nube, Agregar funcionalidades, Chatear con un agente, Cambiar orígenes de
+   datos) se ven en la lámina pero no están explicadas.
+3. **Cómo se detiene el dictado en Copilot**: el texto dice que aparece
+   «Escuchando…», pero no dice cómo se corta. Falta ese dato.
+4. **Las sesiones 3 y 4 no han pasado por revisión de contenido** y siguen
+   cerradas como «próximamente». La S4 tiene `artefactos-copilot`, el único
+   bloque escrito por inferencia, y 6 bloques sin capturas.
+5. **La S3 no tiene ningún ejercicio hands-on** (la S1 tiene 1, la S2 dos, la S4 uno).
+6. **Detalles menores de la S1**: la Regla 1 del bloque 3 no tiene subtítulo de
    sección como sí lo tienen la 2 y la 3; y la portada del bloque 5 es la única
    oscura de las cinco.
+7. **Contenido que se sacó y quedó sin lugar**: dictar fuera del chat (Word y
+   Google Docs), y las 4 secciones del panel de Copilot (Chat, Crear, Agentes,
+   Cuadernos) que se borraron del Tour.
 
 ## Cómo revisarlo en local
 

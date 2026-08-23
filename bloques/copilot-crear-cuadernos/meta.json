@@ -17,8 +17,7 @@
     },
     {
       "titulo": "Crear: el mundo de las imágenes",
-      "texto": "Ve a Copilot (web o app M365) y haz clic en \"Crear\" en el menú lateral izquierdo.",
-      "img": "01-crear.jpg"
+      "texto": "Ve a Copilot (web o app M365) y haz clic en \"Crear\" en el menú lateral izquierdo."
     },
     {
       "texto": "Selecciona el tipo de contenido: Crear una imagen, Crear un video, Diseñar una infografía, Crear una historia, Diseñar un póster y más.",
@@ -32,7 +31,7 @@
     },
     {
       "titulo": "Cuadernos: conversar solo con tus fuentes",
-      "texto": "¿Qué es? Es la respuesta de Copilot a NotebookLM: un espacio donde agrupas archivos, páginas, notas y links sobre un tema, y Copilot responde SOLO en base a ese contenido.",
+      "texto": "Los Cuadernos funcionan un poco como los Proyectos de ChatGPT o de Claude — de forma más básica, para ser sinceros, pero con la misma lógica: es un espacio donde agrupas material sobre un tema. Puedes cargarle documentos de referencia y también juntar ahí las conversaciones que ya tuviste sobre ese tema. Copilot después responde aterrizado solo en ese contenido, con citas, sin traer ruido de otros lados.",
       "img": "03-cuadernos.png"
     },
     {

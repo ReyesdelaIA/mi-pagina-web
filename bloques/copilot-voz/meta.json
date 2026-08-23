@@ -3,7 +3,7 @@
   "nombre": "Dictado y voz",
   "habilidad": "Dictado y voz",
   "emoji": "🎙️",
-  "descripcion": "Hablarle a Copilot en vez de escribirle: el dictado que transcribe y el modo conversacional que responde hablando.",
+  "descripcion": "Hablarle a Copilot en vez de escribirle: prompts más largos, más naturales y en una fracción del tiempo.",
   "categoria": "copilot",
   "tags": [
     "copilot",
@@ -13,62 +13,48 @@
   ],
   "pasos": [
     {
-      "texto": "Hay dos formas de hablarle a la IA en vez de escribirle, y no son lo mismo: el dictado, que convierte tu voz en texto, y el modo conversacional, que te responde hablando."
+      "texto": "El dictado está en el ícono de micrófono, dentro del campo de escritura. Lo tienes igual en el celular y en el computador: en el escritorio te aparece como «Iniciar dictado». La primera vez el navegador o el sistema te va a pedir permiso para usar el micrófono.",
+      "img": "01-herramienta-dictado.webp"
     },
     {
-      "titulo": "Dónde está el dictado",
-      "texto": "El dictado está en el ícono de micrófono, dentro del campo de escritura del chat. Lo tienes igual en el computador y en el celular. La primera vez el navegador te va a pedir permiso para usar el micrófono: acepta."
+      "texto": "Habla como le explicarías a una persona: con contexto, sin miedo a extenderte. Dictar rinde mucho más que escribir, porque no editas mientras hablas — y el contexto largo es justamente lo que mejora la respuesta."
     },
     {
-      "texto": "Habla como le explicarías a una persona: con contexto, sin miedo a extenderte. Dictar rinde mucho más que escribir porque no editas mientras hablas — y el contexto largo es justamente lo que mejora la respuesta."
+      "texto": "Modula bien para que agarre tus palabras, sobre todo con nombres propios y términos técnicos. Mientras te está capturando, el propio campo te lo avisa: aparece «Escuchando…» y el micrófono queda activo. Cuando termines, revisa el texto antes de enviarlo — siempre se le escapa alguna palabra.",
+      "img": "02-escuchando.webp"
     },
     {
-      "texto": "Modula bien para que agarre tus palabras, sobre todo con nombres propios y términos técnicos. Cuando termines, revisa el texto antes de enviar: siempre se le escapa alguna palabra."
+      "texto": "¿Y por qué es tan importante dictarle? Porque mientras más le hables a la inteligencia artificial, mejor te va a responder: le estás dando más ventana de contexto. Un buen prompt es, por esencia, un prompt largo. Y cuando hablamos de media página de contexto, dictar es bastante más eficiente que teclearlo.",
+      "img": "03-prompt-largo.webp"
     },
     {
-      "titulo": "Dictado fuera del chat",
-      "texto": "En Word tienes el botón Dictar en la cinta (ícono de micrófono): hablas directamente dentro del documento. Sirve para tirar un borrador largo en minutos y después pedirle a Copilot que lo ordene."
+      "titulo": "El modo de voz conversacional",
+      "texto": "Distinto del dictado: el modo de voz permite conversar de ida y vuelta, sin teclado. Puedes interrumpirla mientras habla, cambiar de tema a media frase y pedirle que se explique de otra manera. Se activa con el ícono de ondas de sonido, al lado del micrófono. Ojo con la disponibilidad: en el celular lo tienen todos —plan básico y premium, cualquiera que tenga Copilot por la empresa—, pero en el computador, hasta la fecha, solo los planes premium.",
+      "img": "04-modelo-voz.webp"
     },
     {
-      "texto": "En Google Docs el equivalente está en Herramientas → Escribir por voz (atajo ⌘+Mayús+S en Mac)."
+      "texto": "Sirve para pensar en voz alta mientras caminas o manejas, para ensayar una conversación difícil poniéndola a ella de contraparte, o para estudiar un tema en tiempos muertos sin pantalla de por medio."
     },
     {
-      "texto": "El flujo que más rinde: dictas el borrador crudo, sin preocuparte de la forma, y después le pides a Copilot que lo estructure, lo corrija y le dé el tono. Escribir bien a la primera es mucho más lento que dictar mal y corregir."
-    },
-    {
-      "texto": "Y combínalo con el celular: dictar una idea en el momento en que se te ocurre vale mucho más que anotarla para después."
-    },
-    {
-      "titulo": "La voz conversacional en el celular",
-      "texto": "El dictado convierte tu voz en texto y ahí se acaba. El modo de voz conversacional es otra cosa: es una conversación real, de ida y vuelta, donde la IA te responde hablando."
-    },
-    {
-      "texto": "Se activa desde la app del celular, con el ícono de ondas de sonido al lado del micrófono. En Copilot está bajo el modo de voz; en ChatGPT es el mismo ícono de ondas."
-    },
-    {
-      "texto": "Puedes interrumpirla mientras habla, cambiar de tema a media frase y pedirle que se explique de otra manera. Se siente como hablar por teléfono con alguien que sabe mucho."
-    },
-    {
-      "titulo": "Para qué sirve de verdad",
-      "texto": "Pensar en voz alta. Vas manejando o caminando y le cuentas un problema completo: ella pregunta, tú respondes, y llegas a la reunión con la idea ya ordenada."
-    },
-    {
-      "texto": "Preparar una conversación difícil. Pídele que haga de contraparte —el cliente molesto, el jefe escéptico— y ensaya el diálogo antes de tenerlo de verdad."
-    },
-    {
-      "texto": "Estudiar un tema en tiempos muertos: que te explique un concepto y le vas preguntando lo que no entiendes, sin pantalla de por medio."
-    },
-    {
-      "texto": "Practicar otro idioma: conversación libre, con corrección de pronunciación y vocabulario, a la hora que quieras."
-    },
-    {
-      "texto": "Al final de la conversación pídele el resumen por escrito. Así lo hablado no se pierde y te queda el texto en el historial."
+      "texto": "Combínalo con el celular: dictar una idea en el momento en que se te ocurre vale mucho más que anotarla para después."
     }
   ],
-  "pro_tip": "Si tus prompts son cortos, es casi seguro que es por flojera de tipear. Dicta durante un minuto seguido explicando el contexto completo y compara el resultado con el prompt de una línea que hubieras escrito: la diferencia es evidente.",
+  "pro_tip": "El mejor prompt que vas a escribir hoy probablemente no lo escribas: lo dictes. Un prompt hablado de 60 segundos tiene más contexto que uno tecleado de 10 líneas.",
   "desafio": null,
-  "assets": [],
-  "assets_github": [],
+  "assets": [
+    "portada.webp",
+    "01-herramienta-dictado.webp",
+    "02-escuchando.webp",
+    "03-prompt-largo.webp",
+    "04-modelo-voz.webp"
+  ],
+  "assets_github": [
+    "https://reyesia.com/bloques/copilot-voz/portada.webp",
+    "https://reyesia.com/bloques/copilot-voz/01-herramienta-dictado.webp",
+    "https://reyesia.com/bloques/copilot-voz/02-escuchando.webp",
+    "https://reyesia.com/bloques/copilot-voz/03-prompt-largo.webp",
+    "https://reyesia.com/bloques/copilot-voz/04-modelo-voz.webp"
+  ],
   "sources": [
     {
       "file": "bloques/dictado-copilot + bloques/voz-conversacional-movil",
@@ -76,5 +62,6 @@
       "imgs": 0,
       "variant": 0
     }
-  ]
+  ],
+  "portada": "portada.webp"
 }

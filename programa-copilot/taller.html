@@ -403,7 +403,7 @@
     if (st[`${N}-quiz`]){
       const s = st[`${N}-quizScore`], t = st[`${N}-quizTotal`];
       return `
-        ${visualHTML(null, '🧠')}
+        <div class="visual"><img src="/img/quiz-repaso.webp" alt="" /></div>
         <div class="paso-n">${SUELTO ? 'Quiz del taller' : 'Quiz de la sesión'}</div>
         <h1 class="c-nombre">Quiz completado</h1>
         <p class="c-desc">${s != null ? `Respondiste <b>${s} de ${t}</b> correctamente.` : 'Ya rendiste este quiz.'}</p>
@@ -411,7 +411,7 @@
     }
     const q = taller.quiz[qIdx];
     return `
-      ${qIdx === 0 ? visualHTML(null, '🧠') : ''}
+      ${qIdx === 0 ? '<div class="visual"><img src="/img/quiz-repaso.webp" alt="" /></div>' : ''}
       <div class="q-num">Pregunta ${qIdx + 1} de ${taller.quiz.length}</div>
       <h1 class="q-text">${esc(q.q)}</h1>
       <div class="opts" id="opts">

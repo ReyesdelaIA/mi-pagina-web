@@ -3,7 +3,7 @@
   "nombre": "Intro y activación de Copilot",
   "habilidad": "Activación",
   "emoji": "🔑",
-  "descripcion": "Qué es Copilot, por dónde se entra y el modo Work, que es el interruptor que lo cambia todo.",
+  "descripcion": "Copilot no es un modelo de lenguaje: es el ecosistema de IA de Microsoft, y su gracia es que se conecta con todo tu entorno de trabajo.",
   "categoria": "copilot",
   "tags": [
     "copilot",
@@ -13,27 +13,26 @@
   ],
   "pasos": [
     {
-      "texto": "Qué es: Copilot es la IA de Microsoft, construida sobre los modelos de OpenAI (GPT) e integrada en su ecosistema de productos. ChatGPT = versatilidad. Copilot = productividad empresarial.",
+      "texto": "Copilot es el nombre de la inteligencia artificial de Microsoft, y se apalanca en modelos que no son suyos: ocupa los de OpenAI —los mismos de ChatGPT— en la versión básica, y también los de Claude en la versión premium.",
       "img": "01-que-es-copilot.jpg"
     },
     {
-      "texto": "Dos versiones clave: Copilot Chat (incluido) — gratis con tu cuenta Microsoft 365. Copilot Business — USD $18/usuario/mes, se integra dentro de Word, Excel, Teams, Outlook y PowerPoint."
+      "texto": "Y acá está la distinción que hay que entender: Copilot no es un modelo de lenguaje como tal, es un ecosistema de inteligencia artificial. Su gran virtud no es ser más inteligente que los otros, sino que se conecta con todo tu entorno de trabajo: la consola completa de Microsoft 365, SharePoint, Word, Excel, Outlook, Teams y OneDrive."
     },
     {
-      "texto": "Novedad 2026: Claude de Anthropic ya está disponible como motor alternativo dentro de Copilot. Microsoft amplió su ecosistema más allá de OpenAI."
+      "texto": "Dos versiones que conviene distinguir: Copilot Chat viene incluido con tu cuenta Microsoft 365 y funciona en el navegador. Copilot Business —alrededor de USD 18 por usuario al mes— es el que se mete dentro de Word, Excel, PowerPoint, Outlook y Teams."
     },
     {
-      "texto": "En datos de Reyes IA: de más de 200 empresas capacitadas, el 70% usa Microsoft (Outlook), el 30% usa Google Workspace (Gmail). Tu empresa está en el ecosistema Microsoft — Copilot es la herramienta natural."
+      "texto": "Novedad 2026: Claude de Anthropic ya está disponible como motor dentro de Copilot. Microsoft amplió su ecosistema más allá de OpenAI, y en varias partes de la herramienta puedes elegir con cuál de los dos trabajar."
+    },
+    {
+      "texto": "En datos de Reyes IA: de más de 200 empresas capacitadas, el 70% trabaja con el ecosistema Microsoft y el 30% con Google Workspace. Si tu empresa está en Microsoft, Copilot no es una herramienta más: es la que ya vive donde tú trabajas.",
+      "img": "02-microsoft-vs-google.webp"
     },
     {
       "titulo": "Por dónde entrar",
-      "texto": "La dirección oficial es copilot.microsoft.com. Ahí entras con tu cuenta y ya estás dentro: no hay que instalar nada."
-    },
-    {
-      "texto": "Hay tres formas de acceder y conviene usar las tres: la página web desde cualquier navegador, la app de Microsoft 365 en el computador, y la app de Copilot en el celular."
-    },
-    {
-      "texto": "En las tres tienes que entrar con la misma cuenta corporativa. Así quedan sincronizadas y conversan entre ellas: tu historial, tus cuadernos y tus preferencias te siguen a donde vayas."
+      "texto": "La dirección oficial es copilot.microsoft.com. Si bien puedes entrar por la aplicación de escritorio, te recomiendo activarte desde un navegador —Google Chrome, Microsoft Edge o Mozilla Firefox—, y de paso descargar también la app en el celular. Mientras entres siempre con la misma cuenta, en este caso la laboral, vas a tener todo sincronizado: el historial, los cuadernos y tus preferencias te siguen a donde vayas.",
+      "img": "03-copilot-acceso.webp"
     },
     {
       "texto": "La ventaja de entrar por el navegador es que puedes tener varias pestañas de Copilot abiertas al mismo tiempo, cada una con una conversación distinta. Un tema por pestaña."
@@ -49,17 +48,8 @@
       "texto": "En modo Work, Copilot se conecta con tu cuenta corporativa: tus archivos de OneDrive y SharePoint, tus correos de Outlook, tus reuniones de Teams. Ahí es donde deja de ser un chat y pasa a ser una herramienta de trabajo."
     },
     {
-      "texto": "Regla simple: si la pregunta tiene que ver con tu trabajo, con un documento tuyo o con algo de la empresa, va en modo Work. Si no aparece el modo Work, es que tu licencia todavía no está activada — eso lo ve TI."
-    },
-    {
-      "titulo": "Confidencialidad y licencias",
-      "texto": "Con la cuenta corporativa, lo que escribes en Copilot no se usa para entrenar modelos. Por eso el modo Work es también el modo seguro para información sensible."
-    },
-    {
-      "texto": "Dos versiones a distinguir: Copilot Chat viene incluido con Microsoft 365 y funciona en la web. Copilot Business (alrededor de USD 18 por usuario al mes) es el que se mete dentro de Word, Excel, PowerPoint, Outlook y Teams."
-    },
-    {
-      "texto": "Si no sabes cuál tienes, mira si aparece el botón de Copilot dentro de Word o Excel: si está, tienes la licencia completa; si solo funciona en el navegador, tienes Copilot Chat."
+      "texto": "Regla simple: si la pregunta tiene que ver con tu trabajo, con un documento tuyo o con algo de la empresa, va en modo Work.",
+      "img": "04-modo-work.webp"
     }
   ],
   "pro_tip": "Deja Copilot fijado en la barra de tareas y en la pantalla de inicio del celular. La barrera más grande para usarlo no es aprender a usarlo: es acordarse de que existe cuando estás apurado.",
@@ -67,12 +57,20 @@
     "enunciado": "Entra a copilot.microsoft.com con tu cuenta corporativa, verifica que el selector diga Work e instala la app de Copilot en tu celular con la misma cuenta. Después hazle una pregunta sobre un documento tuyo para confirmar que efectivamente accede a tus archivos.",
     "prompt": "Busca en mis archivos el último documento en el que trabajé sobre [TEMA] y hazme un resumen de una página con los puntos principales."
   },
-  "portada": "01-que-es-copilot.jpg",
+  "portada": "portada.webp",
   "assets": [
-    "01-que-es-copilot.jpg"
+    "portada.webp",
+    "01-que-es-copilot.jpg",
+    "02-microsoft-vs-google.webp",
+    "03-copilot-acceso.webp",
+    "04-modo-work.webp"
   ],
   "assets_github": [
-    "https://reyesia.com/bloques/copilot-intro-activacion/01-que-es-copilot.jpg"
+    "https://reyesia.com/bloques/copilot-intro-activacion/portada.webp",
+    "https://reyesia.com/bloques/copilot-intro-activacion/01-que-es-copilot.jpg",
+    "https://reyesia.com/bloques/copilot-intro-activacion/02-microsoft-vs-google.webp",
+    "https://reyesia.com/bloques/copilot-intro-activacion/03-copilot-acceso.webp",
+    "https://reyesia.com/bloques/copilot-intro-activacion/04-modo-work.webp"
   ],
   "sources": [
     {
