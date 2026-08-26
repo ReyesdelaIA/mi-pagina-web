@@ -52,19 +52,89 @@ const TALLERES = [
     proximamente: true,
     desafio: {"titulo":"Tu primer agente propio","intro":"Piensa en una tarea o dolor recurrente de tu día a día y construye un agente para resolverlo.","pasos":["Dale un nombre y un propósito claro, en una frase.","Redacta una buena paleta de instrucciones — apóyate en la IA para escribirlas.","Cárgale conocimiento vinculante: SharePoint, Teams, Outlook o una web.","Pruébalo con un caso real y ajusta las instrucciones según el resultado.","Muéstraselo a alguien de tu equipo: si a esa persona le sirve tal cual, el agente quedó bien."],"prompt":"Ayúdame a escribir las instrucciones de un agente de Copilot que haga lo siguiente: [TAREA]. Su usuario soy yo, [CARGO] en [ÁREA]. El input que va a recibir es [DOCUMENTOS O DATOS] y el output que necesito es [FORMATO EXACTO]. Escribe las instrucciones en secciones separadas: identidad, procedimiento, formato de salida y qué NO debe hacer.","cierre":"Antes de construirlo, chequea si el Investigador o el Analista ya resuelven tu caso."},
     quiz: [{"q":"¿Qué es un agente en Copilot?","opts":["Un chat nuevo que se borra apenas cierras la ventana","Un asistente que configuras una vez con instrucciones y conocimiento, y que después repite esa lógica automáticamente","Un programa que debes descargar e instalar aparte","Una macro de Excel que solo sirve para planillas"],"correct":1,"explain":"Un agente se configura una vez —propósito, instrucciones y conocimiento— y de ahí en adelante repite esa lógica solo. No es un chat desechable ni algo que se instale aparte."},{"q":"¿Cuál es la señal más clara de que una tarea merece un agente y no un chat?","opts":["Que sea una tarea difícil","Que lleves semanas escribiendo el mismo prompt largo con las mismas instrucciones","Que involucre muchos archivos","Que la haga más de una persona del equipo"],"correct":1,"explain":"Si repites el mismo prompt cada semana, eso ya no es una conversación: es un procedimiento. Y los procedimientos se configuran una sola vez en vez de reescribirse."},{"q":"De los dos agentes que Copilot trae de fábrica, ¿cuál usarías para preparar una reunión con inteligencia de cliente?","opts":["El Analista, porque cruza datos","El Investigador, porque navega y sintetiza fuentes internas y externas con citas","Ninguno: hay que construir uno propio","Cualquiera de los dos da lo mismo"],"correct":1,"explain":"El Investigador navega de forma autónoma y combina lo externo (web) con lo interno (correos, reuniones, archivos), entregando un informe con fuentes. El Analista es para cruzar números de archivos que ya tienes."},{"q":"Armaste un dashboard en HTML y se lo quieres mandar a alguien por correo, sin adjuntos extra ni instrucciones. ¿Qué nivel de la escalera necesitas?","opts":["Nivel 1: el HTML con el Excel aparte","Nivel 3: los datos incrustados dentro del propio archivo","Nivel 5: conectado a datos en vivo","Ninguno: un HTML no se puede compartir"],"correct":1,"explain":"En el nivel 3 los datos quedan embebidos dentro del HTML: es un único archivo autosuficiente que se abre en cualquier navegador. El nivel 1 obliga a mandar el Excel aparte, y el 5 es innecesario si los datos no cambian solos."},{"q":"¿Cuál es la diferencia entre dejar una respuesta en el chat y convertirla en artefacto?","opts":["El artefacto se ve con mejores colores","El artefacto queda como entregable editable y compartible, y sigue conectado a Copilot para seguir trabajándolo","El artefacto se guarda con contraseña","No hay diferencia real, solo cambia dónde aparece"],"correct":1,"explain":"La respuesta de chat se pierde en el scroll. El artefacto queda como documento: lo editas tú, lo comparten otros con un link, y le puedes seguir pidiendo cambios a Copilot sin volver a explicarle el contexto."}]
+  },
+  {
+    n: 5,
+    num: "04",
+    label: "Sesión 4 · Claude",
+    title: "Primeros pasos con Claude",
+    dur: "2 hrs · Presencial · Hands-On",
+    resumen: "Intro a Claude, activación y configuración, tour por la herramienta, razonamiento (Sonnet/Opus) y Proyectos.",
+    conceptos: ["activacion-claude","claude-chat-tour","razonamiento-claude","proyectos-claude"],
+    proximamente: true,
+    desafio: null,
+    quiz: []
+  },
+  {
+    n: 6,
+    num: "05",
+    label: "Sesión 5 · Claude",
+    title: "Claude conectado: Office, MCP y Skills",
+    dur: "2 hrs · Presencial · Hands-On",
+    resumen: "Claude en el Office, conectores MCP, Skills personalizadas y genéricas, y HTMLs hechos con Claude.",
+    conceptos: ["claude-en-office","mcp-conectores","skills-claude","html-avanzado"],
+    proximamente: true,
+    desafio: null,
+    quiz: []
+  },
+  {
+    n: 7,
+    num: "06",
+    label: "Sesión 6 · Claude",
+    title: "Artefactos y Cowork",
+    dur: "2 hrs · Presencial · Hands-On",
+    resumen: "Artefactos en Claude, extensión de Chrome, intro a Cowork y sus tareas reactivas y programadas.",
+    conceptos: ["artefactos-claude","intro-cowork","ejemplos-cowork"],
+    proximamente: true,
+    desafio: null,
+    quiz: []
+  },
+  {
+    n: 8,
+    num: "07",
+    label: "Sesión 7 · Multimedia",
+    title: "ChatGPT y creación con IA",
+    dur: "2 hrs · Presencial · Hands-On",
+    resumen: "Intro a ChatGPT, imágenes y videos pro, marketing con IA, Ideogram, Napkin, Flow y música con Gemini y Suno.",
+    conceptos: ["imagenes-pro","videos-con-ia","logos-ideogram","napkin-infografias","musica-gemini"],
+    proximamente: true,
+    desafio: null,
+    quiz: []
+  },
+  {
+    n: 9,
+    num: "08",
+    label: "Sesión 8 · Cierre",
+    title: "Alucinaciones, repaso y cierre",
+    dur: "2 hrs · Presencial · Hands-On",
+    resumen: "Control de alucinaciones, repaso final de todo el programa y cierre.",
+    conceptos: ["control-alucinaciones"],
+    proximamente: true,
+    desafio: null,
+    quiz: []
   }
 ];
 
 // Una habilidad por concepto: marcar el check la desbloquea.
 // Una rampa por sesión, con al menos tantos colores como conceptos tenga.
+// Una rampa por sesión. Van con colores de sobra a propósito: agregarle un
+// concepto a una sesión no debe dejar una habilidad sin color.
 const COLORES = {
-  "1": ["#334155", "#475569", "#64748B", "#7C8CA1", "#94A3B8"],
-  "2": ["#08508F", "#0B78D0", "#2E9AE3", "#4FA8F5", "#8ACAF0"],
+  "1": ["#334155", "#475569", "#64748B", "#7C8CA1", "#94A3B8", "#A9B4C2", "#BCC5D0"],
+  "2": ["#08508F", "#0B78D0", "#2E9AE3", "#4FA8F5", "#8ACAF0", "#A6D8F5", "#C2E5F8"],
   "3": ["#0F766E", "#0D9488", "#14B8A6", "#2DD4BF", "#5EEAD4", "#7FEDDD", "#99F6E4"],
-  "4": ["#6D28D9", "#7C3AED", "#8B5CF6", "#A78BFA", "#C4B5FD", "#C34AC6"]
+  "4": ["#6D28D9", "#7C3AED", "#8B5CF6", "#A78BFA", "#C4B5FD", "#C34AC6", "#D8B4FE"],
+  "5": ["#9F1239", "#BE123C", "#E11D48", "#F43F5E", "#FB7185", "#FDA4AF", "#FECDD3"],
+  "6": ["#3730A3", "#4338CA", "#4F46E5", "#6366F1", "#818CF8", "#A5B4FC", "#C7D2FE"],
+  "7": ["#155E75", "#0E7490", "#0891B2", "#06B6D4", "#22D3EE", "#67E8F9", "#A5F3FC"],
+  "8": ["#065F46", "#047857", "#059669", "#10B981", "#34D399", "#6EE7B7", "#A7F3D0"],
+  "9": ["#86198F", "#A21CAF", "#C026D3", "#D946EF", "#E879F9", "#F0ABFC", "#F5D0FE"]
 };
+const COLOR_BASE = "#64748B";   // por si una sesión nueva todavía no tiene rampa
 const SKILLS = TALLERES.flatMap(t =>
-  t.conceptos.map((id, i) => ({ id, taller: t.n, color: COLORES[t.n][i] }))
+  t.conceptos.map((id, i) => ({
+    id, taller: t.n, color: (COLORES[t.n] || [])[i] || COLOR_BASE
+  }))
 );
 
 const SUPABASE_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';

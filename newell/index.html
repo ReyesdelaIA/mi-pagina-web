@@ -4,20 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Programa Newell · Taller inicial + 3 Sesiones · Reyes IA</title>
+  <title>Programa Newell · Taller inicial + 8 Sesiones · Reyes IA</title>
   <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png" />
 
   <!-- Vista previa al compartir el link (WhatsApp, LinkedIn, Slack, iMessage).
        Sin esto, WhatsApp cae al favicon y manda la foto de perfil. -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Reyes IA" />
-  <meta property="og:title" content="Programa Newell · Taller inicial + 3 Sesiones" />
-  <meta property="og:description" content="El taller inicial y tres sesiones para dominar Microsoft Copilot: de los fundamentos de la IA a tener agentes trabajando por ti. Avanza a tu ritmo: cada paso queda guardado." />
+  <meta property="og:title" content="Programa Newell · Taller inicial + 8 Sesiones" />
+  <meta property="og:description" content="El taller inicial y ocho sesiones para pasar de conversar con la IA a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado." />
   <meta property="og:url" content="https://www.reyesia.com/newell" />
   <meta property="og:locale" content="es_CL" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Programa Newell · Taller inicial + 3 Sesiones" />
-  <meta name="twitter:description" content="El taller inicial y tres sesiones para dominar Microsoft Copilot: de los fundamentos de la IA a tener agentes trabajando por ti." />
+  <meta name="twitter:title" content="Programa Newell · Taller inicial + 8 Sesiones" />
+  <meta name="twitter:description" content="El taller inicial y ocho sesiones para pasar de conversar con la IA a delegarle trabajo de verdad." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -356,11 +356,11 @@
       <div>
         <div class="hero-chip">
           <div class="hero-chip-box"><img src="/newell/logo-newell.png" alt="Newell" /></div>
-          <span class="mono">Taller inicial + 3 sesiones</span>
+          <span class="mono">Taller inicial + 8 sesiones</span>
           <span class="ver" id="ver">—</span>
         </div>
         <h1>Programa <span>Newell</span></h1>
-        <p class="hero-sub">El taller inicial y tres sesiones para dominar Microsoft Copilot: de los fundamentos de la IA a tener agentes trabajando por ti. Avanza a tu ritmo: cada paso queda guardado.</p>
+        <p class="hero-sub">El taller inicial y ocho sesiones para pasar de conversar con la IA a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado.</p>
         <div class="hero-acc">
           <button class="ghost" id="btn-hab">Centro de habilidades</button>
         </div>
@@ -491,7 +491,7 @@
     const proxima = TALLERES.find(t => t.proximamente);
     if (proxima) return { t: null, titulo: 'Vas al día con lo que está abierto',
                           hint: `${nombreCorto(proxima).replace(/^\w/, c => c.toUpperCase())} se abre más adelante.` };
-    return { t: null, titulo: '¡Programa completo!', hint: 'Dominaste el taller inicial y las tres sesiones.' };
+    return { t: null, titulo: '¡Programa completo!', hint: 'Dominaste el taller inicial y las ocho sesiones.' };
   }
 
   function render(){

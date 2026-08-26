@@ -221,9 +221,11 @@
   const N = (() => {
     if (SUELTO) return 1;                    // el taller suelto es siempre el 1
     const p = new URLSearchParams(location.search).get('n');
-    const m = location.pathname.match(/taller-(\d)/);
+    const m = location.pathname.match(/taller-(\d+)/);
     const n = parseInt(p || (m && m[1]) || '1', 10);
-    return [1,2,3,4].includes(n) ? n : 1;
+    // El rango sale de las sesiones que existan de verdad: con una lista fija
+    // acá, agregar una sesión la manda en silencio a la primera.
+    return TALLERES.some(t => t.n === n) ? n : 1;
   })();
 
   if (SUELTO) document.title = 'Taller · Iniciación al uso de IA · Reyes IA';
