@@ -22,22 +22,6 @@
       "destination": "/newell/taller.html?n=4"
     },
     {
-      "source": "/newell/taller-5",
-      "destination": "/newell/taller.html?n=5"
-    },
-    {
-      "source": "/newell/taller-6",
-      "destination": "/newell/taller.html?n=6"
-    },
-    {
-      "source": "/newell/taller-7",
-      "destination": "/newell/taller.html?n=7"
-    },
-    {
-      "source": "/newell/taller-8",
-      "destination": "/newell/taller.html?n=8"
-    },
-    {
       "source": "/taller01-general",
       "destination": "/programa-copilot/taller.html"
     },

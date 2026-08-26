@@ -1,12 +1,12 @@
 /* ==================================================================
-   Portal Newell · estilos compartidos (hub + páginas de taller)
+   Programa Newell · estilos compartidos (hub + páginas de sesión)
    ================================================================== */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --ink: #1a2537; --ink-mid: #2c3e57; --ink-light: #46617f;
-  --amber: #D97706; --amber-dark: #92400E; --amber-light: #F59E0B;
+  --acc: #0B78D0; --acc-dark: #08508F; --acc-light: #38BDF8;
   --bg: #f4f1ec; --white: #fff; --border: #e3ded4;
   --text: #1a1a1a; --muted: #6b7280;
   --green: #10B981; --green-dark: #065F46;
@@ -41,14 +41,14 @@ nav .logo img { height: 36px; object-fit: contain; display: block; }
   border-radius: 12px; border: none; transition: filter .15s, transform .1s;
 }
 .btn:active { transform: scale(.99); }
-.btn-amber { background: linear-gradient(135deg, var(--amber-dark), var(--amber)); color: #fff; }
-.btn-amber:hover { filter: brightness(1.08); }
+.btn-acc { background: linear-gradient(135deg, var(--acc-dark), var(--acc)); color: #fff; }
+.btn-acc:hover { filter: brightness(1.08); }
 .btn-green { background: var(--green); color: #fff; }
 .btn-green:hover { filter: brightness(1.06); }
 .btn-ghost {
   background: #fff; border: 1.5px solid var(--border); color: var(--muted);
 }
-.btn-ghost:hover { border-color: var(--amber); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--acc); color: var(--ink); }
 .btn:disabled { opacity: .55; cursor: default; }
 
 /* ---------- Toast ---------- */
@@ -194,7 +194,7 @@ nav .logo img { height: 36px; object-fit: contain; display: block; }
 .gate-box { background: #fff; border-radius: 22px; width: 100%; max-width: 400px; padding: 28px 26px 24px; }
 .gate-ico {
   width: 54px; height: 54px; border-radius: 15px;
-  background: linear-gradient(135deg, var(--amber-dark), var(--amber-light));
+  background: linear-gradient(135deg, var(--acc-dark), var(--acc-light));
   display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 14px;
 }
 .gate-title { font-size: 19px; font-weight: 800; color: var(--ink); margin-bottom: 6px; line-height: 1.25; }
@@ -205,10 +205,10 @@ nav .logo img { height: 36px; object-fit: contain; display: block; }
   border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 13px;
   font-size: 13.5px; font-family: inherit; color: var(--text); outline: none; transition: border-color .15s;
 }
-.gate-field input:focus { border-color: var(--amber); }
+.gate-field input:focus { border-color: var(--acc); }
 .gate-field input.err { border-color: #EF4444; background: #FEF2F2; }
 .gate-btn {
-  background: linear-gradient(135deg, var(--amber-dark), var(--amber)); color: #fff;
+  background: linear-gradient(135deg, var(--acc-dark), var(--acc)); color: #fff;
   border: none; border-radius: 12px; padding: 13px; font-size: 14px; font-weight: 700;
   font-family: inherit; cursor: pointer; width: 100%; margin-top: 6px;
 }
@@ -224,4 +224,4 @@ nav .logo img { height: 36px; object-fit: contain; display: block; }
 
 /* ---------- Pie ---------- */
 footer { text-align: center; padding: 28px 20px 36px; font-size: 11px; color: #9c968a; }
-footer a { color: var(--amber); text-decoration: none; font-weight: 500; }
+footer a { color: var(--acc); text-decoration: none; font-weight: 500; }

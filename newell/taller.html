@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Sesión · Portal Newell · Reyes IA</title>
+  <title>Sesión · Programa Newell · Reyes IA</title>
   <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/newell/portal.css" />
@@ -14,13 +14,13 @@
     /* Cabecera del taller con el stepper */
     .thead { background: var(--ink); color:#fff; padding: 16px 20px 0; }
     .thead-in { max-width: 900px; margin: 0 auto; }
-    .thead-label { font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.7px; color:var(--amber-light); }
+    .thead-label { font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.7px; color:var(--acc-light); }
     .thead-title { font-size:17px; font-weight:800; line-height:1.25; margin-top:2px; }
     .stepper { display:flex; gap:5px; margin-top:14px; padding-bottom:14px; }
     .step-dot { flex:1; display:flex; flex-direction:column; gap:5px; background:none; border:none; padding:0; cursor:pointer; font-family:inherit; }
     .step-dot i { display:block; height:5px; border-radius:99px; background:rgba(255,255,255,.2); transition:background .3s; }
     .step-dot.done i { background:var(--green); }
-    .step-dot.now  i { background:var(--amber-light); }
+    .step-dot.now  i { background:var(--acc-light); }
     .step-dot span { font-size:8.5px; font-weight:700; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.3px; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .step-dot.now span { color:#fff; }
     .step-dot.lock { cursor:not-allowed; opacity:.42; }
@@ -34,9 +34,18 @@
       background:#fff; box-shadow:0 10px 34px rgba(26,37,55,.10); }
     .visual img { width:100%; display:block; }
     .visual-emoji { height:200px; display:flex; align-items:center; justify-content:center; font-size:80px;
-      background:linear-gradient(135deg,#FFFBEB,#FDE68A); }
+      background:linear-gradient(135deg,#EFF8FF,#BFDBFE); }
 
-    .paso-n { font-size:11.5px; font-weight:800; color:var(--amber); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+    .paso-n { font-size:11.5px; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+    /* Subtítulo de sección: separa tramos dentro de un mismo bloque cuando
+       el concepto es un solo scroll largo en vez de varias pantallas. */
+    .paso-sec {
+      margin:38px 0 16px; font-size:22px; font-weight:800; line-height:1.25;
+      letter-spacing:-.3px; color:var(--ink); display:flex; align-items:center; gap:12px;
+    }
+    .paso-sec::before {
+      content:''; flex:0 0 28px; height:3px; border-radius:2px; background:var(--acc);
+    }
     /* Cintillo del bloque: arte propio que va bajo el título, sin recuadro */
     .c-banner { margin:0 0 20px; max-width:560px; }
     .c-banner img { width:100%; display:block; }
@@ -94,23 +103,23 @@
       transition:filter .15s;
     }
     .pr-link:hover { filter:brightness(1.07); }
-    .num { flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#FEF3C7; color:var(--amber-dark);
+    .num { flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#DBEAFE; color:var(--acc-dark);
       font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px; }
 
-    .tip { background:linear-gradient(135deg,#FFFBEB,#FEF3C7); border:1px solid #FDE68A; border-radius:16px;
+    .tip { background:linear-gradient(135deg,#F0F9FF,#DBEAFE); border:1px solid #BFDBFE; border-radius:16px;
       padding:18px 22px; font-size:14.5px; color:#5C3D00; line-height:1.7; margin-bottom:30px; }
-    .tip b { color:var(--amber-dark); }
+    .tip b { color:var(--acc-dark); }
 
     .acciones { display:flex; flex-direction:column; gap:10px; }
     .acciones .btn { padding:16px; font-size:15px; width:100%; border-radius:14px; }
     .marcado { display:flex; align-items:center; justify-content:center; gap:8px; background:#ECFDF5; border:1.5px solid #A7F3D0; color:var(--green-dark); border-radius:12px; padding:13px; font-size:13.5px; font-weight:700; }
 
     /* Quiz */
-    .q-num { font-size:11px; font-weight:800; color:var(--amber); text-transform:uppercase; letter-spacing:.6px; margin-bottom:6px; }
+    .q-num { font-size:11px; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.6px; margin-bottom:6px; }
     .q-text { font-size:20px; font-weight:800; color:var(--ink); line-height:1.35; margin-bottom:18px; }
     .opts { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
     .opt { background:#fff; border:1.5px solid var(--border); border-radius:12px; padding:14px 16px; font-size:14px; font-weight:500; color:#222; cursor:pointer; text-align:left; font-family:inherit; line-height:1.45; transition:all .15s; }
-    .opt:hover:not(:disabled) { border-color:var(--amber); background:#FFF8EC; }
+    .opt:hover:not(:disabled) { border-color:var(--acc); background:#FFF8EC; }
     .opt.correct { background:#ECFDF5; border-color:var(--green); color:var(--green-dark); }
     .opt.wrong   { background:#FEF2F2; border-color:#EF4444; color:#991B1B; }
     .opt:disabled { cursor:default; }
@@ -123,10 +132,10 @@
     .ej { background:#fff; border:1.5px solid var(--border); border-radius:14px; padding:14px 15px; transition:border-color .2s; }
     .ej.done { border-color:#A7F3D0; background:#F7FDFA; }
     .ej-head { display:flex; gap:12px; align-items:flex-start; }
-    .ej-n { flex-shrink:0; width:24px; height:24px; border-radius:50%; background:var(--amber); color:#fff; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+    .ej-n { flex-shrink:0; width:24px; height:24px; border-radius:50%; background:var(--acc); color:#fff; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
     .ej.done .ej-n { background:var(--green); }
     .ej-t { flex:1; min-width:0; }
-    .ej-tema { font-size:12px; font-weight:800; color:var(--amber-dark); margin-bottom:4px; }
+    .ej-tema { font-size:12px; font-weight:800; color:var(--acc-dark); margin-bottom:4px; }
     .ej.done .ej-tema { color:var(--green-dark); }
     .ej-enun { font-size:13.5px; color:#374151; line-height:1.6; }
     .ej-tick { flex-shrink:0; width:22px; height:22px; border-radius:50%; border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:12px; color:transparent; }
@@ -207,16 +216,17 @@
 
 <footer>Programa facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes · <span id="pie-ver"></span></footer>
 
-<script src="/newell/portal.js"></script>
+<script src="/newell/portal.js?v=202608260814"></script>
 <script>
   const N = (() => {
+    if (SUELTO) return 1;                    // el taller suelto es siempre el 1
     const p = new URLSearchParams(location.search).get('n');
-    const m = location.pathname.match(/taller-(\d+)/);
+    const m = location.pathname.match(/taller-(\d)/);
     const n = parseInt(p || (m && m[1]) || '1', 10);
-    // El rango sale de las sesiones que existan de verdad, no de un número fijo:
-    // así el portal no se rompe al agregar o sacar sesiones.
-    return TALLERES.some(t => t.n === n) ? n : 1;
+    return [1,2,3,4].includes(n) ? n : 1;
   })();
+
+  if (SUELTO) document.title = 'Taller · Iniciación al uso de IA · Reyes IA';
 
   const taller = T(N);
   let paso = 0;          // índice dentro de RUTA
@@ -333,15 +343,18 @@
     const hayImgs = r.pasos.some(p => p.img || (p.imgs && p.imgs.length));
 
     const encabezado = `
-      <div class="paso-n">Concepto ${r.ci + 1} de ${taller.conceptos.length}${
+      <div class="paso-n">${SUELTO ? 'Bloque' : 'Concepto'} ${r.ci + 1} de ${taller.conceptos.length}${
         r.partes > 1 ? ` · parte ${r.parte} de ${r.partes}` : ''}</div>
       <h1 class="c-nombre">${esc(tituloPantalla || b.nombre)}</h1>
       ${r.parte === 1 && b.banner ? `<figure class="c-banner"><img src="/bloques/${r.id}/${b.banner}" alt="" /></figure>` : ''}
       ${r.parte === 1 ? `<p class="c-desc">${esc(b.descripcion)}</p>` : ''}`;
 
-    const cuerpo = r.pasos.map(o => {
+    const cuerpo = r.pasos.map((o, oi) => {
+      // El `titulo` del primer paso es el título de la pantalla; los demás son
+      // subtítulos de sección y se pintan dentro del scroll.
+      const sec = (oi > 0 && o.titulo) ? `<h2 class="paso-sec">${esc(o.titulo)}</h2>` : '';
       // `recurso` es un paso que manda afuera: cuadro verde con su botón
-      if (o.recurso) return `
+      if (o.recurso) return `${sec}
         <div class="paso-recurso">
           <span class="num">${o._n}</span>
           <div>
@@ -351,7 +364,7 @@
         </div>${o.img ? `<figure class="paso-img"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>` : ''}`;
 
       // `instr` deja la captura chica al lado del texto, en vez de a lo ancho
-      if (o.instr && o.img) return `
+      if (o.instr && o.img) return `${sec}
         <div class="paso-instr">
           <figure class="pi-img"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>
           <div class="pi-box"><span class="num">${o._n}</span><span>${esc(o.texto)}</span></div>
@@ -362,7 +375,7 @@
             `<figure class="paso-img"><img src="/bloques/${r.id}/${f}" alt="" /></figure>`).join('')}</div>`
         : '';
       const img = o.img ? `<figure class="paso-img${o.angosta ? ' angosta' : ''}"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>` : '';
-      return `<div class="paso-item"><span class="num">${o._n}</span><span>${esc(o.texto)}</span></div>${duo}${img}`;
+      return `${sec}<div class="paso-item"><span class="num">${o._n}</span><span>${esc(o.texto)}</span></div>${duo}${img}`;
     }).join('');
 
     // El pro tip y el check solo al final del concepto
@@ -372,7 +385,7 @@
       ${r.ultima && b.pro_tip ? `<div class="tip"><b>💡 Pro tip:</b> ${esc(b.pro_tip)}</div>` : ''}
       ${r.ultima && marcado ? '<div class="marcado">✓ Ya recorriste este concepto</div>' : ''}
       <div class="acciones">
-        <button class="btn btn-amber" id="a-sig">Continuar →</button>
+        <button class="btn btn-acc" id="a-sig">Continuar →</button>
         <button class="btn btn-ghost" id="a-atras">← Volver atrás</button>
       </div>`;
 
@@ -391,10 +404,10 @@
       const s = st[`${N}-quizScore`], t = st[`${N}-quizTotal`];
       return `
         <div class="visual"><img src="/img/quiz-repaso.webp" alt="" /></div>
-        <div class="paso-n">Quiz de la sesión</div>
+        <div class="paso-n">${SUELTO ? 'Quiz del taller' : 'Quiz de la sesión'}</div>
         <h1 class="c-nombre">Quiz completado</h1>
         <p class="c-desc">${s != null ? `Respondiste <b>${s} de ${t}</b> correctamente.` : 'Ya rendiste este quiz.'}</p>
-        <div class="acciones"><button class="btn btn-amber" id="a-sig">Continuar →</button></div>`;
+        <div class="acciones"><button class="btn btn-acc" id="a-sig">Continuar →</button></div>`;
     }
     const q = taller.quiz[qIdx];
     return `
@@ -415,13 +428,13 @@
         <div class="paso-n">Ejercicios</div>
         <h1 class="c-nombre">Sin ejercicios en esta sesión</h1>
         <p class="c-desc">Esta sesión no trae ejercicios hands-on.</p>
-        <div class="acciones"><button class="btn btn-amber" id="a-sig">Continuar →</button></div>`;
+        <div class="acciones"><button class="btn btn-acc" id="a-sig">Continuar →</button></div>`;
     }
     const hechos = ejerciciosOk(N);
     return `
       <div class="paso-n">Ejercicios hands-on · ${hechos} de ${lista.length}</div>
       <h1 class="c-nombre">Manos a la obra</h1>
-      <p class="c-desc">Estos son para hacer durante la sesión. Si alguno no alcanzas, déjalo sin marcar: sirve para saber dónde apretar.</p>
+      <p class="c-desc">Estos son para hacer durante ${SUELTO ? 'el taller' : 'la sesión'}. Si alguno no alcanzas, déjalo sin marcar: sirve para saber dónde apretar.</p>
       <div class="ejercicios">
         ${lista.map((e, i) => {
           const ok = !!st[`e-${e.id}`];
@@ -451,7 +464,7 @@
         }).join('')}
       </div>
       <div class="acciones" style="margin-top:20px">
-        <button class="btn btn-amber" id="a-sig">${hechos === lista.length ? 'Continuar →' : 'Continuar sin marcar todos →'}</button>
+        <button class="btn btn-acc" id="a-sig">${hechos === lista.length ? 'Continuar →' : 'Continuar sin marcar todos →'}</button>
       </div>`;
   }
 
@@ -462,6 +475,7 @@
       <div class="des-box">
         ${d.titulo ? `<div class="des-titulo">${esc(d.titulo)}</div>` : ''}
         ${d.intro  ? `<div class="des-txt">${esc(d.intro)}</div>` : ''}
+        ${d.enunciado ? `<div class="des-txt">${esc(d.enunciado)}</div>` : ''}
         ${Array.isArray(d.pasos) ? `<ol class="des-pasos">${d.pasos.map(p => `<li>${esc(p)}</li>`).join('')}</ol>` : ''}
         ${d.prompt ? `
           <div class="ej-prompt">
@@ -479,13 +493,13 @@
     const hecho = !!st[`${N}-des`];
     return `
       ${visualHTML(null, '🎯')}
-      <div class="paso-n">Desafío entre sesiones</div>
+      <div class="paso-n">${SUELTO ? 'Tu desafío' : 'Desafío entre sesiones'}</div>
       <h1 class="c-nombre">Tu desafío</h1>
       ${desafioHTML(taller.desafio)}
       <div class="acciones">
         ${hecho
           ? `<div class="marcado">✓ Declaraste que completaste el desafío</div>
-             <button class="btn btn-amber" id="a-sig">Continuar →</button>`
+             <button class="btn btn-acc" id="a-sig">Continuar →</button>`
           : `<button class="btn btn-green" id="a-ok">Sí, lo completé con compromiso ✓</button>
              <button class="btn btn-ghost" id="a-no">Todavía no lo hago →</button>`}
       </div>`;
@@ -509,7 +523,7 @@
           : `Para ganar la estrella de esta sesión te falta: ${esc(falta.join(', '))}.`}</p>
         ${hab.length ? `<div class="fin-hab">${hab.map(b => `<span class="fin-chip">${b.emoji} ${esc(b.nombre)}</span>`).join('')}</div>` : ''}
         <div class="fin-acc">
-          <a class="btn btn-amber" href="${urlHub()}" style="text-align:center;text-decoration:none;display:block;">Volver al programa →</a>
+          <a class="btn btn-acc" href="${SUELTO ? 'https://reyesia.com' : urlHub()}" style="text-align:center;text-decoration:none;display:block;">${SUELTO ? 'Ir a reyesia.com →' : 'Volver al programa →'}</a>
           ${!done ? `<button class="btn btn-ghost" id="a-volver">Revisar lo que falta</button>` : ''}
         </div>
       </div>`;
@@ -518,7 +532,7 @@
   /* ---------------- Pintado y acciones ---------------- */
 
   function pintar(){
-    document.getElementById('t-label').textContent = taller.label;
+    document.getElementById('t-label').textContent = SUELTO ? 'Reyes IA · Taller de Iniciación' : taller.label;
     document.getElementById('t-title').textContent = taller.title;
 
     const r = RUTA[paso] || { tipo: 'fin' };
@@ -624,7 +638,7 @@
 
     const ultima = qIdx === taller.quiz.length - 1;
     document.getElementById('acc-q').innerHTML =
-      `<button class="btn btn-amber" id="a-qsig">${ultima ? 'Terminar quiz ✓' : 'Siguiente pregunta →'}</button>`;
+      `<button class="btn btn-acc" id="a-qsig">${ultima ? 'Terminar quiz ✓' : 'Siguiente pregunta →'}</button>`;
     document.getElementById('a-qsig').onclick = () => {
       if (!ultima){ qIdx++; qRespondida = false; pintar(); return; }
       st[`${N}-quiz`] = true;
@@ -639,8 +653,18 @@
   }
 
   document.getElementById('btn-skills').onclick = () => openSkills();
-  document.getElementById('nav-hub').href = urlHub();
   document.getElementById('pie-ver').textContent = `Versión ${VERSION}`;
+
+  // Suelto: se lee como un taller independiente, no como la sesión de un programa
+  const navHub = document.getElementById('nav-hub');
+  if (SUELTO) {
+    navHub.href = 'https://reyesia.com';
+    navHub.textContent = '← reyesia.com';
+    document.querySelector('footer').innerHTML =
+      'Taller facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes';
+  } else {
+    navHub.href = urlHub();
+  }
 
   (async () => {
     await bootPortal(taller.conceptos);
