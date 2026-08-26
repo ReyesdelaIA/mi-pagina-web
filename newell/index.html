@@ -4,881 +4,543 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Portal IA · Newell Brands</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <title>Portal Newell · Programa de 8 Sesiones · Reyes IA</title>
+  <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png" />
+
+  <!-- Vista previa al compartir el link (WhatsApp, LinkedIn, Slack, iMessage).
+       Sin esto, WhatsApp cae al favicon y manda la foto de perfil. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Reyes IA" />
+  <meta property="og:title" content="Programa Newell · 8 Sesiones" />
+  <meta property="og:description" content="Ocho sesiones para pasar de conversar con la IA a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado." />
+  <meta property="og:url" content="https://www.reyesia.com/newell" />
+  <meta property="og:locale" content="es_CL" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Programa Newell · 8 Sesiones" />
+  <meta name="twitter:description" content="Ocho sesiones para pasar de conversar con la IA a delegarle trabajo de verdad." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/newell/portal.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --navy: #042C53; --navy-mid: #0C447C; --navy-light: #185FA5;
-      --bg: #f0f0ee; --white: #ffffff; --border: #e0e0e0;
-      --text: #1a1a1a; --muted: #6b7280; --radius: 16px; --gold: #F5A623;
+    /* ==================================================================
+       Hub del Portal Newell · interfaz oscura
+       El resto del portal (gate, toast, talleres) sigue en claro: acá se
+       sobrescribe portal.css solo para esta página.
+       ================================================================== */
+
+    body {
+      font-family: 'Space Grotesk', Helvetica, sans-serif;
+      background: #07090C; color: #E9EAEE; min-height: 100vh;
     }
-    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    a { color: #8AC4F0; text-decoration: none; }
+    a:hover { color: #B4DCF8; }
 
-    nav {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, var(--navy-light) 100%);
-      position: sticky; top: 0; z-index: 100; padding: 0 20px; height: 60px;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 2px 12px rgba(4,44,83,0.3);
+    .shell {
+      min-height: 100vh; position: relative; overflow: hidden; padding-bottom: 8px;
+      background:
+        radial-gradient(1100px 620px at 12% -8%, rgba(24,95,165,.20), transparent 60%),
+        radial-gradient(900px 520px at 88% 4%, rgba(245,166,35,.16), transparent 62%),
+        linear-gradient(180deg,#0A0D12 0%, #07090C 45%, #06080B 100%);
     }
-    .nav-right { display: flex; align-items: center; gap: 8px; }
-    .nav-right a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: 20px; transition: background 0.2s; display:flex;align-items:center;justify-content:center; }
-    .nav-right a:hover { background: rgba(255,255,255,0.15); }
-    .nav-icon { width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.15); }
+    /* Grilla decorativa, desvanecida hacia los bordes */
+    .shell::before {
+      content:''; position:absolute; inset:0; pointer-events:none; opacity:.35;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      -webkit-mask-image: radial-gradient(900px 600px at 50% 0%, #000 20%, transparent 78%);
+      mask-image: radial-gradient(900px 600px at 50% 0%, #000 20%, transparent 78%);
+    }
 
-    .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy-light) 100%); color: white; padding: 32px 20px 28px; position: relative; overflow: hidden; }
-    .hero::after { content:''; position:absolute; bottom:-60px; left:-20px; width:160px; height:160px; border-radius:50%; background:rgba(255,255,255,0.03); }
-    .hero-inner { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
-    .hero-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:4px 12px; font-size:11px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; margin-bottom:14px; }
-    .hero-company { font-size: 26px; font-weight: 800; line-height: 1.1; margin-bottom: 6px; }
-    .hero-program { font-size: 13px; opacity: 0.75; margin-bottom: 20px; }
-    .hero-stats { display: flex; gap: 20px; }
-    .stat { display: flex; flex-direction: column; }
-    .stat-value { font-size: 22px; font-weight: 700; line-height: 1; }
-    .stat-label { font-size: 11px; opacity: 0.65; margin-top: 2px; }
-    .stat-div { width:1px; background:rgba(255,255,255,0.2); align-self:stretch; }
+    /* ---------- Header ---------- */
+    .hd {
+      position: relative; display:flex; align-items:center; justify-content:space-between;
+      gap:24px; padding:12px 40px; border-bottom:1px solid rgba(255,255,255,.07);
+      backdrop-filter: blur(12px);
+    }
+    .hd-logo img { height:34px; width:auto; opacity:.95; display:block; }
+    .hd-right { display:flex; align-items:center; gap:10px; }
+    .hd-pill {
+      font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em;
+      color:rgba(233,234,238,.62); border:1px solid rgba(255,255,255,.10);
+      padding:8px 14px; border-radius:999px; transition:color .2s, border-color .2s;
+    }
+    .hd-mail {
+      display:flex; align-items:center; justify-content:center; width:34px; height:34px;
+      border-radius:999px; border:1px solid rgba(255,255,255,.10);
+      color:rgba(233,234,238,.62); font-size:13px; transition:color .2s, border-color .2s;
+    }
+    .hd-pill:hover, .hd-mail:hover { color:#fff; border-color:rgba(255,255,255,.24); }
 
-    /* Two-panel row */
-    .panels-row { display:flex; gap:10px; margin:16px 20px 0; }
-    .panel-half { flex:1; min-width:0; border-radius:var(--radius); overflow:hidden; }
+    main { position:relative; max-width:1260px; margin:0 auto; padding:0 40px; }
 
-    /* Stars panel */
-    .panel-stars { background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%); border:1.5px solid #BFDBFE; padding:14px 14px 16px; display:flex; flex-direction:column; }
-    .sp-title { font-size:10px; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.6px; margin-bottom:2px; }
-    .sp-sub { font-size:9px; color:#5B85C0; margin-bottom:10px; }
-    .stars-row { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:10px; }
-    .s-icon { font-size:22px; transition:filter .3s,transform .2s; filter:grayscale(1) opacity(.2); }
-    .s-icon.on { filter:none; animation:pop .4s ease; }
-    @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.45)} 100%{transform:scale(1)} }
-    .sp-bottom { display:flex; align-items:baseline; gap:4px; margin-top:auto; }
-    .sp-count { font-size:22px; font-weight:800; color:var(--navy); line-height:1; }
-    .sp-max { font-size:11px; color:#5B85C0; font-weight:600; }
+    /* ---------- Hero ---------- */
+    .hero {
+      display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+      gap:44px; align-items:end; padding:20px 0 16px;
+    }
+    .hero-chip { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+    /* El logo del cliente manda el ancho: la caja se adapta a él, no al revés.
+       Un logo apaisado metido en un cuadrado se ve aplastado. */
+    .hero-chip-box {
+      height:38px; border-radius:12px; flex-shrink:0; padding:0 12px;
+      background:linear-gradient(150deg, rgba(24,95,165,.22), rgba(255,255,255,.04));
+      border:1px solid rgba(24,95,165,.35);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .hero-chip-box img { height:22px; width:auto; display:block; }
+    .mono {
+      font-family:'IBM Plex Mono',monospace; text-transform:uppercase;
+      color:rgba(233,234,238,.50);
+    }
+    .hero-chip .mono { font-size:11px; letter-spacing:.22em; }
+    /* Sello de edición: el portal se renueva y esto lo deja explícito */
+    .ver {
+      font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em;
+      text-transform:uppercase; color:#5FA8E8; padding:4px 10px; border-radius:999px;
+      background:rgba(95,168,232,.10); border:1px solid rgba(95,168,232,.28); white-space:nowrap;
+    }
+    h1 {
+      margin:0; font-size:42px; line-height:1.04; font-weight:500;
+      letter-spacing:-.035em; color:#F4F5F7; text-wrap:balance;
+    }
+    h1 span {
+      background:linear-gradient(100deg,#5FA8E8,#185FA5 45%,#D8ECFB);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .hero-sub {
+      margin:12px 0 0; max-width:520px; font-size:15.5px; line-height:1.5;
+      color:rgba(233,234,238,.58); text-wrap:pretty;
+    }
+    .hero-acc { display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; }
 
-    /* Skills button panel */
-    .panel-skills { background:linear-gradient(135deg,#EFF6FF 0%,#E0EAFF 100%); border:1.5px solid #BFDBFE; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:filter .15s,transform .1s; user-select:none; padding:10px 8px 12px; }
-    .panel-skills:hover { filter:brightness(.97); }
-    .panel-skills:active { transform:scale(.98); }
-    .ps-label { font-size:11px; font-weight:800; color:var(--navy); text-align:center; margin-bottom:2px; line-height:1.3; }
-    .ps-count { font-size:10px; color:#5B85C0; font-weight:600; }
+    .ghost {
+      display:inline-flex; align-items:center; gap:10px; padding:13px 20px;
+      border-radius:12px; font-size:15px; font-weight:500; cursor:pointer;
+      color:rgba(233,234,238,.82); background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.12); font-family:inherit;
+      transition:background .2s, color .2s;
+    }
+    .ghost:hover { background:rgba(255,255,255,.07); color:#fff; }
 
-    /* Skills modal */
-    .sk-overlay { display:none; position:fixed; inset:0; background:rgba(4,44,83,.65); z-index:500; align-items:center; justify-content:center; padding:20px; }
-    .sk-overlay.open { display:flex; }
-    .sk-sheet { background:white; border-radius:24px; width:100%; max-width:520px; max-height:82vh; overflow-y:auto; animation:mIn .25s ease; }
-    .sk-header { padding:18px 20px 14px; border-bottom:1px solid var(--border); position:sticky; top:0; background:white; z-index:1; }
-    .sk-htop { display:flex; align-items:center; justify-content:space-between; }
-    .sk-title { font-size:17px; font-weight:800; color:var(--navy); }
-    .sk-close { background:#f0f0ee; border:none; border-radius:50%; width:30px; height:30px; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-    .sk-sub { font-size:12px; color:var(--muted); margin-top:4px; }
-    .sk-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:18px 20px 36px; }
-    .sk { border-radius:14px; padding:16px 6px 12px; display:flex; flex-direction:column; align-items:center; gap:7px; text-align:center; position:relative; transition:transform .2s,box-shadow .2s; }
-    .sk.on { box-shadow:0 4px 16px rgba(0,0,0,.14); }
-    .sk.on:hover { transform:translateY(-2px); }
-    .sk.off { background:#f0f0ee !important; filter:grayscale(1); opacity:.4; }
-    .sk-icon { font-size:26px; line-height:1; }
-    .sk-name { font-size:9px; font-weight:700; line-height:1.3; }
-    .sk.on  .sk-name { color:white; }
-    .sk.off .sk-name { color:#aaa; }
-    .sk-lock { position:absolute; top:6px; right:7px; font-size:9px; opacity:.6; }
-    @keyframes skPop { 0%{transform:scale(.6);opacity:0} 65%{transform:scale(1.12)} 100%{transform:scale(1);opacity:1} }
-    .sk.pop { animation:skPop .4s ease forwards; }
+    /* ---------- Tarjeta de estado del alumno ----------
+       Va en frío (azul) a propósito: el naranjo es el lenguaje de las
+       sesiones, así que apilada en móvil no se confunde con una de ellas. */
+    .estado {
+      position:relative; border:1px solid rgba(125,165,215,.22); border-radius:20px;
+      padding:20px 22px; backdrop-filter:blur(14px);
+      background:linear-gradient(160deg, rgba(90,130,180,.16), rgba(255,255,255,.02) 70%);
+    }
+    /* Filo de luz superior, como el de la sesión en curso pero en azul */
+    .estado::before {
+      content:''; position:absolute; top:-1px; left:22px; right:22px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(150,190,235,.75), transparent);
+    }
+    .est-top { display:flex; align-items:center; gap:14px; }
+    .est-av {
+      width:42px; height:42px; border-radius:12px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.04em;
+      color:#5FA8E8; background:rgba(24,95,165,.14); border:1px solid rgba(24,95,165,.28);
+    }
+    .est-name { font-size:15px; font-weight:600; color:#F4F5F7; }
+    .est-role { font-size:12.5px; color:rgba(233,234,238,.48); }
+    .est-name, .est-role { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .est-cambiar {
+      background:none; border:none; cursor:pointer; flex-shrink:0;
+      font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em;
+      text-transform:uppercase; color:rgba(233,234,238,.42); transition:color .2s;
+    }
+    .est-cambiar:hover { color:#5FA8E8; }
+    .est-sep { height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
+    .est-fila { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px; }
+    .lbl { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.2em;
+      text-transform:uppercase; color:rgba(233,234,238,.42); }
+    .est-pasos { font-size:13px; color:rgba(233,234,238,.55); }
+    .est-bar { position:relative; height:6px; border-radius:99px; background:rgba(255,255,255,.07); overflow:hidden; }
+    .est-bar i {
+      position:absolute; inset:0 auto 0 0; display:block; border-radius:99px;
+      background:linear-gradient(90deg,#185FA5,#5FA8E8);
+      box-shadow:0 0 18px rgba(95,168,232,.45); transition:width .8s ease;
+    }
+    .est-pie { display:flex; align-items:center; justify-content:space-between; margin-top:16px; gap:16px; }
+    .rombos { display:flex; gap:7px; margin-top:8px; }
+    .rombo { width:10px; height:10px; border-radius:3px; transform:rotate(45deg);
+      background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.12); }
+    .rombo.on { background:linear-gradient(140deg,#5FA8E8,#185FA5); border-color:transparent;
+      box-shadow:0 0 12px rgba(95,168,232,.6); }
+    .est-hab { text-align:right; }
+    .est-hab-n { font-size:20px; font-weight:600; color:#F4F5F7; margin-top:8px; }
 
-    .prog-wrap { max-width: 680px; margin: 0 auto; padding: 16px 20px 0; }
-    .prog-head { display: flex; justify-content: space-between; margin-bottom: 8px; }
-    .prog-label { font-size: 12px; font-weight: 600; color: var(--navy); text-transform: uppercase; letter-spacing: .5px; }
-    .prog-pct { font-size: 12px; font-weight: 700; color: var(--navy-light); }
-    .prog-bg { height: 8px; background: #d8d8d4; border-radius: 99px; overflow: hidden; }
-    .prog-fill { height: 100%; background: linear-gradient(90deg, var(--navy-mid), var(--navy-light)); border-radius: 99px; transition: width 1s ease; }
+    /* ---------- Título de sección ---------- */
+    .sec { display:flex; align-items:center; gap:16px; margin-bottom:12px; }
+    .sec .mono { font-size:11px; letter-spacing:.2em; }
+    .sec i { flex:1; height:1px; background:linear-gradient(90deg, rgba(255,255,255,.14), transparent); }
 
-    .sess-wrap { max-width: 680px; margin: 0 auto; padding: 24px 20px 40px; }
-    .sec-title { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 16px; }
-    .sess-list { display: flex; flex-direction: column; gap: 12px; }
+    /* ---------- Tarjetas de sesión ---------- */
+    .sesiones { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; align-items:start; }
+    .ses {
+      position:relative; border-radius:20px; padding:20px; overflow:hidden;
+      border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.022);
+    }
+    .ses.activa {
+      border-color:rgba(24,95,165,.38);
+      background:linear-gradient(165deg, rgba(24,95,165,.13), rgba(255,255,255,.02) 55%);
+      box-shadow:0 30px 70px -40px rgba(24,95,165,.7);
+    }
+    /* Línea de luz sobre la sesión en curso */
+    .ses.activa::before {
+      content:''; position:absolute; top:-1px; left:24px; right:24px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(95,168,232,.9), transparent);
+    }
+    .ses-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px; }
+    .ses-id { display:flex; align-items:center; gap:12px; min-width:0; }
+    .ses-n { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em; color:rgba(233,234,238,.45); }
+    .ses.activa .ses-n, .ses.done .ses-n { color:#5FA8E8; }
+    .ses-nivel { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.16em;
+      text-transform:uppercase; color:rgba(233,234,238,.32); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .ses.activa .ses-nivel, .ses.done .ses-nivel { color:rgba(233,234,238,.42); }
+    .badge {
+      display:flex; align-items:center; gap:7px; flex-shrink:0; padding:6px 12px; border-radius:99px;
+      font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+      color:rgba(233,234,238,.42); border:1px solid rgba(255,255,255,.10);
+    }
+    .badge.on { color:#5FA8E8; background:rgba(95,168,232,.12); border-color:rgba(95,168,232,.28); }
+    .badge.on i { width:5px; height:5px; border-radius:99px; background:#5FA8E8; display:block; }
+    .ses h2 { margin:0 0 9px; font-size:21px; line-height:1.18; font-weight:500;
+      letter-spacing:-.02em; color:rgba(244,245,247,.82); }
+    .ses.activa h2, .ses.done h2 { color:#F4F5F7; }
+    .ses-dur { font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+      color:rgba(233,234,238,.34); margin-bottom:11px; }
+    .ses.activa .ses-dur, .ses.done .ses-dur { color:rgba(233,234,238,.40); }
+    /* El resumen se corta en 3 líneas: la tarjeta es un adelanto, no el detalle */
+    .ses-res { margin:0 0 14px; font-size:14px; line-height:1.5;
+      color:rgba(233,234,238,.48); text-wrap:pretty;
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    .ses.activa .ses-res, .ses.done .ses-res { color:rgba(233,234,238,.62); }
+    .medidores { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:13px; }
+    .med-bar { height:3px; border-radius:99px; background:rgba(255,255,255,.08); margin-bottom:9px; overflow:hidden; }
+    .ses.activa .med-bar, .ses.done .med-bar { background:rgba(255,255,255,.10); }
+    .med-bar i { display:block; height:100%; border-radius:99px;
+      background:linear-gradient(90deg,#185FA5,#5FA8E8); transition:width .5s ease; }
+    .med-l { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.12em;
+      text-transform:uppercase; color:rgba(233,234,238,.28); }
+    .med.hecho .med-l { color:rgba(233,234,238,.55); }
+    /* Tres estados, tres colores. La lógica: naranjo = te toca a ti,
+       y mientras más sólido, más urgente. Azul = ya está hecho.
+         · sin empezar → naranjo delineado (te espera, sin apuro)
+         · en curso    → naranjo sólido con halo (acá ibas)
+         · dominada    → azul apagado con ✓ (cerrada, entras solo a repasar) */
+    .ses-cta {
+      display:flex; align-items:center; justify-content:center; gap:8px; padding:12px;
+      border-radius:12px; font-size:14.5px; font-weight:600;
+      border:1px solid transparent; transition:filter .15s, background .15s, box-shadow .15s;
+    }
+    .ses-cta.empezar {
+      color:#5FA8E8; background:rgba(95,168,232,.09);
+      border-color:rgba(95,168,232,.34); font-weight:500;
+    }
+    .ses-cta.empezar:hover { background:rgba(95,168,232,.16); color:#B4DCF8; }
 
-    .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-    .card.active { box-shadow: 0 2px 8px rgba(4,44,83,0.08); }
-    .card.locked { opacity: .42; }
-    .card-top { display: flex; align-items: center; gap: 14px; padding: 16px; }
-    .card.done    .card-top { border-left: 4px solid var(--navy); }
-    .card.current .card-top { border-left: 4px solid #2980D9; }
-    .card.locked  .card-top { border-left: 4px solid #e0e0e0; }
+    .ses-cta.curso {
+      color:#04203E; background:linear-gradient(100deg,#5FA8E8,#185FA5);
+      box-shadow:0 0 0 3px rgba(95,168,232,.14), 0 8px 22px rgba(24,95,165,.30);
+    }
+    .ses-cta.curso:hover { filter:brightness(1.06); color:#04203E; }
 
-    .snum { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; flex-shrink:0; }
-    .snum.done    { background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: white; }
-    .snum.current { background: linear-gradient(135deg, #185FA5, #2980D9); color: white; box-shadow: 0 4px 12px rgba(24,95,165,0.35); }
-    .snum.locked  { background: #e8e8e6; color: #aaa; }
-
-    .sinfo { flex: 1; min-width: 0; }
-    .slabel { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; }
-    .slabel.done    { color: var(--navy-light); }
-    .slabel.current { color: #2980D9; }
-    .slabel.locked  { color: #bbb; }
-    .stitle { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card.locked .stitle { color: #aaa; }
-
-    .saction { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-    .btn-ver { background: linear-gradient(135deg, var(--navy-mid), var(--navy-light)); color: white; border: none; border-radius: 20px; padding: 5px 10px; font-size: 11px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; text-decoration: none; display: inline-block; white-space: nowrap; }
-    .lock-icon { width:32px; height:32px; background:#f0f0ee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; }
-
-    .mini-stars { display: flex; gap: 2px; }
-    .ms { font-size: 13px; filter: grayscale(1) opacity(.25); transition: filter .3s; }
-    .ms.on { filter: none; }
-
-    .prev-strip { display: flex; gap: 6px; padding: 0 16px 14px; overflow-x: auto; scrollbar-width: none; }
-    .prev-strip::-webkit-scrollbar { display: none; }
-    .prev-thumb { flex-shrink: 0; width: 100px; height: 64px; border-radius: 8px; border: 1px solid var(--border); background: #eae9e7; overflow: hidden; }
-    .prev-thumb img { width:100%; height:100%; object-fit:cover; }
-
-    .desafio { background: linear-gradient(135deg,#FFF8EC,#FFF3DC); border-top: 1px solid #F5CC7A; padding: 14px 16px; }
-    .des-head { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
-    .des-label { font-size: 10px; font-weight: 700; color: #7A4F00; text-transform: uppercase; letter-spacing: .5px; }
-    .des-text { font-size: 12px; color: #5C3D00; line-height: 1.5; margin-bottom: 10px; }
-    .honor-row { display: flex; gap: 8px; flex-wrap: wrap; }
-    .hbtn { display: flex; align-items: center; gap: 5px; border-radius: 20px; padding: 6px 12px; font-size: 11px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; border: 1.5px solid; transition: all .2s; }
-    .hbtn.ver-b { background: white; border-color: var(--navy-light); color: var(--navy-light); }
-    .hbtn.ver-b.done { background: var(--navy-light); color: white; }
-    .hbtn.des-b { background: white; border-color: #D4900A; color: #7A4F00; }
-    .hbtn.des-b.done { background: #F5A623; color: white; border-color: #F5A623; }
-    .hbtn.quiz-b { background: white; border-color: #6B46C1; color: #6B46C1; }
-    .hbtn.quiz-b.done { background: #6B46C1; color: white; border-color: #6B46C1; }
-    .hbtn:disabled { opacity: .65; cursor: default; }
-    .dominada-banner { display:none; align-items:center; gap:8px; background:linear-gradient(135deg,#FFFBEB,#FEF3C7); border-top:1px solid #FCD34D; padding:10px 16px; font-size:11px; font-weight:700; color:#78350F; }
-    .dominada-banner.show { display:flex; }
-
-    /* Honor modal */
-    .overlay { display:none; position:fixed; inset:0; background:rgba(4,44,83,.6); z-index:200; align-items:center; justify-content:center; padding:20px; }
-    .overlay.open { display:flex; }
-    .modal { background:white; border-radius:20px; padding:28px 24px; max-width:340px; width:100%; text-align:center; animation:mIn .25s ease; }
-    @keyframes mIn { from{transform:scale(.9);opacity:0} to{transform:scale(1);opacity:1} }
-    .m-emoji { font-size:48px; margin-bottom:12px; }
-    .m-title { font-size:18px; font-weight:800; color:var(--navy); margin-bottom:8px; }
-    .m-text  { font-size:13px; color:var(--muted); line-height:1.55; margin-bottom:20px; }
-    .m-confirm { background:linear-gradient(135deg,var(--navy-mid),var(--navy-light)); color:white; border:none; border-radius:20px; padding:12px; font-size:13px; font-weight:700; font-family:'Poppins',sans-serif; cursor:pointer; width:100%; margin-bottom:8px; }
-    .m-cancel  { background:none; border:1.5px solid var(--border); border-radius:20px; padding:10px; font-size:12px; font-weight:600; color:var(--muted); font-family:'Poppins',sans-serif; cursor:pointer; width:100%; }
-
-    /* Quiz modal */
-    .quiz-overlay { display:none; position:fixed; inset:0; background:rgba(4,44,83,.7); z-index:300; align-items:center; justify-content:center; padding:20px; }
-    .quiz-overlay.open { display:flex; }
-    .quiz-modal { background:white; border-radius:24px; padding:0; max-width:400px; width:100%; animation:mIn .25s ease; overflow:hidden; }
-    .quiz-header { background:linear-gradient(135deg,var(--navy),var(--navy-mid)); padding:20px 24px 16px; }
-    .quiz-prog-label { font-size:11px; color:rgba(255,255,255,0.6); font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
-    .quiz-prog-bar { height:4px; background:rgba(255,255,255,0.2); border-radius:99px; overflow:hidden; }
-    .quiz-prog-fill { height:100%; background:white; border-radius:99px; transition:width .4s ease; }
-    .quiz-q-num { font-size:11px; color:rgba(255,255,255,0.55); margin-top:10px; }
-    .quiz-question { font-size:15px; font-weight:700; color:white; margin-top:4px; line-height:1.4; }
-    .quiz-body { padding:20px 24px 24px; }
-    .quiz-options { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
-    .qopt { background:#f8f8f8; border:1.5px solid #e8e8e8; border-radius:12px; padding:12px 16px; font-size:13px; font-weight:500; color:#222; cursor:pointer; text-align:left; font-family:'Poppins',sans-serif; transition:all .15s; }
-    .qopt:hover:not(:disabled) { border-color:var(--navy-light); background:#EDF4FF; }
-    .qopt.correct { background:#ECFDF5; border-color:#10B981; color:#065F46; }
-    .qopt.wrong   { background:#FEF2F2; border-color:#EF4444; color:#991B1B; }
-    .qopt:disabled { cursor:default; }
-    .quiz-feedback { font-size:12px; line-height:1.55; border-radius:10px; padding:10px 14px; margin-bottom:14px; display:none; }
-    .quiz-feedback.error { background:#FEF2F2; color:#7F1D1D; border:1px solid #FECACA; display:block; }
-    .quiz-feedback.ok    { background:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; display:block; }
-    .quiz-next { background:linear-gradient(135deg,var(--navy-mid),var(--navy-light)); color:white; border:none; border-radius:20px; padding:11px; font-size:13px; font-weight:700; font-family:'Poppins',sans-serif; cursor:pointer; width:100%; display:none; }
-    .quiz-next.visible { display:block; }
-    .quiz-close-x { position:absolute; top:14px; right:16px; background:rgba(255,255,255,0.15); border:none; color:white; border-radius:50%; width:28px; height:28px; font-size:14px; cursor:pointer; display:flex;align-items:center;justify-content:center; }
-
-    .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--navy); color:white; padding:10px 20px; border-radius:20px; font-size:13px; font-weight:600; z-index:400; transition:transform .3s,opacity .3s; opacity:0; white-space:nowrap; }
-    .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
-
-    .loading { text-align:center; padding:40px 20px; color:var(--muted); font-size:14px; }
+    .ses-cta.repasar {
+      color:#8FBEEC; background:rgba(76,130,196,.10);
+      border-color:rgba(76,130,196,.32); font-weight:500;
+    }
+    .ses-cta.repasar:hover { background:rgba(76,130,196,.18); color:#C3DDF5; }
+    .ses-lock {
+      display:flex; align-items:center; justify-content:center; gap:8px; padding:12px;
+      border-radius:12px; font-size:14px; color:rgba(233,234,238,.34);
+      border:1px dashed rgba(255,255,255,.12); text-align:center;
+    }
 
 
-    footer { text-align:center; padding:24px 20px 32px; font-size:11px; color:#aaa; }
-    footer a { color:var(--navy-light); text-decoration:none; font-weight:500; }
+    /* ---------- Lo que sigue ahora ----------
+       Comparte el azul de la tarjeta de estado: las dos son «tu panel».
+       Así, apiladas en móvil, no se leen como una sesión más. */
+    .sigue {
+      position:relative; margin-top:14px; border-radius:20px; overflow:hidden;
+      border:1px solid rgba(125,165,215,.22);
+      padding:18px 24px; background:linear-gradient(120deg, rgba(90,130,180,.16), rgba(255,255,255,.02) 70%);
+      display:grid; grid-template-columns:minmax(0,1fr) auto; gap:28px; align-items:center;
+    }
+    .sigue::before {
+      content:''; position:absolute; top:0; left:24px; right:24px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(150,190,235,.75), transparent);
+    }
+    .sigue-t { font-size:18px; font-weight:500; color:#F4F5F7; letter-spacing:-.01em; }
+    .sigue-h { font-size:13.5px; color:rgba(233,234,238,.52); margin-top:4px; }
+    .sigue .lbl { display:block; margin-bottom:7px; }
+    /* Azul como su panel: el naranjo es de las sesiones, y este botón no
+       lleva a una sesión sino al siguiente paso pendiente */
+    .sigue-btn {
+      display:inline-flex; align-items:center; gap:10px; padding:12px 24px; border-radius:12px;
+      font-size:14.5px; font-weight:600; white-space:nowrap; color:#07111C;
+      background:linear-gradient(100deg,#8FBEEC,#4C82C4);
+      box-shadow:0 12px 28px -14px rgba(90,140,210,.95); transition:filter .15s;
+    }
+    .sigue-btn:hover { filter:brightness(1.07); color:#07111C; }
 
-    @media(max-width:400px){
-      .hero-company{font-size:22px;} .stat-value{font-size:18px;}
-      .stars-panel{margin:16px 12px 0;} .sess-wrap{padding:20px 12px 40px;} .prog-wrap{padding:16px 12px 0;}
+    /* ---------- Pie ---------- */
+    .pie {
+      margin-top:12px; padding:10px 0 0; border-top:1px solid rgba(255,255,255,.07);
+      display:flex; justify-content:center; gap:8px; flex-wrap:wrap;
+      font-size:13px; color:rgba(233,234,238,.38); text-align:center;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media(max-width:1000px){
+      .hero { grid-template-columns:1fr; gap:24px; align-items:stretch; padding:24px 0 26px; }
+      /* Apilado, tu estado va arriba: es la cabecera de la página, no una
+         tarjeta más en la fila de sesiones */
+      .estado { order:-1; }
+      .sesiones { grid-template-columns:1fr; }
+      main, .hd { padding-left:28px; padding-right:28px; }
+      h1 { font-size:46px; }
+    }
+    @media(max-width:640px){
+      main, .hd { padding-left:20px; padding-right:20px; }
+      .hd { padding-top:16px; padding-bottom:16px; }
+      h1 { font-size:38px; }
+      .hero-sub { font-size:15px; }
+      .ghost { width:100%; justify-content:center; min-height:48px; }
+      .estado, .ses, .hab, .sigue { padding:22px 20px; }
+      .sigue { grid-template-columns:1fr; gap:18px; }
+      .sigue-btn { justify-content:center; min-height:48px; }
+      .est-pie { flex-wrap:wrap; }
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <img src="/logo reyes IA horizontal blanco.png" alt="Reyes IA" style="height:36px;object-fit:contain;" />
-  <div class="nav-right">
-    <a href="https://reyesia.com" target="_blank">reyesia.com</a>
-    <a href="https://instagram.com/reyesdelaia" target="_blank" title="Instagram" class="nav-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <circle cx="12" cy="12" r="4.5"/>
-        <circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/>
-      </svg>
-    </a>
-    <a href="mailto:felipe@reyesia.com" title="Email" class="nav-icon">✉️</a>
-  </div>
-</nav>
+<div class="shell">
 
-<div class="hero">
-  <div class="hero-inner" style="position:relative;">
-    <img src="/newell/logo-newell.png" alt="Newell Brands" style="position:absolute;right:-10px;top:-16px;height:52px;max-width:180px;object-fit:contain;opacity:0.92;pointer-events:none;filter:brightness(0) invert(1);" />
-    <div class="hero-badge">🏢 Programa corporativo</div>
-    <div class="hero-company">Newell Brands</div>
-    <div class="hero-program">Adopción Profunda de IA · Programa 8 sesiones</div>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-value" id="stat-activas">—</span><span class="stat-label">Sesiones activas</span></div>
-      <div class="stat-div"></div>
-      <div class="stat"><span class="stat-value">8</span><span class="stat-label">Total sesiones</span></div>
-      <div class="stat-div"></div>
-      <div class="stat"><span class="stat-value" id="hero-stars">0</span><span class="stat-label">⭐ Tus estrellas</span></div>
+  <header class="hd">
+    <a href="https://reyesia.com" class="hd-logo"><img src="/logo reyes IA horizontal blanco.png" alt="Reyes IA" /></a>
+    <div class="hd-right">
+      <a href="https://reyesia.com" class="hd-pill" target="_blank" rel="noopener">reyesia.com</a>
+      <a href="mailto:felipe@reyesia.com" class="hd-mail" title="Escríbeme">✉</a>
     </div>
-  </div>
-</div>
+  </header>
 
-<div class="panels-row">
-  <div class="panel-half panel-stars">
-    <div class="sp-title">Tu progreso</div>
-    <div class="sp-sub">Completa los 3 pasos y gana ⭐</div>
-    <div class="stars-row" id="stars-big"></div>
-    <div class="sp-bottom">
-      <span class="sp-count" id="stars-n">0</span>
-      <span class="sp-max" id="stars-max">/ — ⭐</span>
-    </div>
-  </div>
-  <div class="panel-half panel-skills" onclick="openSkills()">
-    <svg width="100%" viewBox="0 0 130 108" style="max-width:130px;display:block;margin:0 auto 4px;">
-      <defs>
-        <linearGradient id="hexG" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#60A5FA"/>
-          <stop offset="100%" stop-color="#1D4ED8"/>
-        </linearGradient>
-        <linearGradient id="hexGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#BFDBFE" stop-opacity="0.7"/>
-          <stop offset="100%" stop-color="#BFDBFE" stop-opacity="0"/>
-        </linearGradient>
-        <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
-          <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1D4ED8" flood-opacity="0.35"/>
-        </filter>
-      </defs>
-      <!-- Background glow -->
-      <circle cx="65" cy="54" r="50" fill="#EEF5FF" opacity="0.7"/>
-      <!-- Dashed orbit -->
-      <circle cx="65" cy="54" r="43" fill="none" stroke="#93C5FD" stroke-width="1.2" stroke-dasharray="4,3"/>
-      <!-- Sparkles -->
-      <text x="108" y="18" font-size="8" fill="#F59E0B" opacity="0.9">✦</text>
-      <text x="16" y="20" font-size="6" fill="#38BDF8" opacity="0.8">✦</text>
-      <text x="114" y="80" font-size="6" fill="#F59E0B" opacity="0.7">✦</text>
-      <text x="8" y="78" font-size="5" fill="#38BDF8" opacity="0.6">✦</text>
-      <!-- Outer hex ring -->
-      <polygon points="65,18 92,34 92,66 65,82 38,66 38,34" fill="white" opacity="0.6" filter="url(#sh)"/>
-      <!-- Inner hex fill -->
-      <polygon points="65,21 89,36 89,64 65,79 41,64 41,36" fill="url(#hexG)" filter="url(#sh)"/>
-      <!-- Hex shine -->
-      <polygon points="65,21 89,36 89,46 65,52 41,46 41,36" fill="url(#hexGlow)" opacity="0.5"/>
-      <!-- Inner border -->
-      <polygon points="65,24 87,38 87,62 65,76 43,62 43,38" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-      <!-- Brain -->
-      <text x="65" y="55" text-anchor="middle" dominant-baseline="middle" font-size="26">🧠</text>
-      <!-- Node: Top (Trophy) -->
-      <circle cx="65" cy="11" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
-      <text x="65" y="11" text-anchor="middle" dominant-baseline="middle" font-size="12">🏆</text>
-      <circle cx="72" cy="19" r="5" fill="#22C55E"/><text x="72" y="19" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
-      <!-- Node: Top-right (Sparkle) -->
-      <circle cx="101" cy="32" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
-      <text x="101" y="32" text-anchor="middle" dominant-baseline="middle" font-size="12">✨</text>
-      <circle cx="108" cy="40" r="5" fill="#22C55E"/><text x="108" y="40" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
-      <!-- Node: Bottom-right (Chart) -->
-      <circle cx="101" cy="76" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
-      <text x="101" y="76" text-anchor="middle" dominant-baseline="middle" font-size="12">📊</text>
-      <circle cx="108" cy="84" r="5" fill="#22C55E"/><text x="108" y="84" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
-      <!-- Node: Bottom (Locked) -->
-      <circle cx="65" cy="97" r="11" fill="#EEF0F3" stroke="#CBD5E1" stroke-width="1.5"/>
-      <text x="65" y="97" text-anchor="middle" dominant-baseline="middle" font-size="12">💡</text>
-      <circle cx="72" cy="105" r="5" fill="#94A3B8"/><text x="72" y="105" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">🔒</text>
-      <!-- Node: Bottom-left (Doc) -->
-      <circle cx="29" cy="76" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
-      <text x="29" y="76" text-anchor="middle" dominant-baseline="middle" font-size="12">📋</text>
-      <circle cx="36" cy="84" r="5" fill="#22C55E"/><text x="36" y="84" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
-      <!-- Node: Top-left (Chat) -->
-      <circle cx="29" cy="32" r="11" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
-      <text x="29" y="32" text-anchor="middle" dominant-baseline="middle" font-size="12">💬</text>
-      <circle cx="36" cy="40" r="5" fill="#22C55E"/><text x="36" y="40" text-anchor="middle" dominant-baseline="middle" font-size="7" fill="white">✓</text>
-    </svg>
-    <div class="ps-label">Centro de Habilidades</div>
-    <div class="ps-count" id="ps-count">0 / 32 desbloqueadas</div>
-  </div>
-</div>
+  <main>
 
-<div class="prog-wrap">
-  <div class="prog-head">
-    <span class="prog-label">Avance del programa</span>
-    <span class="prog-pct" id="prog-pct">—</span>
-  </div>
-  <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
-</div>
-
-<div class="sess-wrap">
-  <div class="sec-title">Resúmenes ejecutivos</div>
-  <div class="sess-list" id="sess-list">
-    <div class="loading">Cargando sesiones…</div>
-  </div>
-</div>
-
-<!-- Skills modal -->
-<div class="sk-overlay" id="sk-overlay" onclick="closeSkills(event)">
-  <div class="sk-sheet">
-    <div class="sk-header">
-      <div class="sk-htop">
-        <div class="sk-title">🧠 Habilidades de IA desbloqueadas</div>
-        <button class="sk-close" onclick="closeSkills()">✕</button>
+    <section class="hero">
+      <div>
+        <div class="hero-chip">
+          <div class="hero-chip-box"><img src="/newell/logo-newell.png" alt="Newell" /></div>
+          <span class="mono">Programa de 8 sesiones</span>
+          <span class="ver" id="ver">—</span>
+        </div>
+        <h1>Programa <span>Newell</span></h1>
+        <p class="hero-sub">Ocho sesiones para pasar de conversar con la IA a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado.</p>
+        <div class="hero-acc">
+          <button class="ghost" id="btn-hab">Centro de habilidades</button>
+        </div>
       </div>
-      <div class="sk-sub" id="sk-sub">0 de 32 habilidades desbloqueadas</div>
+
+      <div class="estado">
+        <div class="est-top">
+          <div class="est-av" id="est-av">?</div>
+          <div style="flex:1;min-width:0">
+            <div class="est-name" id="est-name">—</div>
+            <div class="est-role" id="est-role">—</div>
+          </div>
+          <button class="est-cambiar" id="est-cambiar">Cambiar</button>
+        </div>
+
+        <div class="est-sep"></div>
+
+        <div class="est-fila">
+          <span class="lbl">Avance del programa</span>
+          <span class="est-pasos" id="est-pasos">—</span>
+        </div>
+        <div class="est-bar"><i id="est-barra" style="width:0%"></i></div>
+
+        <div class="est-pie">
+          <div>
+            <div class="lbl">Sesiones dominadas</div>
+            <div class="rombos" id="rombos"></div>
+          </div>
+          <div class="est-hab">
+            <div class="lbl">Habilidades</div>
+            <div class="est-hab-n" id="est-hab-n">0 / 0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sec" id="sesiones">
+      <span class="mono">Las 8 sesiones</span>
+      <i></i>
     </div>
-    <div class="sk-grid" id="sk-grid"></div>
-  </div>
+
+    <section class="sesiones" id="grid-sesiones"></section>
+
+    <section class="sigue">
+      <div>
+        <span class="lbl">Lo que sigue ahora</span>
+        <div class="sigue-t" id="sigue-t">—</div>
+        <div class="sigue-h" id="sigue-h">—</div>
+      </div>
+      <a class="sigue-btn" id="sigue-btn" href="#sesiones">Ir al paso →</a>
+    </section>
+
+    <footer class="pie">
+      <span>Programa facilitado por <a href="https://reyesia.com" target="_blank" rel="noopener">Reyes IA</a> · Felipe Reyes</span>
+    </footer>
+  </main>
 </div>
 
-<footer>Programa facilitado por <a href="https://reyesia.com" target="_blank">Reyes IA</a> · Felipe Reyes</footer>
-
-<!-- Honor modal -->
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <div class="m-emoji" id="m-emoji">⭐</div>
-    <div class="m-title" id="m-title"></div>
-    <div class="m-text"  id="m-text"></div>
-    <button class="m-confirm" id="m-confirm">Sí, lo hice con compromiso ✓</button>
-    <button class="m-cancel" onclick="closeModal()">Todavía no</button>
-  </div>
-</div>
-
-<!-- Quiz modal -->
-<div class="quiz-overlay" id="quiz-overlay">
-  <div class="quiz-modal" style="position:relative;">
-    <div class="quiz-header">
-      <button class="quiz-close-x" onclick="closeQuiz()">✕</button>
-      <div class="quiz-prog-label">Quiz de la sesión</div>
-      <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qprog-fill" style="width:0%"></div></div>
-      <div class="quiz-q-num" id="q-num">Pregunta 1 de 4</div>
-      <div class="quiz-question" id="q-text"></div>
-    </div>
-    <div class="quiz-body">
-      <div class="quiz-options" id="q-options"></div>
-      <div class="quiz-feedback" id="q-feedback"></div>
-      <button class="quiz-next" id="q-next" onclick="nextQuestion()">Siguiente →</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
+<script src="/newell/portal.js"></script>
 <script>
-  const THUMBS = {
-    1: ['/pucobre/thumbs/s1_thumb1.jpg','/pucobre/thumbs/s1_thumb2.jpg','/pucobre/thumbs/s1_thumb3.jpg'],
-    2: ['/newell/thumbs/s2_thumb1.png','/newell/thumbs/s2_thumb2.png','/newell/thumbs/s2_thumb3.png'],
-    3: ['/newell/thumbs/s3_thumb1.png','/newell/thumbs/s3_thumb2.png','/newell/thumbs/s3_thumb3.png'],
-    4: ['/newell/thumbs/s4_thumb1.png','/newell/thumbs/s4_thumb2.png','/newell/thumbs/s4_thumb3.png'],
-  5: ['/newell/thumbs/s5_thumb1.jpg','/newell/thumbs/s5_thumb2.jpg','/newell/thumbs/s5_thumb3.jpg'],
-};
-  const CHALLENGES = {
-    1: 'Abre Copilot y logra que memorice 5 temas relevantes de ti y tu rol dentro de Newell. Preséntate, cuéntale en qué área trabajas y qué tipo de tareas haces — y pídele que los recuerde para futuras conversaciones.',
-    2: '1. Abre una planilla Excel.<br>2. Activa la opción Copilot.<br>3. Cambia el modelo automático a Claude.<br>4. Pídele que te cree gráficos de tu planilla.',
-    3: 'Crea tu primer agente básico en Copilot. Piensa en una tarea o dolor recurrente de tu día a día en Newell y construye un agente para resolverlo:<br>1. Dale un nombre y un propósito claro.<br>2. Redacta una buena paleta de instrucciones (apóyate en la IA para escribirlas).<br>3. Cárgale conocimiento vinculante (SharePoint, Teams, Outlook o una web).<br>4. Pruébalo con un caso real y ajusta las instrucciones según el resultado.',
-      4: 'Pon en práctica el flujo Pro de la sesión:<br>1. Pídele al <strong>Agente Analista</strong> que analice un Excel real de tu área en Newell (KPIs, ventas, lo que tengas) y genere 2-3 gráficos.<br>2. Abre <strong>PowerPoint con Copilot</strong> (con modelo Claude) y pídele que arme una presentación ejecutiva basada en ese análisis.<br>3. Pule un par de slides con instrucciones en lenguaje natural. ¡De datos crudos a presentación lista sin salir de M365!',
-    5: 'Crea una pieza de campaña de punta a punta:<br>1. Genera una imagen de producto con tu marca (Crear con Copilot o Gemini).<br>2. Anímala con <strong>image-to-video en Gemini</strong> para un reel.<br>3. Si la imagen base estaba pixelada, pásala antes por <strong>Krea.ai</strong>.<br>Comparte el resultado con tu equipo. 🎬',
-};
-  const QUIZZES = {
-    1: [
-      {
-        q: '¿Qué modo debes elegir al ingresar a Copilot con tu cuenta corporativa?',
-        opts: ['Personal', 'Student', 'Work', 'Enterprise'],
-        correct: 2,
-        explain: 'El modo Work conecta Copilot con tu cuenta corporativa y tus datos de Microsoft 365. Los otros modos son para cuentas personales o educativas.',
-      },
-      {
-        q: '¿Cuál es la URL correcta para acceder a Copilot de Microsoft?',
-        opts: ['ai.microsoft.com', 'copilot.microsoft.com', 'copilot.google.com', 'office.com/ai'],
-        correct: 1,
-        explain: 'La dirección oficial es copilot.microsoft.com. Desde ahí accedes con tu cuenta corporativa en modo Work.',
-      },
-      {
-        q: '¿Qué modelos de lenguaje utiliza Copilot de Microsoft?',
-        opts: ['ChatGPT', 'Gemini', 'Claude', 'GPT y Claude'],
-        correct: 3,
-        explain: 'Copilot no usa un solo modelo — Microsoft integra tanto GPT (de OpenAI) como Claude (de Anthropic) dependiendo de la tarea. Gemini es de Google y no está en Copilot.',
-      },
-      {
-        q: '¿La inteligencia artificial es 100% precisa o se puede equivocar?',
-        opts: ['Es 100% precisa.', 'Sí, la mayoría de las veces alucina.', 'Puede alucinar principalmente cuando sale a buscar internet.', 'Si la tratas mal, eventualmente podría deducir mal las cosas.'],
-        correct: 2,
-        explain: 'La IA puede alucinar especialmente cuando hace búsquedas en internet, mezclando fuentes o inventando datos. No alucina la mayoría de las veces ni depende de cómo la tratas — pero sí hay que verificar lo que entrega, sobre todo con datos recientes.',
-      },
-    ],
-    2: [
-      {
-        q: '¿Qué se puede hacer con Copilot dentro de Word?',
-        opts: ['Redactar cosas desde cero.', 'Es solo para documentos ya existentes.', 'Te corrige la ortografía con inteligencia artificial.', 'Todo lo que quieras: documentos en blanco, documentos ya existentes, y muchas cosas más.'],
-        correct: 3,
-        explain: 'Copilot en Word es muy versátil — puedes partir desde cero, mejorar un documento existente, resumir, reescribir y mucho más. No está limitado solo a corrección ortográfica ni a documentos previos.',
-      },
-      {
-        q: '¿Es importante que el Excel tenga una estructura ordenada para que la IA lo trabaje bien?',
-        opts: ['No, da lo mismo, siempre y cuando ocupe un buen modelo y un buen razonamiento.', 'Sí, es fundamental que la planilla sea lo más estructurada posible. Evita celdas combinadas, imágenes incrustadas, entre otros.', 'Lo que más importa es el largo de la planilla para efectos de la IA.', 'Tratar de que tenga pocos datos para que la IA la entienda bien.'],
-        correct: 1,
-        explain: 'Una planilla ordenada, sin celdas combinadas ni imágenes incrustadas, permite que la IA entienda y procese los datos correctamente. La estructura es clave, independiente del modelo o la cantidad de datos.',
-      },
-      {
-        q: '¿Cómo puede ayudarte Copilot en Teams?',
-        opts: ['Me puede generar minutas automáticas de mis reuniones.', 'A darme ideas durante una reunión.', 'No existe Copilot en Teams.', 'Me puede hacer transcripciones de ciertas partes de mi reunión.'],
-        correct: 0,
-        explain: 'Copilot en Teams puede generar minutas automáticas al finalizar una reunión, resumiendo los puntos clave y los compromisos. Para eso necesita activar la transcripción al inicio de la reunión.',
-      },
-      {
-        q: '¿Puedo ocupar la IA de Copilot en mi SharePoint?',
-        opts: ['No, dado que son datos privados.', 'Solo si es que tengo poca información.', 'Por supuesto. Puedes integrar Copilot con tu SharePoint para que te ayude con esa información.', 'Sí, pero pocas veces al día, porque gasta muchos tokens.'],
-        correct: 2,
-        explain: 'Copilot puede integrarse con SharePoint para consultar, resumir y trabajar con la información almacenada ahí. No hay restricción de frecuencia ni de volumen de datos — esa es precisamente una de sus ventajas corporativas.',
-      },
-    ],
-    3: [
-      {
-        q: '¿Qué es un agente en Copilot?',
-        opts: ['Un chat nuevo que se borra apenas cierras la ventana.', 'Un asistente de IA que configuras una sola vez con instrucciones y conocimiento, y luego repite esa lógica automáticamente cada vez que lo usas.', 'Un programa que debes descargar e instalar aparte en tu computador.', 'Una macro de Excel que solo sirve para planillas.'],
-        correct: 1,
-        explain: 'Un agente se configura una vez —con un propósito, instrucciones y conocimiento— y luego repite esa lógica automáticamente. No es un chat desechable ni algo que se instale aparte.',
-      },
-      {
-        q: 'Para que tu agente responda con precisión sobre temas de Newell, ¿qué es clave hacer?',
-        opts: ['Ponerle un nombre llamativo.', 'Usarlo muchas veces al día.', 'Cargarle conocimiento vinculante: conectar fuentes como SharePoint, Teams, Outlook o sitios web en su sección "Conocimiento".', 'Dejar las instrucciones en blanco para que improvise.'],
-        correct: 2,
-        explain: 'En la sección "Conocimiento" conectas las fuentes que el agente usará (SharePoint, Teams, Outlook, webs). Cuanto mejor alimentado está, más preciso responde. El nombre o la frecuencia de uso no influyen en su precisión.',
-      },
-      {
-        q: 'Las instrucciones de un agente, una vez creado, ¿se pueden modificar?',
-        opts: ['No, se escriben una sola vez y quedan fijas para siempre.', 'Solo las puede cambiar el administrador de TI.', 'Son como un prompt permanente, pero puedes —y debes— irlas ecualizando e iterando a medida que conoces mejor al agente.', 'No influyen en cómo responde, así que da lo mismo.'],
-        correct: 2,
-        explain: 'Las instrucciones funcionan como un prompt permanente, pero no están escritas en piedra: lo ideal es iterarlas y mejorarlas con el uso, ajustando lo que funciona y lo que no.',
-      },
-      {
-        q: '¿Para qué sirve el Agente Investigador?',
-        opts: ['Buscar, recopilar y sintetizar información desde múltiples fuentes internas y externas, entregando un informe estructurado.', 'Crear gráficos de colores en PowerPoint.', 'Borrar correos antiguos de Outlook automáticamente.', 'Únicamente traducir documentos a otros idiomas.'],
-        correct: 0,
-        explain: 'El Investigador razona sobre tus datos de trabajo (chats, reuniones, archivos, correos) y los combina con información externa de la web para entregar un informe completo y estructurado.',
-      },
-      {
-        q: '¿Cómo te ayuda Copilot integrado en SharePoint y OneDrive?',
-        opts: ['Hay que instalar un complemento pago para activarlo.', 'Solo funciona con archivos PDF.', 'Sirve únicamente para subir archivos, no para leerlos.', 'Por conexión nativa: resume documentos y los encuentra con lenguaje natural, sin instalar nada adicional.'],
-        correct: 3,
-        explain: 'Copilot está integrado de forma nativa en SharePoint y OneDrive —el ícono aparece junto a cada archivo—, así que puedes resumir y buscar documentos con lenguaje natural sin instalar nada.',
-      },
-    ],
-      4: [
-      {
-        q: '¿Qué hace el Agente Investigador?',
-        opts: ['Crea gráficos de colores en PowerPoint.', 'Navega por internet de forma autónoma y entrega un informe estructurado con citas y fuentes.', 'Borra correos antiguos de Outlook automáticamente.', 'Solo traduce documentos a otros idiomas.'],
-        correct: 1,
-        explain: 'El Investigador navega la web de forma autónoma, recopila información actualizada de múltiples fuentes y entrega un informe estructurado con citas. Es el punto de partida ideal para alimentar otros agentes, documentos o presentaciones.',
-      },
-      {
-        q: '¿Cuál es la diferencia clave del Agente Analista frente al Investigador?',
-        opts: ['El Analista busca noticias nuevas en internet.', 'Son exactamente lo mismo.', 'El Analista interpreta datos estructurados que ya tienes (Excel, CSV, tablas) y genera gráficos e insights ejecutivos.', 'El Analista solo sirve para redactar correos.'],
-        correct: 2,
-        explain: 'El Investigador trae datos externos desde la web; el Analista trabaja sobre datos estructurados que ya tienes y entrega gráficos, tablas resumen e interpretaciones en lenguaje ejecutivo. Juntos forman un flujo potente.',
-      },
-      {
-        q: 'En Word con Copilot, ¿cuál es la forma rápida de intervenir un párrafo puntual sin tocar el resto del documento?',
-        opts: ['Borrar todo y empezar de nuevo.', 'Copiar el texto a otro programa.', 'No se puede editar párrafo por párrafo.', 'Seleccionar el párrafo, clic derecho → Copilot, y pedirle que lo reescriba o mejore.'],
-        correct: 3,
-        explain: 'Con clic derecho → Copilot sobre un párrafo seleccionado puedes reescribirlo, mejorar el tono, ampliarlo o resumirlo sin afectar el resto del documento.',
-      },
-      {
-        q: 'Al usar Copilot en Excel y PowerPoint, ¿qué recomendación clave se dio para obtener mejores resultados?',
-        opts: ['Usar siempre el modelo por defecto.', 'Cambiar el selector de modelo a Claude (Opus 4.7 o superior) por su mejor razonamiento.', 'Desactivar Copilot y hacer todo a mano.', 'Trabajar siempre sin conexión a internet.'],
-        correct: 1,
-        explain: 'En Excel y PowerPoint conviene cambiar el modelo de Copilot a Claude (Opus 4.7 o superior): su razonamiento produce planillas y presentaciones de mejor calidad.',
-      },
-      {
-        q: '¿Cuál es el flujo más potente combinando las herramientas de la sesión?',
-        opts: ['Hacer todo manualmente en cada app por separado.', 'Usar solo Word para todo.', 'El Investigador trae datos externos, el Analista los cruza y analiza, exportas a Excel y Copilot en PowerPoint arma la presentación.', 'Copiar y pegar entre apps sin usar IA.'],
-        correct: 2,
-        explain: 'El flujo Pro encadena los agentes y las apps: investigar, analizar, exportar a Excel y generar la presentación en PowerPoint con Copilot. De datos crudos a entregable sin salir de M365.',
-      },
-    ],
-    5: [
-      {
-        q: '¿Qué permite hacer "Crear con Copilot" para marketing?',
-        opts: ['Solo escribir correos.', 'Solo crear tablas de Excel.', 'Generar imágenes y pósters e insertar el logo de tu marca en una escena realista (mockups).', 'Nada visual, solo texto.'],
-        correct: 2,
-        explain: 'Desde "Crear" en Copilot generas imágenes, pósters, infografías y más. Con "Insertar un logotipo en una escena" puedes integrar el logo de la marca de forma realista — ideal para mockups de campaña.',
-      },
-      {
-        q: 'Al generar imágenes pro de producto con ChatGPT o Gemini, ¿qué conviene hacer?',
-        opts: ['Subir una foto real del producto como referencia y dar un prompt con superficie, fondo, estilo y uso final.', 'Pedir "una foto linda" sin más contexto.', 'Usar siempre la menor resolución posible.', 'Evitar mencionar la marca o el producto.'],
-        correct: 0,
-        explain: 'La foto de referencia mantiene la fidelidad del producto, y un prompt detallado (superficie + fondo + estilo + uso final) define la calidad del resultado. Mientras más específico, mejor.',
-      },
-      {
-        q: 'Sobre los videos con Gemini, ¿qué es cierto?',
-        opts: ['Requiere pagar una licencia aparte.', 'Solo genera videos de una hora.', 'No acepta fotos como punto de partida.', 'Se activa gratis con tu Gmail (~3 videos/día) y permite text-to-video e image-to-video (animar una foto real).'],
-        correct: 3,
-        explain: 'Gemini se activa gratis con tu cuenta de Gmail y permite generar video desde texto o animar una foto real (image-to-video) — perfecto para reels de marketing sin rodaje.',
-      },
-      {
-        q: '¿Por qué usar Ideogram en modo "Design" para logos y mockups?',
-        opts: ['Porque es el único generador gratis que existe.', 'Es el más confiable para que el texto y el nombre de la marca salgan bien escritos dentro del diseño.', 'Porque solo trabaja en blanco y negro.', 'Porque no necesita ningún prompt.'],
-        correct: 1,
-        explain: 'La mayoría de generadores distorsionan el texto. Ideogram en modo Design es el más confiable para que el nombre de la marca aparezca legible y bien escrito — clave en branding y mockups.',
-      },
-      {
-        q: '¿Para qué sirve Krea.ai en marketing?',
-        opts: ['Para borrar el fondo de una foto.', 'Para escribir el copy de la campaña.', 'Para subir la resolución de fotos pixeladas o de baja calidad y dejarlas listas para valla o catálogo.', 'Para componer la música de un reel.'],
-        correct: 2,
-        explain: 'Krea.ai (cuenta gratis) reconstruye detalle y sube la resolución de imágenes pixeladas o borrosas, dejándolas listas para impresión de gran formato o catálogo.',
-      },
-    ],
-};
+  /* Los niveles salen del label del taller ("Sesión 1 · Introductorio") */
+  const nivelDe = t => (t.label.split('·')[1] || '').trim() || '—';
 
-  const SKILLS = [
-    // Sesión 01
-    { icon:'🎤', name:'Dictar a la IA',            session:1, color:'#7C3AED' },
-    { icon:'🧠', name:'Memorización IA',           session:1, color:'#6D28D9' },
-    { icon:'✍️', name:'Redacción Avanzada',        session:1, color:'#5B21B6' },
-    { icon:'🔍', name:'Investigador IA',           session:1, color:'#4338CA' },
-    // Sesión 02
-    { icon:'📝', name:'Copilot en Word',           session:2, color:'#0891B2' },
-    { icon:'📊', name:'Copilot en Excel',          session:2, color:'#0E7490' },
-    { icon:'📑', name:'Copilot en PowerPoint',     session:2, color:'#0D9488' },
-    { icon:'✉️', name:'Copilot en Outlook',        session:2, color:'#0F766E' },
-    // Sesión 03
-    { icon:'🤔', name:'Deep Thinking',             session:3, color:'#059669' },
-    { icon:'📓', name:'Manejo de NotebookLM',      session:3, color:'#047857' },
-    { icon:'🤖', name:'Agentes IA · Básico',       session:3, color:'#065F46' },
-    { icon:'🎬', name:'Agentes Multimedia',        session:3, color:'#14532D' },
-    // Sesión 04
-    { icon:'🖼️', name:'Generar Imágenes',         session:4, color:'#D97706' },
-    { icon:'🎥', name:'Video con IA',              session:4, color:'#B45309' },
-    { icon:'🖥️', name:'Presentaciones Pro',       session:4, color:'#EA580C' },
-    { icon:'🎨', name:'Diseño Visual IA',          session:4, color:'#92400E' },
-    // Sesión 05
-    { icon:'💬', name:'Claude Chat',               session:5, color:'#DC2626' },
-    { icon:'📁', name:'Proyectos Claude',          session:5, color:'#B91C1C' },
-    { icon:'🎭', name:'Artefactos Claude',         session:5, color:'#991B1B' },
-    { icon:'🔌', name:'Claude en Microsoft',       session:5, color:'#E11D48' },
-    // Sesión 06
-    { icon:'🤝', name:'Claude Cowork',             session:6, color:'#DB2777' },
-    { icon:'👨‍💻', name:'Claude Code',            session:6, color:'#BE185D' },
-    { icon:'✨', name:'Artefactos en Vivo',        session:6, color:'#9D174D' },
-    { icon:'🦾', name:'Agentes IA · Intermedio',  session:6, color:'#9333EA' },
-    // Sesión 07
-    { icon:'🔗', name:'Conectores IA',             session:7, color:'#0EA5E9' },
-    { icon:'🔄', name:'Automatizar Tareas',        session:7, color:'#0284C7' },
-    { icon:'🏠', name:'Modelos IA Local',          session:7, color:'#0369A1' },
-    { icon:'🚀', name:'Agentes IA · Pro',          session:7, color:'#075985' },
-    // Sesión 08
-    { icon:'📈', name:'Analizar Datos',            session:8, color:'#CA8A04' },
-    { icon:'🧠', name:'Prompts Avanzados',         session:8, color:'#A16207' },
-    { icon:'🛡️', name:'Control de Alucinaciones', session:8, color:'#854D0E' },
-    { icon:'🏆', name:'Master IA',                session:8, color:'#78350F' },
-  ];
+  function renderUser(){
+    if (!user) return;
+    document.getElementById('est-av').textContent   = iniciales(user.nombre);
+    document.getElementById('est-name').textContent = user.nombre;
+    document.getElementById('est-role').textContent = user.cargo ? `${user.cargo} · ${user.empresa}` : user.empresa;
+  }
+  // portal.js la llama al guardar la identidad
+  function onIdentidad(){ renderUser(); render(); }
 
-  const SUPABASE_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
-  const COMPANY   = 'newell';
-  const STARS_KEY = 'newell_stars_v1';
-
-  let st = {};
-  let pending = null;
-  let activeSessions = 0;
-
-  // Quiz state
-  let quizSesNum = null;
-  let quizQuestions = [];
-  let quizIdx = 0;
-  let quizAnswered = false;
-
-  function loadStars(){ try{ st = JSON.parse(localStorage.getItem(STARS_KEY))||{}; }catch{ st={}; } }
-  function saveStars(){ localStorage.setItem(STARS_KEY, JSON.stringify(st)); }
-
-  function isComplete(sesNum){
-    return !!(st[`${sesNum}-quiz`] && st[`${sesNum}-des`] && st[`${sesNum}-ver`]);
+  /* La sesión "en curso" es la primera abierta que todavía no está dominada */
+  function sesionActiva(){
+    const abiertas = TALLERES.filter(t => !t.proximamente);
+    return abiertas.find(t => !isComplete(t.n)) || abiertas[abiertas.length - 1] || null;
   }
 
-  function countStars(){
-    let n = 0;
-    for(let i=1; i<=8; i++) if(isComplete(i)) n++;
-    return n;
+  function textoCta(t){
+    if (isComplete(t.n)) return '✓ Repasar la sesión';
+    const hechos = conceptosOk(t.n) + (st[`${t.n}-quiz`] ? 1 : 0) + (st[`${t.n}-des`] ? 1 : 0);
+    return hechos === 0 ? 'Empezar la sesión →' : 'Continuar donde ibas →';
   }
 
-  function renderSkills(animateSession){
-    const grid = document.getElementById('sk-grid');
-    if(!grid) return;
-    let count = 0;
-    grid.innerHTML = SKILLS.map(sk => {
-      const on = isComplete(sk.session);
-      if(on) count++;
-      const pop = (animateSession === sk.session && on) ? ' pop' : '';
-      const style = on ? `background:${sk.color};` : '';
-      return `<div class="sk ${on?'on':'off'}${pop}" style="${style}">
-        ${!on ? '<span class="sk-lock">🔒</span>' : ''}
-        <span class="sk-icon">${sk.icon}</span>
-        <span class="sk-name">${sk.name}</span>
-      </div>`;
-    }).join('');
-    document.getElementById('sk-sub').textContent = `${count} de ${SKILLS.length} habilidades desbloqueadas`;
-    document.getElementById('ps-count').textContent = `${count} / ${SKILLS.length} desbloqueadas`;
+  /* Primer paso pendiente del programa, en el mismo orden del recorrido:
+     conceptos → quiz → ejercicios → desafío. Alimenta la barra de abajo. */
+  function proximoPaso(){
+    for (const t of TALLERES){
+      if (t.proximamente) continue;
+      const pendiente = t.conceptos.find(id => !st[`c-${id}`]);
+      if (pendiente){
+        const b = BLOQUES[pendiente];
+        return { t, titulo: `${b ? b.nombre : pendiente} · sesión ${t.n}`,
+                 hint: `Concepto ${t.conceptos.indexOf(pendiente) + 1} de ${t.conceptos.length} · ${t.title}` };
+      }
+      if (!st[`${t.n}-quiz`]){
+        return { t, titulo: `Quiz de la sesión ${t.n} · ${t.title}`,
+                 hint: `${t.quiz.length} preguntas · te toma 3 minutos y desbloquea el desafío.` };
+      }
+      const ej = ejerciciosDe(t.n);
+      const faltan = ej.length - ejerciciosOk(t.n);
+      if (faltan > 0){
+        return { t, titulo: `Ejercicios hands-on · sesión ${t.n}`,
+                 hint: `Te quedan ${faltan} de ${ej.length} por marcar.` };
+      }
+      if (!st[`${t.n}-des`]){
+        const d = t.desafio;
+        return { t, titulo: `Desafío de la sesión ${t.n}`,
+                 hint: (typeof d === 'object' && d.titulo) ? d.titulo : 'El desafío que llevas a tu trabajo real.' };
+      }
+    }
+    const proxima = TALLERES.find(t => t.proximamente);
+    if (proxima) return { t: null, titulo: 'Vas al día con lo que está abierto',
+                          hint: `La ${proxima.label.split('·')[0].trim()} se abre más adelante.` };
+    return { t: null, titulo: '¡Programa completo!', hint: 'Dominaste las ocho sesiones.' };
   }
 
-  function openSkills(){
-    renderSkills();
-    document.getElementById('sk-overlay').classList.add('open');
-  }
-
-  function closeSkills(e){
-    if(e && e.target !== document.getElementById('sk-overlay')) return;
-    document.getElementById('sk-overlay').classList.remove('open');
-  }
-  function countStars(){ return Object.values(st).filter(Boolean).length; }
-
-  function renderStarPanel(){
+  function render(){
+    document.getElementById('ver').textContent = `Versión ${VERSION}`;
+    // Tarjeta de estado
     const n = countStars();
-    const row = document.getElementById('stars-big');
-    row.innerHTML = '';
-    for(let i=1; i<=8; i++){
-      const s = document.createElement('span');
-      s.className = 's-icon' + (i<=n?' on':'');
-      s.textContent = '⭐';
-      row.appendChild(s);
-    }
-    document.getElementById('stars-n').textContent = n;
-    document.getElementById('hero-stars').textContent = n;
-    document.getElementById('stars-max').textContent = '/ 8 sesiones';
+    document.getElementById('rombos').innerHTML =
+      TALLERES.map((_, i) => `<span class="rombo ${i < n ? 'on' : ''}"></span>`).join('');
+    document.getElementById('est-hab-n').textContent = `${skillsOk()} / ${SKILLS.length}`;
+    document.getElementById('est-barra').style.width = avancePct() + '%';
+    document.getElementById('est-pasos').textContent =
+      `${avancePct()}% · ${pasosHechos()} de ${totalPasos()} pasos`;
+
+    // La sesión en curso no tiene botón propio arriba: se distingue por el
+    // color de su botón en la tarjeta, que es donde la gente igual va a mirar.
+    const activa = sesionActiva();
+
+    // Tarjetas de sesión
+    document.getElementById('grid-sesiones').innerHTML = TALLERES.map(t => {
+      const pronto = !!t.proximamente;
+      const done   = isComplete(t.n);
+      const esActiva = activa && activa.n === t.n && !done;
+      const c = conceptosOk(t.n), total = t.conceptos.length;
+      const quiz = st[`${t.n}-quiz`] ? 1 : 0, des = st[`${t.n}-des`] ? 1 : 0;
+
+      const med = (label, hecho, de) => `
+        <div class="med ${hecho >= de ? 'hecho' : ''}">
+          <div class="med-bar"><i style="width:${de ? (hecho / de) * 100 : 0}%"></i></div>
+          <div class="med-l">${label}</div>
+        </div>`;
+
+      const badge = done
+        ? '<span class="badge on"><i></i>Dominada</span>'
+        : esActiva
+          ? '<span class="badge on"><i></i>En curso</span>'
+          : pronto
+            ? '<span class="badge">Próximamente</span>'
+            : '<span class="badge">Disponible</span>';
+
+      // Las bloqueadas explican la condición, en vez de solo decir que no se puede
+      const pie = pronto
+        ? `<div class="ses-lock">Se abre al terminar la sesión ${t.n - 1}</div>`
+        : `<a class="ses-cta ${done ? 'repasar' : (esActiva ? 'curso' : 'empezar')}" href="${urlTaller(t.n)}">${textoCta(t)}</a>`;
+
+      return `
+      <article class="ses ${esActiva ? 'activa' : ''} ${done ? 'done' : ''}">
+        <div class="ses-top">
+          <div class="ses-id">
+            <span class="ses-n">${String(t.n).padStart(2,'0')}</span>
+            <span class="ses-nivel">${esc(nivelDe(t))}</span>
+          </div>
+          ${badge}
+        </div>
+        <h2>${esc(t.title)}</h2>
+        <div class="ses-dur">${esc(t.dur)}</div>
+        <p class="ses-res">${esc(t.resumen)}</p>
+        <div class="medidores">
+          ${med(`Conceptos ${c}/${total}`, c, total)}
+          ${med('Quiz', quiz, 1)}
+          ${med('Desafío', des, 1)}
+        </div>
+        ${pie}
+      </article>`;
+    }).join('');
+
+    // Lo que sigue ahora
+    const p = proximoPaso();
+    document.getElementById('sigue-t').textContent = p.titulo;
+    document.getElementById('sigue-h').textContent = p.hint;
+    const sb = document.getElementById('sigue-btn');
+    if (p.t){ sb.href = urlTaller(p.t.n); sb.style.display = ''; }
+    else { sb.style.display = 'none'; }
+
     renderSkills();
   }
 
-  function updateButtonStates(sesNum){
-    const bv = document.getElementById(`bv-${sesNum}`);
-    const bd = document.getElementById(`bd-${sesNum}`);
-    const bq = document.getElementById(`bq-${sesNum}`);
-    const mv = document.getElementById(`ms-${sesNum}-ver`);
-    const md = document.getElementById(`ms-${sesNum}-des`);
-    const mq = document.getElementById(`ms-${sesNum}-quiz`);
-    if(bq && st[`${sesNum}-quiz`]){ bq.classList.add('done'); bq.disabled=true; bq.textContent='Quiz ✅'; }
-    if(bd && st[`${sesNum}-des`]){ bd.classList.add('done'); bd.disabled=true; bd.textContent='Desafío ✅'; }
-    if(bv && st[`${sesNum}-ver`]){ bv.classList.add('done'); bv.disabled=true; bv.textContent='Resumen ✅'; }
-    if(mq) mq.className = 'ms' + (st[`${sesNum}-quiz`]?' on':'');
-    if(md) md.className = 'ms' + (st[`${sesNum}-des`]?' on':'');
-    if(mv) mv.className = 'ms' + (st[`${sesNum}-ver`]?' on':'');
-    const dom = document.getElementById(`dom-${sesNum}`);
-    if(dom && isComplete(sesNum)) dom.classList.add('show');
-  }
+  document.getElementById('est-cambiar').onclick = () => openGate(true);
+  document.getElementById('btn-hab').onclick     = () => openSkills();
 
-  function buildCard(s){
-    const n   = s.session_number;
-    const sts = s.status;
-    const url = s.session_url;
-    const tit = s.title;
-
-    if(sts === 'locked'){
-      return `<div class="card locked">
-        <div class="card-top locked">
-          <div class="snum locked">S${n}</div>
-          <div class="sinfo">
-            <div class="slabel locked">Próximamente</div>
-            <div class="stitle">${tit}</div>
-          </div>
-          <div class="lock-icon">🔒</div>
-        </div>
-      </div>`;
-    }
-
-    const labelText = sts === 'done' ? '✓ Disponible' : '▶ En curso';
-    const actionHTML = url
-      ? `<a class="btn-ver" href="${url}" target="_blank">Ver ↗</a>`
-      : `<span style="font-size:11px;color:var(--muted);font-weight:500;">Pronto disponible</span>`;
-
-    const thumbs = THUMBS[n] || [];
-    const thumbHTML = thumbs.length
-      ? `<div class="prev-strip">${thumbs.map(src=>`<div class="prev-thumb"><img src="${src}" alt="Slide" loading="lazy" /></div>`).join('')}</div>`
-      : '';
-    const challengeText = CHALLENGES[n] || 'Aplica lo aprendido esta semana y márcalo cuando lo hagas.';
-    const hasQuiz = !!QUIZZES[n];
-
-    return `<div class="card ${sts} active">
-      <div class="card-top">
-        <div class="snum ${sts}">S${n}</div>
-        <div class="sinfo">
-          <div class="slabel ${sts}">${labelText}</div>
-          <div class="stitle">${tit}</div>
-        </div>
-        <div class="saction">
-          ${actionHTML}
-          <div class="mini-stars">
-            <span class="ms" id="ms-${n}-quiz">⭐</span>
-            <span class="ms" id="ms-${n}-des">⭐</span>
-            <span class="ms" id="ms-${n}-ver">⭐</span>
-          </div>
-        </div>
-      </div>
-      ${thumbHTML}
-      <div class="desafio">
-        <div class="des-head"><span class="des-label">Desafío de la sesión</span></div>
-        <div class="des-text">${challengeText}</div>
-        <div class="honor-row">
-          ${hasQuiz ? `<button class="hbtn quiz-b" id="bq-${n}" onclick="startQuiz(${n})">Quiz ▶</button>` : ''}
-          <button class="hbtn des-b" id="bd-${n}" onclick="honor(${n},'des')">Desafío</button>
-          <button class="hbtn ver-b" id="bv-${n}" onclick="honor(${n},'ver')">Resumen visto</button>
-        </div>
-        <div class="dominada-banner" id="dom-${n}">⭐ ¡Sesión dominada · Habilidades desbloqueadas!</div>
-      </div>
-    </div>`;
-  }
-
-  async function init(){
-    loadStars();
+  (async () => {
+    await bootPortal();
+    renderUser();
+    render();
     renderSkills();
-
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/company_sessions?company_slug=eq.${COMPANY}&order=session_number.asc`,
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
-    );
-    const sessions = await res.json();
-
-    activeSessions = sessions.filter(s => s.status !== 'locked').length;
-    const doneCount = sessions.filter(s => s.status === 'done').length;
-    const pct = Math.round((doneCount / sessions.length) * 100);
-    // 3 stars per active session (ver + desafío + quiz)
-    const maxStars = sessions.filter(s => s.status !== 'locked').reduce((acc, s) => acc + (QUIZZES[s.session_number] ? 3 : 2), 0);
-
-    document.getElementById('stat-activas').textContent = activeSessions;
-    document.getElementById('prog-pct').textContent = pct + '%';
-    document.getElementById('prog-fill').style.width = pct + '%';
-
-    const list = document.getElementById('sess-list');
-    list.innerHTML = sessions.map(buildCard).join('');
-
-    sessions.filter(s => s.status !== 'locked').forEach(s => updateButtonStates(s.session_number));
-    renderStarPanel();
-  }
-
-  function honor(sesNum, tipo){
-    if(st[`${sesNum}-${tipo}`]) return;
-    pending = {sesNum, tipo};
-    const isVer = tipo === 'ver';
-    document.getElementById('m-emoji').textContent = isVer ? '👁' : '🎯';
-    document.getElementById('m-title').textContent = isVer ? '¿Revisaste el resumen?' : '¿Completaste el desafío?';
-    document.getElementById('m-text').textContent  = isVer
-      ? 'Declara que leíste el resumen con atención. Tu palabra es lo que cuenta.'
-      : 'Declara que completaste el desafío a conciencia y aplicaste lo aprendido. Tu palabra es lo que cuenta.';
-    document.getElementById('m-confirm').onclick = confirmHonor;
-    document.getElementById('overlay').classList.add('open');
-  }
-
-  function confirmHonor(){
-    if(!pending) return;
-    const sesNum = pending.sesNum;
-    const tipo = pending.tipo;
-    st[`${sesNum}-${tipo}`] = true;
-    saveStars();
-    closeModal();
-    updateButtonStates(sesNum);
-    renderStarPanel();
-    if(isComplete(sesNum)){
-      renderSkills(sesNum);
-      showToast('⭐ ¡Sesión dominada! Habilidades desbloqueadas.');
-    } else {
-      showToast(tipo === 'ver' ? '📖 Resumen marcado.' : '🎯 Desafío completado.');
-    }
-    pending = null;
-  }
-
-  function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
-
-  // --- QUIZ ---
-  function startQuiz(sesNum){
-    if(st[`${sesNum}-quiz`]) return;
-    quizSesNum = sesNum;
-    quizQuestions = QUIZZES[sesNum];
-    quizIdx = 0;
-    document.getElementById('quiz-overlay').classList.add('open');
-    renderQuestion();
-  }
-
-  function renderQuestion(){
-    const q = quizQuestions[quizIdx];
-    const total = quizQuestions.length;
-    quizAnswered = false;
-
-    document.getElementById('q-num').textContent = `Pregunta ${quizIdx + 1} de ${total}`;
-    document.getElementById('q-text').textContent = q.q;
-    document.getElementById('qprog-fill').style.width = `${(quizIdx / total) * 100}%`;
-
-    const fb = document.getElementById('q-feedback');
-    fb.className = 'quiz-feedback';
-    fb.textContent = '';
-
-    const next = document.getElementById('q-next');
-    next.classList.remove('visible');
-    next.textContent = quizIdx < total - 1 ? 'Siguiente →' : 'Finalizar quiz ✓';
-
-    const optsEl = document.getElementById('q-options');
-    optsEl.innerHTML = q.opts.map((opt, i) =>
-      `<button class="qopt" onclick="answerQuiz(${i})">${opt}</button>`
-    ).join('');
-  }
-
-  function answerQuiz(idx){
-    if(quizAnswered) return;
-    const q = quizQuestions[quizIdx];
-    const opts = document.querySelectorAll('.qopt');
-    const fb = document.getElementById('q-feedback');
-
-    opts.forEach(o => o.disabled = true);
-
-    if(idx === q.correct){
-      opts[idx].classList.add('correct');
-      fb.className = 'quiz-feedback ok';
-      fb.textContent = '¡Correcto! ' + (quizIdx < quizQuestions.length - 1 ? 'Pasa a la siguiente pregunta.' : 'Completaste el quiz.');
-      quizAnswered = true;
-      document.getElementById('q-next').classList.add('visible');
-    } else {
-      opts[idx].classList.add('wrong');
-      opts[q.correct].classList.add('correct');
-      fb.className = 'quiz-feedback error';
-      fb.textContent = '❌ Incorrecto. ' + q.explain;
-      // Re-enable after a moment to retry
-      setTimeout(() => {
-        opts.forEach(o => { o.disabled = false; o.classList.remove('correct','wrong'); });
-        fb.className = 'quiz-feedback';
-        fb.textContent = '';
-      }, 2800);
-    }
-  }
-
-  function nextQuestion(){
-    quizIdx++;
-    if(quizIdx < quizQuestions.length){
-      renderQuestion();
-    } else {
-      finishQuiz();
-    }
-  }
-
-  function finishQuiz(){
-    document.getElementById('quiz-overlay').classList.remove('open');
-    st[`${quizSesNum}-quiz`] = true;
-    saveStars();
-    updateButtonStates(quizSesNum);
-    renderStarPanel();
-    if(isComplete(quizSesNum)){
-      renderSkills(quizSesNum);
-      showToast('⭐ ¡Sesión dominada! Habilidades desbloqueadas.');
-    } else {
-      showToast('✅ Quiz completado. ¡Dos pasos más!');
-    }
-  }
-
-  function closeQuiz(){
-    document.getElementById('quiz-overlay').classList.remove('open');
-  }
-
-  function showToast(msg){
-    const t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'), 3000);
-  }
-
-  init();
+  })();
 </script>
 </body>
 </html>

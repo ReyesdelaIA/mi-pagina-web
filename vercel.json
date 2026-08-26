@@ -2,6 +2,42 @@
   "outputDirectory": ".",
   "rewrites": [
     {
+      "source": "/newell",
+      "destination": "/newell/index.html"
+    },
+    {
+      "source": "/newell/taller-1",
+      "destination": "/newell/taller.html?n=1"
+    },
+    {
+      "source": "/newell/taller-2",
+      "destination": "/newell/taller.html?n=2"
+    },
+    {
+      "source": "/newell/taller-3",
+      "destination": "/newell/taller.html?n=3"
+    },
+    {
+      "source": "/newell/taller-4",
+      "destination": "/newell/taller.html?n=4"
+    },
+    {
+      "source": "/newell/taller-5",
+      "destination": "/newell/taller.html?n=5"
+    },
+    {
+      "source": "/newell/taller-6",
+      "destination": "/newell/taller.html?n=6"
+    },
+    {
+      "source": "/newell/taller-7",
+      "destination": "/newell/taller.html?n=7"
+    },
+    {
+      "source": "/newell/taller-8",
+      "destination": "/newell/taller.html?n=8"
+    },
+    {
       "source": "/taller01-general",
       "destination": "/programa-copilot/taller.html"
     },
