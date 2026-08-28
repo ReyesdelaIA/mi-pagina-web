@@ -8,7 +8,37 @@
 
 const TALLERES = [
   {
+    n: 0,
+    num: 'Inicial',
+    label: 'Taller inicial · Fundamentos',
+    title: 'Iniciación al uso de IA aplicada',
+    dur: '2 hrs · Presencial · Hands-On',
+    resumen: 'El piso común antes de entrar a Claude: por qué esto es serio, cómo se le habla a una IA y qué hay que cuidar.',
+    conceptos: ['ia-panorama', 'ia-tres-verdades', 'prompt-tres-reglas', 'ia-cuatro-esferas', 'ia-mundo-real'],
+    desafio: {
+      titulo: 'Tu primer prompt de verdad',
+      intro: 'Toma una tarea real que hiciste esta semana —un correo difícil, un resumen, una propuesta— y vuelve a hacerla con IA aplicando las 3 reglas de oro.',
+      pasos: [
+        'Escribe primero el prompt corto que habrías escrito antes de este taller. Guarda esa respuesta.',
+        'Ahora escribe el prompt completo: rol, contexto, tarea y formato. Usa el dictado si te da lata tipear.',
+        'Compara los dos resultados lado a lado y anota qué cambió.',
+        'Itera al menos dos veces sobre el segundo, hasta que quede mejor que lo que hiciste a mano.',
+        'Verifica todo dato importante que haya aparecido: cifras, nombres, fechas.'
+      ],
+      prompt: 'Eres [ROL]. Contexto: [SITUACIÓN COMPLETA, PARA QUIÉN ES Y POR QUÉ]. Tarea: [QUÉ NECESITAS EXACTAMENTE]. Formato: [LARGO, TONO Y ESTRUCTURA]. Si algo no te queda claro, pregúntamelo antes de escribir.',
+      cierre: 'Si el segundo resultado no te ganó al primero, casi seguro faltó contexto — no herramienta.'
+    },
+    quiz: [
+      { q: 'Según lo que vimos, ¿cuál es la idea de fondo sobre el impacto de la IA en el trabajo?', opts: ['La IA va a reemplazar a la mayoría de los profesionales en 2 años', 'La IA no reemplaza personas, pero las personas que la ocupan sí reemplazan a las que no la ocupan', 'La IA solo sirve para trabajos técnicos y de programación', 'Conviene esperar a que la tecnología madure antes de aprenderla'], correct: 1, explain: 'Harvard Business Review, Forbes y Fast Company lo resumen igual, y Tom Davenport lo dijo en una frase: «La IA no te quitará tu trabajo, lo hará alguien que ocupe la IA mejor que tú». Empezar hoy es la única ventaja competitiva real.' },
+      { q: 'Tienes tres informes largos y necesitas sacar las diferencias entre ellos. ¿En qué esfera de la IA estás?', opts: ['Redacción', 'Internet', 'Análisis', 'Multimedia'], correct: 2, explain: 'Análisis es leer archivos por ti: adjuntas los PDFs, Word o Excel y la IA los compara y resume. Es la esfera que más horas ahorra en oficina y la que menos gente ocupa — lo que era una tarde pasa a diez minutos.' },
+      { q: 'Cuando decimos que la IA «alucina», nos referimos a que…', opts: ['Se apaga cuando la pregunta es muy difícil', 'Puede contestar de manera errática, porque responde por probabilidades y no por certeza absoluta', 'Solo funciona con conexión a internet', 'Repite siempre la misma respuesta'], correct: 1, explain: 'La IA no consulta una base de datos con la verdad: calcula cuál es la respuesta más probable. Por eso puede contestar de forma errática, y suena igual de segura cuando acierta que cuando se equivoca. Ahí está el motivo de verificar todo dato crítico.' },
+      { q: 'De las 3 reglas de oro del prompt, ¿cuál es la que más gente incumple?', opts: ['Quedarse con la primera respuesta en vez de iterar 2 o 3 veces', 'Escribir en español en vez de inglés', 'Usar mayúsculas al principio de cada frase', 'Hacer las preguntas de a una por vez'], correct: 0, explain: 'La regla mental es clara: si te quedaste con la primera respuesta de la IA, seguramente la estás ocupando mal. El valor está en la conversación — pedir cambios, contradecir, pedir alternativas.' },
+      { q: 'Recibes un audio de tu jefe pidiéndote una transferencia urgente. ¿Cuál es la forma más simple y efectiva de descartar un deepfake?', opts: ['Escuchar el audio varias veces buscando ruidos raros', 'Hacerle una pregunta que solo esa persona pueda responder', 'Pedirle que mande el audio de nuevo', 'Revisar si el número desde el que llegó es conocido'], correct: 1, explain: 'Es exactamente lo que salvó a Ferrari: un dirigente le hizo al supuesto CEO una pregunta personal que solo el verdadero podía responder. Un dato familiar o una broma interna vale más que cualquier análisis técnico del audio.' }
+    ]
+  },
+  {
     n: 1,
+    num: '01',
     label: 'Sesión 1 · Introductorio',
     title: 'Activación y manejo de Claude',
     dur: '1.5 hrs · Presencial',
@@ -63,6 +93,7 @@ const TALLERES = [
   },
   {
     n: 2,
+    num: '02',
     label: 'Sesión 2 · Claude App',
     title: 'Dominio de la App de Claude',
     dur: '1.5 hrs · Presencial · Hands-On',
@@ -117,6 +148,7 @@ const TALLERES = [
   },
   {
     n: 3,
+    num: '03',
     label: 'Sesión 3 · Claude Avanzado',
     title: 'MCP, Skills, Artefactos, Cowork',
     dur: '1.5 hrs · Presencial · Hands-On',
@@ -172,15 +204,28 @@ const TALLERES = [
   }
 ];
 
-// Una habilidad por concepto: marcar el check la desbloquea.
-const COLORES = {
-  1: ['#B45309', '#92400E', '#78350F', '#A16207', '#854D0E'],
-  2: ['#D97706', '#C2410C', '#EA580C', '#9A3412'],
-  3: ['#7C3AED', '#6D28D9', '#5B21B6', '#4C1D95', '#9333EA'],
-};
-const SKILLS = TALLERES.flatMap(t =>
-  t.conceptos.map((id, i) => ({ id, taller: t.n, color: COLORES[t.n][i] }))
-);
+// El centro de habilidades es una colección, no un índice de sesiones: van
+// todas juntas y sin decir de dónde salió cada una. Por eso la lista se
+// escribe acá a mano en vez de derivarse de los conceptos: no todo concepto
+// es una habilidad (un panorama o un marco conceptual no se "desbloquea"),
+// y el nombre de la medalla tiene que sonar a algo que ahora sabes hacer.
+// El id es el del bloque: marcar su check es lo que la desbloquea.
+const SKILLS = [
+  { id: 'prompt-tres-reglas', nombre: 'Prompting',               color: '#0E7490' },
+  { id: 'ia-mundo-real',      nombre: 'Uso responsable',         color: '#155E75' },
+  { id: 'activacion-claude',  nombre: 'Activación de cuenta',    color: '#B45309' },
+  { id: 'claude-chat-tour',   nombre: 'Manejo del chat',         color: '#92400E' },
+  { id: 'memoria-claude',     nombre: 'Manejo de la memoria',    color: '#78350F' },
+  { id: 'dictado-claude',     nombre: 'Manejo del micrófono',    color: '#A16207' },
+  { id: 'tokens-claude',      nombre: 'Ahorro de tokens',        color: '#D97706' },
+  { id: 'markdown-claude',    nombre: 'Manejo de Markdown',      color: '#C2410C' },
+  { id: 'proyectos-claude',   nombre: 'Armado de proyectos',     color: '#EA580C' },
+  { id: 'claude-en-office',   nombre: 'Manejo de Claude en Office', color: '#9A3412' },
+  { id: 'mcp-conectores',     nombre: 'Conexión de herramientas',color: '#7C3AED' },
+  { id: 'skills-claude',      nombre: 'Creación de Skills',      color: '#6D28D9' },
+  { id: 'artefactos-claude',  nombre: 'Creación de artefactos',  color: '#5B21B6' },
+  { id: 'intro-cowork',       nombre: 'Delegación en Cowork',    color: '#9333EA' },
+];
 
 const SUPABASE_URL = 'https://adtyiqpcddxjnxfxrkod.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdHlpcXBjZGR4am54Znhya29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODM2NjQsImV4cCI6MjA4ODU1OTY2NH0.hTKgoum0LEmrFPj7LE7VbHTMNUocxovJqmkfOsTNubA';
@@ -558,33 +603,27 @@ function renderSkills(animar){
     `<span class="sk-rango ${pct >= r.min ? 'on' : ''}" title="${esc(r.nombre)}">${r.icono}</span>`
   ).join('');
 
-  // Las habilidades van agrupadas por sesión: se ve de dónde sale cada una
-  body.innerHTML = TALLERES.map(t => {
-    const dela = SKILLS.filter(s => s.taller === t.n);
-    const ok = dela.filter(s => st[`c-${s.id}`]).length;
-    return `
+  // Todas las medallas en una sola colección, sin separarlas por sesión: lo
+  // que importa es qué sabes hacer, no en qué taller lo aprendiste.
+  body.innerHTML = `
     <section class="sk-grupo">
-      <div class="sk-gtop">
-        <span class="sk-glabel">${esc(t.label)}</span>
-        <span class="sk-gcount ${ok === dela.length ? 'full' : ''}">${ok}/${dela.length}</span>
-      </div>
       <div class="sk-grid">
-        ${dela.map(sk => {
+        ${SKILLS.map(sk => {
           const b = BLOQUES[sk.id];
           const on = !!st[`c-${sk.id}`];
           const pop = (animar === sk.id && on) ? ' pop' : '';
-          // La medalla lleva el nombre corto; el largo queda en el tooltip
-          const nombre = b ? (b.habilidad || b.nombre) : sk.id;
-          return `<div class="sk ${on ? 'on' : 'off'}${pop}" style="${on ? `--sk-c:${sk.color};` : ''}" title="${esc(b ? b.nombre : sk.id)}">
+          // La medalla lleva el nombre de la habilidad; en el tooltip queda
+          // el bloque donde se aprende, para saber dónde ir a buscarla.
+          const donde = b ? `Se desbloquea en: ${b.nombre}` : sk.id;
+          return `<div class="sk ${on ? 'on' : 'off'}${pop}" style="${on ? `--sk-c:${sk.color};` : ''}" title="${esc(donde)}">
             <span class="sk-medalla">
               <span class="sk-icon">${on ? (b ? b.emoji : '★') : '🔒'}</span>
             </span>
-            <span class="sk-name">${esc(nombre)}</span>
+            <span class="sk-name">${esc(sk.nombre)}</span>
           </div>`;
         }).join('')}
       </div>
     </section>`;
-  }).join('');
 }
 
 function openSkills(){ renderSkills(); document.getElementById('sk-overlay').classList.add('open'); }

@@ -211,9 +211,11 @@
 <script>
   const N = (() => {
     const p = new URLSearchParams(location.search).get('n');
-    const m = location.pathname.match(/taller-(\d)/);
-    const n = parseInt(p || (m && m[1]) || '1', 10);
-    return [1,2,3].includes(n) ? n : 1;
+    const m = location.pathname.match(/taller-(\d+)/);
+    // El número válido sale de TALLERES, no de una lista fija: así agregar una
+    // sesión al programa no obliga a acordarse de tocar también este archivo.
+    const n = parseInt(p ?? (m && m[1]) ?? '0', 10);
+    return TALLERES.some(t => t.n === n) ? n : TALLERES[0].n;
   })();
 
   const taller = T(N);
@@ -541,8 +543,12 @@
       st[`c-${r.id}`] = true; saveStars();
       syncProgreso(N, 'concepto', r.id);
       const b = BLOQUES[r.id];
-      toast(`🧠 Habilidad desbloqueada: ${b ? b.nombre : r.id}`);
-      renderSkills(r.id);
+      // No todo concepto entrega medalla: los marcos conceptuales se dan por
+      // recorridos, pero habilidad es solo lo que ahora sabes hacer.
+      const sk = SKILLS.find(s => s.id === r.id);
+      toast(sk ? `🧠 Desbloqueaste la habilidad de ${sk.nombre}`
+               : `✓ Concepto recorrido: ${b ? b.nombre : r.id}`);
+      renderSkills(sk ? r.id : undefined);
       if (isComplete(N)) { irAlFin(); return; }
     }
     paso = Math.min(paso + 1, iFin());

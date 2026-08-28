@@ -82,6 +82,10 @@
       "destination": "/claude-jul26-k7x9/index.html"
     },
     {
+      "source": "/claude-jul26-k7x9/taller-0",
+      "destination": "/claude-jul26-k7x9/taller.html?n=0"
+    },
+    {
       "source": "/claude-jul26-k7x9/taller-1",
       "destination": "/claude-jul26-k7x9/taller.html?n=1"
     },

@@ -4,26 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Portal Claude · Pack de 3 Talleres · Reyes IA</title>
+  <title>Portal Claude · Taller inicial + 3 Sesiones · Reyes IA</title>
   <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png" />
 
   <!-- Vista previa al compartir el link (WhatsApp, LinkedIn, Slack, iMessage).
        Sin esto, WhatsApp cae al favicon y manda la foto de perfil. -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Reyes IA" />
-  <meta property="og:title" content="Programa Claude · Pack de 3 Talleres" />
-  <meta property="og:description" content="Tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado." />
+  <meta property="og:title" content="Programa Claude · Taller inicial + 3 Sesiones" />
+  <meta property="og:description" content="Un taller inicial de fundamentos y tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado." />
   <meta property="og:url" content="https://www.reyesia.com/claude-jul26-k7x9" />
   <meta property="og:image" content="https://www.reyesia.com/claude-jul26-k7x9/img/og-portal.jpg" />
   <meta property="og:image:secure_url" content="https://www.reyesia.com/claude-jul26-k7x9/img/og-portal.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="El Portal Claude abierto en un computador, con las tres sesiones del programa" />
+  <meta property="og:image:alt" content="El Portal Claude abierto en un computador, con las cuatro sesiones del programa" />
   <meta property="og:locale" content="es_CL" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Programa Claude · Pack de 3 Talleres" />
-  <meta name="twitter:description" content="Tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad." />
+  <meta name="twitter:title" content="Programa Claude · Taller inicial + 3 Sesiones" />
+  <meta name="twitter:description" content="Un taller inicial de fundamentos y tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad." />
   <meta name="twitter:image" content="https://www.reyesia.com/claude-jul26-k7x9/img/og-portal.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -185,7 +185,7 @@
     .sec i { flex:1; height:1px; background:linear-gradient(90deg, rgba(255,255,255,.14), transparent); }
 
     /* ---------- Tarjetas de sesión ---------- */
-    .sesiones { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; align-items:start; }
+    .sesiones { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; align-items:start; }
     .ses {
       position:relative; border-radius:20px; padding:20px; overflow:hidden;
       border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.022);
@@ -306,7 +306,8 @@
       /* Apilado, tu estado va arriba: es la cabecera de la página, no una
          tarjeta más en la fila de sesiones */
       .estado { order:-1; }
-      .sesiones { grid-template-columns:1fr; }
+      /* De cuatro en fila a dos: cuatro tarjetas apretadas no se leen */
+      .sesiones { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
       main, .hd { padding-left:28px; padding-right:28px; }
       h1 { font-size:46px; }
     }
@@ -341,11 +342,11 @@
       <div>
         <div class="hero-chip">
           <div class="hero-chip-box"><img src="/talleres/icon-claude.png" alt="Claude" /></div>
-          <span class="mono">Pack de 3 talleres</span>
+          <span class="mono">Taller inicial + 3 sesiones</span>
           <span class="ver" id="ver">—</span>
         </div>
         <h1>Programa <span>Claude</span></h1>
-        <p class="hero-sub">Tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado.</p>
+        <p class="hero-sub">Un taller inicial de fundamentos y tres sesiones para pasar de conversar con Claude a delegarle trabajo de verdad. Avanza a tu ritmo: cada paso queda guardado.</p>
         <div class="hero-acc">
           <button class="ghost" id="btn-hab">Centro de habilidades</button>
         </div>
@@ -383,7 +384,7 @@
     </section>
 
     <div class="sec" id="sesiones">
-      <span class="mono">Las 3 sesiones</span>
+      <span class="mono">El taller inicial y las 3 sesiones</span>
       <i></i>
     </div>
 
@@ -408,6 +409,9 @@
 <script>
   /* Los niveles salen del label del taller ("Sesión 1 · Introductorio") */
   const nivelDe = t => (t.label.split('·')[1] || '').trim() || '—';
+  /* El taller inicial no lleva número: nombrarlo "sesión 0" solo confunde */
+  const nombreDe = t => t.n === 0 ? 'taller inicial' : `sesión ${t.n}`;
+  const deLa     = t => t.n === 0 ? 'del taller inicial' : `de la sesión ${t.n}`;
 
   function renderUser(){
     if (!user) return;
@@ -438,29 +442,29 @@
       const pendiente = t.conceptos.find(id => !st[`c-${id}`]);
       if (pendiente){
         const b = BLOQUES[pendiente];
-        return { t, titulo: `${b ? b.nombre : pendiente} · sesión ${t.n}`,
+        return { t, titulo: `${b ? b.nombre : pendiente} · ${nombreDe(t)}`,
                  hint: `Concepto ${t.conceptos.indexOf(pendiente) + 1} de ${t.conceptos.length} · ${t.title}` };
       }
       if (!st[`${t.n}-quiz`]){
-        return { t, titulo: `Quiz de la sesión ${t.n} · ${t.title}`,
+        return { t, titulo: `Quiz ${deLa(t)} · ${t.title}`,
                  hint: `${t.quiz.length} preguntas · te toma 3 minutos y desbloquea el desafío.` };
       }
       const ej = ejerciciosDe(t.n);
       const faltan = ej.length - ejerciciosOk(t.n);
       if (faltan > 0){
-        return { t, titulo: `Ejercicios hands-on · sesión ${t.n}`,
+        return { t, titulo: `Ejercicios hands-on · ${nombreDe(t)}`,
                  hint: `Te quedan ${faltan} de ${ej.length} por marcar.` };
       }
       if (!st[`${t.n}-des`]){
         const d = t.desafio;
-        return { t, titulo: `Desafío de la sesión ${t.n}`,
+        return { t, titulo: `Desafío ${deLa(t)}`,
                  hint: (typeof d === 'object' && d.titulo) ? d.titulo : 'El desafío que llevas a tu trabajo real.' };
       }
     }
     const proxima = TALLERES.find(t => t.proximamente);
     if (proxima) return { t: null, titulo: 'Vas al día con lo que está abierto',
                           hint: `La ${proxima.label.split('·')[0].trim()} se abre más adelante.` };
-    return { t: null, titulo: '¡Programa completo!', hint: 'Dominaste las tres sesiones.' };
+    return { t: null, titulo: '¡Programa completo!', hint: 'Dominaste el taller inicial y las tres sesiones.' };
   }
 
   function render(){
@@ -509,7 +513,7 @@
       <article class="ses ${esActiva ? 'activa' : ''} ${done ? 'done' : ''}">
         <div class="ses-top">
           <div class="ses-id">
-            <span class="ses-n">${String(t.n).padStart(2,'0')}</span>
+            <span class="ses-n">${esc(t.num || String(t.n).padStart(2,'0'))}</span>
             <span class="ses-nivel">${esc(nivelDe(t))}</span>
           </div>
           ${badge}
