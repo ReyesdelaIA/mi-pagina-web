@@ -75,6 +75,21 @@
     .pc-bottom { padding: 14px 22px 18px; border-top: 1px solid var(--border); }
     .pc-footer-txt { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.55; }
 
+    .portal-band { background: var(--navy); color: #fff; padding: 60px 24px 64px; }
+    .portal-inner { max-width: 960px; margin: 0 auto; }
+    .portal-head { text-align: center; margin-bottom: 32px; }
+    .portal-eyebrow { display: inline-block; background: rgba(192,155,90,.18); border: 1px solid rgba(192,155,90,.4); color: var(--gold); border-radius: 20px; padding: 4px 13px; font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 14px; }
+    .portal-title { font-size: 1.9rem; font-weight: 800; line-height: 1.2; margin-bottom: 10px; }
+    .portal-title span { color: var(--gold); }
+    .portal-sub { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,.72); max-width: 620px; margin: 0 auto; }
+    .portal-shot { display: block; width: 100%; max-width: 860px; margin: 0 auto 36px; border-radius: 14px; }
+    .portal-feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px 28px; }
+    .pf { display: flex; gap: 12px; align-items: flex-start; }
+    .pf-ico { font-size: 20px; line-height: 1.2; flex-shrink: 0; }
+    .pf-t { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+    .pf-d { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,.66); }
+    @media(max-width: 768px){ .portal-feats { grid-template-columns: 1fr; } .portal-title { font-size: 1.5rem; } }
+
     .contact-section { padding: 64px 24px; background: #fffbf0; }
     .contact-inner { max-width: 600px; margin: 0 auto; }
     .contact-title { font-size: 1.8rem; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 8px; }
@@ -284,6 +299,61 @@
     </div>
   </div>
 </div>
+
+<section class="portal-band">
+  <div class="portal-inner">
+    <div class="portal-head">
+      <div class="portal-eyebrow">Incluido en el pack</div>
+      <div class="portal-title">Además del taller, tu equipo se lleva <span>un portal</span></div>
+      <div class="portal-sub">Un portal web exclusivo para tu empresa, disponible desde el primer taller. Cada persona avanza a su ritmo, en el computador o en el celular, y todo lo que marca queda guardado.</div>
+    </div>
+    <img src="img-portal-claude.png" alt="El Portal Claude abierto en un computador y en un celular" class="portal-shot">
+    <div class="portal-feats">
+        <div class="pf">
+          <div class="pf-ico">📖</div>
+          <div>
+            <div class="pf-t">El taller completo, escrito</div>
+            <div class="pf-d">Cada concepto de la presentación queda navegable, con las capturas paso a paso. Nadie tiene que tomar apuntes.</div>
+          </div>
+        </div>
+        <div class="pf">
+          <div class="pf-ico">✅</div>
+          <div>
+            <div class="pf-t">Quiz por sesión</div>
+            <div class="pf-d">Cinco preguntas al cierre de cada taller, con la explicación de por qué la respuesta es esa.</div>
+          </div>
+        </div>
+        <div class="pf">
+          <div class="pf-ico">🔨</div>
+          <div>
+            <div class="pf-t">Ejercicios hands-on</div>
+            <div class="pf-d">Un ejercicio por concepto, con el prompt listo para copiar y pegar en la herramienta.</div>
+          </div>
+        </div>
+        <div class="pf">
+          <div class="pf-ico">🎯</div>
+          <div>
+            <div class="pf-t">Desafío entre sesiones</div>
+            <div class="pf-d">Una tarea real que junta todo lo del taller y se hace antes de la sesión siguiente.</div>
+          </div>
+        </div>
+        <div class="pf">
+          <div class="pf-ico">⚡</div>
+          <div>
+            <div class="pf-t">Habilidades desbloqueables</div>
+            <div class="pf-d">Cada concepto marcado desbloquea una medalla. El avance se ve y no se pierde entre talleres.</div>
+          </div>
+        </div>
+        <div class="pf">
+          <div class="pf-ico">📊</div>
+          <div>
+            <div class="pf-t">Avance visible para la empresa</div>
+            <div class="pf-d">Ves cómo va tu equipo persona por persona: quién avanzó, quién se quedó y en qué sesión.</div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
 
 <section id="contacto" class="contact-section">
   <div class="contact-inner">
