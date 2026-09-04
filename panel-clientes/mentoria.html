@@ -352,6 +352,7 @@ const sb   = PROG ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
 let D = {};                       // el estado completo de la ficha
 let prog = null;                  // el programa del panel, si venimos de ahí
+let tocado = false;               // ¿ya escribió algo en esta pantalla?
 
 /* Catálogos ------------------------------------------------------- */
 const IAS = ['Claude','ChatGPT','Gemini','Copilot','Perplexity','NotebookLM'];
@@ -399,6 +400,7 @@ let tSave, tRemoto;
 function guardar(){
   // El navegador primero: es instantáneo y es la red de seguridad si se cae
   // internet en plena mentoría.
+  tocado = true;
   try { localStorage.setItem(KEY, JSON.stringify(D)); } catch(e){}
   marcaGuardado('Guardado');
   avance();
@@ -441,7 +443,7 @@ async function cargarRemoto(){
     sb.from('ficha_mentoria').select('datos').eq('programa_id', PROG).maybeSingle()
   ]);
   prog = p;
-  if (f && f.datos && Object.keys(f.datos).length){
+  if (f && f.datos && Object.keys(f.datos).length && !tocado){
     D = f.datos;            // lo del panel manda sobre la copia del navegador
     normalizar();
   }
@@ -664,7 +666,15 @@ function pintar(){
 
 cargar();
 pintar();
-if (PROG) cargarRemoto().then(ok => { if (ok) pintar(); });
+if (PROG){
+  cargarRemoto().then(ok => { if (ok) pintar(); });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden' && tocado){
+      clearTimeout(tRemoto);
+      guardarRemoto();
+    }
+  });
+}
 </script>
 </body>
 </html>
