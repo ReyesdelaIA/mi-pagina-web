@@ -191,7 +191,7 @@
 
 <div class="top">
   <div class="top-in">
-    <a class="tbtn" id="volver" href="index.html" style="text-decoration:none;display:none">← Panel</a>
+    <a class="tbtn" id="volver" href="/panel-clientes" style="text-decoration:none;display:none">← Panel</a>
     <div class="brand"><i></i> <span id="brand-txt">Ficha de mentoría</span></div>
     <div class="save" id="save"><i></i><span>Sin cambios</span></div>
     <div class="top-sp"></div>
@@ -452,7 +452,7 @@ async function cargarRemoto(){
     if (!D.campo['f-nombre']) D.campo['f-nombre'] = p.cliente;
   }
   document.getElementById('volver').style.display = '';
-  document.getElementById('volver').href = 'index.html#/cliente/' + PROG;
+  document.getElementById('volver').href = '/panel-clientes#/cliente/' + PROG;
   document.getElementById('btn-limpiar').style.display = 'none';
   const cta = document.getElementById('cta');
   cta.textContent = 'Ir al avance por sesión →';
@@ -465,7 +465,7 @@ async function irAlAvance(){
   await guardarRemoto();
   await sb.from('ficha_mentoria')
     .update({ completada: true }).eq('programa_id', PROG);
-  location.href = 'index.html#/cliente/' + PROG;
+  location.href = '/panel-clientes#/cliente/' + PROG;
 }
 
 /* Herramientas de IA ---------------------------------------------- */

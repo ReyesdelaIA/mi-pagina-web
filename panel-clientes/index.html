@@ -779,7 +779,7 @@ const FD_NIV = { 1:'No la usa', 2:'Curioso', 3:'La usa a ratos', 4:'La usa a dia
 
 function fichaDashHtml(programaId, ficha){
   const D = (ficha && ficha.datos) || null;
-  const irAFicha = `location.href='mentoria.html?p=${programaId}'`;
+  const irAFicha = `location.href='/panel-clientes/mentoria.html?p=${programaId}'`;
 
   if (!D || !Object.keys(D).length){
     return `<div class="fd-vacio">
@@ -1260,7 +1260,7 @@ async function crearCliente(){
   flashSaved();
   // En una mentoría 1:1 lo primero es el diagnóstico del mentoreado: recién
   // con eso a la vista tiene sentido registrar el avance sesión a sesión.
-  if (tipo === 'mentoria_1a1') location.href = 'mentoria.html?p=' + nuevo.id;
+  if (tipo === 'mentoria_1a1') location.href = '/panel-clientes/mentoria.html?p=' + nuevo.id;
   else location.hash = '#/cliente/' + nuevo.id;
 }
 
