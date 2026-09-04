@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   :root{
@@ -190,12 +191,13 @@
 
 <div class="top">
   <div class="top-in">
-    <div class="brand"><i></i> Ficha de mentoría</div>
+    <a class="tbtn" id="volver" href="index.html" style="text-decoration:none;display:none">← Panel</a>
+    <div class="brand"><i></i> <span id="brand-txt">Ficha de mentoría</span></div>
     <div class="save" id="save"><i></i><span>Sin cambios</span></div>
     <div class="top-sp"></div>
     <button class="tbtn" onclick="copiar()">📋 Copiar resumen</button>
     <button class="tbtn" onclick="window.print()">🖨 Imprimir</button>
-    <button class="tbtn danger" onclick="limpiar()">Nueva ficha</button>
+    <button class="tbtn danger" id="btn-limpiar" onclick="limpiar()">Nueva ficha</button>
   </div>
 </div>
 
@@ -324,7 +326,8 @@
       <div class="prog-bar"><i id="pbar" style="width:0%"></i></div>
       <div class="prog-t" id="ptxt">0% de la ficha</div>
     </div>
-    <button class="cta" onclick="copiar()">Copiar resumen →</button>
+    <button class="tbtn" onclick="copiar()">📋 Copiar resumen</button>
+      <button class="cta" id="cta" onclick="copiar()">Copiar resumen →</button>
   </div>
 </div>
 
@@ -337,8 +340,18 @@
    nada que apretar, nada que se pierda si se cierra la pestaña.
    ================================================================== */
 
-const KEY = 'reyesia_mentoria_v1';
+const SUPABASE_URL = "https://lzrhpmwrbcrprsnpuadh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_oak2a-feuA_tdZxbyqufCw_XpqWGgTZ";
+
+// Con ?p=<programa_id> la ficha pertenece a una mentoría del panel y vive en
+// Supabase. Sin el parámetro funciona suelta, solo contra el navegador — así
+// sirve igual para una conversación que todavía no es cliente.
+const PROG = new URLSearchParams(location.search).get('p');
+const KEY  = 'reyesia_mentoria_' + (PROG || 'suelta');
+const sb   = PROG ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
 let D = {};                       // el estado completo de la ficha
+let prog = null;                  // el programa del panel, si venimos de ahí
 
 /* Catálogos ------------------------------------------------------- */
 const IAS = ['Claude','ChatGPT','Gemini','Copilot','Perplexity','NotebookLM'];
@@ -372,6 +385,9 @@ const CAMPOS = ['f-nombre','f-empresa','f-cargo','f-fecha'];
 /* Estado + guardado ----------------------------------------------- */
 function cargar(){
   try { D = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ D = {}; }
+  normalizar();
+}
+function normalizar(){
   D.ia    = D.ia    || {};
   D.eco   = D.eco   || {};
   D.gob   = D.gob   || {};
@@ -379,18 +395,77 @@ function cargar(){
   D.txt   = D.txt   || {};
   D.campo = D.campo || {};
 }
-let tSave;
+let tSave, tRemoto;
 function guardar(){
+  // El navegador primero: es instantáneo y es la red de seguridad si se cae
+  // internet en plena mentoría.
   try { localStorage.setItem(KEY, JSON.stringify(D)); } catch(e){}
+  marcaGuardado('Guardado');
+  avance();
+  if (PROG){
+    clearTimeout(tRemoto);
+    tRemoto = setTimeout(guardarRemoto, 900);
+  }
+}
+function marcaGuardado(txt, ok = true){
   const s = document.getElementById('save');
-  s.classList.add('on');
-  s.querySelector('span').textContent = 'Guardado';
+  s.classList.toggle('on', ok);
+  s.querySelector('span').textContent = txt;
   clearTimeout(tSave);
   tSave = setTimeout(() => {
     s.classList.remove('on');
-    s.querySelector('span').textContent = 'Todo guardado';
-  }, 1400);
-  avance();
+    s.querySelector('span').textContent = PROG ? 'Guardado en el panel' : 'Todo guardado';
+  }, 1600);
+}
+async function guardarRemoto(){
+  const { error } = await sb.from('ficha_mentoria')
+    .upsert({ programa_id: PROG, datos: D }, { onConflict: 'programa_id' });
+  if (error){
+    marcaGuardado('⚠ Sin guardar en el panel', false);
+    document.getElementById('save').style.color = 'var(--red)';
+  } else {
+    document.getElementById('save').style.color = '';
+  }
+}
+
+/* Traer la ficha del panel ----------------------------------------- */
+async function cargarRemoto(){
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session){
+    document.getElementById('brand-txt').textContent = 'Entra al panel para editar esta ficha';
+    marcaGuardado('Sin sesión', false);
+    return false;
+  }
+  const [{ data: p }, { data: f }] = await Promise.all([
+    sb.from('programas_clientes').select('cliente,tipo').eq('id', PROG).maybeSingle(),
+    sb.from('ficha_mentoria').select('datos').eq('programa_id', PROG).maybeSingle()
+  ]);
+  prog = p;
+  if (f && f.datos && Object.keys(f.datos).length){
+    D = f.datos;            // lo del panel manda sobre la copia del navegador
+    normalizar();
+  }
+  if (p){
+    document.getElementById('brand-txt').textContent = 'Ficha · ' + p.cliente;
+    document.title = 'Ficha · ' + p.cliente + ' · Reyes IA';
+    // El nombre del cliente ya lo sabemos: no hay para qué volver a tipearlo.
+    if (!D.campo['f-nombre']) D.campo['f-nombre'] = p.cliente;
+  }
+  document.getElementById('volver').style.display = '';
+  document.getElementById('volver').href = 'index.html#/cliente/' + PROG;
+  document.getElementById('btn-limpiar').style.display = 'none';
+  const cta = document.getElementById('cta');
+  cta.textContent = 'Ir al avance por sesión →';
+  cta.onclick = irAlAvance;
+  return true;
+}
+
+async function irAlAvance(){
+  clearTimeout(tRemoto);
+  await guardarRemoto();
+  await sb.from('ficha_mentoria')
+    .update({ completada: true }).eq('programa_id', PROG);
+  location.href = 'index.html#/cliente/' + PROG;
 }
 
 /* Herramientas de IA ---------------------------------------------- */
@@ -589,6 +664,7 @@ function pintar(){
 
 cargar();
 pintar();
+if (PROG) cargarRemoto().then(ok => { if (ok) pintar(); });
 </script>
 </body>
 </html>

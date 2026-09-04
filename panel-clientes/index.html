@@ -283,6 +283,43 @@
   .lock-box button{width:100%;background:linear-gradient(135deg,var(--navy2),var(--navy3));color:#fff;border:none;border-radius:11px;padding:13px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;}
   .lock-err{font-size:12px;color:#B91C1C;margin-top:10px;display:none;}
   .lock-err.show{display:block;}
+
+  /* ---- Ficha de la mentoría (dashboard sobre el avance por sesión) ---- */
+  .ficha-dash{background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:18px 20px;margin-bottom:16px;}
+  .fd-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+  .fd-t{font-size:14px;font-weight:800;color:var(--navy1);display:flex;align-items:center;gap:8px;}
+  .fd-edit{margin-left:auto;background:#fff;border:1px solid var(--border);color:var(--navy2);
+    border-radius:9px;padding:7px 13px;font-size:12.5px;font-weight:700;
+    font-family:'Poppins',sans-serif;cursor:pointer;transition:all .18s;}
+  .fd-edit:hover{border-color:var(--navy3);background:#f6f9ff;}
+  .fd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:15px 22px;}
+  .fd-b{min-width:0;}
+  .fd-l{font-size:10px;font-weight:800;color:var(--sub);text-transform:uppercase;
+    letter-spacing:.6px;margin-bottom:7px;}
+  .fd-chips{display:flex;flex-wrap:wrap;gap:5px;}
+  .fd-c{border-radius:20px;padding:4px 10px;font-size:11.5px;font-weight:700;
+    background:#eef0f3;color:var(--sub);white-space:nowrap;}
+  .fd-c.pago{background:var(--greenbg);color:#15803D;}
+  .fd-c.free{background:var(--amberbg);color:#B45309;}
+  .fd-kv{font-size:12.5px;color:var(--text);line-height:1.75;}
+  .fd-kv b{color:var(--sub);font-weight:600;}
+  .fd-nivel{display:inline-flex;align-items:baseline;gap:7px;background:var(--amberbg);
+    border-radius:10px;padding:7px 12px;}
+  .fd-nivel b{font-size:19px;font-weight:800;color:#B45309;line-height:1;}
+  .fd-nivel span{font-size:11.5px;font-weight:700;color:#92400E;}
+  .fd-acts{font-size:12.5px;color:var(--text);line-height:1.7;}
+  .fd-acts i{font-style:normal;color:var(--navy3);font-weight:700;}
+  .fd-txt{font-size:12.5px;color:var(--text);line-height:1.6;
+    display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+  .fd-vacio{background:var(--amberbg);border:1px dashed var(--amber);border-radius:16px;
+    padding:20px 22px;margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .fd-vacio-t{font-size:14px;font-weight:800;color:#92400E;margin-bottom:3px;}
+  .fd-vacio-s{font-size:12.5px;color:#B45309;line-height:1.5;}
+  .fd-vacio button{margin-left:auto;background:var(--amber);border:none;color:#fff;
+    border-radius:10px;padding:11px 18px;font-size:13px;font-weight:800;
+    font-family:'Poppins',sans-serif;cursor:pointer;white-space:nowrap;}
+  .fd-vacio button:hover{filter:brightness(1.06);}
 </style>
 </head>
 <body>
@@ -572,10 +609,11 @@ async function guardarTema(id, inp){
 async function renderDetail(programaId){
   app.innerHTML = '<div class="loading">Cargando cliente…</div>';
 
-  const [{ data: programa, error: e1 }, { data: temas, error: e2 }, { data: sesInfo }] = await Promise.all([
+  const [{ data: programa, error: e1 }, { data: temas, error: e2 }, { data: sesInfo }, { data: ficha }] = await Promise.all([
     sb.from('programas_clientes').select('*').eq('id', programaId).single(),
     sb.from('temario_temas').select('*').eq('programa_id', programaId).order('numero_sesion').order('orden'),
-    sb.from('sesiones_cliente').select('*').eq('programa_id', programaId)
+    sb.from('sesiones_cliente').select('*').eq('programa_id', programaId),
+    sb.from('ficha_mentoria').select('datos').eq('programa_id', programaId).maybeSingle()
   ]);
 
   // Bitácora: fecha y hora de cada reunión
@@ -590,7 +628,10 @@ async function renderDetail(programaId){
   const bySesion = {};
   (temas || []).forEach(t => { (bySesion[t.numero_sesion] ||= []).push(t); });
   const sesionesNums = Object.keys(bySesion).map(Number).sort((a,b)=>a-b);
-  const maxNum = Math.max(total, ...sesionesNums, 0);
+  // Algunos programas parten con una sesión 0 (el taller inicial de fundamentos).
+  // Cuando existe, la numeración corre de 0 a total-1; si no, de 1 a total.
+  const minNum = sesionesNums.includes(0) ? 0 : 1;
+  const maxNum = Math.max(minNum + total - 1, ...sesionesNums, 0);
 
   // Avance real. Regla: una sesión cuenta como HECHA si su fecha ya pasó o si
   // todos sus temas están marcados. Un tema cuenta como cubierto si está
@@ -611,7 +652,7 @@ async function renderDetail(programaId){
   const totalTemas = temas.length;
   const temasMarcados = temas.filter(t => t.estado === 'visto').length;
   let done = 0;
-  for (let n = 1; n <= maxNum; n++){ if (sesionCompleta(n)) done++; }
+  for (let n = minNum; n <= maxNum; n++){ if (sesionCompleta(n)) done++; }
   // El avance se mide por SESIONES completas sobre el total, no por temas.
   const pct = total ? Math.round(done / total * 100) : 0;
 
@@ -626,11 +667,11 @@ async function renderDetail(programaId){
     .sort((a,b) => a.numero_sesion - b.numero_sesion || a.orden - b.orden);
 
   let sessionsHtml = '';
-  for (let n = 1; n <= maxNum; n++){
+  for (let n = minNum; n <= maxNum; n++){
     const list = bySesion[n] || [];
     const todosMarcados = list.length > 0 && list.every(t => t.estado === 'visto');
     const completa = todosMarcados;
-    const isCurrent = n === done + 1;
+    const isCurrent = n === minNum + done;
     const arrastrados = pendientesPrevios(n);
     const stateClass = completa ? 'done' : isCurrent ? 'current' : 'future';
     const stateLabel = completa ? 'Completada' : isCurrent ? 'En curso' : 'Próxima';
@@ -678,7 +719,7 @@ async function renderDetail(programaId){
 
   // Gráficos del encabezado: barra segmentada por sesión + anillo global.
   let segHtml = '';
-  for (let n = 1; n <= maxNum; n++){
+  for (let n = minNum; n <= maxNum; n++){
     const l = bySesion[n] || [];
     const marc = l.filter(x => x.estado === 'visto').length;
     // La barra sigue el avance de la sesión: llena si la sesión está hecha
@@ -719,9 +760,75 @@ async function renderDetail(programaId){
         </div>
       </div>
     </div>
+    ${programa.tipo === 'mentoria_1a1' ? fichaDashHtml(programaId, ficha) : ''}
     ${sessionsHtml}
     <div class="add-session-btn" onclick="addSession('${programaId}', ${maxNum+1})">+ Agregar sesión ${maxNum+1}</div>
   `;
+}
+
+/* ---- Ficha de la mentoría ----
+   El diagnóstico que se llena en la primera sesión (mentoria.html) se muestra
+   acá arriba como dashboard: lo que tiene, dónde trabaja y en qué se le va la
+   semana, para tenerlo a la vista mientras registras el avance por sesión.
+   Las etiquetas se repiten a mano porque el contenido viaja como jsonb: la
+   ficha puede cambiar de preguntas sin migrar la base. */
+const FD_IAS = ['Claude','ChatGPT','Gemini','Copilot','Perplexity','NotebookLM'];
+const FD_ECO = { mail:'Mail', repo:'Archivos', comu:'Comunicación', reu:'Reuniones', gestion:'Gestión' };
+const FD_GOB = { compra:'Compra', equipo:'Equipo', apoyo:'Apoyo TI' };
+const FD_NIV = { 1:'No la usa', 2:'Curioso', 3:'La usa a ratos', 4:'La usa a diario', 5:'Le enseña a otros' };
+
+function fichaDashHtml(programaId, ficha){
+  const D = (ficha && ficha.datos) || null;
+  const irAFicha = `location.href='mentoria.html?p=${programaId}'`;
+
+  if (!D || !Object.keys(D).length){
+    return `<div class="fd-vacio">
+      <div>
+        <div class="fd-vacio-t">Esta mentoría todavía no tiene ficha</div>
+        <div class="fd-vacio-s">El diagnóstico se llena en la primera sesión: qué herramientas tiene, dónde vive su trabajo y en qué se le va la semana.</div>
+      </div>
+      <button onclick="${irAFicha}">Llenar la ficha →</button>
+    </div>`;
+  }
+
+  const ia = D.ia || {}, eco = D.eco || {}, gob = D.gob || {}, txt = D.txt || {};
+  const porEstado = e => FD_IAS.filter(n => (ia[n] || {}).estado === e);
+  const chip = (n, cls) => {
+    const plan = (ia[n] || {}).plan;
+    return `<span class="fd-c ${cls}"${plan ? ` title="${esc(plan)}"` : ''}>${n}</span>`;
+  };
+  const pago = porEstado('pago'), free = porEstado('free'), sinTener = porEstado('no');
+
+  const ecoLineas = Object.keys(FD_ECO).filter(k => eco[k])
+    .map(k => `<b>${FD_ECO[k]}:</b> ${esc(eco[k])}`).join('<br>');
+  const gobLineas = Object.keys(FD_GOB).filter(k => gob[k])
+    .map(k => `<b>${FD_GOB[k]}:</b> ${esc(gob[k])}`).join('<br>');
+
+  const acts = (D.acts || []).filter(a => (a.t || '').trim())
+    .sort((a, b) => (parseFloat(b.h) || 0) - (parseFloat(a.h) || 0)).slice(0, 5)
+    .map(a => `· ${esc(a.t)}${a.h ? ` <i>${esc(a.h)} h</i>` : ''}`).join('<br>');
+
+  const bloque = (l, cont) => cont ? `<div class="fd-b"><div class="fd-l">${l}</div>${cont}</div>` : '';
+
+  return `<div class="ficha-dash">
+    <div class="fd-head">
+      <div class="fd-t">🎯 Ficha del mentoreado</div>
+      <button class="fd-edit" onclick="${irAFicha}">✎ Editar ficha</button>
+    </div>
+    <div class="fd-grid">
+      ${bloque('Herramientas', (pago.length || free.length || sinTener.length) ? `<div class="fd-chips">
+        ${pago.map(n => chip(n, 'pago')).join('')}
+        ${free.map(n => chip(n, 'free')).join('')}
+        ${sinTener.map(n => chip(n, '')).join('')}
+      </div>` : '')}
+      ${bloque('Dónde trabaja', ecoLineas ? `<div class="fd-kv">${ecoLineas}</div>` : '')}
+      ${bloque('Contexto', gobLineas ? `<div class="fd-kv">${gobLineas}</div>` : '')}
+      ${bloque('Nivel con IA', D.nivel ? `<div class="fd-nivel"><b>${D.nivel}</b><span>${FD_NIV[D.nivel] || ''}</span></div>` : '')}
+      ${bloque('En qué gasta su tiempo', acts ? `<div class="fd-acts">${acts}</div>` : '')}
+      ${bloque('Qué le gustaría', (txt['t-quiere'] || '').trim() ? `<div class="fd-txt">${esc(txt['t-quiere'])}</div>` : '')}
+      ${bloque('Dolores', (txt['t-dolor'] || '').trim() ? `<div class="fd-txt">${esc(txt['t-dolor'])}</div>` : '')}
+    </div>
+  </div>`;
 }
 
 // ---------- ACTIONS ----------
@@ -1151,7 +1258,10 @@ async function crearCliente(){
   soltar();
   cerrarNuevoCliente();
   flashSaved();
-  location.hash = '#/cliente/' + nuevo.id;
+  // En una mentoría 1:1 lo primero es el diagnóstico del mentoreado: recién
+  // con eso a la vista tiene sentido registrar el avance sesión a sesión.
+  if (tipo === 'mentoria_1a1') location.href = 'mentoria.html?p=' + nuevo.id;
+  else location.hash = '#/cliente/' + nuevo.id;
 }
 
 async function addSession(programaId, numeroSesion){
