@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Ficha de mentoría · Reyes IA</title>
+<link rel="icon" type="image/png" href="/icon%20reyes%20IA.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --bg:#0B1220; --bg2:#0F1829; --card:#141F35; --card2:#1A2740;
+    --line:#243352; --line2:#2E4066;
+    --txt:#E8EDF7; --sub:#8A9BBA; --dim:#5F708F;
+    --amber:#F59E0B; --amber2:#FBBF24;
+    --green:#22C55E; --red:#EF4444; --purple:#A78BFA; --blue:#60A5FA;
+  }
+  body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt);
+    -webkit-font-smoothing:antialiased;padding-bottom:90px;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  /* ── Barra superior ─────────────────────────────────────────────── */
+  .top{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.92);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .top-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;
+    align-items:center;gap:14px;flex-wrap:wrap;}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14px;letter-spacing:-.2px;}
+  .brand i{width:9px;height:9px;border-radius:50%;background:var(--amber);
+    box-shadow:0 0 0 4px rgba(245,158,11,.16);font-style:normal;}
+  .top-sp{flex:1;}
+  .save{font-size:11px;font-weight:600;color:var(--dim);display:flex;align-items:center;gap:6px;
+    letter-spacing:.3px;transition:color .25s;}
+  .save.on{color:var(--green);}
+  .save i{width:6px;height:6px;border-radius:50%;background:currentColor;font-style:normal;}
+  .tbtn{background:var(--card);border:1px solid var(--line2);color:var(--txt);
+    border-radius:9px;padding:8px 13px;font-size:12.5px;font-weight:600;
+    font-family:inherit;cursor:pointer;transition:all .18s;white-space:nowrap;}
+  .tbtn:hover{background:var(--card2);border-color:var(--amber);color:var(--amber2);}
+  .tbtn.danger:hover{border-color:var(--red);color:var(--red);}
+
+  /* ── Cabecera de la ficha ───────────────────────────────────────── */
+  .wrap{max-width:1080px;margin:0 auto;padding:26px 20px 0;}
+  .ficha{background:linear-gradient(135deg,var(--card) 0%,var(--bg2) 100%);
+    border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin-bottom:26px;}
+  .ficha-grid{display:grid;grid-template-columns:1.4fr 1.4fr 1fr .8fr;gap:16px;}
+  .fld{display:flex;flex-direction:column;gap:6px;}
+  .fld label{font-size:10.5px;font-weight:700;color:var(--dim);
+    text-transform:uppercase;letter-spacing:.7px;}
+  .fld input,.fld select{background:var(--bg);border:1px solid var(--line2);
+    border-radius:10px;padding:11px 13px;font-size:14px;font-family:inherit;
+    color:var(--txt);outline:none;transition:border-color .18s;width:100%;}
+  .fld input:focus,.fld select:focus{border-color:var(--amber);}
+  .fld input::placeholder{color:var(--dim);}
+
+  /* ── Secciones ──────────────────────────────────────────────────── */
+  .sec{margin-bottom:30px;}
+  .sec-h{display:flex;align-items:center;gap:11px;margin-bottom:15px;}
+  .sec-n{width:27px;height:27px;border-radius:8px;background:var(--amber);color:#0B1220;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;}
+  .sec-t{font-size:17px;font-weight:800;letter-spacing:-.3px;}
+  .sec-s{font-size:12.5px;color:var(--dim);margin-left:auto;text-align:right;}
+
+  .box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;}
+  .box + .box{margin-top:14px;}
+  .box-t{font-size:11px;font-weight:800;color:var(--sub);text-transform:uppercase;
+    letter-spacing:.8px;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .box-t::after{content:'';flex:1;height:1px;background:var(--line);}
+
+  /* ── Herramientas de IA ─────────────────────────────────────────── */
+  .tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:11px;}
+  .tool{background:var(--bg2);border:1px solid var(--line);border-radius:12px;
+    padding:13px 14px;transition:border-color .2s;}
+  .tool.has{border-color:rgba(34,197,94,.45);background:rgba(34,197,94,.05);}
+  .tool.no{opacity:.5;}
+  .tool-h{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+  .tool-n{font-size:14px;font-weight:700;flex:1;}
+  .segs{display:flex;gap:4px;background:var(--bg);border:1px solid var(--line);
+    border-radius:9px;padding:3px;}
+  .seg{flex:1;border:none;background:transparent;color:var(--dim);border-radius:6px;
+    padding:6px 4px;font-size:11px;font-weight:700;font-family:inherit;cursor:pointer;
+    transition:all .15s;white-space:nowrap;}
+  .seg:hover{color:var(--txt);}
+  .seg.on{background:var(--amber);color:#0B1220;}
+  .seg.on.g{background:var(--green);color:#06210F;}
+  .seg.on.r{background:var(--line2);color:var(--sub);}
+  .tool-plan{margin-top:9px;}
+  .tool-plan input{width:100%;background:var(--bg);border:1px solid var(--line);
+    border-radius:8px;padding:8px 10px;font-size:12.5px;font-family:inherit;
+    color:var(--txt);outline:none;}
+  .tool-plan input:focus{border-color:var(--amber);}
+  .tool-plan input::placeholder{color:var(--dim);}
+  .tool.no .tool-plan{display:none;}
+
+  /* ── Chips de opción única ──────────────────────────────────────── */
+  .row{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:start;
+    padding:11px 0;border-bottom:1px solid var(--line);}
+  .row:last-child{border-bottom:none;padding-bottom:0;}
+  .row-l{font-size:13px;font-weight:600;color:var(--sub);padding-top:7px;}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
+  .chip{background:var(--bg2);border:1px solid var(--line2);color:var(--sub);
+    border-radius:20px;padding:7px 14px;font-size:12.5px;font-weight:600;
+    font-family:inherit;cursor:pointer;transition:all .15s;}
+  .chip:hover{border-color:var(--amber);color:var(--txt);}
+  .chip.on{background:var(--amber);border-color:var(--amber);color:#0B1220;font-weight:700;}
+  .chip.on.p{background:var(--purple);border-color:var(--purple);color:#160B2E;}
+  .chip.on.b{background:var(--blue);border-color:var(--blue);color:#05203D;}
+  .chip-otro{background:transparent;border:1px dashed var(--line2);min-width:130px;
+    padding:7px 12px;font-size:12.5px;font-family:inherit;color:var(--txt);
+    border-radius:20px;outline:none;}
+  .chip-otro:focus{border-color:var(--amber);border-style:solid;}
+  .chip-otro::placeholder{color:var(--dim);}
+
+  /* ── Escala de nivel ────────────────────────────────────────────── */
+  .nivel{display:flex;gap:8px;}
+  .nv{flex:1;background:var(--bg2);border:1px solid var(--line2);border-radius:11px;
+    padding:12px 8px;cursor:pointer;transition:all .18s;text-align:center;font-family:inherit;color:var(--sub);}
+  .nv:hover{border-color:var(--amber);}
+  .nv.on{background:var(--amber);border-color:var(--amber);color:#0B1220;}
+  .nv-n{font-size:18px;font-weight:800;line-height:1;}
+  .nv-l{font-size:10.5px;font-weight:600;margin-top:5px;line-height:1.25;}
+
+  /* ── Texto libre ────────────────────────────────────────────────── */
+  .ta{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:11px;
+    padding:13px 15px;font-size:13.5px;font-family:inherit;color:var(--txt);
+    outline:none;resize:vertical;min-height:88px;line-height:1.65;transition:border-color .18s;}
+  .ta:focus{border-color:var(--amber);}
+  .ta::placeholder{color:var(--dim);}
+  .ta.tall{min-height:130px;}
+  .ta-l{font-size:12.5px;font-weight:600;color:var(--sub);margin-bottom:8px;display:block;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .hint{font-size:11.5px;color:var(--dim);margin-top:7px;line-height:1.5;}
+
+  /* ── Lista de actividades ───────────────────────────────────────── */
+  .acts{display:flex;flex-direction:column;gap:8px;}
+  .act{display:flex;gap:10px;align-items:center;background:var(--bg2);
+    border:1px solid var(--line);border-radius:11px;padding:9px 12px;}
+  .act input[type=text]{flex:1;background:transparent;border:none;outline:none;
+    font-size:13.5px;font-family:inherit;color:var(--txt);}
+  .act input[type=text]::placeholder{color:var(--dim);}
+  .act-h{width:74px;background:var(--bg);border:1px solid var(--line);border-radius:8px;
+    padding:6px 9px;font-size:12px;font-family:inherit;color:var(--amber2);
+    outline:none;text-align:center;font-weight:700;}
+  .act-x{background:none;border:none;color:var(--dim);cursor:pointer;font-size:16px;
+    padding:2px 5px;line-height:1;transition:color .15s;}
+  .act-x:hover{color:var(--red);}
+  .add{background:transparent;border:1px dashed var(--line2);color:var(--sub);
+    border-radius:11px;padding:10px;font-size:12.5px;font-weight:600;font-family:inherit;
+    cursor:pointer;width:100%;transition:all .18s;margin-top:8px;}
+  .add:hover{border-color:var(--amber);color:var(--amber2);}
+
+  /* ── Barra inferior ─────────────────────────────────────────────── */
+  .bottom{position:fixed;bottom:0;left:0;right:0;z-index:60;
+    background:rgba(11,18,32,.94);backdrop-filter:blur(12px);
+    border-top:1px solid var(--line);padding:12px 20px;}
+  .bottom-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:12px;}
+  .prog{flex:1;display:flex;align-items:center;gap:11px;}
+  .prog-bar{flex:1;height:5px;background:var(--card2);border-radius:20px;overflow:hidden;max-width:260px;}
+  .prog-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--amber),var(--amber2));
+    border-radius:20px;transition:width .4s;}
+  .prog-t{font-size:11.5px;color:var(--dim);font-weight:600;white-space:nowrap;}
+  .cta{background:var(--amber);border:none;color:#0B1220;border-radius:10px;
+    padding:11px 20px;font-size:13.5px;font-weight:800;font-family:inherit;cursor:pointer;
+    transition:filter .18s;}
+  .cta:hover{filter:brightness(1.1);}
+
+  .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(14px);
+    background:var(--green);color:#06210F;padding:11px 22px;border-radius:11px;
+    font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:all .3s;z-index:100;}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media(max-width:860px){
+    .ficha-grid{grid-template-columns:1fr 1fr;}
+    .duo{grid-template-columns:1fr;}
+    .row{grid-template-columns:1fr;gap:8px;}
+    .row-l{padding-top:0;}
+    .nivel{flex-wrap:wrap;}
+    .nv{min-width:calc(33% - 6px);}
+  }
+  @media print{
+    .top,.bottom,.add,.act-x,.tbtn{display:none!important;}
+    body{background:#fff;color:#000;padding:0;}
+    .box,.ficha,.tool{border-color:#ccc;background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-in">
+    <div class="brand"><i></i> Ficha de mentoría</div>
+    <div class="save" id="save"><i></i><span>Sin cambios</span></div>
+    <div class="top-sp"></div>
+    <button class="tbtn" onclick="copiar()">📋 Copiar resumen</button>
+    <button class="tbtn" onclick="window.print()">🖨 Imprimir</button>
+    <button class="tbtn danger" onclick="limpiar()">Nueva ficha</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ── Ficha ─────────────────────────────────────────────────────── -->
+  <div class="ficha">
+    <div class="ficha-grid">
+      <div class="fld">
+        <label>Nombre</label>
+        <input id="f-nombre" placeholder="Nombre y apellido" autocomplete="off">
+      </div>
+      <div class="fld">
+        <label>Empresa</label>
+        <input id="f-empresa" placeholder="Empresa" autocomplete="off">
+      </div>
+      <div class="fld">
+        <label>Cargo</label>
+        <input id="f-cargo" placeholder="Gerente General" autocomplete="off">
+      </div>
+      <div class="fld">
+        <label>Fecha</label>
+        <input id="f-fecha" type="date">
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 1 · Stack tecnológico ─────────────────────────────────────── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-n">1</div>
+      <div class="sec-t">Stack tecnológico</div>
+      <div class="sec-s">Qué tiene hoy, en qué plan y dónde vive su trabajo</div>
+    </div>
+
+    <div class="box">
+      <div class="box-t">Herramientas de IA</div>
+      <div class="tools" id="tools"></div>
+    </div>
+
+    <div class="box">
+      <div class="box-t">Dónde vive su trabajo</div>
+      <div id="eco"></div>
+    </div>
+
+    <div class="box">
+      <div class="box-t">Quién decide y qué lo frena</div>
+      <div id="gob"></div>
+      <div style="margin-top:15px">
+        <label class="ta-l">Restricciones, políticas de IA o temas de confidencialidad</label>
+        <textarea class="ta" id="t-restric"
+          placeholder="¿Hay política interna de IA? ¿TI bloquea algo? ¿Qué información no puede salir?"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2 · Cargo y tiempo ────────────────────────────────────────── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-n">2</div>
+      <div class="sec-t">Cargo y tiempo</div>
+      <div class="sec-s">En qué se le va la semana y qué quiere que cambie</div>
+    </div>
+
+    <div class="box">
+      <div class="box-t">En qué gasta su tiempo</div>
+      <div class="acts" id="acts"></div>
+      <button class="add" onclick="addAct()">+ Agregar actividad</button>
+      <div class="hint">Las horas son semanales y aproximadas — sirven para ordenar por dónde empezar, no para ser exactas.</div>
+    </div>
+
+    <div class="box">
+      <div class="box-t">Nivel actual con IA</div>
+      <div class="nivel" id="nivel"></div>
+      <div style="margin-top:16px">
+        <label class="ta-l">¿Cómo la usa hoy? ¿Qué intentó y no le resultó?</label>
+        <textarea class="ta" id="t-uso"
+          placeholder="Con qué frecuencia la abre, para qué, qué le funcionó y qué abandonó."></textarea>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-t">Lo que quiere que pase</div>
+      <div class="duo">
+        <div>
+          <label class="ta-l">¿Qué le gustaría hacer o dejar de hacer?</label>
+          <textarea class="ta tall" id="t-quiere"
+            placeholder="Lo que dijo con sus palabras. Textual si se puede."></textarea>
+        </div>
+        <div>
+          <label class="ta-l">Dolores concretos</label>
+          <textarea class="ta tall" id="t-dolor"
+            placeholder="Lo que le quita tiempo, lo que hace a mano, lo que se le cae."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3 · Cierre ────────────────────────────────────────────────── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-n">3</div>
+      <div class="sec-t">Cierre de la sesión</div>
+      <div class="sec-s">Lo que te llevas y lo que se lleva</div>
+    </div>
+    <div class="box">
+      <div class="duo">
+        <div>
+          <label class="ta-l">Notas libres de la conversación</label>
+          <textarea class="ta tall" id="t-notas"
+            placeholder="Lo que no cabe en ninguna casilla: contexto, personas, política interna, frases que valen."></textarea>
+        </div>
+        <div>
+          <label class="ta-l">Compromisos y próximos pasos</label>
+          <textarea class="ta tall" id="t-pasos"
+            placeholder="Qué queda para él, qué queda para ti y para cuándo."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom">
+  <div class="bottom-in">
+    <div class="prog">
+      <div class="prog-bar"><i id="pbar" style="width:0%"></i></div>
+      <div class="prog-t" id="ptxt">0% de la ficha</div>
+    </div>
+    <button class="cta" onclick="copiar()">Copiar resumen →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==================================================================
+   Ficha de mentoría · se llena EN VIVO durante la sesión.
+   Todo se guarda solo en el navegador (localStorage) apenas se toca:
+   nada que apretar, nada que se pierda si se cierra la pestaña.
+   ================================================================== */
+
+const KEY = 'reyesia_mentoria_v1';
+let D = {};                       // el estado completo de la ficha
+
+/* Catálogos ------------------------------------------------------- */
+const IAS = ['Claude','ChatGPT','Gemini','Copilot','Perplexity','NotebookLM'];
+const ESTADOS = [
+  { id:'no',    txt:'No tiene', cls:'r' },
+  { id:'free',  txt:'Gratis',   cls:''  },
+  { id:'pago',  txt:'De pago',  cls:'g' }
+];
+const ECO = [
+  { id:'mail',   l:'Mail oficial',   o:['Google Workspace','Microsoft 365','Otro'] },
+  { id:'repo',   l:'Repositorio',    o:['Google Drive','OneDrive','SharePoint','Dropbox','Servidor local','Sin repositorio'] },
+  { id:'comu',   l:'Comunicación',   o:['Teams','Slack','WhatsApp','Solo mail'] },
+  { id:'reu',    l:'Reuniones',      o:['Teams','Meet','Zoom'] },
+  { id:'gestion',l:'Gestión / CRM',  o:['Excel','HubSpot','Salesforce','ERP propio','Nada formal'] }
+];
+const GOB = [
+  { id:'compra', l:'Quién compra',   o:['Él decide','Gerencia TI','Casa matriz','Nadie claro'] },
+  { id:'equipo', l:'Tamaño equipo',  o:['1-10','11-50','51-200','200+'] },
+  { id:'apoyo',  l:'Apoyo técnico',  o:['TI interno','Externo','No tiene'] }
+];
+const NIVELES = [
+  { n:1, l:'No la usa' },
+  { n:2, l:'Curioso' },
+  { n:3, l:'La usa a ratos' },
+  { n:4, l:'La usa a diario' },
+  { n:5, l:'Le enseña a otros' }
+];
+const TEXTOS = ['t-restric','t-uso','t-quiere','t-dolor','t-notas','t-pasos'];
+const CAMPOS = ['f-nombre','f-empresa','f-cargo','f-fecha'];
+
+/* Estado + guardado ----------------------------------------------- */
+function cargar(){
+  try { D = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ D = {}; }
+  D.ia    = D.ia    || {};
+  D.eco   = D.eco   || {};
+  D.gob   = D.gob   || {};
+  D.acts  = D.acts  || [];
+  D.txt   = D.txt   || {};
+  D.campo = D.campo || {};
+}
+let tSave;
+function guardar(){
+  try { localStorage.setItem(KEY, JSON.stringify(D)); } catch(e){}
+  const s = document.getElementById('save');
+  s.classList.add('on');
+  s.querySelector('span').textContent = 'Guardado';
+  clearTimeout(tSave);
+  tSave = setTimeout(() => {
+    s.classList.remove('on');
+    s.querySelector('span').textContent = 'Todo guardado';
+  }, 1400);
+  avance();
+}
+
+/* Herramientas de IA ---------------------------------------------- */
+function pintarTools(){
+  document.getElementById('tools').innerHTML = IAS.map(n => {
+    const v = D.ia[n] || {};
+    const est = v.estado || '';
+    const clase = est === 'pago' ? 'has' : est === 'no' ? 'no' : '';
+    return `<div class="tool ${clase}" data-t="${n}">
+      <div class="tool-h"><div class="tool-n">${n}</div></div>
+      <div class="segs">${ESTADOS.map(e =>
+        `<button class="seg ${est===e.id?'on '+e.cls:''}"
+           onclick="setIA('${n}','${e.id}')">${e.txt}</button>`).join('')}</div>
+      <div class="tool-plan">
+        <input placeholder="¿Qué plan? ¿quién lo paga?" value="${esc(v.plan||'')}"
+          oninput="setPlan('${n}',this.value)">
+      </div>
+    </div>`;
+  }).join('');
+}
+function setIA(n, est){
+  D.ia[n] = D.ia[n] || {};
+  D.ia[n].estado = D.ia[n].estado === est ? '' : est;
+  guardar(); pintarTools();
+}
+function setPlan(n, v){
+  D.ia[n] = D.ia[n] || {};
+  D.ia[n].plan = v;
+  guardar();
+}
+
+/* Filas de chips (ecosistema y gobierno) --------------------------- */
+function pintarChips(destino, lista, store, color){
+  document.getElementById(destino).innerHTML = lista.map(f => {
+    const v = D[store][f.id] || '';
+    const esOtro = v && !f.o.includes(v);
+    return `<div class="row">
+      <div class="row-l">${f.l}</div>
+      <div class="chips">
+        ${f.o.map(o => `<button class="chip ${v===o?'on '+color:''}"
+            onclick="setChip('${store}','${f.id}','${esc(o)}','${destino}')">${o}</button>`).join('')}
+        <input class="chip-otro" placeholder="otro…" value="${esOtro?esc(v):''}"
+          oninput="setOtro('${store}','${f.id}',this.value)">
+      </div>
+    </div>`;
+  }).join('');
+}
+function setChip(store, id, val, destino){
+  D[store][id] = D[store][id] === val ? '' : val;
+  guardar();
+  pintarChips(destino, destino === 'eco' ? ECO : GOB, store, destino === 'eco' ? 'b' : 'p');
+}
+function setOtro(store, id, val){ D[store][id] = val; guardar(); }
+
+/* Actividades ------------------------------------------------------ */
+function pintarActs(){
+  const c = document.getElementById('acts');
+  if (!D.acts.length) D.acts = [{ t:'', h:'' }];
+  c.innerHTML = D.acts.map((a, i) => `<div class="act">
+      <input type="text" placeholder="Actividad — ej: revisar reportes de operaciones"
+        value="${esc(a.t)}" oninput="setAct(${i},'t',this.value)">
+      <input class="act-h" placeholder="hrs/sem" value="${esc(a.h)}"
+        oninput="setAct(${i},'h',this.value)">
+      <button class="act-x" onclick="delAct(${i})" title="Quitar">✕</button>
+    </div>`).join('');
+}
+function setAct(i, k, v){ D.acts[i][k] = v; guardar(); }
+function addAct(){ D.acts.push({ t:'', h:'' }); guardar(); pintarActs();
+  const inp = document.querySelectorAll('#acts input[type=text]');
+  if (inp.length) inp[inp.length-1].focus(); }
+function delAct(i){ D.acts.splice(i,1); guardar(); pintarActs(); }
+
+/* Nivel ------------------------------------------------------------ */
+function pintarNivel(){
+  document.getElementById('nivel').innerHTML = NIVELES.map(x =>
+    `<button class="nv ${D.nivel===x.n?'on':''}" onclick="setNivel(${x.n})">
+       <div class="nv-n">${x.n}</div><div class="nv-l">${x.l}</div>
+     </button>`).join('');
+}
+function setNivel(n){ D.nivel = D.nivel === n ? null : n; guardar(); pintarNivel(); }
+
+/* Textos y campos -------------------------------------------------- */
+function pintarTextos(){
+  TEXTOS.forEach(id => {
+    const el = document.getElementById(id);
+    el.value = D.txt[id] || '';
+    el.oninput = () => { D.txt[id] = el.value; guardar(); };
+  });
+  CAMPOS.forEach(id => {
+    const el = document.getElementById(id);
+    el.value = D.campo[id] || '';
+    el.oninput = () => { D.campo[id] = el.value; guardar(); };
+  });
+  if (!D.campo['f-fecha']){
+    const h = new Date();
+    document.getElementById('f-fecha').value =
+      `${h.getFullYear()}-${String(h.getMonth()+1).padStart(2,'0')}-${String(h.getDate()).padStart(2,'0')}`;
+    D.campo['f-fecha'] = document.getElementById('f-fecha').value;
+  }
+}
+
+/* Avance ----------------------------------------------------------- */
+function avance(){
+  let hechos = 0, total = 0;
+  total += IAS.length;  hechos += IAS.filter(n => (D.ia[n]||{}).estado).length;
+  total += ECO.length;  hechos += ECO.filter(f => D.eco[f.id]).length;
+  total += GOB.length;  hechos += GOB.filter(f => D.gob[f.id]).length;
+  total += 1;           if (D.nivel) hechos++;
+  total += 1;           if (D.acts.some(a => a.t.trim())) hechos++;
+  total += TEXTOS.length; hechos += TEXTOS.filter(id => (D.txt[id]||'').trim()).length;
+  const pct = Math.round(hechos / total * 100);
+  document.getElementById('pbar').style.width = pct + '%';
+  document.getElementById('ptxt').textContent = pct + '% de la ficha';
+}
+
+/* Resumen en texto -------------------------------------------------- */
+function resumen(){
+  const c = D.campo, L = [];
+  L.push(`FICHA DE MENTORÍA · ${c['f-nombre']||'(sin nombre)'}`);
+  L.push(`${c['f-cargo']||''}${c['f-cargo']&&c['f-empresa']?' · ':''}${c['f-empresa']||''}  —  ${c['f-fecha']||''}`);
+
+  L.push('\n── STACK TECNOLÓGICO ──');
+  const pago = IAS.filter(n => (D.ia[n]||{}).estado === 'pago');
+  const free = IAS.filter(n => (D.ia[n]||{}).estado === 'free');
+  const no   = IAS.filter(n => (D.ia[n]||{}).estado === 'no');
+  if (pago.length) L.push('De pago: ' + pago.map(n =>
+    n + (D.ia[n].plan ? ` (${D.ia[n].plan})` : '')).join(', '));
+  if (free.length) L.push('Versión gratis: ' + free.join(', '));
+  if (no.length)   L.push('No tiene: ' + no.join(', '));
+
+  const eco = ECO.filter(f => D.eco[f.id]).map(f => `${f.l}: ${D.eco[f.id]}`);
+  if (eco.length) L.push('\n' + eco.join('\n'));
+  const gob = GOB.filter(f => D.gob[f.id]).map(f => `${f.l}: ${D.gob[f.id]}`);
+  if (gob.length) L.push('\n' + gob.join('\n'));
+  if ((D.txt['t-restric']||'').trim()) L.push('\nRestricciones: ' + D.txt['t-restric'].trim());
+
+  L.push('\n── CARGO Y TIEMPO ──');
+  const acts = D.acts.filter(a => a.t.trim());
+  if (acts.length) L.push('En qué gasta su tiempo:\n' +
+    acts.map(a => `  · ${a.t.trim()}${a.h ? ` — ${a.h} hrs/sem` : ''}`).join('\n'));
+  if (D.nivel){
+    const nv = NIVELES.find(x => x.n === D.nivel);
+    L.push(`\nNivel con IA: ${nv.n}/5 — ${nv.l}`);
+  }
+  const bloques = [
+    ['Cómo la usa hoy',   't-uso'],
+    ['Qué le gustaría',   't-quiere'],
+    ['Dolores',           't-dolor'],
+    ['Notas',             't-notas'],
+    ['Próximos pasos',    't-pasos']
+  ];
+  bloques.forEach(([t, id]) => {
+    if ((D.txt[id]||'').trim()) L.push(`\n${t}:\n${D.txt[id].trim()}`);
+  });
+  return L.join('\n');
+}
+async function copiar(){
+  const txt = resumen();
+  try { await navigator.clipboard.writeText(txt); toast('Resumen copiado'); }
+  catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); toast('Resumen copiado'); }
+    catch(e2){ toast('No se pudo copiar'); }
+    ta.remove();
+  }
+}
+function toast(m){
+  const t = document.getElementById('toast');
+  t.textContent = m; t.classList.add('on');
+  setTimeout(() => t.classList.remove('on'), 1900);
+}
+
+/* Nueva ficha ------------------------------------------------------ */
+function limpiar(){
+  const quien = (D.campo['f-nombre'] || '').trim();
+  if (!confirm(`Esto borra la ficha${quien ? ' de ' + quien : ''} de este navegador.\n\n` +
+               `Si no copiaste el resumen todavía, cancela y cópialo primero.\n\n¿Seguir?`)) return;
+  D = {}; cargar(); guardar(); pintar();
+}
+
+function esc(s){
+  return String(s ?? '').replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function pintar(){
+  pintarTools();
+  pintarChips('eco', ECO, 'eco', 'b');
+  pintarChips('gob', GOB, 'gob', 'p');
+  pintarActs();
+  pintarNivel();
+  pintarTextos();
+  avance();
+}
+
+cargar();
+pintar();
+</script>
+</body>
+</html>

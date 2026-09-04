@@ -166,6 +166,10 @@
       "destination": "/panel-clientes/index.html"
     },
     {
+      "source": "/mentoria",
+      "destination": "/panel-clientes/mentoria.html"
+    },
+    {
       "source": "/taller/:token",
       "destination": "/panel-clientes/afiche-demo.html?c=:token"
     },
