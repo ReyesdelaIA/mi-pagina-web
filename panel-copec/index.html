@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Ventas Estación de Servicio Copec</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .copec-red { color: #E31837; }
+        .bg-copec-red { background-color: #E31837; }
+        .copec-blue { color: #002B7F; }
+        .bg-copec-blue { background-color: #002B7F; }
+        
+        /* Custom Scrollbar para la tabla */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-copec-blue text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <h1 class="text-xl font-bold tracking-tight">Estación de Servicio Copec</h1>
+                </div>
+                <div class="text-sm font-medium">Dashboard de Ventas Semestral</div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Drag & Drop Zone -->
+        <div id="drop-zone" class="bg-white rounded-xl shadow-sm border-2 border-dashed border-gray-300 p-8 mb-6 text-center transition-all duration-300 hover:bg-blue-50 hover:border-blue-400 cursor-pointer flex flex-col items-center justify-center group">
+            <svg class="mx-auto h-12 w-12 text-gray-400 group-hover:text-blue-500 transition-colors mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+            </svg>
+            <p id="drop-text" class="text-sm text-gray-600 font-medium">Arrastra y suelta tu archivo CSV aquí, o <span class="text-blue-600 font-semibold group-hover:underline">haz clic para subir</span></p>
+            <p class="text-xs text-gray-500 mt-2">Debe contener las columnas de Ventas Copec.</p>
+            <input type="file" id="file-input" class="hidden" accept=".csv" />
+        </div>
+
+        <!-- Controles de Filtros -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-6">
+            <h2 class="text-lg font-semibold mb-4 text-gray-700 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                Filtros de Datos
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Producto</label>
+                    <select id="filter-product" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none transition">
+                        <option value="Todos">Todos los Productos</option>
+                        <!-- Opciones generadas por JS -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Fecha Inicio</label>
+                    <input type="date" id="filter-date-start" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Fecha Fin</label>
+                    <input type="date" id="filter-date-end" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none transition">
+                </div>
+                <div class="flex items-end">
+                    <button id="btn-reset" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition border border-gray-300">
+                        Limpiar Filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjetas de Resumen (KPIs) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center">
+                <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Venta Total Bruta</p>
+                    <p class="text-2xl font-bold text-gray-800" id="kpi-venta-total">$0</p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center">
+                <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Volumen Vendido (L)</p>
+                    <p class="text-2xl font-bold text-gray-800" id="kpi-volumen">0 L</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center">
+                <div class="p-3 rounded-full bg-red-100 text-red-600 mr-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Margen Promedio (%)</p>
+                    <p class="text-2xl font-bold text-gray-800" id="kpi-margen">0%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Gráfico de Línea -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 lg:col-span-2">
+                <h3 class="text-md font-semibold text-gray-700 mb-4">Volumen Vendido a lo largo del tiempo</h3>
+                <div class="relative h-72 w-full">
+                    <canvas id="volumenChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Gráfico de Torta (Meses) -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 lg:col-span-1">
+                <h3 class="text-md font-semibold text-gray-700 mb-4">Ventas Brutas por Mes</h3>
+                <div class="relative h-72 w-full">
+                    <canvas id="mesesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico de Barras -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 lg:col-span-3">
+                <h3 class="text-md font-semibold text-gray-700 mb-4">Venta Total Bruta por Producto</h3>
+                <div class="relative h-72 w-full">
+                    <canvas id="ventasChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Datos -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+            <div class="px-5 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                <h3 class="text-md font-semibold text-gray-700">Detalle de Registros</h3>
+                <span class="text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full" id="record-count">0 registros</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-100 border-b border-gray-200">
+                        <tr>
+                            <th scope="col" class="px-4 py-3">Fecha</th>
+                            <th scope="col" class="px-4 py-3">Producto</th>
+                            <th scope="col" class="px-4 py-3 text-right">Volumen (L)</th>
+                            <th scope="col" class="px-4 py-3 text-right">Precio/L</th>
+                            <th scope="col" class="px-4 py-3 text-right">Costo/L</th>
+                            <th scope="col" class="px-4 py-3 text-right font-bold text-gray-800">Venta Bruta</th>
+                            <th scope="col" class="px-4 py-3 text-right text-green-700">Margen Bruto</th>
+                            <th scope="col" class="px-4 py-3 text-center">Margen %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-gray-100">
+                        <!-- Filas generadas por JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const defaultCsvData = `Fecha,Producto,Volumen Vendido (L),Precio Venta por Litro (CLP),Costo por Litro (CLP),Venta Total Bruta (CLP),Venta Neta (CLP),Margen Bruto (CLP),Margen (%),Inventario Final (L)
+2026-03-01,Gasolina 93 Octanos,3500,1250,1050,4375000,3676471,701471,19.1,12000
+2026-03-01,Gasolina 95 Octanos,4200,1290,1080,5418000,4552941,882941,19.4,14500
+2026-03-01,Gasolina 97 Octanos,2100,1340,1110,2814000,2364706,483706,20.5,8500
+2026-03-01,Diésel Copec,6800,1080,910,7344000,6171429,1156429,18.7,21000
+2026-03-01,Lubricante Mobil 1 (L),45,12500,9200,562500,472689,58689,12.4,320
+2026-04-01,Gasolina 93 Octanos,3600,1260,1055,4536000,3811765,733765,19.2,11800
+2026-04-01,Gasolina 95 Octanos,4300,1300,1085,5590000,4697479,911479,19.4,14200
+2026-04-01,Gasolina 97 Octanos,2150,1350,1115,2902500,2439076,502076,20.6,8400
+2026-04-01,Diésel Copec,6900,1090,915,7521000,6320168,1186668,18.8,20800
+2026-04-01,Lubricante Mobil 1 (L),42,12600,9250,529200,444706,56206,12.6,315
+2026-05-01,Gasolina 93 Octanos,3650,1270,1060,4635500,3895378,746378,19.2,11600
+2026-05-01,Gasolina 95 Octanos,4350,1310,1090,5698500,4788655,927655,19.4,14100
+2026-05-01,Gasolina 97 Octanos,2200,1360,1120,2992000,2514286,518286,20.6,8300
+2026-05-01,Diésel Copec,7000,1100,920,7700000,6470588,1210588,18.7,20600
+2026-05-01,Lubricante Mobil 1 (L),44,12700,9300,558800,469580,60380,12.9,310
+2026-06-01,Gasolina 93 Octanos,3700,1280,1065,4736000,3979832,760832,19.1,11400
+2026-06-01,Gasolina 95 Octanos,4400,1320,1095,5808000,4880672,942672,19.3,13900
+2026-06-01,Gasolina 97 Octanos,2250,1370,1125,3082500,2590336,534086,20.6,8200
+2026-06-01,Diésel Copec,7100,1110,925,7881000,6622689,1234939,18.6,20400
+2026-06-01,Lubricante Mobil 1 (L),46,12800,9350,588800,494790,64690,13.1,305
+2026-07-01,Gasolina 93 Octanos,3800,1290,1070,4902000,4119328,754828,18.3,11200
+2026-07-01,Gasolina 95 Octanos,4500,1330,1100,5985000,5029412,954412,19.0,13700
+2026-07-01,Gasolina 97 Octanos,2300,1380,1130,3174000,2667227,547227,20.5,8100
+2026-07-01,Diésel Copec,7200,1120,930,8064000,6776471,1248471,18.4,20200
+2026-07-01,Lubricante Mobil 1 (L),48,12900,9400,619200,520336,69136,13.3,300
+2026-08-01,Gasolina 93 Octanos,3750,1300,1075,4875000,4096639,748889,18.3,11000
+2026-08-01,Gasolina 95 Octanos,4450,1340,1105,5963000,5010924,949824,19.0,13500
+2026-08-01,Gasolina 97 Octanos,2250,1390,1135,3127500,2628151,539901,20.5,8000
+2026-08-01,Diésel Copec,7150,1130,935,8079500,6789496,1248021,18.4,20100
+2026-08-01,Lubricante Mobil 1 (L),47,13000,9450,611000,513445,69395,13.5,295`;
+
+        let rawData = [];
+        let filteredData = [];
+
+        const formatCLP = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 }).format;
+        const formatNumber = new Intl.NumberFormat('es-CL', { maximumFractionDigits: 1 }).format;
+        
+        const productColors = {
+            'Gasolina 93 Octanos': { bg: 'rgba(239, 68, 68, 0.7)', border: 'rgb(239, 68, 68)' },
+            'Gasolina 95 Octanos': { bg: 'rgba(245, 158, 11, 0.7)', border: 'rgb(245, 158, 11)' },
+            'Gasolina 97 Octanos': { bg: 'rgba(16, 185, 129, 0.7)', border: 'rgb(16, 185, 129)' },
+            'Diésel Copec': { bg: 'rgba(59, 130, 246, 0.7)', border: 'rgb(59, 130, 246)' },
+            'Lubricante Mobil 1 (L)': { bg: 'rgba(139, 92, 246, 0.7)', border: 'rgb(139, 92, 246)' }
+        };
+
+        let chartVolumen = null;
+        let chartVentas = null;
+        let chartPie = null;
+
+        function initEvents() {
+            const dropZone = document.getElementById('drop-zone');
+            const fileInput = document.getElementById('file-input');
+
+            // Eventos de Drag & Drop
+            dropZone.addEventListener('click', () => fileInput.click());
+
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('bg-blue-50', 'border-blue-400');
+            });
+
+            dropZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('bg-blue-50', 'border-blue-400');
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('bg-blue-50', 'border-blue-400');
+                if (e.dataTransfer.files.length) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    handleFile(e.target.files[0]);
+                }
+            });
+
+            // Eventos de Filtros
+            document.getElementById('filter-product').addEventListener('change', applyFilters);
+            document.getElementById('filter-date-start').addEventListener('change', applyFilters);
+            document.getElementById('filter-date-end').addEventListener('change', applyFilters);
+            
+            document.getElementById('btn-reset').addEventListener('click', () => {
+                document.getElementById('filter-product').value = 'Todos';
+                if(rawData.length > 0) {
+                    const dates = rawData.map(d => String(d.Fecha)).sort();
+                    document.getElementById('filter-date-start').value = dates[0];
+                    document.getElementById('filter-date-end').value = dates[dates.length - 1];
+                }
+                applyFilters();
+            });
+        }
+
+        function handleFile(file) {
+            Papa.parse(file, {
+                header: true,
+                dynamicTyping: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    processParsedData(results.data);
+                }
+            });
+        }
+
+        function processParsedData(data) {
+            // Validamos que existan las columnas mínimas
+            rawData = data.filter(d => d.Fecha && d.Producto);
+            
+            if(rawData.length === 0) {
+                const dropText = document.getElementById('drop-text');
+                const origText = dropText.innerHTML;
+                dropText.innerHTML = '<span class="text-red-500 font-bold">Error: CSV no válido o vacío. Faltan columnas.</span>';
+                setTimeout(() => dropText.innerHTML = origText, 3500);
+                return;
+            }
+
+            // Actualizar opciones de productos basados en el nuevo archivo
+            const products = [...new Set(rawData.map(d => d.Producto))];
+            const productSelect = document.getElementById('filter-product');
+            productSelect.innerHTML = '<option value="Todos">Todos los Productos</option>';
+            products.forEach(p => {
+                const option = document.createElement('option');
+                option.value = p;
+                option.textContent = p;
+                productSelect.appendChild(option);
+            });
+
+            // Actualizar límites de fechas basados en el nuevo archivo
+            const dates = rawData.map(d => String(d.Fecha)).sort();
+            const minDate = dates[0];
+            const maxDate = dates[dates.length - 1];
+            
+            const dateStart = document.getElementById('filter-date-start');
+            const dateEnd = document.getElementById('filter-date-end');
+            
+            dateStart.min = minDate; dateStart.max = maxDate; dateStart.value = minDate;
+            dateEnd.min = minDate; dateEnd.max = maxDate; dateEnd.value = maxDate;
+
+            // Feedback visual de éxito
+            const dropText = document.getElementById('drop-text');
+            const origText = dropText.innerHTML;
+            dropText.innerHTML = '<span class="text-green-600 font-bold">¡Datos cargados y procesados con éxito!</span>';
+            setTimeout(() => dropText.innerHTML = origText, 3000);
+
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const product = document.getElementById('filter-product').value;
+            const startDate = document.getElementById('filter-date-start').value;
+            const endDate = document.getElementById('filter-date-end').value;
+
+            filteredData = rawData.filter(d => {
+                const rowDate = String(d.Fecha);
+                const passProduct = product === 'Todos' || d.Producto === product;
+                const passDate = (!startDate || rowDate >= startDate) && (!endDate || rowDate <= endDate);
+                return passProduct && passDate;
+            });
+
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            updateKPIs();
+            updateCharts();
+            updateTable();
+        }
+
+        function updateKPIs() {
+            const totalVenta = filteredData.reduce((sum, item) => sum + (item['Venta Total Bruta (CLP)'] || 0), 0);
+            const totalVolumen = filteredData.reduce((sum, item) => sum + (item['Volumen Vendido (L)'] || 0), 0);
+            
+            const totalMargenCLP = filteredData.reduce((sum, item) => sum + (item['Margen Bruto (CLP)'] || 0), 0);
+            const totalVentaNeta = filteredData.reduce((sum, item) => sum + (item['Venta Neta (CLP)'] || 0), 0);
+            const margenPromedio = totalVentaNeta > 0 ? (totalMargenCLP / totalVentaNeta) * 100 : 0;
+
+            document.getElementById('kpi-venta-total').textContent = formatCLP(totalVenta);
+            document.getElementById('kpi-volumen').textContent = formatNumber(totalVolumen) + ' L';
+            document.getElementById('kpi-margen').textContent = margenPromedio.toFixed(1) + '%';
+        }
+
+        function updateCharts() {
+            if (chartVolumen) chartVolumen.destroy();
+            if (chartVentas) chartVentas.destroy();
+            if (chartPie) chartPie.destroy();
+
+            const dates = [...new Set(filteredData.map(d => String(d.Fecha)))].sort();
+            const products = [...new Set(filteredData.map(d => d.Producto))];
+            
+            // --- GRÁFICO 1: LÍNEA ---
+            const datasetsVolumen = products.map(prod => {
+                const dataPoints = dates.map(date => {
+                    const record = filteredData.find(d => String(d.Fecha) === date && d.Producto === prod);
+                    return record ? record['Volumen Vendido (L)'] : 0;
+                });
+                return {
+                    label: prod,
+                    data: dataPoints,
+                    borderColor: productColors[prod]?.border || '#64748b',
+                    backgroundColor: productColors[prod]?.bg || '#64748b',
+                    tension: 0.3, fill: false, borderWidth: 2
+                };
+            });
+
+            const ctxVolumen = document.getElementById('volumenChart').getContext('2d');
+            chartVolumen = new Chart(ctxVolumen, {
+                type: 'line',
+                data: { labels: dates, datasets: datasetsVolumen },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: true, title: { display: true, text: 'Litros' } } }
+                }
+            });
+
+            // --- GRÁFICO 2: BARRAS ---
+            const ventasPorProducto = products.map(prod => {
+                return filteredData
+                    .filter(d => d.Producto === prod)
+                    .reduce((sum, d) => sum + (d['Venta Total Bruta (CLP)'] || 0), 0);
+            });
+
+            const backgroundColorsBar = products.map(p => productColors[p]?.bg || '#64748b');
+            const borderColorsBar = products.map(p => productColors[p]?.border || '#64748b');
+
+            const ctxVentas = document.getElementById('ventasChart').getContext('2d');
+            chartVentas = new Chart(ctxVentas, {
+                type: 'bar',
+                data: {
+                    labels: products,
+                    datasets: [{
+                        label: 'Venta Bruta Total (CLP)',
+                        data: ventasPorProducto,
+                        backgroundColor: backgroundColorsBar,
+                        borderColor: borderColorsBar,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: (context) => formatCLP(context.raw) } }
+                    },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+
+            // --- GRÁFICO 3: TORTA (POR MES) ---
+            const mesesNombres = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+            const ventasPorMes = {};
+            
+            filteredData.forEach(d => {
+                const dateStr = String(d.Fecha);
+                const dateParts = dateStr.split('-'); 
+                if(dateParts.length >= 2) {
+                    const mesIndex = parseInt(dateParts[1], 10) - 1;
+                    const mesStr = mesesNombres[mesIndex] + ' ' + dateParts[0];
+                    if (!ventasPorMes[mesStr]) ventasPorMes[mesStr] = 0;
+                    ventasPorMes[mesStr] += (d['Venta Total Bruta (CLP)'] || 0);
+                }
+            });
+
+            const labelsMeses = Object.keys(ventasPorMes);
+            const dataMeses = Object.values(ventasPorMes);
+            const pieColors = ['#E31837', '#002B7F', '#10B981', '#F59E0B', '#8B5CF6', '#3B82F6', '#EC4899', '#06B6D4', '#f43f5e', '#84cc16', '#14b8a6', '#f97316'];
+
+            const ctxMeses = document.getElementById('mesesChart').getContext('2d');
+            chartPie = new Chart(ctxMeses, {
+                type: 'pie',
+                data: {
+                    labels: labelsMeses,
+                    datasets: [{
+                        data: dataMeses,
+                        backgroundColor: pieColors.slice(0, labelsMeses.length),
+                        borderWidth: 1, borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: { callbacks: { label: (context) => ' ' + context.label + ': ' + formatCLP(context.raw) } }
+                    }
+                }
+            });
+        }
+
+        function updateTable() {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+            
+            document.getElementById('record-count').textContent = `${filteredData.length} registros`;
+
+            if (filteredData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="px-4 py-8 text-center text-gray-500">No hay datos para mostrar.</td></tr>`;
+                return;
+            }
+
+            const sortedData = [...filteredData].sort((a, b) => {
+                const dateA = String(a.Fecha);
+                const dateB = String(b.Fecha);
+                if(dateA === dateB) return a.Producto.localeCompare(b.Producto);
+                return dateB.localeCompare(dateA);
+            });
+
+            sortedData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-blue-50 transition";
+                
+                tr.innerHTML = `
+                    <td class="px-4 py-3 whitespace-nowrap">${row.Fecha}</td>
+                    <td class="px-4 py-3 font-medium text-gray-800">${row.Producto}</td>
+                    <td class="px-4 py-3 text-right">${formatNumber(row['Volumen Vendido (L)'] || 0)}</td>
+                    <td class="px-4 py-3 text-right">${formatCLP(row['Precio Venta por Litro (CLP)'] || 0)}</td>
+                    <td class="px-4 py-3 text-right text-gray-500">${formatCLP(row['Costo por Litro (CLP)'] || 0)}</td>
+                    <td class="px-4 py-3 text-right font-semibold text-gray-900">${formatCLP(row['Venta Total Bruta (CLP)'] || 0)}</td>
+                    <td class="px-4 py-3 text-right text-green-600 font-medium">${formatCLP(row['Margen Bruto (CLP)'] || 0)}</td>
+                    <td class="px-4 py-3 text-center">
+                        <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-bold">${(row['Margen (%)'] || 0)}%</span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        window.onload = () => {
+            initEvents();
+            
+            // Cargar datos por defecto al iniciar la web usando PapaParse
+            Papa.parse(defaultCsvData, {
+                header: true,
+                dynamicTyping: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    processParsedData(results.data);
+                }
+            });
+        };
+    </script>
+</body>
+</html>

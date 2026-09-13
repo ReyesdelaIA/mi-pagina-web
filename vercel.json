@@ -166,6 +166,10 @@
       "destination": "/panel-clientes/index.html"
     },
     {
+      "source": "/panel-copec",
+      "destination": "/panel-copec/index.html"
+    },
+    {
       "source": "/mentoria",
       "destination": "/panel-clientes/mentoria.html"
     },
