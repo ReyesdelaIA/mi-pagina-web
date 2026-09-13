@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Ventas Estación de Servicio Copec</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .copec-red { color: #E31837; }
+        .bg-copec-red { background-color: #E31837; }
+        .copec-blue { color: #002B7F; }
+        .bg-copec-blue { background-color: #002B7F; }
+        
+        /* Custom Scrollbar para la tabla */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-copec-blue text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <h1 class="text-xl font-bold tracking-tight">Estación de Servicio Copec</h1>
+                </div>
+                <div class="text-sm font-medium">Dashboard de Ventas Semestral</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Barra de estado de la conexion con la Google Sheet -->
+    <div class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-2 min-w-0">
+                <span id="status-dot" class="h-2.5 w-2.5 rounded-full bg-gray-300 flex-shrink-0"></span>
+                <span id="status-text" class="text-sm text-gray-600 truncate">Conectando con la hoja de cálculo...</span>
+            </div>
+            <button id="btn-refresh" class="flex items-center gap-1.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 disabled:opacity-50 border border-gray-300 rounded-lg px-3 py-1.5 transition flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Actualizar ahora
+            </button>
+        </div>
+    </div>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Controles de Filtros -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-6">
+            <h2 class="text-lg font-semibold mb-4 text-gray-700 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                Filtros de Datos
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Producto</label>
+                    <select id="filter-product" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none transition">
+                        <option value="Todos">Todos los Productos</option>
+                        <!-- Opciones generadas por JS -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Fecha Inicio</label>
+                    <input type="date" id="filter-date-start" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Fecha Fin</label>
+                    <input type="date" id="filter-date-end" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none transition">
+                </div>
+                <div class="flex items-end">
+                    <button id="btn-reset" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition border border-gray-300">
+                        Limpiar Filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjetas de Resumen (KPIs) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center">
+                <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Venta Total Bruta</p>
+                    <p class="text-2xl font-bold text-gray-800" id="kpi-venta-total">$0</p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center">
+                <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Volumen Vendido (L)</p>
+                    <p class="text-2xl font-bold text-gray-800" id="kpi-volumen">0 L</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center">
+                <div class="p-3 rounded-full bg-red-100 text-red-600 mr-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Margen Promedio (%)</p>
+                    <p class="text-2xl font-bold text-gray-800" id="kpi-margen">0%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Gráfico de Línea -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="text-md font-semibold text-gray-700 mb-4">Volumen Vendido a lo largo del tiempo</h3>
+                <div class="relative h-72 w-full">
+                    <canvas id="volumenChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Gráfico de Barras -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="text-md font-semibold text-gray-700 mb-4">Venta Total Bruta por Producto</h3>
+                <div class="relative h-72 w-full">
+                    <canvas id="ventasChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Datos -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+            <div class="px-5 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                <h3 class="text-md font-semibold text-gray-700">Detalle de Registros</h3>
+                <span class="text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full" id="record-count">0 registros</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-100 border-b border-gray-200">
+                        <tr>
+                            <th scope="col" class="px-4 py-3">Fecha</th>
+                            <th scope="col" class="px-4 py-3">Producto</th>
+                            <th scope="col" class="px-4 py-3 text-right">Volumen (L)</th>
+                            <th scope="col" class="px-4 py-3 text-right">Precio/L</th>
+                            <th scope="col" class="px-4 py-3 text-right">Costo/L</th>
+                            <th scope="col" class="px-4 py-3 text-right font-bold text-gray-800">Venta Bruta</th>
+                            <th scope="col" class="px-4 py-3 text-right text-green-700">Margen Bruto</th>
+                            <th scope="col" class="px-4 py-3 text-center">Margen %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-gray-100">
+                        <!-- Filas generadas por JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // =====================================================================
+        //  CONFIGURACION  -->  AQUI SE PEGA EL LINK DE LA GOOGLE SHEET
+        // =====================================================================
+        //  En la Google Sheet:  Archivo > Compartir > Publicar en la Web
+        //  Elegir la HOJA con los datos + formato "Valores separados por comas (.csv)"
+        //  Copiar el link que entrega Google y pegarlo aqui abajo, entre comillas.
+        const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSI2gTH1tTNA_Nprnhh7PzKpiwHHKSG88-XkfN8MmHq3z1c8SHT1JKKQ0bDHY4p3Eba4beG23x1quI2/pub?gid=1215354608&single=true&output=csv";
+
+        //  Cada cuantos segundos el dashboard revisa si hay datos nuevos (0 = nunca)
+        const AUTO_REFRESH_SEGUNDOS = 60;
+        // =====================================================================
+
+        let rawData = [];
+        let filteredData = [];
+
+        // --- Lectura del CSV publicado -------------------------------------
+        async function cargarDatos() {
+            if (!SHEET_CSV_URL || SHEET_CSV_URL.indexOf('PEGAR_AQUI') === 0) {
+                throw new Error('Falta pegar el link del CSV en la variable SHEET_CSV_URL.');
+            }
+            // El "?t=" evita que el navegador muestre una version vieja en cache
+            const url = SHEET_CSV_URL + (SHEET_CSV_URL.includes('?') ? '&' : '?') + 't=' + Date.now();
+            const resp = await fetch(url);
+            if (!resp.ok) throw new Error('Google respondio ' + resp.status + '. Revisa que la hoja este publicada.');
+            const texto = await resp.text();
+            if (texto.trim().toLowerCase().startsWith('<!doctype')) {
+                throw new Error('El link no devuelve un CSV. Revisa que el formato publicado sea .csv');
+            }
+            const datos = parseCSV(texto);
+            if (!datos.length) throw new Error('La hoja esta vacia o no tiene filas de datos.');
+            return datos;
+        }
+
+        // --- Parser de CSV (soporta campos con comillas y comas adentro) ----
+        function parseCSVRows(texto) {
+            const filas = [];
+            let fila = [], campo = '', dentroDeComillas = false;
+            const s = texto.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            for (let i = 0; i < s.length; i++) {
+                const c = s[i];
+                if (dentroDeComillas) {
+                    if (c === '"') {
+                        if (s[i + 1] === '"') { campo += '"'; i++; }
+                        else dentroDeComillas = false;
+                    } else campo += c;
+                } else if (c === '"') dentroDeComillas = true;
+                else if (c === ',') { fila.push(campo); campo = ''; }
+                else if (c === '\n') { fila.push(campo); filas.push(fila); fila = []; campo = ''; }
+                else campo += c;
+            }
+            if (campo !== '' || fila.length) { fila.push(campo); filas.push(fila); }
+            return filas.filter(f => f.some(v => String(v).trim() !== ''));
+        }
+
+        // Normaliza un encabezado para poder comparar sin tildes ni parentesis
+        function normalizarHeader(h) {
+            return String(h).toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9]/g, '');
+        }
+
+        // Nombres que el dashboard espera. Si en la planilla el titulo esta
+        // escrito distinto (mayusculas, tildes, sin parentesis) igual lo reconoce.
+        const COLUMNAS = [
+            'Fecha', 'Producto', 'Volumen Vendido (L)', 'Precio Venta por Litro (CLP)',
+            'Costo por Litro (CLP)', 'Venta Total Bruta (CLP)', 'Venta Neta (CLP)',
+            'Margen Bruto (CLP)', 'Margen (%)', 'Inventario Final (L)'
+        ];
+        const TEXTO = ['Fecha', 'Producto'];
+
+        function parseCSV(csv) {
+            const filas = parseCSVRows(csv);
+            const headers = filas[0].map(normalizarHeader);
+            const mapa = {};
+            COLUMNAS.forEach(col => {
+                const idx = headers.indexOf(normalizarHeader(col));
+                if (idx !== -1) mapa[col] = idx;
+            });
+            if (mapa['Fecha'] === undefined || mapa['Producto'] === undefined) {
+                throw new Error('La hoja debe tener al menos las columnas Fecha y Producto.');
+            }
+            return filas.slice(1).map(valores => {
+                const obj = {};
+                COLUMNAS.forEach(col => {
+                    const bruto = mapa[col] !== undefined ? valores[mapa[col]] : '';
+                    if (col === 'Fecha') obj[col] = normalizarFecha(bruto);
+                    else if (TEXTO.includes(col)) obj[col] = String(bruto || '').trim();
+                    else obj[col] = aNumero(bruto);
+                });
+                return obj;
+            }).filter(o => o.Fecha && o.Producto);
+        }
+
+        // Limpia numeros que vengan con $, %, puntos de miles o coma decimal
+        function aNumero(v) {
+            if (v === null || v === undefined || String(v).trim() === '') return 0;
+            let s = String(v).replace(/[$%\s]/g, '').replace(/\u00a0/g, '');
+            if (/,\d{1,2}$/.test(s)) s = s.replace(/\./g, '').replace(',', '.');      // 1.080,50  -> 1080.50
+            else if (/^-?\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');        // 7.344.000 -> 7344000
+            else s = s.replace(/,/g, '');                                              // 1,234,567 -> 1234567
+            const n = parseFloat(s);
+            return isNaN(n) ? 0 : n;
+        }
+
+        // Deja cualquier fecha en formato AAAA-MM-DD (que es con el que filtra el dashboard)
+        function normalizarFecha(v) {
+            const s = String(v || '').trim();
+            if (!s) return '';
+            const dosDigitos = n => String(n).padStart(2, '0');
+            let m = s.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/);
+            if (m) return m[1] + '-' + dosDigitos(m[2]) + '-' + dosDigitos(m[3]);
+            m = s.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})/);
+            if (m) return m[3] + '-' + dosDigitos(m[2]) + '-' + dosDigitos(m[1]);
+            const d = new Date(s);
+            if (!isNaN(d.getTime())) {
+                return d.getFullYear() + '-' + dosDigitos(d.getMonth() + 1) + '-' + dosDigitos(d.getDate());
+            }
+            return s;
+        }
+
+        // 3. Utilidades y Formateadores
+        const formatCLP = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 }).format;
+        const formatNumber = new Intl.NumberFormat('es-CL', { maximumFractionDigits: 1 }).format;
+        
+        // Colores consistentes para los productos
+        const productColors = {
+            'Gasolina 93 Octanos': { bg: 'rgba(239, 68, 68, 0.7)', border: 'rgb(239, 68, 68)' }, // Red
+            'Gasolina 95 Octanos': { bg: 'rgba(245, 158, 11, 0.7)', border: 'rgb(245, 158, 11)' }, // Amber/Yellow
+            'Gasolina 97 Octanos': { bg: 'rgba(16, 185, 129, 0.7)', border: 'rgb(16, 185, 129)' }, // Green
+            'Diésel Copec': { bg: 'rgba(59, 130, 246, 0.7)', border: 'rgb(59, 130, 246)' }, // Blue
+            'Lubricante Mobil 1 (L)': { bg: 'rgba(139, 92, 246, 0.7)', border: 'rgb(139, 92, 246)' } // Purple
+        };
+
+        // Variables Globales para Instancias de Chart.js
+        let chartVolumen = null;
+        let chartVentas = null;
+
+        // --- Estado visual de la conexion ----------------------------------
+        function setEstado(tipo, mensaje) {
+            const dot = document.getElementById('status-dot');
+            const txt = document.getElementById('status-text');
+            const colores = { ok: 'bg-green-500', cargando: 'bg-amber-400 animate-pulse', error: 'bg-red-500' };
+            dot.className = 'h-2.5 w-2.5 rounded-full flex-shrink-0 ' + (colores[tipo] || 'bg-gray-300');
+            txt.textContent = mensaje;
+            txt.className = tipo === 'error' ? 'text-red-600 font-medium' : 'text-gray-600';
+        }
+
+        function horaActual() {
+            return new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+
+        function poblarFiltros(mantenerSeleccion) {
+            const select = document.getElementById('filter-product');
+            const seleccionPrevia = mantenerSeleccion ? select.value : 'Todos';
+            select.innerHTML = '<option value="Todos">Todos los Productos</option>';
+            [...new Set(rawData.map(d => d.Producto))].forEach(p => {
+                const option = document.createElement('option');
+                option.value = p;
+                option.textContent = p;
+                select.appendChild(option);
+            });
+            select.value = [...select.options].some(o => o.value === seleccionPrevia) ? seleccionPrevia : 'Todos';
+
+            const fechas = rawData.map(d => d.Fecha).sort();
+            const minDate = fechas[0];
+            const maxDate = fechas[fechas.length - 1];
+            const inicio = document.getElementById('filter-date-start');
+            const fin = document.getElementById('filter-date-end');
+
+            // Si aparecen fechas nuevas en la planilla, se amplia el rango disponible
+            const conservarRango = mantenerSeleccion && inicio.value && fin.value;
+            inicio.min = minDate; inicio.max = maxDate;
+            fin.min = minDate; fin.max = maxDate;
+            if (!conservarRango) { inicio.value = minDate; fin.value = maxDate; }
+            else {
+                if (inicio.value < minDate) inicio.value = minDate;
+                if (fin.value < maxDate) fin.value = maxDate; // incluye los datos recien agregados
+            }
+            return { minDate, maxDate };
+        }
+
+        async function refrescar(esPrimeraCarga) {
+            const boton = document.getElementById('btn-refresh');
+            boton.disabled = true;
+            setEstado('cargando', esPrimeraCarga ? 'Leyendo la hoja de cálculo...' : 'Buscando datos nuevos...');
+            try {
+                rawData = await cargarDatos();
+                poblarFiltros(!esPrimeraCarga);
+                applyFilters();
+                setEstado('ok', 'Conectado a la hoja de cálculo · ' + rawData.length + ' filas · actualizado a las ' + horaActual());
+            } catch (e) {
+                setEstado('error', 'No se pudieron cargar los datos: ' + e.message);
+                console.error(e);
+            } finally {
+                boton.disabled = false;
+            }
+        }
+
+        async function initDashboard() {
+            document.getElementById('filter-product').addEventListener('change', applyFilters);
+            document.getElementById('filter-date-start').addEventListener('change', applyFilters);
+            document.getElementById('filter-date-end').addEventListener('change', applyFilters);
+
+            document.getElementById('btn-reset').addEventListener('click', () => {
+                poblarFiltros(false);
+                applyFilters();
+            });
+
+            document.getElementById('btn-refresh').addEventListener('click', () => refrescar(false));
+
+            await refrescar(true);
+
+            if (AUTO_REFRESH_SEGUNDOS > 0) {
+                setInterval(() => refrescar(false), AUTO_REFRESH_SEGUNDOS * 1000);
+            }
+        }
+
+        function applyFilters() {
+            const product = document.getElementById('filter-product').value;
+            const startDate = document.getElementById('filter-date-start').value;
+            const endDate = document.getElementById('filter-date-end').value;
+
+            filteredData = rawData.filter(d => {
+                const passProduct = product === 'Todos' || d.Producto === product;
+                const passDate = d.Fecha >= startDate && d.Fecha <= endDate;
+                return passProduct && passDate;
+            });
+
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            updateKPIs();
+            updateCharts();
+            updateTable();
+        }
+
+        function updateKPIs() {
+            const totalVenta = filteredData.reduce((sum, item) => sum + item['Venta Total Bruta (CLP)'], 0);
+            const totalVolumen = filteredData.reduce((sum, item) => sum + item['Volumen Vendido (L)'], 0);
+            
+            // Promedio ponderado de margen
+            const totalMargenCLP = filteredData.reduce((sum, item) => sum + item['Margen Bruto (CLP)'], 0);
+            const totalVentaNeta = filteredData.reduce((sum, item) => sum + item['Venta Neta (CLP)'], 0);
+            const margenPromedio = totalVentaNeta > 0 ? (totalMargenCLP / totalVentaNeta) * 100 : 0;
+
+            document.getElementById('kpi-venta-total').textContent = formatCLP(totalVenta);
+            document.getElementById('kpi-volumen').textContent = formatNumber(totalVolumen) + ' L';
+            document.getElementById('kpi-margen').textContent = margenPromedio.toFixed(1) + '%';
+        }
+
+        function updateCharts() {
+            // Destruir gráficos anteriores si existen
+            if (chartVolumen) chartVolumen.destroy();
+            if (chartVentas) chartVentas.destroy();
+
+            // Preparar Datos para Gráfico de Líneas (Volumen por Fecha y Producto)
+            const dates = [...new Set(filteredData.map(d => d.Fecha))].sort();
+            const products = [...new Set(filteredData.map(d => d.Producto))];
+            
+            const datasetsVolumen = products.map(prod => {
+                const dataPoints = dates.map(date => {
+                    const record = filteredData.find(d => d.Fecha === date && d.Producto === prod);
+                    return record ? record['Volumen Vendido (L)'] : 0;
+                });
+                return {
+                    label: prod,
+                    data: dataPoints,
+                    borderColor: productColors[prod]?.border || '#333',
+                    backgroundColor: productColors[prod]?.bg || '#333',
+                    tension: 0.3,
+                    fill: false,
+                    borderWidth: 2
+                };
+            });
+
+            const ctxVolumen = document.getElementById('volumenChart').getContext('2d');
+            chartVolumen = new Chart(ctxVolumen, {
+                type: 'line',
+                data: { labels: dates, datasets: datasetsVolumen },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: true, title: { display: true, text: 'Litros' } } }
+                }
+            });
+
+            // Preparar Datos para Gráfico de Barras (Ventas Totales Agrupadas por Producto)
+            const ventasPorProducto = products.map(prod => {
+                return filteredData
+                    .filter(d => d.Producto === prod)
+                    .reduce((sum, d) => sum + d['Venta Total Bruta (CLP)'], 0);
+            });
+
+            const backgroundColorsBar = products.map(p => productColors[p]?.bg || '#333');
+            const borderColorsBar = products.map(p => productColors[p]?.border || '#333');
+
+            const ctxVentas = document.getElementById('ventasChart').getContext('2d');
+            chartVentas = new Chart(ctxVentas, {
+                type: 'bar',
+                data: {
+                    labels: products,
+                    datasets: [{
+                        label: 'Venta Bruta Total (CLP)',
+                        data: ventasPorProducto,
+                        backgroundColor: backgroundColorsBar,
+                        borderColor: borderColorsBar,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return formatCLP(context.raw);
+                                }
+                            }
+                        }
+                    },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
+        function updateTable() {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+            
+            document.getElementById('record-count').textContent = `${filteredData.length} registros`;
+
+            if (filteredData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="px-4 py-8 text-center text-gray-500">No se encontraron datos para los filtros seleccionados.</td></tr>`;
+                return;
+            }
+
+            // Ordenar por fecha desc, luego producto
+            const sortedData = [...filteredData].sort((a, b) => {
+                if(a.Fecha === b.Fecha) return a.Producto.localeCompare(b.Producto);
+                return b.Fecha.localeCompare(a.Fecha);
+            });
+
+            sortedData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-blue-50 transition";
+                
+                tr.innerHTML = `
+                    <td class="px-4 py-3 whitespace-nowrap">${row.Fecha}</td>
+                    <td class="px-4 py-3 font-medium text-gray-800">${row.Producto}</td>
+                    <td class="px-4 py-3 text-right">${formatNumber(row['Volumen Vendido (L)'])}</td>
+                    <td class="px-4 py-3 text-right">${formatCLP(row['Precio Venta por Litro (CLP)'])}</td>
+                    <td class="px-4 py-3 text-right text-gray-500">${formatCLP(row['Costo por Litro (CLP)'])}</td>
+                    <td class="px-4 py-3 text-right font-semibold text-gray-900">${formatCLP(row['Venta Total Bruta (CLP)'])}</td>
+                    <td class="px-4 py-3 text-right text-green-600 font-medium">${formatCLP(row['Margen Bruto (CLP)'])}</td>
+                    <td class="px-4 py-3 text-center">
+                        <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-bold">${row['Margen (%)']}%</span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Iniciar la aplicación cuando cargue la página
+        window.onload = initDashboard;
+    </script>
+</body>
+</html>
