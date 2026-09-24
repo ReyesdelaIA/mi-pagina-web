@@ -1,10 +1,11 @@
 {
   "id": "agentes-basicos",
-  "nombre": "Agentes básicos en Copilot",
+  "nombre": "Agentes: la versión básica",
   "habilidad": "Crear agentes",
   "emoji": "🛠️",
-  "descripcion": "Cómo construirlos, cargarles conocimiento y darles instrucciones",
+  "descripcion": "Qué es un agente, cuándo lo necesitas y cómo construir el tuyo",
   "categoria": "agentes",
+  "portada": "portada.webp",
   "tags": [
     "agentes",
     "copilot",
@@ -12,19 +13,48 @@
     "creacion"
   ],
   "pasos": [
-    "¿Qué es un agente? Un asistente de IA que configuras una sola vez con instrucciones y conocimiento específico, y luego repite esa lógica automáticamente cada vez que lo usas.",
-    "Cómo crearlo: En el panel izquierdo de Copilot, haz clic en \"Nuevo agente\" . Asígnale un nombre, define su propósito y escribe las instrucciones que guiarán su comportamiento.",
-    "Lógica Input → Output: El agente recibe documentos, correos o datos como input, los procesa según su configuración y entrega outputs listos: resúmenes, reportes, respuestas, tablas.",
-    "Cargarle conocimiento: En la sección \"Conocimiento\" , conecta las fuentes que el agente usará: archivos de SharePoint, reuniones de Teams, correos de Outlook o sitios web."
+    {
+      "titulo": "Qué es un agente y cuándo lo necesitas",
+      "texto": "Un agente es un asistente de IA que configuras una sola vez —con un propósito, instrucciones y conocimiento— y que después repite esa lógica automáticamente cada vez que lo usas."
+    },
+    {
+      "texto": "La diferencia con un chat es simple: el chat empieza de cero cada vez y tú le explicas todo. El agente ya sabe quién es, qué formato tiene que entregar y de dónde sacar la información."
+    },
+    {
+      "texto": "La lógica es siempre input → output. El agente recibe documentos, correos o datos, los procesa según su configuración y entrega algo listo: un resumen, un reporte, una tabla, una respuesta.",
+      "img": "03-input-output.webp"
+    },
+    {
+      "texto": "La señal de que necesitas uno: si llevas semanas escribiendo el mismo prompt largo con las mismas instrucciones, eso ya no es un chat, es un procedimiento. Y los procedimientos se configuran una vez, no se reescriben cada semana."
+    },
+    {
+      "titulo": "Cómo crear el tuyo",
+      "texto": "En el panel izquierdo de Copilot, haz clic en «Nuevo agente». Ahí tienes dos caminos: crearlo con el asistente de Copilot, donde le describes con tus palabras qué quieres que haga y él lo arma contigo, o apretar «Omitir» y configurarlo tú mismo, parámetro por parámetro. Lejos lo más fácil es partir con el asistente.",
+      "img": "05-nuevo-agente.webp"
+    },
+    {
+      "texto": "Después vienen las instrucciones, que son lo que de verdad define su comportamiento: quién es, el procedimiento que sigue paso a paso, el formato exacto de salida y qué NO debe hacer. Si te cuesta partir, pídeselas a Copilot en otro chat y después las ajustas."
+    },
+    {
+      "texto": "En la sección «Conocimiento» le cargas las fuentes específicas que va a usar: archivos, sitios de SharePoint o páginas web. Y además, ahora lo puedes conectar con todo tu entorno Microsoft: más abajo, en «Contenido de trabajo», enciende los botones de Archivos en la nube, Outlook y Teams, y si quieres también la Búsqueda en la Web. Así el agente trabaja con tus correos, tus reuniones y tus documentos reales, y no con lo que el modelo se imagina.",
+      "img": "07-conocimiento.webp"
+    },
+    {
+      "texto": "Y lo último, que es lo que casi todos se saltan: pruébalo con un caso real y ajusta las instrucciones según lo que salió mal. Un agente no se termina de escribir el día que lo creas."
+    }
   ],
   "pro_tip": "Las instrucciones del agente son como un prompt permanente, pero eso no significa que estén escritas en piedra. Puedes — y debes — ir ecualizándolas e iterándolas cada vez que quieras. Lo bueno es ir mejorando al agente en la medida que lo vas conociendo: a más uso, más claro tienes qué funciona y qué ajustar.",
   "desafio": null,
   "assets": [
+    "portada.webp",
     "cover.jpg",
     "paso1.jpg",
     "paso2.jpg",
     "cover_v2.jpg",
-    "paso1_v2.jpg"
+    "paso1_v2.jpg",
+    "03-input-output.webp",
+    "05-nuevo-agente.webp",
+    "07-conocimiento.webp"
   ],
   "assets_github": [
     "https://reyesia.com/bloques/agentes-basicos/cover.jpg",

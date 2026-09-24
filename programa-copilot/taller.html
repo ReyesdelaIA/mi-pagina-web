@@ -49,6 +49,10 @@
     /* Cintillo del bloque: arte propio que va bajo el título, sin recuadro */
     .c-banner { margin:0 0 20px; max-width:560px; }
     .c-banner img { width:100%; display:block; }
+    /* Sello de aviso arriba del título (ej: solo disponible en Copilot Premium) */
+    .sello { display:inline-flex; align-items:center; gap:6px; padding:7px 14px; margin-bottom:14px;
+      border-radius:999px; background:#fdf3d7; border:1px solid #e9c46a; color:#8a5a00;
+      font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; }
     .c-nombre { font-size:30px; font-weight:800; color:var(--ink); line-height:1.15; margin-bottom:12px; letter-spacing:-.4px; }
     .c-desc { font-size:16px; color:#4B5563; line-height:1.7; margin-bottom:30px; max-width:70ch; }
 
@@ -62,6 +66,7 @@
     .paso-img img { width:100%; display:block; }
     /* Capturas verticales: a todo el ancho se verían estiradas */
     .paso-img.angosta { max-width:420px; margin-left:auto; margin-right:auto; }
+    .paso-img.media { max-width:620px; margin-left:auto; margin-right:auto; }
 
     /* Dos capturas verticales al mismo nivel: la navegación de «anda acá y
        después acá» se lee de un vistazo, sin obligar a bajar dos pantallas. */
@@ -345,6 +350,7 @@
     const encabezado = `
       <div class="paso-n">${SUELTO ? 'Bloque' : 'Concepto'} ${r.ci + 1} de ${taller.conceptos.length}${
         r.partes > 1 ? ` · parte ${r.parte} de ${r.partes}` : ''}</div>
+      ${r.parte === 1 && b.sello ? `<div class="sello">★ ${esc(b.sello)}</div>` : ''}
       <h1 class="c-nombre">${esc(tituloPantalla || b.nombre)}</h1>
       ${r.parte === 1 && b.banner ? `<figure class="c-banner"><img src="/bloques/${r.id}/${b.banner}" alt="" /></figure>` : ''}
       ${r.parte === 1 ? `<p class="c-desc">${esc(b.descripcion)}</p>` : ''}`;
@@ -374,7 +380,7 @@
         ? `<div class="paso-duo">${o.imgs.map(f =>
             `<figure class="paso-img"><img src="/bloques/${r.id}/${f}" alt="" /></figure>`).join('')}</div>`
         : '';
-      const img = o.img ? `<figure class="paso-img${o.angosta ? ' angosta' : ''}"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>` : '';
+      const img = o.img ? `<figure class="paso-img${o.angosta ? ' angosta' : (o.media ? ' media' : '')}"><img src="/bloques/${r.id}/${o.img}" alt="" /></figure>` : '';
       return `${sec}<div class="paso-item"><span class="num">${o._n}</span><span>${esc(o.texto)}</span></div>${duo}${img}`;
     }).join('');
 

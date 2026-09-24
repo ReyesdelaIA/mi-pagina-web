@@ -96,8 +96,7 @@ const TALLERES = [
     title: "Agentes y cierre del programa",
     dur: "2 hrs · Presencial · Hands-On",
     resumen: "El salto de conversar a delegar: agentes propios, entregables vivos y el mapa completo de las cuatro sesiones.",
-    conceptos: ["intro-agentes-copilot", "agentes-basicos", "html-con-copilot", "artefactos-copilot", "repaso-programa", "cierre-programa"],
-    proximamente: true,
+    conceptos: ["agentes-basicos", "intro-agentes-copilot", "html-con-copilot", "artefactos-copilot", "resumen-programa-copilot"],
     desafio: {
       titulo: "Tu primer agente propio",
       intro: "Piensa en una tarea o dolor recurrente de tu día a día y construye un agente para resolverlo.",
@@ -116,7 +115,7 @@ const TALLERES = [
       { q: "¿Cuál es la señal más clara de que una tarea merece un agente y no un chat?", opts: ["Que sea una tarea difícil", "Que lleves semanas escribiendo el mismo prompt largo con las mismas instrucciones", "Que involucre muchos archivos", "Que la haga más de una persona del equipo"], correct: 1, explain: "Si repites el mismo prompt cada semana, eso ya no es una conversación: es un procedimiento. Y los procedimientos se configuran una sola vez en vez de reescribirse." },
       { q: "De los dos agentes que Copilot trae de fábrica, ¿cuál usarías para preparar una reunión con inteligencia de cliente?", opts: ["El Analista, porque cruza datos", "El Investigador, porque navega y sintetiza fuentes internas y externas con citas", "Ninguno: hay que construir uno propio", "Cualquiera de los dos da lo mismo"], correct: 1, explain: "El Investigador navega de forma autónoma y combina lo externo (web) con lo interno (correos, reuniones, archivos), entregando un informe con fuentes. El Analista es para cruzar números de archivos que ya tienes." },
       { q: "Armaste un dashboard en HTML y se lo quieres mandar a alguien por correo, sin adjuntos extra ni instrucciones. ¿Qué nivel de la escalera necesitas?", opts: ["Nivel 1: el HTML con el Excel aparte", "Nivel 3: los datos incrustados dentro del propio archivo", "Nivel 5: conectado a datos en vivo", "Ninguno: un HTML no se puede compartir"], correct: 1, explain: "En el nivel 3 los datos quedan embebidos dentro del HTML: es un único archivo autosuficiente que se abre en cualquier navegador. El nivel 1 obliga a mandar el Excel aparte, y el 5 es innecesario si los datos no cambian solos." },
-      { q: "¿Cuál es la diferencia entre dejar una respuesta en el chat y convertirla en artefacto?", opts: ["El artefacto se ve con mejores colores", "El artefacto queda como entregable editable y compartible, y sigue conectado a Copilot para seguir trabajándolo", "El artefacto se guarda con contraseña", "No hay diferencia real, solo cambia dónde aparece"], correct: 1, explain: "La respuesta de chat se pierde en el scroll. El artefacto queda como documento: lo editas tú, lo comparten otros con un link, y le puedes seguir pidiendo cambios a Copilot sin volver a explicarle el contexto." }
+      { q: "Copilot te generó un artefacto y te lo dejó guardado en OneDrive. ¿Qué te conviene hacer?", opts: ["Revisarlo en la vista previa de SharePoint, que es lo más rápido", "Descargarlo y abrirlo en tu computador, de manera local", "Pedirle a Copilot que lo vuelva a generar hasta que la vista previa salga bien", "Copiar el contenido y pegarlo en un Word"], correct: 1, explain: "La vista previa en SharePoint normalmente sale incompleta y con errores. Para ver el artefacto tal como quedó de verdad, descárgalo y ábrelo en tu computador." }
     ]
   }
 ];

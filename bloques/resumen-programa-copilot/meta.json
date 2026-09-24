@@ -1,0 +1,74 @@
+{
+  "id": "resumen-programa-copilot",
+  "nombre": "Resumen ejecutivo del programa",
+  "habilidad": "Visión completa del programa",
+  "emoji": "🎓",
+  "descripcion": "Lo más importante de las sesiones anteriores en una sola lectura: lo que tienes que llevarte sí o sí.",
+  "categoria": "copilot",
+  "tags": [
+    "copilot",
+    "resumen",
+    "cierre"
+  ],
+  "pasos": [
+    {
+      "titulo": "Sesión 1 · Iniciación al uso de IA",
+      "texto": "La IA no reemplaza personas, pero las personas que la ocupan sí reemplazan a las que no. Es un complemento impresionante y un pésimo reemplazo: te ahorra hasta cuatro quintos del tiempo en tareas monótonas, pero el criterio sigue siendo tuyo."
+    },
+    {
+      "texto": "Las 3 reglas de oro del prompt: dar suficiente contexto, darle cierta estructura (tarea, contexto, ejemplos, rol y formato) e iterar. Si te quedaste con la primera respuesta, la estás ocupando mal.",
+      "img": "s1-reglas-prompt.webp",
+      "angosta": true
+    },
+    {
+      "texto": "Todo lo que le pides a una IA cae en cuatro esferas: Redacción, Internet, Análisis y Multimedia. La más usada es Internet; la más poderosa es Análisis — cargarle tus PDF, Excel y documentos de trabajo.",
+      "img": "s1-cuatro-esferas.webp",
+      "angosta": true
+    },
+    {
+      "texto": "Las cuentas corporativas son confidenciales, pero la IA alucina: verifica cifras, nombres y fechas. Y ante un audio o video sospechoso pidiéndote dinero, haz una pregunta que solo esa persona pueda responder."
+    },
+    {
+      "titulo": "Sesión 2 · Copilot en tu día a día",
+      "texto": "Copilot no es un modelo de lenguaje: es el ecosistema de IA de Microsoft, y usa por dentro modelos de OpenAI y de Anthropic. Su gracia es que se conecta con todo tu entorno de trabajo."
+    },
+    {
+      "texto": "El interruptor más importante es el modo Work: ahí Copilot ve tus archivos, correos y reuniones. Si la pregunta tiene que ver con tu trabajo, va en modo Work. Y un Nuevo chat por cada tema.",
+      "img": "s2-modo-work.webp",
+      "angosta": true
+    },
+    {
+      "texto": "Ayúdale a conocerte: enciende la memoria y dile «Memoriza lo siguiente». Dicta en vez de escribir — mientras más le hablas, mejor te responde — y usa el modo de voz para pensar en voz alta."
+    },
+    {
+      "texto": "Crear es para el mundo visual; los Cuadernos, para conversar solo con los documentos de un proyecto, con respuestas aterrizadas y con citas."
+    },
+    {
+      "titulo": "Sesión 3 · Copilot dentro de M365",
+      "texto": "El mismo Copilot vive dentro de Word, PowerPoint, Excel, Outlook, Teams y SharePoint, y conoce tu contexto corporativo. Esa es la diferencia con cualquier chat externo.",
+      "img": "s3-copilot-m365.webp",
+      "angosta": true
+    },
+    {
+      "texto": "Word redacta desde cero o mejora lo que ya tienes. PowerPoint arma una presentación completa a partir de un prompt o, mejor aún, de un documento de Word."
+    },
+    {
+      "texto": "En Excel, el orden manda: datos formateados como Tabla, sin celdas combinadas ni imágenes incrustadas, y le preguntas en español. Outlook resume y redacta con tu estilo; Teams te entrega la minuta con tareas y responsables si activas la transcripción."
+    },
+    {
+      "texto": "Sobre SharePoint y OneDrive, Copilot busca, resume y cruza varios documentos a la vez. Ya no buscas archivos: le preguntas por ellos."
+    },
+    {
+      "titulo": "Y ahora, a delegar",
+      "texto": "En esta sesión diste el último salto: de conversar con la IA a delegarle trabajo con agentes. El consejo final es el mismo del primer día: empieza HOY, con una sola tarea tuya, y no esperes a sentir que ya lo dominas."
+    }
+  ],
+  "pro_tip": "Este portal queda disponible: vuelve a cualquier sesión cuando lo necesites, repasa un concepto suelto o rehaz un desafío. Lo que no se usa en las próximas dos semanas se olvida.",
+  "desafio": null,
+  "assets": [
+    "s1-reglas-prompt.webp",
+    "s1-cuatro-esferas.webp",
+    "s2-modo-work.webp",
+    "s3-copilot-m365.webp"
+  ]
+}
