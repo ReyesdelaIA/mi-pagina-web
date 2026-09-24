@@ -69,7 +69,6 @@ const TALLERES = [
     dur: "2 hrs · Presencial · Hands-On",
     resumen: "Copilot metido en las herramientas donde ya trabajas: Word, PowerPoint, Excel, Outlook, Teams y SharePoint.",
     conceptos: ["copilot-m365-hub", "copilot-word", "copilot-powerpoint", "copilot-excel", "copilot-outlook", "copilot-teams", "copilot-sharepoint"],
-    proximamente: true,
     desafio: {
       titulo: "El flujo Pro: de datos crudos a presentación lista",
       intro: "Sin salir de M365, haz el recorrido completo con datos reales de tu área.",
