@@ -10,9 +10,29 @@
     "confiabilidad",
     "prompting"
   ],
-  "pasos": [],
+  "pasos": [
+    {
+      "titulo": "Por qué la IA inventa",
+      "texto": "La IA no busca la verdad: predice la respuesta más probable. Cuando no sabe algo no se queda callada — completa con lo que suena bien, y lo dice con total seguridad. Eso es una alucinación, y no se puede eliminar al 100%: solo reducir.",
+      "img": "cover.jpg"
+    },
+    "Dale contexto. Mientras más información real le entregues, menos espacio le queda para rellenar. La mayoría de las alucinaciones nacen de un prompt corto.",
+    "Súbele tus documentos. Cuando responde a partir de tus archivos —un Cuaderno de Copilot, un Proyecto de Claude, un PDF adjunto— deja de inventar y empieza a citar. Pídele que te diga de qué parte del documento sacó cada dato.",
+    "Exígele un nivel de confianza. Dile explícitamente que responda solo si está seguro y que, si duda, te diga «no sé». Ese permiso para no saber cambia mucho el resultado.",
+    "Usa el razonamiento. Los modelos que piensan antes de responder —el Pensamiento o un modelo más capaz en Claude, el modo de razonamiento en Copilot— alucinan menos en tareas complejas, porque se revisan a sí mismos.",
+    "Revisión humana, siempre. Cifras, nombres, fechas, normas y citas se verifican antes de mandarlas. En temas recientes pídele las fuentes y ábrelas. La IA no reemplaza tu criterio.",
+    {
+      "corte": true,
+      "titulo": "El prompt defensivo",
+      "texto": "Agrega esta frase al final de cualquier prompt donde un error tenga consecuencias: «Responde solo si tienes al menos 90% de seguridad. Si no estás seguro, dímelo claramente en vez de inventar.» Y si la quieres siempre, déjala en las instrucciones de tu Proyecto."
+    },
+    "Un truco extra: pídele a otra conversación —o a otro modelo— que revise la respuesta buscando errores. Es mucho más fácil detectar una invención que no producirla."
+  ],
   "pro_tip": "«Responde solo si tienes al menos 90% de seguridad. Si no estás seguro, dímelo claramente en vez de inventar.»",
-  "desafio": null,
+  "desafio": {
+    "enunciado": "Hazle a la IA una pregunta muy específica de tu área cuya respuesta conozcas exacta —una norma, una cifra de tu empresa, un dato técnico—. Primero sin nada; después con el prompt defensivo y un documento adjunto. Compara y anota dónde inventó.",
+    "prompt": "[TU PREGUNTA]. Responde solo si tienes al menos 90% de seguridad. Si no estás seguro de algún dato, dímelo claramente en vez de inventar, y para cada cifra o afirmación indícame de dónde la sacaste."
+  },
   "assets": [
     "cover.jpg"
   ],
@@ -26,5 +46,6 @@
       "imgs": 1,
       "variant": 0
     }
-  ]
+  ],
+  "habilidad": "Verificar lo que importa"
 }

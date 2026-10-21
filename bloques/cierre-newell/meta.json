@@ -1,0 +1,57 @@
+{
+  "id": "cierre-newell",
+  "nombre": "Cierre del programa",
+  "habilidad": "Plan de adopción",
+  "emoji": "🏁",
+  "descripcion": "Qué hacer el lunes: los hábitos que sostienen lo aprendido y el plan para que esto no se quede en el taller.",
+  "categoria": "cierre",
+  "tags": [
+    "cierre",
+    "hábitos",
+    "plan"
+  ],
+  "pasos": [
+    {
+      "titulo": "El problema real no es aprender",
+      "texto": "Lo que hace que un programa como este se pierda no es la dificultad: es el olvido. A las dos semanas, quien no incorporó un hábito vuelve exactamente a como trabajaba antes."
+    },
+    "La curva de aprendizaje real es de meses, no de horas. Los que parten ahora van a estar dos años adelante de los que esperen a que «sea más fácil».",
+    "Por eso el cierre no es un resumen: es un compromiso concreto sobre qué vas a hacer distinto la próxima semana.",
+    {
+      "corte": true,
+      "titulo": "Los cinco hábitos que sostienen todo",
+      "texto": "1. Abrir la IA antes de empezar la tarea, no después de haber peleado media hora con ella. La barrera más grande no es aprender a usarla: es acordarse de que existe cuando estás apurado."
+    },
+    "2. Un chat por tema, y un Cuaderno o un Proyecto para los temas que se repiten. En Copilot, siempre en modo Work.",
+    "3. Dictar en vez de escribir cuando el contexto es largo. El prompt corto casi nunca es por falta de tiempo: es por flojera de tipear.",
+    "4. Iterar mínimo dos veces. Si te quedaste con la primera respuesta, la estás ocupando mal.",
+    "5. Verificar lo que importa. Cifras, nombres, fechas y normas se comprueban antes de mandarlas. Tu criterio profesional sigue siendo tuyo.",
+    {
+      "corte": true,
+      "titulo": "Tu plan para las próximas semanas",
+      "texto": "Semana 1 — Elige UNA tarea recurrente tuya y hazla con IA todos los días de esa semana. Una sola. La tentación de cambiar todo a la vez es la razón número uno por la que no cambia nada."
+    },
+    "Semana 2 — Arma el Cuaderno de Copilot o el Proyecto de Claude del tema en el que más trabajas, con sus documentos clave.",
+    "Semana 3 — Convierte la tarea de la semana 1 en un agente de Copilot o en una Skill de Claude. Si ya la hiciste cinco veces, sabes exactamente qué instrucciones darle.",
+    "Semana 4 — Muéstrale a alguien de tu equipo lo que armaste. Enseñar es lo que fija el aprendizaje, y es también como esto deja de ser tuyo y pasa a ser del área.",
+    {
+      "corte": true,
+      "titulo": "Dónde seguir",
+      "texto": "Este portal queda disponible: puedes volver a cualquier sesión, repasar un concepto suelto o rehacer un desafío cuando lo necesites."
+    },
+    "El consejo final es el mismo del primer día: empieza HOY. No esperes a sentir que ya la dominas, no esperes a que la empresa la implemente, no esperes a que sea más fácil.",
+    "Gracias por el taller inicial y estas ocho sesiones. — Felipe Reyes · Reyes IA"
+  ],
+  "pro_tip": "Agenda ahora mismo, en tu calendario, 20 minutos a la semana llamados «probar algo con IA». Lo que no está en el calendario no ocurre, y esta es la diferencia entre haber hecho un taller y haber cambiado la forma en que trabajas.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "bloques/cierre-programa (adaptado al programa Newell de 8 sesiones)",
+      "title": "Cierre del programa",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}

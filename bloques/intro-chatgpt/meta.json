@@ -1,0 +1,25 @@
+{
+  "id": "intro-chatgpt",
+  "nombre": "Intro a ChatGPT",
+  "habilidad": "ChatGPT como estudio creativo",
+  "emoji": "💬",
+  "descripcion": "ChatGPT como tu estudio multimedia: chat, modelos, imágenes, voz, video, GPTs y apps conectadas.",
+  "categoria": "multimedia",
+  "tags": ["chatgpt", "multimedia", "gpts", "apps"],
+  "pasos": [
+    {"titulo": "Qué es y por qué en esta sesión", "texto": "ChatGPT es el asistente de OpenAI y hoy es la puerta de entrada más completa a la creación multimedia: en un mismo lugar escribes, generas imágenes, conversas por voz y llegas al video. Por eso esta sesión parte acá."},
+    "Entras desde chatgpt.com, la app de escritorio o la app del celular, con la misma cuenta en todas partes. Las mismas reglas de siempre aplican: un chat por tema, harto contexto e iterar mínimo dos veces.",
+    "En el selector de modelo eliges entre respuestas rápidas y modelos que piensan antes de responder. Igual que en Claude: rápido para lo simple, razonamiento para lo que tiene consecuencias.",
+    {"corte": true, "titulo": "Lo multimedia", "texto": "Imágenes: le pides una imagen en el mismo chat, o le subes una foto tuya como referencia y la transformas. Es la herramienta que vamos a ocupar en el concepto de Imágenes Pro."},
+    "Voz: el modo de voz es una conversación hablada de ida y vuelta, ideal para pensar en voz alta o practicar una presentación.",
+    "Video: con Sora, de OpenAI, generas video desde texto o desde una imagen. Lo vemos más a fondo en el concepto de Videos con IA.",
+    {"corte": true, "titulo": "Los complementos", "texto": "Los GPTs son versiones de ChatGPT configuradas para una tarea: instrucciones, conocimiento y estilo fijos. Hay miles hechos por otros en la tienda de GPTs, y puedes crear el tuyo, igual que un agente de Copilot o una Skill de Claude."},
+    "Las apps y conectores unen ChatGPT con tus herramientas —Drive, correo, calendario, Canva y otras— para que trabaje directo sobre lo que hay ahí, sin copiar y pegar.",
+    "Y los Proyectos agrupan chats y archivos de un mismo tema con instrucciones propias: el mismo hábito de los Proyectos de Claude."
+  ],
+  "pro_tip": "No te cases con una sola herramienta: usa ChatGPT para crear imágenes y video, y Claude o Copilot para el trabajo de documentos. Lo que importa es la regla de siempre: contexto, iterar y verificar.",
+  "desafio": {"enunciado": "Pídele a ChatGPT una imagen para algo real de tu trabajo, itérala dos veces en el mismo chat, y después explora la tienda de GPTs y prueba uno que sirva para tu área.", "prompt": "Crea una imagen para [USO: presentación, post, afiche] sobre [TEMA]. Estilo [ESTILO], colores [COLORES], formato [CUADRADO / HORIZONTAL / VERTICAL]. Sin texto dentro de la imagen."},
+  "assets": [],
+  "assets_github": [],
+  "sources": [{"file": "programa Newell · sesión 7", "title": "Intro a ChatGPT", "imgs": 0, "variant": 0}]
+}

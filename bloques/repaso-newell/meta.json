@@ -1,0 +1,58 @@
+{
+  "id": "repaso-newell",
+  "nombre": "Repaso final del programa",
+  "habilidad": "Mapa del programa",
+  "emoji": "🗺️",
+  "descripcion": "Juntar las piezas: qué vimos en el taller inicial y en las ocho sesiones, y qué herramienta usar para qué.",
+  "categoria": "cierre",
+  "tags": [
+    "repaso",
+    "cierre",
+    "mapa"
+  ],
+  "pasos": [
+    {
+      "titulo": "Taller inicial — Los fundamentos",
+      "texto": "La IA no reemplaza personas: las personas que la ocupan reemplazan a las que no. Las 3 reglas de oro del prompt —contexto, estructura e iterar— y lo que hay que cuidar: confidencialidad, autoría y verificación."
+    },
+    {
+      "corte": true,
+      "titulo": "Sesiones 1 a 3 — Copilot",
+      "texto": "Sesión 1: Copilot en modo Work, con memoria, voz y Cuadernos. Sin el modo Work es un chat cualquiera; con él conoce tus archivos, tus correos y tus reuniones."
+    },
+    "Sesión 2: el mismo Copilot dentro de Word, PowerPoint, Excel, Outlook, Teams y SharePoint. Su gran ventaja es que conoce tu contexto corporativo.",
+    "Sesión 3: de conversar a delegar. Agentes propios que repiten un procedimiento, el Investigador y el Analista que vienen de fábrica, y entregables vivos en HTML y artefactos.",
+    {
+      "corte": true,
+      "titulo": "Sesiones 4 a 6 — Claude",
+      "texto": "Sesión 4: Claude configurado a tu medida, el octanaje de los modelos —Sonnet para el día a día, Opus para lo que de verdad lo pide— y los Proyectos como mini cerebros de cada tema."
+    },
+    "Sesión 5: Claude dentro del Office, conectado a tus herramientas con conectores, y entrenado con Skills que repiten tu mejor versión de una tarea.",
+    "Sesión 6: artefactos que funcionan en vez de respuestas que se leen, y Cowork: un agente que actúa sobre las carpetas que le prestas.",
+    {
+      "corte": true,
+      "titulo": "Sesiones 7 y 8 — Crear y verificar",
+      "texto": "Sesión 7: imágenes y videos pro, logos con Ideogram, infografías con Napkin y música con Gemini."
+    },
+    "Sesión 8: cómo reducir las alucinaciones, y la regla que sostiene todo lo demás: no mandar nunca un dato importante sin verificarlo.",
+    {
+      "corte": true,
+      "titulo": "El mapa: qué usar para qué",
+      "texto": "Pregunta rápida, o algo que toca tus correos, reuniones o archivos de la empresa → Copilot en modo Work. Documento, planilla o presentación → Copilot o Claude dentro del Office."
+    },
+    "Un tema que se repite y necesita contexto fijo → un Cuaderno en Copilot o un Proyecto en Claude. Un procedimiento que haces igual todas las semanas → un agente en Copilot o una Skill en Claude.",
+    "Algo que otras personas van a usar y explorar → un artefacto o un HTML. Trabajo sobre muchos archivos de una carpeta → Cowork. Una pieza visual, un video o un jingle → las herramientas de la Sesión 7."
+  ],
+  "pro_tip": "Si te llevas una sola cosa del programa, que sea esta: el resultado depende mucho más del contexto que le das que de la herramienta que elijas. La misma pregunta, con tres líneas de contexto adicional, cambia por completo lo que recibes de vuelta.",
+  "desafio": null,
+  "assets": [],
+  "assets_github": [],
+  "sources": [
+    {
+      "file": "bloques/repaso-programa (adaptado al programa Newell de 8 sesiones)",
+      "title": "Repaso final del programa",
+      "imgs": 0,
+      "variant": 0
+    }
+  ]
+}
