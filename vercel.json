@@ -202,6 +202,18 @@
       "destination": "/gracias.html"
     },
     {
+      "source": "/clasesUDD",
+      "destination": "/clasesUDD/index.html"
+    },
+    {
+      "source": "/clasesudd",
+      "destination": "/clasesUDD/index.html"
+    },
+    {
+      "source": "/uddclases2026s2",
+      "destination": "/clasesUDD/index.html"
+    },
+    {
       "source": "/clases-claude-2026",
       "destination": "/clases-claude-2026.html"
     },

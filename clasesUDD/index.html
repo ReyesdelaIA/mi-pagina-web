@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA en el Mundo Laboral · UDD · Felipe Reyes</title>
+  <meta name="description" content="Curso Track UDD «La inteligencia artificial irrumpe en el mundo laboral» (CLDC20251), segundo semestre 2026. Contenidos, calendario, evaluaciones y progreso del curso en vivo.">
+  <meta name="author" content="Felipe Reyes Polanco - Reyes IA">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.reyesia.com/uddclases2026s2">
+  <meta property="og:title" content="La IA irrumpe en el mundo laboral · UDD 2026-2">
+  <meta property="og:description" content="Calendario, contenidos, evaluaciones y progreso del curso en tiempo real.">
+  <meta property="og:image" content="https://reyesia.com/clasesUDD/img/hero.webp">
+  <link rel="icon" type="image/png" href="/icon%20reyes%20IA.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..800,50;1,9..144,300..800,50&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #F5F1E8;
+      --paper-2: #EDE7DA;
+      --card: #FFFDF8;
+      --ink: #14213D;
+      --ink-soft: #4A5468;
+      --ink-faint: #8A8F9C;
+      --rule: #D9D1C0;
+      --udd: #0049AC;
+      --udd-deep: #0A2E6E;
+      --marker: #FFE27A;
+      --coral: #E8553D;
+      --sage: #5F8D6E;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'IBM Plex Sans', system-ui, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, monospace;
+      --wrap: 1180px;
+      --radius: 14px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: var(--sans);
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    /* textura de papel */
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .35;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.25 0 0 0 0 0.15 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    main, header, footer { position: relative; z-index: 1; }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .mono { font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+    .mark {
+      background: linear-gradient(104deg, transparent .4em, var(--marker) .5em, var(--marker) 96%, transparent 99%) no-repeat 0 72% / 100% .58em;
+      padding: 0 .08em;
+    }
+
+    /* ---------- NAV ---------- */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: color-mix(in srgb, var(--paper) 88%, transparent);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; font-size: .95rem; }
+    .brand img { width: 30px; height: 30px; border-radius: 8px; }
+    .brand small { font-family: var(--mono); font-weight: 400; color: var(--ink-faint); font-size: .72rem; letter-spacing: .05em; }
+    .nav ul { display: flex; gap: 26px; list-style: none; }
+    .nav ul a { text-decoration: none; font-size: .88rem; color: var(--ink-soft); transition: color .2s; }
+    .nav ul a:hover { color: var(--udd); }
+    .live-pill {
+      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+      font-family: var(--mono); font-size: .72rem; letter-spacing: .04em;
+      padding: 6px 12px; border-radius: 99px; background: var(--ink); color: var(--paper);
+    }
+    .live-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--marker); }
+    .live-pill.is-live .dot { background: var(--coral); animation: pulse 1.4s infinite; }
+    @keyframes pulse { 0%{ box-shadow: 0 0 0 0 rgba(232,85,61,.7);} 70%{ box-shadow: 0 0 0 8px rgba(232,85,61,0);} 100%{ box-shadow: 0 0 0 0 rgba(232,85,61,0);} }
+
+    /* ---------- HERO ---------- */
+    .hero { padding: 72px 0 56px; }
+    .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+    .kicker { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--udd); margin-bottom: 22px; }
+    .kicker span:not(:last-child)::after { content: "·"; margin-left: 18px; color: var(--ink-faint); }
+    h1 {
+      font-family: var(--serif); font-weight: 400; font-variation-settings: "opsz" 144, "SOFT" 50;
+      font-size: clamp(2.6rem, 6vw, 4.9rem); line-height: .98; letter-spacing: -.025em;
+    }
+    h1 em { font-style: italic; font-weight: 300; color: var(--udd); }
+    .lede { font-size: 1.15rem; color: var(--ink-soft); max-width: 36em; margin: 26px 0 32px; }
+    .facts { display: grid; grid-template-columns: repeat(3, auto); gap: 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); width: fit-content; max-width: 100%; }
+    .facts div { padding: 14px 22px 14px 0; margin-right: 22px; border-right: 1px solid var(--rule); }
+    .facts div:last-child { border-right: 0; margin-right: 0; }
+    .facts div:nth-child(3n) { border-right: 0; margin-right: 0; }
+    .facts div:nth-child(-n+3) { border-bottom: 1px solid var(--rule); }
+    .facts dt { font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+    .facts dd { font-weight: 500; font-size: .95rem; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      font-weight: 500; font-size: .95rem; padding: 12px 22px; border-radius: 99px;
+      border: 1.5px solid var(--ink); transition: transform .2s, background .2s, color .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-solid { background: var(--ink); color: var(--paper); }
+    .btn-solid:hover { background: var(--udd); border-color: var(--udd); }
+    .btn-ghost:hover { background: var(--marker); }
+
+    /* ---------- IMAGE SLOTS ---------- */
+    .slot {
+      position: relative; overflow: hidden; border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 1px 1px, rgba(20,33,61,.18) 1px, transparent 0) 0 0 / 14px 14px,
+        linear-gradient(135deg, #DCE6F5, #F3E9C9);
+    }
+    .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .slot .art {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      font-family: var(--serif); font-style: italic; font-weight: 300; color: rgba(10,46,110,.22);
+      font-size: clamp(4rem, 10vw, 8rem); line-height: 1; user-select: none;
+    }
+    .slot .hint {
+      display: none; position: absolute; left: 10px; bottom: 10px; z-index: 2;
+      font-family: var(--mono); font-size: .68rem; background: var(--ink); color: var(--paper);
+      padding: 4px 8px; border-radius: 6px;
+    }
+    body.edit .slot .hint { display: block; }
+
+    .hero-figure { position: relative; }
+    .hero-figure .slot { aspect-ratio: 4/5; transform: rotate(1.6deg); box-shadow: 0 30px 60px -30px rgba(20,33,61,.45); }
+    .hero-figure .tape {
+      position: absolute; top: -14px; left: 50%; width: 120px; height: 30px; z-index: 3;
+      transform: translateX(-50%) rotate(-3deg); background: rgba(255,226,122,.75);
+      box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    }
+    .hero-figure .stamp {
+      position: absolute; left: -28px; bottom: 36px; z-index: 3;
+      width: 128px; height: 128px; border-radius: 50%; background: var(--udd); color: #fff;
+      display: grid; place-items: center; text-align: center; transform: rotate(-10deg);
+      box-shadow: 0 14px 30px -12px rgba(0,73,172,.6);
+    }
+    .stamp b { display: block; font-family: var(--serif); font-size: 2.4rem; line-height: 1; font-weight: 500; }
+    .stamp span { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; }
+
+    /* ---------- SECTIONS ---------- */
+    section { padding: 88px 0; }
+    .sec-head { display: grid; grid-template-columns: 180px 1fr; gap: 32px; margin-bottom: 44px; align-items: baseline; }
+    .sec-num { font-family: var(--mono); font-size: .78rem; color: var(--udd); letter-spacing: .08em; border-top: 2px solid var(--udd); padding-top: 10px; }
+    h2 {
+      font-family: var(--serif); font-weight: 400; font-variation-settings: "opsz" 144;
+      font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.05; letter-spacing: -.02em;
+    }
+    h2 em { font-style: italic; font-weight: 300; }
+    .sec-head p { color: var(--ink-soft); margin-top: 12px; max-width: 40em; }
+    h3 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; line-height: 1.2; letter-spacing: -.01em; }
+
+    /* ---------- PROGRESS ---------- */
+    .progress { background: var(--ink); color: var(--paper); border-radius: 28px; margin: 0 16px; padding: 72px 0; }
+    .progress .sec-num { color: var(--marker); border-color: var(--marker); }
+    .progress .sec-head p { color: #B8C0D2; }
+    .prog-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: end; }
+    .big-pct { font-family: var(--serif); font-weight: 300; font-size: clamp(5rem, 14vw, 10rem); line-height: .85; letter-spacing: -.04em; }
+    .big-pct sup { font-size: .35em; vertical-align: top; margin-left: 4px; color: var(--marker); }
+    .big-cap { font-family: var(--mono); font-size: .8rem; color: #B8C0D2; margin-top: 14px; letter-spacing: .04em; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,.12); border-radius: var(--radius); overflow: hidden; }
+    .stat { background: var(--ink); padding: 20px 22px; }
+    .stat .mono { color: #8D97AE; font-size: .68rem; }
+    .stat b { display: block; font-family: var(--serif); font-weight: 400; font-size: 2rem; line-height: 1.1; margin-top: 4px; }
+    .stat small { color: #B8C0D2; font-size: .85rem; }
+
+    .ruler-scroll { overflow-x: auto; margin-top: 56px; padding-bottom: 8px; scrollbar-width: thin; }
+    .ruler { position: relative; min-width: 760px; height: 150px; }
+    .ruler .track { position: absolute; left: 0; right: 0; top: 74px; height: 8px; background: rgba(255,255,255,.12); border-radius: 99px; }
+    .ruler .fill { position: absolute; left: 0; top: 74px; height: 8px; border-radius: 99px; background: linear-gradient(90deg, var(--udd), #5B9BFF); transition: width 1.2s cubic-bezier(.2,.8,.2,1); width: 0; }
+    .ruler .gap { position: absolute; top: 66px; height: 24px; border-radius: 4px; background: repeating-linear-gradient(45deg, rgba(255,255,255,.14) 0 4px, transparent 4px 8px); }
+    .ruler .tick { position: absolute; top: 70px; width: 2px; height: 16px; background: rgba(255,255,255,.45); transform: translateX(-1px); }
+    .ruler .tick.done { background: var(--paper); }
+    .ruler .ev { position: absolute; top: 0; transform: translateX(-50%); text-align: center; white-space: nowrap; }
+    .ruler .ev .lbl { font-family: var(--mono); font-size: .66rem; letter-spacing: .04em; color: var(--marker); }
+    .ruler .ev .lbl b { display: block; color: var(--paper); font-weight: 500; font-family: var(--sans); font-size: .78rem; letter-spacing: 0; }
+    .ruler .ev .stem { width: 1px; height: 26px; margin: 4px auto 0; background: var(--marker); }
+    .ruler .ev.passed .lbl, .ruler .ev.passed .lbl b { opacity: .45; }
+    .ruler .month { position: absolute; top: 102px; font-family: var(--mono); font-size: .66rem; color: #8D97AE; letter-spacing: .08em; text-transform: uppercase; }
+    .ruler .month::before { content: ""; position: absolute; left: 0; top: -12px; width: 1px; height: 8px; background: #8D97AE; }
+    .ruler .today { position: absolute; top: 58px; transform: translateX(-50%); z-index: 3; }
+    .ruler .today i { display: block; width: 18px; height: 18px; margin: 13px auto 0; border-radius: 50%; background: var(--coral); border: 3px solid var(--ink); box-shadow: 0 0 0 2px var(--coral); }
+    .ruler .today span { position: absolute; top: 72px; left: 50%; transform: translateX(-50%); font-family: var(--mono); font-size: .66rem; background: var(--coral); color: #fff; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+
+    .next-card {
+      margin-top: 40px; display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center;
+      background: var(--paper); color: var(--ink); border-radius: var(--radius); padding: 22px 26px;
+    }
+    .next-card .when { text-align: center; padding-right: 24px; border-right: 1px solid var(--rule); }
+    .next-card .when b { display: block; font-family: var(--serif); font-size: 2.6rem; font-weight: 400; line-height: 1; }
+    .next-card .when span { font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
+    .next-card h3 { font-size: 1.25rem; }
+    .next-card p { color: var(--ink-soft); font-size: .92rem; }
+    .countdown { font-family: var(--mono); text-align: right; }
+    .countdown b { display: block; font-size: 1.6rem; font-weight: 500; color: var(--udd); }
+    .countdown span { font-size: .7rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .08em; }
+
+    /* ---------- OBJETIVOS ---------- */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+    .about-text p { font-size: 1.08rem; color: var(--ink-soft); margin-bottom: 18px; }
+    .about-text p:first-child::first-letter {
+      font-family: var(--serif); float: left; font-size: 4.4rem; line-height: .85; padding: 6px 10px 0 0; color: var(--udd);
+    }
+    .pull {
+      font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 1.6rem; line-height: 1.3;
+      border-left: 3px solid var(--marker); padding: 4px 0 4px 22px; margin-top: 28px; color: var(--ink);
+    }
+    .pull cite { display: block; margin-top: 10px; font-family: var(--mono); font-style: normal; font-size: .72rem; letter-spacing: .06em; color: var(--ink-faint); text-transform: uppercase; }
+    .goals { list-style: none; counter-reset: g; }
+    .goals li { counter-increment: g; display: grid; grid-template-columns: 52px 1fr; gap: 12px; padding: 20px 0; border-top: 1px solid var(--rule); }
+    .goals li:last-child { border-bottom: 1px solid var(--rule); }
+    .goals li::before { content: "0" counter(g); font-family: var(--serif); font-style: italic; font-size: 1.8rem; color: var(--udd); line-height: 1; }
+    .goals b { display: block; font-weight: 600; margin-bottom: 2px; }
+    .goals span { color: var(--ink-soft); font-size: .95rem; }
+    .comp { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; }
+    .chip { font-family: var(--mono); font-size: .7rem; letter-spacing: .04em; padding: 5px 11px; border-radius: 99px; border: 1px solid var(--ink); background: var(--card); white-space: nowrap; }
+    .chip.blue { background: var(--udd); border-color: var(--udd); color: #fff; }
+
+    /* ---------- UNIDADES ---------- */
+    .units { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .unit { background: var(--card); border: 1px solid var(--rule); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: transform .3s, box-shadow .3s; }
+    .unit:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgba(20,33,61,.35); }
+    .unit .slot { aspect-ratio: 16/8; border-radius: 0; }
+    .unit-body { padding: 24px 26px 28px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+    .unit-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .unit-top .mono { color: var(--udd); }
+    .status { font-family: var(--mono); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; white-space: nowrap; }
+    .status.done { background: #E3EEE6; color: var(--sage); }
+    .status.now { background: var(--marker); color: var(--ink); }
+    .status.next { background: var(--paper-2); color: var(--ink-soft); }
+    .unit ul { list-style: none; display: grid; gap: 6px; }
+    .unit li { padding-left: 20px; position: relative; font-size: .95rem; }
+    .unit li::before { content: "→"; position: absolute; left: 0; color: var(--udd); }
+    .unit .ra { font-size: .88rem; color: var(--ink-soft); border-top: 1px dashed var(--rule); padding-top: 14px; margin-top: auto; }
+    .unit .ra b { font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); display: block; font-weight: 400; margin-bottom: 4px; }
+    .unit-bar { height: 4px; background: var(--paper-2); border-radius: 99px; overflow: hidden; }
+    .unit-bar i { display: block; height: 100%; background: var(--udd); width: 0; transition: width 1s; }
+
+    /* ---------- CALENDARIO ---------- */
+    .cal-tools { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .seg { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 99px; padding: 3px; }
+    .seg button { font: inherit; font-size: .85rem; border: 0; background: transparent; padding: 7px 16px; border-radius: 99px; cursor: pointer; color: var(--ink); }
+    .seg button.on { background: var(--ink); color: var(--paper); }
+    .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: .82rem; color: var(--ink-soft); }
+    .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+    .cal { border-top: 1.5px solid var(--ink); }
+    .row {
+      display: grid; grid-template-columns: 110px 70px 1fr 200px; gap: 20px; align-items: center;
+      padding: 18px 12px; border-bottom: 1px solid var(--rule); position: relative; transition: background .2s;
+    }
+    .row:hover { background: rgba(255,255,255,.5); }
+    .row .date b { display: block; font-family: var(--serif); font-size: 1.9rem; font-weight: 400; line-height: 1; }
+    .row .date span { font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+    .row .u { font-family: var(--mono); font-size: .72rem; color: var(--udd); }
+    .row .topic { font-weight: 500; }
+    .row .act { font-size: .88rem; color: var(--ink-soft); margin-top: 2px; }
+    .row .act .fb { display: block; font-size: .82rem; color: var(--ink-faint); margin-top: 2px; }
+    .row .side { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+    .tool { font-family: var(--mono); font-size: .7rem; padding: 4px 10px; border-radius: 6px; background: var(--paper-2); white-space: nowrap; }
+    .eval-badge { font-family: var(--mono); font-size: .7rem; padding: 4px 10px; border-radius: 6px; background: var(--coral); color: #fff; white-space: nowrap; }
+    .row.past { opacity: .55; }
+    .row.past .date b { text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: var(--ink-faint); }
+    .row.today { background: var(--marker); opacity: 1; border-radius: 10px; border-bottom-color: transparent; box-shadow: 0 10px 24px -16px rgba(20,33,61,.5); }
+    .row.today::after {
+      content: attr(data-flag); position: absolute; top: -10px; left: 12px;
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase;
+      background: var(--ink); color: var(--marker); padding: 3px 8px; border-radius: 4px;
+    }
+    .row.brk { grid-template-columns: 110px 1fr; background: repeating-linear-gradient(135deg, transparent 0 8px, rgba(20,33,61,.04) 8px 16px); }
+    .row.brk .topic { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--ink-soft); }
+    .cal.only-evals .row:not(.has-eval) { display: none; }
+    .cal-note { font-size: .82rem; color: var(--ink-faint); margin-top: 16px; }
+
+    /* ---------- EVALUACIONES ---------- */
+    .weights { display: flex; height: 64px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--ink); margin-bottom: 14px; }
+    .weights div { display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: .8rem; border-right: 1.5px solid var(--ink); text-align: center; line-height: 1.2; padding: 0 4px; }
+    .weights div:last-child { border-right: 0; }
+    .weights b { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; }
+    .w-pres { display: flex; flex: 70; }
+    .w-pres > div { flex: 1; }
+    .w-exam { flex: 30; background: var(--ink); color: var(--paper); }
+    .weights-cap { display: flex; font-family: var(--mono); font-size: .7rem; color: var(--ink-soft); letter-spacing: .05em; text-transform: uppercase; }
+    .weights-cap span:first-child { flex: 70; }
+    .weights-cap span:last-child { flex: 30; text-align: center; }
+    .evals { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 40px; }
+    .ecard { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 22px; position: relative; display: flex; flex-direction: column; gap: 10px; }
+    .ecard .pct { position: absolute; top: 18px; right: 20px; font-family: var(--serif); font-size: 1.7rem; color: var(--udd); }
+    .ecard .mono { color: var(--ink-faint); }
+    .ecard p { font-size: .9rem; color: var(--ink-soft); }
+    .ecard ul { list-style: none; font-size: .87rem; display: grid; gap: 4px; }
+    .ecard li::before { content: "✓ "; color: var(--sage); font-weight: 600; }
+    .ecard.done { background: transparent; }
+    .ecard.done::after { content: "Rendido"; position: absolute; bottom: 18px; right: 20px; font-family: var(--mono); font-size: .66rem; color: var(--sage); letter-spacing: .08em; text-transform: uppercase; }
+    .ecard.soon { border: 2px solid var(--coral); }
+    .ecard.soon::before { content: attr(data-soon); position: absolute; top: -11px; left: 18px; background: var(--coral); color: #fff; font-family: var(--mono); font-size: .64rem; padding: 3px 8px; border-radius: 4px; letter-spacing: .06em; text-transform: uppercase; }
+
+    /* ---------- PROYECTO ---------- */
+    .project { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: center; }
+    .project .slot { aspect-ratio: 1; border-radius: 24px; }
+    .steps { display: grid; gap: 14px; margin-top: 28px; }
+    .step { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; }
+    .step i { font-style: normal; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-family: var(--serif); font-size: 1.2rem; background: var(--marker); }
+    .step b { display: block; }
+    .step span { font-size: .92rem; color: var(--ink-soft); }
+
+    /* ---------- CALCULADORA ---------- */
+    /* Calculadora de notas (prefijo gc- para no chocar con el resto de la página) */
+    .gc { --gc-soft: #E3ECF8; --ok: #2F7A52; --ok-soft: #E2F0E7; --warn: #A86F00; --warn-soft: #FBF0D6; --bad: #C2372C; --bad-soft: #FBE6E4; --hatch: #B9CCE0;
+      display: flex; flex-direction: column; gap: 20px; }
+    .gc .num { font-variant-numeric: tabular-nums; }
+    .gc-label { font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+    .gc button { font: inherit; cursor: pointer; }
+    .gc :focus-visible { outline: 2px solid var(--udd); outline-offset: 2px; }
+    .gc-banner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; background: var(--warn-soft); border: 1px solid var(--warn); border-radius: 12px; padding: 10px 14px; font-size: .9rem; }
+    .gc-banner button { background: var(--ink); color: var(--paper); border: none; border-radius: 8px; padding: 7px 12px; font-weight: 600; }
+    .gc-hero { background: var(--ink); color: var(--paper); border-radius: 24px; padding: 28px; display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 20px; position: relative; overflow: hidden; box-shadow: 10px 10px 0 var(--udd); }
+    .gc-hero::after { content: ""; position: absolute; right: -60px; top: -60px; width: 240px; height: 240px; border-radius: 50%; border: 34px solid rgba(255,255,255,.06); pointer-events: none; }
+    .gc-hero .gc-label { color: #8D97AE; }
+    .gc-big { font-family: var(--serif); font-weight: 300; font-size: clamp(3.5rem, 9vw, 5.4rem); line-height: .95; letter-spacing: -.03em; }
+    .gc-mood { font-size: 1.05rem; font-weight: 600; margin-top: 6px; }
+    .gc-sub { font-size: .85rem; color: #D7DCE8; margin-top: 4px; max-width: 34ch; }
+    .gc-stat { border-left: 1px solid rgba(255,255,255,.18); padding-left: 20px; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+    .gc-mid { font-family: var(--serif); font-weight: 300; font-size: clamp(2.2rem, 5vw, 3rem); line-height: 1; }
+    .gc-pill { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 10px; font-size: .78rem; font-weight: 600; width: fit-content; background: rgba(255,226,122,.18); color: var(--marker); }
+    .gc-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 20px; align-items: start; }
+    .gc-panel { background: var(--card); border: 1.5px solid var(--ink); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+    .gc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .gc-head h3 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; }
+    .gc .gc-ghost { background: none; border: 1px solid var(--rule); color: var(--ink-soft); border-radius: 8px; padding: 5px 10px; font-size: .8rem; }
+    .gc-ghost:hover { color: var(--ink); border-color: var(--ink-soft); }
+    .gc-evals { display: flex; flex-direction: column; gap: 10px; }
+    .gc-ev { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper); }
+    .gc-ev.next { border-color: var(--udd); box-shadow: 0 0 0 1px var(--udd); }
+    .gc-w { font-family: var(--serif); font-size: 1.3rem; color: var(--udd); width: 56px; text-align: center; line-height: 1; }
+    .gc-w small { display: block; font-family: var(--mono); font-size: .58rem; color: var(--ink-faint); letter-spacing: .04em; margin-top: 4px; }
+    .gc-info { min-width: 0; }
+    .gc-info h4 { font-size: 1rem; font-weight: 600; }
+    .gc-meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: .78rem; color: var(--ink-soft); margin-top: 2px; }
+    .gc-chip { font-family: var(--mono); font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; border-radius: 6px; padding: 2px 7px; }
+    .gc-chip.done { background: var(--ok-soft); color: var(--ok); }
+    .gc-chip.next { background: var(--udd); color: #fff; }
+    .gc-chip.pend { background: var(--gc-soft); color: var(--udd-deep); }
+    .gc-gbox { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+    .gc-in { width: 80px; font-family: var(--serif); font-size: 1.45rem; text-align: center; padding: 6px 4px; border-radius: 10px; border: 1.5px solid var(--rule); background: var(--card); color: var(--ink); font-variant-numeric: tabular-nums; }
+    .gc-in::placeholder { color: var(--ink-faint); opacity: .6; }
+    .gc-in:focus { border-color: var(--udd); outline: none; box-shadow: 0 0 0 3px var(--gc-soft); }
+    .gc-in.ok { border-color: var(--ok); } .gc-in.bad { border-color: var(--bad); } .gc-in.err { border-color: var(--bad); background: var(--bad-soft); }
+    .gc-hint { font-size: .72rem; color: var(--ink-faint); min-height: 16px; text-align: right; }
+    .gc-hint.err { color: var(--bad); }
+    .gc-check { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; border: 1px dashed var(--rule); font-size: .9rem; cursor: pointer; }
+    .gc-check input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--udd); flex: none; }
+    .gc-check small { display: block; color: var(--ink-soft); font-size: .78rem; }
+    .gc-bar { display: flex; height: 34px; border-radius: 9px; overflow: hidden; border: 1px solid var(--rule); background: var(--paper); }
+    .gc-seg { position: relative; border-right: 2px solid var(--card); }
+    .gc-seg:last-child { border-right: none; }
+    .gc-fill { position: absolute; inset: auto 0 0 0; background: var(--udd); transition: height .4s ease; }
+    .gc-fill.proj { background: repeating-linear-gradient(135deg, var(--hatch) 0 5px, transparent 5px 9px); }
+    .gc-seg span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: .64rem; color: var(--ink); text-shadow: 0 0 3px var(--card), 0 0 3px var(--card); white-space: nowrap; overflow: hidden; }
+    .gc-seg.real span { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+    .gc-legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: .78rem; color: var(--ink-soft); margin-top: 8px; }
+    .gc-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 5px; }
+    .gc-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .gc-kpi { border-radius: 12px; padding: 12px 14px; background: var(--paper); border: 1px solid var(--rule); }
+    .gc-kpi .v { font-family: var(--serif); font-size: 2rem; line-height: 1.1; }
+    .gc-kpi p { font-size: .78rem; color: var(--ink-soft); }
+    .gc-callouts { display: flex; flex-direction: column; gap: 10px; }
+    .gc-callout { border-radius: 12px; padding: 14px 16px; font-size: .9rem; display: flex; gap: 12px; align-items: flex-start; }
+    .gc-callout .ico { font-size: 1.3rem; line-height: 1; }
+    .gc-callout.ok { background: var(--ok-soft); } .gc-callout.warn { background: var(--warn-soft); } .gc-callout.bad { background: var(--bad-soft); } .gc-callout.info { background: var(--gc-soft); }
+    .gc-callout b { font-weight: 600; }
+    .gc-sim { display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 12px; background: var(--marker); }
+    .gc-sim .gc-label { color: var(--ink-soft); }
+    .gc-simrow { display: flex; flex-direction: column; gap: 6px; }
+    .gc-simrow .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: .9rem; }
+    .gc-simrow output { font-family: var(--serif); font-size: 1.4rem; color: var(--udd-deep); }
+    .gc input[type=range] { width: 100%; accent-color: var(--udd); }
+    .gc-simres { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: var(--card); border-radius: 10px; padding: 12px 14px; }
+    .gc-simres .v { font-family: var(--serif); font-size: 2.3rem; line-height: 1; }
+    .gc-tbl { overflow-x: auto; }
+    .gc table { width: 100%; border-collapse: collapse; font-size: .9rem; font-variant-numeric: tabular-nums; }
+    .gc th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); padding: 6px 8px; border-bottom: 1px solid var(--rule); }
+    .gc td { padding: 7px 8px; border-bottom: 1px solid var(--rule); }
+    .gc td.g { font-family: var(--serif); font-size: 1.05rem; }
+    .gc tr.hl td { background: var(--gc-soft); }
+    .gc-res { font-weight: 600; font-size: .82rem; }
+    .gc-res.ok { color: var(--ok); } .gc-res.bad { color: var(--bad); } .gc-res.warn { color: var(--warn); }
+    .gc-note { font-size: .8rem; color: var(--ink-soft); text-align: center; max-width: 70ch; margin: 0 auto; }
+    .gc [hidden] { display: none !important; }
+    @media (max-width: 880px) { .gc-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 820px) { .gc-hero { grid-template-columns: 1fr 1fr; box-shadow: 6px 6px 0 var(--udd); } .gc-hero .gc-main { grid-column: 1 / -1; } .gc-stat:nth-of-type(2) { border-left: none; padding-left: 0; } }
+    @media (max-width: 460px) { .gc-hero { grid-template-columns: 1fr; padding: 22px; } .gc-stat { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,.18); padding-top: 14px; }
+      .gc-seg span { font-size: .55rem; letter-spacing: -.02em; }
+      .gc-panel { padding: 16px; } .gc-ev { grid-template-columns: auto 1fr; } .gc-gbox { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: center; } .gc-in { width: 96px; } }
+    @media (prefers-reduced-motion: reduce) { .gc * { transition: none !important; } }
+
+    /* ---------- HERRAMIENTAS ---------- */
+    .tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .tcard { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 16px; transition: transform .2s, border-color .2s; }
+    .tcard:hover { transform: rotate(-1.5deg) translateY(-2px); border-color: var(--ink); }
+    .tcard b { display: block; font-family: var(--serif); font-weight: 500; font-size: 1.1rem; }
+    .tcard span { font-size: .8rem; color: var(--ink-soft); }
+    .method { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 56px; }
+    .method div { border-top: 1.5px solid var(--ink); padding-top: 14px; }
+    .method b { display: block; font-family: var(--serif); font-size: 1.15rem; font-weight: 500; margin-bottom: 4px; }
+    .method span { font-size: .9rem; color: var(--ink-soft); }
+
+    /* ---------- REGLAS ---------- */
+    .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .rule { padding: 26px; border-radius: var(--radius); background: var(--paper-2); }
+    .rule .big { font-family: var(--serif); font-size: 3.2rem; line-height: 1; font-weight: 300; color: var(--udd); }
+    .rule h3 { margin: 10px 0 8px; font-size: 1.15rem; }
+    .rule p { font-size: .9rem; color: var(--ink-soft); }
+    .absences { display: flex; gap: 6px; margin-top: 4px; }
+    .absences i { width: 26px; height: 26px; border-radius: 6px; border: 1.5px dashed var(--udd); }
+
+    /* ---------- GALERÍA ---------- */
+    .gallery { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 120px; gap: 14px; }
+    .gallery .slot:nth-child(1) { grid-column: span 3; grid-row: span 3; }
+    .gallery .slot:nth-child(2) { grid-column: span 3; grid-row: span 2; }
+    .gallery .slot:nth-child(3) { grid-column: span 2; grid-row: span 2; }
+    .gallery .slot:nth-child(4) { grid-column: span 1; grid-row: span 1; }
+    .gallery .slot:nth-child(5) { grid-column: span 3; grid-row: span 2; }
+    .gallery .slot:nth-child(6) { grid-column: span 3; grid-row: span 2; }
+    .gallery .slot .art { font-size: 3rem; }
+
+    /* ---------- BIBLIO ---------- */
+    .biblio { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .biblio h3 { font-size: 1rem; font-family: var(--mono); font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--udd); margin-bottom: 14px; }
+    .book { padding: 14px 0; border-top: 1px solid var(--rule); }
+    .book b { font-family: var(--serif); font-weight: 500; font-style: italic; font-size: 1.08rem; }
+    .book span { display: block; font-size: .85rem; color: var(--ink-soft); }
+
+    /* ---------- FOOTER ---------- */
+    footer { padding: 56px 0 40px; border-top: 1.5px solid var(--ink); margin-top: 40px; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: end; }
+    footer .sig { font-family: var(--serif); font-size: 1.8rem; font-style: italic; font-weight: 300; }
+    footer p { font-size: .85rem; color: var(--ink-soft); }
+
+    /* ---------- REVEAL ---------- */
+    .rv { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+    .rv.in { opacity: 1; transform: none; }
+    .hero .rv:nth-child(2) { transition-delay: .1s; }
+    @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 960px) {
+      .nav ul { display: none; }
+      .hero .wrap, .prog-grid, .about-grid, .project, .biblio { grid-template-columns: 1fr; }
+      .hero-figure { max-width: 420px; margin: 0 auto; width: 100%; }
+      .sec-head { grid-template-columns: 1fr; gap: 14px; }
+      .units { grid-template-columns: 1fr; }
+      .method { grid-template-columns: 1fr 1fr; }
+      .rules { grid-template-columns: 1fr; }
+      .row { grid-template-columns: 84px 1fr; gap: 6px 16px; }
+      .row .u { grid-column: 2; grid-row: 1; }
+      .row .date { grid-row: 1 / span 3; }
+      .row .side { grid-column: 2; align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+      .row.brk { grid-template-columns: 84px 1fr; }
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 0 16px; }
+      .hero { padding: 40px 0 32px; }
+      section { padding: 64px 0; }
+      .progress { margin: 0 8px; padding: 56px 0; border-radius: 20px; }
+      .facts { grid-template-columns: 1fr 1fr; width: 100%; }
+      .facts div { border-right: 0; margin-right: 0; padding-right: 8px; border-bottom: 1px solid var(--rule); }
+      .facts div:last-child { border-bottom: 0; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat b { font-size: 1.5rem; }
+      .next-card { grid-template-columns: auto 1fr; }
+      .countdown { grid-column: 1 / -1; text-align: left; display: flex; align-items: baseline; gap: 10px; }
+      .method { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 140px; }
+      .gallery .slot:nth-child(n) { grid-column: span 1; grid-row: span 1; }
+      .gallery .slot:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+      .hero-figure .stamp { left: -6px; width: 104px; height: 104px; }
+      .stamp b { font-size: 1.9rem; }
+      .live-pill .txt-long { display: none; }
+      .brand small, .brand br { display: none; }
+      .row .date .wd { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <img src="/icon%20reyes%20IA.png" alt="Reyes IA">
+      <div>IA en el Mundo Laboral<br><small>UDD · 2026-2</small></div>
+    </a>
+    <ul>
+      <li><a href="#progreso">Progreso</a></li>
+      <li><a href="#curso">El curso</a></li>
+      <li><a href="#malla">Malla</a></li>
+      <li><a href="#calendario">Calendario</a></li>
+      <li><a href="#evaluaciones">Evaluaciones</a></li>
+      <li><a href="#calculadora">Calculadora</a></li>
+    </ul>
+    <span class="live-pill" id="livePill"><span class="dot"></span><span id="livePillText">Cargando…</span></span>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="rv">
+        <div class="kicker mono">
+          <span>CLDC20251</span>
+          <span>Track Ciencia, Tecnología e Innovación</span>
+          <span>Segundo semestre 2026</span>
+        </div>
+        <h1>La inteligencia artificial <em>irrumpe</em> en el mundo laboral</h1>
+        <p class="lede">Un curso para entender cómo la IA está cambiando el trabajo y, sobre todo, para <span class="mark">ponerse a usarla</span>. Teoría justa, mucha práctica y una idea que repetimos todo el semestre: la IA es un complemento, no un reemplazo.</p>
+        <dl class="facts">
+          <div><dt>Profesor</dt><dd>Felipe Reyes Polanco</dd></div>
+          <div><dt>Ayudante</dt><dd>Emilia Barria</dd></div>
+          <div><dt>Horario</dt><dd>Miércoles 8:30–9:40</dd></div>
+          <div><dt>Sala</dt><dd>222 · Edificio Q</dd></div>
+          <div><dt>Créditos</dt><dd>4 · Electivo</dd></div>
+        </dl>
+        <div class="hero-cta">
+          <a class="btn btn-solid" href="#calendario">Ver calendario →</a>
+          <a class="btn btn-ghost" href="#calculadora">Calcular mi nota</a>
+        </div>
+      </div>
+      <div class="hero-figure rv">
+        <div class="tape"></div>
+        <figure class="slot">
+          <div class="art">IA</div>
+          <img src="/clasesUDD/img/hero.webp" alt="Sala 222 del Edificio Q, UDD, durante una clase del curso" onerror="this.remove()">
+          <span class="hint">clasesUDD/img/hero.webp</span>
+        </figure>
+        <div class="stamp"><div><b id="stampPct">0%</b><span>del curso</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROGRESO ============ -->
+  <section class="progress" id="progreso">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">01 · EN VIVO</div>
+        <div>
+          <h2>¿En qué vamos?</h2>
+          <p>Se actualiza solo con la hora de Santiago: cada miércoles, apenas termina la clase, la barra avanza.</p>
+        </div>
+      </div>
+
+      <div class="prog-grid rv">
+        <div>
+          <div class="big-pct"><span id="bigPct">0</span><sup>%</sup></div>
+          <div class="big-cap" id="bigCap">del curso completado</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><span class="mono">Clases realizadas</span><b id="stDone">–</b><small>de 14 sesiones</small></div>
+          <div class="stat"><span class="mono">Semana del semestre</span><b id="stWeek">–</b><small id="stWeekSub">de 17</small></div>
+          <div class="stat"><span class="mono">Unidad actual</span><b id="stUnit">–</b><small id="stUnitSub"></small></div>
+          <div class="stat"><span class="mono">Días al examen</span><b id="stExam">–</b><small>18 de noviembre</small></div>
+        </div>
+      </div>
+
+      <div class="ruler-scroll rv">
+        <div class="ruler" id="ruler">
+          <div class="track"></div>
+          <div class="fill" id="rulerFill"></div>
+        </div>
+      </div>
+
+      <div class="next-card rv" id="nextCard">
+        <div class="when"><b id="ncDay">–</b><span id="ncMonth"></span></div>
+        <div>
+          <span class="mono" style="color:var(--udd)" id="ncKicker">Próxima clase</span>
+          <h3 id="ncTitle">–</h3>
+          <p id="ncSub"></p>
+        </div>
+        <div class="countdown"><b id="ncCount">–</b><span id="ncCountLbl"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EL CURSO ============ -->
+  <section id="curso">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">02 · EL CURSO</div>
+        <div><h2>Qué vas a <em>aprender</em> y para qué</h2></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text rv">
+          <p>El mundo del trabajo está cambiando más rápido que nunca y la inteligencia artificial está en el centro de ese cambio. Este curso, parte del Track Ciencia, Tecnología e Innovación, busca que entiendas cómo la IA transforma industrias, profesiones y procesos, y que salgas sabiendo aplicarla en situaciones reales.</p>
+          <p>Vemos aprendizaje automático, automatización de procesos, análisis de datos y las implicancias éticas de la IA en la vida profesional. Cada semana trabajamos con una herramienta distinta, porque se aprende usándolas.</p>
+          <blockquote class="pull">“Lo central de lo que enseño es que aprendan a tratar a la IA como un complemento, y no como un reemplazo.”<cite>Felipe Reyes · Profesor</cite></blockquote>
+          <p>En el curso te acompaña también <b>Emilia Barria</b>, ayudante del ramo: si tienes dudas con las herramientas, las entregas o la asistencia, puedes escribirle a ella.</p>
+          <div class="comp">
+            <span class="chip blue">Transformación digital</span>
+            <span class="chip blue">Innovación</span>
+            <span class="chip">Competencias genéricas UDD</span>
+          </div>
+        </div>
+        <ol class="goals rv">
+          <li><div><b>Aplicar IA en la transformación digital</b><span>Usar tecnologías de IA para optimizar y digitalizar procesos en distintas industrias.</span></div></li>
+          <li><div><b>Desarrollar soluciones innovadoras</b><span>Proponer alternativas basadas en IA para resolver problemas en contextos laborales diversos.</span></div></li>
+          <li><div><b>Evaluar el impacto de la IA</b><span>Analizar cómo afecta a distintos sectores y cómo transforma los procesos de las organizaciones.</span></div></li>
+          <li><div><b>Fomentar la innovación tecnológica</b><span>Impulsar ideas y proyectos nuevos en el trabajo, con la IA como herramienta clave.</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MALLA ============ -->
+  <section id="malla" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">03 · MALLA</div>
+        <div>
+          <h2>Cuatro unidades, <em>un recorrido</em></h2>
+          <p>Partimos entendiendo qué es la IA, pasamos a automatizar, después a innovar y cerramos con la pregunta más importante: cómo usarla de forma ética y responsable.</p>
+        </div>
+      </div>
+      <div class="units" id="units"></div>
+    </div>
+  </section>
+
+  <!-- ============ CALENDARIO ============ -->
+  <section id="calendario" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">04 · CALENDARIO</div>
+        <div>
+          <h2>Semana a <em>semana</em></h2>
+          <p>Todas las clases, la herramienta que usamos cada semana y las fechas de evaluación. La fila amarilla marca dónde estamos.</p>
+        </div>
+      </div>
+      <div class="cal-tools">
+        <div class="seg" role="group" aria-label="Filtro de calendario">
+          <button class="on" data-f="all">Todo el semestre</button>
+          <button data-f="evals">Solo evaluaciones</button>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--marker)"></i>Hoy / próxima</span>
+          <span><i style="background:var(--coral)"></i>Evaluación</span>
+          <span><i style="background:var(--paper-2);border:1px solid var(--rule)"></i>Sin clases</span>
+        </div>
+      </div>
+      <div class="cal" id="cal"></div>
+      <p class="cal-note">Esta calendarización puede ajustarse según el avance del curso o por contingencia. Las fechas de certámenes y examen las fija el calendario académico y no se mueven.</p>
+    </div>
+  </section>
+
+  <!-- ============ EVALUACIONES ============ -->
+  <section id="evaluaciones" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">05 · EVALUACIONES</div>
+        <div>
+          <h2>Cómo se <em>calcula</em> tu nota</h2>
+          <p>La nota de presentación vale un 70% de la nota final y el examen, el 30% restante.</p>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="weights">
+          <div class="w-pres">
+            <div><b>30%</b>Certamen 1</div>
+            <div><b>30%</b>Certamen 2</div>
+            <div style="background:var(--marker)"><b>20%</b>Avance 1</div>
+            <div style="background:var(--marker)"><b>20%</b>Avance 2</div>
+          </div>
+          <div class="w-exam"><b>30%</b>Examen</div>
+        </div>
+        <div class="weights-cap"><span>Nota de presentación · 70% de la nota final</span><span>Nota final</span></div>
+      </div>
+      <div class="evals" id="evals"></div>
+    </div>
+  </section>
+
+  <!-- ============ PROYECTO ============ -->
+  <section style="padding-top:0">
+    <div class="wrap project">
+      <figure class="slot rv">
+        <div class="art">✦</div>
+        <img src="/clasesUDD/img/proyecto.webp" alt="Proyecto final del curso" onerror="this.remove()">
+        <span class="hint">clasesUDD/img/proyecto.webp</span>
+      </figure>
+      <div class="rv">
+        <div class="sec-num" style="width:180px;margin-bottom:18px">06 · PROYECTO FINAL</div>
+        <h2>Crea un producto <em>con IA</em>, de la idea a la góndola</h2>
+        <p style="color:var(--ink-soft);margin-top:14px">En grupo, diseñan un producto desde cero usando IA en cada etapa. Se presenta en dos avances con feedback y se cierra en el examen.</p>
+        <div class="steps">
+          <div class="step"><i>1</i><div><b>Avance 1 · La idea</b><span>Elección del producto, nombre y logo, identidad de marca, propuesta de valor e investigación de mercado inicial.</span></div></div>
+          <div class="step"><i>2</i><div><b>Avance 2 · La marca en el mundo</b><span>Diseño de empaque, estrategia de marketing y segmentación, canales de venta y distribución, y branding refinado con el feedback del avance 1.</span></div></div>
+          <div class="step"><i>3</i><div><b>Examen · Todo junto</b><span>Integración de las cuatro unidades del curso en la presentación final.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CALCULADORA ============ -->
+  <section id="calculadora" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">07 · CALCULADORA</div>
+        <div>
+          <h2>¿Cuánto necesito en el <em>examen</em>?</h2>
+          <p>Ingresa tus notas (de 1,0 a 7,0), mueve el simulador y mira cómo cambia tu nota final. Es solo una referencia: la nota oficial es la que se publica en Canvas.</p>
+        </div>
+      </div>
+      <div class="gc rv" id="gc">
+        <div class="gc-banner" id="gcDemo" hidden>
+          <span>👀 Estás viendo <b>notas de ejemplo</b>. Bórralas y escribe las tuyas.</span>
+          <button id="gcClearDemo" type="button">Usar mis notas</button>
+        </div>
+
+        <div class="gc-hero" aria-live="polite">
+          <div class="gc-main">
+            <div class="gc-label">Nota final proyectada</div>
+            <div class="gc-big num" id="gcFinal">–</div>
+            <div class="gc-mood" id="gcMood">–</div>
+            <div class="gc-sub" id="gcSub"></div>
+          </div>
+          <div class="gc-stat">
+            <div class="gc-label">Presentación a examen</div>
+            <div class="gc-mid num" id="gcPres">–</div>
+            <span class="gc-pill" id="gcPresTag">70% de la nota final</span>
+          </div>
+          <div class="gc-stat">
+            <div class="gc-label">Necesitas en el examen</div>
+            <div class="gc-mid num" id="gcNeed">–</div>
+            <span class="gc-pill" id="gcNeedTag">para aprobar con 4,0</span>
+          </div>
+        </div>
+
+        <div class="gc-grid">
+          <div class="gc-panel">
+            <div class="gc-head">
+              <h3>Tus notas</h3>
+              <button class="gc-ghost" id="gcReset" type="button">Borrar todo</button>
+            </div>
+            <div class="gc-label">Presentación a examen · 70%</div>
+            <div class="gc-evals" id="gcPresList"></div>
+            <div class="gc-label">Examen · 30%</div>
+            <div class="gc-evals" id="gcExamList"></div>
+            <label class="gc-check" for="gcAsis">
+              <input type="checkbox" id="gcAsis" checked>
+              <span>Cumplo con el 80% de asistencia<small>Si no lo cumples, la nota final del ramo es 1,0.</small></span>
+            </label>
+          </div>
+
+          <div class="gc-panel">
+            <div class="gc-head">
+              <h3>Cómo vas</h3>
+              <span class="gc-label" id="gcNext"></span>
+            </div>
+            <div>
+              <div class="gc-bar" id="gcBar" role="img" aria-label="Aporte de cada evaluación a la nota final"></div>
+              <div class="gc-legend">
+                <span><i style="background:var(--udd)"></i>Puntos ganados</span>
+                <span><i style="background:repeating-linear-gradient(135deg,var(--hatch) 0 3px,transparent 3px 6px);border:1px solid var(--rule)"></i>Proyectado</span>
+                <span>Ancho = peso en la nota final</span>
+              </div>
+            </div>
+            <div class="gc-kpis">
+              <div class="gc-kpi"><div class="gc-label">Promedio actual</div><div class="v num" id="gcAvg">–</div><p id="gcAvgP">de lo que ya rendiste</p></div>
+              <div class="gc-kpi"><div class="gc-label">Avance del ramo</div><div class="v num" id="gcProg">–</div><p>de la nota final ya está definida</p></div>
+            </div>
+            <div class="gc-callouts" id="gcCallouts"></div>
+            <div class="gc-sim">
+              <div class="gc-label">Simulador ¿qué pasa si…?</div>
+              <div class="gc-simrow" id="gcRowS">
+                <div class="top"><label for="gcSimS">…en lo que te falta (avances) promedias</label><output id="gcOS" class="num">5,0</output></div>
+                <input type="range" id="gcSimS" min="1" max="7" step="0.1" value="5">
+              </div>
+              <div class="gc-simrow" id="gcRowE">
+                <div class="top"><label for="gcSimE">…y en el examen final te sacas</label><output id="gcOE" class="num">4,5</output></div>
+                <input type="range" id="gcSimE" min="1" max="7" step="0.1" value="4.5">
+              </div>
+              <div class="gc-simres">
+                <div><div class="gc-label">Terminarías con</div><div class="v num" id="gcSimF">–</div></div>
+                <div class="gc-res" id="gcSimR" style="font-size:.95rem"></div>
+              </div>
+            </div>
+            <div>
+              <div class="gc-label" style="margin-bottom:6px">Si en el examen te sacas…</div>
+              <div class="gc-tbl">
+                <table>
+                  <thead><tr><th>Examen</th><th>Nota final</th><th>Resultado</th></tr></thead>
+                  <tbody id="gcTbl"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="gc-note">Calculadora referencial. Las notas oficiales son las que se publican en Canvas. Tus notas se guardan solo en este navegador; nadie más las ve.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ METODOLOGÍA + HERRAMIENTAS ============ -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">08 · CÓMO TRABAJAMOS</div>
+        <div><h2>Con las manos en la <em>masa</em></h2></div>
+      </div>
+      <div class="method rv">
+        <div><b>Clases dinámicas</b><span>Ejemplos reales, videos y casos en vivo del impacto de la IA en el trabajo.</span></div>
+        <div><b>Hands-on</b><span>Cada semana usamos una herramienta de IA distinta, directo en el computador y el celular.</span></div>
+        <div><b>Casos reales</b><span>Industrias que ya implementaron IA para resolver problemas concretos.</span></div>
+        <div><b>Discusión activa</b><span>Kahoots, foros y debate sobre ética, regulación y oportunidades.</span></div>
+      </div>
+      <div class="tools rv">
+        <div class="tcard"><b>ChatGPT</b><span>OpenAI · LLM</span></div>
+        <div class="tcard"><b>Gemini</b><span>Google · texto e imagen</span></div>
+        <div class="tcard"><b>DeepSeek</b><span>LLM open-weight</span></div>
+        <div class="tcard"><b>Freepik</b><span>Generación de imágenes</span></div>
+        <div class="tcard"><b>Claude Code</b><span>Anthropic · agentes</span></div>
+        <div class="tcard"><b>Gamma</b><span>Presentaciones con IA</span></div>
+        <div class="tcard"><b>Copilot</b><span>Microsoft · LLM</span></div>
+        <div class="tcard"><b>Sora</b><span>OpenAI · video</span></div>
+        <div class="tcard"><b>Midjourney</b><span>Arte y diseño</span></div>
+        <div class="tcard"><b>Ideogram</b><span>Texto en imágenes</span></div>
+        <div class="tcard"><b>Photoshop IA</b><span>Relleno generativo</span></div>
+        <div class="tcard"><b>Kahoot</b><span>Repaso en clase</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REGLAS ============ -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">09 · LO IMPORTANTE</div>
+        <div><h2>Reglas del <em>juego</em></h2></div>
+      </div>
+      <div class="rules rv">
+        <div class="rule">
+          <div class="absences"><i></i><i></i><i></i></div>
+          <h3>Máximo 3 inasistencias</h3>
+          <p>La asistencia es obligatoria. Con más de 3 faltas desde el inicio del semestre, el curso queda reprobado según el Reglamento Académico.</p>
+        </div>
+        <div class="rule">
+          <div class="big">3,0</div>
+          <h3>Nota mínima en el examen</h3>
+          <p>La nota del examen no puede ser inferior a 3,0. El examen pondera un 30% de la nota final.</p>
+        </div>
+        <div class="rule">
+          <div class="big">1,0</div>
+          <h3>Copia o plagio</h3>
+          <p>Copiar o usar la IA como reemplazo (copy-paste) se califica con nota mínima y se informa a la Dirección de Carrera (Reglamento de Disciplina UDD, arts. 7 y 8).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALERÍA ============ -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">10 · BITÁCORA</div>
+        <div><h2>Momentos del <em>semestre</em></h2></div>
+      </div>
+      <div class="gallery rv">
+        <figure class="slot"><div class="art">01</div><img src="/clasesUDD/img/galeria-1.webp" alt="" onerror="this.remove()"><span class="hint">galeria-1.webp</span></figure>
+        <figure class="slot"><div class="art">02</div><img src="/clasesUDD/img/galeria-2.webp" alt="" onerror="this.remove()"><span class="hint">galeria-2.webp</span></figure>
+        <figure class="slot"><div class="art">03</div><img src="/clasesUDD/img/galeria-3.webp" alt="" onerror="this.remove()"><span class="hint">galeria-3.webp</span></figure>
+        <figure class="slot"><div class="art">04</div><img src="/clasesUDD/img/galeria-4.webp" alt="" onerror="this.remove()"><span class="hint">galeria-4.webp</span></figure>
+        <figure class="slot"><div class="art">05</div><img src="/clasesUDD/img/galeria-5.webp" alt="" onerror="this.remove()"><span class="hint">galeria-5.webp</span></figure>
+        <figure class="slot"><div class="art">06</div><img src="/clasesUDD/img/galeria-6.webp" alt="" onerror="this.remove()"><span class="hint">galeria-6.webp</span></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BIBLIOGRAFÍA ============ -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">11 · PARA LEER</div>
+        <div><h2>Bibliografía y <em>recursos</em></h2><p>Disponible en la <a href="http://bibliotecaudd.cl/" target="_blank" rel="noopener">Biblioteca UDD</a>.</p></div>
+      </div>
+      <div class="biblio rv">
+        <div>
+          <h3>Obligatoria</h3>
+          <div class="book"><b>Artificial Intelligence: A Modern Approach</b><span>Russell & Norvig (2020), 4ª ed. Pearson. El clásico de la IA, de lo básico a lo avanzado.</span></div>
+          <div class="book"><b>Deep Learning</b><span>Goodfellow, Bengio & Courville (2016). MIT Press. Las bases del aprendizaje profundo.</span></div>
+          <div class="book"><b>Introduction to Machine Learning</b><span>Alpaydin (2020), 4ª ed. MIT Press. Una introducción accesible al machine learning.</span></div>
+        </div>
+        <div>
+          <h3>Complementaria y podcasts</h3>
+          <div class="book"><b>The Master Algorithm</b><span>Domingos (2015). Basic Books. Cómo los algoritmos están transformando el mundo.</span></div>
+          <div class="book"><b>Machine Learning</b><span>Mitchell (1997). McGraw Hill. Los fundamentos del aprendizaje automático.</span></div>
+          <div class="book"><b>Introduction to Information Retrieval</b><span>Manning, Raghavan & Schütze (2008). Cambridge University Press.</span></div>
+          <div class="book"><b>Lex Fridman Podcast</b><span>Entrevistas con expertos en IA y tecnología.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="sig">Felipe Reyes Polanco</div>
+      <p>Profesor · Universidad del Desarrollo · Fundador de <a href="/">Reyes IA</a></p>
+      <p>Ayudante del curso: Emilia Barria</p>
+    </div>
+    <p class="mono" style="font-size:.7rem">CLDC20251 · Sede Santiago · II semestre 2026</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // ---------- DATOS DEL CURSO ----------
+  const UNITS = [
+    { n: 1, name: 'Introducción a la IA y su impacto en el mundo laboral', comp: 'Transformación digital',
+      topics: ['Concepto y evolución de la IA', 'Áreas clave de aplicación en industrias', 'Impacto en el empleo y las profesiones', 'Tendencias futuras en el mercado laboral'],
+      ra: 'Identifica los conceptos básicos de la IA, su evolución histórica y su impacto en distintas industrias, para reconocer las oportunidades y los retos que trae.' },
+    { n: 2, name: 'Herramientas de IA para la automatización de procesos', comp: 'Transformación digital',
+      topics: ['Principales tecnologías de automatización con IA', 'Machine learning aplicado a procesos', 'Ejemplos de automatización en distintos sectores', 'Implementación de proyectos de automatización'],
+      ra: 'Aplica tecnologías de IA para automatizar procesos, identificando tareas optimizables y diseñando soluciones que mejoren la eficiencia y reduzcan costos.' },
+    { n: 3, name: 'Innovación mediante IA en el desarrollo de soluciones', comp: 'Innovación',
+      topics: ['Identificar oportunidades para innovar con IA', 'Soluciones disruptivas basadas en IA', 'Casos de estudio: innovaciones exitosas', 'Prototipado de soluciones en entornos laborales'],
+      ra: 'Diseña soluciones innovadoras integrando herramientas de IA, a partir de problemas reales del trabajo, y desarrolla prototipos con impacto.' },
+    { n: 4, name: 'Ética y responsabilidad en el uso de IA en el trabajo', comp: 'Innovación · Transformación digital',
+      topics: ['Consideraciones éticas en el uso de IA', 'Sesgos algorítmicos y sus consecuencias', 'Privacidad y derechos laborales', 'Responsabilidad social y transparencia'],
+      ra: 'Evalúa los desafíos éticos de la IA en el trabajo (sesgos, privacidad, transparencia) para implementarla de forma ética y responsable.' }
+  ];
+
+  const S = [
+    { d: '2026-08-05', u: 1, t: 'Concepto y evolución de la IA', a: 'Observar y aprender', tool: 'Documental «What’s Next?»' },
+    { d: '2026-08-12', u: 1, t: 'Áreas clave de aplicación de la IA en industrias', a: 'Kahoot al cierre de la clase', tool: 'ChatGPT' },
+    { d: '2026-08-19', u: 1, t: 'Impacto de la IA en el empleo y las profesiones', a: 'Observar y aprender', tool: 'Gemini' },
+    { d: '2026-08-26', u: 1, t: 'Tendencias futuras de la IA en el mercado laboral', a: 'Kahoot al cierre de la clase', tool: 'DeepSeek' },
+    { d: '2026-09-02', u: 2, t: 'Principales tecnologías de automatización basadas en IA', a: 'Observar y aprender', tool: 'Gemini · imágenes' },
+    { d: '2026-09-09', u: 2, t: 'Uso de machine learning en la automatización de procesos', a: 'Certamen 1 (unidad 1)', tool: 'Freepik', ev: 'Certamen 1 · 30%' },
+    { brk: '2026-09-16', t: 'Sin clases · suspensión de actividades y Fiestas Patrias (12 al 19 de septiembre)' },
+    { d: '2026-09-23', u: 2, t: 'Ejemplos de automatización en diferentes sectores', a: 'Kahoot al cierre', fb: 'Feedback general del Certamen 1', tool: 'Freepik' },
+    { d: '2026-09-30', u: 2, t: 'Ejemplos de automatización en diferentes sectores (II)', a: 'Kahoot al cierre', fb: 'Espacio de feedback personal', tool: 'Claude Code' },
+    { brk: '2026-10-07', t: 'Sin clases · Semana i (6 al 8 de octubre)' },
+    { d: '2026-10-14', u: 2, t: 'Implementación de proyectos de automatización con IA', a: 'Certamen 2 (unidades 2 y 3)', tool: 'Gamma', ev: 'Certamen 2 · 30%' },
+    { d: '2026-10-21', u: 3, t: 'Identificación de oportunidades para innovar con IA', a: 'Foro de discusión: IA y ética', tool: 'Copilot' },
+    { d: '2026-10-28', u: 3, t: 'Desarrollo de soluciones disruptivas basadas en IA', a: 'Foro de discusión: IA y regulaciones', tool: 'Copilot' },
+    { d: '2026-11-04', u: 4, t: 'IA, privacidad y derechos laborales · Responsabilidad social y transparencia', a: 'Avance examen 01', fb: 'Feedback general por grupo', tool: 'Sora', ev: 'Avance 1 · 20%' },
+    { d: '2026-11-11', u: 4, t: 'Sesgos, ética y transparencia en proyectos de IA', a: 'Avance examen 02', fb: 'Feedback general por grupo', tool: 'Sora', ev: 'Avance 2 · 20%' },
+    { d: '2026-11-18', u: 0, t: 'Examen final · las 4 unidades', a: 'Sin tareas esta semana: foco en el examen', fb: 'Feedback posterior, también online', tool: '—', ev: 'Examen · 30% final' }
+  ];
+  const CLASSES = S.filter(s => s.d);
+
+  const EVALS = [
+    { d: '2026-09-09', name: 'Certamen 1', pct: '30%', desc: 'Certamen sobre la unidad 1. Tres preguntas con respuesta escrita e imagen generada con IA.' },
+    { d: '2026-10-14', name: 'Certamen 2', pct: '30%', desc: 'Certamen sobre las unidades 2 y 3.' },
+    { d: '2026-11-04', name: 'Avance examen 1', pct: '20%', desc: 'Presentación de la idea inicial y primeros avances.',
+      list: ['Elección del producto', 'Nombre y logo', 'Identidad de marca', 'Propuesta de valor y propósito', 'Investigación de mercado inicial'] },
+    { d: '2026-11-11', name: 'Avance examen 2', pct: '20%', desc: 'Estrategia de marketing y visualización del producto.',
+      list: ['Diseño de empaque', 'Marketing y segmentación', 'Ventas y canales de distribución', 'Branding refinado con feedback'] },
+    { d: '2026-11-18', name: 'Examen final', pct: '30%', desc: 'Integra las 4 unidades. Pondera un 30% de la nota final; la nota no puede ser inferior a 3,0.' }
+  ];
+
+  const SEM_START = '2026-08-03', SEM_END = '2026-11-24';
+  const CLASS_START = 8 * 60 + 30, CLASS_END = 9 * 60 + 40;
+  const MONTHS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+  const MONTHS_L = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+  // ---------- TIEMPO (hora de Santiago) ----------
+  function santiagoNow() {
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Santiago', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+    }).formatToParts(new Date()).map(x => [x.type, x.value]));
+    return { date: `${p.year}-${p.month}-${p.day}`, min: (+p.hour) * 60 + (+p.minute) };
+  }
+  const dayNum = iso => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 864e5;
+  const fmt = iso => ({ d: +iso.slice(8, 10), m: MONTHS[+iso.slice(5, 7) - 1], ml: MONTHS_L[+iso.slice(5, 7) - 1] });
+
+  // estado de una sesión: past | live | today | future
+  function stateOf(iso, now) {
+    if (iso < now.date) return 'past';
+    if (iso > now.date) return 'future';
+    if (now.min >= CLASS_END) return 'past';
+    if (now.min >= CLASS_START) return 'live';
+    return 'today';
+  }
+
+  // ---------- RENDER ESTÁTICO ----------
+  const calEl = document.getElementById('cal');
+  calEl.innerHTML = S.map((s, i) => {
+    const f = fmt(s.d || s.brk);
+    if (s.brk) return `<div class="row brk"><div class="date"><b>${f.d}</b><span>${f.m}</span></div><div class="topic">${s.t}</div></div>`;
+    const n = CLASSES.indexOf(s) + 1;
+    return `<div class="row${s.ev ? ' has-eval' : ''}" data-i="${i}">
+      <div class="date"><b>${f.d}</b><span>${f.m}<span class="wd"> · miérc.</span></span></div>
+      <div class="u">${s.u ? 'U' + s.u : 'U1–4'} · S${String(n).padStart(2, '0')}</div>
+      <div><div class="topic">${s.t}</div><div class="act">${s.a}${s.fb ? `<span class="fb">${s.fb}</span>` : ''}</div></div>
+      <div class="side">${s.ev ? `<span class="eval-badge">${s.ev}</span>` : ''}<span class="tool">${s.tool}</span></div>
+    </div>`;
+  }).join('');
+
+  document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.seg button').forEach(x => x.classList.toggle('on', x === b));
+    calEl.classList.toggle('only-evals', b.dataset.f === 'evals');
+  }));
+
+  const unitsEl = document.getElementById('units');
+  unitsEl.innerHTML = UNITS.map(u => `
+    <article class="unit rv" data-u="${u.n}">
+      <figure class="slot"><div class="art">${['I', 'II', 'III', 'IV'][u.n - 1]}</div>
+        <img src="/clasesUDD/img/unidad-${u.n}.webp" alt="Unidad ${u.n}" onerror="this.remove()"><span class="hint">clasesUDD/img/unidad-${u.n}.webp</span></figure>
+      <div class="unit-body">
+        <div class="unit-top"><span class="mono">Unidad ${u.n} · ${u.comp}</span><span class="status next">Próxima</span></div>
+        <h3>${u.name}</h3>
+        <div class="unit-bar"><i></i></div>
+        <ul>${u.topics.map(t => `<li>${t}</li>`).join('')}</ul>
+        <p class="ra"><b>Resultado de aprendizaje</b>${u.ra}</p>
+      </div>
+    </article>`).join('');
+
+  const evalsEl = document.getElementById('evals');
+  evalsEl.innerHTML = EVALS.map((e, i) => {
+    const f = fmt(e.d);
+    return `<div class="ecard" data-i="${i}"><span class="pct">${e.pct}</span>
+      <span class="mono">${f.d} de ${f.ml}</span><h3>${e.name}</h3><p>${e.desc}</p>
+      ${e.list ? `<ul>${e.list.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}</div>`;
+  }).join('');
+
+  // regla del semestre
+  const ruler = document.getElementById('ruler');
+  const t0 = dayNum(SEM_START), t1 = dayNum(SEM_END);
+  const pos = iso => ((dayNum(iso) - t0) / (t1 - t0)) * 100;
+  let rh = '';
+  [['2026-09-12', '2026-09-19'], ['2026-10-06', '2026-10-08']].forEach(([a, b]) => {
+    rh += `<div class="gap" style="left:${pos(a)}%;width:${pos(b) - pos(a)}%"></div>`;
+  });
+  ['2026-08-03', '2026-09-01', '2026-10-01', '2026-11-01'].forEach(m => {
+    rh += `<div class="month" style="left:${pos(m)}%">${MONTHS_L[+m.slice(5, 7) - 1]}</div>`;
+  });
+  CLASSES.forEach((s, i) => { rh += `<div class="tick" data-i="${i}" style="left:${pos(s.d)}%"></div>`; });
+  const shortEv = { 'Certamen 1': 'C1', 'Certamen 2': 'C2', 'Avance examen 1': 'Av. 1', 'Avance examen 2': 'Av. 2', 'Examen final': 'Examen' };
+  EVALS.forEach((e, i) => {
+    const f = fmt(e.d);
+    rh += `<div class="ev" data-i="${i}" style="left:${pos(e.d)}%"><div class="lbl">${f.d} ${f.m}<b>${shortEv[e.name]}</b></div><div class="stem"></div></div>`;
+  });
+  rh += `<div class="today" id="rulerToday"><i></i><span>HOY</span></div>`;
+  ruler.insertAdjacentHTML('beforeend', rh);
+
+  // ---------- ACTUALIZACIÓN EN VIVO ----------
+  function update() {
+    const now = santiagoNow();
+    const states = CLASSES.map(s => stateOf(s.d, now));
+    const done = states.filter(x => x === 'past').length;
+    const liveIdx = states.indexOf('live');
+    const nextIdx = states.findIndex(x => x !== 'past');
+    const liveFrac = liveIdx >= 0 ? (now.min - CLASS_START) / (CLASS_END - CLASS_START) : 0;
+    const pct = Math.min(100, Math.round(((done + liveFrac) / CLASSES.length) * 100));
+
+    document.getElementById('bigPct').textContent = pct;
+    document.getElementById('stampPct').textContent = pct + '%';
+    document.getElementById('stDone').textContent = done;
+    document.getElementById('bigCap').textContent = done >= CLASSES.length
+      ? '¡Curso completado! Gracias por el semestre.'
+      : `del curso completado · ${CLASSES.length - done} ${CLASSES.length - done === 1 ? 'clase' : 'clases'} por delante`;
+
+    const week = Math.floor((dayNum(now.date) - t0) / 7) + 1;
+    const totalW = Math.floor((t1 - t0) / 7) + 1;
+    document.getElementById('stWeek').textContent = Math.max(0, Math.min(week, totalW));
+    document.getElementById('stWeekSub').textContent = `de ${totalW}`;
+
+    const curS = CLASSES[nextIdx >= 0 ? nextIdx : CLASSES.length - 1];
+    const curU = curS.u || 4;
+    document.getElementById('stUnit').textContent = curS.u ? 'Unidad ' + ['I', 'II', 'III', 'IV'][curU - 1] : 'Examen';
+    document.getElementById('stUnitSub').textContent = curS.u ? UNITS[curU - 1].name.split(' ').slice(0, 4).join(' ') + '…' : 'Las 4 unidades';
+
+    const daysExam = dayNum('2026-11-18') - dayNum(now.date);
+    document.getElementById('stExam').textContent = daysExam > 0 ? daysExam : (daysExam === 0 ? '¡Hoy!' : '✓');
+
+    // pill de la barra
+    const pill = document.getElementById('livePill'), pillTxt = document.getElementById('livePillText');
+    pill.classList.toggle('is-live', liveIdx >= 0);
+    if (liveIdx >= 0) pillTxt.innerHTML = 'En clase ahora<span class="txt-long"> · Sala 222</span>';
+    else if (nextIdx >= 0 && states[nextIdx] === 'today') pillTxt.innerHTML = 'Hoy hay clase<span class="txt-long"> · 8:30</span>';
+    else if (nextIdx >= 0) { const f = fmt(CLASSES[nextIdx].d); pillTxt.innerHTML = `Próxima<span class="txt-long"> clase</span>: ${f.d} ${f.m}`; }
+    else pillTxt.textContent = 'Semestre finalizado';
+
+    // regla
+    const tp = Math.max(0, Math.min(100, pos(now.date) + (now.min / 1440) * (100 / (t1 - t0))));
+    document.getElementById('rulerFill').style.width = tp + '%';
+    document.getElementById('rulerToday').style.left = tp + '%';
+    ruler.querySelectorAll('.tick').forEach(el => el.classList.toggle('done', states[+el.dataset.i] === 'past'));
+    ruler.querySelectorAll('.ev').forEach(el => el.classList.toggle('passed', EVALS[+el.dataset.i].d < now.date));
+
+    // próxima clase / evaluación
+    if (nextIdx >= 0) {
+      const s = CLASSES[nextIdx], f = fmt(s.d), st = states[nextIdx];
+      document.getElementById('ncDay').textContent = f.d;
+      document.getElementById('ncMonth').textContent = f.m;
+      document.getElementById('ncKicker').textContent = st === 'live' ? '● En curso ahora' : st === 'today' ? 'Hoy · 8:30 · Sala 222 Q' : 'Próxima clase · miércoles 8:30';
+      document.getElementById('ncTitle').textContent = s.t;
+      document.getElementById('ncSub').textContent = `${s.a}${s.tool !== '—' ? ' · Herramienta: ' + s.tool : ''}`;
+      const nextEv = EVALS.find(e => e.d > now.date || (e.d === now.date && now.min < CLASS_END));
+      const cnt = document.getElementById('ncCount'), lbl = document.getElementById('ncCountLbl');
+      if (nextEv) {
+        const dd = dayNum(nextEv.d) - dayNum(now.date);
+        cnt.textContent = dd === 0 ? 'Hoy' : dd + (dd === 1 ? ' día' : ' días');
+        lbl.textContent = 'para ' + nextEv.name.toLowerCase();
+      } else { cnt.textContent = '✓'; lbl.textContent = 'evaluaciones listas'; }
+    } else {
+      document.getElementById('nextCard').style.display = 'none';
+    }
+
+    // calendario
+    calEl.querySelectorAll('.row[data-i]').forEach(el => {
+      const ci = CLASSES.indexOf(S[+el.dataset.i]), st = states[ci];
+      el.classList.toggle('past', st === 'past');
+      const isMarked = ci === nextIdx;
+      el.classList.toggle('today', isMarked);
+      el.dataset.flag = st === 'live' ? '● En clase ahora' : st === 'today' ? 'Hoy' : 'Próxima clase';
+    });
+
+    // unidades
+    document.querySelectorAll('.unit').forEach(el => {
+      const n = +el.dataset.u;
+      const idx = CLASSES.map((s, i) => [s, i]).filter(([s]) => s.u === n);
+      const d = idx.filter(([, i]) => states[i] === 'past').length;
+      const badge = el.querySelector('.status');
+      let cls = 'next', txt = 'Próxima';
+      if (d === idx.length) { cls = 'done'; txt = 'Completada ✓'; }
+      else if (n === curS.u) { cls = 'now'; txt = 'En curso'; }
+      badge.className = 'status ' + cls; badge.textContent = txt;
+      el.querySelector('.unit-bar i').style.width = (d / idx.length * 100) + '%';
+    });
+
+    // tarjetas de evaluación
+    const soonI = EVALS.findIndex(e => e.d > now.date || (e.d === now.date && now.min < CLASS_END));
+    document.querySelectorAll('.ecard').forEach(el => {
+      const i = +el.dataset.i, e = EVALS[i];
+      const isDone = e.d < now.date || (e.d === now.date && now.min >= CLASS_END);
+      el.classList.toggle('done', isDone);
+      el.classList.toggle('soon', i === soonI);
+      if (i === soonI) {
+        const dd = dayNum(e.d) - dayNum(now.date);
+        el.dataset.soon = dd === 0 ? 'Es hoy' : `Próxima · en ${dd} ${dd === 1 ? 'día' : 'días'}`;
+      }
+    });
+
+  }
+  update();
+  setInterval(update, 30000);
+
+  // ---------- CALCULADORA ----------
+  (function () {
+    const EV = [
+      { id: 'c1', name: 'Certamen 1', date: '2026-09-09', w: 30, group: 'pres', desc: 'Unidad 1' },
+      { id: 'c2', name: 'Certamen 2', date: '2026-10-14', w: 30, group: 'pres', desc: 'Unidades 2 y 3' },
+      { id: 'a1', name: 'Avance examen 1', date: '2026-11-04', w: 20, group: 'pres', desc: 'Idea, marca y propuesta de valor' },
+      { id: 'a2', name: 'Avance examen 2', date: '2026-11-11', w: 20, group: 'pres', desc: 'Marketing y visualización del producto' },
+      { id: 'ex', name: 'Examen final', date: '2026-11-18', w: 30, group: 'exam', desc: 'Integra las 4 unidades · mínimo 3,0' }
+    ];
+    const DEMO = { c1: '5,2', c2: '4,6' };
+    const KEY = 'udd-cldc20251-notas';
+    const PASS = 4.0, EXAM_MIN = 3.0, PRES_W = 0.7, EX_W = 0.3;
+    const $ = id => document.getElementById(id);
+    const fmt = (n, d = 1) => n == null || isNaN(n) ? '–' : n.toFixed(d).replace('.', ',');
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const dateOf = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+    const days = s => Math.round((dateOf(s) - today) / 86400000);
+    const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+    const nice = s => { const d = dateOf(s); return d.getDate() + ' ' + MESES[d.getMonth()]; };
+    const nextEval = EV.find(e => days(e.date) >= 0);
+
+    function row(e) {
+      const dd = days(e.date);
+      let chip;
+      if (dd < 0) chip = '<span class="gc-chip done">Rendido</span>';
+      else if (e === nextEval) chip = '<span class="gc-chip next">' + (dd === 0 ? 'Hoy' : 'En ' + dd + (dd === 1 ? ' día' : ' días')) + '</span>';
+      else chip = '<span class="gc-chip pend">Pendiente</span>';
+      const pct = e.group === 'pres' ? Math.round(e.w * 0.7) + '% final' : '30% final';
+      return '<div class="gc-ev' + (e === nextEval ? ' next' : '') + '">' +
+        '<div class="gc-w num">' + e.w + '%<small>' + pct + '</small></div>' +
+        '<div class="gc-info"><h4>' + e.name + '</h4><div class="gc-meta"><span>' + nice(e.date) + ' · ' + e.desc + '</span>' + chip + '</div></div>' +
+        '<div class="gc-gbox"><input class="gc-in" id="gc-g-' + e.id + '" inputmode="decimal" autocomplete="off" placeholder="–" aria-label="Nota ' + e.name + '"><div class="gc-hint" id="gc-h-' + e.id + '"></div></div>' +
+      '</div>';
+    }
+    $('gcPresList').innerHTML = EV.filter(e => e.group === 'pres').map(row).join('');
+    $('gcExamList').innerHTML = EV.filter(e => e.group === 'exam').map(row).join('');
+    $('gcNext').textContent = nextEval ? ('Próxima: ' + nextEval.name + ' · ' + nice(nextEval.date)) : 'Semestre cerrado';
+
+    function parse(v) {
+      v = (v || '').trim().replace(',', '.');
+      if (v === '') return { empty: true };
+      if (/^\d{2}$/.test(v) && +v >= 10 && +v <= 70) v = (+v / 10).toString(); // "55" -> 5.5
+      const n = Number(v);
+      if (isNaN(n) || n < 1 || n > 7) return { err: true };
+      return { n: Math.round(n * 10) / 10 };
+    }
+
+    // Las notas se guardan solo en el navegador del alumno
+    let demo = false;
+    function load() {
+      let saved = null;
+      try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+      if (saved && saved.g) {
+        EV.forEach(e => { $('gc-g-' + e.id).value = saved.g[e.id] || ''; });
+        if (saved.s) $('gcSimS').value = saved.s;
+        if (saved.e) $('gcSimE').value = saved.e;
+        if (saved.asis === false) $('gcAsis').checked = false;
+      } else {
+        demo = true;
+        Object.entries(DEMO).forEach(([k, v]) => $('gc-g-' + k).value = v);
+      }
+    }
+    function save() {
+      if (demo) return;
+      const g = {}; EV.forEach(e => g[e.id] = $('gc-g-' + e.id).value);
+      try { localStorage.setItem(KEY, JSON.stringify({ g, s: $('gcSimS').value, e: $('gcSimE').value, asis: $('gcAsis').checked })); } catch (e) {}
+    }
+
+    function verdict(f, ex, asis) {
+      if (!asis) return { t: 'Reprobado por asistencia', c: 'bad' };
+      if (ex != null && ex < EXAM_MIN) return { t: 'Reprueba: examen bajo 3,0', c: 'bad' };
+      if (f >= PASS) return { t: 'Apruebas ✓', c: 'ok' };
+      return { t: 'Reprueba', c: 'bad' };
+    }
+    function mood(f) {
+      if (f >= 6) return ['🚀', 'Vas volando'];
+      if (f >= 5) return ['😎', 'Vas muy bien'];
+      if (f >= 4.5) return ['🙂', 'Vas bien, sigue así'];
+      if (f >= 4) return ['😅', 'Justo en la línea'];
+      if (f >= 3.5) return ['😬', 'Ojo, estás bajo el 4,0'];
+      return ['🆘', 'Hay que remontar'];
+    }
+    const needExam = P => Math.max(EXAM_MIN, (PASS - PRES_W * P) / EX_W);
+
+    function calc() {
+      const g = {}; let anyErr = false;
+      EV.forEach(e => {
+        const inp = $('gc-g-' + e.id), h = $('gc-h-' + e.id), r = parse(inp.value);
+        inp.classList.remove('ok', 'bad', 'err'); h.classList.remove('err'); h.textContent = '';
+        if (r.err) { inp.classList.add('err'); h.classList.add('err'); h.textContent = 'Usa una nota entre 1,0 y 7,0'; anyErr = true; return; }
+        if (r.empty) { if (days(e.date) < 0) h.textContent = '¿Ya tienes esta nota?'; return; }
+        g[e.id] = r.n; inp.classList.add(r.n >= PASS ? 'ok' : 'bad');
+        h.textContent = r.n >= PASS ? '↑ sobre el 4,0' : '↓ bajo el 4,0';
+      });
+      if (g.c1 != null && g.c2 != null) { const d = g.c2 - g.c1; $('gc-h-c2').textContent = (d > 0 ? '↗ subiste ' + fmt(d) : d < 0 ? '↘ bajaste ' + fmt(-d) : '→ igual que el C1') + ' vs C1'; }
+
+      const S = +$('gcSimS').value, E0 = +$('gcSimE').value, asis = $('gcAsis').checked;
+      const pres = EV.filter(e => e.group === 'pres');
+      let known = 0, wKnown = 0, wPend = 0;
+      pres.forEach(e => { if (g[e.id] != null) { known += g[e.id] * e.w; wKnown += e.w; } else wPend += e.w; });
+      const avg = wKnown ? known / wKnown : null;
+      const Pproj = (known + S * wPend) / 100;
+      const presDone = wPend === 0;
+      const exReal = g.ex != null;
+      const E = exReal ? g.ex : E0;
+      const F = asis ? PRES_W * Pproj + EX_W * E : 1.0;
+      const v = verdict(F, E, asis);
+
+      $('gcRowS').hidden = presDone; $('gcRowE').hidden = exReal;
+      $('gcOS').textContent = fmt(S); $('gcOE').textContent = fmt(E0);
+
+      const projected = !presDone || !exReal;
+      $('gcFinal').textContent = fmt(F);
+      const [ic, tx] = asis ? mood(F) : ['⛔', 'Sin el 80% de asistencia'];
+      $('gcMood').textContent = ic + ' ' + (v.c === 'bad' && asis && F >= PASS ? 'Ojo: examen bajo 3,0' : tx);
+      $('gcSub').textContent = !projected ? 'Esta es tu nota final con todas las evaluaciones.'
+        : 'Supone ' + (presDone ? '' : fmt(S) + ' en los avances') + (presDone || exReal ? '' : ' y ') + (exReal ? '' : fmt(E0) + ' en el examen') + '. Muévelo en el simulador.';
+      $('gcPres').textContent = fmt(Pproj, 2);
+      $('gcPresTag').textContent = presDone ? 'Definitiva' : 'Proyectada · ' + (100 - wPend) + '% rendido';
+      const need = needExam(Pproj);
+      if (!asis) { $('gcNeed').textContent = '–'; $('gcNeedTag').textContent = 'Requiere 80% de asistencia'; }
+      else if (exReal) { $('gcNeed').textContent = fmt(g.ex); $('gcNeedTag').textContent = 'Tu nota del examen'; }
+      else if (need > 7) { $('gcNeed').textContent = '>7,0'; $('gcNeedTag').textContent = 'No alcanza: sube los avances'; }
+      else { $('gcNeed').textContent = fmt(Math.ceil(need * 10 - 1e-9) / 10); $('gcNeedTag').textContent = need <= EXAM_MIN + 1e-9 ? 'Solo el mínimo de 3,0' : 'para aprobar con 4,0' + (presDone ? '' : ' (con ' + fmt(S) + ' en avances)'); }
+
+      $('gcBar').innerHTML = EV.map(e => {
+        const share = e.group === 'pres' ? e.w * PRES_W : e.w * EX_W;
+        const real = g[e.id] != null;
+        const val = real ? g[e.id] : (e.group === 'pres' ? S : E0);
+        return '<div class="gc-seg' + (real ? ' real' : '') + '" style="flex:' + share + '" title="' + e.name + ': ' + fmt(val) + (real ? '' : ' (proyectado)') + '">' +
+          '<div class="gc-fill' + (real ? '' : ' proj') + '" style="height:' + ((val - 1) / 6 * 100) + '%"></div><span>' + e.id.toUpperCase() + ' ' + fmt(val) + '</span></div>';
+      }).join('');
+
+      $('gcAvg').textContent = fmt(avg, 2);
+      $('gcAvgP').textContent = wKnown ? 'ponderado de lo que ya rendiste' : 'aún no ingresas notas';
+      $('gcProg').textContent = Math.round((wKnown * PRES_W) + (exReal ? 30 : 0)) + '%';
+
+      const co = [];
+      if (anyErr) co.push(['bad', '✏️', 'Revisa las notas marcadas en rojo. Usa decimales con coma o punto, por ejemplo <b>5,4</b>.']);
+      if (!asis) co.push(['bad', '⛔', 'Sin el 80% de asistencia la nota final es <b>1,0</b>, sin importar tus notas. Revisa tu asistencia con el profesor.']);
+      else if (!presDone) {
+        // promedio mínimo en avances para aprobar con un 4,0 en el examen
+        const x4 = (((PASS - EX_W * 4) / PRES_W) * 100 - known) / wPend;
+        const x7 = (((PASS - EX_W * 7) / PRES_W) * 100 - known) / wPend;
+        if (x4 <= 1) co.push(['ok', '🎯', 'Con lo que llevas, si sacas un <b>4,0 en el examen</b> apruebas aunque te vaya mal en los avances. Igual apunta alto: suben tu nota final.']);
+        else if (x4 <= 7) co.push(['info', '🎯', 'Para aprobar con un <b>4,0 en el examen</b>, necesitas promediar al menos <b>' + fmt(Math.ceil(x4 * 10 - 1e-9) / 10) + '</b> en los avances que te faltan.']);
+        else if (x7 <= 7) co.push(['warn', '⚠️', 'Aunque saques 7,0 en los avances, necesitarás más de un 4,0 en el examen. Con un <b>7,0 en el examen</b>, te basta promediar <b>' + fmt(Math.max(1, Math.ceil(x7 * 10 - 1e-9) / 10)) + '</b> en los avances.']);
+        else co.push(['bad', '🆘', 'Con estas notas no alcanza para el 4,0 final. Habla con el profesor para ver tus opciones.']);
+      }
+      if (asis && nextEval && nextEval.group === 'pres' && g[nextEval.id] == null) {
+        const dd = days(nextEval.date);
+        co.push(['info', '📅', 'Lo próximo es el <b>' + nextEval.name + '</b> el ' + nice(nextEval.date) + ' (' + (dd === 0 ? 'hoy' : 'en ' + dd + ' días') + '): ' + nextEval.desc.toLowerCase() + '. Pesa un ' + nextEval.w * PRES_W + '% de tu nota final.']);
+      }
+      if (asis && presDone && !exReal) {
+        if (need > 7) co.push(['bad', '🆘', 'Con tu presentación de ' + fmt(Pproj, 2) + ' ni un 7,0 en el examen alcanza para el 4,0. Habla con el profesor.']);
+        else co.push([need <= 4 ? 'ok' : 'warn', need <= 4 ? '✅' : '💪', 'Tu presentación es <b>' + fmt(Pproj, 2) + '</b>. Necesitas un <b>' + fmt(Math.ceil(need * 10 - 1e-9) / 10) + '</b> en el examen para aprobar.']);
+      }
+      if (asis && g.ex != null && g.ex < EXAM_MIN) co.push(['bad', '⚠️', 'Tu examen está bajo 3,0: con esa nota no se aprueba el ramo, aunque el promedio dé 4,0 o más.']);
+      $('gcCallouts').innerHTML = co.map(c => '<div class="gc-callout ' + c[0] + '"><span class="ico" aria-hidden="true">' + c[1] + '</span><div>' + c[2] + '</div></div>').join('');
+
+      $('gcSimF').textContent = fmt(F);
+      $('gcSimR').textContent = v.t; $('gcSimR').className = 'gc-res ' + v.c;
+
+      const rows = [];
+      for (let x = 10; x <= 70; x += 5) {
+        const e = x / 10, f = asis ? PRES_W * Pproj + EX_W * e : 1.0, vv = verdict(f, e, asis);
+        const hl = (!exReal && Math.abs(e - Math.ceil(need * 2) / 2) < 1e-9) || (exReal && Math.abs(e - Math.round(g.ex * 2) / 2) < 1e-9);
+        rows.push('<tr' + (hl ? ' class="hl"' : '') + '><td class="g">' + fmt(e) + '</td><td class="g">' + fmt(f, 2) + '</td><td class="gc-res ' + vv.c + '">' + (vv.c === 'ok' ? (f >= 5.5 ? '🚀 ' : '') + 'Apruebas' : (e < EXAM_MIN && asis ? 'Bajo 3,0 en examen' : 'Reprueba')) + '</td></tr>');
+      }
+      $('gcTbl').innerHTML = rows.join('');
+      save();
+    }
+
+    load();
+    $('gcDemo').hidden = !demo;
+    EV.forEach(e => $('gc-g-' + e.id).addEventListener('input', () => { if (demo) { demo = false; $('gcDemo').hidden = true; } calc(); }));
+    ['gcSimS', 'gcSimE', 'gcAsis'].forEach(id => $(id).addEventListener('input', calc));
+    $('gcClearDemo').addEventListener('click', () => { demo = false; EV.forEach(e => $('gc-g-' + e.id).value = ''); $('gcDemo').hidden = true; calc(); $('gc-g-c1').focus(); });
+    $('gcReset').addEventListener('click', () => { EV.forEach(e => $('gc-g-' + e.id).value = ''); $('gcSimS').value = 5; $('gcSimE').value = 4.5; $('gcAsis').checked = true; demo = false; $('gcDemo').hidden = true; calc(); });
+    calc();
+  })();
+
+  // ---------- MODO EDICIÓN (?edit) muestra nombres de archivos de imagen ----------
+  if (new URLSearchParams(location.search).has('edit')) document.body.classList.add('edit');
+
+  // ---------- REVEAL ----------
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .12 }) : null;
+  document.querySelectorAll('.rv').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+})();
+</script>
+</body>
+</html>
