@@ -283,28 +283,6 @@
     .cal.only-evals .row:not(.has-eval) { display: none; }
     .cal-note { font-size: .82rem; color: var(--ink-faint); margin-top: 16px; }
 
-    /* ---------- EVALUACIONES ---------- */
-    .weights { display: flex; height: 64px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--ink); margin-bottom: 14px; }
-    .weights div { display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: .8rem; border-right: 1.5px solid var(--ink); text-align: center; line-height: 1.2; padding: 0 4px; }
-    .weights div:last-child { border-right: 0; }
-    .weights b { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; }
-    .w-pres { display: flex; flex: 70; }
-    .w-pres > div { flex: 1; }
-    .w-exam { flex: 30; background: var(--ink); color: var(--paper); }
-    .weights-cap { display: flex; font-family: var(--mono); font-size: .7rem; color: var(--ink-soft); letter-spacing: .05em; text-transform: uppercase; }
-    .weights-cap span:first-child { flex: 70; }
-    .weights-cap span:last-child { flex: 30; text-align: center; }
-    .evals { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 40px; }
-    .ecard { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 22px; position: relative; display: flex; flex-direction: column; gap: 10px; }
-    .ecard .pct { position: absolute; top: 18px; right: 20px; font-family: var(--serif); font-size: 1.7rem; color: var(--udd); }
-    .ecard .mono { color: var(--ink-faint); }
-    .ecard p { font-size: .9rem; color: var(--ink-soft); }
-    .ecard ul { list-style: none; font-size: .87rem; display: grid; gap: 4px; }
-    .ecard li::before { content: "✓ "; color: var(--sage); font-weight: 600; }
-    .ecard.done { background: transparent; }
-    .ecard.done::after { content: "Rendido"; position: absolute; bottom: 18px; right: 20px; font-family: var(--mono); font-size: .66rem; color: var(--sage); letter-spacing: .08em; text-transform: uppercase; }
-    .ecard.soon { border: 2px solid var(--coral); }
-    .ecard.soon::before { content: attr(data-soon); position: absolute; top: -11px; left: 18px; background: var(--coral); color: #fff; font-family: var(--mono); font-size: .64rem; padding: 3px 8px; border-radius: 4px; letter-spacing: .06em; text-transform: uppercase; }
 
     /* ---------- PROYECTO ---------- */
     .project { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: center; }
@@ -506,7 +484,6 @@
       <li><a href="#curso">El curso</a></li>
       <li><a href="#malla">Malla</a></li>
       <li><a href="#calendario">Calendario</a></li>
-      <li><a href="#evaluaciones">Evaluaciones</a></li>
       <li><a href="#calculadora">Calculadora</a></li>
     </ul>
     <span class="live-pill" id="livePill"><span class="dot"></span><span id="livePillText">Cargando…</span></span>
@@ -662,32 +639,6 @@
     </div>
   </section>
 
-  <!-- ============ EVALUACIONES ============ -->
-  <section id="evaluaciones" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div class="sec-num">05 · EVALUACIONES</div>
-        <div>
-          <h2>Cómo se <em>calcula</em> tu nota</h2>
-          <p>La nota de presentación vale un 70% de la nota final y el examen, el 30% restante.</p>
-        </div>
-      </div>
-      <div class="rv">
-        <div class="weights">
-          <div class="w-pres">
-            <div><b>30%</b>Certamen 1</div>
-            <div><b>30%</b>Certamen 2</div>
-            <div style="background:var(--marker)"><b>20%</b>Avance 1</div>
-            <div style="background:var(--marker)"><b>20%</b>Avance 2</div>
-          </div>
-          <div class="w-exam"><b>30%</b>Examen</div>
-        </div>
-        <div class="weights-cap"><span>Nota de presentación · 70% de la nota final</span><span>Nota final</span></div>
-      </div>
-      <div class="evals" id="evals"></div>
-    </div>
-  </section>
-
   <!-- ============ PROYECTO ============ -->
   <section style="padding-top:0">
     <div class="wrap project">
@@ -697,7 +648,7 @@
         <span class="hint">clasesUDD/img/proyecto.webp</span>
       </figure>
       <div class="rv">
-        <div class="sec-num" style="width:180px;margin-bottom:18px">06 · PROYECTO FINAL</div>
+        <div class="sec-num" style="width:180px;margin-bottom:18px">05 · PROYECTO FINAL</div>
         <h2>Crea un producto <em>con IA</em>, de la idea a la góndola</h2>
         <p style="color:var(--ink-soft);margin-top:14px">En grupo, diseñan un producto desde cero usando IA en cada etapa. Se presenta en dos avances con feedback y se cierra en el examen.</p>
         <div class="steps">
@@ -713,7 +664,7 @@
   <section id="calculadora" style="padding-top:0">
     <div class="wrap">
       <div class="sec-head rv">
-        <div class="sec-num">07 · CALCULADORA</div>
+        <div class="sec-num">06 · CALCULADORA</div>
         <div>
           <h2>¿Cuánto necesito en el <em>examen</em>?</h2>
           <p>Ingresa tus notas (de 1,0 a 7,0), mueve el simulador y mira cómo cambia tu nota final. Es solo una referencia: la nota oficial es la que se publica en Canvas.</p>
@@ -814,7 +765,7 @@
   <section style="padding-top:0">
     <div class="wrap">
       <div class="sec-head rv">
-        <div class="sec-num">08 · CÓMO TRABAJAMOS</div>
+        <div class="sec-num">07 · CÓMO TRABAJAMOS</div>
         <div><h2>Con las manos en la <em>masa</em></h2></div>
       </div>
       <div class="method rv">
@@ -844,7 +795,7 @@
   <section style="padding-top:0">
     <div class="wrap">
       <div class="sec-head rv">
-        <div class="sec-num">09 · LO IMPORTANTE</div>
+        <div class="sec-num">08 · LO IMPORTANTE</div>
         <div><h2>Reglas del <em>juego</em></h2></div>
       </div>
       <div class="rules rv">
@@ -871,7 +822,7 @@
   <section style="padding-top:0">
     <div class="wrap">
       <div class="sec-head rv">
-        <div class="sec-num">10 · BITÁCORA</div>
+        <div class="sec-num">09 · BITÁCORA</div>
         <div><h2>Momentos del <em>semestre</em></h2></div>
       </div>
       <div class="gallery rv">
@@ -889,7 +840,7 @@
   <section style="padding-top:0">
     <div class="wrap">
       <div class="sec-head rv">
-        <div class="sec-num">11 · PARA LEER</div>
+        <div class="sec-num">10 · PARA LEER</div>
         <div><h2>Bibliografía y <em>recursos</em></h2><p>Disponible en la <a href="http://bibliotecaudd.cl/" target="_blank" rel="noopener">Biblioteca UDD</a>.</p></div>
       </div>
       <div class="biblio rv">
@@ -1028,14 +979,6 @@
       </div>
     </article>`).join('');
 
-  const evalsEl = document.getElementById('evals');
-  evalsEl.innerHTML = EVALS.map((e, i) => {
-    const f = fmt(e.d);
-    return `<div class="ecard" data-i="${i}"><span class="pct">${e.pct}</span>
-      <span class="mono">${f.d} de ${f.ml}</span><h3>${e.name}</h3><p>${e.desc}</p>
-      ${e.list ? `<ul>${e.list.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}</div>`;
-  }).join('');
-
   // regla del semestre
   const ruler = document.getElementById('ruler');
   const t0 = dayNum(SEM_START), t1 = dayNum(SEM_END);
@@ -1141,20 +1084,6 @@
       badge.className = 'status ' + cls; badge.textContent = txt;
       el.querySelector('.unit-bar i').style.width = (d / idx.length * 100) + '%';
     });
-
-    // tarjetas de evaluación
-    const soonI = EVALS.findIndex(e => e.d > now.date || (e.d === now.date && now.min < CLASS_END));
-    document.querySelectorAll('.ecard').forEach(el => {
-      const i = +el.dataset.i, e = EVALS[i];
-      const isDone = e.d < now.date || (e.d === now.date && now.min >= CLASS_END);
-      el.classList.toggle('done', isDone);
-      el.classList.toggle('soon', i === soonI);
-      if (i === soonI) {
-        const dd = dayNum(e.d) - dayNum(now.date);
-        el.dataset.soon = dd === 0 ? 'Es hoy' : `Próxima · en ${dd} ${dd === 1 ? 'día' : 'días'}`;
-      }
-    });
-
   }
   update();
   setInterval(update, 30000);
