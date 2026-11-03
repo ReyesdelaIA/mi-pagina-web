@@ -152,6 +152,85 @@
     cursor:pointer;width:100%;transition:all .18s;margin-top:8px;}
   .add:hover{border-color:var(--amber);color:var(--amber2);}
 
+
+  /* ── Sombreros ──────────────────────────────────────────────────── */
+  .hats{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:11px;}
+  .hat{background:var(--bg2);border:1px solid var(--line);border-left:4px solid var(--hc,var(--amber));
+    border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:7px;position:relative;}
+  .hat input{background:transparent;border:none;outline:none;font-family:inherit;color:var(--txt);width:100%;}
+  .hat .hat-n{font-size:14.5px;font-weight:700;padding-right:56px;}
+  .hat .hat-d{font-size:12.5px;color:var(--sub);}
+  .hat input::placeholder{color:var(--dim);}
+  .hat-p{position:absolute;top:11px;right:34px;font-size:12px;font-weight:800;color:var(--hc,var(--amber));}
+  .hat .act-x{position:absolute;top:8px;right:6px;}
+  .sugs{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;align-items:center;}
+  .sugs span{font-size:11.5px;color:var(--dim);margin-right:3px;}
+  .sug{background:transparent;border:1px dashed var(--line2);color:var(--sub);border-radius:20px;
+    padding:5px 11px;font-size:11.5px;font-weight:600;font-family:inherit;cursor:pointer;}
+  .sug:hover{border-color:var(--amber);color:var(--amber2);}
+
+  /* ── Porcentajes ────────────────────────────────────────────────── */
+  .stack{display:flex;height:30px;border-radius:9px;overflow:hidden;background:var(--bg);
+    border:1px solid var(--line);margin-bottom:8px;}
+  .stack i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;
+    font-weight:800;color:#0B1220;white-space:nowrap;overflow:hidden;transition:width .3s;}
+  .stack i.vacio{background:repeating-linear-gradient(45deg,transparent 0 6px,rgba(255,255,255,.04) 6px 12px);color:var(--dim);}
+  .stack-l{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin-bottom:16px;flex-wrap:wrap;gap:6px;}
+  .stack-l b{color:var(--txt);}
+  .stack-l .ok{color:var(--green);} .stack-l .warn{color:var(--amber2);} .stack-l .bad{color:var(--red);}
+  .act{flex-wrap:wrap;}
+  .act-s{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;
+    font-size:12px;font-family:inherit;color:var(--txt);outline:none;max-width:170px;}
+  .act-s.sin{color:var(--dim);}
+  .tipo{display:flex;gap:3px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:2px;}
+  .tipo button{border:none;background:transparent;color:var(--dim);border-radius:6px;padding:4px 8px;
+    font-size:11px;font-weight:700;font-family:inherit;cursor:pointer;}
+  .tipo button.on{background:var(--line2);color:var(--txt);}
+  .tipo button.on.rut{background:var(--amber);color:#0B1220;}
+  .act-p{display:flex;align-items:center;gap:4px;}
+  .act-p input{width:54px;background:var(--bg);border:1px solid var(--line);border-radius:8px;
+    padding:6px 7px;font-size:12.5px;font-family:inherit;color:var(--amber2);outline:none;
+    text-align:right;font-weight:800;}
+  .act-p span{font-size:12px;color:var(--dim);font-weight:700;}
+  .act-bar{flex-basis:100%;height:3px;background:var(--bg);border-radius:3px;overflow:hidden;margin-top:2px;}
+  .act-bar i{display:block;height:100%;background:var(--hc,var(--amber));}
+  .hrs{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--sub);margin-bottom:14px;}
+  .hrs input{width:64px;background:var(--bg);border:1px solid var(--line2);border-radius:8px;
+    padding:6px 8px;font-size:13px;font-family:inherit;color:var(--txt);outline:none;text-align:center;font-weight:700;}
+
+  /* ── Análisis ───────────────────────────────────────────────────── */
+  .an-cta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .an-cta .cta{padding:13px 24px;font-size:14px;}
+  .an{margin-top:18px;display:none;}
+  .an.on{display:block;}
+  .an-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:14px;}
+  .kpi{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+  .kpi-v{font-size:26px;font-weight:800;letter-spacing:-.5px;line-height:1;}
+  .kpi-l{font-size:11.5px;color:var(--sub);margin-top:6px;line-height:1.4;}
+  .an h4{font-size:11px;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;
+    margin:18px 0 10px;}
+  .bars{display:flex;flex-direction:column;gap:7px;}
+  .bar{display:grid;grid-template-columns:170px 1fr 54px;gap:10px;align-items:center;font-size:12.5px;}
+  .bar-t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub);}
+  .bar-b{height:9px;background:var(--bg);border-radius:6px;overflow:hidden;}
+  .bar-b i{display:block;height:100%;border-radius:6px;}
+  .bar-v{text-align:right;font-weight:800;}
+  .opps{display:flex;flex-direction:column;gap:9px;}
+  .opp{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;
+    display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:start;}
+  .opp-n{width:30px;height:30px;border-radius:9px;background:rgba(245,158,11,.14);color:var(--amber2);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;}
+  .opp-t{font-size:13.5px;font-weight:700;}
+  .opp-d{font-size:12.5px;color:var(--sub);margin-top:4px;line-height:1.55;}
+  .opp-h{font-size:12px;font-weight:800;color:var(--green);white-space:nowrap;text-align:right;}
+  .opp-h small{display:block;font-size:10.5px;color:var(--dim);font-weight:600;}
+  .alerts{display:flex;flex-direction:column;gap:7px;}
+  .alert{font-size:12.5px;color:var(--sub);background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25);
+    border-radius:10px;padding:9px 12px;line-height:1.5;}
+  .alert b{color:var(--txt);}
+  @media(max-width:860px){ .an-grid{grid-template-columns:1fr;} .bar{grid-template-columns:110px 1fr 46px;}
+    .opp{grid-template-columns:34px 1fr;} .opp-h{grid-column:2;text-align:left;} }
+
   /* ── Barra inferior ─────────────────────────────────────────────── */
   .bottom{position:fixed;bottom:0;left:0;right:0;z-index:60;
     background:rgba(11,18,32,.94);backdrop-filter:blur(12px);
@@ -181,7 +260,7 @@
     .nv{min-width:calc(33% - 6px);}
   }
   @media print{
-    .top,.bottom,.add,.act-x,.tbtn{display:none!important;}
+    .top,.bottom,.add,.act-x,.tbtn,.an-cta{display:none!important;}
     body{background:#fff;color:#000;padding:0;}
     .box,.ficha,.tool{border-color:#ccc;background:#fff;}
   }
@@ -225,10 +304,47 @@
     </div>
   </div>
 
-  <!-- ── 1 · Stack tecnológico ─────────────────────────────────────── -->
+  <!-- ── 1 · Cuéntame de ti ───────────────────────────────────────── -->
   <div class="sec">
     <div class="sec-h">
       <div class="sec-n">1</div>
+      <div class="sec-t">Cuéntame de ti</div>
+      <div class="sec-s">Lo primero que dice, antes de hablar de herramientas</div>
+    </div>
+    <div class="box">
+      <label class="ta-l">En sus palabras: quién es, qué hace, qué tiene entre manos</label>
+      <textarea class="ta tall" id="t-yo"
+        placeholder="Ej: «Soy gerente general de una constructora, además tengo una fundación de educación y hago clases un día a la semana…»"></textarea>
+    </div>
+    <div class="box">
+      <div class="box-t">Sombreros · los roles que lleva puestos</div>
+      <div class="hats" id="hats"></div>
+      <button class="add" onclick="addHat()">+ Agregar sombrero</button>
+      <div class="sugs" id="sugs"></div>
+    </div>
+  </div>
+
+  <!-- ── 2 · Porcentajes de tiempo ─────────────────────────────────── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-n">2</div>
+      <div class="sec-t">Porcentajes de tiempo</div>
+      <div class="sec-s">Cada actividad, con qué sombrero y cuánto de su semana se lleva</div>
+    </div>
+    <div class="box">
+      <div class="hrs">Trabaja aprox. <input id="f-horas" inputmode="numeric" placeholder="45"> horas a la semana</div>
+      <div class="stack" id="stack"></div>
+      <div class="stack-l" id="stack-l"></div>
+      <div class="acts" id="acts"></div>
+      <button class="add" onclick="addAct()">+ Agregar actividad</button>
+      <div class="hint"><b>Rutina</b> = lo repetitivo, lo que hace igual cada semana · <b>Decisión</b> = criterio, estrategia · <b>Personas</b> = reuniones, equipo, clientes. Los % son aproximados: sirven para ver dónde se va la semana.</div>
+    </div>
+  </div>
+
+  <!-- ── 3 · Stack tecnológico ─────────────────────────────────────── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-n">3</div>
       <div class="sec-t">Stack tecnológico</div>
       <div class="sec-s">Qué tiene hoy, en qué plan y dónde vive su trabajo</div>
     </div>
@@ -254,19 +370,12 @@
     </div>
   </div>
 
-  <!-- ── 2 · Cargo y tiempo ────────────────────────────────────────── -->
+  <!-- ── 4 · Nivel y expectativas ──────────────────────────────────── -->
   <div class="sec">
     <div class="sec-h">
-      <div class="sec-n">2</div>
-      <div class="sec-t">Cargo y tiempo</div>
-      <div class="sec-s">En qué se le va la semana y qué quiere que cambie</div>
-    </div>
-
-    <div class="box">
-      <div class="box-t">En qué gasta su tiempo</div>
-      <div class="acts" id="acts"></div>
-      <button class="add" onclick="addAct()">+ Agregar actividad</button>
-      <div class="hint">Las horas son semanales y aproximadas — sirven para ordenar por dónde empezar, no para ser exactas.</div>
+      <div class="sec-n">4</div>
+      <div class="sec-t">Nivel y expectativas</div>
+      <div class="sec-s">Cómo usa la IA hoy y qué quiere que cambie</div>
     </div>
 
     <div class="box">
@@ -296,10 +405,27 @@
     </div>
   </div>
 
-  <!-- ── 3 · Cierre ────────────────────────────────────────────────── -->
+  <!-- ── 5 · Análisis ──────────────────────────────────────────────── -->
   <div class="sec">
     <div class="sec-h">
-      <div class="sec-n">3</div>
+      <div class="sec-n">5</div>
+      <div class="sec-t">Análisis</div>
+      <div class="sec-s">Dónde se va su tiempo y por dónde empezar con IA</div>
+    </div>
+    <div class="box">
+      <div class="an-cta">
+        <button class="cta" onclick="analizar()">✨ Analizar ficha</button>
+        <button class="tbtn" onclick="copiarPrompt()">🤖 Copiar prompt para Claude</button>
+        <span class="hint" id="an-hint" style="margin:0">Usa los sombreros, los porcentajes y su stack.</span>
+      </div>
+      <div class="an" id="an"></div>
+    </div>
+  </div>
+
+  <!-- ── 6 · Cierre ────────────────────────────────────────────────── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-n">6</div>
       <div class="sec-t">Cierre de la sesión</div>
       <div class="sec-s">Lo que te llevas y lo que se lleva</div>
     </div>
@@ -380,8 +506,8 @@ const NIVELES = [
   { n:4, l:'La usa a diario' },
   { n:5, l:'Le enseña a otros' }
 ];
-const TEXTOS = ['t-restric','t-uso','t-quiere','t-dolor','t-notas','t-pasos'];
-const CAMPOS = ['f-nombre','f-empresa','f-cargo','f-fecha'];
+const TEXTOS = ['t-yo','t-restric','t-uso','t-quiere','t-dolor','t-notas','t-pasos'];
+const CAMPOS = ['f-nombre','f-empresa','f-cargo','f-fecha','f-horas'];
 
 /* Estado + guardado ----------------------------------------------- */
 function cargar(){
@@ -393,6 +519,13 @@ function normalizar(){
   D.eco   = D.eco   || {};
   D.gob   = D.gob   || {};
   D.acts  = D.acts  || [];
+  D.hats  = D.hats  || [];
+  // Fichas antiguas anotaban horas por actividad: las dejamos en el texto
+  // para no perderlas y pasan al nuevo formato con %.
+  D.acts.forEach(a => {
+    if (a.p === undefined){ if (a.h) a.t = `${a.t} (${a.h} hrs/sem)`; a.p = ''; delete a.h; }
+    a.s = a.s || ''; a.k = a.k || '';
+  });
   D.txt   = D.txt   || {};
   D.campo = D.campo || {};
 }
@@ -522,23 +655,109 @@ function setChip(store, id, val, destino){
 }
 function setOtro(store, id, val){ D[store][id] = val; guardar(); }
 
-/* Actividades ------------------------------------------------------ */
-function pintarActs(){
+/* Sombreros ------------------------------------------------------- */
+const COLORES = ['#F59E0B','#60A5FA','#A78BFA','#22C55E','#F472B6','#2DD4BF','#FB923C','#94A3B8'];
+const SUGS = ['Gerente','Dueño / socio','Directorio','Fundación','Docente','Emprendimiento','Familia','Personal'];
+const TIPOS = [{id:'rut',l:'Rutina'},{id:'dec',l:'Decisión'},{id:'per',l:'Personas'}];
+let nHat = 0;
+function hatId(){ return 'h' + Date.now().toString(36) + (nHat++); }
+function hatColor(id){
+  const i = D.hats.findIndex(h => h.id === id);
+  return i < 0 ? '#5F708F' : COLORES[i % COLORES.length];
+}
+function hatNombre(id){
+  const h = D.hats.find(x => x.id === id);
+  if (!h) return 'Sin sombrero';
+  return (h.n || 'Sombrero') + (h.d ? ' · ' + h.d : '');
+}
+function pctNum(v){ const n = parseFloat(String(v||'').replace(',','.')); return isFinite(n) && n > 0 ? n : 0; }
+function pctHat(id){ return D.acts.filter(a => a.s === id).reduce((t,a) => t + pctNum(a.p), 0); }
+
+function pintarHats(){
+  document.getElementById('hats').innerHTML = D.hats.map((h, i) => `
+    <div class="hat" style="--hc:${hatColor(h.id)}">
+      <input class="hat-n" placeholder="Sombrero — ej: Gerente General" value="${esc(h.n)}"
+        oninput="setHat(${i},'n',this.value)">
+      <input class="hat-d" placeholder="Dónde — ej: Constructora Andes" value="${esc(h.d)}"
+        oninput="setHat(${i},'d',this.value)">
+      <div class="hat-p" id="hp-${h.id}">${fmt(pctHat(h.id))}%</div>
+      <button class="act-x" onclick="delHat(${i})" title="Quitar">✕</button>
+    </div>`).join('') || '<div class="hint" style="margin:0">Todavía sin sombreros. Agrega uno por cada rol: su cargo, la fundación, el directorio, las clases…</div>';
+  document.getElementById('sugs').innerHTML = '<span>Rápido:</span>' + SUGS.map(x =>
+    `<button class="sug" onclick="addHat('${x}')">+ ${x}</button>`).join('');
+}
+function setHat(i, k, v){ D.hats[i][k] = v; guardar(); pintarActs(true); }
+function addHat(nombre){
+  D.hats.push({ id: hatId(), n: nombre || '', d: '' });
+  guardar(); pintarHats(); pintarActs();
+  const inp = document.querySelectorAll('#hats .hat-d');
+  if (inp.length) (nombre ? inp[inp.length-1] : document.querySelectorAll('#hats .hat-n')[inp.length-1]).focus();
+}
+function delHat(i){
+  const id = D.hats[i].id;
+  D.hats.splice(i,1);
+  D.acts.forEach(a => { if (a.s === id) a.s = ''; });
+  guardar(); pintarHats(); pintarActs();
+}
+
+/* Actividades con % ------------------------------------------------ */
+function pintarActs(soloSelects){
   const c = document.getElementById('acts');
-  if (!D.acts.length) D.acts = [{ t:'', h:'' }];
-  c.innerHTML = D.acts.map((a, i) => `<div class="act">
+  if (!D.acts.length) D.acts = [{ t:'', p:'', s:'', k:'' }];
+  if (soloSelects){
+    // Al renombrar un sombrero no repintamos todo: perderíamos el foco del input.
+    c.querySelectorAll('.act-s').forEach((sel, i) => { sel.innerHTML = opcionesHat(D.acts[i].s); });
+    pintarStack(); return;
+  }
+  c.innerHTML = D.acts.map((a, i) => `<div class="act" style="--hc:${hatColor(a.s)}">
       <input type="text" placeholder="Actividad — ej: revisar reportes de operaciones"
         value="${esc(a.t)}" oninput="setAct(${i},'t',this.value)">
-      <input class="act-h" placeholder="hrs/sem" value="${esc(a.h)}"
-        oninput="setAct(${i},'h',this.value)">
+      <select class="act-s ${a.s?'':'sin'}" onchange="setAct(${i},'s',this.value,true)">${opcionesHat(a.s)}</select>
+      <div class="tipo">${TIPOS.map(t => `<button class="${a.k===t.id?'on '+t.id:''}"
+        onclick="setAct(${i},'k','${t.id}',true)">${t.l}</button>`).join('')}</div>
+      <div class="act-p"><input placeholder="0" inputmode="decimal" value="${esc(a.p ?? '')}"
+        oninput="setAct(${i},'p',this.value)"><span>%</span></div>
       <button class="act-x" onclick="delAct(${i})" title="Quitar">✕</button>
+      <div class="act-bar"><i style="width:${Math.min(100,pctNum(a.p))}%"></i></div>
     </div>`).join('');
+  pintarStack();
 }
-function setAct(i, k, v){ D.acts[i][k] = v; guardar(); }
-function addAct(){ D.acts.push({ t:'', h:'' }); guardar(); pintarActs();
+function opcionesHat(sel){
+  return `<option value="">Sin sombrero</option>` + D.hats.map(h =>
+    `<option value="${h.id}" ${h.id===sel?'selected':''}>${esc(h.n || 'Sombrero')}${h.d?' · '+esc(h.d):''}</option>`).join('');
+}
+function setAct(i, k, v, repintar){
+  if (k === 'k') v = D.acts[i].k === v ? '' : v;
+  D.acts[i][k] = v; guardar();
+  if (repintar) pintarActs();
+  else if (k === 'p'){
+    document.querySelectorAll('#acts .act-bar i')[i].style.width = Math.min(100,pctNum(v)) + '%';
+    pintarStack();
+  }
+}
+function addAct(){ D.acts.push({ t:'', p:'', s: D.hats.length === 1 ? D.hats[0].id : '', k:'' }); guardar(); pintarActs();
   const inp = document.querySelectorAll('#acts input[type=text]');
   if (inp.length) inp[inp.length-1].focus(); }
 function delAct(i){ D.acts.splice(i,1); guardar(); pintarActs(); }
+
+function pintarStack(){
+  const total = D.acts.reduce((t,a) => t + pctNum(a.p), 0);
+  const grupos = [...D.hats.map(h => ({ id:h.id, n:h.n||'Sombrero', p:pctHat(h.id) })),
+                  { id:'', n:'Sin sombrero', p: D.acts.filter(a => !a.s || !D.hats.some(h=>h.id===a.s)).reduce((t,a)=>t+pctNum(a.p),0) }]
+                 .filter(g => g.p > 0);
+  const escala = Math.max(100, total);
+  let html = grupos.map(g => `<i style="width:${g.p/escala*100}%;background:${hatColor(g.id)}" title="${esc(g.n)} · ${fmt(g.p)}%">${g.p/escala >= .09 ? esc(g.n)+' '+fmt(g.p)+'%' : ''}</i>`).join('');
+  if (total < 100) html += `<i class="vacio" style="width:${(100-total)}%">${100-total >= 9 ? 'sin asignar '+fmt(100-total)+'%' : ''}</i>`;
+  document.getElementById('stack').innerHTML = html;
+  const cls = Math.abs(total-100) < .5 ? 'ok' : total > 100 ? 'bad' : 'warn';
+  const msg = Math.abs(total-100) < .5 ? '✓ suma 100%' : total > 100 ? `se pasa por ${fmt(total-100)}%` : `faltan ${fmt(100-total)}%`;
+  document.getElementById('stack-l').innerHTML =
+    `<span>Asignado: <b>${fmt(total)}%</b> <span class="${cls}">· ${msg}</span></span>` +
+    `<span>${horas() ? `≈ <b>${fmt(total/100*horas())}</b> de ${fmt(horas())} hrs/sem` : 'Pon sus horas semanales para verlo en horas'}</span>`;
+  D.hats.forEach(h => { const el = document.getElementById('hp-'+h.id); if (el) el.textContent = fmt(pctHat(h.id)) + '%'; });
+}
+function horas(){ return pctNum(D.campo['f-horas']); }
+function fmt(n){ return Math.round(n*10)/10; }
 
 /* Nivel ------------------------------------------------------------ */
 function pintarNivel(){
@@ -559,7 +778,7 @@ function pintarTextos(){
   CAMPOS.forEach(id => {
     const el = document.getElementById(id);
     el.value = D.campo[id] || '';
-    el.oninput = () => { D.campo[id] = el.value; guardar(); };
+    el.oninput = () => { D.campo[id] = el.value; guardar(); if (id === 'f-horas') pintarStack(); };
   });
   if (!D.campo['f-fecha']){
     const h = new Date();
@@ -576,7 +795,8 @@ function avance(){
   total += ECO.length;  hechos += ECO.filter(f => D.eco[f.id]).length;
   total += GOB.length;  hechos += GOB.filter(f => D.gob[f.id]).length;
   total += 1;           if (D.nivel) hechos++;
-  total += 1;           if (D.acts.some(a => a.t.trim())) hechos++;
+  total += 1;           if (D.hats.some(h => (h.n||'').trim())) hechos++;
+  total += 1;           if (D.acts.some(a => a.t.trim() && pctNum(a.p))) hechos++;
   total += TEXTOS.length; hechos += TEXTOS.filter(id => (D.txt[id]||'').trim()).length;
   const pct = Math.round(hechos / total * 100);
   document.getElementById('pbar').style.width = pct + '%';
@@ -588,6 +808,20 @@ function resumen(){
   const c = D.campo, L = [];
   L.push(`FICHA DE MENTORÍA · ${c['f-nombre']||'(sin nombre)'}`);
   L.push(`${c['f-cargo']||''}${c['f-cargo']&&c['f-empresa']?' · ':''}${c['f-empresa']||''}  —  ${c['f-fecha']||''}`);
+
+  if ((D.txt['t-yo']||'').trim()) L.push('\n── QUIÉN ES ──\n' + D.txt['t-yo'].trim());
+  const hats = D.hats.filter(h => (h.n||'').trim());
+  if (hats.length) L.push('\nSombreros:\n' + hats.map(h => `  · ${h.n.trim()}${h.d ? ' — ' + h.d.trim() : ''} (${fmt(pctHat(h.id))}% del tiempo)`).join('\n'));
+
+  L.push('\n── PORCENTAJES DE TIEMPO ──');
+  const acts = D.acts.filter(a => a.t.trim()).sort((a,b) => pctNum(b.p) - pctNum(a.p));
+  if (horas()) L.push(`Semana de ~${fmt(horas())} hrs`);
+  if (acts.length) L.push(acts.map(a => {
+    const tipo = (TIPOS.find(t => t.id === a.k) || {}).l;
+    return `  · ${a.t.trim()} — ${fmt(pctNum(a.p))}%` +
+      (horas() ? ` (~${fmt(pctNum(a.p)/100*horas())} h)` : '') +
+      ` · ${hatNombre(a.s)}${tipo ? ' · ' + tipo : ''}`;
+  }).join('\n'));
 
   L.push('\n── STACK TECNOLÓGICO ──');
   const pago = IAS.filter(n => (D.ia[n]||{}).estado === 'pago');
@@ -604,10 +838,7 @@ function resumen(){
   if (gob.length) L.push('\n' + gob.join('\n'));
   if ((D.txt['t-restric']||'').trim()) L.push('\nRestricciones: ' + D.txt['t-restric'].trim());
 
-  L.push('\n── CARGO Y TIEMPO ──');
-  const acts = D.acts.filter(a => a.t.trim());
-  if (acts.length) L.push('En qué gasta su tiempo:\n' +
-    acts.map(a => `  · ${a.t.trim()}${a.h ? ` — ${a.h} hrs/sem` : ''}`).join('\n'));
+  L.push('\n── NIVEL Y EXPECTATIVAS ──');
   if (D.nivel){
     const nv = NIVELES.find(x => x.n === D.nivel);
     L.push(`\nNivel con IA: ${nv.n}/5 — ${nv.l}`);
@@ -641,6 +872,144 @@ function toast(m){
   setTimeout(() => t.classList.remove('on'), 1900);
 }
 
+
+/* Análisis ---------------------------------------------------------- */
+// Patrones de trabajo que hoy se resuelven bien con IA. Cada uno dice qué
+// hacer y cuánto del tiempo se suele recuperar (estimación conservadora).
+const PATRONES = [
+  { re:/correo|mail|inbox|bandeja|responder/i, t:'Correos', ahorro:.35,
+    d:'Borradores de respuesta y resúmenes de hilos largos.', h:{ Copilot:'Copilot en Outlook', Gemini:'Gemini en Gmail', Claude:'Claude con conector de Gmail' } },
+  { re:/reuni|acta|minuta|comit[eé]|junta/i, t:'Reuniones y actas', ahorro:.3,
+    d:'Transcribir, sacar acuerdos y responsables, y mandar la minuta el mismo día.', h:{ Copilot:'Copilot en Teams', Gemini:'Gemini en Meet', Claude:'Claude + transcripción' } },
+  { re:/reporte|informe|kpi|indicador|dashboard|excel|planilla|n[uú]meros|financ|presupuesto|flujo/i, t:'Reportes y números', ahorro:.4,
+    d:'Que la IA lea la planilla, detecte variaciones y redacte el comentario del reporte.', h:{ Claude:'Claude (análisis de archivos)', Copilot:'Copilot en Excel', ChatGPT:'ChatGPT análisis de datos' } },
+  { re:/presentaci|ppt|powerpoint|deck|l[aá]mina/i, t:'Presentaciones', ahorro:.45,
+    d:'Estructura y primera versión de la presentación a partir de notas o un documento.', h:{ Claude:'Claude (genera .pptx)', Copilot:'Copilot en PowerPoint', Gemini:'Gemini en Slides' } },
+  { re:/propuesta|cotiza|licitaci|bases|oferta/i, t:'Propuestas y licitaciones', ahorro:.4,
+    d:'Un proyecto con plantillas y propuestas anteriores para armar la primera versión en minutos.', h:{ Claude:'Proyecto en Claude', ChatGPT:'GPT personalizado' } },
+  { re:/contrato|legal|cl[aá]usula|revisi[oó]n de doc|document/i, t:'Revisión de documentos', ahorro:.35,
+    d:'Primera lectura con riesgos, cláusulas raras y resumen; la persona solo valida.', h:{ Claude:'Claude', NotebookLM:'NotebookLM', Copilot:'Copilot en Word' } },
+  { re:/investig|buscar|mercado|competen|tendenc|leer|estudi/i, t:'Investigación', ahorro:.5,
+    d:'Investigación profunda con fuentes en vez de buscar a mano.', h:{ Claude:'Claude Research', Perplexity:'Perplexity', Gemini:'Gemini Deep Research', ChatGPT:'ChatGPT Deep Research' } },
+  { re:/contenido|redes|linkedin|instagram|post|newsletter|comunicaci|prensa|discurso|charla/i, t:'Contenido y comunicación', ahorro:.4,
+    d:'Una skill con su voz para escribir posts, columnas o discursos desde una idea suelta.', h:{ Claude:'Skill de Claude con su estilo', ChatGPT:'GPT personalizado' } },
+  { re:/clase|curso|docen|capacita|material|prueba|evaluaci/i, t:'Docencia y material', ahorro:.4,
+    d:'Preparar clases, guías y evaluaciones a partir del programa.', h:{ Claude:'Proyecto en Claude', NotebookLM:'NotebookLM', Gemini:'Gemini' } },
+  { re:/whatsapp|coordina|agenda|calendario|seguimiento|pendiente|tarea/i, t:'Coordinación y seguimiento', ahorro:.25,
+    d:'Resumen diario de pendientes y recordatorios automáticos a partir de correos y reuniones.', h:{ Claude:'Tarea programada en Claude', Copilot:'Copilot', Gemini:'Gemini' } },
+  { re:/fondo|postulaci|donante|donaci|rendici/i, t:'Fondos y rendiciones', ahorro:.4,
+    d:'Postulaciones y rendiciones con un proyecto que ya conoce la fundación y sus formatos.', h:{ Claude:'Proyecto en Claude', ChatGPT:'GPT personalizado' } }
+];
+function herramientaPara(pat){
+  const tiene = n => ['pago','free'].includes((D.ia[n]||{}).estado);
+  const pago  = n => (D.ia[n]||{}).estado === 'pago';
+  const opts = Object.keys(pat.h);
+  return pat.h[opts.find(pago) || opts.find(tiene) || opts[0]];
+}
+
+function analizar(silencioso){
+  const acts = D.acts.filter(a => a.t.trim() && pctNum(a.p));
+  const box = document.getElementById('an');
+  if (!acts.length){
+    box.classList.add('on');
+    box.innerHTML = `<div class="alert" style="margin-top:4px">Para analizar hace falta al menos <b>una actividad con su %</b> en la sección 2.</div>`;
+    return;
+  }
+  const H = horas();
+  const total = acts.reduce((t,a) => t + pctNum(a.p), 0);
+  const aH = pct => H ? `${fmt(pct/100*H)} h/sem` : `${fmt(pct)}%`;
+
+  // Reparto por sombrero y por tipo
+  const porHat = [...D.hats.map(h => ({ id:h.id, n:hatNombre(h.id), p:pctHat(h.id) })),
+    { id:'', n:'Sin sombrero', p: acts.filter(a => !D.hats.some(h=>h.id===a.s)).reduce((t,a)=>t+pctNum(a.p),0) }]
+    .filter(g => g.p > 0).sort((a,b) => b.p - a.p);
+  const porTipo = TIPOS.map(t => ({ ...t, p: acts.filter(a => a.k === t.id).reduce((s,a)=>s+pctNum(a.p),0) }));
+  const rutina = porTipo[0].p;
+
+  // Oportunidades: cada actividad contra los patrones; la rutina pesa más
+  const opps = acts.map(a => {
+    const pat = PATRONES.find(x => x.re.test(a.t));
+    let ahorro = pat ? pat.ahorro : (a.k === 'rut' ? .3 : 0);
+    if (a.k === 'rut') ahorro = Math.min(.6, ahorro + .1);
+    if (a.k === 'per') ahorro *= .5;     // con personas la IA prepara, no reemplaza
+    if (!ahorro) return null;
+    const rec = pctNum(a.p) * ahorro;
+    return { a, pat, rec,
+      tool: pat ? herramientaPara(pat) : 'Un flujo simple con la IA que ya tiene',
+      d: pat ? pat.d : 'Es rutina: vale la pena documentar el paso a paso y probar delegarlo en un prompt fijo.' };
+  }).filter(Boolean).sort((x,y) => y.rec - x.rec);
+  const recTotal = opps.reduce((t,o) => t + o.rec, 0);
+
+  // Alertas
+  const al = [];
+  if (Math.abs(total-100) >= 5) al.push(total > 100
+    ? `Las actividades suman <b>${fmt(total)}%</b>: hay algo sobreestimado o se superponen.`
+    : `Solo hay <b>${fmt(total)}%</b> asignado. El ${fmt(100-total)}% restante también es tiempo — pregúntale dónde se va.`);
+  D.hats.filter(h => (h.n||'').trim() && !pctHat(h.id))
+    .forEach(h => al.push(`El sombrero <b>${esc(hatNombre(h.id))}</b> no tiene actividades: o no le dedica tiempo, o falta anotarlas.`));
+  if (porHat[0] && porHat[0].p / total > .7 && D.hats.length > 1)
+    al.push(`<b>${esc(porHat[0].n)}</b> se lleva el ${fmt(porHat[0].p/total*100)}% de la semana; los otros sombreros quedan con muy poco.`);
+  if (rutina / total > .4)
+    al.push(`El <b>${fmt(rutina/total*100)}%</b> de su tiempo es rutina. Ahí está el espacio más claro para la IA.`);
+  if (!porTipo.some(t => t.p)) al.push('Marca cada actividad como <b>Rutina / Decisión / Personas</b> para afinar el análisis.');
+  const sinHat = acts.filter(a => !D.hats.some(h=>h.id===a.s)).length;
+  if (D.hats.length && sinHat) al.push(`${sinHat} actividad${sinHat>1?'es':''} sin sombrero asignado.`);
+
+  const barra = (n, p, color) => `<div class="bar"><div class="bar-t" title="${esc(n)}">${esc(n)}</div>
+    <div class="bar-b"><i style="width:${p/total*100}%;background:${color}"></i></div>
+    <div class="bar-v">${fmt(p/total*100)}%</div></div>`;
+
+  box.classList.add('on');
+  box.innerHTML = `
+    <div class="an-grid">
+      <div class="kpi"><div class="kpi-v" style="color:var(--amber2)">${porHat.length}</div>
+        <div class="kpi-l">sombreros con tiempo · el más pesado: <b>${esc(porHat[0].n)}</b></div></div>
+      <div class="kpi"><div class="kpi-v">${fmt(rutina/total*100)}%</div>
+        <div class="kpi-l">de la semana es rutina${H ? ` (≈ ${fmt(rutina/100*H)} h)` : ''}</div></div>
+      <div class="kpi"><div class="kpi-v" style="color:var(--green)">${H ? fmt(recTotal/100*H)+' h' : fmt(recTotal)+'%'}</div>
+        <div class="kpi-l">recuperables por semana con IA (estimación conservadora)</div></div>
+    </div>
+
+    <h4>Tiempo por sombrero</h4>
+    <div class="bars">${porHat.map(g => barra(g.n, g.p, hatColor(g.id))).join('')}</div>
+
+    <h4>Tipo de trabajo</h4>
+    <div class="bars">${porTipo.filter(t=>t.p).map(t => barra(t.l, t.p,
+      t.id==='rut'?'var(--amber)':t.id==='dec'?'var(--blue)':'var(--purple)')).join('') ||
+      '<div class="hint" style="margin:0">Sin clasificar todavía.</div>'}</div>
+
+    <h4>Por dónde empezar</h4>
+    <div class="opps">${opps.slice(0,5).map((o,i) => `<div class="opp">
+        <div class="opp-n">${i+1}</div>
+        <div><div class="opp-t">${esc(o.a.t)} <span style="color:var(--dim);font-weight:600">· ${esc(hatNombre(o.a.s))}</span></div>
+          <div class="opp-d">${o.d}<br><b style="color:var(--txt)">Con:</b> ${esc(o.tool)}</div></div>
+        <div class="opp-h">−${aH(o.rec)}<small>de ${aH(pctNum(o.a.p))}</small></div>
+      </div>`).join('') || '<div class="hint" style="margin:0">No aparecen actividades claramente delegables. Revisa si alguna es más rutinaria de lo que parece.</div>'}</div>
+
+    ${al.length ? `<h4>Para conversar</h4><div class="alerts">${al.map(x => `<div class="alert">${x}</div>`).join('')}</div>` : ''}
+    <div class="hint" style="margin-top:14px">Estimación hecha con reglas simples sobre la ficha. Para una lectura más fina, usa «Copiar prompt para Claude».</div>`;
+  if (!silencioso) box.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function promptClaude(){
+  return `Eres un mentor experto en adopción de IA para ejecutivos. Te paso la ficha que tomé en la primera sesión de mentoría con esta persona.
+
+Analízala y entrégame:
+1. Una lectura de quién es y cómo reparte su tiempo entre sus sombreros (roles), con las tensiones que veas.
+2. Las 3 a 5 actividades donde la IA le devuelve más tiempo, con la herramienta concreta según el stack que ya tiene y una estimación de horas recuperadas por semana.
+3. Un plan de 4 sesiones de mentoría: qué trabajamos en cada una, empezando por el quick win más visible.
+4. Preguntas que me faltó hacer.
+
+Sé concreto, en español de Chile, sin relleno.
+
+${resumen()}`;
+}
+async function copiarPrompt(){
+  const txt = promptClaude();
+  try { await navigator.clipboard.writeText(txt); toast('Prompt copiado — pégalo en Claude'); }
+  catch(e){ toast('No se pudo copiar'); }
+}
+
 /* Nueva ficha ------------------------------------------------------ */
 function limpiar(){
   const quien = (D.campo['f-nombre'] || '').trim();
@@ -655,13 +1024,16 @@ function esc(s){
 }
 
 function pintar(){
+  pintarHats();
   pintarTools();
   pintarChips('eco', ECO, 'eco', 'b');
   pintarChips('gob', GOB, 'gob', 'p');
   pintarActs();
   pintarNivel();
   pintarTextos();
+  pintarStack();
   avance();
+  if (document.getElementById('an').classList.contains('on')) analizar(true);
 }
 
 cargar();
