@@ -118,6 +118,10 @@
       "destination": "/planesclaude/index.html"
     },
     {
+      "source": "/thermomix",
+      "destination": "/thermomix/index.html"
+    },
+    {
       "source": "/diagnostico",
       "destination": "/diagnostico/index.html"
     },
