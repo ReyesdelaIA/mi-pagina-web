@@ -208,8 +208,97 @@
     .gracias h2 { font-size: 26px; font-weight: 800; color: var(--tm-ink); letter-spacing: -.02em; margin-bottom: 8px; }
     .gracias p { font-size: 16px; color: var(--muted); }
 
+    .gracias .enviar { margin-top: 22px; text-decoration: none; text-align: center; }
+
     body.enviado form { display: none; }
     body.enviado .gracias { display: block; }
+
+    [hidden] { display: none !important; }
+
+    .aviso { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 14px; }
+
+    /* Selector Responder / Resultados */
+    .vistas {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      margin-bottom: 26px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.12);
+    }
+    .vistas a {
+      flex: 1;
+      padding: 10px 8px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+      text-decoration: none;
+      color: var(--white);
+    }
+    .vistas a[aria-current="page"] { background: var(--white); color: var(--tm-ink); }
+    .vistas a:focus-visible { outline: 3px solid var(--star); outline-offset: 1px; }
+
+    /* Resultados */
+    .tarjeta {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 24px rgba(6, 53, 30, .07);
+    }
+    .tarjeta h2 { font-size: 18px; font-weight: 800; color: var(--tm-ink); letter-spacing: -.01em; }
+    .tarjeta .bajada { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+    .estado { text-align: center; color: var(--muted); }
+    .estado .enviar { margin-top: 14px; }
+
+    .numeros { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .numero {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: 0 6px 24px rgba(6, 53, 30, .07);
+    }
+    .numero b { display: block; font-size: 34px; font-weight: 800; line-height: 1.1; color: var(--tm-ink); letter-spacing: -.02em; }
+    .numero span { font-size: 13px; font-weight: 500; color: var(--muted); }
+    .numero.ancho { grid-column: 1 / -1; }
+    .numero.ancho b { font-size: 20px; line-height: 1.25; letter-spacing: -.01em; }
+
+    .barras { list-style: none; }
+    .barra { margin-bottom: 14px; }
+    .barra:last-child { margin-bottom: 0; }
+    .barra-fila { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 5px; }
+    .barra-nombre { font-size: 15px; font-weight: 700; color: var(--ink); }
+    .barra-valor { flex: none; font-size: 14px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .barra-pista { height: 10px; border-radius: 5px; background: #EDF0EC; overflow: hidden; }
+    .barra-pista i { display: block; height: 100%; border-radius: 0 4px 4px 0; background: var(--tm-deep); }
+    .barra.top .barra-pista i { background: var(--tm); }
+
+    .filtros { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .filtro {
+      font: 600 14px/1.2 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: var(--tm-ink);
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      padding: 9px 13px;
+      cursor: pointer;
+    }
+    .filtro[aria-pressed="true"] { background: var(--tm-deep); border-color: var(--tm-deep); color: var(--white); }
+    .filtro:focus-visible { outline: 3px solid var(--star); outline-offset: 2px; }
+
+    .receta { padding: 15px 0; border-top: 1px solid var(--border); }
+    .receta:first-child { border-top: 0; padding-top: 0; }
+    .receta:last-child { padding-bottom: 0; }
+    .receta-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .receta h3 { font-size: 16px; font-weight: 700; color: var(--ink); overflow-wrap: anywhere; }
+    .receta-votos { flex: none; font-size: 13px; font-weight: 700; color: var(--tm-deep); }
+    .receta-cookidoo { font-size: 13px; color: var(--muted); margin-top: 3px; overflow-wrap: anywhere; }
+    .receta-cookidoo b { font-weight: 700; }
+    .receta blockquote { font-size: 14px; color: #3A4048; margin-top: 7px; padding-left: 11px; border-left: 2px solid var(--tm); overflow-wrap: anywhere; }
 
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; transition: none !important; }
@@ -228,13 +317,19 @@
         </div>
       </div>
 
-      <h1>Di tus tres <em>platos estrella</em></h1>
-      <p class="sub">Esos que no fallan, los que más te gustan y más haces en la Thermomix.</p>
-      <p class="porque">En Cookidoo hay miles de recetas, pero es muy distinto que alguien te diga: «yo siempre hago esta y me funciona siempre».</p>
+      <nav class="vistas" aria-label="Secciones">
+        <a id="ir-responder" href="#responder">Responder</a>
+        <a id="ir-resultados" href="#resultados">Ver resultados</a>
+      </nav>
+
+      <h1 id="titulo">Di tus tres <em>platos estrella</em></h1>
+      <p class="sub" id="bajada">Esos que no fallan, los que más te gustan y más haces en la Thermomix.</p>
+      <p class="porque" id="porque">En Cookidoo hay miles de recetas, pero es muy distinto que alguien te diga: «yo siempre hago esta y me funciona siempre».</p>
     </div>
   </header>
 
   <main>
+    <div id="vista-responder">
     <form id="form" novalidate>
       <div id="platos"></div>
 
@@ -250,6 +345,7 @@
         <input type="text" id="sitio" tabindex="-1" autocomplete="off">
       </div>
 
+      <p class="aviso">Tus platos y comentarios aparecerán en los resultados, sin tu nombre.</p>
       <p class="error" id="error" role="alert"></p>
       <button class="enviar" id="enviar" type="submit">Enviar mis platos</button>
     </form>
@@ -258,7 +354,13 @@
       <div class="estrellas" id="gracias-estrellas"></div>
       <h2 id="gracias-titulo">¡Gracias!</h2>
       <p>Tus platos quedaron guardados. Ya tengo qué cocinar.</p>
+      <a class="enviar" href="#resultados">Ver qué cocina el grupo</a>
     </section>
+    </div>
+
+    <div id="vista-resultados" hidden>
+      <div id="resultados"></div>
+    </div>
 
     <footer class="pie">
       <span class="marca"><b>Reyes</b> <i>IA</i></span>
@@ -411,8 +513,161 @@
       }
     });
 
+    /* ---------- Resultados ---------- */
+
+    const TIPOS = [
+      ['Dulces', /queque|bizcocho|galleta|pastel(?! de choclo)|torta|suspiro|mousse|flan|kuchen|brownie|helado|postre|alfajor|mermelada|budin/],
+      ['Pescados y mariscos', /salmon|merluza|reineta|atun|pescado/],
+      ['Arroces y risottos', /arroz|risotto/],
+      ['Legumbres', /lenteja|garbanzo|poroto|dahl|dhal/],
+      ['Sopas y cremas', /sopa|crema|caldo|cazuela/],
+      ['Carnes y guisos', /carne|pollo|chicken|plateada|cerdo|pavo|lomo|charquican|pastel de choclo|estofado/],
+      ['Panes y masas', /\bpan\b|quiche|pizza|empanada|masa/],
+      ['Salsas y acompañamientos', /mayonesa|pebre|salsa|pesto|hummus|pure|pisto/],
+    ];
+    const OTROS = 'Otros';
+
+    const esc = (t) => String(t).replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const capital = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+    const sinAcentos = (t) => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const votos = (n) => `${n} ${n === 1 ? 'voto' : 'votos'}`;
+
+    function tipoDe(plato) {
+      const texto = sinAcentos(plato);
+      const tipo = TIPOS.find(([, patron]) => patron.test(texto));
+      return tipo ? tipo[0] : OTROS;
+    }
+
+    function barras(filas, maximo) {
+      return `<ul class="barras">${filas.map((f) => `
+        <li class="barra${f.destacada ? ' top' : ''}">
+          <div class="barra-fila">
+            <span class="barra-nombre">${esc(f.nombre)}</span>
+            <span class="barra-valor">${f.valor}</span>
+          </div>
+          <div class="barra-pista"><i style="width:${(f.valor / maximo) * 100}%"></i></div>
+        </li>`).join('')}</ul>`;
+    }
+
+    function htmlReceta(p) {
+      const cookidoo = p.cookidoo.length
+        ? `<p class="receta-cookidoo"><b>En Cookidoo:</b> ${p.cookidoo.map(esc).join(' · ')}</p>` : '';
+      const citas = p.por_que.map((c) => `<blockquote>${esc(c)}</blockquote>`).join('');
+      return `<article class="receta">
+        <div class="receta-head"><h3>${esc(capital(p.plato))}</h3><span class="receta-votos">${votos(p.votos)}</span></div>
+        ${cookidoo}${citas}
+      </article>`;
+    }
+
+    function pintarLista(platos, tipoActivo) {
+      const lista = tipoActivo ? platos.filter((p) => p.tipo === tipoActivo) : platos;
+      $('lista-recetas').innerHTML = lista.map(htmlReceta).join('');
+      document.querySelectorAll('.filtro').forEach((b) =>
+        b.setAttribute('aria-pressed', String(b.dataset.tipo === (tipoActivo || ''))));
+    }
+
+    function pintarResultados(datos) {
+      const platos = datos.platos.map((p) => ({ ...p, tipo: tipoDe(p.plato) }));
+
+      if (platos.length === 0) {
+        $('resultados').innerHTML = '<section class="tarjeta estado"><p>Todavía no hay respuestas. ¡Sé la primera persona en contar tus platos!</p></section>';
+        return;
+      }
+
+      const maximo = platos[0].votos;
+      const lideres = platos.filter((p) => p.votos === maximo);
+      const repetidos = platos.filter((p) => p.votos >= 2).slice(0, 10);
+
+      const lider = maximo < 2 ? 'Aún no hay platos repetidos'
+        : lideres.length <= 2 ? lideres.map((p) => capital(p.plato)).join(' y ')
+        : `Empate entre ${lideres.length} platos`;
+
+      const conteo = {};
+      platos.forEach((p) => { conteo[p.tipo] = (conteo[p.tipo] || 0) + p.votos; });
+      const tipos = Object.keys(conteo).sort((a, b) =>
+        (a === OTROS) - (b === OTROS) || conteo[b] - conteo[a] || a.localeCompare(b, 'es'));
+
+      const seccionRepetidos = repetidos.length ? `
+        <section class="tarjeta">
+          <h2>Los que más se repiten</h2>
+          <p class="bajada">Personas que eligieron cada plato</p>
+          ${barras(repetidos.map((p) => ({ nombre: capital(p.plato), valor: p.votos, destacada: p.votos === maximo })), maximo)}
+        </section>` : '';
+
+      $('resultados').innerHTML = `
+        <div class="numeros">
+          <div class="numero"><b>${datos.personas}</b><span>${datos.personas === 1 ? 'persona respondió' : 'personas respondieron'}</span></div>
+          <div class="numero"><b>${platos.length}</b><span>${platos.length === 1 ? 'plato distinto' : 'platos distintos'}</span></div>
+          <div class="numero ancho"><b>${esc(lider)}</b><span>${maximo < 2 ? 'Sigue llegando información' : `${lideres.length === 1 ? 'El más elegido' : 'Los más elegidos'}, con ${votos(maximo)}`}</span></div>
+        </div>
+        ${seccionRepetidos}
+        <section class="tarjeta">
+          <h2>Por tipo de plato</h2>
+          <p class="bajada">Votos sumados en cada tipo</p>
+          ${barras(tipos.map((t) => ({ nombre: t, valor: conteo[t] })), conteo[tipos.reduce((a, b) => (conteo[a] >= conteo[b] ? a : b))])}
+        </section>
+        <section class="tarjeta">
+          <h2>Todas las recomendaciones</h2>
+          <p class="bajada">Con el nombre en Cookidoo, cuando lo contaron</p>
+          <div class="filtros">
+            <button class="filtro" type="button" data-tipo="">Todos (${platos.length})</button>
+            ${tipos.map((t) => `<button class="filtro" type="button" data-tipo="${esc(t)}">${esc(t)} (${platos.filter((p) => p.tipo === t).length})</button>`).join('')}
+          </div>
+          <div id="lista-recetas"></div>
+        </section>`;
+
+      document.querySelectorAll('.filtro').forEach((b) =>
+        b.addEventListener('click', () => pintarLista(platos, b.dataset.tipo)));
+      pintarLista(platos, '');
+    }
+
+    async function cargarResultados() {
+      $('resultados').innerHTML = '<section class="tarjeta estado"><p>Contando platos…</p></section>';
+      try {
+        const res = await fetch(`${SB_URL}/rest/v1/rpc/thermomix_resultados`, {
+          method: 'POST',
+          headers: { apikey: SB_KEY, 'Content-Type': 'application/json' },
+          body: '{}',
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        pintarResultados(await res.json());
+      } catch (e) {
+        $('resultados').innerHTML = '<section class="tarjeta estado"><p>No se pudieron cargar los resultados.</p><button class="enviar" id="reintentar" type="button">Intentar de nuevo</button></section>';
+        $('reintentar').addEventListener('click', cargarResultados);
+      }
+    }
+
+    /* ---------- Vistas ---------- */
+
+    const PORTADA = {
+      responder: { titulo: $('titulo').innerHTML, bajada: $('bajada').textContent },
+      resultados: {
+        titulo: 'Los <em>platos estrella</em> del grupo',
+        bajada: 'Lo que cocinan una y otra vez quienes ya tienen Thermomix.',
+      },
+    };
+
+    function mostrarVista() {
+      const vista = location.hash === '#resultados' ? 'resultados' : 'responder';
+      const enResultados = vista === 'resultados';
+      $('vista-responder').hidden = enResultados;
+      $('vista-resultados').hidden = !enResultados;
+      $('porque').hidden = enResultados;
+      $('titulo').innerHTML = PORTADA[vista].titulo;
+      $('bajada').textContent = PORTADA[vista].bajada;
+      $('ir-responder').toggleAttribute('aria-current', false);
+      $('ir-resultados').toggleAttribute('aria-current', false);
+      $(enResultados ? 'ir-resultados' : 'ir-responder').setAttribute('aria-current', 'page');
+      window.scrollTo(0, 0);
+      if (enResultados) cargarResultados();
+    }
+
+    window.addEventListener('hashchange', mostrarVista);
+
     cargarBorrador();
     actualizar();
+    mostrarVista();
   </script>
 </body>
 </html>
