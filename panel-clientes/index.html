@@ -543,6 +543,19 @@ function fechaCorta(iso){
   return txt;
 }
 
+// Supabase devuelve como máximo 1000 filas por consulta. Esto trae todas las
+// páginas, para que los programas más nuevos no queden fuera de los cálculos.
+async function traerTodo(consulta){
+  const TAM = 1000, filas = [];
+  for (let desde = 0; ; desde += TAM){
+    const { data, error } = await consulta().range(desde, desde + TAM - 1);
+    if (error){ console.error(error); break; }
+    filas.push(...(data || []));
+    if (!data || data.length < TAM) break;
+  }
+  return filas;
+}
+
 // ---------- LANDING ----------
 async function renderLanding(){
   app.innerHTML = '<div class="loading">Cargando programas…</div>';
@@ -553,30 +566,33 @@ async function renderLanding(){
 
   if (error){ app.innerHTML = '<div class="empty">Error cargando datos: '+esc(error.message)+'</div>'; return; }
 
-  // Avance por SESIONES: una sesión cuenta como hecha cuando todos sus temas
-  // están marcados (la fecha es solo el calendario, no completa la sesión sola).
-  // Próximas reuniones (desde hoy a medianoche, para que una sesión de hoy sin
-  // hora no quede fuera).
+  // Avance por SESIONES REALIZADAS, no por contenido: una sesión cuenta como
+  // hecha si su fecha ya pasó o si tiene al menos un tema marcado. Da lo mismo
+  // cuánto del temario se alcanzó a ver: 3 sesiones hechas de 4 son 75%.
+  // Próximas reuniones: desde hoy a medianoche, para que una sesión de hoy sin
+  // hora no quede fuera.
   const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
-  const [{ data: temas }, { data: proximas }] = await Promise.all([
-    sb.from('temario_temas').select('programa_id,numero_sesion,estado'),
-    sb.from('sesiones_cliente').select('programa_id,fecha_hora')
-      .gte('fecha_hora', hoy.toISOString()).order('fecha_hora')
+  const ahora = Date.now();
+  const [temas, fechasTodas] = await Promise.all([
+    traerTodo(() => sb.from('temario_temas').select('programa_id,numero_sesion,estado').order('id')),
+    traerTodo(() => sb.from('sesiones_cliente').select('programa_id,numero_sesion,fecha_hora')
+      .order('fecha_hora').order('programa_id').order('numero_sesion'))
   ]);
+  const proximas = fechasTodas.filter(f => f.fecha_hora && new Date(f.fecha_hora) >= hoy);
   const proxDe = {};
-  (proximas || []).forEach(f => { proxDe[f.programa_id] ||= f.fecha_hora; });
-  const prog = {};
-  (temas || []).forEach(t => {
-    const g = (prog[t.programa_id] ||= {});
-    const s = (g[t.numero_sesion] ||= { t: 0, v: 0 });
-    s.t++; if (t.estado === 'visto') s.v++;
+  proximas.forEach(f => { proxDe[f.programa_id] ||= f.fecha_hora; });
+  // Por programa: el conjunto de números de sesión ya realizadas.
+  const hechas = {};
+  temas.forEach(t => { if (t.estado === 'visto') (hechas[t.programa_id] ||= new Set()).add(t.numero_sesion); });
+  fechasTodas.forEach(f => {
+    if (f.fecha_hora && new Date(f.fecha_hora).getTime() < ahora) (hechas[f.programa_id] ||= new Set()).add(f.numero_sesion);
   });
-  const doneDe = id => Object.values(prog[id] || {}).filter(s => s.t > 0 && s.v === s.t).length;
+  const doneDe = p => Math.min(hechas[p.id]?.size || 0, p.total_sesiones || 8);
   const esMentoria = p => p.tipo === 'mentoria_1a1';
   const tipoTexto = p => esMentoria(p) ? 'Mentoría 1:1' : 'Adopción Profunda de IA';
   const avance = p => {
     const total = p.total_sesiones || 8;
-    const done = doneDe(p.id);
+    const done = doneDe(p);
     return { total, done, pct: total ? Math.round(done / total * 100) : 0 };
   };
 
@@ -604,10 +620,10 @@ async function renderLanding(){
 
   const activos = programas.filter(p => p.estado !== 'completado');
   const completados = programas.filter(p => p.estado === 'completado');
-  const enCurso = activos.filter(p => doneDe(p.id) > 0).length;
+  const enCurso = activos.filter(p => doneDe(p) > 0).length;
 
   // Indicadores de arriba, con datos reales de Supabase.
-  const sesionesHechas = programas.reduce((s, p) => s + doneDe(p.id), 0);
+  const sesionesHechas = programas.reduce((s, p) => s + doneDe(p), 0);
   const promedio = activos.length ? Math.round(activos.reduce((s, p) => s + avance(p).pct, 0) / activos.length) : 0;
   const proxima = (proximas || []).find(f => activos.some(p => p.id === f.programa_id));
   const proxCliente = proxima ? programas.find(p => p.id === proxima.programa_id) : null;
@@ -771,27 +787,24 @@ async function renderDetail(programaId){
   const minNum = sesionesNums.includes(0) ? 0 : 1;
   const maxNum = Math.max(minNum + total - 1, ...sesionesNums, 0);
 
-  // Avance real. Regla: una sesión cuenta como HECHA si su fecha ya pasó o si
-  // todos sus temas están marcados. Un tema cuenta como cubierto si está
-  // marcado o si su sesión ya ocurrió (fecha pasada). Así, poner la fecha de
-  // una sesión que ya se dio hace subir el avance sin marcar tema por tema.
+  // Avance real, por SESIONES REALIZADAS y no por contenido: una sesión cuenta
+  // como hecha si su fecha ya pasó o si tiene al menos un tema marcado, sin
+  // importar cuánto del temario se alcanzó a ver (3 hechas de 4 = 75%).
   const ahora = Date.now();
   const fechaPaso = n => {
     const f = fechas[n]?.fecha_hora;
     return !!f && new Date(f).getTime() < ahora;
   };
-  // Una sesión cuenta como HECHA solo cuando marcaste todos sus temas (o usaste
-  // "Marcar completa"). La fecha es el calendario, no completa la sesión sola.
-  const sesionCompleta = n => {
-    const l = bySesion[n] || [];
-    return l.length > 0 && l.every(t => t.estado === 'visto');
-  };
+  const sesionHecha = n => fechaPaso(n) || (bySesion[n] || []).some(t => t.estado === 'visto');
 
   const totalTemas = temas.length;
   const temasMarcados = temas.filter(t => t.estado === 'visto').length;
-  let done = 0;
-  for (let n = minNum; n <= maxNum; n++){ if (sesionCompleta(n)) done++; }
-  // El avance se mide por SESIONES completas sobre el total, no por temas.
+  let done = 0, actual = null;
+  for (let n = minNum; n <= maxNum; n++){
+    if (sesionHecha(n)) done++;
+    else if (actual === null) actual = n;   // la primera que falta por hacer
+  }
+  done = Math.min(done, total);
   const pct = total ? Math.round(done / total * 100) : 0;
 
   // Próxima reunión agendada (desde hoy a medianoche).
@@ -814,11 +827,11 @@ async function renderDetail(programaId){
   for (let n = minNum; n <= maxNum; n++){
     const list = bySesion[n] || [];
     const todosMarcados = list.length > 0 && list.every(t => t.estado === 'visto');
-    const completa = todosMarcados;
-    const isCurrent = n === minNum + done;
+    const completa = sesionHecha(n);
+    const isCurrent = n === actual;
     const arrastrados = pendientesPrevios(n);
     const stateClass = completa ? 'done' : isCurrent ? 'current' : 'future';
-    const stateLabel = completa ? 'Completada' : isCurrent ? 'En curso' : 'Próxima';
+    const stateLabel = todosMarcados ? 'Completada' : completa ? 'Realizada' : isCurrent ? 'En curso' : 'Próxima';
     const openAttr = isCurrent ? 'open' : '';
 
     sessionsHtml += `
@@ -867,9 +880,8 @@ async function renderDetail(programaId){
   for (let n = minNum; n <= maxNum; n++){
     const l = bySesion[n] || [];
     const marc = l.filter(x => x.estado === 'visto').length;
-    // La barra sigue el avance de la sesión: llena si la sesión está hecha
-    // (todo marcado o fecha pasada), si no, la proporción de temas marcados.
-    const p = sesionCompleta(n) ? 100 : (l.length ? Math.round(marc / l.length * 100) : 0);
+    // La barra sigue las sesiones: llena si la sesión ya se hizo; si no, vacía.
+    const p = sesionHecha(n) ? 100 : (l.length ? Math.round(marc / l.length * 100) : 0);
     segHtml += `<div class="seg" title="Sesión ${n}: ${marc}/${l.length} temas marcados"><div class="seg-fill" style="width:${p}%"></div></div>`;
   }
   const Rc = 46, RCirc = 2 * Math.PI * Rc, Roff = RCirc * (1 - pct / 100);
@@ -895,9 +907,9 @@ async function renderDetail(programaId){
                onclick="editarNombre('${programaId}', this)">${esc(programa.cliente)} <span class="lapiz">✎</span></div>
           <div class="meta">${programa.tipo === 'mentoria_1a1' ? 'Mentoría 1:1' : 'Adopción Profunda de IA'}${programa.contacto ? ' · ' + esc(programa.contacto) : ''}${programa.fecha_inicio ? ' · Inicio: ' + programa.fecha_inicio : ''}</div>
           <div class="prog-seg">${segHtml}</div>
-          <div class="progress-text"><span>${done}/${total} sesiones completas · ${temasMarcados}/${totalTemas} temas marcados</span></div>
+          <div class="progress-text"><span>${done}/${total} sesiones realizadas · ${temasMarcados}/${totalTemas} temas marcados</span></div>
         </div>
-        <div class="hring" title="${pct}% de los contenidos">
+        <div class="hring" title="${pct}% del programa">
           <svg width="96" height="96" viewBox="0 0 112 112">
             <circle class="hring-track" cx="56" cy="56" r="${Rc}"></circle>
             <circle class="hring-fill" cx="56" cy="56" r="${Rc}" stroke-dasharray="${RCirc.toFixed(1)}" stroke-dashoffset="${Roff.toFixed(1)}"></circle>
