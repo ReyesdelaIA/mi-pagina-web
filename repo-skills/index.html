@@ -408,6 +408,28 @@
 
   <div class="featured">
     <div class="featured-top">
+      <span class="featured-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+      <div>
+        <span class="featured-badge corta">Versión corta</span><span class="featured-meta">4 preguntas · ~5 min</span>
+        <h2>Arquitecto de Habilidades</h2>
+      </div>
+    </div>
+    <p>La versión express. Mismo constructor, pero al grano: 4 preguntas y listo. Al final Claude te entrega la skill empaquetada con el botón <b>Guardar habilidad</b>: lo aprietas y queda instalada. Si después la quieres más afinada, usa la versión larga de abajo.</p>
+    <div class="featured-actions">
+      <button class="btn btn-download" onclick="copyPrompt('arquitecto-express', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copiar prompt
+      </button>
+      <button class="btn btn-ghost" onclick="openSkill('arquitecto-express','Arquitecto de Habilidades','prompt.txt')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        Ver
+      </button>
+      <span class="use-tip">Pégalo en un chat nuevo de Claude</span>
+    </div>
+  </div>
+
+  <div class="featured">
+    <div class="featured-top">
       <span class="featured-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l6-6"/><path d="M14 4l1.5 3L19 8.5 15.5 10 14 13l-1.5-3L9 8.5 12.5 7 14 4z"/><path d="M18 15l.8 1.7L20.5 17l-1.7.8L18 19.5l-.8-1.7L15.5 17l1.7-.3L18 15z"/></svg></span>
       <div>
         <span class="featured-badge larga">Versión larga</span><span class="featured-meta">6 fases · ~15 min</span>
@@ -421,28 +443,6 @@
         Copiar prompt
       </button>
       <button class="btn btn-ghost" onclick="openSkill('arquitecto-de-habilidades','Arquitecto de Habilidades','prompt.txt')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-        Ver
-      </button>
-      <span class="use-tip">Pégalo en un chat nuevo de Claude</span>
-    </div>
-  </div>
-
-  <div class="featured">
-    <div class="featured-top">
-      <span class="featured-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
-      <div>
-        <span class="featured-badge corta">Versión corta</span><span class="featured-meta">4 preguntas · ~5 min</span>
-        <h2>Arquitecto de Habilidades</h2>
-      </div>
-    </div>
-    <p>La versión express. Mismo constructor, pero al grano: 4 preguntas y listo. Ideal para tu primera skill sin dedicarle 15 minutos. Si después la quieres más afinada, usa la versión larga de arriba.</p>
-    <div class="featured-actions">
-      <button class="btn btn-download" onclick="copyPrompt('arquitecto-express', this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        Copiar prompt
-      </button>
-      <button class="btn btn-ghost" onclick="openSkill('arquitecto-express','Arquitecto de Habilidades','prompt.txt')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
         Ver
       </button>
@@ -716,7 +716,7 @@ PREGUNTA 4 — Lo que nunca debe hacer
 Pregunta: "¿hay algo que esta habilidad NUNCA debería hacer o decir?" Esta pregunta evita el error más común.
 
 ENTREGA
-Con esas cuatro respuestas, construye y entrega directamente la habilidad completa (sin pedir aprobación previa) en este formato:
+Con esas cuatro respuestas, construye directamente la habilidad completa (sin pedir aprobación previa) con este contenido para el SKILL.md:
 
 ---
 name: nombre-en-minusculas-con-guiones
@@ -743,7 +743,15 @@ description: [Qué hace la habilidad Y cuándo debe activarse, con frases y situ
 ## Ejemplo de referencia
 [Un ejemplo corto del resultado esperado, basado en lo que adjuntó o describió.]
 
-Cierra con un párrafo breve explicando cómo instalarla en su Claude, y ofrécele probarla ahí mismo con un caso real.
+CÓMO ENTREGARLA (muy importante)
+No pegues el SKILL.md como texto en el chat. La persona no tiene que copiar nada ni crear archivos: debe recibir la habilidad lista para guardar con un clic.
+1. Usa tu herramienta de creación de archivos (ejecución de código) para crear una carpeta con el nombre de la habilidad (el mismo del campo "name") y, dentro, el archivo SKILL.md con el contenido completo.
+2. Empaqueta esa carpeta como un archivo .skill (un .zip con la carpeta adentro, renombrado a nombre-de-la-habilidad.skill).
+3. Presenta ese archivo .skill en la conversación para que aparezca la tarjeta de la habilidad con el botón "Guardar habilidad".
+4. En el chat escribe solo un resumen de 2-3 líneas de lo que hace la habilidad y cuándo se activa, y dile: "Aprieta el botón Guardar habilidad y queda instalada en tu Claude."
+Si no tienes disponible la creación de archivos, dile que active "Ejecución de código y creación de archivos" en Configuración → Capacidades y que te escriba "listo" para generarla de nuevo. Solo como último recurso entrega el texto.
+
+Cierra ofreciéndole probarla ahí mismo con un caso real, apenas la guarde.
 
 Nota para el usuario final (mostrar antes de arrancar, en tu primer mensaje): "Esta es la versión express — 4 preguntas y lista. Si más adelante quieres una habilidad más afinada y con más detalle, pídele a Felipe la versión larga del Arquitecto de Habilidades."
 
