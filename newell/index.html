@@ -544,7 +544,7 @@
 
       // Las bloqueadas explican la condición, en vez de solo decir que no se puede
       const pie = pronto
-        ? `<div class="ses-lock">Se abre al terminar ${esc(nombreCorto(TALLERES.find(x => x.n === t.n - 1)))}</div>`
+        ? `<div class="ses-lock">Se abre después de la clase</div>`
         : `<a class="ses-cta ${done ? 'repasar' : (esActiva ? 'curso' : 'empezar')}" href="${urlTaller(t.n)}">${textoCta(t)}</a>`;
 
       return `
